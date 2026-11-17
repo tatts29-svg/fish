@@ -61,7 +61,8 @@ con['Callide per week']=(con['Issued in steady window']/WEEKS).round(2)
 ss['CK']=ss.SKU_DESCRIPTION.map(key)
 shelf=ss[ss.SALES_DATE==''].groupby('CK').AVAILABLE_QUANTITY.apply(lambda x:pd.to_numeric(x).sum())
 con['Left on shelf at end']=shelf.reindex(con.index).fillna(0)
-con['Group']=con.Description.map(cat)
+from conscat import classify
+con[['Category','Group']]=con.Description.apply(lambda d: __import__('pandas').Series(classify(d)))
 def flag(x):
     f=[]
     if x['Biggest single issue']>=200 and x['Biggest single issue']>=0.5*x['Total issued (whole job)']: f.append('One-off project purchase')
@@ -69,11 +70,11 @@ def flag(x):
     elif x['Times issued']<5: f.append('Low use - supply on request')
     return '; '.join(f)
 con['Note']=con.apply(flag,axis=1)
-ONEOFF={'Purchased tools & equipment','Project materials'}
-con.loc[con.Note.str.contains('One-off')&~con.Group.isin(ONEOFF),'Group']='Project materials'
-con.loc[con.Group.isin(ONEOFF),'Note']=''
+m1=con.Note.str.contains('One-off')&~con.Category.str.startswith('One-off')
+con.loc[m1,'Category']='One-off: project materials'; con.loc[m1,'Group']='Bulk fixings & building'
+con.loc[con.Category.str.startswith('One-off'),'Note']=''
 con=con[con['Total issued (whole job)']>0].reset_index().rename(columns={'CK':'SKU'})
-con=con.sort_values(['Group','Callide per week'],ascending=[True,False])
+con=con.sort_values(['Category','Group','Callide per week'],ascending=[True,True,False])
 # ---------- tooling
 r['ITEM']=r['SKU/ITEM_NUMBER']; r['DESC']=r['SKU/ITEM DESCRIPTION'].map(clean)
 r['K']=r.DESC.map(key)

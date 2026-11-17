@@ -23,7 +23,7 @@ def fill(c): return PatternFill('solid', fgColor=c)
 thin = Side(style='thin', color='E1E1E1'); orange_rule = Side(style='medium', color=ORANGE)
 fmt = lambda d: d.strftime('%d %b %Y')
 SPAN = o['span']; WKS = round((SPAN[1] - SPAN[0]).days / 7)
-PREPARED = '14 Nov 2026'
+PREPARED = '17 Nov 2026'
 BYLINE = f'Prepared by Andrew Fisher  |  Shutdown Manager QLD  |  Coates        {PREPARED}        POWERED BY SITEIQ'
 
 # ---------------------------------------------------------------- categorise
@@ -31,7 +31,8 @@ T[['G', 'C']] = T.apply(lambda x: pd.Series(tool_cat(x.DESC, x.PROD, x.FAM)), ax
 recorded = T.hires > 0
 T['basis_lbl'] = np.where(T.peak > 0, 'Peak in use', 'Store fleet')
 tools = T[T.G == 'Tools'].copy(); plant = T[T.G == 'Plant'].copy()
-ongoing = con[~con.Group.isin(ONEOFF)]; oneoff = con[con.Group.isin(ONEOFF)]
+con['one'] = con.Category.str.startswith('One-off')
+ongoing = con[~con.one]; oneoff = con[con.one]
 
 wb = Workbook()
 
@@ -180,13 +181,13 @@ note('Orange-shaded cells can be changed - every tab recalculates instantly.')
 
 section('4.  Recommended store for Tarong')
 TQ = "SUMIF('Tools & Equipment'!K:K,\"<>\",'Tools & Equipment'!I:I)"
-CQ = "SUMIF(Consumables!I:I,\"<>\",Consumables!E:E)"
+CQ = "SUMIF(Consumables!J:J,\"<>\",Consumables!E:E)"
 PQ = "SUMIF('Plant & Mobile Equipment'!K:K,\"<>\",'Plant & Mobile Equipment'!I:I)"
 tile(r, 2, f'={TQ}', 'TOOLS & EQUIPMENT ITEMS')
 tile(r, 6, f'=ROUND({CQ},0)', 'CONSUMABLE UNITS PER WEEK')
 tile(r, 10, f'={PQ}', 'PLANT ITEMS  (GUIDE - SIZE TO SCOPE)', colour=CHAR); r += 3
 note(f"{len(tools)} tool and equipment lines across {tools.C.nunique()} categories  |  {len(ongoing):,} ongoing consumable lines across "
-     f"{ongoing.Group.nunique()} groups  |  {len(plant)} plant lines  |  {len(oneoff)} one-off purchase lines supplied to scope.", 24)
+     f"{ongoing.Category.nunique()} categories ({ongoing.Group.nunique()} sub-categories)  |  {len(plant)} plant lines  |  {len(oneoff)} one-off purchase lines supplied to scope.", 24)
 
 S.cell(lead_row, 2).value = (f'="Built from {WKS} weeks of live Coates store data at the Callide Power Station Project and scaled to Tarong\'s crew of "'
                              f'&TAR_TOTAL&". We recommend a store of "&TEXT({TQ},"#,##0")&" tools and equipment items across {tools.C.nunique()} categories, '
@@ -215,14 +216,14 @@ for i, cat in enumerate(sorted(plant.C.unique())):
 total_row([('Total', 6), (f'=SUM(H{first}:H{r-1})', 2), (f'=SUM(J{first}:J{r-1})', 2), (f'=SUM(L{first}:L{r-1})', 2)], [None, '#,##0', '#,##0', '#,##0'])
 S.row_breaks.append(Break(id=r)); r += 1
 
-section('7.  Consumables by group  (ongoing weekly use)')
-thead([('Group', 6), ('Lines', 2), ('Callide per week', 2), ('Tarong per week', 2)])
+section('7.  Consumables by category  (ongoing weekly use)')
+thead([('Category', 6), ('Lines', 2), ('Callide per week', 2), ('Tarong per week', 2)])
 first = r
-for i, g in enumerate(sorted(ongoing.Group.unique())):
-    trow([(g, 6), (f'=COUNTIFS(Consumables!$I:$I,"{g}")', 2), (f'=ROUND(SUMIFS(Consumables!$D:$D,Consumables!$I:$I,"{g}"),0)', 2),
-          (f'=ROUND(SUMIFS(Consumables!$E:$E,Consumables!$I:$I,"{g}"),0)', 2)], i, [None, '#,##0', '#,##0', '#,##0'])
+for i, g in enumerate(sorted(ongoing.Category.unique())):
+    trow([(g, 6), (f'=COUNTIFS(Consumables!$J:$J,"{g}")', 2), (f'=ROUND(SUMIFS(Consumables!$D:$D,Consumables!$J:$J,"{g}"),0)', 2),
+          (f'=ROUND(SUMIFS(Consumables!$E:$E,Consumables!$J:$J,"{g}"),0)', 2)], i, [None, '#,##0', '#,##0', '#,##0'])
 total_row([('Total', 6), (f'=SUM(H{first}:H{r-1})', 2), (f'=SUM(J{first}:J{r-1})', 2), (f'=SUM(L{first}:L{r-1})', 2)], [None, '#,##0', '#,##0', '#,##0'])
-note(f"Plus {len(oneoff)} one-off lines (tools bought outright and project materials) listed at the end of the Consumables tab - supplied to the Tarong scope.")
+note(f"Full breakdown into {ongoing.Group.nunique()} sub-categories on the Consumables by Category tab. Plus {len(oneoff)} one-off lines (tools bought outright and project materials) supplied to the Tarong scope.")
 S.row_breaks.append(Break(id=r)); r += 1
 
 section('8.  Key items - Callide v Tarong')
@@ -329,28 +330,128 @@ ws = detail('Plant & Mobile Equipment', 'PLANT & MOBILE EQUIPMENT', 'Guide only 
             'Plant is driven by scope and site layout rather than crew size - the guide quantity is the starting point for the scope review.')
 ws.column_dimensions['K'].hidden = True
 
-# Consumables: B desc | C total | D per wk | E TARONG/wk | F opening | G job total | H notes | I group(hidden)
-ccols = [('Description', 58, 'left'), ('Callide total issued', 11, 'center'), ('Callide per week', 11, 'center'),
+# Consumables: B desc | C total | D per wk | E TARONG/wk | F opening | G job total | H notes | I sub (hidden) | J category (hidden)
+CCOLS = [('Description', 58, 'left'), ('Callide total issued', 11, 'center'), ('Callide per week', 11, 'center'),
          ('TARONG PER WEEK', 12, 'center'), ('Opening stock (2 weeks)', 12, 'center'), ('Tarong total for job', 12, 'center'),
-         ('Notes', 26, 'left'), ('Group', 4, 'center')]
-def cvals(x, r):
-    one = x['Group'] in ONEOFF
-    nt = {'Low use - supply on request': 'Low use - on request', 'Early or late project use only': 'Early or late project use'}.get(x['Note'], x['Note'] or None)
-    if one:
-        sc = ('To scope', None, {'italic': True, 'color': GREY})
-        return [(x['Description'], None, None), (int(x['Total issued (whole job)']), '#,##0', None), m(float(x['Callide per week']), False),
-                ('To scope', None, {'italic': True, 'color': ORANGE_DK}), sc, sc, (None, None, None), (x['Group'], None, None)]
-    return [(x['Description'], None, None), (int(x['Total issued (whole job)']), '#,##0', None), (float(x['Callide per week']), '#,##0.0', None),
-            (f'=ROUND(D{r}*FACTOR,1)', '#,##0.0', {'bold': True, 'color': ORANGE_DK}),
-            (f'=IF(D{r}=0,0,MAX(1,ROUNDUP(D{r}*FACTOR*2,0)))', '#,##0', None),
-            (f'=IF(TAR_WEEKS="","TBC",ROUNDUP(D{r}*FACTOR*TAR_WEEKS,0))', '#,##0', None),
-            (nt, None, {'italic': True, 'color': GREY, 'size': 9}), (x['Group'], None, None)]
-cons_sorted = con.rename(columns={'Description': 'Description'}).copy()
-order = sorted(ongoing.Group.unique()) + ONEOFF
-ws = detail('Consumables', 'CONSUMABLES', 'Callide weekly use scaled to the Tarong crew', cons_sorted, 'Group', ccols, cvals, 5, 'Callide per week',
-            'Job totals show TBC until the Tarong duration is entered on the Overview.  One-off purchases are listed last and supplied to scope.',
-            groups=order, group_label=lambda g: '   -   ONE-OFF, SUPPLY TO SCOPE' if g in ONEOFF else '')
-ws.column_dimensions['I'].hidden = True
+         ('Notes', 26, 'left'), ('Sub', 4, 'center'), ('Cat', 4, 'center')]
+def cons_sheet():
+    ws = wb.create_sheet('Consumables'); NCOL = 10
+    banner(ws, NCOL, 'CONSUMABLES', 'Callide weekly use scaled to the Tarong crew - by category and sub-category')
+    HR = 7
+    ws.cell(5, 2, 'Job totals show TBC until the Tarong duration is entered on the Overview.  One-off purchases are listed last and supplied to scope.  '
+                  'Use the 1 / 2 / 3 buttons (top left) to show categories, sub-categories or every line.').font = F(size=9, italic=True, color=GREY)
+    for j, (t, w, al) in enumerate(CCOLS, start=2):
+        c = ws.cell(HR, j, t); c.font = F(bold=True, color=WHITE, size=9.5); c.fill = fill(SLATE)
+        c.alignment = Alignment(horizontal='left' if j == 2 else 'center', vertical='center', wrap_text=True, indent=1 if j == 2 else 0)
+        ws.column_dimensions[L(j)].width = w
+    ws.cell(HR, 5).fill = fill(ORANGE); ws.row_dimensions[HR].height = 32
+    ws.freeze_panes = ws.cell(HR + 1, 3); ws.sheet_properties.outlinePr.summaryBelow = False
+    r = HR + 1
+    cats = sorted(ongoing.Category.unique()) + sorted(oneoff.Category.unique())
+    for cat in cats:
+        cg = con[con.Category == cat]; one = cat.startswith('One-off')
+        cr = r
+        for j in range(2, NCOL + 1): ws.cell(r, j).fill = fill(CHAR)
+        ws.cell(r, 2, cat.upper() + ('   -   SUPPLY TO SCOPE' if one else '')).font = F(bold=True, size=11, color=WHITE)
+        ws.cell(r, 2).alignment = Alignment(vertical='center', indent=1)
+        ws.cell(r, 3, f"{len(cg)} lines").font = F(size=9, color=MID); ws.cell(r, 3).alignment = Alignment(horizontal='center', vertical='center')
+        ws.row_dimensions[r].height = 22; r += 1
+        subrows = []
+        for sub in sorted(cg.Group.unique()):
+            sg = cg[cg.Group == sub].sort_values(['Callide per week', 'Description'], ascending=[False, True])
+            sr = r; subrows.append(sr)
+            for j in range(2, NCOL + 1): ws.cell(r, j).fill = fill(TINT); ws.cell(r, j).border = Border(top=Side(style='thin', color=ORANGE))
+            ws.cell(r, 2, sub).font = F(bold=True, size=10, color=ORANGE_DK); ws.cell(r, 2).alignment = Alignment(vertical='center', indent=1)
+            ws.cell(r, 3, f"{len(sg)} line" + ('s' if len(sg) != 1 else '')).font = F(size=9, color=GREY)
+            ws.cell(r, 3).alignment = Alignment(horizontal='center', vertical='center')
+            ws.row_dimensions[r].outline_level = 1; ws.row_dimensions[r].height = 19; r += 1; f0 = r
+            for i, (_, x) in enumerate(sg.iterrows()):
+                nt = {'Low use - supply on request': 'Low use - on request', 'Early or late project use only': 'Early or late project use'}.get(x['Note'], x['Note'] or None)
+                if one:
+                    sc = ('To scope', None, {'italic': True, 'color': GREY})
+                    vals = [(x['Description'], None, None), (int(x['Total issued (whole job)']), '#,##0', None), ('-', None, {'color': MID}),
+                            ('To scope', None, {'italic': True, 'color': ORANGE_DK}), sc, sc, (None, None, None)]
+                else:
+                    vals = [(x['Description'], None, None), (int(x['Total issued (whole job)']), '#,##0', None), (float(x['Callide per week']), '#,##0.0', None),
+                            (f'=ROUND(D{r}*FACTOR,1)', '#,##0.0', {'bold': True, 'color': ORANGE_DK}),
+                            (f'=IF(D{r}=0,0,MAX(1,ROUNDUP(D{r}*FACTOR*2,0)))', '#,##0', None),
+                            (f'=IF(TAR_WEEKS="","TBC",ROUNDUP(D{r}*FACTOR*TAR_WEEKS,0))', '#,##0', None),
+                            (nt, None, {'italic': True, 'color': GREY, 'size': 9})]
+                vals += [(sub, None, None), (cat, None, None)]
+                for j, ((v, nf, st_), (_, _, al)) in enumerate(zip(vals, CCOLS), start=2):
+                    c = ws.cell(r, j, v); c.font = F(**{'size': 10, **(st_ or {})})
+                    c.alignment = Alignment(horizontal=al, vertical='center', wrap_text=(j == 2), indent=2 if j == 2 else 0)
+                    if nf: c.number_format = nf
+                    c.fill = fill(BAND if i % 2 else WHITE); c.border = Border(bottom=thin)
+                ws.cell(r, 5).fill = fill(TINT)
+                ws.row_dimensions[r].outline_level = 2; r += 1
+            if not one:
+                for col, nf in ((4, '#,##0.0'), (5, '#,##0.0'), (6, '#,##0')):
+                    c = ws.cell(sr, col, f'=SUBTOTAL(9,{L(col)}{f0}:{L(col)}{r-1})'); c.number_format = nf
+                    c.font = F(bold=True, size=10, color=ORANGE_DK if col == 5 else CHAR); c.alignment = Alignment(horizontal='center', vertical='center')
+            else:
+                ws.cell(sr, 5, 'To scope').font = F(italic=True, size=10, color=ORANGE_DK); ws.cell(sr, 5).alignment = Alignment(horizontal='center')
+        if not one:
+            for col, nf in ((4, '#,##0'), (5, '#,##0'), (6, '#,##0')):
+                c = ws.cell(cr, col, '=' + '+'.join(f'{L(col)}{x}' for x in subrows)); c.number_format = nf
+                c.font = F(bold=True, size=11, color=ORANGE if col == 5 else WHITE); c.alignment = Alignment(horizontal='center', vertical='center')
+        else:
+            ws.cell(cr, 5, 'To scope').font = F(bold=True, size=10, color=ORANGE); ws.cell(cr, 5).alignment = Alignment(horizontal='center', vertical='center')
+    ws.column_dimensions['I'].hidden = True; ws.column_dimensions['J'].hidden = True
+    print_setup(ws, rep=f'{HR}:{HR}'); ws.print_area = f'A1:{L(NCOL)}{r}'
+    return ws
+
+def cons_summary():
+    ws = wb.create_sheet('Consumables by Category'); NCOL = 10
+    banner(ws, NCOL, 'CONSUMABLES BY CATEGORY', 'What the Tarong store needs each week - category and sub-category')
+    ws.cell(5, 2, 'Live from the Consumables tab - change the crew numbers on the Overview and every figure here updates.').font = F(size=9, italic=True, color=GREY)
+    heads = [('Category / sub-category', 40, 'left'), ('Lines', 9, 'center'), ('Callide per week', 12, 'center'), ('TARONG PER WEEK', 13, 'center'),
+             ('Opening stock (2 weeks)', 13, 'center'), ('Tarong total for job', 13, 'center'), ('Highest-use item at Callide', 52, 'left')]
+    HR = 7
+    for j, (t, w, al) in enumerate(heads, start=2):
+        c = ws.cell(HR, j, t); c.font = F(bold=True, color=WHITE, size=9.5); c.fill = fill(SLATE)
+        c.alignment = Alignment(horizontal=al, vertical='center', wrap_text=True, indent=1 if al == 'left' else 0)
+        ws.column_dimensions[L(j)].width = w
+    ws.cell(HR, 5).fill = fill(ORANGE); ws.row_dimensions[HR].height = 32
+    ws.freeze_panes = ws.cell(HR + 1, 2); ws.sheet_properties.outlinePr.summaryBelow = False
+    r = HR + 1; catrows = []
+    CS = 'Consumables'
+    for cat in sorted(ongoing.Category.unique()):
+        cg = ongoing[ongoing.Category == cat]; cr = r; catrows.append(cr)
+        for j in range(2, 9): ws.cell(r, j).fill = fill(CHAR)
+        ws.cell(r, 2, cat.upper()).font = F(bold=True, size=10.5, color=WHITE); ws.cell(r, 2).alignment = Alignment(indent=1, vertical='center')
+        ws.row_dimensions[r].height = 21; r += 1; s0 = r
+        for i, sub in enumerate(sorted(cg.Group.unique())):
+            sg = cg[cg.Group == sub]; top = sg.sort_values('Callide per week', ascending=False).iloc[0]
+            vals = [(sub, None), (f'=COUNTIFS({CS}!$I:$I,"{sub}",{CS}!$J:$J,"{cat}")', '#,##0'),
+                    (f'=SUMIFS({CS}!$D:$D,{CS}!$I:$I,"{sub}",{CS}!$J:$J,"{cat}")', '#,##0.0'),
+                    (f'=SUMIFS({CS}!$E:$E,{CS}!$I:$I,"{sub}",{CS}!$J:$J,"{cat}")', '#,##0.0'),
+                    (f'=SUMIFS({CS}!$F:$F,{CS}!$I:$I,"{sub}",{CS}!$J:$J,"{cat}")', '#,##0'),
+                    (f'=IF(TAR_WEEKS="","TBC",SUMIFS({CS}!$G:$G,{CS}!$I:$I,"{sub}",{CS}!$J:$J,"{cat}"))', '#,##0'),
+                    (top['Description'], None)]
+            for j, (v, nf) in enumerate(vals, start=2):
+                c = ws.cell(r, j, v); c.font = F(size=10, bold=(j == 5), color=ORANGE_DK if j == 5 else (GREY if j == 8 else CHAR))
+                if j == 8: c.font = F(size=9, color=GREY)
+                c.alignment = Alignment(horizontal='left' if j in (2, 8) else 'center', vertical='center', indent=2 if j == 2 else 0)
+                if nf: c.number_format = nf
+                c.fill = fill(BAND if i % 2 else WHITE); c.border = Border(bottom=thin)
+            ws.cell(r, 5).fill = fill(TINT); ws.row_dimensions[r].outline_level = 1; r += 1
+        for col, nf in ((3, '#,##0'), (4, '#,##0'), (5, '#,##0'), (6, '#,##0'), (7, '#,##0')):
+            f = f'SUM({L(col)}{s0}:{L(col)}{r-1})'
+            c = ws.cell(cr, col, f'=IF(TAR_WEEKS="","TBC",{f})' if col == 7 else f'={f}'); c.number_format = nf
+            c.font = F(bold=True, size=10.5, color=ORANGE if col == 5 else WHITE); c.alignment = Alignment(horizontal='center', vertical='center')
+    for j in range(2, 9): ws.cell(r, j).fill = fill(TINT); ws.cell(r, j).border = Border(top=Side(style='medium', color=ORANGE))
+    ws.cell(r, 2, 'TOTAL - ONGOING CONSUMABLES').font = F(bold=True, size=11); ws.cell(r, 2).alignment = Alignment(indent=1)
+    for col in (3, 4, 5, 6, 7):
+        f = '+'.join(f'{L(col)}{x}' for x in catrows)
+        c = ws.cell(r, col, f'=IF(TAR_WEEKS="","TBC",{f})' if col == 7 else f'={f}'); c.number_format = '#,##0'
+        c.font = F(bold=True, size=11, color=ORANGE_DK if col == 5 else CHAR); c.alignment = Alignment(horizontal='center')
+    ws.row_dimensions[r].height = 22; r += 2
+    ws.cell(r, 2, f'One-off purchases ({len(oneoff)} lines: tools bought outright and project materials) are listed at the end of the Consumables tab and supplied to the Tarong scope.').font = F(size=9, italic=True, color=GREY)
+    print_setup(ws, landscape=False, rep=f'{HR}:{HR}'); ws.print_area = f'A1:{L(NCOL)}{r}'
+
+cons_summary()
+cons_sheet()
 
 # ================================================================ STORE SETUP
 ws = wb.create_sheet('Store Setup'); banner(ws, 7, 'STORE SET-UP', 'How the Callide store was laid out')
