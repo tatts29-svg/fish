@@ -25,6 +25,7 @@ def clean(s):
     if re.search('ugl', s, re.I): s = UGLPAT.sub(' ', s)
     s = re.sub(r'^(Motorola Radio)\s+871\w+$', r'\1', s.strip(), flags=re.I)
     s = re.sub(r'\(\s*FSQ Works\s*\)', '', s, flags=re.I)
+    s = re.sub(r'\bCallide\b', '', s, flags=re.I)
     s = re.sub(r'GP No:?\s*\S+', '', s, flags=re.I)
     s = re.sub(r'\s*-?\s*Greener Choice', '', s, flags=re.I)
     s = re.sub(r'^\d{5,}\s+', '', s.strip())
