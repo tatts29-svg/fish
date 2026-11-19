@@ -1,0 +1,64 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T024426Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat), with a screenshot of Coates PO 4654789, one of the two earlier Queensland Forklifts orders in the P&L pack but not on the record. Ex GST as the record's other orders: the screen's Ordered 1,045.00 includes GST; 950.00 ex GST is the figure the P&L pack already carries (STATUS, 1 Nov 2026).",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4654789",
+    "patch": {
+     "supplier_name": "Queensland Forklifts",
+     "branch": "MEAD",
+     "stream": "other",
+     "what": "Forklift buggy for Coates' use (9961976)",
+     "amount": 950,
+     "confirmed": true,
+     "note": "Coates PO 4654789, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'v8's build', line 1 'forklift buggey for coates use 9961976', ordered by Ross Saxelby, created 17 Sep 2026, confirmed and ordered 6 Oct 2026, authorised Kephren Izzard, completed 8 Oct 2026, fully received and fully invoiced · 1,045.00 inc GST, 950.00 ex GST (as in the P&L pack, which labels it AT009, 17-18 Sep) · Coates' own use on 9961976 (its forklift lines are at 0.00, not charged to the V8s) · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: screenshot of 4654789 after 'please check to ensure we dont have these or please update' (not on the record)"
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4654789",
+   "view": {
+    "supplier": "Queensland Forklifts",
+    "branch": "MEAD",
+    "revenue_branch": null,
+    "amount": 950,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4654789",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:44:35.081Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "MEAD",
+    "stream": "other",
+    "what": "Forklift buggy for Coates' use (9961976)",
+    "amount": 950,
+    "confirmed": true,
+    "note": "Coates PO 4654789, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'v8's build', line 1 'forklift buggey for coates use 9961976', ordered by Ross Saxelby, created 17 Sep 2026, confirmed and ordered 6 Oct 2026, authorised Kephren Izzard, completed 8 Oct 2026, fully received and fully invoiced · 1,045.00 inc GST, 950.00 ex GST (as in the P&L pack, which labels it AT009, 17-18 Sep) · Coates' own use on 9961976 (its forklift lines are at 0.00, not charged to the V8s) · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:44:35.081Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "plan": [
+  "stamps/po~2f~4654789",
+  "by/po~2f~4654789",
+  "purchaseOrders/4654789"
+ ]
+}

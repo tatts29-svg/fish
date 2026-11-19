@@ -19,6 +19,7 @@ Amounts go on ex GST, as the record's other orders. The order screens' "Ordered"
 | 4647523 | Advanced | GC500 demob week 1; completed 19 Nov; 18,738.50 inc GST | 17,035.00 | Yes, since 16 Nov | Matches; nothing to do |
 | 4676389 | Queensland Forklifts | Forklift buggy for Coates' use (9961976), NVAC, ref 'v8's build inv 108362'; received, not yet fully invoiced; 2,299.00 inc GST | 2,090.00 | No | Added (run 3) |
 | 4666580 | Queensland Forklifts | 'Gold Coast Supercars Broadcast Slipp…' (cut off on screen), MEAD; completed 3 Nov, fully invoiced; 158.40 inc GST | 144.00 | No | Added (run 4) |
+| 4654789 | Queensland Forklifts | Forklift buggy for Coates' use (9961976), MEAD, ref 'v8's build'; completed 8 Oct, fully invoiced; 1,045.00 inc GST | 950.00 | No (in the P&L pack only) | Added (run 5) |
 
 | Run | Spec | Record | Report |
 |---|---|---|---|
@@ -26,8 +27,9 @@ Amounts go on ex GST, as the record's other orders. The order screens' "Ordered"
 | 2 | `po_spec_4647522.json` (`po_confirm_source`, source fields asserted) | 13444 → 13447, 3 documents | `report_20261119T021215Z.json`, `dryrun_20261119T021156Z.json` |
 | 3 | `po_spec_4676389.json` | 13447 → 13450, 3 documents | `report_20261119T024246Z.json`, `dryrun_20261119T024233Z.json` |
 | 4 | `po_spec_4666580.json` | 13450 → 13453, 3 documents | `report_20261119T024332Z.json` |
+| 5 | `po_spec_4654789.json` | 13453 → 13456, 3 documents | `report_20261119T024438Z.json` |
 
 Not known from the screens: the crane order's GL code and line unit cost (2,195.00 is 2,414.50 / 1.1). The whole-record backups are
 private, not in the repo.
 
-The two earlier Queensland Forklifts orders in the P&L pack (4647983, 5 t forklift re-hire for the fencing, 2,820.00, STPS; 4654789, AT009, 950.00, MEAD; `STATUS.md` 1 Nov) are not on the record either; not added here.
+Of the two earlier Queensland Forklifts orders in the P&L pack, 4654789 is now on the record (run 5, from Andrew's screenshot; the pack labelled it AT009, the order says 'forklift buggey for coates use 9961976'). 4647983 (5 t forklift re-hire for the fencing, 2,820.00, STPS) is still not on the record.
