@@ -1,0 +1,79 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T021156Z",
+ "mode": "dry",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat), with a screenshot of Coates PO 4647522 (Advanced Temporary Fencing, 'GC500 Event Week', unit cost 80,762.00, ordered 88,838.20 inc GST, completed 9 Nov 2026, fully received and fully invoiced), after 'please check to ensure we dont have these or please update'. The page carried 4647522 only from its supplied order list, with no amount. It goes on the record as the demob orders are, at the 80,762.00 ex GST settled on 4 Nov (review_02Nov2026_event_week_invoice).",
+  "ops": [
+   {
+    "op": "po_confirm_source",
+    "number": "4647522",
+    "patch": {
+     "stream": "fencing",
+     "what": "Event week",
+     "period": "Event week",
+     "amount": 80762,
+     "confirmed": true,
+     "note": "GC500 Event week · work 19-25 Oct 2026, including the race-day crew 24493-24495 (63 h standard + 147.5 h overtime at $142) · Advanced's re-issued invoice-totals sheet $80,762.00 ex GST, settled 4 Nov 2026 · Coates PO 4647522 'GC500 26' Event Week', 88,838.20 inc GST, authorised Murray Vitlich, completed 9 Nov 2026, fully received and fully invoiced · Andrew Fisher, 19 Nov 2026",
+     "supplier_name": "Advanced Temporary Fencing",
+     "branch": "STPS"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'please check to ensure we dont have these or please update' (4647522 had no amount on the record)",
+    "source": {
+     "supplier_code": "ZINC001",
+     "supplier_name": "Advanced Temporary Fencing",
+     "branch": "STPS",
+     "period": "Event week",
+     "programme_sheet": "EVENT WEEK",
+     "amount": null,
+     "confirmed": false
+    }
+   }
+  ]
+ },
+ "stage": [
+  {
+   "op": "po_confirm_source",
+   "id": "4647522",
+   "view": {
+    "supplier": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 80762,
+    "stream": "fencing",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "saved from the supplied source with the patch - ",
+   "saved": {
+    "number": "4647522",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:12:06.569Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "period": "Event week",
+    "programme_sheet": "EVENT WEEK",
+    "kind": "subhire",
+    "invoice_no": null,
+    "amount": 80762,
+    "note": "GC500 Event week · work 19-25 Oct 2026, including the race-day crew 24493-24495 (63 h standard + 147.5 h overtime at $142) · Advanced's re-issued invoice-totals sheet $80,762.00 ex GST, settled 4 Nov 2026 · Coates PO 4647522 'GC500 26' Event Week', 88,838.20 inc GST, authorised Murray Vitlich, completed 9 Nov 2026, fully received and fully invoiced · Andrew Fisher, 19 Nov 2026",
+    "confirmed": true,
+    "stream": "fencing",
+    "what": "Event week",
+    "updated_at": "2026-11-19T02:12:06.569Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "plan": [
+  "stamps/po~2f~4647522",
+  "by/po~2f~4647522",
+  "purchaseOrders/4647522"
+ ]
+}

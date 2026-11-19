@@ -1,0 +1,283 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T020859Z",
+ "finished": "2026-11-19T02:09:12.363Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat), with screenshots of three completed or received Coates purchase orders and the latest Baseplan SuperCars export: 'please check to ensure we dont have these or please update'. None of the three is on the record. Amounts go on ex GST, as the record's other orders: the order screens' Ordered figure is GST-inclusive (4674402's lines add to 42,175.00 ex GST = 46,392.50 inc).",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4675281",
+    "patch": {
+     "supplier_name": "BSF Mobile Cranes",
+     "branch": "KINP",
+     "stream": "other",
+     "what": "GC500 demob (crane)",
+     "amount": 2195,
+     "confirmed": true,
+     "note": "Coates PO 4675281, supplier BSF009, 'GC500 Demob' (line 2), ordered by Brenden Meek, created 3 Nov 2026, ordered 5 Nov, completed 6 Nov 2026, fully received and fully invoiced · 2,414.50 inc GST; 2,195.00 ex GST taken as 2,414.50 / 1.1 (the line's unit cost was not on the screen) · GL code not given · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'please check to ensure we dont have these or please update' (not on the record)"
+   },
+   {
+    "op": "po_add",
+    "number": "4674402",
+    "patch": {
+     "supplier_name": "Event Portables",
+     "branch": "KINP",
+     "stream": "toilets",
+     "what": "Toilet hire and transport (quote Q6845)",
+     "amount": 42175,
+     "confirmed": true,
+     "note": "Coates PO 4674402, supplier EVE019, ordered by Brenden Meek, created 2 Nov 2026, ordered 19 Nov, completed 19 Nov 2026, fully received and fully invoiced · FWF 195 x 105.00 = 20,475.00; pee panel 6 x 450.00 = 2,700.00; 16-pan toilet 2 x 2,750.00 = 5,500.00; transport 2 x 6,750.00 = 13,500.00; 42,175.00 ex GST, 46,392.50 inc GST · the same 42,175.00 as quote Q6845, already carried in the Event Portables estimate (101,747.00 from the four quotes) · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'please check to ensure we dont have these or please update' (not on the record)"
+   },
+   {
+    "op": "po_add",
+    "number": "4674399",
+    "patch": {
+     "supplier_name": "Event Portables",
+     "branch": "KINP",
+     "stream": "toilets",
+     "what": "Water delivery, hydration station and transport (quote Q6846)",
+     "amount": 2975,
+     "confirmed": true,
+     "note": "Coates PO 4674399, supplier EVE019, ordered by Brenden Meek, created 2 Nov 2026, ordered 16 Nov 2026, partly received (received 3,272.50 inc GST, not yet fully invoiced) · water delivery 1 x 375.00; weeks hire hydrostation 6 x 350.00 = 2,100.00; transport 2 x 250.00 = 500.00; 2,975.00 ex GST, 3,272.50 inc GST · against quote Q6846 (4,850.00, carried in the Event Portables estimate): the order has 1 water delivery where the quote has 6 · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'please check to ensure we dont have these or please update' (not on the record)"
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13435,
+  "after": 13444
+ },
+ "updated": {
+  "before": "2026-11-19T01:14:09.287Z",
+  "after": "2026-11-19T02:09:11.472Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4675281",
+   "view": {
+    "supplier": "BSF Mobile Cranes",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 2195,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4675281",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:09:08.627Z",
+    "supplier_name": "BSF Mobile Cranes",
+    "branch": "KINP",
+    "stream": "other",
+    "what": "GC500 demob (crane)",
+    "amount": 2195,
+    "confirmed": true,
+    "note": "Coates PO 4675281, supplier BSF009, 'GC500 Demob' (line 2), ordered by Brenden Meek, created 3 Nov 2026, ordered 5 Nov, completed 6 Nov 2026, fully received and fully invoiced · 2,414.50 inc GST; 2,195.00 ex GST taken as 2,414.50 / 1.1 (the line's unit cost was not on the screen) · GL code not given · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:09:08.627Z",
+    "updated_by": "Andrew Fisher"
+   }
+  },
+  {
+   "op": "po_add",
+   "id": "4674402",
+   "view": {
+    "supplier": "Event Portables",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 42175,
+    "stream": "toilets",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4674402",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:09:08.820Z",
+    "supplier_name": "Event Portables",
+    "branch": "KINP",
+    "stream": "toilets",
+    "what": "Toilet hire and transport (quote Q6845)",
+    "amount": 42175,
+    "confirmed": true,
+    "note": "Coates PO 4674402, supplier EVE019, ordered by Brenden Meek, created 2 Nov 2026, ordered 19 Nov, completed 19 Nov 2026, fully received and fully invoiced · FWF 195 x 105.00 = 20,475.00; pee panel 6 x 450.00 = 2,700.00; 16-pan toilet 2 x 2,750.00 = 5,500.00; transport 2 x 6,750.00 = 13,500.00; 42,175.00 ex GST, 46,392.50 inc GST · the same 42,175.00 as quote Q6845, already carried in the Event Portables estimate (101,747.00 from the four quotes) · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:09:08.820Z",
+    "updated_by": "Andrew Fisher"
+   }
+  },
+  {
+   "op": "po_add",
+   "id": "4674399",
+   "view": {
+    "supplier": "Event Portables",
+    "branch": "KINP",
+    "revenue_branch": null,
+    "amount": 2975,
+    "stream": "toilets",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4674399",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:09:08.957Z",
+    "supplier_name": "Event Portables",
+    "branch": "KINP",
+    "stream": "toilets",
+    "what": "Water delivery, hydration station and transport (quote Q6846)",
+    "amount": 2975,
+    "confirmed": true,
+    "note": "Coates PO 4674399, supplier EVE019, ordered by Brenden Meek, created 2 Nov 2026, ordered 16 Nov 2026, partly received (received 3,272.50 inc GST, not yet fully invoiced) · water delivery 1 x 375.00; weeks hire hydrostation 6 x 350.00 = 2,100.00; transport 2 x 250.00 = 500.00; 2,975.00 ex GST, 3,272.50 inc GST · against quote Q6846 (4,850.00, carried in the Event Portables estimate): the order has 1 water delivery where the quote has 6 · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:09:08.957Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4675281",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4674402",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4674399",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4675281",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4674402",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4674399",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4674399",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4674402",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4675281",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4675281": null,
+   "stamps/po~2f~4674402": null,
+   "stamps/po~2f~4674399": null,
+   "by/po~2f~4675281": null,
+   "by/po~2f~4674402": null,
+   "by/po~2f~4674399": null,
+   "purchaseOrders/4674399": null,
+   "purchaseOrders/4674402": null,
+   "purchaseOrders/4675281": null
+  },
+  "after": {
+   "stamps/po~2f~4675281": {
+    "_k": "po/4675281",
+    "v": "2026-11-19T02:09:08.627Z"
+   },
+   "stamps/po~2f~4674402": {
+    "_k": "po/4674402",
+    "v": "2026-11-19T02:09:08.820Z"
+   },
+   "stamps/po~2f~4674399": {
+    "_k": "po/4674399",
+    "v": "2026-11-19T02:09:08.957Z"
+   },
+   "by/po~2f~4675281": {
+    "_k": "po/4675281",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4674402": {
+    "_k": "po/4674402",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4674399": {
+    "_k": "po/4674399",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4674399": {
+    "number": "4674399",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:09:08.957Z",
+    "supplier_name": "Event Portables",
+    "branch": "KINP",
+    "stream": "toilets",
+    "what": "Water delivery, hydration station and transport (quote Q6846)",
+    "amount": 2975,
+    "confirmed": true,
+    "note": "Coates PO 4674399, supplier EVE019, ordered by Brenden Meek, created 2 Nov 2026, ordered 16 Nov 2026, partly received (received 3,272.50 inc GST, not yet fully invoiced) · water delivery 1 x 375.00; weeks hire hydrostation 6 x 350.00 = 2,100.00; transport 2 x 250.00 = 500.00; 2,975.00 ex GST, 3,272.50 inc GST · against quote Q6846 (4,850.00, carried in the Event Portables estimate): the order has 1 water delivery where the quote has 6 · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:09:08.957Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4674399"
+   },
+   "purchaseOrders/4674402": {
+    "number": "4674402",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:09:08.820Z",
+    "supplier_name": "Event Portables",
+    "branch": "KINP",
+    "stream": "toilets",
+    "what": "Toilet hire and transport (quote Q6845)",
+    "amount": 42175,
+    "confirmed": true,
+    "note": "Coates PO 4674402, supplier EVE019, ordered by Brenden Meek, created 2 Nov 2026, ordered 19 Nov, completed 19 Nov 2026, fully received and fully invoiced · FWF 195 x 105.00 = 20,475.00; pee panel 6 x 450.00 = 2,700.00; 16-pan toilet 2 x 2,750.00 = 5,500.00; transport 2 x 6,750.00 = 13,500.00; 42,175.00 ex GST, 46,392.50 inc GST · the same 42,175.00 as quote Q6845, already carried in the Event Portables estimate (101,747.00 from the four quotes) · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:09:08.820Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4674402"
+   },
+   "purchaseOrders/4675281": {
+    "number": "4675281",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:09:08.627Z",
+    "supplier_name": "BSF Mobile Cranes",
+    "branch": "KINP",
+    "stream": "other",
+    "what": "GC500 demob (crane)",
+    "amount": 2195,
+    "confirmed": true,
+    "note": "Coates PO 4675281, supplier BSF009, 'GC500 Demob' (line 2), ordered by Brenden Meek, created 3 Nov 2026, ordered 5 Nov, completed 6 Nov 2026, fully received and fully invoiced · 2,414.50 inc GST; 2,195.00 ex GST taken as 2,414.50 / 1.1 (the line's unit cost was not on the screen) · GL code not given · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:09:08.627Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4675281"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}
