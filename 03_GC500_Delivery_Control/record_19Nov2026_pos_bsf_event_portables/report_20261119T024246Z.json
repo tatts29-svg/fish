@@ -1,0 +1,123 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T024246Z",
+ "finished": "2026-11-19T02:43:00.082Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat), with a screenshot of Coates PO 4676389 after 'please check to ensure we dont have these or please update'. Not on the record. Ex GST as the record's other orders: the screen's Ordered 2,299.00 includes GST.",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4676389",
+    "patch": {
+     "supplier_name": "Queensland Forklifts",
+     "branch": "NVAC",
+     "stream": "other",
+     "what": "Forklift buggy for Coates' use (9961976)",
+     "amount": 2090,
+     "confirmed": true,
+     "note": "Coates PO 4676389, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'v8's build inv 108362', line 1 'forklift buggey for coates use 9961976', ordered by Ross Saxelby, created 4 Nov 2026, ordered 5 Nov 2026, authorised Kephren Izzard · 2,299.00 inc GST, 2,090.00 ex GST taken as 2,299.00 / 1.1 · fully received (2,299.00), not yet fully invoiced (partly received status) · Coates' own use on 9961976 (its forklift lines L31 and L34 are at 0.00, not charged to the V8s) · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'please check to ensure we dont have these or please update' (not on the record)"
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13447,
+  "after": 13450
+ },
+ "updated": {
+  "before": "2026-11-19T02:12:28.377Z",
+  "after": "2026-11-19T02:42:59.191Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4676389",
+   "view": {
+    "supplier": "Queensland Forklifts",
+    "branch": "NVAC",
+    "revenue_branch": null,
+    "amount": 2090,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4676389",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:42:56.550Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "NVAC",
+    "stream": "other",
+    "what": "Forklift buggy for Coates' use (9961976)",
+    "amount": 2090,
+    "confirmed": true,
+    "note": "Coates PO 4676389, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'v8's build inv 108362', line 1 'forklift buggey for coates use 9961976', ordered by Ross Saxelby, created 4 Nov 2026, ordered 5 Nov 2026, authorised Kephren Izzard · 2,299.00 inc GST, 2,090.00 ex GST taken as 2,299.00 / 1.1 · fully received (2,299.00), not yet fully invoiced (partly received status) · Coates' own use on 9961976 (its forklift lines L31 and L34 are at 0.00, not charged to the V8s) · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:42:56.550Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4676389",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4676389",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4676389",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4676389": null,
+   "by/po~2f~4676389": null,
+   "purchaseOrders/4676389": null
+  },
+  "after": {
+   "stamps/po~2f~4676389": {
+    "_k": "po/4676389",
+    "v": "2026-11-19T02:42:56.550Z"
+   },
+   "by/po~2f~4676389": {
+    "_k": "po/4676389",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4676389": {
+    "number": "4676389",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:42:56.550Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "NVAC",
+    "stream": "other",
+    "what": "Forklift buggy for Coates' use (9961976)",
+    "amount": 2090,
+    "confirmed": true,
+    "note": "Coates PO 4676389, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'v8's build inv 108362', line 1 'forklift buggey for coates use 9961976', ordered by Ross Saxelby, created 4 Nov 2026, ordered 5 Nov 2026, authorised Kephren Izzard · 2,299.00 inc GST, 2,090.00 ex GST taken as 2,299.00 / 1.1 · fully received (2,299.00), not yet fully invoiced (partly received status) · Coates' own use on 9961976 (its forklift lines L31 and L34 are at 0.00, not charged to the V8s) · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:42:56.550Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4676389"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,123 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T024332Z",
+ "finished": "2026-11-19T02:43:44.947Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat), with a screenshot of Coates PO 4666580 after 'please check to ensure we dont have these or please update'. Not on the record. Ex GST as the record's other orders: the screen's Ordered 158.40 includes GST.",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4666580",
+    "patch": {
+     "supplier_name": "Queensland Forklifts",
+     "branch": "MEAD",
+     "stream": "other",
+     "what": "Gold Coast Supercars Broadcast (description cut off on screen)",
+     "amount": 144,
+     "confirmed": true,
+     "note": "Coates PO 4666580, supplier QUE011 Queensland Forklifts Pty Ltd, line 1 'Gold Coast Supercars Broadcast Slipp...' (the rest of the description is cut off on the screen), ordered and authorised by Brenden Meek, created 14 Oct 2026, confirmed, ordered and completed 3 Nov 2026, fully received and fully invoiced · 158.40 inc GST, 144.00 ex GST taken as 158.40 / 1.1 · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'please check to ensure we dont have these or please update' (not on the record)"
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13450,
+  "after": 13453
+ },
+ "updated": {
+  "before": "2026-11-19T02:42:59.191Z",
+  "after": "2026-11-19T02:43:43.472Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4666580",
+   "view": {
+    "supplier": "Queensland Forklifts",
+    "branch": "MEAD",
+    "revenue_branch": null,
+    "amount": 144,
+    "stream": "other",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4666580",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:43:40.885Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "MEAD",
+    "stream": "other",
+    "what": "Gold Coast Supercars Broadcast (description cut off on screen)",
+    "amount": 144,
+    "confirmed": true,
+    "note": "Coates PO 4666580, supplier QUE011 Queensland Forklifts Pty Ltd, line 1 'Gold Coast Supercars Broadcast Slipp...' (the rest of the description is cut off on the screen), ordered and authorised by Brenden Meek, created 14 Oct 2026, confirmed, ordered and completed 3 Nov 2026, fully received and fully invoiced · 158.40 inc GST, 144.00 ex GST taken as 158.40 / 1.1 · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:43:40.885Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4666580",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4666580",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4666580",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4666580": null,
+   "by/po~2f~4666580": null,
+   "purchaseOrders/4666580": null
+  },
+  "after": {
+   "stamps/po~2f~4666580": {
+    "_k": "po/4666580",
+    "v": "2026-11-19T02:43:40.885Z"
+   },
+   "by/po~2f~4666580": {
+    "_k": "po/4666580",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4666580": {
+    "number": "4666580",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:43:40.885Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "MEAD",
+    "stream": "other",
+    "what": "Gold Coast Supercars Broadcast (description cut off on screen)",
+    "amount": 144,
+    "confirmed": true,
+    "note": "Coates PO 4666580, supplier QUE011 Queensland Forklifts Pty Ltd, line 1 'Gold Coast Supercars Broadcast Slipp...' (the rest of the description is cut off on the screen), ordered and authorised by Brenden Meek, created 14 Oct 2026, confirmed, ordered and completed 3 Nov 2026, fully received and fully invoiced · 158.40 inc GST, 144.00 ex GST taken as 158.40 / 1.1 · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:43:40.885Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4666580"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

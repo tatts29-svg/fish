@@ -1,6 +1,6 @@
 # Four Coates purchase orders on the record: BSF crane demob, two Event Portables orders, and the event-week amount — APPLIED, VERIFIED (19 Nov 2026)
 
-Author: Andrew Fisher. Andrew, 19 Nov 2026 (his Claude chat), with screenshots of six completed or received Coates purchase orders
+Author: Andrew Fisher. Andrew, 19 Nov 2026 (his Claude chat), with screenshots of eight completed or received Coates purchase orders
 and the latest Baseplan SuperCars export: "please check to ensure we dont have these or please update". Each order was checked
 against the live record (13435). Two runs on the live v13.09 page (`f3eea79f…`) through the page's own `setPo` in Andrew's name
 (`po_fill.cjs`, the 19 Nov copy), each with a dry run, a private backup of the whole record, the page's sha checked and a read-back.
@@ -17,11 +17,17 @@ Amounts go on ex GST, as the record's other orders. The order screens' "Ordered"
 | 4647522 | Advanced | GC500 event week (incl. the race-day crew); completed 9 Nov, fully invoiced; 88,838.20 inc GST | 80,762.00 | Supplied list only, no amount | Saved with its amount, confirmed (run 2) |
 | 4647525 | Advanced | GC500 demob week 2; completed 19 Nov; 8,360.00 inc GST | 7,600.00 | Yes, added earlier today | Matches; nothing to do |
 | 4647523 | Advanced | GC500 demob week 1; completed 19 Nov; 18,738.50 inc GST | 17,035.00 | Yes, since 16 Nov | Matches; nothing to do |
+| 4676389 | Queensland Forklifts | Forklift buggy for Coates' use (9961976), NVAC, ref 'v8's build inv 108362'; received, not yet fully invoiced; 2,299.00 inc GST | 2,090.00 | No | Added (run 3) |
+| 4666580 | Queensland Forklifts | 'Gold Coast Supercars Broadcast Slipp…' (cut off on screen), MEAD; completed 3 Nov, fully invoiced; 158.40 inc GST | 144.00 | No | Added (run 4) |
 
 | Run | Spec | Record | Report |
 |---|---|---|---|
 | 1 | `po_spec.json` (4675281, 4674402, 4674399) | 13435 → 13444, 9 documents | `report_20261119T020859Z.json`, `dryrun_20261119T020840Z.json` |
 | 2 | `po_spec_4647522.json` (`po_confirm_source`, source fields asserted) | 13444 → 13447, 3 documents | `report_20261119T021215Z.json`, `dryrun_20261119T021156Z.json` |
+| 3 | `po_spec_4676389.json` | 13447 → 13450, 3 documents | `report_20261119T024246Z.json`, `dryrun_20261119T024233Z.json` |
+| 4 | `po_spec_4666580.json` | 13450 → 13453, 3 documents | `report_20261119T024332Z.json` |
 
 Not known from the screens: the crane order's GL code and line unit cost (2,195.00 is 2,414.50 / 1.1). The whole-record backups are
 private, not in the repo.
+
+The two earlier Queensland Forklifts orders in the P&L pack (4647983, 5 t forklift re-hire for the fencing, 2,820.00, STPS; 4654789, AT009, 950.00, MEAD; `STATUS.md` 1 Nov) are not on the record either; not added here.
