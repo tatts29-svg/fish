@@ -1,0 +1,5 @@
+{
+  "message": "Error: Native proposal verification failed\n    at /home/user/fish/03_GC500_Delivery_Control/record_19Nov2026_decon_wk2_wk3/record_pricing.cjs:104:87\n    at runNextTicks (node:internal/process/task_queues:64:5)\n    at process.processImmediate (node:internal/timers:452:9)\n    at process.callbackTrampoline (node:internal/async_hooks:130:17)",
+  "requests": [],
+  "note": "No automatic retry. Inspect partial receipts first."
+}

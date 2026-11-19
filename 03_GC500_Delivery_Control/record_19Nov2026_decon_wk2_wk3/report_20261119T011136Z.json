@@ -1,0 +1,227 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T011136Z",
+ "finished": "2026-11-19T01:11:48.304Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat): 'approved', after the review of Advanced Temporary Fencing's DECON WK3 invoice-totals sheet (dated 17/11/2026, PO 4647527, $8,800.00) against his signed service notes 24008 and 24006, and of the DECON WK2 sheet (dated 10/11/2026, PO 4647525, $7,600.00) whose Phillip Park loading is now covered by the signed 24006 - both approved as invoiced, the same way as week 1 (PO 4647523, 16 Nov). The orders go on the record as the week 1 order is (supplier, branch STPS, fencing, period and programme sheet), at the invoiced amounts.",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4647525",
+    "patch": {
+     "supplier_code": "ZINC001",
+     "supplier_name": "Advanced Temporary Fencing",
+     "branch": "STPS",
+     "kind": "subhire",
+     "stream": "fencing",
+     "what": "Demob week 2",
+     "period": "Demob week 2",
+     "programme_sheet": "DECON WK2",
+     "amount": 7600,
+     "confirmed": true,
+     "note": "GC500 Demob week 2 · work 2-6 Nov 2026 · Advanced's invoice-totals sheet dated 10/11/2026 $7,600.00: hire agreements 36785 and 36786 $1,450.00 (36785's 2 gates at $50), service notes 24003, 24004, 24005 5.0 h $500.00, Phillip Park loading 2, 4, 5, 6 Nov 36.5 h $3,650.00 (signed 24006), team leader 2 a day x 5 days $2,000.00 · approved as invoiced by Andrew Fisher 19 Nov 2026 · line-by-line sheet to follow when the sheet is re-supplied · receipt and payment not yet recorded"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'approved' (week 2 approved as invoiced, $7,600.00)"
+   },
+   {
+    "op": "po_add",
+    "number": "4647527",
+    "patch": {
+     "supplier_code": "ZINC001",
+     "supplier_name": "Advanced Temporary Fencing",
+     "branch": "STPS",
+     "kind": "subhire",
+     "stream": "fencing",
+     "what": "Demob week 3",
+     "period": "Demob week 3",
+     "programme_sheet": "DECON WK3",
+     "amount": 8800,
+     "confirmed": true,
+     "note": "GC500 Demob week 3 · work 9-13 Nov 2026 (and 3 Nov, missed from week 2) · Advanced's invoice-totals sheet dated 17/11/2026 $8,800.00: loading/unloading at the Advanced compound 68.0 h $6,800.00 (signed 24008 62.0 h; 24006 Tue 3 Nov 6.0 h), team leader 2 a day x 5 days $2,000.00 (no signed paper, billed as every week) · approved as invoiced by Andrew Fisher 19 Nov 2026 · receipt and payment not yet recorded"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: 'approved' (week 3 approved as invoiced, $8,800.00)"
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13426,
+  "after": 13432
+ },
+ "updated": {
+  "before": "2026-11-19T01:11:03.431Z",
+  "after": "2026-11-19T01:11:47.409Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4647525",
+   "view": {
+    "supplier": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 7600,
+    "stream": "fencing",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4647525",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T01:11:44.612Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "kind": "subhire",
+    "stream": "fencing",
+    "what": "Demob week 2",
+    "period": "Demob week 2",
+    "programme_sheet": "DECON WK2",
+    "amount": 7600,
+    "confirmed": true,
+    "note": "GC500 Demob week 2 · work 2-6 Nov 2026 · Advanced's invoice-totals sheet dated 10/11/2026 $7,600.00: hire agreements 36785 and 36786 $1,450.00 (36785's 2 gates at $50), service notes 24003, 24004, 24005 5.0 h $500.00, Phillip Park loading 2, 4, 5, 6 Nov 36.5 h $3,650.00 (signed 24006), team leader 2 a day x 5 days $2,000.00 · approved as invoiced by Andrew Fisher 19 Nov 2026 · line-by-line sheet to follow when the sheet is re-supplied · receipt and payment not yet recorded",
+    "updated_at": "2026-11-19T01:11:44.612Z",
+    "updated_by": "Andrew Fisher"
+   }
+  },
+  {
+   "op": "po_add",
+   "id": "4647527",
+   "view": {
+    "supplier": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 8800,
+    "stream": "fencing",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4647527",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T01:11:44.767Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "kind": "subhire",
+    "stream": "fencing",
+    "what": "Demob week 3",
+    "period": "Demob week 3",
+    "programme_sheet": "DECON WK3",
+    "amount": 8800,
+    "confirmed": true,
+    "note": "GC500 Demob week 3 · work 9-13 Nov 2026 (and 3 Nov, missed from week 2) · Advanced's invoice-totals sheet dated 17/11/2026 $8,800.00: loading/unloading at the Advanced compound 68.0 h $6,800.00 (signed 24008 62.0 h; 24006 Tue 3 Nov 6.0 h), team leader 2 a day x 5 days $2,000.00 (no signed paper, billed as every week) · approved as invoiced by Andrew Fisher 19 Nov 2026 · receipt and payment not yet recorded",
+    "updated_at": "2026-11-19T01:11:44.767Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4647525",
+   "status": 200
+  },
+  {
+   "key": "stamps/po~2f~4647527",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4647525",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4647527",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647525",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647527",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4647525": null,
+   "stamps/po~2f~4647527": null,
+   "by/po~2f~4647525": null,
+   "by/po~2f~4647527": null,
+   "purchaseOrders/4647525": null,
+   "purchaseOrders/4647527": null
+  },
+  "after": {
+   "stamps/po~2f~4647525": {
+    "_k": "po/4647525",
+    "v": "2026-11-19T01:11:44.612Z"
+   },
+   "stamps/po~2f~4647527": {
+    "_k": "po/4647527",
+    "v": "2026-11-19T01:11:44.767Z"
+   },
+   "by/po~2f~4647525": {
+    "_k": "po/4647525",
+    "v": "Andrew Fisher"
+   },
+   "by/po~2f~4647527": {
+    "_k": "po/4647527",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647525": {
+    "number": "4647525",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T01:11:44.612Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "kind": "subhire",
+    "stream": "fencing",
+    "what": "Demob week 2",
+    "period": "Demob week 2",
+    "programme_sheet": "DECON WK2",
+    "amount": 7600,
+    "confirmed": true,
+    "note": "GC500 Demob week 2 · work 2-6 Nov 2026 · Advanced's invoice-totals sheet dated 10/11/2026 $7,600.00: hire agreements 36785 and 36786 $1,450.00 (36785's 2 gates at $50), service notes 24003, 24004, 24005 5.0 h $500.00, Phillip Park loading 2, 4, 5, 6 Nov 36.5 h $3,650.00 (signed 24006), team leader 2 a day x 5 days $2,000.00 · approved as invoiced by Andrew Fisher 19 Nov 2026 · line-by-line sheet to follow when the sheet is re-supplied · receipt and payment not yet recorded",
+    "updated_at": "2026-11-19T01:11:44.612Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4647525"
+   },
+   "purchaseOrders/4647527": {
+    "number": "4647527",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T01:11:44.767Z",
+    "supplier_code": "ZINC001",
+    "supplier_name": "Advanced Temporary Fencing",
+    "branch": "STPS",
+    "kind": "subhire",
+    "stream": "fencing",
+    "what": "Demob week 3",
+    "period": "Demob week 3",
+    "programme_sheet": "DECON WK3",
+    "amount": 8800,
+    "confirmed": true,
+    "note": "GC500 Demob week 3 · work 9-13 Nov 2026 (and 3 Nov, missed from week 2) · Advanced's invoice-totals sheet dated 17/11/2026 $8,800.00: loading/unloading at the Advanced compound 68.0 h $6,800.00 (signed 24008 62.0 h; 24006 Tue 3 Nov 6.0 h), team leader 2 a day x 5 days $2,000.00 (no signed paper, billed as every week) · approved as invoiced by Andrew Fisher 19 Nov 2026 · receipt and payment not yet recorded",
+    "updated_at": "2026-11-19T01:11:44.767Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4647527"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

@@ -1,0 +1,173 @@
+[
+  {
+    "method": "PUT",
+    "collection": "stamps",
+    "id": "po~2f~4647527",
+    "body": {
+      "_k": "po/4647527",
+      "v": "2026-11-19T01:14:05.037Z"
+    },
+    "started": "2026-11-19T01:14:08.831Z",
+    "status": 200,
+    "finished": "2026-11-19T01:14:09.218Z"
+  },
+  {
+    "method": "PUT",
+    "collection": "by",
+    "id": "po~2f~4647527",
+    "body": {
+      "_k": "po/4647527",
+      "v": "Andrew Fisher via Claude"
+    },
+    "started": "2026-11-19T01:14:08.838Z",
+    "status": 200,
+    "finished": "2026-11-19T01:14:09.463Z"
+  },
+  {
+    "method": "PUT",
+    "collection": "purchaseOrders",
+    "id": "4647527",
+    "body": {
+      "number": "4647527",
+      "by": "Andrew Fisher",
+      "at": "2026-11-19T01:11:44.767Z",
+      "supplier_code": "ZINC001",
+      "supplier_name": "Advanced Temporary Fencing",
+      "branch": "STPS",
+      "kind": "subhire",
+      "stream": "fencing",
+      "what": "Demob week 3",
+      "period": "Demob week 3",
+      "programme_sheet": "DECON WK3",
+      "amount": 8800,
+      "confirmed": true,
+      "note": "GC500 Demob week 3 · work 9-13 Nov 2026 (and 3 Nov, missed from week 2) · Advanced's invoice-totals sheet dated 17/11/2026 $8,800.00: loading/unloading at the Advanced compound 68.0 h $6,800.00 (signed 24008 62.0 h; 24006 Tue 3 Nov 6.0 h), team leader 2 a day x 5 days $2,000.00 (no signed paper, billed as every week) · approved as invoiced by Andrew Fisher 19 Nov 2026 · receipt and payment not yet recorded",
+      "updated_at": "2026-11-19T01:14:05.037Z",
+      "updated_by": "Andrew Fisher via Claude",
+      "supplier_pricing": {
+        "schema": 1,
+        "currency": "AUD",
+        "basis": "ex GST",
+        "source": {
+          "file": "Copy_of_P003-25003-01-GC600_2026_Coates_Hire_Fencing_Programme_-_DECON_WK3_-_INV_TOTALS_-_17-11-2026.pdf",
+          "sha256": "2e89fdb59e978d5cb0e87215f178de1fc3f692f3389b6b7f13435fbe578c58e9",
+          "date": "2026-11-17",
+          "page": 1,
+          "author": "Andrew Fisher",
+          "sheet": "GC500 - COATES HIRE - FENCING INSTALLATION PROGRAMME (DECON WK3) - INV TOTALS",
+          "po_as_printed": "4647527",
+          "invoice_total_as_printed": 8800,
+          "supplied": "Andrew Fisher, 19 Nov 2026",
+          "notes": [
+            "24008: the sheet bills it on five rows, PW3 Mon 9 Nov 11.00 h, Tue 10 Nov 9.50 h, Wed 11.50 h, Thu 12 Nov 21.00 h (x 2-men), Fri 13 Nov 9.00 h, 62.0 h, as 'Phillip Park - Loading/Unloading Duties'; the signed service note (Advanced Compound, 9-13 Nov) carries the same days and hours, Thu 10.5 h + Daniel 10.5 h (Advanced's man, Andrew 13 Nov). Recorded under its first day, 9 Nov.",
+            "24006: the sheet bills PW2 Tue 3 Nov 6.00 h, 'Time sheet missed from PW2'; the signed service note (Advanced Compound, 2-6 Nov) carries Tue 6 h, starred 'Added to Decon Wk3'. The week 2 sheet (PO 4647525) billed 2, 4, 5 and 6 Nov only, so 3 Nov is billed once. 24006 is recorded under its first day, 2 Nov; the 6.0 h allocated here are its 3 Nov hours.",
+            "Team leader: the sheet bills 2.0 a day on each of its PW3 rows, Mon 9 - Fri 13 Nov (2 a day x 5 days x $200 = $2,000.00); no signed paper carries it; billed and paid the same way as the construction weeks and demob week 1. Approved by Andrew Fisher 19 Nov 2026.",
+            "All hours at the standard $100.00/h; nothing at the $142.00 rate. No hire agreements, metres, removals or gates on this sheet.",
+            "The sheet adds to $8,800.00 (labour 68.00 h x $100 = $6,800.00; team leader 10 x $200 = $2,000.00); approved as invoiced by Andrew Fisher 19 Nov 2026 ('approved')."
+          ],
+          "tax_basis_note": "Allocated as ex GST under the project convention in AGENTS.md, as the construction weeks' sheets.",
+          "invoice_status": "Supplier invoice number and tax invoice not supplied. Approved by Andrew Fisher at $8,800.00 on 19 Nov 2026; no receipt or payment is asserted.",
+          "review_items": []
+        },
+        "records": [
+          {
+            "book": "green",
+            "id": "N-AF-0030",
+            "number": "24006",
+            "date": "2026-11-02",
+            "source_page": 1,
+            "lines": [
+              {
+                "column": "labour",
+                "name": "Installer labour",
+                "qty": 6,
+                "unit": "hours",
+                "rate": 100,
+                "amount": 600
+              }
+            ],
+            "sheet_date": "2026-11-03"
+          },
+          {
+            "book": "green",
+            "id": "N-AF-0031",
+            "number": "24008",
+            "date": "2026-11-09",
+            "source_page": 1,
+            "lines": [
+              {
+                "column": "labour",
+                "name": "Installer labour",
+                "qty": 62,
+                "unit": "hours",
+                "rate": 100,
+                "amount": 6200
+              }
+            ],
+            "sheet_date": "2026-11-09"
+          }
+        ],
+        "extras": [
+          {
+            "id": "team-leader-2026-11-09",
+            "date": "2026-11-09",
+            "column": "team_leader",
+            "name": "Team leader — daily supplier charge",
+            "qty": 2,
+            "unit": "day",
+            "rate": 200,
+            "amount": 400
+          },
+          {
+            "id": "team-leader-2026-11-10",
+            "date": "2026-11-10",
+            "column": "team_leader",
+            "name": "Team leader — daily supplier charge",
+            "qty": 2,
+            "unit": "day",
+            "rate": 200,
+            "amount": 400
+          },
+          {
+            "id": "team-leader-2026-11-11",
+            "date": "2026-11-11",
+            "column": "team_leader",
+            "name": "Team leader — daily supplier charge",
+            "qty": 2,
+            "unit": "day",
+            "rate": 200,
+            "amount": 400
+          },
+          {
+            "id": "team-leader-2026-11-12",
+            "date": "2026-11-12",
+            "column": "team_leader",
+            "name": "Team leader — daily supplier charge",
+            "qty": 2,
+            "unit": "day",
+            "rate": 200,
+            "amount": 400
+          },
+          {
+            "id": "team-leader-2026-11-13",
+            "date": "2026-11-13",
+            "column": "team_leader",
+            "name": "Team leader — daily supplier charge",
+            "qty": 2,
+            "unit": "day",
+            "rate": 200,
+            "amount": 400
+          }
+        ],
+        "total": 8800,
+        "supplier_code": "ZINC001",
+        "branch": "STPS",
+        "author": "Andrew Fisher"
+      },
+      "_k": "4647527"
+    },
+    "started": "2026-11-19T01:14:08.842Z",
+    "status": 200,
+    "finished": "2026-11-19T01:14:09.471Z"
+  }
+]

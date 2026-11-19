@@ -1,0 +1,9 @@
+{
+  "author": "Andrew Fisher",
+  "pass": true,
+  "scope": "supplier_pricing",
+  "beforeVersion": 13432,
+  "afterVersion": 13435,
+  "writes": 3,
+  "allOtherSharedFieldsUnchanged": true
+}

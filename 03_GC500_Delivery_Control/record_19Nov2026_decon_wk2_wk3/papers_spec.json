@@ -1,0 +1,28 @@
+{
+ "by": "Andrew Fisher",
+ "what": "Demob weeks 2 and 3 service notes on the record so PO 4647525 and PO 4647527 match, on Andrew's approval of Advanced's week 2 and week 3 invoice sheets (19 Nov 2026: 'approved'): green-book service notes 24006 (preparing and loading stock for departure at the Advanced compound, 2-6 Nov 2026) and 24008 (the Advanced compound, 9-13 Nov 2026), held off the record until the invoice on Andrew's word of 13 Nov, read from his photographs of 13 Nov and his scan of 18 Nov 2026.",
+ "ops": [
+  {
+   "op": "service_note",
+   "note_no": "24006",
+   "date": "2026-11-02",
+   "location": "Advanced Compound - preparing & loading stock for departure",
+   "labour_hours": 44.5,
+   "crew_note": "1 man: 2/11 8 h, 3/11 6 h, 4/11 10.5 h, 5/11 9.5 h, 6/11 10.5 h",
+   "metres": "",
+   "signed_by": "",
+   "note": "Preparing and loading stock for departure at the Advanced compound, 2-6 Nov 2026, 1 man: Mon 8 h, Tue 6 h, Wed 10.5 h, Thu 9.5 h, Fri 10.5 h, 44.5 h in all as written; recorded under its first day. Marked 'Decon Wk 2' at the top; the Tuesday 6 h is starred and initialled 'Added to Decon Wk3'. Installer dated 12/11/26, owner/site supervisor signed 13-11-26. Read from Andrew's photograph of 13 Nov 2026 and his scan of 18 Nov 2026. Held off the record until the invoice on Andrew's word (13 Nov); recorded 19 Nov 2026 on his approval of Advanced's week 2 sheet (PO 4647525, which bills 2, 4, 5 and 6 Nov: 8.0 + 10.5 + 7.5 + 10.5 = 36.5 h as docket 'To Follow') and week 3 sheet (PO 4647527, which bills Tue 3 Nov 6.0 h, 'Time sheet missed from PW2'). The 2.0 h signed on 5 Nov beyond the 7.5 h billed are not billed."
+  },
+  {
+   "op": "service_note",
+   "note_no": "24008",
+   "date": "2026-11-09",
+   "location": "Advanced Compound - loading/unloading",
+   "labour_hours": 62,
+   "crew_note": "1 man x 51.5 h + 1 man x 10.5 h: 9/11 11 h, 10/11 9.5 h, 11/11 11.5 h, 12/11 10.5 h + Daniel 10.5 h, 13/11 9 h",
+   "metres": "",
+   "signed_by": "",
+   "note": "Loading and unloading at the Advanced compound, 9-13 Nov 2026: Mon 11 h, Tue 9.5 h, Wed 11.5 h, Thu 10.5 h + Daniel 10.5 h, Fri 9 h; labour written '1 man x 51.5 hrs + 1 man x 10.5 hrs, 62 hrs'; recorded under its first day. Daniel is Advanced's man, not Coates' (Andrew, 13 Nov 2026). Installer dated 9/11/26, owner/site supervisor signed 13/11/26. Read from Andrew's photograph of 13 Nov 2026 and his scan of 18 Nov 2026. Held off the record until the invoice on Andrew's word (13 Nov); recorded 19 Nov 2026 on his approval of Advanced's week 3 sheet (PO 4647527), which bills all 62.0 h (9 Nov 11.0, 10 Nov 9.5, 11 Nov 11.5, 12 Nov 21.0 for 2 men, 13 Nov 9.0)."
+  }
+ ]
+}
