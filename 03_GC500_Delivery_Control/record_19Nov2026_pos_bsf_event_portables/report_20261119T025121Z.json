@@ -1,0 +1,123 @@
+{
+ "author": "Andrew Fisher",
+ "started": "20261119T025121Z",
+ "finished": "2026-11-19T02:51:34.617Z",
+ "mode": "apply",
+ "spec": {
+  "by": "Andrew Fisher",
+  "expect": {
+   "chargeDelta": 0,
+   "costDelta": 0
+  },
+  "basis": "Andrew Fisher, 19 Nov 2026 (his Claude chat), with a screenshot of Coates PO 4647983, the last Queensland Forklifts order in the P&L pack not on the record. Ex GST as the record's other orders: the screen's Ordered 3,102.00 includes GST; 2,820.00 ex GST is the figure the P&L pack already carries (STATUS, 1 Nov 2026).",
+  "ops": [
+   {
+    "op": "po_add",
+    "number": "4647983",
+    "patch": {
+     "supplier_name": "Queensland Forklifts",
+     "branch": "STPS",
+     "stream": "fencing",
+     "what": "5 t forklift hire for the fencing (Phillip Park)",
+     "amount": 2820,
+     "confirmed": true,
+     "note": "Coates PO 4647983, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'HS 9961976 V8'S', three lines 'hire of 5t forklift 1.8 tynnes approx' 3, 4 and 2 (weeks; the rest of each description is cut off on the screen), ordered by Ross Saxelby, created 3 Sep 2026, confirmed and ordered 6 Oct 2026, authorised Kephren Izzard · 3,102.00 inc GST, 2,820.00 ex GST (as in the P&L pack: Sep 900.00, Oct 1,320.00, Nov 600.00 from the hire start on 11 Sep) · partly received: 990.00 inc GST (900.00 ex), 2,112.00 inc GST (1,920.00 ex) outstanding, not yet invoiced · Andrew Fisher, 19 Nov 2026"
+    },
+    "why": "Andrew Fisher, 19 Nov 2026: screenshot of 4647983 after 'please check to ensure we dont have these or please update' (not on the record)"
+   }
+  ]
+ },
+ "pageSha256": "f3eea79feba6c463f4337487bcca5b43dd7e143e81fc6e409a8d8134121ab78d",
+ "version": {
+  "before": 13456,
+  "after": 13459
+ },
+ "updated": {
+  "before": "2026-11-19T02:44:50.620Z",
+  "after": "2026-11-19T02:51:33.691Z"
+ },
+ "stage": [
+  {
+   "op": "po_add",
+   "id": "4647983",
+   "view": {
+    "supplier": "Queensland Forklifts",
+    "branch": "STPS",
+    "revenue_branch": null,
+    "amount": 2820,
+    "stream": "fencing",
+    "confirmed": true,
+    "by": "Andrew Fisher"
+   },
+   "result": "added - ",
+   "saved": {
+    "number": "4647983",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:51:30.980Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "STPS",
+    "stream": "fencing",
+    "what": "5 t forklift hire for the fencing (Phillip Park)",
+    "amount": 2820,
+    "confirmed": true,
+    "note": "Coates PO 4647983, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'HS 9961976 V8'S', three lines 'hire of 5t forklift 1.8 tynnes approx' 3, 4 and 2 (weeks; the rest of each description is cut off on the screen), ordered by Ross Saxelby, created 3 Sep 2026, confirmed and ordered 6 Oct 2026, authorised Kephren Izzard · 3,102.00 inc GST, 2,820.00 ex GST (as in the P&L pack: Sep 900.00, Oct 1,320.00, Nov 600.00 from the hire start on 11 Sep) · partly received: 990.00 inc GST (900.00 ex), 2,112.00 inc GST (1,920.00 ex) outstanding, not yet invoiced · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:51:30.980Z",
+    "updated_by": "Andrew Fisher"
+   }
+  }
+ ],
+ "writes": [
+  {
+   "key": "stamps/po~2f~4647983",
+   "status": 200
+  },
+  {
+   "key": "by/po~2f~4647983",
+   "status": 200
+  },
+  {
+   "key": "purchaseOrders/4647983",
+   "status": 200
+  }
+ ],
+ "refused": [],
+ "mapSessionsBlocked": 0,
+ "docs": {
+  "before": {
+   "stamps/po~2f~4647983": null,
+   "by/po~2f~4647983": null,
+   "purchaseOrders/4647983": null
+  },
+  "after": {
+   "stamps/po~2f~4647983": {
+    "_k": "po/4647983",
+    "v": "2026-11-19T02:51:30.980Z"
+   },
+   "by/po~2f~4647983": {
+    "_k": "po/4647983",
+    "v": "Andrew Fisher"
+   },
+   "purchaseOrders/4647983": {
+    "number": "4647983",
+    "by": "Andrew Fisher",
+    "at": "2026-11-19T02:51:30.980Z",
+    "supplier_name": "Queensland Forklifts",
+    "branch": "STPS",
+    "stream": "fencing",
+    "what": "5 t forklift hire for the fencing (Phillip Park)",
+    "amount": 2820,
+    "confirmed": true,
+    "note": "Coates PO 4647983, supplier QUE011 Queensland Forklifts Pty Ltd, ref 'HS 9961976 V8'S', three lines 'hire of 5t forklift 1.8 tynnes approx' 3, 4 and 2 (weeks; the rest of each description is cut off on the screen), ordered by Ross Saxelby, created 3 Sep 2026, confirmed and ordered 6 Oct 2026, authorised Kephren Izzard · 3,102.00 inc GST, 2,820.00 ex GST (as in the P&L pack: Sep 900.00, Oct 1,320.00, Nov 600.00 from the hire start on 11 Sep) · partly received: 990.00 inc GST (900.00 ex), 2,112.00 inc GST (1,920.00 ex) outstanding, not yet invoiced · Andrew Fisher, 19 Nov 2026",
+    "updated_at": "2026-11-19T02:51:30.980Z",
+    "updated_by": "Andrew Fisher",
+    "_k": "4647983"
+   }
+  }
+ },
+ "verification": {
+  "ok": true,
+  "problems": [],
+  "otherDocsChanged": [],
+  "serialisationDiffers": []
+ }
+}

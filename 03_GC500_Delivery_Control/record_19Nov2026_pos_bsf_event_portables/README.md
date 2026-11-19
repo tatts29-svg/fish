@@ -28,8 +28,9 @@ Amounts go on ex GST, as the record's other orders. The order screens' "Ordered"
 | 3 | `po_spec_4676389.json` | 13447 → 13450, 3 documents | `report_20261119T024246Z.json`, `dryrun_20261119T024233Z.json` |
 | 4 | `po_spec_4666580.json` | 13450 → 13453, 3 documents | `report_20261119T024332Z.json` |
 | 5 | `po_spec_4654789.json` | 13453 → 13456, 3 documents | `report_20261119T024438Z.json` |
+| 6 | `po_spec_4647983.json` | 13456 → 13459, 3 documents | `report_20261119T025121Z.json` |
 
 Not known from the screens: the crane order's GL code and line unit cost (2,195.00 is 2,414.50 / 1.1). The whole-record backups are
 private, not in the repo.
 
-Of the two earlier Queensland Forklifts orders in the P&L pack, 4654789 is now on the record (run 5, from Andrew's screenshot; the pack labelled it AT009, the order says 'forklift buggey for coates use 9961976'). 4647983 (5 t forklift re-hire for the fencing, 2,820.00, STPS) is still not on the record.
+Of the two earlier Queensland Forklifts orders in the P&L pack, 4654789 is now on the record (run 5, from Andrew's screenshot; the pack labelled it AT009, the order says 'forklift buggey for coates use 9961976'). 4647983 (5 t forklift hire for the fencing, STPS, 2,820.00 ex GST = 3,102.00 inc; partly received 900.00 ex, 1,920.00 ex outstanding, not yet invoiced) is now on the record too (run 6). Both are the same orders the P&L pack carries from the private PO file: the next pack must count each PO number once.
