@@ -521,14 +521,14 @@ class LooseSite(object):
         return latest if os.path.isfile(latest) else None
 
 
-def read_aliases(base):
+def read_aliases(base, fname="COMPANY_ALIASES.txt"):
     """COMPANY_ALIASES.txt, one 'FROM = TO' per line. SiteIQ spells the
     same outfit three ways (BELTECH / BELTEC, DAWSONS / DAWSONS
     ENGINEERING / DAWSONS RELINERS); this folds them, and only them -
     merging beyond what is written here is Andrew's call, never the
     kit's."""
     out = {}
-    p = os.path.join(base, "COMPANY_ALIASES.txt")
+    p = os.path.join(base, fname)
     try:
         with open(p, "rb") as f:
             raw = f.read()
@@ -553,7 +553,23 @@ def read_aliases(base):
 
 #  Filled in by build() from JOB.txt and COMPANY_ALIASES.txt, then used
 #  by co_name() everywhere a company name is read off an export.
-_NAMES = {"aliases": {}, "tidy": False, "acronyms": set(), "tidy_items": True, "tags": []}
+_NAMES = {"aliases": {}, "tidy": False, "acronyms": set(), "tidy_items": True, "tags": [],
+          "owners": {}}
+
+#  The owner columns SiteIQ carries. OWNER_ALIASES.txt renames an owner
+#  in these columns only (exact name, any case) as the exports are read,
+#  so the renamed owner is the one every tab, count and page sees - e.g.
+#  gear SiteIQ lists under the wrong owner that is really Coates fleet.
+_OWNER_COLS = ("OWNER", "ITEM_OWNER")
+
+
+def _fold_owner(row):
+    if _NAMES["owners"]:
+        for k in _OWNER_COLS:
+            v = row.get(k)
+            if v is not None and _s(v).upper() in _NAMES["owners"]:
+                row[k] = _NAMES["owners"][_s(v).upper()]
+    return row
 
 
 def co_name(raw):
@@ -877,7 +893,7 @@ def _rows(path, sheet, must_have=False):
         for r in it:
             if not any(c not in (None, "") for c in r):
                 continue
-            out.append(dict(zip(hdr, r)))
+            out.append(_fold_owner(dict(zip(hdr, r))))
         return out
     finally:
         try:
@@ -1493,6 +1509,11 @@ def _build(base=HERE, when=None):
     if _NAMES["aliases"]:
         say("  Names     {} alias{} applied from COMPANY_ALIASES.txt".format(
             len(_NAMES["aliases"]), "" if len(_NAMES["aliases"]) == 1 else "es"))
+    _NAMES["owners"] = read_aliases(base, "OWNER_ALIASES.txt")
+    if _NAMES["owners"]:
+        say("  Owners    {} renamed from OWNER_ALIASES.txt: {}".format(
+            len(_NAMES["owners"]), ", ".join("{} -> {}".format(a.title(), b)
+                                             for a, b in sorted(_NAMES["owners"].items()))))
 
     rental = _rows(p_rental, "RENTAL_STOCK", must_have=True)
     sales = _rows(p_sales, "SALES_STOCK", must_have=True)

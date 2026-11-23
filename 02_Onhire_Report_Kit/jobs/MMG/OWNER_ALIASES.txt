@@ -1,0 +1,5 @@
+# One per line: the owner SiteIQ shows = the owner the report shows.
+# Only the OWNER / ITEM_OWNER columns are renamed, and only the names
+# written here. Andrew, 24 Nov 2026: the two Kincrome verniers listed
+# under Dyno Nobel are Coates gear.
+DYNO NOBEL = Coates
