@@ -366,7 +366,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                        "min": int(mm[sku][0]) if sku in mm else None, "max": int(mm[sku][1]) if sku in mm else None,
                        "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
                        "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
-                       "most": peaks.get(sku, {}).get("most")})
+                       "most": peaks.get(sku, {}).get("most"),
+                       "code": (re.findall(r"(\d{6,})\s*$", str(r.get("SKU_BARCODE") or "")) or [""])[0]})
     clines.sort(key=lambda c: c["name"].lower())
 
     counter_start = dt.date(2026, 11, 25)
@@ -788,6 +789,7 @@ def main(argv=None):
     ap.add_argument("--day-keeper", default="")
     ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
+    ap.add_argument("--materials", help="the client's material list (xlsx: bin, material code, description), kept outside git")
     ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
@@ -805,6 +807,14 @@ def main(argv=None):
     for person in data.get("people") or []:
         for ln in person.get("lines") or []:
             ln["name"] = catalogue.house_cons(ln["name"])
+    if a.materials:                                               # the client's own material list: where each code is binned
+        import openpyxl
+        bins = {}
+        for row in openpyxl.load_workbook(a.materials, read_only=True, data_only=True).worksheets[0].iter_rows(min_row=2, values_only=True):
+            if row[1] and str(row[0] or "").strip() not in ("", "NEW"):
+                bins.setdefault(str(row[1]).strip(), str(row[0]).strip())
+        for ln in data["clines"]:
+            ln["bin"] = bins.get(ln.get("code"))
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())
