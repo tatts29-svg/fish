@@ -233,7 +233,7 @@ def _band(vals):
             {"name": "Busiest shut", "n": round(max(vals))}]
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -307,9 +307,13 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         mm = {}
         hdr = [str(c or "").strip().upper() for c in next(ws.iter_rows(min_row=5, max_row=5, values_only=True))]
         i_mn, i_mx = hdr.index("MIN"), hdr.index("MAX")
+        i_pd = next((i for i, v in enumerate(hdr) if v.startswith("PER DAY")), None)
+        mm_pd = {}
         for row in ws.iter_rows(min_row=6, values_only=True):
             if row[0] and isinstance(row[i_mn], (int, float)):
                 mm[str(row[0])] = (row[i_mn], row[i_mx])
+                if i_pd is not None and isinstance(row[i_pd], (int, float)):
+                    mm_pd[str(row[0])] = row[i_pd]
         for r in stock:
             sku = kit._s(r.get("SKU_NUMBER"))
             if sku in mm and mm[sku][1]:
@@ -320,6 +324,16 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                 if have < mn:
                     below.append({"line": _cons_name(kit, r.get("SKU_DESCRIPTION")), "have": int(have), "min": int(mn), "max": int(mx)})
         below.sort(key=lambda x: x["have"] - x["min"])
+    else:
+        mm, mm_pd = {}, {}
+    clines = []
+    for r in stock:
+        sku = kit._s(r.get("SKU_NUMBER"))
+        clines.append({"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "type": catalogue.cons_category(r.get("SKU_DESCRIPTION")),
+                       "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": int(kit._n(r.get("AVAILABLE_QUANTITY"))),
+                       "min": int(mm[sku][0]) if sku in mm else None, "max": int(mm[sku][1]) if sku in mm else None,
+                       "pd": round(mm_pd[sku], 1) if sku in mm_pd else None})
+    clines.sort(key=lambda c: c["name"].lower())
 
     counter_start = dt.date(2026, 11, 25)
     counter_days = 7
@@ -340,6 +354,35 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     else:
         hist = [snap]
 
+    # every item on hire, for the detail sheets and the on-hire downloads
+    pkey = lambda r: " ".join(str(r.get("HIRER_NAME") or "").replace("-", " ").split()).upper()
+    onhire_rows = []
+    for r in on:
+        t_ = _time(r.get("ON_HIRE_TIME"))
+        d_ = _date(r.get("ON_HIRE_DATE"))
+        onhire_rows.append({"co": kit.co_name(r.get("COMPANY_NAME")), "who": kit.person_name(r.get("HIRER_NAME")), "pk": pkey(r),
+                            "item": kit._s(r.get("ITEM_NUMBER")), "desc": dname.get(dkey(r), ""), "dk": dkey(r),
+                            "date": d_.strftime("%d %b %Y") if d_ else "", "time": t_.strftime("%H:%M") if t_ else "",
+                            "own": "Coates" if r in coates else other_owner})
+    onhire_rows.sort(key=lambda x: (x["co"].lower(), x["who"].lower(), x["desc"].lower()))
+    hist = json.load(open(people)) if people and os.path.isfile(people) else {"people": [], "typical": {}}
+    ptyp = hist.get("typical", {})
+    now_n = collections.Counter(x["pk"] for x in onhire_rows)
+    people_rows, seen_p = [], set()
+    for p_ in hist["people"]:
+        seen_p.add(p_["key"])
+        q_ = dict(p_)
+        q_["now"] = now_n.get(p_["key"], 0)
+        q_["co"] = kit.co_name(q_.get("co"))
+        for ln in q_.get("lines", []):
+            ln["name"] = _cons_name(kit, ln["name"])
+        people_rows.append(q_)
+    for x in onhire_rows:
+        if x["pk"] not in seen_p:
+            seen_p.add(x["pk"])
+            people_rows.append({"key": x["pk"], "name": x["who"], "co": x["co"], "iss": 0, "ret": 0, "left": 0, "w12": None, "hold": None,
+                                "rating": None, "cons": [], "lines": [], "tools": [], "flags": [], "now": now_n[x["pk"]]})
+    people_rows.sort(key=lambda p_: (-p_["now"], -(p_["iss"] + sum(c["units"] for c in p_["cons"])), p_["name"]))
     tagc = tag_colour(dt.date(2026, 11, 25))   # tagged before the shut: the colour of the quarter the counter opened in
     tg = {"elec": collections.Counter(), "rig": collections.Counter()}
     tgo = {"elec": 0, "rig": 0}
@@ -388,7 +431,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
               "cons_lines": len(stock), "cons_units": int(units), "cons_drawn": len(drawn)},
         "hours": ["{:02d}:00".format(h) for h in hours], "hour_out": hour_out, "hour_back": hour_back,
         "companies": [{"name": k, "n": v} for k, v in by_co.most_common()],
-        "hirers": [{"name": k[0], "co": k[1], "n": v} for k, v in by_hirer.most_common()],
+        "hirers": [{"name": k[0], "co": k[1], "n": v, "pk": " ".join(k[0].split()).upper()} for k, v in by_hirer.most_common()],
         "kinds": [{"name": dname.get(k, k), "on": kinds_on[k], "fleet": kinds_fleet[k], "pic": dpic.get(k)} for k in top_kinds],
         "comm": {"on": sum(v for k, v in kinds_on.items() if "RADIO" in k),
                  "fleet": sum(v for k, v in kinds_fleet.items() if "RADIO" in k)},
@@ -402,6 +445,11 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
         "held": held_groups(),
         "tagged": tagged,
+        "onhire": onhire_rows,
+        "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k)}
+                  for k in kinds_fleet},
+        "clines": clines,
+        "people": people_rows, "ptyp": ptyp,
         "ops": _ops(kit, ops),
         "pics": None,   # filled last, once every picture in use is known
         "_pix": pix,
@@ -519,6 +567,44 @@ svg text{font-family:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--g3);background:var(--g2);border-radius:999px;padding:7px 13px;font-size:13px}
 .chip b{color:var(--lit);margin-right:6px}
+[data-open]{cursor:pointer}
+.row[data-open],.krow[data-open],tr[data-open],.prow{border-radius:10px;transition:background .2s}
+.row[data-open]:hover,.krow[data-open]:hover,tr[data-open]:hover,.prow:hover{background:rgba(255,255,255,.045)}
+.kpi[data-open]{transition:transform .3s,border-color .3s}.kpi[data-open]:hover{transform:translateY(-3px);border-color:var(--or)}
+.cyl[data-open]{transition:transform .3s}.cyl[data-open]:hover{transform:translateY(-4px)}
+.more{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--or);font-weight:600;margin-left:8px;opacity:.85}
+.sheet{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;background:rgba(5,7,10,.72);backdrop-filter:blur(6px);padding:5vh 16px;overflow:auto}
+.sheet.on{display:flex;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.sbox{position:relative;width:100%;max-width:860px;background:linear-gradient(180deg,#1B2028,#12161C);border:1px solid #2C3440;border-radius:22px;padding:26px 28px 24px;box-shadow:0 40px 120px rgba(0,0,0,.7);animation:rise .4s cubic-bezier(.2,.8,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
+.sbox:before{content:"";position:absolute;left:28px;right:28px;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--or),transparent)}
+.sx{position:absolute;right:16px;top:14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--g3);background:var(--g2);color:var(--tx);font-size:18px;cursor:pointer}
+.sx:hover{border-color:var(--or)}
+.sh1{display:flex;gap:16px;align-items:center;margin-bottom:6px;padding-right:44px}
+.sh1 h3{font-size:24px;font-weight:700;letter-spacing:-.01em}.sh1 .ssub{color:var(--mu);font-size:13px;margin-top:2px}
+.sh1 img{width:92px;height:92px;border-radius:16px;border:1px solid var(--g3)}
+.sstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.sstats div{background:var(--g2);border:1px solid var(--g3);border-radius:12px;padding:12px}
+.sstats b{display:block;font-size:22px;font-weight:700}.sstats span{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+.sbox h5{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);font-weight:600;margin:18px 0 8px}
+.stars{display:inline-block;font-size:22px;letter-spacing:3px;line-height:1;background:linear-gradient(90deg,#FFB020 var(--p),#39424F var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stars.sm{font-size:14px;letter-spacing:2px}
+.flag{border:1px solid rgba(242,98,34,.55);background:rgba(242,98,34,.10);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:13.5px}
+.flag b{color:var(--lit)}
+.good{border:1px solid rgba(127,209,168,.4);background:rgba(127,209,168,.08);border-radius:12px;padding:10px 14px;margin:8px 0;font-size:13.5px}
+.dl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:12px;text-decoration:none;cursor:pointer;color:#14181E;background:linear-gradient(90deg,var(--or),var(--lit));border:0;box-shadow:0 0 18px rgba(242,98,34,.35);transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 26px rgba(242,98,34,.55)}
+.btn.ghost{background:var(--g2);color:var(--tx);border:1px solid var(--g3);box-shadow:none}.btn.ghost:hover{border-color:var(--or)}
+.psearch{font:inherit;font-size:14px;width:100%;max-width:420px;padding:11px 16px;border-radius:12px;border:1px solid var(--g3);background:var(--g2);color:var(--tx);outline:none;margin-bottom:12px}
+.psearch:focus{border-color:var(--or)}
+.prow{display:grid;grid-template-columns:minmax(150px,1.4fr) 1fr 120px 1fr;gap:12px;align-items:center;padding:10px 8px;border-top:1px solid #1E242D;font-size:13.5px;cursor:pointer}
+.prow .pn{font-weight:600}.prow .pc{color:var(--mu)}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:600;margin-right:6px}
+.badge.now{background:rgba(127,209,168,.14);color:var(--ok)}.badge.fl{background:rgba(242,98,34,.14);color:var(--lit)}
+@media (max-width:980px){.sstats{grid-template-columns:repeat(2,1fr)}.prow{grid-template-columns:1fr 1fr}.sbox{padding:22px 16px}}
+@media print{.sheet{display:none!important}.noprint{display:none!important}}
 .tp{width:42px;height:42px;border-radius:9px;object-fit:cover;flex:none;border:1px solid var(--g3);background:#000;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
 .tp:hover{transform:scale(2.6);box-shadow:0 14px 40px rgba(0,0,0,.7);position:relative;z-index:4}
 .tp.lg{width:54px;height:54px;border-radius:12px}
@@ -659,7 +745,13 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="legend"><span><i style="background:var(--or)"></i>Issued</span><span><i style="background:var(--si)"></i>Already back</span></div>
 <div id="hourly"></div><div class="foot" id="hourfoot"></div></div>
 <div class="card"><h3>Who has the gear now</h3><div class="bars" id="cos"></div><div class="foot" id="cofoot"></div></div>
-</div></section>
+</div><div class="card noprint" style="margin-top:16px"><h3>On-hire report</h3><div class="dl">
+<a class="btn" href="onhire.pdf" download="MMG On-Hire Report.pdf">Download PDF</a>
+<a class="btn" href="onhire.xlsx" download="MMG On-Hire Report.xlsx">Download Excel</a>
+<a class="btn ghost" id="mailbtn" href="#">Email it</a>
+<button class="btn ghost" data-open="oh:">View the full list</button>
+<span class="foot" style="margin:0" id="dlfoot"></span></div></div>
+</section>
 
 <section class="reveal pb"><div class="sh"><div class="no">02</div><h2>Utilisation</h2></div>
 <p class="sd" id="sd2"></p>
@@ -711,7 +803,12 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 </div>
 </section>
 
-<section class="reveal pb"><div class="sh"><div class="no">08</div><h2>Trends</h2></div>
+<section class="reveal pb" id="pplsec"><div class="sh"><div class="no">08</div><h2>People</h2></div>
+<p class="sd" id="sdp"></p>
+<div class="card"><input class="psearch noprint" id="psearch" placeholder="Search a person or company" autocomplete="off"><div id="plist"></div><div class="foot" id="pfoot"></div></div>
+</section>
+
+<section class="reveal pb"><div class="sh"><div class="no">09</div><h2>Trends</h2></div>
 <p class="sd" id="sd6"></p>
 <div class="grid g2e">
 <div class="card"><h3>This shut, pull by pull</h3><div id="trend"></div><div class="foot" id="trendfoot"></div></div>
@@ -720,7 +817,7 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="card" style="margin-top:16px"><h3>Tool issues per day — the MMG range</h3><div class="cyls" id="htools" style="justify-content:space-around"></div><div class="foot" id="htoolsfoot"></div></div>
 </section>
 
-<section class="reveal"><div class="sh"><div class="no">09</div><h2>What each figure means</h2></div>
+<section class="reveal"><div class="sh"><div class="no">10</div><h2>What each figure means</h2></div>
 <div class="defs" id="defs"></div></section>
 
 <footer><div><b>Author: Andrew Fisher | POWERED BY SITEIQ</b><br>Built from SiteIQ exports for MMG Shutdown November 2026. No figure on this page is estimated.</div>
@@ -870,7 +967,7 @@ const unit=()=>mode=='tools'?'items':'units';
 $('#sdc').textContent=`Everything in the store, sorted into ${CAT.tools.length} tooling and ${CAT.cons.length} consumable categories. Pick a category to see each kind with its sizes in order, smallest to largest.`;
 function panel(){const c=CAT[mode][open];let i=0;
 $('#catpanel').innerHTML=`<div class="cph"><h4>${esc(c.name)}</h4><span class="hint">Smallest → largest</span><span class="tot">${fmt(c.n)} ${unit()} · ${c.kinds.length} kinds${mode=='tools'&&c.o?` · ${c.o} out now`:''}</span></div>`+
-c.kinds.map(k=>`<div class="krow"><div class="kn">${pic(k.pic,'lg',mode=='tools')}<span>${esc(k.name)}<small>${fmt(k.n)} ${unit()}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}" style="--i:${Math.min(i++,60)}"${s.o?` title="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('')}
+c.kinds.map((k,ki)=>`<div class="krow" data-open="k:${mode}:${open}:${ki}"><div class="kn">${pic(k.pic,'lg',mode=='tools')}<span>${esc(k.name)}<small>${fmt(k.n)} ${unit()}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}" style="--i:${Math.min(i++,60)}"${s.o?` title="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('')}
 function tiles(){const L=CAT[mode],mx=Math.max(...L.map(c=>c.n));
 $('#cats').innerHTML=L.map((c,i)=>`<button class="cat${i==open?' on':''}" data-i="${i}" style="--i:${i}"><div class="cn"><span data-n="${c.n}">0</span><small>${unit()}</small></div><div class="ct">${esc(c.name)}</div><div class="cs">${c.kinds.length} kinds · ${c.lines} sizes${mode=='tools'&&c.o?` · ${c.o} out`:''}</div><i class="cm" data-w="${(c.n/mx*100).toFixed(1)}"></i></button>`).join('');
 $('#cats').querySelectorAll('[data-n]').forEach(countUp);
@@ -891,9 +988,84 @@ $('#defs').innerHTML=[
 ['Minimum and maximum','Set per line from what recent MMG shuts drew per day: minimum = the busiest day seen or two days\' use; maximum = seven counter days.'],
 ['Categories and sizes','Each item is placed in a category by its SiteIQ description, grouped by kind, and its sizes are read off the description and listed smallest to largest. An orange dot marks a size with items out now.'],
 ['How the store runs','Averages per whole shift day (05:00 to 04:59) across MMG shuts. A transaction is one tool issued, one tool returned or one consumable issue. Day shift is 06:00 to 18:00 and night shift 18:00 to 06:00. People and companies are counted once a day.'],
+['Returns rating','Out of 5, for anyone with at least 5 tools on record. Everything returned and 80% or more back within the same shift (12 hours) is 5; 60% is 4.5; 40% is 4; 20% is 3.5; under that is 3. Any tool not returned by the end of a shut caps the rating at 2.'],
+['Consumable flags','A person is flagged for a consumable type when their units a shut are above the level nine in ten people stay under, and at least 6 units.'],
 ['Trends','Each pull adds a point. Nothing is drawn for a pull that has not happened.']].map(d=>`<p><b>${d[0]}.</b> ${esc(d[1])}</p>`).join('');
 $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
 
+// detail sheets: click anything marked data-open
+{const PB={};D.people.forEach(p=>PB[p.key]=p);
+const lc=t=>t.startsWith('PPE')?t:t[0].toLowerCase()+t.slice(1);
+const stars=(r,c)=>r==null?'':`<span class="stars${c?' '+c:''}" style="--p:${r/5*100}%" title="${r} out of 5">★★★★★</span>`;
+const tbl=(h,rows)=>`<div class="tscroll"><table class="t"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
+const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}</td><td>${esc(r.item)}</td><td>${r.date} ${r.time}</td></tr>`;
+const stat=a=>`<div class="sstats">${a.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
+const pct=v=>v==null?'–':Math.round(v*100)+'%';
+const V={
+co(n){const rs=D.onhire.filter(r=>r.co==n),ppl=[...new Set(rs.map(r=>r.pk))];
+ return `<div class="sh1"><div><h3>${esc(n)}</h3><div class="ssub">${rs.length} items on hire · ${ppl.length} people</div></div></div>`+
+ `<h5>People</h5><div class="chips">${ppl.map(k=>{const p=PB[k]||{name:k};return `<span class="chip" data-open="p:${esc(k)}"><b>${rs.filter(r=>r.pk==k).length}</b>${esc(p.name)} ${stars(p.rating,'sm')}</span>`}).join('')}</div>`+
+ `<h5>On hire now</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1)))},
+p(k){const p=PB[k];if(!p)return '<h3>No record</h3>';const rs=D.onhire.filter(r=>r.pk==k);
+ const rate=p.rating!=null?`${stars(p.rating)} <b style="font-size:18px;margin-left:8px">${p.rating} / 5</b><div class="ssub">Returns rating</div>`:`<div class="ssub">No returns rating yet: fewer than 5 tools on record.</div>`;
+ const why=p.rating==null?'':p.left>0?`<div class="flag"><b>${p.left} tool${p.left>1?'s':''} not returned</b> by the end of a shut.</div>`:`<div class="good">Returned everything: ${fmt(p.ret)} of ${fmt(p.iss)} tools. ${pct(p.w12)} were back within the same shift (12 hours).</div>`;
+ const flags=p.flags.map(f=>`<div class="flag"><b>High ${esc(lc(f.type))} use:</b> ${f.units} units a shut. Most people who draw them take about ${f.typical}.</div>`).join('');
+ const cmax=Math.max(1,...p.cons.map(c=>c.units));
+ return `<div class="sh1"><div><h3>${esc(p.name)}</h3><div class="ssub" data-open="co:${esc(p.co)}">${esc(p.co)}${p.now?` · <span style="color:var(--ok)">${p.now} items out now</span>`:''}</div></div></div>`+
+ `<div style="margin-top:10px">${rate}</div>${why}${flags}`+
+ stat([[fmt(p.iss),'Tools issued'],[fmt(p.ret),'Tools returned'],[pct(p.w12),'Back same shift'],[p.hold==null?'–':p.hold+' h','Typical time out']])+
+ (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Issued'],rs.map(r=>ohRow(r,0))):'')+
+ (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="bars wide">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm">${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></div><div class="tr"><div class="fl" style="width:${(c.units/cmax*100).toFixed(1)}%"></div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
+ (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
+ (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
+t(k){const t=D.tools[k];if(!t)return '<h3>No record</h3>';const rs=D.onhire.filter(r=>r.dk==k);
+ return `<div class="sh1">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${t.site} in the store</div></div></div>`+
+ stat([[t.site,'In the store'],[t.on,'Out now'],[t.site-t.on,'On the shelf'],[t.best||'–','Busiest seen at MMG']])+
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Issued'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td>${esc(r.item)}</td><td>${r.date} ${r.time}</td></tr>`)):'<div class="good">All on the shelf right now.</div>')},
+k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));
+ return `<div class="sh1">${k.pic!=null&&D.pics[k.pic]?`<img src="${D.pics[k.pic]}" alt="">`:''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div></div></div>`+
+ `<h5>Sizes, smallest to largest</h5>`+tbl(['Size','In the store'].concat(m=='tools'?['Out now']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1))):'')},
+ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
+ return `<div class="sh1"><div><h3>${esc(n)}</h3><div class="ssub">${ls.length} lines · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div>`+
+ tbl(['Line','On shelf','Minimum','Maximum','Used a day',''],ls.map(l=>`<tr><td>${esc(l.name)}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill">Top up</span>':''}</td></tr>`))},
+cl(n){const l=D.clines.find(x=>x.name==n);if(!l)return '<h3>No record</h3>';
+ return `<div class="sh1"><div><h3>${esc(l.name)}</h3><div class="ssub" data-open="ct:${esc(l.type)}">${esc(l.type)}</div></div></div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+
+ (l.min!=null&&l.have<l.min?`<div class="flag"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="good">About ${Math.floor(l.have/l.pd)} days of stock at the usual rate.</div>`:'')},
+oh(){const cos=[...new Set(D.onhire.map(r=>r.co))];
+ return `<div class="sh1"><div><h3>On hire now</h3><div class="ssub">${D.onhire.length} items · ${cos.length} companies · SiteIQ pull ${esc(D.asat)}</div></div></div>`+
+ cos.map(c=>`<h5 data-open="co:${esc(c)}">${esc(c)} <span class="more">open</span></h5>`+tbl(['Person','Item','Item number','Issued'],D.onhire.filter(r=>r.co==c).map(r=>ohRow(r,1)))).join('')}};
+const sh=document.createElement('div');sh.className='sheet';sh.innerHTML='<div class="sbox"><button class="sx" aria-label="Close">×</button><div id="sbody"></div></div>';document.body.appendChild(sh);
+const close=()=>sh.classList.remove('on');
+function openS(key){const i=key.indexOf(':'),kind=key.slice(0,i),arg=key.slice(i+1);if(!V[kind])return;$('#sbody').innerHTML=V[kind](arg);sh.classList.add('on');sh.scrollTop=0;
+ const b=sh.querySelector('.sbox');b.style.animation='none';void b.offsetWidth;b.style.animation=''}
+document.addEventListener('click',e=>{if(e.target===sh||e.target.closest('.sx'))return close();const el=e.target.closest('[data-open]');if(el){e.preventDefault();openS(el.dataset.open)}});
+document.addEventListener('keydown',e=>{if(e.key=='Escape')close()});
+// tag what is on the page
+const tagRows=(sel,fn)=>document.querySelectorAll(sel).forEach((el,i)=>{const k=fn(i,el);if(k)el.dataset.open=k});
+tagRows('#cos .row',i=>'co:'+D.companies[i].name);
+tagRows('#hirers .row',i=>'p:'+D.hirers[i].pk);
+tagRows('#tutil .row',(i,el)=>{const n=D.tools_util[i].name.toUpperCase();return D.tools[n]?'t:'+n:''});
+tagRows('#kinds .cyl',i=>{const n=D.kinds[i].name.toUpperCase();return D.tools[n]?'t:'+n:''});
+tagRows('#ctypes .cyl',i=>'ct:'+D.cons_types[i].name);
+tagRows('#ctop .row',i=>'cl:'+D.cons_top[i].name);
+tagRows('#below tr',i=>i?'cl:'+D.below[i-1].line:'');
+tagRows('#octypes .row',i=>'ct:'+D.ops.cons_types[i].name);
+tagRows('#oclines .row',i=>D.clines.find(l=>l.name==D.ops.cons_lines[i].name)?'cl:'+D.ops.cons_lines[i].name:'');
+tagRows('#kpis .kpi',i=>i<2?'oh:':'');
+// on-hire downloads
+const cosN=D.companies.map(c=>`${c.name}: ${c.n}`).join('%0D%0A');
+$('#mailbtn').href=`mailto:?subject=${encodeURIComponent('MMG tool store – on-hire report, '+D.asat)}&body=${encodeURIComponent('On hire as at the SiteIQ pull of '+D.asat+': '+D.onhire.length+' items with '+D.companies.length+' companies.')}%0D%0A%0D%0A${cosN}%0D%0A%0D%0A${encodeURIComponent('The full report and the PDF and Excel copies are on the tool store report site'+(location.protocol.startsWith('http')?': '+location.origin+'/':'.'))}`;
+$('#dlfoot').textContent=`${D.onhire.length} items · SiteIQ pull ${D.asat}. Email opens a draft in your mail app; nothing is sent until you press send.`;
+// people
+const rowP=p=>`<div class="prow" data-open="p:${esc(p.key)}"><div class="pn">${esc(p.name)}</div><div class="pc">${esc(p.co)}</div><div>${p.rating!=null?stars(p.rating,'sm')+' <span style="color:var(--mu);font-size:12px">'+p.rating+'</span>':'<span style="color:var(--dim);font-size:12px">no rating yet</span>'}</div><div>${p.now?`<span class="badge now">${p.now} out now</span>`:''}${p.flags.map(f=>`<span class="badge fl">High ${esc(lc(f.type))}</span>`).join('')}</div></div>`;
+function listP(q){q=(q||'').trim().toUpperCase();const all=D.people.filter(p=>!q||p.name.toUpperCase().includes(q)||p.co.toUpperCase().includes(q)),show=all.slice(0,q?40:14);
+ $('#plist').innerHTML=show.map(rowP).join('')||'<div class="empty">No one by that name.</div>';
+ $('#pfoot').textContent=`Showing ${show.length} of ${all.length}. People with gear out now are listed first.${q?'':' Search to find anyone.'}`}
+const rated=D.people.filter(p=>p.rating!=null),fl=D.people.filter(p=>p.flags.length);
+$('#sdp').textContent=`${fmt(D.people.length)} people on record. ${rated.length} have a returns rating; ${rated.filter(p=>p.rating>=4.5).length} of them rate 4.5 or better. ${fl.length} are flagged for high use of a consumable type. Click anyone for their record.`;
+$('#psearch').addEventListener('input',e=>listP(e.target.value));listP('');
+document.querySelectorAll('.card h3').forEach(h=>{const c=h.parentElement;if(c.querySelector('[data-open]')&&!h.querySelector('.more'))h.insertAdjacentHTML('beforeend','<span class="more noprint">click a row for more</span>')})}
 // motion
 function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'';if(STATIC){el.textContent=(dec?t.toFixed(dec):fmt(t))+suf;return}
 const t0=performance.now(),dur=1600;(function f(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3),v=t*e;el.textContent=(dec?v.toFixed(dec):fmt(Math.round(v)))+suf;if(p<1)requestAnimationFrame(f)})(t0)}
@@ -917,6 +1089,83 @@ def _logo(path):
         return "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
 
 
+def write_onhire(data, folder):
+    """The on-hire report as an Excel file and a printable page. No costs."""
+    import openpyxl
+    from openpyxl.styles import Alignment, Font, PatternFill
+    os.makedirs(folder, exist_ok=True)
+    rows = data["onhire"]
+    head = "Author: Andrew Fisher | POWERED BY SITEIQ   ·   SiteIQ pull " + data["asat"]
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "On hire"
+    F = lambda **k: Font(name="Inter", size=k.pop("size", 10), **k)
+    slate, orange = PatternFill("solid", fgColor="2A313C"), PatternFill("solid", fgColor="F26222")
+    cols = ["Company", "Person", "Item number", "Description", "Owner", "Issued", "Time"]
+    for c in range(1, len(cols) + 1):
+        ws.cell(1, c).fill = slate
+        ws.cell(2, c).fill = orange
+    ws["A1"] = "{} - ON-HIRE REPORT".format(data["job"]["title"].upper())
+    ws["A1"].font = F(size=14, bold=True, color="FFFFFF")
+    ws["A2"] = "{} items on hire to {} companies".format(len(rows), len({r["co"] for r in rows}))
+    ws["A2"].font = F(size=9, bold=True, color="FFFFFF")
+    ws["A3"] = head
+    ws["A3"].font = F(size=8, italic=True, color="5A6270")
+    for j, v in enumerate(cols, 1):
+        c = ws.cell(5, j, v)
+        c.font = F(bold=True, color="FFFFFF")
+        c.fill = slate
+    for i, r in enumerate(rows, 6):
+        for j, v in enumerate((r["co"], r["who"], r["item"], r["desc"], r["own"], r["date"], r["time"]), 1):
+            ws.cell(i, j, v).font = F()
+    for col, w in zip("ABCDEFG", (22, 24, 24, 48, 12, 14, 9)):
+        ws.column_dimensions[col].width = w
+    ws.freeze_panes = "A6"
+    ws.auto_filter.ref = "A5:G{}".format(max(6, 5 + len(rows)))
+    w2 = wb.create_sheet("By company")
+    for c in range(1, 4):
+        w2.cell(1, c).fill = slate
+    w2["A1"] = "ON HIRE BY COMPANY"
+    w2["A1"].font = F(size=14, bold=True, color="FFFFFF")
+    w2["A2"] = head
+    w2["A2"].font = F(size=8, italic=True, color="5A6270")
+    for j, v in enumerate(("Company", "Items on hire", "People"), 1):
+        c = w2.cell(4, j, v)
+        c.font = F(bold=True, color="FFFFFF")
+        c.fill = slate
+    by = collections.OrderedDict()
+    for r in rows:
+        by.setdefault(r["co"], []).append(r)
+    for i, (co, rs) in enumerate(sorted(by.items(), key=lambda kv: -len(kv[1])), 5):
+        w2.cell(i, 1, co).font = F()
+        w2.cell(i, 2, len(rs)).font = F()
+        w2.cell(i, 3, len({r["who"] for r in rs})).font = F()
+    w2.cell(5 + len(by), 1, "Total").font = F(bold=True)
+    w2.cell(5 + len(by), 2, "=SUM(B5:B{})".format(4 + len(by))).font = F(bold=True)
+    for col, w in zip("ABC", (28, 16, 12)):
+        w2.column_dimensions[col].width = w
+    wb.properties.creator = "Andrew Fisher"
+    wb.save(os.path.join(folder, "onhire.xlsx"))
+    esc = lambda t: str(t).replace("&", "&amp;").replace("<", "&lt;")
+    body = ""
+    for co, rs in sorted(by.items(), key=lambda kv: -len(kv[1])):
+        body += "<h2>{} <span>{} on hire</span></h2><table><tr><th>Person</th><th>Description</th><th>Item number</th><th>Owner</th><th>Issued</th></tr>".format(esc(co), len(rs))
+        body += "".join("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{} {}</td></tr>".format(esc(r["who"]), esc(r["desc"]), esc(r["item"]), esc(r["own"]), r["date"], r["time"]) for r in rs) + "</table>"
+    page = ("<!doctype html><html lang=\"en-AU\"><meta charset=\"utf-8\"><title>On-hire report</title><style>"
+            "@page{size:A4;margin:14mm}body{font-family:Inter,Arial,sans-serif;color:#1B2028;font-size:10.5px}"
+            ".top{background:#2A313C;color:#fff;padding:14px 18px;border-bottom:4px solid #F26222}.top b{color:#F26222;letter-spacing:.18em}"
+            "h1{font-size:20px;margin:6px 0 2px}.sub{color:#cfd6df;font-size:11px}h2{font-size:14px;margin:18px 0 6px;border-bottom:2px solid #F26222;padding-bottom:3px}"
+            "h2 span{font-weight:400;color:#5A6270;font-size:11px;margin-left:8px}table{width:100%;border-collapse:collapse;break-inside:auto}"
+            "th{text-align:left;background:#F4F5F7;padding:5px 6px;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em}td{padding:5px 6px;border-bottom:1px solid #E3E6EA}"
+            "tr{break-inside:avoid}.ft{margin-top:18px;color:#5A6270;font-size:9.5px}</style>"
+            "<div class=\"top\"><b>COATES</b><h1>@T · On-hire report</h1><div class=\"sub\">@N items on hire to @C companies · SiteIQ pull @A</div></div>@B"
+            "<div class=\"ft\">Author: Andrew Fisher | POWERED BY SITEIQ · SiteIQ pull @A</div></html>")
+    for k_, v_ in (("@T", esc(data["job"]["title"])), ("@N", str(len(rows))), ("@C", str(len(by))), ("@A", data["asat"]), ("@B", body)):
+        page = page.replace(k_, v_)
+    with open(os.path.join(folder, "onhire.html"), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
 def render(data, fonts, logo=None, client="MMG"):
     face = "".join("@font-face{{font-family:Inter;font-weight:{w};font-style:normal;src:url(data:font/woff;base64,{b}) format('woff')}}\n"
                    .format(w=w, b=b) for w, b in sorted(fonts.items()))
@@ -938,6 +1187,8 @@ def main(argv=None):
     ap.add_argument("--shuts")
     ap.add_argument("--ops", help="average-day figures from build_store_ops.py")
     ap.add_argument("--pictures", help="folder of a tool pictures pack (kept outside git)")
+    ap.add_argument("--people", help="people profiles from build_people.py (kept outside git)")
+    ap.add_argument("--onhire-out", help="folder to write onhire.xlsx and onhire.html (the downloadable on-hire report)")
     ap.add_argument("--day-keeper", default="")
     ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
@@ -945,7 +1196,9 @@ def main(argv=None):
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     a = ap.parse_args(argv)
     kit = _kit()
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures)
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    if a.onhire_out:
+        write_onhire(data, a.onhire_out)
     html = render(data, _fonts(a.kit_folder), _logo(a.logo))
     with open(a.out_html, "w", encoding="utf-8") as f:
         f.write(html)

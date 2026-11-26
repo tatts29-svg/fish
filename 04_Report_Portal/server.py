@@ -7,8 +7,8 @@ served without a login, and the report itself is never in git: it lives in
 DATA_DIR (a volume on the host).
 
     GET  /             the report (client or manager login)
-    GET  /report.pdf   the print copy, when one is loaded
-    PUT  /upload/report.html | /upload/report.pdf   manager login only
+    GET  /report.pdf, /onhire.pdf, /onhire.xlsx   the print copy and the on-hire report, when loaded
+    PUT  /upload/<one of those names>   manager login only
     GET  /health       "ok", no login (for the host's health check)
 
 Settings (environment): CLIENT_USERNAME, CLIENT_PASSWORD, MANAGER_USERNAME,
@@ -25,7 +25,9 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 MAX_UPLOAD = 25 * 1024 * 1024
-FILES = {"report.html": "text/html; charset=utf-8", "report.pdf": "application/pdf"}
+FILES = {"report.html": "text/html; charset=utf-8", "report.pdf": "application/pdf", "onhire.pdf": "application/pdf",
+         "onhire.xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
+MAGIC = {".html": b"<!doctype html", ".pdf": b"%PDF", ".xlsx": b"PK"}
 FAIL_LIMIT, FAIL_WINDOW = 10, 600
 _fails, _lock = {}, threading.Lock()
 
@@ -120,17 +122,17 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0]
         if path == "/health":
             return self._send(200, b"ok", "text/plain")
-        if path not in ("/", "/report.pdf"):
+        name = "report.html" if path == "/" else path[1:]
+        if name not in FILES or path == "/report.html":
             return self._send(404, b"Not found", "text/plain")
         if not self._role():
             return
-        name = "report.html" if path == "/" else "report.pdf"
         try:
             with open(os.path.join(DATA_DIR, name), "rb") as f:
                 body = f.read()
         except OSError:
-            if name == "report.pdf":
-                return self._send(404, b"No print copy is loaded yet.", "text/plain")
+            if name != "report.html":
+                return self._send(404, b"That file is not loaded yet.", "text/plain")
             body = EMPTY.encode("utf-8")
         self._send(200, body, FILES[name])
 
@@ -153,7 +155,7 @@ class Handler(BaseHTTPRequestHandler):
         if not 0 < size <= MAX_UPLOAD:
             return self._send(413, b"Too large.", "text/plain")
         body = self.rfile.read(size)
-        want = b"%PDF" if name.endswith(".pdf") else b"<!doctype html"
+        want = MAGIC[os.path.splitext(name)[1]]
         if len(body) != size or not body[:64].lower().lstrip().startswith(want.lower()):
             return self._send(400, b"That is not the expected kind of file.", "text/plain")
         os.makedirs(DATA_DIR, exist_ok=True)
