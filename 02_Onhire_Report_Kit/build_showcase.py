@@ -145,6 +145,23 @@ _TAG = [((12, 1, 2), "Red", "#E5322D", "Dec to Feb"), ((3, 4, 5), "Green", "#2FA
         ((6, 7, 8), "Blue", "#2F6FE0", "Jun to Aug"), ((9, 10, 11), "Yellow", "#F5C518", "Sep to Nov")]
 
 
+def qr_rows(text):
+    """The QR code for a SiteIQ barcode, as one hex number per row (bit set = dark
+    module, no quiet zone), led by the width: "25:1fc...,...". None when there is
+    no code or the qrcode package is not installed."""
+    if not text:
+        return None
+    try:
+        import qrcode
+    except ImportError:
+        return None
+    q = qrcode.QRCode(border=0, error_correction=qrcode.constants.ERROR_CORRECT_M)
+    q.add_data(text)
+    q.make(fit=True)
+    m = q.get_matrix()
+    return "{}:{}".format(len(m), ",".join(format(int("".join("1" if c else "0" for c in row), 2), "x") for row in m))
+
+
 def tag_colour(day):
     for months, name, hexv, span in _TAG:
         if day.month in months:
@@ -367,7 +384,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                        "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
                        "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
                        "most": peaks.get(sku, {}).get("most"),
-                       "code": (re.findall(r"(\d{6,})\s*$", str(r.get("SKU_BARCODE") or "")) or [""])[0]})
+                       "code": (re.findall(r"(\d{6,})\s*$", str(r.get("SKU_BARCODE") or "")) or [""])[0],
+                       "sku": sku, "bar": kit._s(r.get("SKU_BARCODE")), "qr": qr_rows(kit._s(r.get("SKU_BARCODE")))})
     clines.sort(key=lambda c: c["name"].lower())
 
     counter_start = dt.date(2026, 11, 25)
