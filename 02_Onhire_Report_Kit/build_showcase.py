@@ -622,29 +622,85 @@ def render(data, fonts, logo=None, client="MMG"):
             .replace("__LOGO__", logo or "").replace("__DATA__", blob))
 
 
+def _shared_name(names):
+    """One label for a group of tools that differ only in size: the parts their
+    names share. "Socket - Impact - Long - 30mm - 3/4 Inch Drive" and its 32mm
+    twin give "Socket - Impact - Long - 3/4 Inch Drive"."""
+    parts = [n.split(" - ") for n in names]
+    if len(parts) == 1:
+        return names[0]
+    head = 0
+    while all(len(x) > head for x in parts) and len({x[head] for x in parts}) == 1:
+        head += 1
+    tail = 0
+    while all(len(x) - head > tail for x in parts) and len({x[-1 - tail] for x in parts}) == 1:
+        tail += 1
+    out = parts[0][:head] + (parts[0][len(parts[0]) - tail:] if tail else [])
+    return " - ".join(out) if out else names[0]
+
+
+def _size_mm(label):
+    """A size label as millimetres, for putting sizes in order. Unknown labels go last."""
+    m = re.fullmatch(r"(\d+(?:\.\d+)?)mm", label or "")
+    if m:
+        return float(m.group(1))
+    m = re.fullmatch(r"(?:(\d+) )?(?:(\d+)/(\d+) )?Inch", (label or "").replace(" Inch", " Inch").replace("  ", " ")) if "Inch" in (label or "") else None
+    m = re.fullmatch(r"(\d+)?\s?(?:(\d+)/(\d+))?\s?Inch", label or "")
+    if m and (m.group(1) or m.group(2)):
+        return (float(m.group(1) or 0) + (float(m.group(2)) / float(m.group(3)) if m.group(2) else 0)) * 25.4
+    return float("inf")
+
+
 def plain_tool_names(data, path):
-    """Swap SiteIQ tool descriptions for the plain names in a checked list
-    (a CSV with 'SiteIQ description' and 'Plain name'). A description that is
-    not on the list is shown as SiteIQ has it. The original stays on each tool
-    as "raw", so the page can still show it and the item numbers still match."""
+    """Swap SiteIQ tool descriptions for the names in a checked list (a CSV with
+    'SiteIQ description' and 'Plain name'). Every place a tool is named uses the
+    clean name, and the SiteIQ wording is not shown anywhere; the product variant
+    is what ties a tool back to SiteIQ. A description that is not on the list is
+    left as SiteIQ has it and counted, so the build can say so."""
     import csv
     with open(path, encoding="utf-8-sig", newline="") as f:
         look = {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
     name = lambda n: look.get(str(n).strip().upper(), n)
+    missed = [t["name"] for t in data["tools"].values() if t["name"].strip().upper() not in look]
     for t in data["tools"].values():
-        t["raw"], t["name"] = t["name"], name(t["name"])
+        t["name"] = name(t["name"])
     for key in ("kinds", "tools_util"):
         for t in data.get(key) or []:
             t["dk"], t["name"] = t["name"].upper(), name(t["name"])
     for r in data.get("onhire") or []:
-        r["raw"], r["desc"] = r["desc"], name(r["desc"])
+        r["desc"] = name(r["desc"])
     for g in (data.get("tagged") or {}).get("groups", []):
         for k in g.get("kinds", []):
             k["name"] = name(k["name"])
     for person in data.get("people") or []:
         for t in person.get("tools") or []:
             t["name"] = name(t["name"])
-    return len(look)
+    for cat in (data.get("cat") or {}).get("tools", []):       # the browser: each group takes the name its tools share
+        for k in cat.get("kinds", []):
+            if k.get("d"):
+                k["name"] = _shared_name(sorted({name(d) if d in look else data["tools"].get(d, {}).get("name", d) for d in k["d"]}))
+            for z in k.get("sizes", []):
+                z["s"] = re.sub(r"(\d)in\b", r"\1 Inch", z.get("s") or "")
+        merged = collections.OrderedDict()                     # groups that now share a name become one
+        for k in cat.get("kinds", []):
+            m = merged.get(k["name"])
+            if m is None:
+                merged[k["name"]] = k
+                continue
+            m["n"], m["o"] = m["n"] + k["n"], m.get("o", 0) + k.get("o", 0)
+            m["d"] = sorted(set(m.get("d") or []) | set(k.get("d") or []))
+            if m.get("pic") is None:
+                m["pic"] = k.get("pic")
+            sizes = collections.OrderedDict((z["s"], z) for z in m["sizes"])
+            for z in k["sizes"]:
+                if z["s"] in sizes:
+                    sizes[z["s"]]["n"] += z["n"]
+                    sizes[z["s"]]["o"] = sizes[z["s"]].get("o", 0) + z.get("o", 0)
+                else:
+                    sizes[z["s"]] = z
+            m["sizes"] = sorted(sizes.values(), key=lambda z: _size_mm(z["s"]))
+        cat["kinds"] = sorted(merged.values(), key=lambda k: k["name"].lower())
+    return missed
 
 
 def main(argv=None):
@@ -668,7 +724,9 @@ def main(argv=None):
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
     if a.tool_names:
-        plain_tool_names(data, a.tool_names)
+        missed = plain_tool_names(data, a.tool_names)
+        if missed:
+            print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())

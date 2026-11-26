@@ -836,7 +836,8 @@ $('#defs').innerHTML=[
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Tested by Coates','Coates electrical gear, and rigging, lifting and fall-arrest gear, is tested by Coates and carries the quarter\'s tag colour: Dec to Feb red, Mar to May green, Jun to Aug blue, Sep to Nov yellow.'],
 ['Utilisation',`Items out with crews as a share of the items of that kind in the store, at the time of the pull. "Busiest seen" is the most of that tool ever out at once at ${CLIENT}.`],
-['Categories and sizes','Each item is placed in a category by its SiteIQ description, grouped by kind, and its sizes are read off the description and listed smallest to largest. An orange dot marks a size with items out now.'],
+['Tool names','Tools are named the Coates way: what it is, then its type, size and drive. The product variant is unchanged and ties each tool back to SiteIQ.'],
+['Categories and sizes','Each item is placed in a category, grouped by kind, and its sizes are listed smallest to largest. An orange dot marks a size with items out now.'],
 ['Consumable units',`Units on the shelf across ${CLIENT}'s consumable lines, from SiteIQ sales stock.`],
 ['Minimum and maximum',`Set per line from what recent ${CLIENT} shuts drew per day: the minimum is the busiest day seen or two days' use; the maximum is seven counter days.`],
 ['Busiest days on past shuts',`For each consumable line, the usual busiest day is the average of the busiest day in each past shut that drew it. The busiest day on record is the single highest day. Most in one shut is the highest total drawn across one shut's days on file.`],
@@ -907,7 +908,7 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
 t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
- return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store${t.raw&&t.raw!=t.name?` · in SiteIQ as "${esc(t.raw)}"`:''}</div></div></div>`+
+ return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store${t.var?` · product variant ${esc(t.var)}`:''}</div></div></div>`+
  stat([[t.site,'In the store'],[t.on,'Out now'],[t.site-t.on,'On the shelf'],[t.best||'–','Busiest seen']])+
  (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Issued'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`)):'<div class="note g"><b>All on the shelf</b> right now.</div>')},
 k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));

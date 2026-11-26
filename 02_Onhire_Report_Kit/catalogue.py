@@ -18,7 +18,7 @@ TOOL_CATS = [
     ("Sockets and drive tools", r"SOCKET|RATCHET|TORQUE|ALLEN KEY|INHEX"),
     ("Cordless tools and batteries", r"BATTERY|CORDLESS|MILWAUKEE|\b18V\b|\bM18\b"),
     ("Electrical and power", r"EXTENSION LEAD|EARTH LEAKAGE|DISTRIBUTION BOARD|LEAD STAND|CABLE HOOK|240V|415V|ADAPTOR 415"),
-    ("Spanners, shifters and stilsons", r"SPANNER|ADJUSTABLE|STILS[EO]N|FLOGGER|PODGER|\bWRENCH\b"),
+    ("Spanners, shifters and stillsons", r"SPANNER|ADJUSTABLE|STILS[EO]N|FLOGGER|PODGER|\bWRENCH\b"),
     ("Hammers, bars and punches", r"HAMMER|MALLET|PINCH BAR|CROW BAR|PODGE BAR|PUNCH|CHISEL|\bSTAMP\b"),
     ("Air tools and hoses", r"\bAIR\b|\bHOSE\b|SCABBLER|NOZZLE"),
     ("Measuring and marking", r"\bRULE\b|COMBINATION SQUARE|FRAMING SQUARE|GAUGE|SPIRIT LEVEL|TAPE MEASURE|VERNIER|CALIPER|CALLIPER|PLUMB|STRAIGHT EDGE|MIRROR"),

@@ -62,10 +62,16 @@ class HouseStyle(unittest.TestCase):
             build_showcase.plain_tool_names(data, f.name)
         finally:
             os.unlink(f.name)
-        self.assertEqual(data["tools"]["HAMMER - CLAW"], {"name": "Claw hammer", "raw": "Hammer - Claw"})
+        self.assertEqual(data["tools"]["HAMMER - CLAW"], {"name": "Claw hammer"})        # the SiteIQ wording is not kept
         self.assertEqual(data["tools"]["BROOM"]["name"], "Broom")           # not on the list: as SiteIQ has it
         self.assertEqual(data["kinds"][0], {"name": "Claw hammer", "dk": "HAMMER - CLAW"})
-        self.assertEqual(data["onhire"][0], {"desc": "Claw hammer", "raw": "Hammer - Claw"})
+        self.assertEqual(data["onhire"][0], {"desc": "Claw hammer"})
+
+    def test_a_group_takes_the_name_its_tools_share(self):
+        self.assertEqual(build_showcase._shared_name(["Socket - Impact - Long - 30mm - 3/4 Inch Drive", "Socket - Impact - Long - 32mm - 3/4 Inch Drive"]),
+                         "Socket - Impact - Long - 3/4 Inch Drive")
+        self.assertEqual(build_showcase._shared_name(["Spanner - Combo - 25mm", "Spanner - Combo - 1 Inch (25.4mm)"]), "Spanner - Combo")
+        self.assertEqual(build_showcase._shared_name(["Broom"]), "Broom")
 
 
 if __name__ == "__main__":
