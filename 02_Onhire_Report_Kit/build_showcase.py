@@ -789,6 +789,7 @@ def main(argv=None):
     ap.add_argument("--day-keeper", default="")
     ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
+    ap.add_argument("--cons-pictures", help="folder of consumable pictures with an index.csv (Code, File, Use on the page), kept outside git")
     ap.add_argument("--materials", help="the client's material list (xlsx: bin, material code, description), kept outside git")
     ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
@@ -815,6 +816,21 @@ def main(argv=None):
                 bins.setdefault(str(row[1]).strip(), str(row[0]).strip())
         for ln in data["clines"]:
             ln["bin"] = bins.get(ln.get("code"))
+    data["cpics"] = []
+    if a.cons_pictures and os.path.isfile(os.path.join(a.cons_pictures, "index.csv")):
+        import csv
+        from PIL import Image
+        with open(os.path.join(a.cons_pictures, "index.csv"), encoding="utf-8-sig", newline="") as f:
+            use = {r["Code"].strip(): r["File"].strip() for r in csv.DictReader(f) if r.get("Use on the page", "").strip().lower() == "yes"}
+        for ln in data["clines"]:
+            path = os.path.join(a.cons_pictures, use.get(ln.get("code") or "", "-"))
+            if os.path.isfile(path):
+                im = Image.open(path).convert("RGB")
+                im.thumbnail((140, 140), Image.LANCZOS)
+                buf = io.BytesIO()
+                im.save(buf, "JPEG", quality=80, optimize=True)
+                ln["cp"] = len(data["cpics"])
+                data["cpics"].append("data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii"))
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())

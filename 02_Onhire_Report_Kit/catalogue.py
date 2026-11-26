@@ -128,7 +128,10 @@ def cons_clean(desc):
 # Only abbreviations with one plain reading are opened up; the rest are left as written.
 _CONS_WORDS = {"hndl": "Handle", "adhsve": "Adhesive", "gry": "Grey", "thk": "Thick", "hemet": "Helmet", "glover": "Gloves",
                "blk/ylw": "Black/Yellow", "red/wht": "Red/White", "w/flap": "with Flap", "c/w": "with", "ins": "Insulation",
-               "elec": "Electrical", "rnd": "Round", "sq": "Square", "pvc": "PVC", "hd": "HD"}
+               "elec": "Electrical", "rnd": "Round", "sq": "Square", "pvc": "PVC", "hd": "HD",
+               # confirmed against the supplier's listings
+               "brk": "Brake", "gal": "Galvanising", "trans": "Translucent", "tpr": "Taper", "hc": "Hard Coat",
+               "rd": "Red", "ss": "Stainless Steel", "u/sonic": "Ultrasonic", "sit": "SIT"}
 _CONS_BRAND_3M = ("RESPIRATOR", "FILTER", "SWEATBAND")
 _SMALL = {"with", "to", "for", "of", "and", "x"}
 
