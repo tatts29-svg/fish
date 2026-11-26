@@ -374,6 +374,19 @@ header.top .wrap{display:flex;align-items:center;gap:16px;height:58px}
 .top .asat b{color:var(--tx);font-weight:600}
 .rule{height:3px;background:linear-gradient(90deg,var(--or),var(--lit) 40%,rgba(242,98,34,0) 100%)}
 .hero{padding:56px 0 26px;position:relative}
+.herogrid{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center}
+.toplogo{height:30px;width:auto;display:block}
+.clientcard{position:relative;width:250px;padding:26px 30px 20px;border-radius:22px;text-align:center;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.10);box-shadow:0 24px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.10);overflow:hidden}
+.clientcard:before{content:"";position:absolute;inset:0;background:radial-gradient(220px 160px at 50% 38%,rgba(238,39,36,.20),transparent 70%)}
+.clientcard:after{content:"";position:absolute;top:0;bottom:0;width:60%;left:-80%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.10),transparent);animation:sheen 5.5s 1.2s ease-in-out infinite}
+@keyframes sheen{0%{left:-80%}45%,100%{left:130%}}
+.clientcard img{position:relative;width:150px;height:auto;display:block;margin:0 auto;filter:drop-shadow(0 6px 22px rgba(238,39,36,.45));animation:logoin 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes logoin{from{opacity:0;transform:scale(.86) translateY(10px)}to{opacity:1;transform:none}}
+.clientcard .pf{position:relative;margin-top:16px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mu);font-weight:600}
+.clientcard .pn{position:relative;font-size:13px;color:var(--tx);font-weight:600;margin-top:4px}
+.static .clientcard:after,.static .clientcard img{animation:none}
+@media (max-width:980px){.herogrid{grid-template-columns:1fr}.clientcard{order:-1;width:100%;max-width:320px;padding:18px 20px 14px}.clientcard img{width:110px}}
+@media (prefers-reduced-motion:reduce){.clientcard:after,.clientcard img{animation:none}}
 body{background:radial-gradient(900px 380px at 12% 120px,rgba(242,98,34,.13),transparent 70%),radial-gradient(800px 360px at 92% 40px,rgba(185,195,208,.06),transparent 70%),var(--g0);background-repeat:no-repeat}
 .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--or);font-weight:600}
 h1{font-size:44px;line-height:1.08;font-weight:700;letter-spacing:-.02em;margin:12px 0 10px}
@@ -485,16 +498,18 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 </style></head>
 <body>
 <header class="top"><div class="wrap">
-<div class="brand"><b>COATES</b></div><div class="sep"></div>
+<div class="brand"><b>COATES</b></div><div class="sep"></div>__LOGO_TOP__
 <div class="what">MMG Dugald River · Shutdown Tool Store</div>
 <div class="asat">SiteIQ pull <b id="asat"></b><br>Author: Andrew Fisher | POWERED BY SITEIQ</div>
 </div><div class="rule"></div></header>
 
 <main class="wrap">
 <div class="hero reveal">
+<div class="herogrid"><div>
 <div class="eyebrow">Tool store report · November 2026 shut</div>
 <h1>MMG Dugald River <span>— day <span id="dayno"></span> at the counter</span></h1>
 <p class="lead" id="lead"></p>
+</div>__LOGO_HERO__</div>
 <div class="daybar"><div class="days" id="days"></div><div id="dayword"></div></div>
 <div class="kpis" id="kpis"></div>
 </div>
@@ -699,11 +714,23 @@ document.querySelectorAll('.reveal').forEach(s=>{if(STATIC){s.classList.add('in'
 </script></body></html>"""
 
 
-def render(data, fonts):
+def _logo(path):
+    """A client logo as a data URI, or None. The file stays outside git."""
+    if not path or not os.path.isfile(path):
+        return None
+    with open(path, "rb") as f:
+        return "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
+
+
+def render(data, fonts, logo=None, client="MMG"):
     face = "".join("@font-face{{font-family:Inter;font-weight:{w};font-style:normal;src:url(data:font/woff;base64,{b}) format('woff')}}\n"
                    .format(w=w, b=b) for w, b in sorted(fonts.items()))
     blob = json.dumps(data, ensure_ascii=False, default=str).replace("</", "<\\/")
-    return PAGE.replace("__FONTS__", face).replace("__DATA__", blob)
+    top = '<img class="toplogo" src="{}" alt="{}">'.format(logo, client) if logo else ""
+    hero = ('<div class="clientcard"><img src="{0}" alt="{1}"><div class="pf">Prepared for</div>'
+            '<div class="pn">{1} · Dugald River</div></div>'.format(logo, client) if logo else "")
+    return (PAGE.replace("__LOGO_TOP__", top).replace("__LOGO_HERO__", hero)
+            .replace("__FONTS__", face).replace("__DATA__", blob))
 
 
 def main(argv=None):
@@ -714,10 +741,11 @@ def main(argv=None):
     ap.add_argument("--shuts")
     ap.add_argument("--minmax")
     ap.add_argument("--history")
+    ap.add_argument("--logo", help="client logo PNG with a transparent background")
     a = ap.parse_args(argv)
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts)
-    html = render(data, _fonts(a.kit_folder))
+    html = render(data, _fonts(a.kit_folder), _logo(a.logo))
     with open(a.out_html, "w", encoding="utf-8") as f:
         f.write(html)
     print("Showcase  {}  ({:,} KB)  pull {}".format(a.out_html, len(html.encode()) // 1024, data["asat"]))
