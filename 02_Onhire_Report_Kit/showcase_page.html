@@ -1,5 +1,9 @@
 <!doctype html>
+<!-- Designed and built by Andrew Fisher. (c) 2026 Andrew Fisher. All rights reserved.
+     The design, layout, charts and code of this report are original work and are not to be copied,
+     reproduced or reused, in whole or in part, without written permission. -->
 <html lang="en-AU" data-theme="dark"><head><meta charset="utf-8">
+<meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>__CLIENT__ Tool Store Report</title>
 <style>
@@ -215,6 +219,7 @@ html.static .loop:after{display:none}
 .gsi mark{background:none;color:var(--ortx);font-weight:700}
 .gsr .none{padding:16px 12px;color:var(--mu);font-size:14px}
 @media (max-width:900px){.bar{flex-wrap:wrap;height:auto;min-height:56px;padding-top:6px;padding-bottom:8px;row-gap:6px}.gs{order:9;flex:1 1 100%;max-width:none;margin:0}.gs input{font-size:16px}}
+footer .cr{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--dim)}
 .askrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:14px 0 4px}
 .askrow div{border:1px solid color-mix(in srgb,var(--or) 40%,transparent);border-left:4px solid var(--or);background:var(--orbg);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--mu)}
 .askrow b{display:block;color:var(--tx);font-size:14.5px;margin-bottom:2px}
@@ -568,7 +573,7 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 .paper td.w{font-weight:700;white-space:nowrap}.paper td.m{color:#5A6472;white-space:nowrap}.paper td.o{color:#9A6400;font-size:9px;white-space:nowrap}
 .paper .pend{margin-top:16px;padding-top:8px;border-top:1px solid #E0E4EA;color:#5A6472;font-size:9px;display:flex;justify-content:space-between}
 .paper .none{padding:30px;text-align:center;color:#5A6472;border:1px dashed #E0E4EA;border-radius:8px;margin-top:14px}
-@page oh{size:A4 portrait;margin:11mm 10mm 15mm;@bottom-left{content:"Author: Andrew Fisher | POWERED BY SITEIQ";font-family:Inter,Arial,sans-serif;font-size:7.5pt;color:#5A6472}@bottom-right{content:"Page " counter(page) " of " counter(pages);font-family:Inter,Arial,sans-serif;font-size:7.5pt;color:#5A6472}}
+@page oh{size:A4 portrait;margin:11mm 10mm 15mm;@bottom-left{content:"Author: Andrew Fisher | POWERED BY SITEIQ · © 2026 Andrew Fisher. All rights reserved.";font-family:Inter,Arial,sans-serif;font-size:7.5pt;color:#5A6472}@bottom-right{content:"Page " counter(page) " of " counter(pages);font-family:Inter,Arial,sans-serif;font-size:7.5pt;color:#5A6472}}
 @media print{html.ohprint,html.ohprint body{background:#fff!important}html.ohprint body>*:not(#paperwrap){display:none!important}
 html.ohprint #paperwrap{position:static;display:block!important;background:#fff;overflow:visible;animation:none}html.ohprint .pbar,html.ohprint .pcos{display:none!important}
 html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}}
@@ -727,7 +732,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 <div class="defs" id="defs"></div>
 </section>
 
-<footer><div><b>Author: Andrew Fisher | POWERED BY SITEIQ</b><br><span id="ftjob"></span></div>
+<footer><div><b>Author: Andrew Fisher | POWERED BY SITEIQ</b><br><span id="ftjob"></span><br><span class="cr">Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. Not to be copied or reproduced without permission.</span></div>
 <div id="srcs" style="text-align:right"></div></footer>
 </main>
 
@@ -1132,7 +1137,7 @@ $('#paper').innerHTML=`<div class="ph"><div class="phl"><span class="pb">COATES<
 <div class="pcare"><b>Why it comes back to Coates:</b> every item returned is checked for safe use and cleaned by the Coates tool store team, so it is ready for the next person.</div>
 <div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest. Days on hire counts from the date of hire to the SiteIQ pull.${rs.some(r=>r.tag)?` <span style="white-space:nowrap">${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).</span>`:''}</div>
 ${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
-<div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
+<div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ · © 2026 Andrew Fisher. All rights reserved.</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
 // the email is a draft with the same filters in words and a count for each group; nothing sends itself
 const lines=keys.map(k=>`${k.split('\u0001')[0]}: ${G.get(k).length}`).join('\n');
 $('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nEquipment not being used: please return it to the Coates tool store.\nPlease check your gear each day before use.\n\nThe PDF of this report is attached.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
@@ -1166,6 +1171,7 @@ $$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg butt
 /* ---------- tabs, motion and tooltips ---------- */
 function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'',pre=el.dataset.pre||'';const put=v=>el.textContent=pre+(dec?v.toLocaleString('en-AU',{minimumFractionDigits:dec,maximumFractionDigits:dec}):fmt(Math.round(v)))+suf;
 if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
+try{console.log('%cDesigned and built by Andrew Fisher','color:#F26222;font-weight:700;font-size:14px','\n(c) 2026 Andrew Fisher. All rights reserved. This design and code are not to be copied or reused without written permission.')}catch(e){}
 /* ---------- search anything ---------- */
 if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),box=$('#gs-r'),X=[];const add=(g,n,sub,open,text,pc)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc});
 const cos=new Map();D.people.forEach(p=>{if(p.co)cos.set(p.co,(cos.get(p.co)||0)+1)});D.companies.forEach(c=>cos.has(c.name)||cos.set(c.name,0));

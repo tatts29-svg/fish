@@ -564,7 +564,7 @@ def write_onhire(data, folder):
     from openpyxl.styles import Alignment, Font, PatternFill
     os.makedirs(folder, exist_ok=True)
     rows = data["onhire"]
-    head = "Author: Andrew Fisher | POWERED BY SITEIQ   ·   SiteIQ pull " + data["asat"]
+    head = "Author: Andrew Fisher | POWERED BY SITEIQ   ·   SiteIQ pull " + data["asat"] + "   ·   © 2026 Andrew Fisher. All rights reserved."
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "On hire"
@@ -619,6 +619,7 @@ def write_onhire(data, folder):
     for col, w in zip("ABC", (28, 16, 12)):
         w2.column_dimensions[col].width = w
     wb.properties.creator = "Andrew Fisher"
+    wb.properties.description = "Designed and built by Andrew Fisher. (c) 2026 Andrew Fisher. All rights reserved."
     wb.save(os.path.join(folder, "onhire.xlsx"))
     esc = lambda t: str(t).replace("&", "&amp;").replace("<", "&lt;")
     body = ""
@@ -633,7 +634,7 @@ def write_onhire(data, folder):
             "th{text-align:left;background:#F4F5F7;padding:5px 6px;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em}td{padding:5px 6px;border-bottom:1px solid #E3E6EA}"
             "tr{break-inside:avoid}.ft{margin-top:18px;color:#5A6270;font-size:9.5px}</style>"
             "<div class=\"top\"><b>COATES</b><h1>@T · On-hire report</h1><div class=\"sub\">@N items on hire to @C companies · SiteIQ pull @A</div></div>@B"
-            "<div class=\"ft\">Author: Andrew Fisher | POWERED BY SITEIQ · SiteIQ pull @A</div></html>")
+            "<div class=\"ft\">Author: Andrew Fisher | POWERED BY SITEIQ · SiteIQ pull @A · © 2026 Andrew Fisher. All rights reserved.</div></html>")
     for k_, v_ in (("@T", esc(data["job"]["title"])), ("@N", str(len(rows))), ("@C", str(len(by))), ("@A", data["asat"]), ("@B", body)):
         page = page.replace(k_, v_)
     with open(os.path.join(folder, "onhire.html"), "w", encoding="utf-8") as f:

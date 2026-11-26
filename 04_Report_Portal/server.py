@@ -64,7 +64,7 @@ EMPTY = """<!doctype html><html lang="en-AU"><meta charset="utf-8"><meta name="v
 
 SESSION_HOURS = 12
 LOGIN = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>Sign in · __NAME__</title><style>
+<meta name="robots" content="noindex,nofollow"><meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved."><title>Sign in · __NAME__</title><style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{background:#07090D;color:#fff;font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
  background-image:radial-gradient(90% 46% at 50% -6%,rgba(242,98,34,.20),rgba(242,98,34,0) 70%);background-repeat:no-repeat}
@@ -104,7 +104,7 @@ __ERR__
 <button type="submit">Sign in</button>
 <p class="note">Trouble signing in? Ask your Coates tool store team.</p>
 </form>
-<div class="foot">Author: Andrew Fisher<b>POWERED BY SITEIQ</b></div>
+<div class="foot">Author: Andrew Fisher<b>POWERED BY SITEIQ</b><small style="display:block;font-size:11.5px;line-height:1.5;margin-top:8px;color:#6B7583">Designed and built by Andrew Fisher · © 2026 Andrew Fisher.<br>All rights reserved. Not to be copied or reproduced without permission.</small></div>
 </div></body></html>"""
 
 

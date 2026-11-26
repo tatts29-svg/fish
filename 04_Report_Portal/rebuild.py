@@ -111,7 +111,7 @@ def pdfs(out):
         asat = pg.eval_on_selector("#asat", "x => x.textContent")
         title = pg.title()
         foot = ('<div style="width:100%;font-family:Arial,sans-serif;font-size:7.5px;color:#5A6472;padding:0 9mm;display:flex;justify-content:space-between">'
-                '<span>Author: Andrew Fisher | POWERED BY SITEIQ</span><span>{} · SiteIQ pull {}</span>'
+                '<span>Author: Andrew Fisher | POWERED BY SITEIQ · © 2026 Andrew Fisher. All rights reserved.</span><span>{} · SiteIQ pull {}</span>'
                 '<span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>').format(title, asat)
         pg.pdf(path=os.path.join(out, "report.pdf"), format="A4", landscape=True, print_background=True, scale=0.64,
                display_header_footer=True, header_template="<span></span>", footer_template=foot,
