@@ -25,6 +25,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import catalogue  # noqa: E402
+import shut_costs  # noqa: E402
 
 
 def _kit():
@@ -603,11 +604,15 @@ def main(argv=None):
     ap.add_argument("--day-keeper", default="")
     ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
+    ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     a = ap.parse_args(argv)
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    data["costs"] = None
+    if a.costs:
+        data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())
     if a.onhire_out:
         write_onhire(data, a.onhire_out)
     html = render(data, _fonts(a.kit_folder), _logo(a.logo))

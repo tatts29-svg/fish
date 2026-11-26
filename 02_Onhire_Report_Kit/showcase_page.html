@@ -294,9 +294,9 @@ main,footer{position:relative;z-index:1}
 .amb{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 html[data-theme=light] .amb,.static .amb{display:none}
 .amb i{position:absolute;border-radius:50%;will-change:transform}
-.amb i:nth-child(1){width:900px;height:900px;left:-320px;top:-300px;background:radial-gradient(circle,rgba(242,98,34,.26),rgba(242,98,34,.08) 40%,transparent 68%);animation:drift1 26s ease-in-out infinite alternate}
-.amb i:nth-child(2){width:980px;height:980px;right:-380px;top:18vh;background:radial-gradient(circle,rgba(185,195,208,.11),rgba(185,195,208,.03) 40%,transparent 68%);animation:drift2 32s ease-in-out infinite alternate}
-.amb i:nth-child(3){width:820px;height:820px;left:24vw;bottom:-420px;background:radial-gradient(circle,rgba(242,98,34,.17),rgba(242,98,34,.05) 40%,transparent 68%);animation:drift3 38s ease-in-out infinite alternate}
+.amb i:nth-child(1){width:900px;height:900px;left:-320px;top:-300px;background:radial-gradient(circle closest-side,rgba(242,98,34,.26),rgba(242,98,34,.08) 45%,transparent 100%);animation:drift1 26s ease-in-out infinite alternate}
+.amb i:nth-child(2){width:980px;height:980px;right:-380px;top:18vh;background:radial-gradient(circle closest-side,rgba(185,195,208,.11),rgba(185,195,208,.03) 45%,transparent 100%);animation:drift2 32s ease-in-out infinite alternate}
+.amb i:nth-child(3){width:820px;height:820px;left:24vw;bottom:-420px;background:radial-gradient(circle closest-side,rgba(242,98,34,.17),rgba(242,98,34,.05) 45%,transparent 100%);animation:drift3 38s ease-in-out infinite alternate}
 .amb:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%)}
 @keyframes drift1{to{transform:translate(160px,120px) scale(1.15)}}
 @keyframes drift2{to{transform:translate(-180px,-90px) scale(.9)}}
@@ -336,7 +336,7 @@ html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
 .cc{transition:transform 1.8s cubic-bezier(.2,.8,.2,1)}
 .go .cc{transform:translateY(calc(var(--s)*-140px))}
 html[data-theme=dark] .cyl svg{filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
-html[data-theme=dark] .cf{filter:drop-shadow(0 0 10px rgba(255,122,61,.5))}
+html[data-theme=dark] .cf{filter:drop-shadow(0 0 10px rgba(255,160,120,.35))}
 html[data-theme=dark] .cc{animation:bob 3.4s ease-in-out infinite}
 @keyframes bob{0%,100%{opacity:.75}50%{opacity:1}}
 .rt{font-size:13.5px;font-weight:600;text-align:center;margin-bottom:8px}
@@ -423,13 +423,53 @@ html[data-theme=dark] .sz.out{box-shadow:0 0 10px rgba(242,98,34,.35)}
 html[data-theme=dark] .sz.out:before{box-shadow:0 0 8px #FF7A3D;animation:pulse2 1.8s ease-in-out infinite}
 @keyframes pulse2{50%{opacity:.35}}
 
+/* 3D blocks */
+html[data-theme] .sd{filter:brightness(.55)}
+html[data-theme] .t3{filter:brightness(1.35)}
+.fut{opacity:.36}
+.vl{font-size:11px}
+/* labour and costs */
+.kl{fill:#F26222}.kt{fill:#4A9BE8}.ks{fill:#27A88A}.kf{fill:#A77BF0}
+.lk1{background:#F26222}.lk2{background:#4A9BE8}.lk3{background:#27A88A}.lk4{background:#A77BF0}
+.c5{grid-template-columns:repeat(5,1fr)}
+.c5 .kpi .n{font-size:32px}
+.costhero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+.ringw{position:relative;width:240px;height:240px}
+.ringw svg{width:240px;height:240px;transform:rotate(-90deg)}
+.ringt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ringt .a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:700}
+.ringt .b{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-top:2px}
+.ringt .c{font-size:12.5px;color:var(--mu);margin-top:2px}
+.rg0{fill:none;stroke:var(--track);stroke-width:18}
+.rg1{fill:none;stroke-width:18;stroke-linecap:round;stroke-dasharray:var(--c);stroke-dashoffset:var(--c);transition:stroke-dashoffset 2.2s cubic-bezier(.2,.8,.2,1)}
+.go .rg1{stroke-dashoffset:var(--off)}
+.rg2{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:2 7}
+html[data-theme=dark] .rg1{filter:drop-shadow(0 0 10px rgba(255,122,61,.7))}
+html[data-theme=dark] .rg2{animation:spin2 40s linear infinite;transform-origin:50% 50%}
+@keyframes spin2{to{transform:rotate(360deg)}}
+html[data-theme=dark] .ringt .b{text-shadow:0 0 26px rgba(255,138,80,.55)}
+.tl{list-style:none;margin-top:10px}
+.tl li{position:relative;padding:0 0 14px 22px;font-size:13.5px;color:var(--mu)}
+.tl li b{display:block;color:var(--tx);font-weight:600}
+.tl li:before{content:"";position:absolute;left:0;top:5px;width:9px;height:9px;border-radius:50%;background:var(--or)}
+.tl li:after{content:"";position:absolute;left:4px;top:16px;bottom:-3px;width:1px;background:var(--line)}
+.tl li:last-child:after{display:none}.tl li:last-child{padding-bottom:0}
+html[data-theme=dark] .tl li:before{box-shadow:0 0 10px #FF7A3D}
+.pcard h4{font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pcard .big{font-size:30px;font-weight:700;letter-spacing:-.03em;margin-top:12px;line-height:1.1}
+.pcard .big small{font-size:13px;color:var(--mu);font-weight:400;letter-spacing:0;margin-left:8px}
+tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+tr.tdy td{background:var(--orbg)}
+tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
+@media (max-width:980px){.c5{grid-template-columns:1fr 1fr}.costhero{grid-template-columns:1fr;justify-items:center}}
+
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
 .static *{animation:none!important;transition:none!important}
 .static .wrap{max-width:none;padding:0 6px}.static{--bg:#FFFFFF!important;--shadow:none!important}.static .top .wrap{padding:0 18px}
 .static .kpi .go,.static .row[data-open] .v:after,.static .prow:after{display:none}
-.static #hourly svg{max-height:250px}.static #clock svg{max-height:290px}.static #trend svg{max-height:230px}
+.static #cs-chart svg{max-height:250px}.static #hourly svg{max-height:250px}.static #clock svg{max-height:290px}.static #trend svg{max-height:230px}
 .static .client{width:160px;padding:14px 16px 12px}.static .client img{width:96px}.static main{padding-top:20px}
 @page{size:A4 landscape;margin:9mm 8mm 13mm}
 @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.pb{break-before:page}.card,.kpi,.know,.stats,.def,.krow,.row,.prow,tr{break-inside:avoid}.tall{break-inside:auto}main{padding-top:14px}}
@@ -524,6 +564,20 @@ html[data-theme=dark] .sz.out:before{box-shadow:0 0 8px #FF7A3D;animation:pulse2
 </div>
 </section>
 
+<section class="view pb" id="v-costs" data-tab="Labour and costs">
+<div class="vh"><h2>Labour and shut costs</h2><p id="cs-lead"></p></div>
+<div class="grid c2" style="margin-top:0">
+<div class="card costhero"><div class="ringw" id="cs-ring"></div><div><h3 style="font-size:15.5px;font-weight:600">When each charge starts</h3><ul class="tl" id="cs-starts"></ul></div></div>
+<div class="card"><h3>Where the cost sits</h3><div class="sub">Each cylinder fills as the shut runs: cost to date against the whole shut.</div><div class="cyls" id="cs-cyls"></div></div>
+</div>
+<div class="stats" id="cs-stats" style="margin-top:16px"></div>
+<div class="card" style="margin-top:16px"><h3>Cost day by day</h3><div class="sub" id="cs-daysub"></div>
+<div class="legend" id="cs-leg"></div><div id="cs-chart"></div></div>
+<div class="grid c2" id="cs-people"></div>
+<div class="card" style="margin-top:16px"><h3>Roster</h3><div class="sub" id="cs-rsub"></div><div id="cs-roster"></div></div>
+<div class="card" style="margin-top:16px"><h3>Every day of the shut</h3><div class="sub">Labour, tooling, site services and flights for each day, with the running total.</div><div id="cs-table"></div></div>
+</section>
+
 <section class="view pb" id="v-people" data-tab="People">
 <div class="vh"><h2>People</h2><p id="pp-lead"></p></div>
 <div class="stats" id="pp-stats"></div>
@@ -585,18 +639,19 @@ el.innerHTML=items.map((i,x)=>`<div class="row"${i.open?` data-open="${esc(i.ope
 const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>`<div${x[3]?` data-tip="${esc(x[3])}"`:''}><div class="n${x[2]?' '+x[2]:''}"><span data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>${x[0]}</span></div><div class="l">${x[1]}</div></div>`).join('')};
 function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v))),m=v/p;return ([1,2,2.5,4,5,8,10].find(x=>m<=x))*p}
 
-// columns: one or two stacked series per slot
-function columns(el,labels,a,b,o){o=o||{};const W=o.w||680,H=o.h||250,L=30,R=8,T=22,B=o.band?46:28,n=labels.length;
-const tot=a.map((v,i)=>v+(b?b[i]:0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(34,sw*.66),y=v=>T+(H-T-B)*(1-v/max);
-let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${Math.round(v*10)/10}</text>`}
+// columns: 3D blocks, one or more series stacked per slot
+function columns(el,labels,series,o){o=o||{};const W=o.w||680,H=o.h||250,L=o.l||30,R=14,T=28,B=28,n=labels.length,dp=7;
+const tot=labels.map((_,i)=>series.reduce((t,se)=>t+se.v[i],0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(o.bw||34,sw*.6),y=v=>T+(H-T-B)*(1-v/max),af=o.axis||(v=>Math.round(v*10)/10);
+let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`}
 const pk=tot.indexOf(Math.max(...tot));let s='';
-labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2,ya=y(a[i]),yt=y(tot[i]),cls=o.cls?o.cls(i):'ca';
-if(a[i]>0)s+=`<rect class="col ${cls}${i==pk?' pk':''}" style="--i:${i}" x="${x}" y="${ya}" width="${bw}" height="${y(0)-ya}" rx="3"/>`;
-if(b&&b[i]>0)s+=`<rect class="col cb" style="--i:${i}" x="${x}" y="${yt}" width="${bw}" height="${Math.max(0,ya-yt-(a[i]>0?2:0))}" rx="3"/>`;
-if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
-if(i%(o.every||1)==0)s+=`<text class="ax" x="${x+bw/2}" y="${H-B+16}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
+labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2-dp/2,segs=series.map(se=>({v:se.v[i],c:typeof se.cls=='function'?se.cls(i):se.cls})).filter(z=>z.v>0),fut=o.fade&&o.fade(i)?' fut':'';let base=0;
+segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base),top=k==segs.length-1;base+=z.v;
+s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><rect class="${z.c}" x="${x}" y="${y1}" width="${bw}" height="${y0-y1}"/><polygon class="${z.c} sd" points="${x+bw},${y1} ${x+bw+dp},${y1-dp} ${x+bw+dp},${y0-dp} ${x+bw},${y0}"/>${top?`<polygon class="${z.c} t3" points="${x},${y1} ${x+dp},${y1-dp} ${x+bw+dp},${y1-dp} ${x+bw},${y1}"/>`:''}</g>`});
+const yt=y(tot[i]);
+if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2+dp/2}" y="${yt-dp-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
+if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2+dp/2}" y="${yt-dp-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
+if(i%(o.every||1)==0)s+=`<text class="ax${o.mark&&o.mark(i)?' axb':''}" x="${x+bw/2}" y="${H-B+16}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
 s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-B+1}" width="${bw}" height="2"/></g>`});
-if(o.band)s+=o.band(i=>L+sw*i,H-10);
 el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`}
 
 function lineChart(el,labels,series,o){o=o||{};const W=640,H=240,L=30,R=46,T=18,B=28,n=labels.length;
@@ -621,19 +676,19 @@ ${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle clas
 
 // cylinders and dials
 let uid=0;
-function cyl(it,o){const H=140,W=64,ry=9,id='c'+(++uid),sh=Math.max(.02,Math.min(1,o.share?it.on/Math.max(1,it.fleet):it.n/o.max)),top=18,bot=top+H,cx=5+W/2;
+function cyl(it,o){const H=140,W=64,ry=9,id='c'+(++uid),sh=Math.max(.02,Math.min(1,o.share?it.on/Math.max(1,it.fleet):it.n/o.max)),top=18,bot=top+H,cx=5+W/2,K=o.col||['#B9481A','#FF7A3D','#C24D17','#FF8C55'];
 return `<div class="cyl"${it.open?` data-open="${esc(it.open)}"`:''}><svg viewBox="0 0 ${W+10} ${H+34}" width="${W+10}" height="${H+34}" style="--s:${sh.toFixed(3)}">
-<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".45" stop-color="#FF7A3D"/><stop offset="1" stop-color="#C24D17"/></linearGradient>
+<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${K[0]}"/><stop offset=".45" stop-color="${K[1]}"/><stop offset="1" stop-color="${K[2]}"/></linearGradient>
 <linearGradient id="${id}g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset=".3" stop-color="#fff" stop-opacity=".02"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".08"/></linearGradient></defs>
 <ellipse class="cgl" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}"/><rect class="cgl" x="5" y="${top}" width="${W}" height="${H}" style="stroke:none"/>
-<ellipse cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="#C24D17"/>
+<ellipse cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="${K[2]}"/>
 <rect class="cf" x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id})"/>
 ${STATIC?'':[[.28,2.6,0,1.6],[.55,3.4,1.1,2.2],[.74,2.9,.5,1.3],[.42,4.1,2,1.8]].map(b=>`<circle class="bub" cx="${5+W*b[0]}" cy="${bot-2}" r="${b[3]}" style="--d:${b[1]}s;--dl:${b[2]}s"/>`).join('')}
-<ellipse class="cc" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="#FF8C55"/>
+<ellipse class="cc" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="${K[3]}"/>
 <rect x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id}g)"/>
 <line class="cst" x1="5" y1="${top}" x2="5" y2="${bot}"/><line class="cst" x1="${W+5}" y1="${top}" x2="${W+5}" y2="${bot}"/>
 <ellipse class="ctop" cx="${cx}" cy="${top}" rx="${W/2}" ry="${ry}"/></svg>${o.pic?pic(it.pic,it.name,'lg'):''}
-<div class="val"><span data-n="${o.share?it.on:it.n}">${fmt(o.share?it.on:it.n)}</span></div><div class="cap">${esc(it.name)}${o.share?`<br><small>of ${fmt(it.fleet)} in the store</small>`:''}</div></div>`}
+<div class="val">${it.val||`<span data-n="${o.share?it.on:it.n}">${fmt(o.share?it.on:it.n)}</span>`}</div><div class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} in the store</small>`:''))}</div></div>`}
 function dial(v,of,cap,sub){const c=Math.PI*70,sh=of?v/of:0,id='d'+(++uid);
 return `<div class="dial"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
 ${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<path class="dtr" d="M20,95 A70,70 0 0 1 160,95"/><path class="arc" d="M20,95 A70,70 0 0 1 160,95" stroke="url(#${id})" style="--c:${c};--off:${c*(1-Math.min(1,sh))}"/></svg>
@@ -671,7 +726,7 @@ $('#know').innerHTML=kn.map(k=>`<button class="know ${k.c}" data-go="${k.go}"><s
 const nh=Math.min(D.hours.length,Math.max(asatH-4,D.hour_out.reduce((m,v,i)=>v?i+1:m,0),8));
 const out=D.hour_out.slice(0,nh),back=D.hour_back.slice(0,nh),still=out.map((v,i)=>v-back[i]);
 $('#hoursub').textContent=`${fmt(K.issued_today)} issued on ${D.asat_day} up to ${asatT}. ${fmt(K.back_today)} of them are already back.`;
-columns($('#hourly'),D.hours.slice(0,nh),still,back,{label:'Items issued by hour',short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
+columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Items issued by hour',short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
 tip:i=>`<b>${D.hours[i]}</b><br>Issued: ${out[i]}<br>Still out: ${still[i]}<br>Already back: ${back[i]}`});
 $('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}.`;
 bars($('#cos'),C.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})),{});
@@ -747,7 +802,7 @@ stats($('#op-stats'),[[Math.round(P.tx),'Transactions a day','','One tool out, o
 // shift day runs 05:00 to 04:59, so the chart starts at 05:00
 const order=[...Array(24).keys()].map(i=>(i+5)%24),tot=h=>O.hours.issue[h]+O.hours.return[h]+O.hours.sale[h];
 $('#clock-sub').textContent=`Average transactions in each hour of the day. Busiest around ${hh(O.busiest)}, quietest around ${hh(O.quietest)}.`;
-columns($('#clock'),order.map(hh),order.map(tot),null,{w:1100,h:260,label:'Average transactions by hour',short:l=>l.slice(0,2),cls:i=>{const h=order[i];return h>=6&&h<18?'ca':'cb'},
+columns($('#clock'),order.map(hh),[{v:order.map(tot),cls:i=>{const h=order[i];return h>=6&&h<18?'ca':'cb'}}],{w:1100,h:260,label:'Average transactions by hour',short:l=>l.slice(0,2),
 peak:(i,m)=>`${whole(m)} at ${hh(order[i])}`,tip:i=>{const h=order[i];return `<b>${hh(h)}</b> · ${h>=6&&h<18?'day':'night'} shift<br>About ${whole(tot(h))} transactions<br>Tools out: ${f1(O.hours.issue[h])}<br>Tools back: ${f1(O.hours.return[h])}<br>Consumable issues: ${f1(O.hours.sale[h])}`}});
 const sun='<svg viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="2" stroke-linecap="round"><g class="spin"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g><circle cx="12" cy="12" r="4" fill="var(--or)"/></svg>';
 const moon='<svg viewBox="0 0 24 24" fill="var(--neu)" stroke="var(--neu)" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>';
@@ -782,6 +837,40 @@ $('#defs').innerHTML=[
 ['Pull by pull','Each SiteIQ pull adds a point. Nothing is drawn for a pull that has not happened.'],
 ['Returns rating','Out of 5, for anyone with at least 5 tools on record. Everything returned and 80% or more back within the same shift (12 hours) is 5; 60% is 4.5; 40% is 4; 20% is 3.5; under that is 3. Any tool not returned by the end of a shut caps the rating at 2.'],
 ['Consumable flags','A person is flagged for a consumable type when their units a shut are above the level nine in ten people stay under, and at least 6 units.']].map(d=>`<div class="def"><b>${esc(d[0])}</b><span>${esc(d[1])}</span></div>`).join('');
+
+/* ---------- labour and costs ---------- */
+const money=v=>'$'+Number(v).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+if(D.costs){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#2468AD','#5FB0FF','#2A74BF','#8CC6FF']],services:['ks','lk3',['#17705B','#3FCBA8','#1B826A','#7BE0C6']],flights:['kf','lk4',['#6B45B8','#B690FF','#7650C6','#CDB4FF']]};
+$('#cs-lead').textContent=`${money(C.sofar)} of the shut's ${money(C.total)} has been incurred up to the end of ${C.upto}: ${C.days_done} of ${C.days.length} days and ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours.`;
+const rc=2*Math.PI*100,sh=C.total?C.sofar/C.total:0;
+$('#cs-ring').innerHTML=`<svg viewBox="0 0 240 240"><defs><linearGradient id="rgg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".5" stop-color="#F26222"/><stop offset="1" stop-color="#B9481A"/></linearGradient></defs>
+<circle class="rg2" cx="120" cy="120" r="116"/><circle class="rg0" cx="120" cy="120" r="100"/><circle class="rg1" cx="120" cy="120" r="100" stroke="url(#rgg)" style="--c:${rc};--off:${rc*(1-sh)}"/></svg>
+<div class="ringt"><div class="a">Cost to date</div><div class="b"><span data-n="${C.sofar}" data-dec="2" data-pre="$">${money(C.sofar)}</span></div><div class="c">${(sh*100).toFixed(1)}% of ${money(C.total)}</div></div>`;
+const S=C.starts,st=[];if(S.labour)st.push(['Labour, day shift',`From ${S.labour}`]);if(S.nights)st.push(['Night shift',`From ${S.nights}, 18:00`]);if(S.tooling)st.push(['Tooling charge',`From ${S.tooling}`]);if(S.services)st.push(['Site services charge',`From ${S.services}`]);
+$('#cs-starts').innerHTML=st.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('');
+$('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1,col:KC[c.key][2]})).join('');
+stats($('#cs-stats'),[[C.days_done,`Days so far, of ${C.days.length}`],[C.hours_done,`Labour hours so far, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
+$('#cs-stats').insertAdjacentHTML('beforeend',`<div><div class="n"><span data-n="${(C.total-C.sofar).toFixed(2)}" data-dec="2" data-pre="$">${money(C.total-C.sofar)}</span></div><div class="l">Still to come</div></div><div><div class="n"><span data-n="${C.total}" data-dec="2" data-pre="$">${money(C.total)}</span></div><div class="l">Whole shut</div></div>`);$('#cs-stats').style.setProperty('--n',5);
+$('#cs-daysub').textContent=`Solid columns are days up to ${C.upto}. Faded columns are the days still to come, at the rostered hours and agreed charges.`;
+$('#cs-leg').innerHTML=C.cats.map(c=>`<span><i class="${KC[c.key][1]}"></i>${esc(c.name)}</span>`).join('')+'<span style="color:var(--dim)">Faded = still to come</span>';
+columns($('#cs-chart'),C.days.map(d=>d.date),C.cats.map(c=>({v:C.days.map(d=>d[c.key]),cls:KC[c.key][0]})),{w:1100,h:300,l:46,bw:52,label:'Shut cost by day',axis:v=>'$'+(v/1000).toLocaleString('en-AU')+'k',
+fade:i=>!C.days[i].done,mark:i=>C.days[i].today,val:(i,t)=>'$'+fmt(Math.round(t)),short:l=>l.split(' ').slice(0,2).join(' '),
+tip:i=>{const d=C.days[i];return `<b>${d.date}</b>${d.type?' · '+d.type:''}${d.done?'':' · still to come'}<br>`+C.cats.filter(c=>d[c.key]).map(c=>`${c.name}: ${money(d[c.key])}`).join('<br>')+`<br><b>Day total: ${money(d.total)}</b><br>Running total: ${money(d.running)}`}});
+$('#cs-people').innerHTML=C.people.map(p=>`<div class="card pcard"><h4>${esc(p.name)}${C.role?` <span class="pill n">${esc(C.role)}</span>`:''}</h4>
+<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter"><i style="--w:${(p.cost?p.cost_done/p.cost*100:0).toFixed(1)}%"></i></div>
+<div class="kv"><div><span>Hours so far</span><b>${fmt(p.hours_done)} of ${fmt(p.hours)}</b></div><div><span>Day shifts rostered</span><b>${p.day}</b></div><div><span>Night shifts rostered</span><b>${p.night}</b></div></div></div>`).join('');
+$('#cs-rsub').textContent=`${C.rates.map(r=>`${r.shift} shift ${money(r.rate)} an hour`).join(' · ')}. Each row is hours times the rate for its shift.`;
+const pill=r=>r.iso==C.days.find(d=>d.today)?.iso?'<span class="pill o">Today</span>':r.done?'<span class="pill g">Done</span>':'<span class="pill n">To come</span>';
+$('#cs-roster').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Date</th><th>Day type</th><th>Person</th><th>Shift</th><th>Times</th><th class="n">Hours</th><th class="n">Rate</th><th class="n">Cost</th><th></th></tr>${C.roster.map(r=>`<tr class="${r.done?'':'tocome'}"><td style="white-space:nowrap">${r.date}</td><td>${esc(r.type)}</td><td><b>${esc(r.name)}</b></td><td>${r.shift}</td><td style="white-space:nowrap">${r.start} to ${r.finish}</td><td class="n">${r.hours}</td><td class="n" style="font-weight:400">${money(r.rate)}</td><td class="n">${money(r.cost)}</td><td>${pill(r)}</td></tr>`).join('')}
+<tr class="tot"><td colspan="5">Total labour</td><td class="n">${fmt(C.hours)}</td><td></td><td class="n">${money(C.cats.find(c=>c.key=='labour').total)}</td><td></td></tr></table></div>`;
+const cell=v=>v?money(v):'<span style="color:var(--dim)">–</span>';
+$('#cs-table').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Day</th><th>Day type</th>${C.cats.map(c=>`<th class="n">${esc(c.name)}</th>`).join('')}<th class="n">Day total</th><th class="n">Running total</th></tr>${C.days.map(d=>`<tr class="${d.today?'tdy':d.done?'':'tocome'}"><td style="white-space:nowrap">${d.date}${d.today?' <span class="pill o">Today</span>':''}</td><td>${esc(d.type)}</td>${C.cats.map(c=>`<td class="n" style="font-weight:400">${cell(d[c.key])}</td>`).join('')}<td class="n">${money(d.total)}</td><td class="n">${money(d.running)}</td></tr>`).join('')}
+<tr class="tot"><td colspan="2">Whole shut</td>${C.cats.map(c=>`<td class="n">${money(c.total)}</td>`).join('')}<td class="n">${money(C.total)}</td><td></td></tr>
+<tr class="tot"><td colspan="2">To the end of ${C.upto}</td>${C.cats.map(c=>`<td class="n">${money(c.sofar)}</td>`).join('')}<td class="n">${money(C.sofar)}</td><td></td></tr></table></div>`;
+// a fifth headline tile on the overview
+$('#kpis').classList.replace('c4','c5');$('#kpis').insertAdjacentHTML('beforeend',`<button class="kpi" data-go="costs"><span class="go">→</span><div class="l">Shut cost to date</div><div class="n"><span data-n="${Math.round(C.sofar)}" data-pre="$">$${fmt(Math.round(C.sofar))}</span></div><div class="s">of $${fmt(Math.round(C.total))} for the shut</div></button>`);
+$('#defs').insertAdjacentHTML('beforeend',[['Labour cost','Each rostered shift is its hours times the hourly rate for that shift, day or night.'],['Shut cost to date',`Labour, tooling, site services and flights for every day up to and including the day of the SiteIQ pull. The day of the pull counts as a whole day, including a night shift that has started.`],['Still to come','The days after the pull, at the rostered hours and the agreed daily charges.']].map(d=>`<div class="def"><b>${d[0]}</b><span>${d[1]}</span></div>`).join(''))}
+else $('#v-costs').remove();
 
 /* ---------- detail drawer: click anything marked data-open ---------- */
 const PB={};D.people.forEach(p=>PB[p.key]=p);
@@ -849,7 +938,7 @@ $('#pp-q').addEventListener('input',e=>{q=e.target.value;list()});
 $$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg button').forEach(x=>x.classList.toggle('on',x===b));list()});list()}
 
 /* ---------- tabs, motion and tooltips ---------- */
-function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'';const put=v=>el.textContent=(dec?v.toFixed(dec):fmt(Math.round(v)))+suf;
+function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'',pre=el.dataset.pre||'';const put=v=>el.textContent=pre+(dec?v.toLocaleString('en-AU',{minimumFractionDigits:dec,maximumFractionDigits:dec}):fmt(Math.round(v)))+suf;
 if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
 const views=$$('.view'),tabs=$('#tabs'),ink=$('#ink');
 views.forEach(v=>{const id=v.id.slice(2),b=document.createElement('button');b.className='tab';b.dataset.go=id;b.textContent=v.dataset.tab;
