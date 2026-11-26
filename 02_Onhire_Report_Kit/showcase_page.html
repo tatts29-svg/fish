@@ -392,8 +392,7 @@ html[data-theme=dark] .client::after{content:"";position:absolute;top:0;bottom:0
 @keyframes sheen{0%{left:-80%}45%,100%{left:130%}}
 .client img,.client .pf,.client .pn{position:relative;z-index:1}
 /* charts */
-html[data-theme=dark] .ca{fill:url(#gcol)}
-html[data-theme=dark] .cb{fill:url(#gneu)}
+
 html[data-theme=dark] .pk{animation:pk 2.2s ease-in-out infinite}
 @keyframes pk{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.55))}50%{filter:drop-shadow(0 0 20px rgba(255,160,110,1))}}
 html[data-theme=dark] .lbl{filter:drop-shadow(0 0 8px rgba(255,138,80,.8))}
@@ -424,13 +423,12 @@ html[data-theme=dark] .sz.out:before{box-shadow:0 0 8px #FF7A3D;animation:pulse2
 @keyframes pulse2{50%{opacity:.35}}
 
 /* 3D blocks */
-html[data-theme] .sd{filter:brightness(.55)}
-html[data-theme] .t3{filter:brightness(1.35)}
+html[data-theme] .t3{filter:brightness(1.28)}
 .fut{opacity:.36}
 .vl{font-size:11px}
 /* labour and costs */
-.kl{fill:#F26222}.kt{fill:#4A9BE8}.ks{fill:#27A88A}.kf{fill:#A77BF0}
-.lk1{background:#F26222}.lk2{background:#4A9BE8}.lk3{background:#27A88A}.lk4{background:#A77BF0}
+.ca,.kl{fill:url(#gcylO)}.cb,.kt{fill:url(#gcylS)}.ks{fill:url(#gcylP)}.kf{fill:url(#gcylG)}
+.lk1{background:#F26222}.lk2{background:#B9C3D0}.lk3{background:#FFC9AE}.lk4{background:#6E7987}
 .c5{grid-template-columns:repeat(5,1fr)}
 .c5 .kpi .n{font-size:32px}
 .costhero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
@@ -476,7 +474,7 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 </style></head>
 <body>
 <div class="amb"><i></i><i></i><i></i></div><canvas id="fx"></canvas><div class="prog"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gcol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".35" stop-color="#F26222"/><stop offset="1" stop-color="#9C3A12"/></linearGradient><linearGradient id="gneu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE3EC"/><stop offset=".4" stop-color="#8E9AAA"/><stop offset="1" stop-color="#4F5967"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#D08A66"/><stop offset=".42" stop-color="#FFD9C2"/><stop offset="1" stop-color="#D49070"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -641,18 +639,18 @@ const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>
 function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v))),m=v/p;return ([1,2,2.5,4,5,8,10].find(x=>m<=x))*p}
 
 // columns: 3D blocks, one or more series stacked per slot
-function columns(el,labels,series,o){o=o||{};const W=o.w||680,H=o.h||250,L=o.l||30,R=14,T=28,B=28,n=labels.length,dp=7;
+function columns(el,labels,series,o){o=o||{};const W=o.w||680,H=o.h||250,L=o.l||30,R=14,T=28,B=32,n=labels.length,dp=0,ry=Math.max(3,Math.min(6,(o.bw||34)/8));
 const tot=labels.map((_,i)=>series.reduce((t,se)=>t+se.v[i],0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(o.bw||34,sw*.6),y=v=>T+(H-T-B)*(1-v/max),af=o.axis||(v=>Math.round(v*10)/10);
 let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`}
 const pk=tot.indexOf(Math.max(...tot));let s='';
 labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2-dp/2,segs=series.map(se=>({v:se.v[i],c:typeof se.cls=='function'?se.cls(i):se.cls})).filter(z=>z.v>0),fut=o.fade&&o.fade(i)?' fut':'';let base=0;
 segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base),top=k==segs.length-1;base+=z.v;
-s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><rect class="${z.c}" x="${x}" y="${y1}" width="${bw}" height="${y0-y1}"/><polygon class="${z.c} sd" points="${x+bw},${y1} ${x+bw+dp},${y1-dp} ${x+bw+dp},${y0-dp} ${x+bw},${y0}"/>${top?`<polygon class="${z.c} t3" points="${x},${y1} ${x+dp},${y1-dp} ${x+bw+dp},${y1-dp} ${x+bw},${y1}"/>`:''}</g>`});
+s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><ellipse class="${z.c}" cx="${x+bw/2}" cy="${y0}" rx="${bw/2}" ry="${ry}"/><rect class="${z.c}" x="${x}" y="${y1}" width="${bw}" height="${y0-y1}"/><ellipse class="${z.c} t3" cx="${x+bw/2}" cy="${y1}" rx="${bw/2}" ry="${ry}"/></g>`});
 const yt=y(tot[i]);
-if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2+dp/2}" y="${yt-dp-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
-if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2+dp/2}" y="${yt-dp-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
-if(i%(o.every||1)==0)s+=`<text class="ax${o.mark&&o.mark(i)?' axb':''}" x="${x+bw/2}" y="${H-B+16}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
-s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-B+1}" width="${bw}" height="2"/></g>`});
+if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-ry-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
+if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2}" y="${yt-ry-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
+if(i%(o.every||1)==0)s+=`<text class="ax${o.mark&&o.mark(i)?' axb':''}" x="${x+bw/2}" y="${H-B+ry+15}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
+s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-3}" width="${bw}" height="2"/></g>`});
 el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`}
 
 function lineChart(el,labels,series,o){o=o||{};const W=640,H=240,L=30,R=46,T=18,B=28,n=labels.length;
@@ -850,7 +848,7 @@ $('#defs').innerHTML=[
 
 /* ---------- labour and costs ---------- */
 const money=v=>'$'+Number(v).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
-if(D.costs){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#2468AD','#5FB0FF','#2A74BF','#8CC6FF']],services:['ks','lk3',['#17705B','#3FCBA8','#1B826A','#7BE0C6']],flights:['kf','lk4',['#6B45B8','#B690FF','#7650C6','#CDB4FF']]};
+if(D.costs){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#6E7987','#DCE3EC','#7C8796','#F2F5F8']],services:['ks','lk3',['#D08A66','#FFD9C2','#D49070','#FFE9DD']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
 $('#cs-lead').textContent=`${money(C.sofar)} of the shut's ${money(C.total)} has been incurred up to the end of ${C.upto}: ${C.days_done} of ${C.days.length} days and ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours.`;
 const rc=2*Math.PI*100,sh=C.total?C.sofar/C.total:0;
 $('#cs-ring').innerHTML=`<svg viewBox="0 0 240 240"><defs><linearGradient id="rgg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".5" stop-color="#F26222"/><stop offset="1" stop-color="#B9481A"/></linearGradient></defs>
