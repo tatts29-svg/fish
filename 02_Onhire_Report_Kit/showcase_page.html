@@ -293,15 +293,15 @@ footer b{color:var(--tx)}
 main,footer{position:relative;z-index:1}
 .amb{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
 html[data-theme=light] .amb,.static .amb{display:none}
-.amb i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform}
-.amb i:nth-child(1){width:560px;height:560px;left:-140px;top:-120px;background:rgba(242,98,34,.22);animation:drift1 26s ease-in-out infinite alternate}
-.amb i:nth-child(2){width:620px;height:620px;right:-200px;top:30vh;background:rgba(185,195,208,.10);animation:drift2 32s ease-in-out infinite alternate}
-.amb i:nth-child(3){width:480px;height:480px;left:30vw;bottom:-220px;background:rgba(242,98,34,.12);animation:drift3 38s ease-in-out infinite alternate}
+.amb i{position:absolute;border-radius:50%;will-change:transform}
+.amb i:nth-child(1){width:900px;height:900px;left:-320px;top:-300px;background:radial-gradient(circle,rgba(242,98,34,.26),rgba(242,98,34,.08) 40%,transparent 68%);animation:drift1 26s ease-in-out infinite alternate}
+.amb i:nth-child(2){width:980px;height:980px;right:-380px;top:18vh;background:radial-gradient(circle,rgba(185,195,208,.11),rgba(185,195,208,.03) 40%,transparent 68%);animation:drift2 32s ease-in-out infinite alternate}
+.amb i:nth-child(3){width:820px;height:820px;left:24vw;bottom:-420px;background:radial-gradient(circle,rgba(242,98,34,.17),rgba(242,98,34,.05) 40%,transparent 68%);animation:drift3 38s ease-in-out infinite alternate}
 .amb:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 20%,transparent 75%)}
 @keyframes drift1{to{transform:translate(160px,120px) scale(1.15)}}
 @keyframes drift2{to{transform:translate(-180px,-90px) scale(.9)}}
 @keyframes drift3{to{transform:translate(-120px,-140px) scale(1.2)}}
-html[data-theme=dark] .card,html[data-theme=dark] .kpi,html[data-theme=dark] .know,html[data-theme=dark] .stats,html[data-theme=dark] .client,html[data-theme=dark] .day,html[data-theme=dark] .def{background:linear-gradient(180deg,rgba(27,32,40,.82),rgba(18,22,28,.88));backdrop-filter:blur(8px);box-shadow:0 18px 50px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.05)}
+html[data-theme=dark] .card,html[data-theme=dark] .kpi,html[data-theme=dark] .know,html[data-theme=dark] .stats,html[data-theme=dark] .client,html[data-theme=dark] .day,html[data-theme=dark] .def{background:linear-gradient(180deg,rgba(27,32,40,.84),rgba(18,22,28,.9));box-shadow:0 18px 50px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.05)}
 html[data-theme=dark] .card{transition:border-color .35s,box-shadow .35s}
 html[data-theme=dark] .card:hover{border-color:#3A4452;box-shadow:0 26px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
 html[data-theme=dark] .day.now{background:linear-gradient(180deg,rgba(242,98,34,.22),rgba(242,98,34,.06));box-shadow:0 0 24px rgba(242,98,34,.22)}
@@ -351,6 +351,78 @@ html[data-theme=dark] .cc{animation:bob 3.4s ease-in-out infinite}
 html[data-theme=dark] .arc{filter:drop-shadow(0 0 8px rgba(255,122,61,.55))}
 @media (max-width:980px){.dials{grid-template-columns:1fr}.cyls{flex-wrap:wrap;justify-content:space-around}}
 
+/* elite layer: embers, orbiting borders, spotlight, staggered entrances, bubbles and pulses */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+html[data-theme=light] #fx,.static #fx,.static .prog{display:none}
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;z-index:60;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#F26222,#FF7A3D,#FFD0B5);box-shadow:0 0 14px rgba(255,122,61,.9);pointer-events:none}
+.top{border-bottom:0}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,#B9481A,#F26222,#FFC9AE,#F26222,#B9481A,#F26222,#FFC9AE,#F26222,#B9481A);background-size:200% 100%;animation:flow 5s linear infinite;box-shadow:0 0 18px rgba(242,98,34,.75),0 0 4px rgba(255,201,174,.8)}
+.ink{box-shadow:0 0 14px #F26222,0 0 4px #FFC9AE;height:3px}
+html[data-theme=dark] .tab.on{text-shadow:0 0 18px rgba(255,138,80,.7)}
+html[data-theme=dark] .brand{text-shadow:0 0 18px rgba(242,98,34,.65);animation:brandglow 4s ease-in-out infinite}
+@keyframes brandglow{50%{text-shadow:0 0 30px rgba(255,122,61,1)}}
+/* every card, tile and strip rises in, one after the other, each time a tab opens */
+.view.on .card,.view.on .kpi,.view.on .know,.view.on .stats,.view.on .day,.view.on .def,.view.on .client,.view.on .vh,.view.on .sect,.view.on .eyebrow,.view.on h1,.view.on .lead{animation:rise .75s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--ci,0)*55ms)}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.975)}to{opacity:1;transform:none}}
+/* a light that orbits the edge of a card */
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes orbit{to{--ang:360deg}}
+html[data-theme=dark] .card::before,html[data-theme=dark] .kpi::before,html[data-theme=dark] .know::before,html[data-theme=dark] .stats::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--ang),transparent 0 62%,rgba(255,122,61,.15) 72%,#FF7A3D 86%,#FFD9C2 90%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .5s;animation:orbit 4.5s linear infinite;pointer-events:none;z-index:2}
+html[data-theme=dark] .card:hover::before,html[data-theme=dark] .kpi:hover::before,html[data-theme=dark] .know:hover::before,html[data-theme=dark] .stats:hover::before,html[data-theme=dark] .kpi.hot::before{opacity:1}
+.know,.stats{position:relative}
+/* a spotlight that follows the pointer */
+html[data-theme=dark] .card::after,html[data-theme=dark] .kpi::after,html[data-theme=dark] .know::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(460px circle at var(--mx,50%) var(--my,50%),rgba(255,122,61,.13),transparent 60%);z-index:0}
+html[data-theme=dark] .card:hover::after,html[data-theme=dark] .kpi:hover::after,html[data-theme=dark] .know:hover::after{opacity:1}
+.kpi{transform-style:preserve-3d;will-change:transform}
+html[data-theme=dark] .kpi:hover{box-shadow:0 26px 70px rgba(0,0,0,.5),0 0 40px rgba(242,98,34,.22)}
+html[data-theme=dark] .kpi .n{text-shadow:0 0 26px rgba(220,227,236,.22)}
+html[data-theme=dark] .stats .n{text-shadow:0 0 22px rgba(220,227,236,.2)}
+html[data-theme=dark] .stats .n.w{text-shadow:0 0 22px rgba(242,181,68,.55)}
+html[data-theme=dark] .know .ic{animation:icpulse 3s ease-in-out infinite}
+@keyframes icpulse{50%{box-shadow:0 0 22px rgba(242,98,34,.55)}}
+html[data-theme=dark] .know.w .ic{animation-name:icpulsew}
+@keyframes icpulsew{50%{box-shadow:0 0 22px rgba(242,181,68,.6)}}
+html[data-theme=dark] .day.now{animation:nowring 2.6s ease-in-out infinite}
+@keyframes nowring{0%,100%{box-shadow:0 0 18px rgba(242,98,34,.25)}50%{box-shadow:0 0 34px rgba(242,98,34,.6),0 0 0 3px rgba(242,98,34,.18)}}
+/* the client logo card: red glow and a slow sheen */
+.client{position:relative;overflow:hidden}
+html[data-theme=dark] .client::before{content:"";position:absolute;inset:0;background:radial-gradient(200px 150px at 50% 38%,rgba(238,39,36,.24),transparent 70%);animation:redglow 4s ease-in-out infinite}
+@keyframes redglow{50%{opacity:.55}}
+html[data-theme=dark] .client::after{content:"";position:absolute;top:0;bottom:0;width:60%;left:-80%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);animation:sheen 5.5s 1.2s ease-in-out infinite}
+@keyframes sheen{0%{left:-80%}45%,100%{left:130%}}
+.client img,.client .pf,.client .pn{position:relative;z-index:1}
+/* charts */
+html[data-theme=dark] .ca{fill:url(#gcol)}
+html[data-theme=dark] .cb{fill:url(#gneu)}
+html[data-theme=dark] .pk{animation:pk 2.2s ease-in-out infinite}
+@keyframes pk{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.55))}50%{filter:drop-shadow(0 0 20px rgba(255,160,110,1))}}
+html[data-theme=dark] .lbl{filter:drop-shadow(0 0 8px rgba(255,138,80,.8))}
+.comet{fill:#FFE3D3;filter:drop-shadow(0 0 7px #FF7A3D) drop-shadow(0 0 14px #F26222)}
+html[data-theme=light] .comet{display:none}
+html[data-theme=dark] .arc{animation:arcglow 3s ease-in-out infinite}
+@keyframes arcglow{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.5))}50%{filter:drop-shadow(0 0 16px rgba(255,150,100,.95))}}
+.dtk{stroke:var(--neu);opacity:.45}
+html[data-theme=dark] .dial .big{text-shadow:0 0 26px rgba(255,138,80,.45)}
+.bub{fill:#FFD9C2;opacity:0;animation:bub var(--d,3s) ease-in infinite;animation-delay:var(--dl,0s)}
+@keyframes bub{0%{transform:translateY(0);opacity:0}15%{opacity:.75}85%{opacity:.5}100%{transform:translateY(calc(var(--s)*-132px));opacity:0}}
+html[data-theme=light] .bub{fill:#fff}
+html[data-theme=dark] .cyl[data-open]:hover svg{filter:drop-shadow(0 10px 18px rgba(0,0,0,.45)) drop-shadow(0 0 22px rgba(255,122,61,.6))}
+html[data-theme=dark] .cyl .val{text-shadow:0 0 20px rgba(255,138,80,.5)}
+html[data-theme=dark] .row[data-open]:hover .fl{filter:brightness(1.25)}
+html[data-theme=dark] .tp:not(.mono){transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+html[data-theme=dark] .row:hover .tp:not(.mono),html[data-theme=dark] .krow:hover .tp:not(.mono),html[data-theme=dark] .cyl:hover .tp:not(.mono){transform:scale(1.18);box-shadow:0 0 20px rgba(242,98,34,.55)}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;bottom:0;width:50%;left:-70%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transition:left .6s}
+.btn:hover::after{left:130%}
+html[data-theme=dark] .drawer{box-shadow:-20px 0 80px rgba(0,0,0,.6),-1px 0 0 rgba(242,98,34,.5),-12px 0 50px rgba(242,98,34,.12)}
+html[data-theme=dark] .pill.g{box-shadow:0 0 12px rgba(95,203,154,.25)}
+html[data-theme=dark] .pill.w{box-shadow:0 0 12px rgba(242,181,68,.22)}
+html[data-theme=dark] .stars i{text-shadow:0 0 10px rgba(242,169,59,.7)}
+html[data-theme=dark] .cbi.on .m i{box-shadow:0 0 10px #F26222}
+html[data-theme=dark] .sz.out{box-shadow:0 0 10px rgba(242,98,34,.35)}
+html[data-theme=dark] .sz.out:before{box-shadow:0 0 8px #FF7A3D;animation:pulse2 1.8s ease-in-out infinite}
+@keyframes pulse2{50%{opacity:.35}}
+
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
@@ -363,7 +435,8 @@ html[data-theme=dark] .arc{filter:drop-shadow(0 0 8px rgba(255,122,61,.55))}
 @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.pb{break-before:page}.card,.kpi,.know,.stats,.def,.krow,.row,.prow,tr{break-inside:avoid}.tall{break-inside:auto}main{padding-top:14px}}
 </style></head>
 <body>
-<div class="amb"><i></i><i></i><i></i></div>
+<div class="amb"><i></i><i></i><i></i></div><canvas id="fx"></canvas><div class="prog"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gcol" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".35" stop-color="#F26222"/><stop offset="1" stop-color="#9C3A12"/></linearGradient><linearGradient id="gneu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE3EC"/><stop offset=".4" stop-color="#8E9AAA"/><stop offset="1" stop-color="#4F5967"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -518,7 +591,7 @@ const tot=a.map((v,i)=>v+(b?b[i]:0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R
 let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${Math.round(v*10)/10}</text>`}
 const pk=tot.indexOf(Math.max(...tot));let s='';
 labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2,ya=y(a[i]),yt=y(tot[i]),cls=o.cls?o.cls(i):'ca';
-if(a[i]>0)s+=`<rect class="col ${cls}" style="--i:${i}" x="${x}" y="${ya}" width="${bw}" height="${y(0)-ya}" rx="3"/>`;
+if(a[i]>0)s+=`<rect class="col ${cls}${i==pk?' pk':''}" style="--i:${i}" x="${x}" y="${ya}" width="${bw}" height="${y(0)-ya}" rx="3"/>`;
 if(b&&b[i]>0)s+=`<rect class="col cb" style="--i:${i}" x="${x}" y="${yt}" width="${bw}" height="${Math.max(0,ya-yt-(a[i]>0?2:0))}" rx="3"/>`;
 if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
 if(i%(o.every||1)==0)s+=`<text class="ax" x="${x+bw/2}" y="${H-B+16}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
@@ -530,7 +603,7 @@ function lineChart(el,labels,series,o){o=o||{};const W=640,H=240,L=30,R=46,T=18,
 const max=nice(Math.max(1,...series.flatMap(s=>s.v))*1.12),x=i=>L+(W-L-R)*(n<2?.5:i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
 let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`}
 labels.forEach((l,i)=>{g+=`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="${i==0?'start':i==n-1?'end':'middle'}">${esc(l)}</text>`});
-let s='';series.forEach((se,k)=>{s+=`<path class="draw ${k?'sb':'sa'}" d="${se.v.map((v,i)=>(i?'L':'M')+x(i)+','+y(v)).join(' ')}"/>`;
+let s='';series.forEach((se,k)=>{const dd=se.v.map((v,i)=>(i?'L':'M')+x(i)+','+y(v)).join(' ');s+=`<path class="draw ${k?'sb':'sa'}" d="${dd}"/>`;if(!k&&!STATIC&&n>1)s+=`<circle class="comet" r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="${dd}"/></circle>`;
 se.v.forEach((v,i)=>{s+=`<circle class="pt ${k?'pb2':'pa'}" cx="${x(i)}" cy="${y(v)}" r="5"/>`});
 const lv=se.v[n-1];s+=`<text class="lbl" x="${x(n-1)+10}" y="${y(lv)+4}">${fmt(lv)}</text>`});
 labels.forEach((l,i)=>{const w=(W-L-R)/Math.max(1,n-1);s+=`<g class="hit" data-tip="${esc('<b>'+l+'</b><br>'+series.map(se=>se.name+': '+fmt(se.v[i])).join('<br>'))}"><rect x="${x(i)-w/2}" y="${T}" width="${w}" height="${H-T-B}"/><rect class="hl" x="${x(i)-.5}" y="${T}" width="1" height="${H-T-B}"/></g>`});
@@ -555,14 +628,15 @@ return `<div class="cyl"${it.open?` data-open="${esc(it.open)}"`:''}><svg viewBo
 <ellipse class="cgl" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}"/><rect class="cgl" x="5" y="${top}" width="${W}" height="${H}" style="stroke:none"/>
 <ellipse cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="#C24D17"/>
 <rect class="cf" x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id})"/>
+${STATIC?'':[[.28,2.6,0,1.6],[.55,3.4,1.1,2.2],[.74,2.9,.5,1.3],[.42,4.1,2,1.8]].map(b=>`<circle class="bub" cx="${5+W*b[0]}" cy="${bot-2}" r="${b[3]}" style="--d:${b[1]}s;--dl:${b[2]}s"/>`).join('')}
 <ellipse class="cc" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="#FF8C55"/>
 <rect x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id}g)"/>
 <line class="cst" x1="5" y1="${top}" x2="5" y2="${bot}"/><line class="cst" x1="${W+5}" y1="${top}" x2="${W+5}" y2="${bot}"/>
 <ellipse class="ctop" cx="${cx}" cy="${top}" rx="${W/2}" ry="${ry}"/></svg>${o.pic?pic(it.pic,it.name,'lg'):''}
 <div class="val"><span data-n="${o.share?it.on:it.n}">${fmt(o.share?it.on:it.n)}</span></div><div class="cap">${esc(it.name)}${o.share?`<br><small>of ${fmt(it.fleet)} in the store</small>`:''}</div></div>`}
 function dial(v,of,cap,sub){const c=Math.PI*70,sh=of?v/of:0,id='d'+(++uid);
-return `<div class="dial"><svg viewBox="0 0 180 104" width="220"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
-<path class="dtr" d="M20,95 A70,70 0 0 1 160,95"/><path class="arc" d="M20,95 A70,70 0 0 1 160,95" stroke="url(#${id})" style="--c:${c};--off:${c*(1-Math.min(1,sh))}"/></svg>
+return `<div class="dial"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
+${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<path class="dtr" d="M20,95 A70,70 0 0 1 160,95"/><path class="arc" d="M20,95 A70,70 0 0 1 160,95" stroke="url(#${id})" style="--c:${c};--off:${c*(1-Math.min(1,sh))}"/></svg>
 <div class="big"><span data-n="${(sh*100).toFixed(1)}" data-dec="1" data-suf="%">${(sh*100).toFixed(1)}%</span></div><div class="of">${fmt(v)} of ${fmt(of)}</div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
 
 /* ---------- overview ---------- */
@@ -789,6 +863,24 @@ if(STATIC){views.forEach(v=>v.classList.add('on','go'));$$('[data-n]').forEach(c
 else{show((location.hash||'#overview').slice(1),1);addEventListener('resize',()=>{const b=$('.tab.on');if(b){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`}});
 addEventListener('hashchange',()=>show(location.hash.slice(1),1));
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>dispatchEvent(new Event('resize')))}
+
+/* ---------- elite layer: embers, spotlight, tilt, staggered entrances ---------- */
+if(!STATIC){
+// rising embers behind the page
+const cv=$('#fx'),cx=cv.getContext('2d'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sp=document.createElement('canvas');sp.width=sp.height=64;{const g=sp.getContext('2d'),r=g.createRadialGradient(32,32,0,32,32,32);r.addColorStop(0,'rgba(255,214,190,1)');r.addColorStop(.25,'rgba(255,122,61,.75)');r.addColorStop(1,'rgba(242,98,34,0)');g.fillStyle=r;g.fillRect(0,0,64,64)}
+let W=0,Hh=0,P=[];const mk=(any)=>({x:Math.random()*W,y:any?Math.random()*Hh:Hh+20,r:3+Math.random()*9,vy:.15+Math.random()*.55,ph:Math.random()*6.3,sw:.3+Math.random()*.8,a:.25+Math.random()*.6});
+const size=()=>{W=cv.width=innerWidth;Hh=cv.height=innerHeight;P=Array.from({length:Math.round(Math.min(70,W/22))},()=>mk(1))};size();addEventListener('resize',size);
+let t=0;(function tick(){requestAnimationFrame(tick);if(document.hidden||still)return;cx.clearRect(0,0,W,Hh);if(root.dataset.theme!='dark')return;t+=.016;cx.globalCompositeOperation='lighter';
+for(const p of P){p.y-=p.vy;p.x+=Math.sin(t*p.sw+p.ph)*.35;if(p.y<-20)Object.assign(p,mk(0));cx.globalAlpha=p.a*(.55+.45*Math.sin(t*2*p.sw+p.ph))*Math.min(1,p.y/Hh+.25);cx.drawImage(sp,p.x-p.r,p.y-p.r,p.r*2,p.r*2)}})();
+// spotlight and tilt follow the pointer
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card,.kpi,.know');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
+if(c.classList.contains('kpi')&&!still){const dx=(e.clientX-r.left)/r.width-.5,dy=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateX(${(-dy*9).toFixed(2)}deg) rotateY(${(dx*11).toFixed(2)}deg) translateY(-4px)`}},{passive:true});
+$$('.kpi').forEach(k=>k.addEventListener('pointerleave',()=>k.style.transform=''));
+// each tab's pieces rise in turn
+views.forEach(v=>$$('.eyebrow,h1,.lead,.client,.vh,.day,.kpi,.sect,.know,.stats,.card,.def',v).forEach((el,i)=>el.style.setProperty('--ci',Math.min(i,16))));
+// progress along the page
+const pr=$('.prog');addEventListener('scroll',()=>{const h=document.documentElement,m=h.scrollHeight-h.clientHeight;pr.style.transform=`scaleX(${m>0?h.scrollTop/m:0})`},{passive:true})}
 {const tip=$('#tip');let cur=null;
 document.addEventListener('pointermove',e=>{const el=e.target.closest&&e.target.closest('[data-tip]');if(!el){if(cur){tip.classList.remove('on');cur=null}return}
 if(el!==cur){cur=el;tip.innerHTML=el.dataset.tip;tip.classList.add('on')}
