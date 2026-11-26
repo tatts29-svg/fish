@@ -194,9 +194,11 @@ def build_data(kit, folder, reference=None, minmax=None, history=None):
         import openpyxl
         ws = openpyxl.load_workbook(minmax, data_only=True, read_only=True)["Min Max"]
         mm = {}
+        hdr = [str(c or "").strip().upper() for c in next(ws.iter_rows(min_row=5, max_row=5, values_only=True))]
+        i_mn, i_mx = hdr.index("MIN"), hdr.index("MAX")
         for row in ws.iter_rows(min_row=6, values_only=True):
-            if row[0] and isinstance(row[6], (int, float)):
-                mm[str(row[0])] = (row[6], row[7])
+            if row[0] and isinstance(row[i_mn], (int, float)):
+                mm[str(row[0])] = (row[i_mn], row[i_mx])
         for r in stock:
             sku = kit._s(r.get("SKU_NUMBER"))
             if sku in mm and mm[sku][1]:
@@ -538,7 +540,7 @@ $('#sd5').textContent=`${K.cons_lines} MMG consumable lines with ${fmt(K.cons_un
 const cmax=Math.max(...D.cons_types.map(c=>c.n));
 $('#ctypes').innerHTML=D.cons_types.slice(0,6).map(c=>cyl(c,{max:cmax})).join('');
 bars($('#ctop'),D.cons_top);
-$('#below').innerHTML=D.below.length?`<div class="tscroll"><table class="t"><tr><th>Line</th><th style="text-align:right">On shelf</th><th style="text-align:right">Minimum</th><th style="text-align:right">Maximum</th><th></th></tr>${D.below.map(b=>`<tr><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max}</td><td><span class="pill">Top up</span></td></tr>`).join('')}</table></div><div class="note">Minimum and maximum for each line are set from the July 2026 shut's daily usage: the minimum covers the busiest July day or two days of use, the maximum covers seven counter days. ${fmt(D.to_max)} units would bring every line to its maximum.</div>`:'<div class="empty">Every line is at or above its minimum.</div>';
+$('#below').innerHTML=D.below.length?`<div class="tscroll"><table class="t"><tr><th>Line</th><th style="text-align:right">On shelf</th><th style="text-align:right">Minimum</th><th style="text-align:right">Maximum</th><th></th></tr>${D.below.map(b=>`<tr><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max}</td><td><span class="pill">Top up</span></td></tr>`).join('')}</table></div><div class="note">Minimum and maximum for each line are set from what MMG's recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days. ${fmt(D.to_max)} units would bring every line to its maximum.</div>`:'<div class="empty">Every line is at or above its minimum.</div>';
 // 06 trends
 const H=D.history;
 $('#sd6').textContent=`This shut builds a trend with every pull. Beside it, for planning only, how a previous shut ran day by day.`;
@@ -558,7 +560,7 @@ $('#defs').innerHTML=[
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Utilisation','Items out with crews as a share of the items of that kind in the store, at the time of the pull.'],
 ['Consumable units','Units on the shelf across MMG\'s consumable lines, from SiteIQ sales stock.'],
-['Minimum and maximum','Set per line from what the July 2026 shut used: minimum = the busiest July day or two days\' use; maximum = seven counter days.'],
+['Minimum and maximum','Set per line from what recent MMG shuts drew per day: minimum = the busiest day seen or two days\' use; maximum = seven counter days.'],
 ['Trends','Each pull adds a point. Nothing is drawn for a pull that has not happened.']].map(d=>`<p><b>${d[0]}.</b> ${esc(d[1])}</p>`).join('');
 $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
 
