@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en-AU" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>__CLIENT__ Tool Store Report</title>
+<style>
+__FONTS__
+:root{--bg:#0D1116;--panel:#161B22;--panel2:#1C222B;--line:#262E39;--tx:#E6EBF2;--mu:#97A3B3;--dim:#66717F;--track:#242B35;
+--neu:#7F8B9B;--or:#F26222;--ortx:#FF8A50;--ok:#5FCB9A;--warn:#F2B544;--warnbg:rgba(242,181,68,.13);--okbg:rgba(95,203,154,.12);--orbg:rgba(242,98,34,.13);
+--head:#2A313C;--shadow:0 1px 2px rgba(0,0,0,.25);--hover:rgba(255,255,255,.045);--scrim:rgba(5,8,11,.6)}
+html[data-theme=light]{--bg:#F2F4F7;--panel:#FFFFFF;--panel2:#F6F7F9;--line:#E0E4EA;--tx:#1B2028;--mu:#5A6472;--dim:#8B94A1;--track:#E8EBF0;
+--neu:#9AA4B2;--ortx:#C2440D;--ok:#1B8755;--warn:#9A6400;--warnbg:#FCF1DA;--okbg:#E2F4EB;--orbg:#FDE9DF;
+--shadow:0 1px 2px rgba(27,32,40,.06),0 4px 14px rgba(27,32,40,.05);--hover:rgba(27,32,40,.04);--scrim:rgba(27,32,40,.38)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--tx);font-family:Inter,"Segoe UI",system-ui,sans-serif;font-feature-settings:"tnum","lnum";
+-webkit-font-smoothing:antialiased;line-height:1.5;font-size:14px;overflow-x:hidden}
+button{font:inherit;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+
+/* top bar: the same on every tab */
+.top{position:sticky;top:0;z-index:20;background:var(--head);color:#fff;border-bottom:3px solid var(--or)}
+.bar{display:flex;align-items:center;gap:14px;height:56px}
+.brand{font-weight:700;letter-spacing:.2em;font-size:15px;color:var(--or)}
+.sep{width:1px;height:24px;background:rgba(255,255,255,.18)}
+.toplogo{height:28px;width:auto;display:block}
+.what{font-size:13px;color:#C9D1DB;white-space:nowrap}
+.asat{margin-left:auto;text-align:right;font-size:11.5px;color:#AEB8C5;line-height:1.35}
+.asat b{color:#fff;font-weight:600}
+.live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#5FCB9A;margin-right:7px;animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(95,203,154,.6)}100%{box-shadow:0 0 0 10px rgba(95,203,154,0)}}
+.theme{width:34px;height:34px;border-radius:9px;border:1px solid rgba(255,255,255,.18);background:none;cursor:pointer;color:#fff;display:grid;place-items:center;flex:none;transition:background .2s}
+.theme:hover{background:rgba(255,255,255,.1)}
+.theme svg{width:17px;height:17px}
+.tabsw{background:var(--head)}
+.tabs{position:relative;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;background:none;border:0;cursor:pointer;padding:10px 14px 12px;font-size:13.5px;font-weight:600;color:#AEB8C5;transition:color .2s;white-space:nowrap}
+.tab:hover{color:#fff}.tab.on{color:#fff}
+.tab .ct{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:11px;background:rgba(255,255,255,.12);color:#fff}
+.tab .ct.w{background:var(--warn);color:#2A1E00}
+.ink{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--or);border-radius:3px 3px 0 0;transition:transform .35s cubic-bezier(.3,.8,.2,1),width .35s cubic-bezier(.3,.8,.2,1)}
+
+/* views */
+main{padding:28px 0 20px}
+.view{display:none}
+.view.on{display:block;animation:viewin .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.vh{margin-bottom:20px}
+.vh h2{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.vh p{color:var(--mu);font-size:15px;max-width:820px;margin-top:6px}
+.grid{display:grid;gap:16px;margin-top:16px}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}.c21{grid-template-columns:1.5fr 1fr}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);min-width:0}
+.card>h3{font-size:15.5px;font-weight:600;letter-spacing:-.005em}
+.card>.sub{font-size:13px;color:var(--mu);margin:3px 0 16px}
+.card>h3+*:not(.sub){margin-top:14px}
+.foot{font-size:12px;color:var(--dim);margin-top:12px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--mu);margin-bottom:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.la{background:var(--or)}.lb{background:var(--neu)}
+svg text{font-family:inherit}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ortx);font-weight:700}
+h1{font-size:38px;line-height:1.12;font-weight:700;letter-spacing:-.025em;margin:10px 0 12px}
+.lead{font-size:16.5px;color:var(--mu);max-width:720px}
+.lead b{color:var(--tx);font-weight:600}
+.client{width:190px;padding:20px 22px 16px;border-radius:14px;text-align:center;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
+.client img{width:118px;height:auto;display:block;margin:0 auto}
+.client .pf{margin-top:12px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.client .pn{font-size:13px;font-weight:600;margin-top:2px}
+.days{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap}
+.day{flex:1;min-width:76px;max-width:120px;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--panel);font-size:12px;color:var(--dim);position:relative;overflow:hidden}
+.day b{display:block;font-size:13.5px;color:var(--mu);font-weight:600}
+.day.done{color:var(--mu)}.day.done b{color:var(--tx)}
+.day.done:after,.day.now:after{content:"";position:absolute;left:0;bottom:0;height:3px;background:var(--or)}
+.day.done:after{width:100%;opacity:.55}
+.day.now{border-color:var(--or);color:var(--ortx);background:var(--orbg)}.day.now b{color:var(--tx)}
+.day.now:after{width:var(--p,50%);animation:dayfill 1.4s .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes dayfill{from{width:0}}
+
+/* KPI tiles */
+.kpi{position:relative;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px 16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .2s;display:block;width:100%}
+.kpi:hover{transform:translateY(-3px);border-color:var(--or)}
+.kpi .l{font-size:13px;color:var(--mu);font-weight:600}
+.kpi .n{font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:6px}
+.kpi .s{font-size:12.5px;color:var(--mu);margin-top:6px;min-height:19px}
+.kpi .go{position:absolute;right:16px;top:16px;color:var(--dim);font-size:16px;transition:transform .25s,color .2s}
+.kpi:hover .go{transform:translateX(3px);color:var(--ortx)}
+.kpi.hot{border-top:3px solid var(--or);padding-top:16px}
+.delta{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:600;background:var(--okbg);color:var(--ok);vertical-align:middle;letter-spacing:0}
+.meter{height:6px;border-radius:4px;background:var(--track);margin-top:12px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;border-radius:4px;background:var(--or);transition:width 1.2s cubic-bezier(.2,.8,.2,1) .15s}
+.go .meter i{width:var(--w)}
+
+/* three things to know */
+.know{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);cursor:pointer;text-align:left;width:100%;transition:border-color .2s,transform .25s}
+.know:hover{border-color:var(--or);transform:translateY(-2px)}
+.know .ic{flex:none;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--orbg);color:var(--ortx)}
+.know.w .ic{background:var(--warnbg);color:var(--warn)}.know.g .ic{background:var(--okbg);color:var(--ok)}
+.know .ic svg{width:20px;height:20px}
+.know b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
+.know span{display:block;font-size:13px;color:var(--mu);margin-top:3px}
+.sect{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:700;margin:26px 0 -4px}
+
+/* bars */
+.row{display:grid;grid-template-columns:minmax(110px,var(--nm,200px)) 1fr auto;align-items:center;gap:12px;padding:7px 8px;margin:0 -8px;border-radius:8px}
+.row .nm{font-size:13.5px;min-width:0;display:flex;align-items:center;gap:10px}
+.row .nm>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .nm small{display:block;color:var(--dim);font-size:12px;overflow:hidden;text-overflow:ellipsis}
+.tr{position:relative;height:10px;border-radius:5px;background:var(--track);overflow:hidden}
+.fl,.fb{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:5px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.fl{background:var(--or)}.fb{background:var(--neu);opacity:.55}
+.neu .fl{background:var(--neu)}.warnb .fl{background:var(--warn)}
+.go .fl,.go .fb,.now .fl,.now .fb{width:var(--w)}
+.row .v{font-weight:600;text-align:right;font-size:14px;min-width:34px;white-space:nowrap}
+.row .v small{font-weight:400;color:var(--mu);font-size:12.5px}
+.tick{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--tx);opacity:.7}
+[data-open],[data-go]{cursor:pointer}
+.row[data-open],tr[data-open],.prow,.krow[data-open]{transition:background .15s}
+.row[data-open]:hover,tr[data-open]:hover,.prow:hover,.krow[data-open]:hover{background:var(--hover)}
+.row[data-open] .v:after,.prow:after{content:"›";display:inline-block;margin-left:8px;color:var(--dim);font-weight:400;transition:transform .2s,color .2s}
+.row[data-open]:hover .v:after,.prow:hover:after{transform:translateX(3px);color:var(--ortx)}
+.more{background:none;border:0;color:var(--ortx);font-weight:600;font-size:13px;cursor:pointer;margin-top:10px;padding:4px 0}
+.more:hover{text-decoration:underline}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.stats>div{padding:16px 20px;border-left:1px solid var(--line)}
+.stats>div:first-child{border-left:0}
+.stats .n{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.stats .l{font-size:12.5px;color:var(--mu);margin-top:2px}
+.stats .n.w{color:var(--warn)}
+.stats.in{border:0;box-shadow:none;background:none;border-radius:0}.stats.in>div{padding:0 16px}.stats.in>div:first-child{padding-left:0}
+
+/* tool pictures */
+.tp{width:38px;height:38px;border-radius:9px;object-fit:cover;flex:none;border:1px solid var(--line);background:#0b0d10}
+.tp.lg{width:48px;height:48px;border-radius:11px}
+.tp.mono{display:grid;place-items:center;background:var(--panel2);color:var(--dim);font-size:11.5px;font-weight:700;letter-spacing:.04em}
+.tp.lg.mono{font-size:13px}
+
+/* tables */
+.tscroll{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}
+table.t th{text-align:left;color:var(--mu);font-weight:600;font-size:12px;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.t tr:last-child td{border-bottom:0}
+table.t td.n,table.t th.n{text-align:right}
+table.t td.n{font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.pill.w{background:var(--warnbg);color:var(--warn)}.pill.g{background:var(--okbg);color:var(--ok)}.pill.o{background:var(--orbg);color:var(--ortx)}.pill.n{background:var(--track);color:var(--mu)}
+.search{font:inherit;font-size:14px;width:100%;max-width:360px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--tx);outline:none;transition:border-color .2s}
+.search:focus{border-color:var(--or)}
+.search::placeholder{color:var(--dim)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.seg{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:var(--panel2);border:1px solid var(--line)}
+.seg button{font-size:13px;font-weight:600;color:var(--mu);background:none;border:0;border-radius:7px;padding:6px 12px;cursor:pointer;transition:color .2s,background .2s}
+.seg button.on{color:#fff;background:var(--or)}
+.btn{font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:10px;text-decoration:none;cursor:pointer;color:#fff;background:var(--or);border:1px solid var(--or);transition:transform .2s,filter .2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.btn.ghost{background:var(--panel2);color:var(--tx);border-color:var(--line)}.btn.ghost:hover{border-color:var(--or)}
+.btn svg{width:15px;height:15px}
+.dl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.dlcard{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:space-between}
+.dlcard h3{font-size:15.5px;font-weight:600}.dlcard p{font-size:13px;color:var(--mu);margin-top:2px}
+
+/* charts */
+.gl{stroke:var(--line);stroke-width:1}.ax{fill:var(--dim);font-size:11px}.axb{fill:var(--mu);font-size:11px;font-weight:600}
+.col{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0)*28ms)}
+.go .col{transform:scaleY(1)}
+.ca{fill:var(--or)}.cb{fill:var(--neu)}
+.hit rect{fill:transparent}.hit:hover .hl{opacity:1}.hl{fill:var(--tx);opacity:0;transition:opacity .15s}
+.lbl{fill:var(--tx);font-size:12px;font-weight:700;opacity:0;transition:opacity .4s .9s}.go .lbl{opacity:1}
+.draw{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.go .draw{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s cubic-bezier(.4,.1,.2,1)}
+.sa{stroke:var(--or)}.sb{stroke:var(--neu)}
+.pt{opacity:0;transition:opacity .3s 1.2s;stroke:var(--panel);stroke-width:2}.go .pt{opacity:1}
+.pa{fill:var(--or)}.pb2{fill:var(--neu)}
+.band{fill:var(--or);opacity:.28;transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);transition:transform 1s cubic-bezier(.2,.8,.2,1) .2s}.go .band{transform:scaleX(1)}
+.rtrack{fill:var(--track)}.rdot{fill:var(--or);stroke:var(--panel);stroke-width:3}.rdot.e{fill:var(--panel);stroke:var(--or);stroke-width:2.5}
+.rv{fill:var(--tx);font-size:17px;font-weight:700}.rl{fill:var(--mu);font-size:11.5px}
+.empty{color:var(--mu);font-size:13.5px;padding:26px 10px;text-align:center;border:1px dashed var(--line);border-radius:10px}
+#tip{position:fixed;z-index:80;pointer-events:none;background:var(--tx);color:var(--bg);font-size:12.5px;line-height:1.4;padding:7px 10px;border-radius:8px;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+#tip.on{opacity:1;transform:none}#tip b{font-weight:700}
+
+/* utilisation tiles */
+.ut .n{font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:6px}
+.ut .l{font-size:13.5px;font-weight:600}.ut .s{font-size:12.5px;color:var(--mu);margin-top:8px}
+
+/* tested by Coates */
+.tagrow{display:grid;grid-template-columns:200px 1fr 1fr;gap:28px;align-items:start}
+.tagbig{text-align:center;padding-top:4px}
+.tagbig .cn{font-size:18px;font-weight:700;margin-top:6px}.tagbig .sp{font-size:12.5px;color:var(--mu)}
+.swing{transform-origin:100px 14px;animation:swing 2.4s ease-in-out .4s both}
+@keyframes swing{0%{transform:rotate(-12deg)}35%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(2deg)}100%{transform:rotate(0)}}
+.tg h4{font-size:14.5px;font-weight:600}.tg .sub{font-size:12.5px;color:var(--mu);margin:2px 0 8px}
+.li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.li:last-of-type{border-bottom:0}
+.li b{min-width:26px;text-align:right;font-weight:700}
+.li i{flex:none;width:9px;height:9px;border-radius:2px;align-self:center}
+
+/* category browser */
+.cb2{display:grid;grid-template-columns:300px 1fr;gap:0;padding:0;overflow:hidden}
+.cbl{border-right:1px solid var(--line);padding:10px;max-height:760px;overflow:auto}
+.cbi{display:block;width:100%;text-align:left;background:none;border:0;border-radius:9px;padding:9px 12px;cursor:pointer;transition:background .15s}
+.cbi:hover{background:var(--hover)}
+.cbi.on{background:var(--orbg)}
+.cbi .a{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;font-weight:600}
+.cbi .a span:last-child{color:var(--mu);font-weight:600}
+.cbi.on .a span:last-child{color:var(--ortx)}
+.cbi .m{height:4px;border-radius:2px;background:var(--track);margin-top:7px;overflow:hidden}
+.cbi .m i{display:block;height:100%;background:var(--neu);border-radius:2px;width:var(--w)}
+.cbi.on .m i{background:var(--or)}
+.cbp{padding:18px 22px;max-height:760px;overflow:auto;min-width:0}
+.cbp h4{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.cbp .tot{font-size:13px;color:var(--mu);margin:2px 0 10px}
+.krow{display:grid;grid-template-columns:minmax(180px,300px) 1fr;gap:16px;padding:10px 8px;margin:0 -8px;border-top:1px solid var(--line);align-items:center;border-radius:8px;animation:rowin .4s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*25ms)}
+@keyframes rowin{from{opacity:0;transform:translateY(6px)}}
+.krow .kn{display:flex;align-items:center;gap:12px;font-size:13.5px;font-weight:600;min-width:0}
+.krow .kn small{display:block;color:var(--mu);font-weight:400;font-size:12px;margin-top:1px}
+.szs{display:flex;flex-wrap:wrap;gap:5px}
+.sz{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--panel2);border-radius:7px;padding:3px 8px;font-size:12px;white-space:nowrap}
+.sz b{color:var(--mu);font-weight:600}
+.sz.out{border-color:var(--or)}.sz.out:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--or)}
+.sz.zero{opacity:.45}
+
+/* shifts */
+.shift h4{font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px}
+.shift h4 svg{width:22px;height:22px;flex:none}
+.shift .hrs{font-size:13px;color:var(--mu);margin-top:2px}
+.shift .big{font-size:36px;font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-top:14px}
+.shift .big small{display:block;font-size:12.5px;color:var(--mu);font-weight:400;letter-spacing:0;margin-top:2px}
+.kv{margin-top:14px}
+.kv div{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--mu)}
+.kv b{color:var(--tx);font-weight:600}
+.spin{transform-origin:12px 12px;animation:spin 30s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+
+/* people */
+.prow{display:grid;grid-template-columns:minmax(150px,1.3fr) 1fr 130px 1.4fr 16px;gap:12px;align-items:center;padding:10px 8px;margin:0 -8px;border-top:1px solid var(--line);font-size:13.5px;cursor:pointer;border-radius:8px}
+.prow.h{cursor:default;border-top:0;color:var(--mu);font-size:12px;font-weight:600;padding-bottom:6px}.prow.h:hover{background:none}.prow.h:after{content:""}
+.prow .pn{font-weight:600}.prow .pc{color:var(--mu)}
+.prow .tags{display:flex;flex-wrap:wrap;gap:5px}
+.stars{position:relative;display:inline-block;font-size:14px;letter-spacing:2px;line-height:1;color:var(--track);white-space:nowrap;vertical-align:-1px}
+.stars i{position:absolute;left:0;top:0;overflow:hidden;color:#F2A93B;font-style:normal;width:var(--p)}
+.stars.lg{font-size:22px;letter-spacing:3px}
+
+/* guide */
+.defs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.def{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.def b{display:block;font-size:14px;margin-bottom:3px}.def span{font-size:13px;color:var(--mu)}
+
+/* detail drawer */
+.scrim{position:fixed;inset:0;z-index:50;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:51;width:min(620px,100vw);background:var(--panel);border-left:1px solid var(--line);box-shadow:-20px 0 60px rgba(0,0,0,.3);transform:translateX(102%);transition:transform .38s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.dhead{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);flex:none}
+.dhead .sp{flex:1;font-size:12px;color:var(--dim);text-align:center}
+.ib{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);cursor:pointer;font-size:17px;line-height:1;display:grid;place-items:center;transition:border-color .2s}
+.ib:hover{border-color:var(--or)}.ib[disabled]{opacity:.3;cursor:default;border-color:var(--line)}
+#dbody{padding:22px 24px 30px;overflow:auto;flex:1}
+#dbody.sw{animation:viewin .3s cubic-bezier(.2,.8,.2,1)}
+.dh{display:flex;gap:16px;align-items:center;margin-bottom:4px}
+.dh h3{font-size:22px;font-weight:700;letter-spacing:-.015em;line-height:1.2}.dh .ssub{color:var(--mu);font-size:13.5px;margin-top:3px}
+.dh img{width:84px;height:84px;border-radius:14px;border:1px solid var(--line);object-fit:cover}
+.sstats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
+.sstats div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.sstats b{display:block;font-size:20px;font-weight:700;letter-spacing:-.01em}.sstats span{font-size:12px;color:var(--mu)}
+#dbody h5{font-size:13px;color:var(--mu);font-weight:600;margin:20px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:5px 12px;font-size:13px;transition:border-color .2s}
+.chip[data-open]:hover{border-color:var(--or)}
+.chip b{margin-right:6px}
+.note{border-radius:10px;padding:10px 14px;margin:10px 0;font-size:13.5px}
+.note.w{background:var(--warnbg);color:var(--tx)}.note.w b{color:var(--warn)}
+.note.g{background:var(--okbg)}.note.g b{color:var(--ok)}
+.note.o{background:var(--orbg)}.note.o b{color:var(--ortx)}
+.lk{color:var(--ortx);text-decoration:none}.lk:hover{text-decoration:underline}
+
+footer{margin-top:36px;border-top:1px solid var(--line);padding:18px 0 34px;font-size:12px;color:var(--mu);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer b{color:var(--tx)}
+
+@media (max-width:980px){.c2,.c3,.c21,.tagrow,.defs{grid-template-columns:1fr}.c4{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}.client{display:none}
+.cb2{grid-template-columns:1fr}.cbl{border-right:0;border-bottom:1px solid var(--line);max-height:230px}.cbp{max-height:none}.krow{grid-template-columns:1fr;gap:8px}
+.stats{grid-template-columns:1fr 1fr}.stats>div:nth-child(odd){border-left:0}.stats>div:nth-child(n+3){border-top:1px solid var(--line)}
+.prow{grid-template-columns:1fr 1fr 16px}.prow .pc{text-align:right}.prow>div:nth-child(3),.prow>div:nth-child(4){grid-row:2}.prow.h{display:none}.sstats{grid-template-columns:1fr 1fr}h1{font-size:30px}}
+@media (max-width:620px){.wrap{padding:0 16px}.what{display:none}.asat{font-size:10.5px}.asat .au{display:none}.c4{grid-template-columns:1fr 1fr}.kpi .n{font-size:32px}.card{padding:16px}
+.row{--nm:130px}.vh h2{font-size:22px}.days{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.day{flex:none;min-width:98px}.dlcard{align-items:flex-start}#dbody{padding:18px 16px 26px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* print and the PDF: every tab, one after another, on white */
+.static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
+.static .view{display:block!important;animation:none;margin-bottom:26px}
+.static *{animation:none!important;transition:none!important}
+.static .wrap{max-width:none;padding:0 6px}.static{--bg:#FFFFFF!important;--shadow:none!important}.static .top .wrap{padding:0 18px}
+.static .kpi .go,.static .row[data-open] .v:after,.static .prow:after{display:none}
+.static #hourly svg{max-height:250px}.static #clock svg{max-height:290px}.static #trend svg{max-height:230px}
+.static .client{width:160px;padding:14px 16px 12px}.static .client img{width:96px}.static main{padding-top:20px}
+@page{size:A4 landscape;margin:9mm 8mm 13mm}
+@media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.pb{break-before:page}.card,.kpi,.know,.stats,.def,.krow,.row,.prow,tr{break-inside:avoid}.tall{break-inside:auto}main{padding-top:14px}}
+</style></head>
+<body>
+<header class="top"><div class="wrap bar">
+<div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
+<div class="what" id="what"></div>
+<div class="asat"><span class="live"></span>SiteIQ pull <b id="asat"></b><br><span class="au">Author: Andrew Fisher | POWERED BY SITEIQ</span></div>
+<button class="theme" id="theme" aria-label="Switch between light and dark"></button>
+</div><div class="tabsw"><nav class="wrap"><div class="tabs" id="tabs"><i class="ink" id="ink"></i></div></nav></div></header>
+
+<main class="wrap">
+
+<section class="view" id="v-overview" data-tab="Overview">
+<div class="hero"><div>
+<div class="eyebrow" id="eyebrow"></div>
+<h1 id="h1"></h1>
+<p class="lead" id="lead"></p>
+</div><div class="client" id="client"><img id="clientlogo" alt="__CLIENT__"><div class="pf">Prepared for</div><div class="pn" id="clientname"></div></div></div>
+<div class="days" id="days"></div>
+<div class="grid c4" id="kpis" style="margin-top:22px"></div>
+<div class="sect">Three things to know right now</div>
+<div class="grid c3" id="know"></div>
+<div class="grid c21">
+<div class="card"><h3>Items issued today, hour by hour</h3><div class="sub" id="hoursub"></div>
+<div class="legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>Already back on the shelf</span></div>
+<div id="hourly"></div></div>
+<div class="card"><h3>Who has the gear now</h3><div class="sub" id="cosub"></div><div id="cos"></div></div>
+</div>
+<div class="card dlcard noprint" style="margin-top:16px"><div><h3>Take the on-hire report with you</h3><p id="dlfoot"></p></div><div class="dl" id="dl1"></div></div>
+</section>
+
+<section class="view pb" id="v-onhire" data-tab="On hire">
+<div class="vh"><h2>On hire now</h2><p id="oh-lead"></p></div>
+<div class="stats" id="oh-stats" style="--n:5"></div>
+<div class="grid c2">
+<div class="card"><h3>By company</h3><div class="sub">Items each company is holding at the pull.</div><div id="oh-cos"></div></div>
+<div class="card"><h3>By tool</h3><div class="sub">What is out, against how many of each the store holds.</div><div id="oh-kinds" style="--nm:270px"></div></div>
+</div>
+<div class="card tall noprint" style="margin-top:16px"><h3>Every item on hire</h3><div class="sub">Each item is against a named person. Search by person, company or item.</div>
+<div class="tools noprint"><input class="search" id="oh-q" placeholder="Search the on-hire list" autocomplete="off"><div class="dl" id="dl2" style="margin-left:auto"></div></div>
+<div id="oh-list"></div><div class="foot" id="oh-foot"></div></div>
+</section>
+
+<section class="view pb" id="v-tooling" data-tab="Tooling">
+<div class="vh"><h2>Tooling</h2><p id="tl-lead"></p></div>
+<div class="grid c3" id="tl-util" style="margin-top:0"></div>
+<div class="card" style="margin-top:16px"><h3>Utilisation by tool</h3><div class="sub">How many of each tool are out now, against the most that have ever been out at once at __CLIENT__.</div>
+<div class="legend"><span><i class="la"></i>Out now</span><span><i class="lb" style="opacity:.55"></i>Busiest seen at __CLIENT__</span><span style="color:var(--dim)">Full bar = all in the store</span></div>
+<div id="tl-tools" style="--nm:330px"></div></div>
+<div class="card" style="margin-top:16px"><h3>Tested by Coates</h3><div class="sub" id="tg-sub"></div><div id="tagged"></div></div>
+<div class="sect noprint">Browse the tool store</div>
+<div class="card cb2 noprint" id="cb-tools" style="margin-top:16px"></div>
+</section>
+
+<section class="view pb" id="v-consumables" data-tab="Consumables">
+<div class="vh"><h2>Consumables</h2><p id="cn-lead"></p></div>
+<div class="stats" id="cn-stats"></div>
+<div class="card" id="belowcard" style="margin-top:16px"><h3 id="below-h"></h3><div class="sub" id="below-sub"></div><div id="below"></div></div>
+<div class="grid c2">
+<div class="card"><h3>On the shelf, by type</h3><div class="sub">Units in the store at the pull.</div><div id="cn-types" class="neu" style="--nm:240px"></div></div>
+<div class="card" id="drawcard"><h3>Drawn so far this shut</h3><div class="sub" id="draw-sub"></div>
+<div class="seg noprint" id="drawseg" style="margin-bottom:10px"><button data-k="types" class="on">By type</button><button data-k="lines">By line</button><button data-k="cos">By company</button></div>
+<div id="cn-draws" style="--nm:260px"></div></div>
+</div>
+<div class="sect noprint">Browse the consumables shelf</div>
+<div class="card cb2 noprint" id="cb-cons" style="margin-top:16px"></div>
+</section>
+
+<section class="view pb" id="v-rhythm" data-tab="How the store runs">
+<div class="vh"><h2>How the store runs</h2><p id="op-lead"></p></div>
+<div id="opsblock">
+<div class="stats" id="op-stats"></div>
+<div class="card" style="margin-top:16px"><h3>Busy times round the clock</h3><div class="sub" id="clock-sub"></div>
+<div class="legend"><span><i class="la"></i>Day shift, 06:00 to 18:00</span><span><i class="lb"></i>Night shift, 18:00 to 06:00</span></div>
+<div id="clock"></div></div>
+<div class="grid c2">
+<div class="card shift" id="shday"></div><div class="card shift" id="shnight"></div>
+</div>
+<div class="grid c2">
+<div class="card"><h3>Consumables used a day, by type</h3><div class="sub">Average units drawn per shift day.</div><div id="op-types"></div></div>
+<div class="card"><h3>The ten most-used lines</h3><div class="sub">Average units drawn per shift day.</div><div id="op-lines" class="neu" style="--nm:270px"></div></div>
+</div></div>
+<div class="sect">This shut against the usual range</div>
+<div class="grid c2">
+<div class="card"><h3>This shut, pull by pull</h3><div class="sub">Each SiteIQ pull adds a point.</div>
+<div class="legend"><span><i class="la"></i>On hire at the pull</span><span><i class="lb"></i>Issued that day</span></div><div id="trend"></div></div>
+<div class="card"><h3>What a day usually looks like at __CLIENT__</h3><div class="sub" id="range-sub"></div><div id="range"></div></div>
+</div>
+</section>
+
+<section class="view pb" id="v-people" data-tab="People">
+<div class="vh"><h2>People</h2><p id="pp-lead"></p></div>
+<div class="stats" id="pp-stats"></div>
+<div class="card tall" style="margin-top:16px">
+<div class="tools noprint"><input class="search" id="pp-q" placeholder="Search a person or company" autocomplete="off">
+<div class="seg" id="pp-seg"><button data-k="all" class="on">Everyone</button><button data-k="now">Gear out now</button><button data-k="top">Top rated</button><button data-k="flag">Flagged</button></div></div>
+<div id="pp-list"></div><div class="foot" id="pp-foot"></div></div>
+</section>
+
+<section class="view pb" id="v-guide" data-tab="Guide">
+<div class="vh"><h2>What each figure means</h2><p>Every figure in this report comes straight from SiteIQ. Nothing is estimated. Here is how each one is counted.</p></div>
+<div class="defs" id="defs"></div>
+</section>
+
+<footer><div><b>Author: Andrew Fisher | POWERED BY SITEIQ</b><br><span id="ftjob"></span></div>
+<div id="srcs" style="text-align:right"></div></footer>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp">Click anything underlined or listed to open it</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
+<div id="tip"></div>
+
+<script>
+const D=__DATA__, LOGO="__LOGO__", CLIENT="__CLIENT__";
+const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
+const fmt=n=>Number(n).toLocaleString('en-AU');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const QS=location.search, STATIC=/[?&]static/.test(QS);
+const root=document.documentElement;
+if(STATIC)root.classList.add('static');
+const K=D.k, MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const plural=(n,w,ws)=>`${fmt(n)} ${n==1?w:(ws||w+'s')}`;
+const whole=v=>fmt(Math.round(v));
+const f1=v=>(Math.round(v*10)/10).toLocaleString('en-AU');
+
+// theme: dark on screen, white on paper
+{let t=STATIC?'light':'dark';try{t=STATIC?'light':(localStorage.getItem('tsr-theme')||t)}catch(e){}
+if(/[?&]light/.test(QS))t='light';if(/[?&]dark/.test(QS))t='dark';
+const sun='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const moon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>';
+const set=x=>{root.dataset.theme=x;$('#theme').innerHTML=x=='dark'?sun:moon;$('#theme').title=x=='dark'?'Switch to light':'Switch to dark'};set(t);
+$('#theme').onclick=()=>{const x=root.dataset.theme=='dark'?'light':'dark';set(x);try{localStorage.setItem('tsr-theme',x)}catch(e){}}}
+
+// pictures: the photo where the pack has one, a tidy monogram where it does not
+const mono=n=>String(n||'').replace(/[^A-Za-z0-9 ]/g,' ').split(/\s+/).filter(w=>/^[A-Za-z]/.test(w)).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+const pic=(i,name,c)=>(i!=null&&D.pics&&D.pics[i])?`<img class="tp${c?' '+c:''}" src="${D.pics[i]}" alt="" loading="lazy">`:`<span class="tp mono${c?' '+c:''}">${esc(mono(name))}</span>`;
+
+// header
+$('#asat').textContent=D.asat;
+$('#what').textContent=D.job.title.replace(CLIENT,'').trim()+' · Shutdown Tool Store';
+if(LOGO){$('#toplogo').src=LOGO;$('#clientlogo').src=LOGO;$('#clientname').textContent=D.job.title}else{$('#toplogo').remove();$('#lsep').remove();$('#client').remove();$('#what').textContent=D.job.title+' · Shutdown Tool Store'}
+$('#ftjob').textContent=`Built from SiteIQ exports for ${D.job.title}, November 2026 shut. No figure in this report is estimated.`;
+$('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
+const asatT=D.asat.split(' ').slice(-1)[0], asatH=+asatT.slice(0,2);
+
+/* ---------- small builders ---------- */
+function bars(el,items,o){o=o||{};const max=o.max||Math.max(1,...items.map(i=>i.n));
+el.innerHTML=items.map((i,x)=>`<div class="row"${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr">${i.b!=null?`<div class="fb" style="--w:${(Math.min(i.b,max)/max*100).toFixed(1)}%"></div>`:''}<div class="fl" style="--w:${(Math.min(i.n,max)/max*100).toFixed(1)}%"></div></div><div class="v">${i.v!=null?i.v:`<span data-n="${i.n}"${o.dec?' data-dec="1"':''}>${o.dec?f1(i.n):fmt(i.n)}</span>`}</div></div>`).join('')||'<div class="empty">Nothing to show in this pull.</div>'}
+const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>`<div${x[3]?` data-tip="${esc(x[3])}"`:''}><div class="n${x[2]?' '+x[2]:''}"><span data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>${x[0]}</span></div><div class="l">${x[1]}</div></div>`).join('')};
+function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v))),m=v/p;return ([1,2,2.5,4,5,8,10].find(x=>m<=x))*p}
+
+// columns: one or two stacked series per slot
+function columns(el,labels,a,b,o){o=o||{};const W=o.w||680,H=o.h||250,L=30,R=8,T=22,B=o.band?46:28,n=labels.length;
+const tot=a.map((v,i)=>v+(b?b[i]:0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(34,sw*.66),y=v=>T+(H-T-B)*(1-v/max);
+let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${Math.round(v*10)/10}</text>`}
+const pk=tot.indexOf(Math.max(...tot));let s='';
+labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2,ya=y(a[i]),yt=y(tot[i]),cls=o.cls?o.cls(i):'ca';
+if(a[i]>0)s+=`<rect class="col ${cls}" style="--i:${i}" x="${x}" y="${ya}" width="${bw}" height="${y(0)-ya}" rx="3"/>`;
+if(b&&b[i]>0)s+=`<rect class="col cb" style="--i:${i}" x="${x}" y="${yt}" width="${bw}" height="${Math.max(0,ya-yt-(a[i]>0?2:0))}" rx="3"/>`;
+if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
+if(i%(o.every||1)==0)s+=`<text class="ax" x="${x+bw/2}" y="${H-B+16}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
+s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-B+1}" width="${bw}" height="2"/></g>`});
+if(o.band)s+=o.band(i=>L+sw*i,H-10);
+el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`}
+
+function lineChart(el,labels,series,o){o=o||{};const W=640,H=240,L=30,R=46,T=18,B=28,n=labels.length;
+const max=nice(Math.max(1,...series.flatMap(s=>s.v))*1.12),x=i=>L+(W-L-R)*(n<2?.5:i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
+let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`}
+labels.forEach((l,i)=>{g+=`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="${i==0?'start':i==n-1?'end':'middle'}">${esc(l)}</text>`});
+let s='';series.forEach((se,k)=>{s+=`<path class="draw ${k?'sb':'sa'}" d="${se.v.map((v,i)=>(i?'L':'M')+x(i)+','+y(v)).join(' ')}"/>`;
+se.v.forEach((v,i)=>{s+=`<circle class="pt ${k?'pb2':'pa'}" cx="${x(i)}" cy="${y(v)}" r="5"/>`});
+const lv=se.v[n-1];s+=`<text class="lbl" x="${x(n-1)+10}" y="${y(lv)+4}">${fmt(lv)}</text>`});
+labels.forEach((l,i)=>{const w=(W-L-R)/Math.max(1,n-1);s+=`<g class="hit" data-tip="${esc('<b>'+l+'</b><br>'+series.map(se=>se.name+': '+fmt(se.v[i])).join('<br>'))}"><rect x="${x(i)-w/2}" y="${T}" width="${w}" height="${H-T-B}"/><rect class="hl" x="${x(i)-.5}" y="${T}" width="1" height="${H-T-B}"/></g>`});
+el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`;
+$$('.draw',el).forEach(p=>p.style.setProperty('--len',p.getTotalLength()))}
+
+// quietest / typical / busiest on one line
+function rangeRow(title,unit,r){const W=560,H=112,L=24,R=24,max=r[2].n*1.12,x=v=>L+(W-L-R)*v/max,cy=58;
+return `<div style="margin-top:6px"><div style="font-size:13.5px;font-weight:600">${title}</div>
+<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><rect class="rtrack" x="${L}" y="${cy-4}" width="${W-L-R}" height="8" rx="4"/>
+<rect class="band" x="${x(r[0].n)}" y="${cy-9}" width="${x(r[2].n)-x(r[0].n)}" height="18" rx="9"/>
+${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle class="rdot${i==1?'':' e'}" cx="${x(p.n)}" cy="${cy}" r="${i==1?9:7}"/><text class="rv" x="${x(p.n)}" y="${i==1?cy-18:cy+32}" text-anchor="middle">${fmt(p.n)}</text><text class="rl" x="${x(p.n)}" y="${i==1?cy-38:cy+48}" text-anchor="middle">${['Quietest','Typical','Busiest'][i]}</text></g>`).join('')}
+</svg></div>`}
+
+/* ---------- overview ---------- */
+{const day=D.job.day,days=D.job.days,p=D.asat.split(' '),today=new Date(+p[2],MON.indexOf(p[1]),+p[0]);
+$('#eyebrow').textContent=`${D.job.title} · November 2026 shut`;
+$('#h1').innerHTML=`Tool store report <span style="color:var(--mu);font-weight:600">· day ${day} of ${days}</span>`;
+$('#lead').innerHTML=`By ${asatT} on ${D.asat_day}, <b>${fmt(K.issued_today)} items</b> had gone over the counter and <b>${fmt(K.on)}</b> are out with <b>${K.companies} companies</b>. ${K.held?`${fmt(K.coates_ready)} of ${fmt(K.coates)} Coates tools are ready for work`:`All <b>${fmt(K.coates)} Coates tools</b> are ready for work`}, and <b>${fmt(K.cons_units)} consumable units</b> are on the shelf.`;
+let ds='';for(let i=1;i<=days;i++){const d=new Date(today);d.setDate(today.getDate()+i-day);
+ds+=`<div class="day${i<day?' done':i==day?' now':''}"${i==day?` style="--p:${Math.round(((asatH+24-5)%24)/24*100)}%"`:''}>${i==day?'Today · day '+i:'Day '+i}<b>${DOW[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}</b></div>`}
+$('#days').innerHTML=ds;
+const H=D.history||[],prev=H.length>1?H[H.length-2]:null,sameDay=prev&&prev.asat.slice(0,10)==H[H.length-1].asat.slice(0,10);
+const dl=(now,was)=>prev&&now>was?`<span class="delta">+${fmt(now-was)} since ${prev.asat.slice(11)}</span>`:'';
+const kp=[
+{n:K.on,l:'On hire now',s:`${plural(K.companies,'company','companies')} · ${plural(K.people,'person','people')}`,go:'onhire',hot:1,d:prev?dl(K.on,prev.on_hire):''},
+{n:K.issued_today,l:'Issued today',s:`${fmt(K.still_out_today)} still out · ${fmt(K.back_today)} already back`,go:'onhire',d:sameDay?dl(K.issued_today,prev.issued_today):''},
+{n:K.coates_ready,l:'Coates tools ready for work',s:K.held?`of ${fmt(K.coates)} on site · ${K.held} held back`:`every Coates tool on site`,go:'tooling',m:K.coates_ready/Math.max(1,K.coates)},
+{n:K.cons_units,l:'Consumable units on the shelf',s:`${K.cons_lines} lines${D.below.length?` · ${D.below.length} to top up`:''}`,go:'consumables'}];
+$('#kpis').innerHTML=kp.map(k=>`<button class="kpi${k.hot?' hot':''}" data-go="${k.go}"><span class="go">→</span><div class="l">${esc(k.l)}</div><div class="n"><span data-n="${k.n}">${fmt(k.n)}</span>${k.d||''}</div><div class="s">${esc(k.s)}</div></button>`).join('');
+// three things to know, each read straight off the pull
+const ic={clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+ppl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></svg>',
+box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>',
+ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'};
+const kn=[];const mh=Math.max(...D.hour_out),hi=D.hour_out.indexOf(mh);
+if(mh>0)kn.push({c:'',i:ic.clock,t:`Busiest at ${D.hours[hi]}`,d:`${plural(mh,'item')} went out in that hour${hi<=1?', at the start of day shift':''}.`,go:'rhythm'});
+const C=D.companies;if(C.length>1)kn.push({c:'',i:ic.ppl,t:`${C[0].name} and ${C[1].name} hold ${fmt(C[0].n+C[1].n)} of the ${fmt(K.on)} items out`,d:`${C.length} companies have gear. Every item is against a named person.`,go:'onhire'});
+else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} items out`,d:'Every item is against a named person.',go:'onhire'});
+if(D.below.length){const z=D.below.filter(b=>b.have==0).length;kn.push({c:'w',i:ic.box,t:`${plural(D.below.length,'consumable line')} to top up`,d:z?`${plural(z,'line')} at zero. The list is on the Consumables tab.`:'Each is below its minimum. The list is on the Consumables tab.',go:'consumables'})}
+else kn.push({c:'g',i:ic.ok,t:'Every consumable line is above its minimum',d:`${K.cons_lines} lines on the shelf.`,go:'consumables'});
+$('#know').innerHTML=kn.map(k=>`<button class="know ${k.c}" data-go="${k.go}"><span class="ic">${k.i}</span><span><b>${esc(k.t)}</b><span>${esc(k.d)}</span></span></button>`).join('');
+// today, hour by hour: each column is the items issued in that hour
+const nh=Math.min(D.hours.length,Math.max(asatH-4,D.hour_out.reduce((m,v,i)=>v?i+1:m,0),8));
+const out=D.hour_out.slice(0,nh),back=D.hour_back.slice(0,nh),still=out.map((v,i)=>v-back[i]);
+$('#hoursub').textContent=`${fmt(K.issued_today)} issued on ${D.asat_day} up to ${asatT}. ${fmt(K.back_today)} of them are already back.`;
+columns($('#hourly'),D.hours.slice(0,nh),still,back,{label:'Items issued by hour',short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
+tip:i=>`<b>${D.hours[i]}</b><br>Issued: ${out[i]}<br>Still out: ${still[i]}<br>Already back: ${back[i]}`});
+$('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}.`;
+bars($('#cos'),C.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})),{});
+const dlh=`<a class="btn" href="onhire.pdf" download="${CLIENT} On-Hire Report.pdf">PDF</a><a class="btn" href="onhire.xlsx" download="${CLIENT} On-Hire Report.xlsx">Excel</a><a class="btn ghost mail" href="#">Email</a>`;
+$('#dl1').innerHTML=dlh+`<button class="btn ghost" data-go="onhire">See the list</button><a class="btn ghost" href="report.pdf" download="${CLIENT} Tool Store Report.pdf">This whole report (PDF)</a>`;$('#dl2').innerHTML=dlh;
+const cosN=C.map(c=>`${c.name}: ${c.n}`).join('%0D%0A');
+$$('.mail').forEach(a=>a.href=`mailto:?subject=${encodeURIComponent(CLIENT+' tool store – on-hire report, '+D.asat)}&body=${encodeURIComponent('On hire as at the SiteIQ pull of '+D.asat+': '+D.onhire.length+' items with '+C.length+' companies.')}%0D%0A%0D%0A${cosN}%0D%0A%0D%0A${encodeURIComponent('The full report and the PDF and Excel copies are on the tool store report site'+(location.protocol.startsWith('http')?': '+location.origin+'/':'.'))}`);
+$('#dlfoot').textContent=`${fmt(D.onhire.length)} items as at ${D.asat}. Email opens a draft in your mail app; nothing sends until you press send.`}
+
+/* ---------- on hire ---------- */
+{$('#oh-lead').textContent=`Everything out with crews at the ${asatT} pull on ${D.asat_day}, by company, by tool and item by item.`;
+stats($('#oh-stats'),[[K.on,'Items on hire'],[K.companies,'Companies'],[K.people,'People holding gear'],[K.issued_today,'Issued today'],[K.back_today,'Issued today and already back']]);
+bars($('#oh-cos'),D.companies.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})));
+const kinds=Object.entries(D.tools).filter(([k,t])=>t.on>0).sort((a,b)=>b[1].on-a[1].on||a[1].name.localeCompare(b[1].name));
+const kmax=Math.max(1,...kinds.map(([k,t])=>t.on));
+const krow=([k,t])=>({name:t.name,pic:t.pic,n:t.on,open:'t:'+k,v:`${t.on} <small>of ${fmt(t.site)}</small>`});
+const showK=all=>{bars($('#oh-kinds'),kinds.slice(0,all?99:8).map(krow),{pic:1,max:kmax});if(kinds.length>8&&!STATIC)$('#oh-kinds').insertAdjacentHTML('beforeend',`<button class="more noprint">${all?'Show fewer':'Show all '+kinds.length+' tools'}</button>`);
+const m=$('#oh-kinds .more');if(m)m.onclick=()=>{showK(!all);$('#oh-kinds').classList.add('now')}};showK(STATIC);
+const R=D.onhire.slice().sort((a,b)=>a.co.localeCompare(b.co)||a.who.localeCompare(b.who)||a.desc.localeCompare(b.desc));
+function list(q){q=(q||'').trim().toUpperCase();const rs=R.filter(r=>!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q));
+$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Issued</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
+$('#oh-foot').textContent=`${rs.length} of ${R.length} items. Click a person, company or item for more.`}
+$('#oh-q').addEventListener('input',e=>list(e.target.value));list('')}
+
+/* ---------- tooling ---------- */
+{$('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
+const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.max(p,.8).toFixed(1)}%"></i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
+$('#tl-util').innerHTML=ut(K.coates_out,K.coates,'Coates tooling out with crews','Coates tools')+ut(K.other_out,K.other,`${K.other_owner}-owned equipment out`,`${K.other_owner}-owned items`)+ut(D.comm.on,D.comm.fleet,'Radios and radio batteries out','radios and batteries');
+bars($('#tl-tools'),D.tools_util.map(t=>{const k=t.name.toUpperCase();return {name:t.name,pic:t.pic,n:t.on,b:t.best,open:D.tools[k]?'t:'+k:'',v:`${t.on} <small>of ${fmt(t.site)} out${t.best?' · busiest '+t.best:''}</small>`,_m:Math.max(t.site,t.best,1)}}),{pic:1});
+// each row is scaled to its own store count, so a full bar always means "all out"
+$$('#tl-tools .row').forEach((r,i)=>{const t=D.tools_util[i],m=Math.max(t.site,t.best,1);$('.fl',r).style.setProperty('--w',(t.on/m*100).toFixed(1)+'%');$('.fb',r).style.setProperty('--w',(Math.min(t.best,m)/m*100).toFixed(1)+'%')});
+const T=D.tagged,C=T.colour;
+$('#tg-sub').textContent=`Coates electrical gear and rigging, lifting and fall-arrest gear is tested by Coates and carries this quarter's tag colour.`;
+const tag=`<svg viewBox="0 0 200 138" width="170" role="img" aria-label="${esc(C.name)} test tag"><path d="M100 2 C 88 10, 84 18, 80 26" stroke="var(--neu)" stroke-width="2" fill="none"/>
+<g class="swing"><path d="M58 26 H142 L158 42 V126 a6 6 0 0 1 -6 6 H48 a6 6 0 0 1 -6 -6 V42 Z" fill="${C.hex}"/>
+<circle cx="100" cy="42" r="6.5" fill="var(--panel)"/>
+<text x="100" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#1B2028" letter-spacing="2">TESTED</text>
+<text x="100" y="99" text-anchor="middle" font-size="12" font-weight="700" fill="#1B2028" letter-spacing="1.5">BY COATES</text>
+<text x="100" y="119" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1B2028">${esc(C.span)}</text></g></svg>`;
+const grp=(g,gi,all)=>{const ks=all?g.kinds:g.kinds.slice(0,7);return `<div class="tg"><h4>${fmt(g.n)} ${esc(g.title.toLowerCase())} items</h4><div class="sub">${g.out} out with crews now · all tagged ${esc(C.name.toLowerCase())}</div>${ks.map(k=>`<div class="li"><i style="background:${C.hex}"></i><b>${k.n}</b><span>${esc(k.name)}</span></div>`).join('')}${g.kinds.length>7&&!STATIC?`<button class="more noprint" data-g="${gi}">${all?'Show fewer':'Show all '+g.kinds.length+' kinds'}</button>`:''}</div>`};
+const open={};const drawT=()=>{$('#tagged').innerHTML=`<div class="tagrow"><div class="tagbig">${tag}<div class="cn">${esc(C.name)} tag</div><div class="sp">${esc(C.span)}</div></div>${T.groups.map((g,i)=>grp(g,i,open[i]||STATIC)).join('')}</div>`;
+$$('#tagged .more').forEach(b=>b.onclick=()=>{open[b.dataset.g]=!open[b.dataset.g];drawT()})};drawT()}
+
+/* ---------- consumables ---------- */
+{const dr=D.draws,B=D.below;
+$('#cn-lead').textContent=`${K.cons_lines} ${CLIENT} consumable lines are on the shelf. ${dr.n?`${fmt(dr.units)} units have been drawn so far this shut, in ${dr.n} issues to ${dr.people} people.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
+stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[K.cons_units,'Units on the shelf'],[dr.units,'Units drawn this shut'],[B.length,B.length==1?'Line to top up':'Lines to top up',B.length?'w':'']]);
+if(B.length){$('#below-h').textContent=`Top up first: ${plural(B.length,'line')} below minimum`;
+$('#below-sub').textContent=`The bar shows the shelf against the maximum; the mark is the minimum. ${fmt(D.to_max)} units would bring every line to its maximum.`;
+$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th style="width:26%">Shelf against maximum</th><th class="n">To reach maximum</th></tr>${B.map(b=>`<tr data-open="cl:${esc(b.line)}"><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.min}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.max}</td><td><div class="tr warnb" style="overflow:visible"><div class="fl" style="--w:${(b.have/Math.max(1,b.max)*100).toFixed(1)}%"></div><i class="tick" style="left:calc(${(b.min/Math.max(1,b.max)*100).toFixed(1)}% - 1px)"></i></div></td><td class="n"><span class="pill w">+${fmt(b.max-b.have)}</span></td></tr>`).join('')}</table></div><div class="foot">Minimum and maximum come from what ${CLIENT}'s recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days.</div>`}
+else{$('#below-h').textContent='Every line is at or above its minimum';$('#below-sub').textContent='Nothing needs topping up right now.';$('#below').remove()}
+bars($('#cn-types'),D.cat.cons.slice().sort((a,b)=>b.n-a.n).map(c=>({name:c.name,n:c.n,open:'ct:'+c.name})),{});
+if(dr.n){$('#draw-sub').textContent=`${fmt(dr.units)} units in ${dr.n} issues to ${dr.people} people.`;
+const src={types:()=>dr.types.map(t=>({name:t.name,n:t.n,open:'ct:'+t.name})),lines:()=>dr.lines.map(t=>({name:t.name,n:t.n,open:'cl:'+t.name})),cos:()=>dr.cos.map(t=>({name:t.name,n:t.n}))};
+const drawD=k=>{bars($('#cn-draws'),src[k]())};drawD('types');
+$$('#drawseg button').forEach(b=>b.onclick=()=>{$$('#drawseg button').forEach(x=>x.classList.toggle('on',x===b));drawD(b.dataset.k);$('#cn-draws').classList.remove('now');void $('#cn-draws').offsetWidth;$('#cn-draws').classList.add('now')})}
+else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHTML='<div class="empty">No draws recorded in SiteIQ yet. Usage shows here from the first one.</div>'}}
+
+/* ---------- category browser, used for tooling and for consumables ---------- */
+function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units',mx=Math.max(...L.map(c=>c.n));let open=0;
+el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${fmt(c.n)}</span></div><div class="m"><i style="--w:${(c.n/mx*100).toFixed(1)}%"></i></div></button>`).join('')}</div><div class="cbp"></div>`;
+const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${fmt(c.n)} ${unit} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
+c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}<small>${fmt(k.n)} ${unit}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
+$$('.cbi',el).forEach(b=>b.onclick=()=>{open=+b.dataset.i;$$('.cbi',el).forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
+browser($('#cb-tools'),'tools');browser($('#cb-cons'),'cons');
+
+/* ---------- how the store runs ---------- */
+{const O=D.ops,hh=h=>String(h).padStart(2,'0')+':00';
+if(O&&O.hours&&O.hours.issue){const P=O.per_day;
+$('#op-lead').textContent=`An average shut day at ${CLIENT}, from past shuts: about ${whole(P.tx)} transactions across two shifts, for about ${whole(P.people)} people from ${whole(P.companies)} companies.`;
+stats($('#op-stats'),[[Math.round(P.tx),'Transactions a day','','One tool out, one tool back or one consumable issue'],[Math.round(P.people),'People served a day'],[Math.round(P.companies),'Companies a day'],[(P.tx/P.people).toFixed(1),'Transactions a person']]);
+// shift day runs 05:00 to 04:59, so the chart starts at 05:00
+const order=[...Array(24).keys()].map(i=>(i+5)%24),tot=h=>O.hours.issue[h]+O.hours.return[h]+O.hours.sale[h];
+$('#clock-sub').textContent=`Average transactions in each hour of the day. Busiest around ${hh(O.busiest)}, quietest around ${hh(O.quietest)}.`;
+columns($('#clock'),order.map(hh),order.map(tot),null,{w:1100,h:260,label:'Average transactions by hour',short:l=>l.slice(0,2),cls:i=>{const h=order[i];return h>=6&&h<18?'ca':'cb'},
+peak:(i,m)=>`${whole(m)} at ${hh(order[i])}`,tip:i=>{const h=order[i];return `<b>${hh(h)}</b> · ${h>=6&&h<18?'day':'night'} shift<br>About ${whole(tot(h))} transactions<br>Tools out: ${f1(O.hours.issue[h])}<br>Tools back: ${f1(O.hours.return[h])}<br>Consumable issues: ${f1(O.hours.sale[h])}`}});
+const sun='<svg viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="2" stroke-linecap="round"><g class="spin"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g><circle cx="12" cy="12" r="4" fill="var(--or)"/></svg>';
+const moon='<svg viewBox="0 0 24 24" fill="var(--neu)" stroke="var(--neu)" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>';
+const card=(k,icn)=>{const S=O.shift[k],M=D.shifts[k];return `<h4>${icn}${M.name}${M.who?` <span class="pill n">${esc(M.who)}</span>`:''}</h4><div class="hrs">${M.hours}</div>
+<div class="big"><span data-n="${Math.round(S.tx)}">${whole(S.tx)}</span><small>transactions a shift, on average</small></div>
+<div class="kv"><div><span>Tools issued</span><b>${whole(S.issues)}</b></div><div><span>Tools returned</span><b>${whole(S.returns)}</b></div><div><span>Consumable issues</span><b>${whole(S.sales)}</b></div><div><span>Consumable units</span><b>${whole(S.units)}</b></div><div><span>People served</span><b>${whole(S.people)}</b></div></div>`};
+$('#shday').innerHTML=card('day',sun);$('#shnight').innerHTML=card('night',moon);
+bars($('#op-types'),O.cons_types.map(x=>({name:x.name,n:x.n,open:'ct:'+x.name})),{dec:1});
+bars($('#op-lines'),O.cons_lines.map(x=>({name:x.name,n:x.n,open:D.clines.find(l=>l.name==x.name)?'cl:'+x.name:''})),{dec:1})}
+else{$('#opsblock').remove();$('#op-lead').textContent='This shut as it builds.'}
+const H=D.history||[];
+if(H.length>1)lineChart($('#trend'),H.map(h=>+h.asat.slice(8,10)+' '+MON[+h.asat.slice(5,7)-1]+' '+h.asat.slice(11)),[{name:'On hire',v:H.map(h=>h.on_hire)},{name:'Issued that day',v:H.map(h=>h.issued_today)}],{label:'On hire by pull'});
+else $('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${fmt(K.on)} on hire, ${fmt(K.issued_today)} issued today. The line starts from the next pull.</div>`;
+if(D.shuts){const S=D.shuts;$('#range-sub').textContent=`The quietest, typical and busiest shut, each as an average per whole shift day. This shut joins once it has ${S.min_days} whole days.`;
+$('#range').innerHTML=rangeRow('Consumable units drawn a day','units a day',S.cons)+rangeRow('Tools issued a day','tools a day',S.tools)}
+else{$('#range-sub').textContent='';$('#range').innerHTML='<div class="empty">No shut history loaded.</div>'}}
+
+/* ---------- guide ---------- */
+$('#defs').innerHTML=[
+['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
+['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Already back" are those issued today and since returned to the shelf.`],
+['Coates tools ready for work','Coates-owned items in the store that are ready to issue.'],
+[`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
+['Tested by Coates','Coates electrical gear, and rigging, lifting and fall-arrest gear, is tested by Coates and carries the quarter\'s tag colour: Dec to Feb red, Mar to May green, Jun to Aug blue, Sep to Nov yellow.'],
+['Utilisation',`Items out with crews as a share of the items of that kind in the store, at the time of the pull. "Busiest seen" is the most of that tool ever out at once at ${CLIENT}.`],
+['Categories and sizes','Each item is placed in a category by its SiteIQ description, grouped by kind, and its sizes are read off the description and listed smallest to largest. An orange dot marks a size with items out now.'],
+['Consumable units',`Units on the shelf across ${CLIENT}'s consumable lines, from SiteIQ sales stock.`],
+['Minimum and maximum',`Set per line from what recent ${CLIENT} shuts drew per day: the minimum is the busiest day seen or two days' use; the maximum is seven counter days.`],
+['How the store runs',`Averages per whole shift day (05:00 to 04:59) across ${CLIENT} shuts. A transaction is one tool issued, one tool returned or one consumable issue. Day shift is 06:00 to 18:00 and night shift 18:00 to 06:00. People and companies are counted once a day.`],
+['The usual range','Each shut\'s units drawn or tools issued per whole shift day; quietest and busiest are the lowest and highest of those, typical is their average.'],
+['Pull by pull','Each SiteIQ pull adds a point. Nothing is drawn for a pull that has not happened.'],
+['Returns rating','Out of 5, for anyone with at least 5 tools on record. Everything returned and 80% or more back within the same shift (12 hours) is 5; 60% is 4.5; 40% is 4; 20% is 3.5; under that is 3. Any tool not returned by the end of a shut caps the rating at 2.'],
+['Consumable flags','A person is flagged for a consumable type when their units a shut are above the level nine in ten people stay under, and at least 6 units.']].map(d=>`<div class="def"><b>${esc(d[0])}</b><span>${esc(d[1])}</span></div>`).join('');
+
+/* ---------- detail drawer: click anything marked data-open ---------- */
+const PB={};D.people.forEach(p=>PB[p.key]=p);
+const lc=t=>t.startsWith('PPE')?t:t[0].toLowerCase()+t.slice(1);
+const stars=(r,c)=>r==null?'':`<span class="stars${c?' '+c:''}" style="--p:${r/5*100}%" title="${r} out of 5"><i>★★★★★</i>★★★★★</span>`;
+const tbl=(h,rows)=>`<div class="tscroll"><table class="t"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
+const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`;
+const stat=a=>`<div class="sstats">${a.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
+const pct=v=>v==null?'–':Math.round(v*100)+'%';
+const V={
+co(n){const rs=D.onhire.filter(r=>r.co==n),ppl=[...new Set(rs.map(r=>r.pk))];
+ return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(rs.length,'item')} on hire · ${plural(ppl.length,'person','people')}</div></div></div>`+
+ `<h5>People</h5><div class="chips">${ppl.map(k=>{const p=PB[k]||{name:k};return `<span class="chip" data-open="p:${esc(k)}"><b>${rs.filter(r=>r.pk==k).length}</b>${esc(p.name)} ${stars(p.rating)}</span>`}).join('')}</div>`+
+ `<h5>On hire now</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1)))},
+p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.pk==k);
+ const rate=p.rating!=null?`<div style="margin-top:12px">${stars(p.rating,'lg')} <b style="font-size:17px;margin-left:8px">${p.rating} out of 5</b> <span style="color:var(--mu);font-size:13px;margin-left:6px">returns rating</span></div>`:`<div class="ssub" style="margin-top:10px;color:var(--mu);font-size:13px">No returns rating yet: fewer than 5 tools on record.</div>`;
+ const why=p.rating==null?'':p.left>0?`<div class="note w"><b>${plural(p.left,'tool')} not returned</b> by the end of a shut.</div>`:`<div class="note g"><b>Returned everything:</b> ${fmt(p.ret)} of ${fmt(p.iss)} tools. ${pct(p.w12)} were back within the same shift (12 hours).</div>`;
+ const flags=p.flags.map(f=>`<div class="note w"><b>High ${esc(lc(f.type))} use:</b> ${f.units} units a shut. Most people who draw them take about ${f.typical}.</div>`).join('');
+ const cmax=Math.max(1,...p.cons.map(c=>c.units));
+ return `<div class="dh"><div><h3>${esc(p.name)}</h3><div class="ssub"><span class="lk" data-open="co:${esc(p.co)}">${esc(p.co)}</span>${p.now?` · <span style="color:var(--ok)">${plural(p.now,'item')} out now</span>`:''}</div></div></div>`+
+ rate+why+flags+
+ stat([[fmt(p.iss),'Tools issued'],[fmt(p.ret),'Tools returned'],[pct(p.w12),'Back same shift'],[p.hold==null?'–':p.hold+' h','Typical time out']])+
+ (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Issued'],rs.map(r=>ohRow(r,0))):'')+
+ (D.draws.by[k]?`<h5>Consumables drawn this shut</h5><div class="chips">${D.draws.by[k].map(l=>`<span class="chip" data-open="cl:${esc(l.name)}"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
+ (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="now">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr"><div class="fl" style="--w:${(c.units/cmax*100).toFixed(1)}%"></div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
+ (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
+ (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
+t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
+ return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store</div></div></div>`+
+ stat([[t.site,'In the store'],[t.on,'Out now'],[t.site-t.on,'On the shelf'],[t.best||'–','Busiest seen']])+
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Issued'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`)):'<div class="note g"><b>All on the shelf</b> right now.</div>')},
+k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));
+ return `<div class="dh">${k.pic!=null&&D.pics[k.pic]?`<img src="${D.pics[k.pic]}" alt="">`:''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div></div></div>`+
+ `<h5>Sizes, smallest to largest</h5>`+tbl(['Size','<span style="float:right">In the store</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1))):'')},
+ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
+ return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(ls.length,'line')} · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div><div style="height:10px"></div>`+
+ tbl(['Line','On shelf','Min','Max','Used a day',''],ls.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${esc(l.name)}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill w">Top up</span>':''}</td></tr>`))},
+cl(n){const l=D.clines.find(x=>x.name==n);if(!l)return '<div class="dh"><h3>No record</h3></div>';const who=Object.entries(D.draws.by).filter(([k,a])=>a.some(x=>x.name==n));
+ return `<div class="dh"><div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span></div></div></div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+
+ (l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
+ (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')}};
+{const dr=$('#drawer'),sc=$('#scrim'),body=$('#dbody');let stack=[];
+const paint=()=>{const key=stack[stack.length-1],i=key.indexOf(':');body.innerHTML=V[key.slice(0,i)](key.slice(i+1));body.scrollTop=0;body.classList.remove('sw');void body.offsetWidth;body.classList.add('sw');$('#dback').disabled=stack.length<2};
+const close=()=>{dr.classList.remove('on');sc.classList.remove('on');dr.setAttribute('aria-hidden','true');stack=[]};
+const openS=key=>{if(!V[key.slice(0,key.indexOf(':'))])return;if(stack[stack.length-1]!==key)stack.push(key);paint();dr.classList.add('on');sc.classList.add('on');dr.setAttribute('aria-hidden','false')};
+$('#dclose').onclick=close;sc.onclick=close;$('#dback').onclick=()=>{if(stack.length>1){stack.pop();paint()}};
+document.addEventListener('keydown',e=>{if(e.key=='Escape')close()});
+document.addEventListener('click',e=>{const el=e.target.closest('[data-open]');if(el&&el.dataset.open){e.preventDefault();openS(el.dataset.open);return}
+const g=e.target.closest('[data-go]');if(g){e.preventDefault();show(g.dataset.go)}})}
+
+/* ---------- people ---------- */
+{const rated=D.people.filter(p=>p.rating!=null),fl=D.people.filter(p=>p.flags.length),now=D.people.filter(p=>p.now);
+$('#pp-lead').textContent=`Everyone who has used the ${CLIENT} tool store. The returns rating shows how promptly each person brings tools back; a flag marks unusually high use of one consumable type.`;
+stats($('#pp-stats'),[[D.people.length,'People on record'],[now.length,'Holding gear now'],[rated.filter(p=>p.rating>=4.5).length,`Rated 4.5 or better, of ${rated.length} rated`],[fl.length,'Flagged for high consumable use',fl.length?'w':'']]);
+let mode='all',q='';
+const rowP=p=>`<div class="prow" data-open="p:${esc(p.key)}"><div class="pn">${esc(p.name)}</div><div class="pc">${esc(p.co)}</div><div>${p.rating!=null?stars(p.rating)+' <span style="color:var(--mu);font-size:12.5px;margin-left:4px">'+p.rating+'</span>':'<span style="color:var(--dim);font-size:12.5px">Not rated yet</span>'}</div><div class="tags">${p.now?`<span class="pill g">${p.now} out now</span>`:''}${p.flags.map(f=>`<span class="pill w">High ${esc(lc(f.type))}</span>`).join('')}</div></div>`;
+const F={all:p=>1,now:p=>p.now,top:p=>p.rating>=4.5,flag:p=>p.flags.length};
+function list(){const Q=q.trim().toUpperCase();let all=D.people.filter(p=>F[mode](p)&&(!Q||p.name.toUpperCase().includes(Q)||p.co.toUpperCase().includes(Q)));
+if(mode=='top')all=all.slice().sort((a,b)=>b.rating-a.rating||b.iss-a.iss);
+const cap=STATIC?16:(Q||mode!='all')?60:16,showR=all.slice(0,cap);
+$('#pp-list').innerHTML=showR.length?`<div class="prow h"><div>Person</div><div>Company</div><div>Returns rating</div><div>Right now</div><div></div></div>`+showR.map(rowP).join(''):'<div class="empty">No one matches that.</div>';
+$('#pp-foot').textContent=`Showing ${showR.length} of ${all.length}. People with gear out now are listed first.${!Q&&mode=='all'?' Search to find anyone.':''}`}
+$('#pp-q').addEventListener('input',e=>{q=e.target.value;list()});
+$$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg button').forEach(x=>x.classList.toggle('on',x===b));list()});list()}
+
+/* ---------- tabs, motion and tooltips ---------- */
+function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'';const put=v=>el.textContent=(dec?v.toFixed(dec):fmt(Math.round(v)))+suf;
+if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
+const views=$$('.view'),tabs=$('#tabs'),ink=$('#ink');
+views.forEach(v=>{const id=v.id.slice(2),b=document.createElement('button');b.className='tab';b.dataset.go=id;b.textContent=v.dataset.tab;
+if(id=='onhire')b.innerHTML+=`<span class="ct">${fmt(K.on)}</span>`;if(id=='consumables'&&D.below.length)b.innerHTML+=`<span class="ct w" title="lines to top up">${D.below.length}</span>`;tabs.insertBefore(b,ink)});
+function show(id,quiet){const v=$('#v-'+id)||views[0];id=v.id.slice(2);
+views.forEach(x=>{x.classList.toggle('on',x===v);if(x!==v)x.classList.remove('go')});
+$$('.tab').forEach(b=>{const on=b.dataset.go==id;b.classList.toggle('on',on);if(on){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`;if(tabs.scrollWidth>tabs.clientWidth)tabs.scrollTo({left:b.offsetLeft-tabs.clientWidth/2+b.offsetWidth/2,behavior:'smooth'})}});
+v.classList.remove('go');void v.offsetWidth;requestAnimationFrame(()=>{v.classList.add('go');$$('[data-n]',v).forEach(countUp)});
+if(!quiet){scrollTo({top:0});try{history.replaceState(null,'','#'+id)}catch(e){}}}
+if(STATIC){views.forEach(v=>v.classList.add('on','go'));$$('[data-n]').forEach(countUp)}
+else{show((location.hash||'#overview').slice(1),1);addEventListener('resize',()=>{const b=$('.tab.on');if(b){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`}});
+addEventListener('hashchange',()=>show(location.hash.slice(1),1));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>dispatchEvent(new Event('resize')))}
+{const tip=$('#tip');let cur=null;
+document.addEventListener('pointermove',e=>{const el=e.target.closest&&e.target.closest('[data-tip]');if(!el){if(cur){tip.classList.remove('on');cur=null}return}
+if(el!==cur){cur=el;tip.innerHTML=el.dataset.tip;tip.classList.add('on')}
+const r=tip.getBoundingClientRect();let x=e.clientX+14,y=e.clientY+16;if(x+r.width>innerWidth-8)x=e.clientX-r.width-14;if(y+r.height>innerHeight-8)y=e.clientY-r.height-12;tip.style.left=Math.max(8,x)+'px';tip.style.top=Math.max(8,y)+'px'},{passive:true});
+document.addEventListener('pointerleave',()=>tip.classList.remove('on'))}
+</script></body></html>
