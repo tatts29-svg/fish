@@ -135,7 +135,7 @@ def _fonts(kit_folder):
     return out
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -160,8 +160,13 @@ def build_data(kit, folder, reference=None, minmax=None, history=None):
     by_co = collections.Counter(kit.co_name(r.get("COMPANY_NAME")) for r in on)
     by_hirer = collections.Counter((kit.person_name(r.get("HIRER_NAME")), kit.co_name(r.get("COMPANY_NAME"))) for r in on)
 
-    kinds_fleet = collections.Counter(_kind(r.get("PRODUCT")) for r in rental)
-    kinds_on = collections.Counter(_kind(r.get("PRODUCT")) for r in on)
+    dkey = lambda r: " ".join(str(r.get("ITEM_DESCRIPTION") or "").split()).upper()
+    dname = {}
+    for r in rental:
+        raw = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
+        dname.setdefault(dkey(r), raw.title() if raw.isupper() else raw)
+    kinds_fleet = collections.Counter(dkey(r) for r in rental)
+    kinds_on = collections.Counter(dkey(r) for r in on)
     fam_fleet = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in coates)
     fam_on = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in on if r in coates)
 
@@ -234,6 +239,15 @@ def build_data(kit, folder, reference=None, minmax=None, history=None):
         return [{"name": k, "n": v} for k, v in g.most_common()]
 
     top_kinds = [k for k, _ in kinds_on.most_common(6)]
+    sh = json.load(open(shuts)) if shuts and os.path.isfile(shuts) else None
+    best = collections.Counter()
+    if sh:
+        for t in sh["tools"]:
+            for k, v in t["peaks"].items():
+                best[k] = max(best[k], v)
+    cand = [k for k in kinds_fleet if kinds_on[k] or best[k]]
+    cand.sort(key=lambda k: (-max(kinds_on[k], best[k]), -kinds_on[k], k))
+    tools_util = [{"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k]} for k in cand[:12]]
     data = {
         "job": {"title": "MMG Dugald River", "sub": "Shutdown Tool Store · November 2026 shut",
                 "schedule": ref.get("schedule", ""), "day": day_no, "days": counter_days,
@@ -251,7 +265,13 @@ def build_data(kit, folder, reference=None, minmax=None, history=None):
         "hours": ["{:02d}:00".format(h) for h in hours], "hour_out": hour_out, "hour_back": hour_back,
         "companies": [{"name": k, "n": v} for k, v in by_co.most_common()],
         "hirers": [{"name": k[0], "co": k[1], "n": v} for k, v in by_hirer.most_common()],
-        "kinds": [{"name": k, "on": kinds_on[k], "fleet": kinds_fleet[k]} for k in top_kinds],
+        "kinds": [{"name": dname.get(k, k), "on": kinds_on[k], "fleet": kinds_fleet[k]} for k in top_kinds],
+        "comm": {"on": sum(v for k, v in kinds_on.items() if "RADIO" in k),
+                 "fleet": sum(v for k, v in kinds_fleet.items() if "RADIO" in k)},
+        "tools_util": tools_util,
+        "shuts": ({"cons": [{"name": c["label"], "n": c["per_day"]} for c in sh["cons"]],
+                   "tools": [{"name": t["label"], "n": t["per_day"]} for t in sh["tools"]], "min_days": sh["min_days"]}
+                  if sh else None),
         "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
         "held": held_groups(),
         "cons_types": [{"name": k, "n": int(v)} for k, v in ctype.most_common(8)],
@@ -329,6 +349,13 @@ svg text{font-family:inherit}
 .bars.wide .row{grid-template-columns:minmax(150px,290px) 1fr 48px}
 .bars.silver .fl{background:linear-gradient(90deg,#6E7987,var(--si));box-shadow:0 0 12px rgba(185,195,208,.25)}
 .bars .v{font-weight:700;text-align:right;font-size:15px}
+.tu .row{display:grid;grid-template-columns:minmax(150px,280px) 1fr 110px;align-items:center;gap:12px;margin:10px 0}
+.tu .nm{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tu .tr{position:relative;height:14px;border-radius:8px;background:var(--g3);overflow:hidden}
+.tu .best{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px;background:linear-gradient(90deg,#55606E,var(--si));opacity:.55;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.tu .fl{position:absolute;left:0;top:3px;bottom:3px;width:0;border-radius:6px;background:linear-gradient(90deg,#B9481A,var(--or) 60%,var(--lit));box-shadow:0 0 12px rgba(242,98,34,.5);transition:width 1.4s .2s cubic-bezier(.2,.8,.2,1)}
+.tu .v{text-align:right;font-size:13px;color:var(--mu)}.tu .v b{color:var(--tx);font-size:15px}
+.static .tu .best,.static .tu .fl{transition:none!important}
 .cyls{display:flex;justify-content:space-between;align-items:flex-start;gap:4px;flex-wrap:nowrap}
 .cyl{text-align:center;width:88px}
 .cyl .cap{font-size:12px;color:#C4CDD8;margin-top:6px;min-height:34px;line-height:1.3}
@@ -407,12 +434,15 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <section class="reveal pb"><div class="sh"><div class="no">02</div><h2>Utilisation</h2></div>
 <p class="sd" id="sd2"></p>
 <div class="card"><div class="dials" id="dials"></div></div>
+<div class="card" style="margin-top:16px"><h3>Utilisation by tool</h3>
+<div class="legend"><span><i style="background:var(--or)"></i>Out now</span><span><i style="background:var(--si)"></i>Busiest seen at MMG</span></div>
+<div id="tutil"></div><div class="foot">Out now and the most ever out at once at MMG, each against the number of that tool in the store now.</div></div>
 </section>
 
 <section class="reveal"><div class="sh"><div class="no">03</div><h2>What the crews are using</h2></div>
 <p class="sd" id="sd3"></p>
 <div class="grid g2e">
-<div class="card"><h3>On hire now, by kind of gear</h3><div class="cyls" id="kinds"></div></div>
+<div class="card"><h3>On hire now, by tool</h3><div class="cyls" id="kinds"></div></div>
 <div class="card"><h3>People holding gear</h3><div class="bars silver" id="hirers"></div><div class="foot">Each person's count is the items SiteIQ shows against their name right now.</div></div>
 </div></section>
 
@@ -436,10 +466,9 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <p class="sd" id="sd6"></p>
 <div class="grid g2e">
 <div class="card"><h3>This shut, pull by pull</h3><div id="trend"></div><div class="foot" id="trendfoot"></div></div>
-<div class="card"><h3 id="refh"></h3>
-<div class="legend"><span><i style="background:var(--or)"></i>Tooling issued</span><span><i style="background:var(--si)"></i>Consumable units drawn</span></div>
-<div id="ref"></div><div class="foot" id="reffoot"></div></div>
+<div class="card"><h3>Consumable units drawn per day — MMG shuts</h3><div class="cyls" id="hcons"></div><div class="foot" id="hconsfoot"></div></div>
 </div>
+<div class="card" style="margin-top:16px"><h3>Tool issues per day — MMG shuts</h3><div class="cyls" id="htools" style="justify-content:space-around"></div><div class="foot" id="htoolsfoot"></div></div>
 </section>
 
 <section class="reveal"><div class="sh"><div class="no">07</div><h2>What each figure means</h2></div>
@@ -523,11 +552,12 @@ $('#hourfoot').textContent=`Peak at shift start. ${K.issued_today} issued today;
 bars($('#cos'),D.companies);
 $('#cofoot').textContent=`${K.on} items out with ${K.companies} companies. Every item is on a named person.`;
 // 02 dials
-const comm=D.kinds.filter(k=>/radio/i.test(k.name)).reduce((a,k)=>({on:a.on+k.on,fleet:a.fleet+k.fleet}),{on:0,fleet:0});
+const comm=D.comm;
 $('#sd2').textContent=`The share of each fleet out with crews at the time of the pull. Day ${D.job.day} is early: these build as the shut ramps up.`;
 $('#dials').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(comm.on,comm.fleet,'Radios and radio batteries out','the busiest gear today');
+$('#tutil').innerHTML=`<div class="tu">${D.tools_util.map(t=>{const m=Math.max(t.site,t.best,1);return `<div class="row"><div class="nm" title="${esc(t.name)}">${esc(t.name)}</div><div class="tr"><div class="best" data-w="${(Math.min(t.best,m)/m*100).toFixed(1)}"></div><div class="fl" data-w="${(t.on/m*100).toFixed(1)}"></div></div><div class="v"><b data-n="${t.on}">0</b> of ${fmt(t.site)} out${t.best?`<br><span style="color:#B9C3D0">busiest ${t.best}</span>`:''}</div></div>`}).join('')}</div>`;
 // 03
-$('#sd3').textContent=`The kinds of gear crews are taking, against how many of each the store holds.`;
+$('#sd3').textContent=`The tools crews are taking, against how many of each the store holds.`;
 $('#kinds').innerHTML=D.kinds.map(k=>cyl(k,{share:1})).join('');
 bars($('#hirers'),D.hirers.map(h=>({name:h.name,sub:h.co,n:h.n})));
 // 04
@@ -543,22 +573,23 @@ bars($('#ctop'),D.cons_top);
 $('#below').innerHTML=D.below.length?`<div class="tscroll"><table class="t"><tr><th>Line</th><th style="text-align:right">On shelf</th><th style="text-align:right">Minimum</th><th style="text-align:right">Maximum</th><th></th></tr>${D.below.map(b=>`<tr><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max}</td><td><span class="pill">Top up</span></td></tr>`).join('')}</table></div><div class="note">Minimum and maximum for each line are set from what MMG's recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days. ${fmt(D.to_max)} units would bring every line to its maximum.</div>`:'<div class="empty">Every line is at or above its minimum.</div>';
 // 06 trends
 const H=D.history;
-$('#sd6').textContent=`This shut builds a trend with every pull. Beside it, for planning only, how a previous shut ran day by day.`;
+$('#sd6').textContent=`How MMG's tool store runs, shut by shut, and this shut as it builds. Each shut figure is a daily average over whole shift days, 05:00 to 04:59.`;
 if(H.length>1){lines($('#trend'),H.map(h=>h.asat.slice(5).replace('-','/')),[{v:H.map(h=>h.on_hire),c:'#F26222'},{v:H.map(h=>h.issued_today),c:'#B9C3D0',w:2,area:false}],{label:'On hire by pull',dots:1});$('#trendfoot').textContent='Orange: items on hire at each pull. Silver: items issued that day.'}
 else{$('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${K.on} on hire, ${K.issued_today} issued today.<br>The line starts drawing from the next pull.</div>`}
-if(D.ref){const R=D.ref,MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],lab=R.days.map(d=>d.slice(8,10)+' '+MON[+d.slice(5,7)-1]);
-$('#refh').textContent=`For planning: ${R.label}, day by day`;
-lines($('#ref'),lab,[{v:R.tool_issued,c:'#F26222'},{v:R.cons_units,c:'#B9C3D0',w:2,area:false}],{label:'July shut by day',nlab:11,peak:(i,m)=>`${m}`});
-$('#reffoot').textContent=`Shift days 05:00 to 04:59. ${R.source}.`;
-}
-else{$('#ref').innerHTML='<div class="empty">No reference shut loaded.</div>'}
+if(D.shuts){const S=D.shuts,r=a=>a.map(x=>({name:x.name,n:Math.round(x.n)})),mc=Math.max(...S.cons.map(x=>x.n)),mt=Math.max(...S.tools.map(x=>x.n));
+$('#hcons').innerHTML=r(S.cons).map(c=>cyl(c,{max:Math.round(mc)})).join('');
+$('#htools').innerHTML=r(S.tools).map(c=>cyl(c,{max:Math.round(mt)})).join('');
+$('#hconsfoot').textContent=`Units drawn per shift day. November 2026 joins once it has ${S.min_days} whole days.`;
+$('#htoolsfoot').textContent=`Tools issued per shift day, Coates and MMG-owned gear. November 2026 joins once it has ${S.min_days} whole days.`}
+else{$('#hcons').innerHTML='<div class="empty">No shut history loaded.</div>'}
 // 07 defs
 $('#defs').innerHTML=[
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
 ['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Already back" are those issued today and since returned to the shelf.`],
 ['Coates tools ready','Coates-owned items in the store, less those held back (SiteIQ status "Failed Baseplan").'],
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
-['Utilisation','Items out with crews as a share of the items of that kind in the store, at the time of the pull.'],
+['Utilisation','Items out with crews as a share of the items of that kind in the store, at the time of the pull. By tool, \'busiest seen\' is the most of that tool ever out at once at MMG.'],
+['Per day (shuts)','Units drawn or tools issued, divided by the whole shift days (05:00 to 04:59) on record for that shut.'],
 ['Consumable units','Units on the shelf across MMG\'s consumable lines, from SiteIQ sales stock.'],
 ['Minimum and maximum','Set per line from what recent MMG shuts drew per day: minimum = the busiest day seen or two days\' use; maximum = seven counter days.'],
 ['Trends','Each pull adds a point. Nothing is drawn for a pull that has not happened.']].map(d=>`<p><b>${d[0]}.</b> ${esc(d[1])}</p>`).join('');
@@ -568,7 +599,7 @@ $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions 
 function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'';if(STATIC){el.textContent=(dec?t.toFixed(dec):fmt(t))+suf;return}
 const t0=performance.now(),dur=1600;(function f(now){const p=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-p,3),v=t*e;el.textContent=(dec?v.toFixed(dec):fmt(Math.round(v)))+suf;if(p<1)requestAnimationFrame(f)})(t0)}
 function play(root){root.querySelectorAll('[data-n]').forEach(countUp);
-root.querySelectorAll('.fl').forEach(b=>b.style.width=b.dataset.w+'%');
+root.querySelectorAll('.fl,.best').forEach(b=>b.style.width=b.dataset.w+'%');
 root.querySelectorAll('.arc').forEach(a=>a.style.strokeDashoffset=a.dataset.off);
 root.querySelectorAll('.fillrect').forEach(r=>{r.setAttribute('y',r.dataset.y);r.setAttribute('height',r.dataset.h)});
 root.querySelectorAll('.fillcap').forEach(c=>c.setAttribute('cy',c.dataset.cy))}
@@ -589,11 +620,12 @@ def main(argv=None):
     ap.add_argument("kit_folder")
     ap.add_argument("out_html")
     ap.add_argument("--reference")
+    ap.add_argument("--shuts")
     ap.add_argument("--minmax")
     ap.add_argument("--history")
     a = ap.parse_args(argv)
     kit = _kit()
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history)
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts)
     html = render(data, _fonts(a.kit_folder))
     with open(a.out_html, "w", encoding="utf-8") as f:
         f.write(html)
