@@ -68,9 +68,14 @@ def styled(photo):
     rim = Image.new("RGBA", (SIDE, SIDE), (0, 0, 0, 0))
     halo = Image.new("L", (SIDE, SIDE), 0)
     halo.paste(alpha, (x, y))
-    halo = halo.filter(ImageFilter.GaussianBlur(14)).point(lambda v: int(v * 0.55))
-    rim.paste(Image.new("RGBA", (SIDE, SIDE), ORANGE + (255,)), (0, 0), halo)
+    wide = halo.filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(20)).point(lambda v: int(v * 0.75))
+    rim.paste(Image.new("RGBA", (SIDE, SIDE), ORANGE + (255,)), (0, 0), wide)
     canvas = Image.alpha_composite(canvas, rim)
+    # and a bright orange outline hugging its edge
+    edge = Image.new("RGBA", (SIDE, SIDE), (0, 0, 0, 0))
+    line = halo.filter(ImageFilter.MaxFilter(11)).filter(ImageFilter.GaussianBlur(3))
+    edge.paste(Image.new("RGBA", (SIDE, SIDE), (255, 122, 61, 255)), (0, 0), line)
+    canvas = Image.alpha_composite(canvas, edge)
     # the reflection on the floor, fading out
     refl = prod.transpose(Image.FLIP_TOP_BOTTOM)
     fade = Image.new("L", refl.size, 0)
