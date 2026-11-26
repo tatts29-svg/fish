@@ -365,11 +365,11 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                             "date": d_.strftime("%d %b %Y") if d_ else "", "time": t_.strftime("%H:%M") if t_ else "",
                             "own": "Coates" if r in coates else other_owner})
     onhire_rows.sort(key=lambda x: (x["co"].lower(), x["who"].lower(), x["desc"].lower()))
-    hist = json.load(open(people)) if people and os.path.isfile(people) else {"people": [], "typical": {}}
-    ptyp = hist.get("typical", {})
+    phist = json.load(open(people)) if people and os.path.isfile(people) else {"people": [], "typical": {}}
+    ptyp = phist.get("typical", {})
     now_n = collections.Counter(x["pk"] for x in onhire_rows)
     people_rows, seen_p = [], set()
-    for p_ in hist["people"]:
+    for p_ in phist["people"]:
         seen_p.add(p_["key"])
         q_ = dict(p_)
         q_["now"] = now_n.get(p_["key"], 0)
@@ -382,7 +382,27 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
             seen_p.add(x["pk"])
             people_rows.append({"key": x["pk"], "name": x["who"], "co": x["co"], "iss": 0, "ret": 0, "left": 0, "w12": None, "hold": None,
                                 "rating": None, "cons": [], "lines": [], "tools": [], "flags": [], "now": now_n[x["pk"]]})
+    for r in drawn:
+        k_ = " ".join(str(r.get("HIRER") or "").replace("-", " ").split()).upper()
+        if k_ and k_ not in seen_p:
+            seen_p.add(k_)
+            people_rows.append({"key": k_, "name": kit.person_name(r.get("HIRER")), "co": kit.co_name(r.get("COMPANY_NAME")), "iss": 0, "ret": 0, "left": 0,
+                                "w12": None, "hold": None, "rating": None, "cons": [], "lines": [], "tools": [], "flags": [], "now": 0})
     people_rows.sort(key=lambda p_: (-p_["now"], -(p_["iss"] + sum(c["units"] for c in p_["cons"])), p_["name"]))
+    # consumable draws recorded so far this shut
+    dl, dt_, dp, dco = collections.Counter(), collections.Counter(), collections.defaultdict(collections.Counter), collections.Counter()
+    for r in drawn:
+        q_ = kit._n(r.get("SALES_QUANTITY"))
+        nm_ = _cons_name(kit, r.get("SKU_DESCRIPTION"))
+        dl[nm_] += q_
+        dt_[catalogue.cons_category(r.get("SKU_DESCRIPTION"))] += q_
+        dco[kit.co_name(r.get("COMPANY_NAME"))] += q_
+        dp[" ".join(str(r.get("HIRER") or "").replace("-", " ").split()).upper()][nm_] += q_
+    draws = {"n": len(drawn), "units": int(sum(dl.values())), "people": len(dp),
+             "lines": [{"name": k, "n": int(v)} for k, v in dl.most_common(10)],
+             "types": [{"name": k, "n": int(v)} for k, v in dt_.most_common()],
+             "cos": [{"name": k, "n": int(v)} for k, v in dco.most_common()],
+             "by": {k: [{"name": n_, "n": int(v)} for n_, v in c.most_common()] for k, c in dp.items()}}
     tagc = tag_colour(dt.date(2026, 11, 25))   # tagged before the shut: the colour of the quarter the counter opened in
     tg = {"elec": collections.Counter(), "rig": collections.Counter()}
     tgo = {"elec": 0, "rig": 0}
@@ -446,6 +466,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "held": held_groups(),
         "tagged": tagged,
         "onhire": onhire_rows,
+        "draws": draws,
         "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
@@ -848,6 +869,10 @@ transition:border-color .35s,box-shadow .35s,transform .45s cubic-bezier(.2,.8,.
 <div class="card"><h3>On the shelf, by type</h3><div class="cyls" id="ctypes"></div></div>
 <div class="card"><h3>Best-stocked lines</h3><div class="bars wide" id="ctop"></div></div>
 </div>
+<div class="grid g2e" style="margin-top:16px" id="drawgrid">
+<div class="card"><h3>Drawn so far this shut</h3><div class="pstat" style="grid-template-columns:repeat(3,1fr);margin-bottom:14px" id="drawstat"></div><div class="bars wide" id="drawtypes"></div></div>
+<div class="card"><h3>Most drawn this shut</h3><div class="bars silver wide" id="drawlines"></div></div>
+</div>
 <div class="card" style="margin-top:16px"><h3>Below minimum now — top up first</h3><div id="below"></div></div>
 </section>
 
@@ -982,7 +1007,9 @@ const tagsvg=`<svg viewBox="0 0 230 150" width="210"><defs><linearGradient id="t
 $('#tagged').innerHTML=`<div class="tagwrap"><div class="tagbig">${tagsvg}<div class="cn" style="color:${C.hex}">${C.name}</div><div class="sp">this quarter's tag colour · ${C.span}</div><div class="tb">Tested by Coates</div></div>`+
 T.groups.map(g=>`<div class="tg" style="--tc:${C.hex}"><h4><span data-n="${g.n}">0</span> ${esc(g.title.toLowerCase())} items</h4><div class="sub">${g.out} out with crews now · every one tested by Coates and tagged ${C.name.toLowerCase()}</div>${g.kinds.slice(0,10).map(k=>`<span class="chip"><span class="dot" style="background:${C.hex}"></span><b>${k.n}</b>${esc(k.name)}</span>`).join('')}${g.kinds.length>10?`<span class="chip">+ ${g.kinds.length-10} more kinds</span>`:''}</div>`).join('')+`</div>`}
 // 05
-$('#sd5').textContent=`${K.cons_lines} MMG consumable lines with ${fmt(K.cons_units)} units on the shelf. ${K.cons_drawn?`${K.cons_drawn} lines drawn so far.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
+$('#sd5').textContent=`${K.cons_lines} MMG consumable lines with ${fmt(K.cons_units)} units on the shelf. ${D.draws.n?`${fmt(D.draws.units)} units drawn so far this shut, in ${D.draws.n} issues to ${D.draws.people} people.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
+if(D.draws.n){$('#drawstat').innerHTML=[[D.draws.units,'Units drawn'],[D.draws.n,'Issues'],[D.draws.people,'People']].map(x=>`<div><div class="n" data-n="${x[0]}">0</div><div class="l">${x[1]}</div></div>`).join('');
+bars($('#drawtypes'),D.draws.types);bars($('#drawlines'),D.draws.lines)}else $('#drawgrid').remove();
 const cmax=Math.max(...D.cons_types.map(c=>c.n));
 $('#ctypes').innerHTML=D.cons_types.slice(0,6).map(c=>cyl(c,{max:cmax})).join('');
 bars($('#ctop'),D.cons_top);
@@ -1011,7 +1038,7 @@ else if($('#opssec'))$('#opssec').remove();
 // 06 trends
 const H=D.history;
 $('#sd6').textContent=`This shut as it builds, against the range MMG's tool store usually runs at: quietest, typical and busiest shut, each a daily average over whole shift days, 05:00 to 04:59.`;
-if(H.length>1){lines($('#trend'),H.map(h=>h.asat.slice(5).replace('-','/')),[{v:H.map(h=>h.on_hire),c:'#F26222'},{v:H.map(h=>h.issued_today),c:'#B9C3D0',w:2,area:false}],{label:'On hire by pull',dots:1});$('#trendfoot').textContent='Orange: items on hire at each pull. Silver: items issued that day.'}
+if(H.length>1){lines($('#trend'),H.map(h=>h.asat.slice(8,10)+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+h.asat.slice(5,7)-1]+' '+h.asat.slice(11)),[{v:H.map(h=>h.on_hire),c:'#F26222'},{v:H.map(h=>h.issued_today),c:'#B9C3D0',w:2,area:false}],{label:'On hire by pull',dots:1});$('#trendfoot').textContent='Orange: items on hire at each pull. Silver: items issued that day.'}
 else{$('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${K.on} on hire, ${K.issued_today} issued today.<br>The line starts drawing from the next pull.</div>`}
 if(D.shuts){const S=D.shuts,mc=Math.max(...S.cons.map(x=>x.n)),mt=Math.max(...S.tools.map(x=>x.n));
 $('#hcons').innerHTML=S.cons.map(c=>cyl(c,{max:mc})).join('');
@@ -1073,6 +1100,7 @@ p(k){const p=PB[k];if(!p)return '<h3>No record</h3>';const rs=D.onhire.filter(r=
  `<div style="margin-top:10px">${rate}</div>${why}${flags}`+
  stat([[fmt(p.iss),'Tools issued'],[fmt(p.ret),'Tools returned'],[pct(p.w12),'Back same shift'],[p.hold==null?'–':p.hold+' h','Typical time out']])+
  (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Issued'],rs.map(r=>ohRow(r,0))):'')+
+ (D.draws.by[k]?`<h5>Consumables drawn this shut</h5><div class="chips">${D.draws.by[k].map(l=>`<span class="chip" data-open="cl:${esc(l.name)}"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="bars wide">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm">${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></div><div class="tr"><div class="fl" style="width:${(c.units/cmax*100).toFixed(1)}%"></div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
@@ -1087,8 +1115,9 @@ k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(
 ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
  return `<div class="sh1"><div><h3>${esc(n)}</h3><div class="ssub">${ls.length} lines · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div>`+
  tbl(['Line','On shelf','Minimum','Maximum','Used a day',''],ls.map(l=>`<tr><td>${esc(l.name)}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill">Top up</span>':''}</td></tr>`))},
-cl(n){const l=D.clines.find(x=>x.name==n);if(!l)return '<h3>No record</h3>';
+cl(n){const l=D.clines.find(x=>x.name==n);if(!l)return '<h3>No record</h3>';const dn=(D.draws.lines.find(x=>x.name==n)||{}).n,who=Object.entries(D.draws.by).filter(([k,a])=>a.some(x=>x.name==n));
  return `<div class="sh1"><div><h3>${esc(l.name)}</h3><div class="ssub" data-open="ct:${esc(l.type)}">${esc(l.type)}</div></div></div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+
+ (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')+
  (l.min!=null&&l.have<l.min?`<div class="flag"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="good">About ${Math.floor(l.have/l.pd)} days of stock at the usual rate.</div>`:'')},
 oh(){const cos=[...new Set(D.onhire.map(r=>r.co))];
  return `<div class="sh1"><div><h3>On hire now</h3><div class="ssub">${D.onhire.length} items · ${cos.length} companies · SiteIQ pull ${esc(D.asat)}</div></div></div>`+
@@ -1107,6 +1136,8 @@ tagRows('#tutil .row',(i,el)=>{const n=D.tools_util[i].name.toUpperCase();return
 tagRows('#kinds .cyl',i=>{const n=D.kinds[i].name.toUpperCase();return D.tools[n]?'t:'+n:''});
 tagRows('#ctypes .cyl',i=>'ct:'+D.cons_types[i].name);
 tagRows('#ctop .row',i=>'cl:'+D.cons_top[i].name);
+tagRows('#drawtypes .row',i=>'ct:'+D.draws.types[i].name);
+tagRows('#drawlines .row',i=>'cl:'+D.draws.lines[i].name);
 tagRows('#below tr',i=>i?'cl:'+D.below[i-1].line:'');
 tagRows('#octypes .row',i=>'ct:'+D.ops.cons_types[i].name);
 tagRows('#oclines .row',i=>D.clines.find(l=>l.name==D.ops.cons_lines[i].name)?'cl:'+D.ops.cons_lines[i].name:'');
