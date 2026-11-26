@@ -256,7 +256,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None):
         "cons_top": [{"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "n": int(kit._n(r.get("AVAILABLE_QUANTITY")))} for r in top_lines],
         "below": below, "to_max": int(to_max), "mm_lines": mm_lines,
         "history": hist,
-        "ref": json.load(open(reference)) if reference and os.path.isfile(reference) else None,
+        "ref": ({k: v for k, v in json.load(open(reference)).items() if k in ("label", "source", "days", "tool_issued", "cons_units")}
+                if reference and os.path.isfile(reference) else None),
     }
     return data
 
