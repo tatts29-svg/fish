@@ -643,8 +643,8 @@ bars($('#hirers'),D.hirers.map(h=>({name:h.name,sub:h.co,n:h.n})));
 $('#sd4').textContent=K.held?`${fmt(K.coates)} Coates tools on site. ${fmt(K.coates_ready)} are ready for work; ${K.held} are held back from issue until they pass inspection.`:`${fmt(K.coates)} Coates tools on site, every one ready for work.`;
 if(!K.held){$('#heldcard').remove();$('#fams').closest('.grid').style.gridTemplateColumns='1fr'}
 bars($('#fams'),D.families.map(f=>({name:f.name,n:f.fleet})));
-$('#held').innerHTML=D.held.length?`<div class="chips">${D.held.map(h=>`<span class="chip"><b>${h.n}</b>${esc(h.name)}</span>`).join('')}</div>`:'<div class="empty">Nothing held back.</div>';
-$('#heldnote').textContent=`Held in the store, not issued, until checked and cleared.`;
+if($('#held'))$('#held').innerHTML=D.held.length?`<div class="chips">${D.held.map(h=>`<span class="chip"><b>${h.n}</b>${esc(h.name)}</span>`).join('')}</div>`:'<div class="empty">Nothing held back.</div>';
+if($('#heldnote'))$('#heldnote').textContent=`Held in the store, not issued, until checked and cleared.`;
 {const T=D.tagged,C=T.colour;
 const tagsvg=`<svg viewBox="0 0 230 150" width="210"><defs><linearGradient id="tgf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${C.hex}"/><stop offset="1" stop-color="${C.hex}" stop-opacity=".78"/></linearGradient></defs>
 <path d="M115 4 C 100 14, 96 22, 92 30" stroke="#8B96A6" stroke-width="2" fill="none"/>
