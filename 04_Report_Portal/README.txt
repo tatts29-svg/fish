@@ -14,11 +14,10 @@ Load a new report (Manager login):
   curl -u USER -T report.pdf  https://SITE/upload/report.pdf
 
 Updating from the browser (no laptop kit needed):
-  https://SITE/upload   Manager or Store login. Drop in the SiteIQ exports
+  https://SITE/upload   Any login. Drop in the SiteIQ exports
   from one pull (rental stock, sales stock, transactions; stocktake and on
   hire are optional). The site rebuilds the report, the on-hire Excel and
   both PDFs, and swaps them in together only if the whole build works.
-  The client login cannot upload.
 
   This needs the Dockerfile build (repo root as the build folder,
   04_Report_Portal/Dockerfile) and the job pack loaded once by the Manager:

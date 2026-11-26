@@ -11,7 +11,7 @@ DATA_DIR (a volume on the host).
     GET  /report.pdf, /onhire.pdf, /onhire.xlsx   the print copy and the on-hire report, when loaded
     PUT  /upload/<one of those names>   manager login only
     GET  /upload       the upload page: drop in new SiteIQ exports and the report rebuilds itself
-                       (manager or store login; the client login cannot upload)
+                       (any login)
     PUT  /upload/export?name=FILE.xlsx, POST /upload/build, GET /upload/status   what that page uses
     PUT  /upload/pack.zip   the job pack the rebuild needs, manager login only
     GET  /health       "ok", no login (for the host's health check)
@@ -240,10 +240,6 @@ def _upload_page(role):
     return _shell(UPLOAD)
 
 
-def _plain_page(title, text):
-    return _shell('<div class="card"><h1 style="margin-top:0">{}</h1><p>{}</p><p class="note"><a href="/" style="color:#F58448;font-weight:700;text-decoration:none">Open the report</a></p></div>'.format(html.escape(title), html.escape(text)))
-
-
 def _status():
     try:
         with open(os.path.join(DATA_DIR, "upload_status.json"), encoding="utf-8") as f:
@@ -420,8 +416,6 @@ class Handler(BaseHTTPRequestHandler):
             role = self._role(page=True)
             if not role:
                 return
-            if role == "client":
-                return self._send(403, _plain_page("Uploading is for the Coates tool store team.", "Your login opens the report. Ask the tool store team if the numbers need a refresh."), "text/html; charset=utf-8")
             if path == "/upload/status":
                 return self._send(200, json.dumps(_status()).encode(), "application/json")
             return self._send(200, _upload_page(role), "text/html; charset=utf-8")
@@ -463,11 +457,7 @@ class Handler(BaseHTTPRequestHandler):
         self._redirect("/", cookie=_session(user))
 
     def _uploader(self):
-        role = self._role(cookie=True)
-        if role == "client":
-            self._send(403, b"This login cannot upload.", "text/plain")
-            return None
-        return role
+        return self._role(cookie=True)       # every login may upload exports (Andrew, 27 Nov 2026)
 
     def _body(self, limit):
         try:
