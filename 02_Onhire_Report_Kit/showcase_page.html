@@ -153,6 +153,9 @@ table.t td.n{font-weight:600}
 .tgc{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:3px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--tg) 55%,transparent);background:color-mix(in srgb,var(--tg) 13%,transparent);font-size:12.5px;font-weight:600;color:var(--tx);white-space:nowrap}
 .tgc i{width:9px;height:9px;border-radius:2px;background:var(--tg);box-shadow:0 0 8px var(--tg)}
 .paper .tgd{box-shadow:none;border:1px solid rgba(0,0,0,.35);width:8px;height:8px;margin-left:6px}
+.askrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:14px 0 4px}
+.askrow div{border:1px solid color-mix(in srgb,var(--or) 40%,transparent);border-left:4px solid var(--or);background:var(--orbg);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--mu)}
+.askrow b{display:block;color:var(--tx);font-size:14.5px;margin-bottom:2px}
 .pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
 .pill.w{background:var(--warnbg);color:var(--warn)}.pill.g{background:var(--okbg);color:var(--ok)}.pill.o{background:var(--orbg);color:var(--ortx)}.pill.n{background:var(--track);color:var(--mu)}
 .search{font:inherit;font-size:14px;width:100%;max-width:360px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--tx);outline:none;transition:border-color .2s}
@@ -488,6 +491,10 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 .paper .pstats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid #E0E4EA;border-radius:8px;margin:10px 0 6px;overflow:hidden}
 .paper .pstats div{padding:9px 12px;border-left:1px solid #E0E4EA}.paper .pstats div:first-child{border-left:0;background:#FDE9DF}
 .paper .pstats b{display:block;font-size:19px;letter-spacing:-.02em}.paper .pstats span{font-size:9px;color:#5A6472}
+.paper td.dy{font-weight:700;white-space:nowrap}
+.paper .pask{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
+.paper .pask div{border:1px solid #F8C9B2;border-left:4px solid #F26222;background:#FEF3EE;border-radius:6px;padding:7px 10px;font-size:10.5px;color:#1B2028}
+.paper .pask b{display:block;font-size:11.5px}
 .paper .pf{font-size:9.5px;color:#5A6472;margin:0 2px 8px}.paper .pf b{color:#1B2028}
 .paper .pgh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #F26222;margin:15px 0 0;padding:0 2px 4px;break-after:avoid}
 .paper .pgh h2{font-size:13.5px;margin:0;color:#1B2028}.paper .pgh small{font-weight:400;color:#5A6472;font-size:10px;margin-left:6px}.paper .pgh span{font-size:10px;color:#5A6472;font-weight:600}
@@ -554,6 +561,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 <div class="card"><h3>By tool</h3><div class="sub">What is out, against how many of each the store holds.</div><div id="oh-kinds" style="--nm:300px"></div></div>
 </div>
 <div class="card tall noprint" style="margin-top:16px"><h3>Every item on hire</h3><div class="sub">Each item is against a named person. Search by person, company or item.</div>
+<div class="askrow"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
 <div class="tools noprint"><input class="search" id="oh-q" placeholder="Search the on-hire list" autocomplete="off"><div class="dl" id="dl2" style="margin-left:auto"></div></div>
 <div id="oh-list"></div><div class="foot" id="oh-foot"></div></div>
 </section>
@@ -674,6 +682,7 @@ const mono=n=>String(n||'').replace(/[^A-Za-z0-9 ]/g,' ').split(/\s+/).filter(w=
 const TG=D.tagged.colour,TGT=`Tested by Coates · ${TG.name.toLowerCase()} tag, ${TG.span}`;
 const tgd=t=>t?`<i class="tgd" style="--tg:${TG.hex}" data-tip="${TGT}"></i>`:'';
 const tgc=t=>t?`<span class="tgc" style="--tg:${TG.hex}" data-tip="${TGT}"><i></i>${esc(TG.name)} tag · tested ${esc(TG.span)}</span>`:'';
+const days=r=>r.days==null?'':r.days==0?'Today':r.days+(r.days==1?' day':' days');
 const pic=(i,name,c)=>(i!=null&&D.pics&&D.pics[i])?`<img class="tp${c?' '+c:''}" src="${D.pics[i]}" alt="" loading="lazy">`:`<span class="tp mono${c?' '+c:''}">${esc(mono(name))}</span>`;
 
 // header
@@ -798,7 +807,7 @@ $('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl(
 if(kinds.length>6)bars($('#oh-rest'),kinds.slice(6).map(krow),{pic:1,max:kmax});
 const R=D.onhire.slice().sort((a,b)=>a.co.localeCompare(b.co)||a.who.localeCompare(b.who)||a.desc.localeCompare(b.desc));
 function list(q){q=(q||'').trim().toUpperCase();const rs=R.filter(r=>!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q));
-$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Issued</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
+$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Date of hire</th><th>Time</th><th>Days on hire</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${esc(r.date)}</td><td>${esc(r.time)}</td><td style="white-space:nowrap"><b>${days(r)}</b></td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
 $('#oh-foot').innerHTML=`${rs.length} of ${R.length} items. Click a person, company or item for more.${rs.some(r=>r.tag)?` ${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).`:''}`}
 $('#oh-q').addEventListener('input',e=>list(e.target.value));list('')}
 
@@ -940,14 +949,14 @@ const PB={};D.people.forEach(p=>PB[p.key]=p);
 const lc=t=>t.startsWith('PPE')?t:t[0].toLowerCase()+t.slice(1);
 const stars=(r,c)=>r==null?'':`<span class="stars${c?' '+c:''}" style="--p:${r/5*100}%" title="${r} out of 5"><i>★★★★★</i>★★★★★</span>`;
 const tbl=(h,rows)=>`<div class="tscroll"><table class="t"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
-const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`;
+const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`;
 const stat=a=>`<div class="sstats">${a.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
 const pct=v=>v==null?'–':Math.round(v*100)+'%';
 const V={
 co(n){const rs=D.onhire.filter(r=>r.co==n),ppl=[...new Set(rs.map(r=>r.pk))];
  return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(rs.length,'item')} on hire · ${plural(ppl.length,'person','people')}</div></div></div>`+
  `<h5>People</h5><div class="chips">${ppl.map(k=>{const p=PB[k]||{name:k};return `<span class="chip" data-open="p:${esc(k)}"><b>${rs.filter(r=>r.pk==k).length}</b>${esc(p.name)} ${stars(p.rating)}</span>`}).join('')}</div>`+
- `<h5>On hire now</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1)))},
+ `<h5>On hire now</h5>`+tbl(['Person','Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,1)))},
 p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.pk==k);
  const rate=p.rating!=null?`<div style="margin-top:12px">${stars(p.rating,'lg')} <b style="font-size:17px;margin-left:8px">${p.rating} out of 5</b> <span style="color:var(--mu);font-size:13px;margin-left:6px">returns rating</span></div>`:`<div class="ssub" style="margin-top:10px;color:var(--mu);font-size:13px">No returns rating yet: fewer than 5 tools on record.</div>`;
  const why=p.rating==null?'':p.left>0?`<div class="note w"><b>${plural(p.left,'tool')} not returned</b> by the end of a shut.</div>`:`<div class="note g"><b>Returned everything:</b> ${fmt(p.ret)} of ${fmt(p.iss)} tools. ${pct(p.w12)} were back within the same shift (12 hours).</div>`;
@@ -956,7 +965,7 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  return `<div class="dh"><div><h3>${esc(p.name)}</h3><div class="ssub"><span class="lk" data-open="co:${esc(p.co)}">${esc(p.co)}</span>${p.now?` · <span style="color:var(--ok)">${plural(p.now,'item')} out now</span>`:''}</div></div></div>`+
  rate+why+flags+
  stat([[fmt(p.iss),'Tools issued'],[fmt(p.ret),'Tools returned'],[pct(p.w12),'Back same shift'],[p.hold==null?'–':p.hold+' h','Typical time out']])+
- (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Issued'],rs.map(r=>ohRow(r,0))):'')+
+ (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,0))):'')+
  (D.draws.by[k]?`<h5>Consumables drawn this shut</h5><div class="chips">${D.draws.by[k].map(l=>`<span class="chip" data-open="cl:${esc(l.name)}"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="now">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr"><div class="fl" style="--w:${(c.units/cmax*100).toFixed(1)}%"></div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
@@ -964,11 +973,11 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
 t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
  return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store${t.var?` · product variant ${esc(t.var)}`:''}</div>${tgc(t.tag)}</div></div>`+
  stat([[t.site,'In the store'],[t.on,'Out now'],[t.site-t.on,'On the shelf'],[t.best||'–','Busiest seen']])+
- (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Issued'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`)):'<div class="note g"><b>All on the shelf</b> right now.</div>')},
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Hired · days on hire'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`)):'<div class="note g"><b>All on the shelf</b> right now.</div>')},
 k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));
  return `<div class="dh">${k.pic!=null&&D.pics[k.pic]?`<img src="${D.pics[k.pic]}" alt="">`:''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div>${tgc(m=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}</div></div>`+
  `<h5>Sizes, smallest to largest</h5>`+tbl(['Size','<span style="float:right">In the store</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
- (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1))):'')},
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,1))):'')},
 ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
  return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(ls.length,'line')} · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div><div style="height:10px"></div>`+
  tbl(['Line',CLIENT+' code','On shelf','Min','Max','Used a day',''],ls.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${esc(l.name)}</td><td style="color:var(--mu)">${esc(l.code||'')}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill w">Top up</span>':''}</td></tr>`))},
@@ -995,7 +1004,7 @@ const key=n=>{const parts=n.replace(/\s*\([^)]*Owned\)$/,'').split(' - ');let si
 const byItem=(a,b)=>{const A=key(a.desc),B=key(b.desc);return A[0].localeCompare(B[0])||A[1]-B[1]||a.desc.localeCompare(b.desc)||String(a.item).localeCompare(String(b.item))};
 const byWho=(a,b)=>a.who.localeCompare(b.who)||byItem(a,b);
 const rows=()=>{const q=st.q.trim().toUpperCase();return R.filter(r=>(st.own=='all'||(st.own=='coates')==(r.own=='Coates'))&&(!st.cos.size||st.cos.has(r.co))&&(!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q)))};
-const when=r=>`${r.date.slice(0,6)} ${r.time}`;
+const when=r=>`<td class="m">${esc(r.date)}</td><td class="m">${esc(r.time)}</td><td class="dy">${days(r)}</td>`;
 const own=r=>r.own=='Coates'?'':`<td class="o">${esc(r.own)} owned</td>`;
 function says(){const a=[];a.push(st.cos.size?[...st.cos].sort().join(', '):'all companies');a.push(st.own=='all'?'Coates and '+K.other_owner+'-owned gear':st.own=='coates'?'Coates gear only':K.other_owner+'-owned gear only');if(st.q.trim())a.push('matching "'+st.q.trim()+'"');a.push('grouped by '+{co:'company',who:'person',tool:'tool'}[st.group]);return a}
 function build(){const rs=rows(),G=new Map(),g=st.group;
@@ -1003,21 +1012,22 @@ rs.forEach(r=>{const k=g=='co'?r.co:g=='who'?r.who+'\u0001'+r.co:r.desc.replace(
 const keys=[...G.keys()].sort((a,b)=>g=='tool'?(key(a.split('\u0001')[0])[0].localeCompare(key(b.split('\u0001')[0])[0])||key(a.split('\u0001')[0])[1]-key(b.split('\u0001')[0])[1]||a.localeCompare(b)):a.localeCompare(b));
 const noun=(n,w,ws)=>`${n} ${n==1?w:ws||w+'s'}`;
 const sec=keys.map(k=>{const v=G.get(k),[a,b]=k.split('\u0001');let head,body;
-if(g=='co'){v.sort(byWho);let last='';head=['Person:19','Item:38','Item number:22','Issued:12',':9'];body=v.map(r=>{const first=r.who!=last;last=r.who;return `<tr><td class="w">${first?esc(r.who):''}</td><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}${tgd(r.tag)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`})}
-else if(g=='who'){v.sort(byItem);head=['Item:52','Item number:25','Issued:13',':10'];body=v.map(r=>`<tr><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}${tgd(r.tag)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`)}
-else{v.sort((x,y)=>x.co.localeCompare(y.co)||x.who.localeCompare(y.who));head=['Company:27','Person:31','Item number:28','Issued:14'];body=v.map(r=>`<tr><td>${esc(r.co)}</td><td class="w">${esc(r.who)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td></tr>`)}
+if(g=='co'){v.sort(byWho);let last='';head=['Person:17','Item:30','Item number:20','Date of hire:11','Time:6','Days on hire:8',':8'];body=v.map(r=>{const first=r.who!=last;last=r.who;return `<tr><td class="w">${first?esc(r.who):''}</td><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}${tgd(r.tag)}</td><td class="m">${esc(r.item)}</td>${when(r)}${own(r)||'<td></td>'}</tr>`})}
+else if(g=='who'){v.sort(byItem);head=['Item:42','Item number:22','Date of hire:12','Time:7','Days on hire:9',':8'];body=v.map(r=>`<tr><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}${tgd(r.tag)}</td><td class="m">${esc(r.item)}</td>${when(r)}${own(r)||'<td></td>'}</tr>`)}
+else{v.sort((x,y)=>x.co.localeCompare(y.co)||x.who.localeCompare(y.who));head=['Company:22','Person:26','Item number:22','Date of hire:12','Time:8','Days on hire:10'];body=v.map(r=>`<tr><td>${esc(r.co)}</td><td class="w">${esc(r.who)}</td><td class="m">${esc(r.item)}</td>${when(r)}</tr>`)}
 const people=new Set(v.map(r=>r.pk)).size;
 return `<div class="pgh"><h2>${esc(a)}${g=='tool'?tgd(v[0].tag):''}${b?`<small>${esc(b)}</small>`:''}</h2><span>${noun(v.length,'item')}${g=='co'?' · '+noun(people,'person','people'):g=='tool'?' · '+noun(people,'person','people'):''}</span></div><table><thead><tr>${head.map(h=>`<th style="width:${h.split(':')[1]}%">${h.split(':')[0]}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`}).join('');
 const nco=new Set(rs.map(r=>r.co)).size,npe=new Set(rs.map(r=>r.pk)).size,nc=rs.filter(r=>r.own=='Coates').length;
 $('#paper').innerHTML=`<div class="ph"><div class="phl"><span class="pb">COATES</span>${LOGO?`<i></i><img src="${LOGO}" alt="${CLIENT}">`:''}</div><div class="phr"><b>On-hire report</b>SiteIQ pull ${esc(D.asat)}</div></div>
 <div class="ptt"><h1>${esc(D.job.title)}</h1><p>Shutdown tool store · everything out with crews as at ${esc(D.asat_day)} ${esc(D.asat)}</p></div>
 <div class="pstats"><div><b>${fmt(rs.length)}</b><span>Items on hire</span></div><div><b>${nco}</b><span>${nco==1?'Company':'Companies'}</span></div><div><b>${npe}</b><span>${npe==1?'Person':'People'}</span></div><div><b>${fmt(nc)}</b><span>Coates items</span></div><div><b>${fmt(rs.length-nc)}</b><span>${esc(K.other_owner)}-owned items</span></div></div>
-<div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest.${rs.some(r=>r.tag)?` <span style="white-space:nowrap">${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).</span>`:''}</div>
+<div class="pask"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
+<div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest. Days on hire counts from the date of hire to the SiteIQ pull.${rs.some(r=>r.tag)?` <span style="white-space:nowrap">${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).</span>`:''}</div>
 ${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
 <div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
 // the email is a draft with the same filters in words and a count for each group; nothing sends itself
 const lines=keys.map(k=>`${k.split('\u0001')[0]}: ${G.get(k).length}`).join('\n');
-$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nThe PDF of this report is attached.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
+$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nEquipment not being used: please return it to the Coates tool store.\nPlease check your gear each day before use.\n\nThe PDF of this report is attached.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
 $('#oh-cosel').innerHTML=`<button class="pco on" data-c="">All companies</button>`+allCos.map(c=>`<button class="pco" data-c="${esc(c)}">${esc(c)} <span style="opacity:.7">${R.filter(r=>r.co==c).length}</span></button>`).join('');
 $$('#oh-cosel .pco').forEach(b=>b.onclick=()=>{const c=b.dataset.c;if(!c)st.cos.clear();else st.cos.has(c)?st.cos.delete(c):st.cos.add(c);$$('#oh-cosel .pco').forEach(x=>x.classList.toggle('on',x.dataset.c?st.cos.has(x.dataset.c):!st.cos.size));build()});
 const seg=(id,f)=>$$(id+' button').forEach(b=>b.onclick=()=>{st[f]=b.dataset.k;$$(id+' button').forEach(x=>x.classList.toggle('on',x===b));build()});seg('#oh-g','group');seg('#oh-o','own');

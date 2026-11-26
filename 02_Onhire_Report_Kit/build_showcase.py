@@ -398,6 +398,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         onhire_rows.append({"co": kit.co_name(r.get("COMPANY_NAME")), "who": kit.person_name(r.get("HIRER_NAME")), "pk": pkey(r),
                             "item": kit._s(r.get("ITEM_NUMBER")), "desc": dname.get(dkey(r), ""), "dk": dkey(r),
                             "date": d_.strftime("%d %b %Y") if d_ else "", "time": t_.strftime("%H:%M") if t_ else "",
+                            "days": max(0, (asat.date() - d_).days) if d_ else None,   # the packs' rule: 0 = hired today
                             "own": "Coates" if r in coates else other_owner, "tag": tag_kind(r) if r in coates else None})
     onhire_rows.sort(key=lambda x: (x["co"].lower(), x["who"].lower(), x["desc"].lower()))
     phist = json.load(open(people)) if people and os.path.isfile(people) else {"people": [], "typical": {}}
@@ -551,7 +552,8 @@ def write_onhire(data, folder):
     slate, orange = PatternFill("solid", fgColor="2A313C"), PatternFill("solid", fgColor="F26222")
     tc = (data.get("tagged") or {}).get("colour") or {}
     tagword = lambda r: "{} ({})".format(tc.get("name", ""), tc.get("span", "")) if r.get("tag") and tc else ""
-    cols = ["Company", "Person", "Item number", "Description", "Owner", "Issued", "Time", "Test tag"]
+    dayword = lambda r: "" if r.get("days") is None else "Today" if r["days"] == 0 else r["days"]
+    cols = ["Company", "Person", "Item number", "Description", "Owner", "Date of hire", "Time of hire", "Days on hire", "Test tag"]
     for c in range(1, len(cols) + 1):
         ws.cell(1, c).fill = slate
         ws.cell(2, c).fill = orange
@@ -561,17 +563,19 @@ def write_onhire(data, folder):
     ws["A2"].font = F(size=9, bold=True, color="FFFFFF")
     ws["A3"] = head
     ws["A3"].font = F(size=8, italic=True, color="5A6270")
+    ws["A4"] = "Not using it? Return it to the Coates tool store, please.   ·   Check your gear each day before use."
+    ws["A4"].font = F(size=9, bold=True, color="F26222")
     for j, v in enumerate(cols, 1):
         c = ws.cell(5, j, v)
         c.font = F(bold=True, color="FFFFFF")
         c.fill = slate
     for i, r in enumerate(rows, 6):
-        for j, v in enumerate((r["co"], r["who"], r["item"], r["desc"], r["own"], r["date"], r["time"], tagword(r)), 1):
+        for j, v in enumerate((r["co"], r["who"], r["item"], r["desc"], r["own"], r["date"], r["time"], dayword(r), tagword(r)), 1):
             ws.cell(i, j, v).font = F()
-    for col, w in zip("ABCDEFGH", (22, 24, 24, 48, 12, 14, 9, 20)):
+    for col, w in zip("ABCDEFGHI", (22, 24, 24, 48, 12, 14, 13, 13, 20)):
         ws.column_dimensions[col].width = w
     ws.freeze_panes = "A6"
-    ws.auto_filter.ref = "A5:H{}".format(max(6, 5 + len(rows)))
+    ws.auto_filter.ref = "A5:I{}".format(max(6, 5 + len(rows)))
     w2 = wb.create_sheet("By company")
     for c in range(1, 4):
         w2.cell(1, c).fill = slate
@@ -599,8 +603,8 @@ def write_onhire(data, folder):
     esc = lambda t: str(t).replace("&", "&amp;").replace("<", "&lt;")
     body = ""
     for co, rs in sorted(by.items(), key=lambda kv: -len(kv[1])):
-        body += "<h2>{} <span>{} on hire</span></h2><table><tr><th>Person</th><th>Description</th><th>Item number</th><th>Owner</th><th>Issued</th><th>Test tag</th></tr>".format(esc(co), len(rs))
-        body += "".join("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td></tr>".format(esc(r["who"]), esc(r["desc"]), esc(r["item"]), esc(r["own"]), r["date"], r["time"], esc(tagword(r))) for r in rs) + "</table>"
+        body += "<h2>{} <span>{} on hire</span></h2><table><tr><th>Person</th><th>Description</th><th>Item number</th><th>Owner</th><th>Date of hire</th><th>Time</th><th>Days on hire</th><th>Test tag</th></tr>".format(esc(co), len(rs))
+        body += "".join("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(esc(r["who"]), esc(r["desc"]), esc(r["item"]), esc(r["own"]), r["date"], r["time"], dayword(r), esc(tagword(r))) for r in rs) + "</table>"
     page = ("<!doctype html><html lang=\"en-AU\"><meta charset=\"utf-8\"><title>On-hire report</title><style>"
             "@page{size:A4;margin:14mm}body{font-family:Inter,Arial,sans-serif;color:#1B2028;font-size:10.5px}"
             ".top{background:#2A313C;color:#fff;padding:14px 18px;border-bottom:4px solid #F26222}.top b{color:#F26222;letter-spacing:.18em}"
