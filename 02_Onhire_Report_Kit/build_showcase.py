@@ -520,6 +520,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "held": held_groups(),
         "tagged": tagged,
         "onhire": onhire_rows,
+        # every item in the store, so any item number or barcode can be searched
+        "assets": [{"i": kit._s(r.get("ITEM_NUMBER")), "b": kit._s(r.get("ITEM_BARCODE")), "dk": dkey(r)} for r in rental],
         "draws": draws,
         "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k),
                       "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
@@ -766,7 +768,7 @@ def _merge_same_names(data):
             keep["var"] = ", ".join(variants) if variants else None
             canon[k] = keys[0]
     fix = lambda k: canon.get(k, k)
-    for r in data.get("onhire") or []:
+    for r in (data.get("onhire") or []) + (data.get("assets") or []):
         if r.get("dk"):
             r["dk"] = fix(r["dk"])
 
