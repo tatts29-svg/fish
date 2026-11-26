@@ -72,15 +72,31 @@ def shut_usage(path):
         by[stock_no(r)][sd] += q
         days.add(sd)
     if not days:
-        return info, {}, []
-    span = [min(days) + dt.timedelta(i) for i in range((max(days) - min(days)).days + 1)]
-    return info, by, span
+        return info, {}, [], set()
+    #  A pull taken while the shut was still running cuts its own shift day
+    #  short: count only whole shift days, so that day is left out.
+    end = max(days)
+    try:
+        pulled = dt.datetime.strptime(str(info.get("REQUESTED_DATE/TIME (LOCAL TIME)", "")).strip(), "%d/%m/%Y %I:%M %p")
+    except ValueError:
+        try:
+            pulled = dt.datetime.strptime(str(info.get("REQUESTED_DATE/TIME (LOCAL TIME)", "")).strip(), "%d/%m/%y %I:%M %p")
+        except ValueError:
+            pulled = None
+    if pulled and (pulled - dt.timedelta(hours=5)).date() <= end:
+        end = (pulled - dt.timedelta(hours=5)).date() - dt.timedelta(days=1)
+    span = [min(days) + dt.timedelta(i) for i in range((end - min(days)).days + 1)]
+    keep = set(span)
+    by = {k: collections.Counter({d: q for d, q in v.items() if d in keep}) for k, v in by.items()}
+    stocked = {stock_no(r) for r in rows}
+    return info, by, span, stocked
 
 
 def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     cinfo, cur = _rows(current)
     stock = {stock_no(r): r for r in cur if not str(r.get("COMPANY_NAME") or "").strip()}
     data = [(name,) + shut_usage(p) for name, p in shuts]
+    data = [d for d in data if d[3]]
     tot = lambda by, s: sum(by.get(s, {}).values())
     lines = sorted(stock, key=lambda s: (-sum(tot(d[2], s) for d in data), str(stock[s]["SKU_DESCRIPTION"])))
 
@@ -89,7 +105,7 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     slate, orange = PatternFill("solid", fgColor=SL), PatternFill("solid", fgColor=OR)
     inp, band = PatternFill("solid", fgColor="FFF2CC"), PatternFill("solid", fgColor="F4F5F7")
     wb = openpyxl.Workbook()
-    src = "   ·   ".join("{}: SiteIQ pull {}".format(n, i.get("REQUESTED_DATE/TIME (LOCAL TIME)", "")) for n, i, _, _ in data)
+    src = "   ·   ".join("{}: SiteIQ pull {}".format(n, i.get("REQUESTED_DATE/TIME (LOCAL TIME)", "")) for n, i, *_ in data)
 
     def head(ws, title, sub, ncol):
         ws.sheet_view.showGridLines = False
@@ -107,7 +123,7 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     wi = wb.active
     wi.title = "Inputs"
     head(wi, "MIN / MAX SETTINGS", "Change the yellow cells - every Min and Max on the Min Max tab follows them", 4)
-    rows_in = [("{} shift days".format(n), len(span), "First to last draw day, 05:00 to 04:59 - from the data.") for n, _, _, span in data]
+    rows_in = [("{} shift days".format(n), len(span), "Whole shift days with draws on file, 05:00 to 04:59 - from the data (the day a mid-shut pull was taken is left out).") for n, _, _, span, _ in data]
     rows_in += [("November counter days", nov_days, "Wed 25 Nov to Tue 01 Dec 2026, from the Coates Labour roster."),
                 ("Days of cover for Min", cover, "ASSUMPTION - days to get a line restocked at Dugald River. Set it to the real resupply time.")]
     for j, v in enumerate(("Setting", "Value", "Where it comes from"), 1):
@@ -129,7 +145,7 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     wi.column_dimensions["C"].width = 95
 
     # one daily tab per shut
-    for k, (name, info, by, span) in enumerate(data):
+    for k, (name, info, by, span, stocked) in enumerate(data):
         ws = wb.create_sheet("{} Daily".format(name)[:31])
         head(ws, "{} - UNITS DRAWN EACH SHIFT DAY".format(name.upper()), "Every consumable draw on the shut's SiteIQ schedule, by line and shift day", len(span) + 3)
         hd = ["SKU", "Line"] + [d.strftime("%a %d %b") for d in span] + ["Total"]
@@ -161,14 +177,14 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
         for j in range(3, tc + 1):
             ws.column_dimensions[L(j)].width = 9
         ws.freeze_panes = "C6"
-        data[k] = (name, info, by, span, ws.title, tc)
+        data[k] = (name, info, by, span, ws.title, tc, stocked)
 
     wm = wb.create_sheet("Min Max", 0)
     n = len(data)
     hm = ["SKU", "Line"]
     for name, *_ in data:
-        hm += ["{} units".format(name), "{} per day".format(name)]
-    hm += ["Avg per day", "Busiest day (any shut)", "MIN", "MAX", "On shelf now", "To order (to Max)", "Over Max", "Action"]
+        hm += ["{} units".format(name), "{} days".format(name)]
+    hm += ["Per day (all shuts)", "Busiest day (any shut)", "MIN", "MAX", "On shelf now", "To order (to Max)", "Over Max", "Action"]
     ncol = len(hm)
     head(wm, "MMG CONSUMABLES - MIN / MAX FOR THE NOVEMBER 2026 SHUT",
          "Built from what each line used across {} past shuts. Min = reorder point. Max = what to hold for the whole November shut.".format(n), ncol)
@@ -183,15 +199,16 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     for i, s in enumerate(lines, 6):
         wm.cell(i, 1, str(stock[s]["SKU_NUMBER"]))
         wm.cell(i, 2, str(stock[s]["SKU_DESCRIPTION"]))
-        rates, peaks = [], []
-        for k, (name, info, by, span, tab, tc) in enumerate(data):
-            cu, cr = L(3 + 2 * k), L(4 + 2 * k)
+        units, dayc, peaks = [], [], []
+        for k, (name, info, by, span, tab, tc, stocked) in enumerate(data):
+            cu, cd_ = L(3 + 2 * k), L(4 + 2 * k)
             wm["{}{}".format(cu, i)] = "='{}'!{}{}".format(tab, L(tc), i)
-            wm["{}{}".format(cr, i)] = "={}{}/Inputs!$B${}".format(cu, i, 6 + k)
-            wm["{}{}".format(cr, i)].number_format = "0.0"
-            rates.append("{}{}".format(cr, i))
+            #  a shut counts for a line only if the line was on its shelf
+            wm["{}{}".format(cd_, i)] = "=Inputs!$B${}".format(6 + k) if s in stocked else 0
+            units.append("{}{}".format(cu, i))
+            dayc.append("{}{}".format(cd_, i))
             peaks.append("MAX('{}'!C{}:{}{})".format(tab, i, L(tc - 1), i))
-        wm["{}{}".format(cA, i)] = "=AVERAGE({})".format(",".join(rates))
+        wm["{}{}".format(cA, i)] = "=IFERROR(SUM({})/SUM({}),0)".format(",".join(units), ",".join(dayc))
         wm["{}{}".format(cA, i)].number_format = "0.0"
         wm["{}{}".format(cB, i)] = "=MAX({})".format(",".join(peaks))
         wm["{}{}".format(cMin, i)] = "=IF({a}{r}=0,0,MAX({b}{r},ROUNDUP({a}{r}*{cd},0)))".format(a=cA, b=cB, r=i, cd=CD)
@@ -234,7 +251,7 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     wm.cell(s0 + 4, 2, "Units to order to reach Max").font = F(bold=True)
     wm.cell(s0 + 4, 3, "={}{}".format(cOrd, tr)).font = F(bold=True)
     notes = ["How it is worked out (settings on the Inputs tab):",
-             "Per day = a shut's units / its shift days. Avg per day = the average of the shuts' per-day figures, so a big shut and a small shut count equally.",
+             "Per day (all shuts) = all units drawn / all whole shift days on file, counting only the shuts where the line was on the shelf. Part-shut pulls add the whole days they hold.",
              "MIN = the bigger of: the busiest single day in any of these shuts, or avg per day x days of cover (rounded up). When the shelf drops to Min, reorder.",
              "MAX = the bigger of: Min, or avg per day x November counter days (rounded up).",
              "No use = no draws in any of these shuts: Min and Max 0, hold what is there and do not reorder.",
@@ -259,7 +276,7 @@ def build(out, current, shuts, nov_days=7, cover=2, asat=""):
     wm.oddFooter.center.text = "Author: Andrew Fisher | POWERED BY SITEIQ   ·   Page &P of &N"
     wb.properties.creator = "Andrew Fisher"
     wb.save(out)
-    return [(name, len(span), sum(sum(c.values()) for c in by.values())) for name, info, by, span, *_ in data]
+    return [(name, len(span), sum(sum(c.values()) for c in by.values() ), len(stocked & set(stock))) for name, info, by, span, tab, tc, stocked in data]
 
 
 def main(argv=None):
@@ -271,8 +288,8 @@ def main(argv=None):
     ap.add_argument("--nov-days", type=int, default=7)
     a = ap.parse_args(argv)
     shuts = [tuple(x.split("=", 1)) for x in a.shut]
-    for name, days, units in build(a.out, a.current, shuts, a.nov_days, a.cover):
-        print("  {:<16} {:>3} shift days  {:>6,.0f} units drawn".format(name, days, units))
+    for name, days, units, found in build(a.out, a.current, shuts, a.nov_days, a.cover):
+        print("  {:<16} {:>3} whole shift days  {:>6,.0f} units drawn  {:>3} of today's lines stocked".format(name, days, units, found))
     print("Min/Max   " + a.out)
     return 0
 
