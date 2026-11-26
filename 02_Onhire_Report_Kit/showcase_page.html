@@ -149,6 +149,10 @@ table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:m
 table.t tr:last-child td{border-bottom:0}
 table.t td.n,table.t th.n{text-align:right}
 table.t td.n{font-weight:600}
+.tgd{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--tg);box-shadow:0 0 8px var(--tg);margin-left:8px;vertical-align:1px;flex:none}
+.tgc{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:3px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--tg) 55%,transparent);background:color-mix(in srgb,var(--tg) 13%,transparent);font-size:12.5px;font-weight:600;color:var(--tx);white-space:nowrap}
+.tgc i{width:9px;height:9px;border-radius:2px;background:var(--tg);box-shadow:0 0 8px var(--tg)}
+.paper .tgd{box-shadow:none;border:1px solid rgba(0,0,0,.35);width:8px;height:8px;margin-left:6px}
 .pill{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
 .pill.w{background:var(--warnbg);color:var(--warn)}.pill.g{background:var(--okbg);color:var(--ok)}.pill.o{background:var(--orbg);color:var(--ortx)}.pill.n{background:var(--track);color:var(--mu)}
 .search{font:inherit;font-size:14px;width:100%;max-width:360px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--tx);outline:none;transition:border-color .2s}
@@ -667,6 +671,9 @@ $('#theme').onclick=()=>{const x=root.dataset.theme=='dark'?'light':'dark';set(x
 
 // pictures: the photo where the pack has one, a tidy monogram where it does not
 const mono=n=>String(n||'').replace(/[^A-Za-z0-9 ]/g,' ').split(/\s+/).filter(w=>/^[A-Za-z]/.test(w)).slice(0,2).map(w=>w[0].toUpperCase()).join('');
+const TG=D.tagged.colour,TGT=`Tested by Coates · ${TG.name.toLowerCase()} tag, ${TG.span}`;
+const tgd=t=>t?`<i class="tgd" style="--tg:${TG.hex}" data-tip="${TGT}"></i>`:'';
+const tgc=t=>t?`<span class="tgc" style="--tg:${TG.hex}" data-tip="${TGT}"><i></i>${esc(TG.name)} tag · tested ${esc(TG.span)}</span>`:'';
 const pic=(i,name,c)=>(i!=null&&D.pics&&D.pics[i])?`<img class="tp${c?' '+c:''}" src="${D.pics[i]}" alt="" loading="lazy">`:`<span class="tp mono${c?' '+c:''}">${esc(mono(name))}</span>`;
 
 // header
@@ -791,8 +798,8 @@ $('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl(
 if(kinds.length>6)bars($('#oh-rest'),kinds.slice(6).map(krow),{pic:1,max:kmax});
 const R=D.onhire.slice().sort((a,b)=>a.co.localeCompare(b.co)||a.who.localeCompare(b.who)||a.desc.localeCompare(b.desc));
 function list(q){q=(q||'').trim().toUpperCase();const rs=R.filter(r=>!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q));
-$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Issued</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
-$('#oh-foot').textContent=`${rs.length} of ${R.length} items. Click a person, company or item for more.`}
+$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Issued</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
+$('#oh-foot').innerHTML=`${rs.length} of ${R.length} items. Click a person, company or item for more.${rs.some(r=>r.tag)?` ${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).`:''}`}
 $('#oh-q').addEventListener('input',e=>list(e.target.value));list('')}
 
 /* ---------- tooling ---------- */
@@ -844,7 +851,7 @@ else $('#peakcard').remove()}
 function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units',mx=Math.max(...L.map(c=>c.n));let open=0;
 el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${fmt(c.n)}</span></div><div class="m"><i style="--w:${(c.n/mx*100).toFixed(1)}%"></i></div></button>`).join('')}</div><div class="cbp"></div>`;
 const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${fmt(c.n)} ${unit} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
-c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}<small>${fmt(k.n)} ${unit}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
+c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}${tgd(mode=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}<small>${fmt(k.n)} ${unit}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
 $$('.cbi',el).forEach(b=>b.onclick=()=>{open=+b.dataset.i;$$('.cbi',el).forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
 browser($('#cb-tools'),'tools');browser($('#cb-cons'),'cons');
 
@@ -933,7 +940,7 @@ const PB={};D.people.forEach(p=>PB[p.key]=p);
 const lc=t=>t.startsWith('PPE')?t:t[0].toLowerCase()+t.slice(1);
 const stars=(r,c)=>r==null?'':`<span class="stars${c?' '+c:''}" style="--p:${r/5*100}%" title="${r} out of 5"><i>★★★★★</i>★★★★★</span>`;
 const tbl=(h,rows)=>`<div class="tscroll"><table class="t"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
-const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`;
+const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`;
 const stat=a=>`<div class="sstats">${a.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
 const pct=v=>v==null?'–':Math.round(v*100)+'%';
 const V={
@@ -955,11 +962,11 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
 t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
- return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store${t.var?` · product variant ${esc(t.var)}`:''}</div></div></div>`+
+ return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store${t.var?` · product variant ${esc(t.var)}`:''}</div>${tgc(t.tag)}</div></div>`+
  stat([[t.site,'In the store'],[t.on,'Out now'],[t.site-t.on,'On the shelf'],[t.best||'–','Busiest seen']])+
  (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Issued'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time}</td></tr>`)):'<div class="note g"><b>All on the shelf</b> right now.</div>')},
 k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));
- return `<div class="dh">${k.pic!=null&&D.pics[k.pic]?`<img src="${D.pics[k.pic]}" alt="">`:''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div></div></div>`+
+ return `<div class="dh">${k.pic!=null&&D.pics[k.pic]?`<img src="${D.pics[k.pic]}" alt="">`:''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div>${tgc(m=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}</div></div>`+
  `<h5>Sizes, smallest to largest</h5>`+tbl(['Size','<span style="float:right">In the store</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
  (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Issued'],rs.map(r=>ohRow(r,1))):'')},
 ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
@@ -996,16 +1003,16 @@ rs.forEach(r=>{const k=g=='co'?r.co:g=='who'?r.who+'\u0001'+r.co:r.desc.replace(
 const keys=[...G.keys()].sort((a,b)=>g=='tool'?(key(a.split('\u0001')[0])[0].localeCompare(key(b.split('\u0001')[0])[0])||key(a.split('\u0001')[0])[1]-key(b.split('\u0001')[0])[1]||a.localeCompare(b)):a.localeCompare(b));
 const noun=(n,w,ws)=>`${n} ${n==1?w:ws||w+'s'}`;
 const sec=keys.map(k=>{const v=G.get(k),[a,b]=k.split('\u0001');let head,body;
-if(g=='co'){v.sort(byWho);let last='';head=['Person:19','Item:38','Item number:22','Issued:12',':9'];body=v.map(r=>{const first=r.who!=last;last=r.who;return `<tr><td class="w">${first?esc(r.who):''}</td><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`})}
-else if(g=='who'){v.sort(byItem);head=['Item:52','Item number:25','Issued:13',':10'];body=v.map(r=>`<tr><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`)}
+if(g=='co'){v.sort(byWho);let last='';head=['Person:19','Item:38','Item number:22','Issued:12',':9'];body=v.map(r=>{const first=r.who!=last;last=r.who;return `<tr><td class="w">${first?esc(r.who):''}</td><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}${tgd(r.tag)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`})}
+else if(g=='who'){v.sort(byItem);head=['Item:52','Item number:25','Issued:13',':10'];body=v.map(r=>`<tr><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}${tgd(r.tag)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`)}
 else{v.sort((x,y)=>x.co.localeCompare(y.co)||x.who.localeCompare(y.who));head=['Company:27','Person:31','Item number:28','Issued:14'];body=v.map(r=>`<tr><td>${esc(r.co)}</td><td class="w">${esc(r.who)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td></tr>`)}
 const people=new Set(v.map(r=>r.pk)).size;
-return `<div class="pgh"><h2>${esc(a)}${b?`<small>${esc(b)}</small>`:''}</h2><span>${noun(v.length,'item')}${g=='co'?' · '+noun(people,'person','people'):g=='tool'?' · '+noun(people,'person','people'):''}</span></div><table><thead><tr>${head.map(h=>`<th style="width:${h.split(':')[1]}%">${h.split(':')[0]}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`}).join('');
+return `<div class="pgh"><h2>${esc(a)}${g=='tool'?tgd(v[0].tag):''}${b?`<small>${esc(b)}</small>`:''}</h2><span>${noun(v.length,'item')}${g=='co'?' · '+noun(people,'person','people'):g=='tool'?' · '+noun(people,'person','people'):''}</span></div><table><thead><tr>${head.map(h=>`<th style="width:${h.split(':')[1]}%">${h.split(':')[0]}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`}).join('');
 const nco=new Set(rs.map(r=>r.co)).size,npe=new Set(rs.map(r=>r.pk)).size,nc=rs.filter(r=>r.own=='Coates').length;
 $('#paper').innerHTML=`<div class="ph"><div class="phl"><span class="pb">COATES</span>${LOGO?`<i></i><img src="${LOGO}" alt="${CLIENT}">`:''}</div><div class="phr"><b>On-hire report</b>SiteIQ pull ${esc(D.asat)}</div></div>
 <div class="ptt"><h1>${esc(D.job.title)}</h1><p>Shutdown tool store · everything out with crews as at ${esc(D.asat_day)} ${esc(D.asat)}</p></div>
 <div class="pstats"><div><b>${fmt(rs.length)}</b><span>Items on hire</span></div><div><b>${nco}</b><span>${nco==1?'Company':'Companies'}</span></div><div><b>${npe}</b><span>${npe==1?'Person':'People'}</span></div><div><b>${fmt(nc)}</b><span>Coates items</span></div><div><b>${fmt(rs.length-nc)}</b><span>${esc(K.other_owner)}-owned items</span></div></div>
-<div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest.</div>
+<div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest.${rs.some(r=>r.tag)?` <span style="white-space:nowrap">${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).</span>`:''}</div>
 ${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
 <div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
 // the email is a draft with the same filters in words and a count for each group; nothing sends itself
