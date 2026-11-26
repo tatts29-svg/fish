@@ -538,6 +538,7 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 <div class="seg noprint" id="drawseg" style="margin-bottom:10px"><button data-k="types" class="on">By type</button><button data-k="lines">By line</button><button data-k="cos">By company</button></div>
 <div id="cn-draws" style="--nm:260px"></div></div>
 </div>
+<div class="card" id="peakcard" style="margin-top:16px"><h3>What past shuts used at their busiest</h3><div class="sub" id="peak-sub"></div><div id="peaks"></div></div>
 <div class="sect noprint">Browse the consumables shelf</div>
 <div class="card cb2 noprint" id="cb-cons" style="margin-top:16px"></div>
 </section>
@@ -786,6 +787,14 @@ const drawD=k=>{bars($('#cn-draws'),src[k]())};drawD('types');
 $$('#drawseg button').forEach(b=>b.onclick=()=>{$$('#drawseg button').forEach(x=>x.classList.toggle('on',x===b));drawD(b.dataset.k);$('#cn-draws').classList.remove('now');void $('#cn-draws').offsetWidth;$('#cn-draws').classList.add('now')})}
 else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHTML='<div class="empty">No draws recorded in SiteIQ yet. Usage shows here from the first one.</div>'}}
 
+// what past shuts used at their busiest, line by line
+{const P=D.clines.filter(l=>l.peak).sort((a,b)=>b.avgpeak-a.avgpeak||b.peak-a.peak);
+if(P.length){const mx=Math.max(...P.map(l=>l.peak));let all=STATIC?0:0;
+$('#peak-sub').textContent=`For each line: what a normal day uses, what its busiest day usually reaches, the single busiest day on record and the most drawn in one shut. The bar is the usual busiest day; the mark is the busiest day on record.`;
+const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${esc(l.name)}</td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td><div class="tr" style="overflow:visible"><div class="fl" style="--w:${(l.avgpeak/mx*100).toFixed(1)}%"></div><i class="tick" style="left:calc(${(l.peak/mx*100).toFixed(1)}% - 1px)"></i></div></td><td class="n">${fmt(l.most)}</td><td class="n">${l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${fmt(l.have)}</span>`:fmt(l.have)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
+const m=$('#peaks .more');if(m)m.onclick=()=>{all=!all;draw();$('#peaks').classList.add('now')}};draw()}
+else $('#peakcard').remove()}
+
 /* ---------- category browser, used for tooling and for consumables ---------- */
 function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units',mx=Math.max(...L.map(c=>c.n));let open=0;
 el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${fmt(c.n)}</span></div><div class="m"><i style="--w:${(c.n/mx*100).toFixed(1)}%"></i></div></button>`).join('')}</div><div class="cbp"></div>`;
@@ -832,6 +841,7 @@ $('#defs').innerHTML=[
 ['Categories and sizes','Each item is placed in a category by its SiteIQ description, grouped by kind, and its sizes are read off the description and listed smallest to largest. An orange dot marks a size with items out now.'],
 ['Consumable units',`Units on the shelf across ${CLIENT}'s consumable lines, from SiteIQ sales stock.`],
 ['Minimum and maximum',`Set per line from what recent ${CLIENT} shuts drew per day: the minimum is the busiest day seen or two days' use; the maximum is seven counter days.`],
+['Busiest days on past shuts',`For each consumable line, the usual busiest day is the average of the busiest day in each past shut that drew it. The busiest day on record is the single highest day. Most in one shut is the highest total drawn across one shut's days on file.`],
 ['How the store runs',`Averages per whole shift day (05:00 to 04:59) across ${CLIENT} shuts. A transaction is one tool issued, one tool returned or one consumable issue. Day shift is 06:00 to 18:00 and night shift 18:00 to 06:00. People and companies are counted once a day.`],
 ['The usual range','Each shut\'s units drawn or tools issued per whole shift day; quietest and busiest are the lowest and highest of those, typical is their average.'],
 ['Pull by pull','Each SiteIQ pull adds a point. Nothing is drawn for a pull that has not happened.'],
@@ -910,7 +920,7 @@ ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
  return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(ls.length,'line')} · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div><div style="height:10px"></div>`+
  tbl(['Line','On shelf','Min','Max','Used a day',''],ls.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${esc(l.name)}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill w">Top up</span>':''}</td></tr>`))},
 cl(n){const l=D.clines.find(x=>x.name==n);if(!l)return '<div class="dh"><h3>No record</h3></div>';const who=Object.entries(D.draws.by).filter(([k,a])=>a.some(x=>x.name==n));
- return `<div class="dh"><div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span></div></div></div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+
+ return `<div class="dh"><div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span></div></div></div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+(l.peak?stat([[l.avgpeak,'Usual busiest day'],[l.peak,'Busiest day on record'],[fmt(l.most),'Most in one shut'],[l.have<l.peak?'Short':'Covered','Shelf against busiest day']]):'')+
  (l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
  (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')}};
 {const dr=$('#drawer'),sc=$('#scrim'),body=$('#dbody');let stack=[];

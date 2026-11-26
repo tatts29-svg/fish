@@ -226,6 +226,32 @@ def _ops(kit, path):
     return d
 
 
+def _cons_peaks(path):
+    """Per consumable line, from the Min/Max workbook's own daily sheets (one
+    per past shut): the busiest single day in any shut, the average of each
+    shut's busiest day, and the most drawn in one shut. Counted, not estimated."""
+    import openpyxl
+    wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
+    per = collections.defaultdict(list)                 # sku -> one list of daily units per shut
+    for name in wb.sheetnames:
+        if not name.endswith(" Daily"):
+            continue
+        rows = wb[name].iter_rows(min_row=5, values_only=True)
+        head = [str(c or "").strip().upper() for c in next(rows)]
+        last = head.index("TOTAL") if "TOTAL" in head else len(head)
+        for row in rows:
+            if row[0]:
+                per[str(row[0])].append([float(v) if isinstance(v, (int, float)) else 0.0 for v in row[2:last]])
+    out = {}
+    for sku, shuts in per.items():
+        used = [d for d in shuts if sum(d) > 0]
+        if used:
+            peaks = [max(d) for d in used]
+            out[sku] = {"peak": int(max(peaks)), "avgpeak": round(sum(peaks) / len(peaks), 1),
+                        "most": int(max(sum(d) for d in used)), "nshut": len(used)}
+    return out
+
+
 def _band(vals):
     if not vals:
         return []
@@ -325,15 +351,18 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                 if have < mn:
                     below.append({"line": _cons_name(kit, r.get("SKU_DESCRIPTION")), "have": int(have), "min": int(mn), "max": int(mx)})
         below.sort(key=lambda x: x["have"] - x["min"])
+        peaks = _cons_peaks(minmax)
     else:
-        mm, mm_pd = {}, {}
+        mm, mm_pd, peaks = {}, {}, {}
     clines = []
     for r in stock:
         sku = kit._s(r.get("SKU_NUMBER"))
         clines.append({"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "type": catalogue.cons_category(r.get("SKU_DESCRIPTION")),
                        "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": int(kit._n(r.get("AVAILABLE_QUANTITY"))),
                        "min": int(mm[sku][0]) if sku in mm else None, "max": int(mm[sku][1]) if sku in mm else None,
-                       "pd": round(mm_pd[sku], 1) if sku in mm_pd else None})
+                       "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
+                       "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
+                       "most": peaks.get(sku, {}).get("most")})
     clines.sort(key=lambda c: c["name"].lower())
 
     counter_start = dt.date(2026, 11, 25)
