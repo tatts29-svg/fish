@@ -153,6 +153,19 @@ table.t td.n{font-weight:600}
 .tgc{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:3px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--tg) 55%,transparent);background:color-mix(in srgb,var(--tg) 13%,transparent);font-size:12.5px;font-weight:600;color:var(--tx);white-space:nowrap}
 .tgc i{width:9px;height:9px;border-radius:2px;background:var(--tg);box-shadow:0 0 8px var(--tg)}
 .paper .tgd{box-shadow:none;border:1px solid rgba(0,0,0,.35);width:8px;height:8px;margin-left:6px}
+.loop{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:20px;position:relative}
+.loop:before{content:"";position:absolute;left:10%;right:10%;top:25px;height:2px;background:var(--line)}
+.loop:after{content:"";position:absolute;left:10%;top:24px;width:70px;height:4px;border-radius:4px;background:linear-gradient(90deg,transparent,var(--or),transparent);box-shadow:0 0 14px var(--or);animation:loopgo 5s linear infinite}
+@keyframes loopgo{from{left:10%;opacity:0}8%{opacity:1}92%{opacity:1}to{left:calc(90% - 70px);opacity:0}}
+.lstep{position:relative;z-index:1;text-align:center;padding:0 10px}
+.lstep .ic{width:52px;height:52px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;background:var(--panel2);border:2px solid var(--or);color:var(--ortx);box-shadow:0 0 18px color-mix(in srgb,var(--or) 35%,transparent)}
+.lstep.c .ic{background:var(--or);color:#fff;box-shadow:0 0 26px color-mix(in srgb,var(--or) 60%,transparent)}
+.lstep .ic svg{width:24px;height:24px}
+.lstep b{display:block;font-size:14.5px;line-height:1.25}.lstep span{display:block;font-size:12.5px;color:var(--mu);margin-top:4px;line-height:1.4}
+.lstep em{display:block;font-style:normal;font-weight:700;font-size:12.5px;color:var(--ortx);margin-top:7px}
+@media (max-width:820px){.loop{grid-template-columns:1fr;gap:16px}.loop:before,.loop:after{display:none}.lstep{display:grid;grid-template-columns:52px 1fr;column-gap:14px;text-align:left;padding:0}.lstep .ic{margin:0;grid-row:span 3}}
+@media (prefers-reduced-motion:reduce){.loop:after{display:none}}
+html.static .loop:after{display:none}
 .askrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:14px 0 4px}
 .askrow div{border:1px solid color-mix(in srgb,var(--or) 40%,transparent);border-left:4px solid var(--or);background:var(--orbg);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--mu)}
 .askrow b{display:block;color:var(--tx);font-size:14.5px;margin-bottom:2px}
@@ -495,6 +508,7 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 .paper .pask{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px}
 .paper .pask div{border:1px solid #F8C9B2;border-left:4px solid #F26222;background:#FEF3EE;border-radius:6px;padding:7px 10px;font-size:10.5px;color:#1B2028}
 .paper .pask b{display:block;font-size:11.5px}
+.paper .pcare{background:#2A313C;color:#DCE3EC;border-radius:6px;padding:7px 10px;font-size:10.5px;margin:0 0 10px}.paper .pcare b{color:#F8A078}
 .paper .pf{font-size:9.5px;color:#5A6472;margin:0 2px 8px}.paper .pf b{color:#1B2028}
 .paper .pgh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #F26222;margin:15px 0 0;padding:0 2px 4px;break-after:avoid}
 .paper .pgh h2{font-size:13.5px;margin:0;color:#1B2028}.paper .pgh small{font-weight:400;color:#5A6472;font-size:10px;margin-left:6px}.paper .pgh span{font-size:10px;color:#5A6472;font-weight:600}
@@ -544,6 +558,9 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 <div class="grid c4" id="kpis" style="margin-top:22px"></div>
 <div class="sect">Three things to know right now</div>
 <div class="grid c3" id="know"></div>
+<div class="sect">Why Coates is on site</div>
+<div class="card loopc"><h3>Every tool goes out safe, and comes back to be made safe again</h3><div class="sub" id="loop-sub"></div>
+<div class="loop" id="loop"></div></div>
 <div class="grid c21">
 <div class="card"><h3>Items issued today, hour by hour</h3><div class="sub" id="hoursub"></div>
 <div class="legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>Already back on the shelf</span></div>
@@ -781,6 +798,14 @@ const C=D.companies;if(C.length>1)kn.push({c:'',i:ic.ppl,t:`${C[0].name} and ${C
 else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} items out`,d:'Every item is against a named person.',go:'onhire'});
 if(D.below.length){const z=D.below.filter(b=>b.have==0).length;kn.push({c:'w',i:ic.box,t:`${plural(D.below.length,'consumable line')} to top up`,d:z?`${plural(z,'line')} at zero. The list is on the Consumables tab.`:'Each is below its minimum. The list is on the Consumables tab.',go:'consumables'})}
 else kn.push({c:'g',i:ic.ok,t:'Every consumable line is above its minimum',d:`${K.cons_lines} lines on the shelf.`,go:'consumables'});
+{const I=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+$('#loop-sub').textContent='A tool store with Coates people on the counter is more than a shelf. This is what happens to every item, every time.';
+const st=[['<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>','Issued to a named person','Scanned out in SiteIQ, so every item has an owner.',`${fmt(K.issued_today)} issued today`,''],
+['<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>','Checked each day before use','Crews check their gear before they start.','',''],
+['<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>','Returned to the store','Gear not being used comes back to the counter.',`${fmt(K.back_today)} back today`,''],
+['<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>','Checked and cleaned by Coates','Every return is checked for safe use and cleaned.',`${fmt(D.tagged.groups.reduce((a,g)=>a+g.n,0))} items carry a test tag`,'c'],
+['<path d="M5 13l4 4L19 7"/>','Ready for the next person','Back on the shelf, clean and safe to use.',`${fmt(K.coates_ready-K.coates_out)} Coates items ready now`,'']];
+$('#loop').innerHTML=st.map(x=>`<div class="lstep ${x[4]}"><div class="ic">${I(x[0])}</div><b>${x[1]}</b><span>${x[2]}</span>${x[3]?`<em>${x[3]}</em>`:''}</div>`).join('')}
 $('#know').innerHTML=kn.map(k=>`<button class="know ${k.c}" data-go="${k.go}"><span class="ic">${k.i}</span><span><b>${esc(k.t)}</b><span>${esc(k.d)}</span></span></button>`).join('');
 // today, hour by hour: each column is the items issued in that hour
 const nh=Math.min(D.hours.length,Math.max(asatH-4,D.hour_out.reduce((m,v,i)=>v?i+1:m,0),8));
@@ -1022,6 +1047,7 @@ $('#paper').innerHTML=`<div class="ph"><div class="phl"><span class="pb">COATES<
 <div class="ptt"><h1>${esc(D.job.title)}</h1><p>Shutdown tool store · everything out with crews as at ${esc(D.asat_day)} ${esc(D.asat)}</p></div>
 <div class="pstats"><div><b>${fmt(rs.length)}</b><span>Items on hire</span></div><div><b>${nco}</b><span>${nco==1?'Company':'Companies'}</span></div><div><b>${npe}</b><span>${npe==1?'Person':'People'}</span></div><div><b>${fmt(nc)}</b><span>Coates items</span></div><div><b>${fmt(rs.length-nc)}</b><span>${esc(K.other_owner)}-owned items</span></div></div>
 <div class="pask"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
+<div class="pcare"><b>Why it comes back to Coates:</b> every item returned is checked for safe use and cleaned by the Coates tool store team, so it is ready for the next person.</div>
 <div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest. Days on hire counts from the date of hire to the SiteIQ pull.${rs.some(r=>r.tag)?` <span style="white-space:nowrap">${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).</span>`:''}</div>
 ${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
 <div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
