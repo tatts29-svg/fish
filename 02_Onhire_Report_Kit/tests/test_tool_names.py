@@ -1,41 +1,55 @@
-"""draft_tool_names: plain names reorder SiteIQ's own words and add none."""
+"""draft_tool_names: SiteIQ's own words set out in the house style."""
 import os
 import sys
 import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import build_showcase  # noqa: E402
-from draft_tool_names import plain  # noqa: E402
+from draft_tool_names import draft  # noqa: E402
 
 
-class PlainNames(unittest.TestCase):
+class HouseStyle(unittest.TestCase):
     def test_sockets(self):
         for raw, want in (
-            ("Socket - Impact - Long 24mm 1/2in Drive", "24mm long impact socket, 1/2in drive"),
-            ("Socket - Impact - Long 30mm 3/4in Dr", "30mm long impact socket, 3/4in drive"),
-            ("Socket - Impact - 1 1/2in 3/4in Drive", "1 1/2in impact socket, 3/4in drive"),
-            ("Socket - Impact - Long 1-1/16-3/4in Drive", "1 1/16in long impact socket, 3/4in drive"),
-            ("Socket - 1/2inch Drive - Metric - 12mm", "12mm socket, 1/2in drive"),
-            ("Socket - Impact -Extension - 1in - Drive - 250mm", "250mm impact extension bar, 1in drive"),
-            ("Socket - Breaker Bar - 3/4in Drive", "Breaker bar, 3/4in drive"),
-            ("1 Inch 41Mm Socket", "41mm socket, 1in drive"),
+            ("Socket - Impact - Long 24mm 3/4in Dr", "Socket - Impact - Long - 24mm - 3/4 Inch Drive"),
+            ("Socket - Impact - Long 1-3/16-3/4in Drive", "Socket - Impact - Long - 1 3/16 Inch (30.2mm) - 3/4 Inch Drive"),
+            ("Socket - 1/2inch Drive - Metric - 12mm", "Socket - Metric - 12mm - 1/2 Inch Drive"),
+            ("Socket - Impact -Extension - 1in - Drive - 150mm", "Socket - Impact - Extension - 150mm - 1 Inch Drive"),
+            ("Socket Adaptor 1/2in To 3/4in Drive", "Socket - Adaptor - 1/2 Inch to 3/4 Inch Drive"),
+            ("Socket - Breaker Bar - 3/4in Drive", "Socket - Breaker Bar - 3/4 Inch Drive"),
+            ("1 Inch 41Mm Socket", "Socket - Metric - 41mm - 1 Inch Drive"),
         ):
-            self.assertEqual(plain(raw), want)
+            self.assertEqual(draft(raw), want)
 
     def test_spanners(self):
         for raw, want in (
-            ("Spanner - Combo (25mm)", "25mm combination spanner"),
-            ("Spanner - Combo 1 - 1/16", "1 1/16in combination spanner"),
-            ("Spanner - Flogging - Flat - 3inch", "3in flat flogging spanner"),
-            ("Spanner - Shifter - 375mm (15in )", "375mm shifter (15in)"),
-            ("Spanner - Podger - Ratchet - 21mm / 24mm", "21mm / 24mm ratchet podger spanner"),
+            ("Spanner - Combo (25mm)", "Spanner - Combo - 25mm"),
+            ("Spanner - Combo 1 - 9/16", "Spanner - Combo - 1 9/16 Inch (39.7mm)"),
+            ("Spanner - Flogging - 2 1/4inch", "Spanner - Flogging - 2 1/4 Inch (57.2mm)"),
+            ("Spanner - Shifter - 375mm (15in )", "Spanner - Shifter - 375mm (15 Inch)"),
+            ("Spanner - Podger - Ratchet - 21mm / 24mm", "Spanner - Podger - Ratchet - 21mm / 24mm"),
         ):
-            self.assertEqual(plain(raw), want)
+            self.assertEqual(draft(raw), want)
 
     def test_everything_else_keeps_its_words(self):
-        self.assertEqual(plain("Hammer - Ball Pein - 16 Oz"), "16oz ball pein hammer")
-        self.assertEqual(plain("Pliers - Long Nose"), "Long nose pliers")
-        self.assertEqual(plain("Broom"), "Broom")
+        self.assertEqual(draft("Spirit Level 400mm"), "Spirit Level - 400mm")
+        self.assertEqual(draft("Straight Edge - 1M"), "Straight Edge - 1 Metre")
+        self.assertEqual(draft("Broom"), "Broom")
+
+    def test_a_blank_variant_never_takes_an_approved_name(self):
+        import csv
+        import json
+        import tempfile
+        import draft_tool_names
+        d = tempfile.mkdtemp()
+        page, idx, out = (os.path.join(d, n) for n in ("r.html", "i.csv", "o.csv"))
+        tools = {"RADIO": {"name": "Radio", "site": 2, "var": None}, "BROOM": {"name": "Broom", "site": 1, "var": "BRM"}}
+        open(page, "w", encoding="utf-8").write("const D=" + json.dumps({"tools": tools}) + ";")
+        with open(idx, "w", newline="", encoding="utf-8") as f:
+            csv.writer(f).writerows([["Product variant", "Item"], ["", "Something Else"], ["BRM", "Broom - Yard"]])
+        draft_tool_names.main([page, out, "--approved", idx])
+        got = {r["SiteIQ description"]: (r["Plain name"], r["Source"]) for r in csv.DictReader(open(out, encoding="utf-8-sig"))}
+        self.assertEqual(got, {"Radio": ("Radio", "Drafted"), "Broom": ("Broom - Yard", "Approved")})
 
     def test_the_list_is_applied_and_the_original_kept(self):
         import csv

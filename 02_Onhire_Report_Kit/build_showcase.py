@@ -287,10 +287,12 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     by_hirer = collections.Counter((kit.person_name(r.get("HIRER_NAME")), kit.co_name(r.get("COMPANY_NAME"))) for r in on)
 
     dkey = lambda r: " ".join(str(r.get("ITEM_DESCRIPTION") or "").split()).upper()
-    dname = {}
+    dname, dvar = {}, {}
     for r in rental:
         raw = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
         dname.setdefault(dkey(r), raw.title() if raw.isupper() else raw)
+        if str(r.get("PRODUCT_VARIANT") or "").strip():
+            dvar.setdefault(dkey(r), str(r.get("PRODUCT_VARIANT")).strip())
     pix = Pictures(pictures)
     dpic = {}
     for r in rental:
@@ -497,7 +499,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "tagged": tagged,
         "onhire": onhire_rows,
         "draws": draws,
-        "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k)}
+        "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
         "people": people_rows, "ptyp": ptyp,
