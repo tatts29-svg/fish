@@ -462,6 +462,44 @@ tr.tdy td{background:var(--orbg)}
 tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 @media (max-width:980px){.c5{grid-template-columns:1fr 1fr}.costhero{grid-template-columns:1fr;justify-items:center}}
 
+/* the on-hire report: a paper document you can filter, print, save as PDF or email */
+#paperwrap{position:fixed;inset:0;z-index:70;background:rgba(5,8,11,.9);overflow:auto;display:none}
+#paperwrap.on{display:block;animation:viewin .3s cubic-bezier(.2,.8,.2,1)}
+.pbar{position:sticky;top:0;z-index:2;background:#2A313C;border-bottom:3px solid #F26222;padding:10px 16px;display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;color:#fff}
+.pbar .ttl{font-weight:700;font-size:14px;margin-right:6px}
+.pbar label{font-size:11.5px;color:#AEB8C5;display:flex;align-items:center;gap:7px}
+.pbar .seg{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14)}.pbar .seg button{color:#C9D1DB}
+.pbar .search{max-width:190px;padding:7px 11px;font-size:13px;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16);color:#fff}
+.pbar .sp{flex:1}
+.pcos{display:flex;flex-wrap:wrap;gap:6px;padding:8px 16px;background:#232A34;position:sticky;top:0}
+.pco{font-size:12px;font-weight:600;padding:4px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:none;color:#C9D1DB;cursor:pointer;transition:background .15s,border-color .15s}
+.pco.on{background:#F26222;border-color:#F26222;color:#fff}
+.paper{width:210mm;max-width:calc(100vw - 20px);min-height:290mm;margin:18px auto 50px;background:#fff;color:#1B2028;padding:13mm 12mm 14mm;box-shadow:0 30px 90px rgba(0,0,0,.6);font-size:10.5px;line-height:1.4;font-family:Inter,Arial,sans-serif}
+.paper .ph{display:flex;align-items:center;justify-content:space-between;background:#2A313C;color:#fff;border-bottom:4px solid #F26222;border-radius:8px 8px 0 0;padding:13px 16px}
+.paper .pb{font-weight:700;letter-spacing:.22em;font-size:16px;color:#F26222}
+.paper .ph img{height:34px;display:block}
+.paper .phl{display:flex;align-items:center;gap:14px}.paper .phl i{width:1px;height:26px;background:rgba(255,255,255,.25)}
+.paper .phr{text-align:right;font-size:9.5px;color:#C9D1DB;line-height:1.5}.paper .phr b{display:block;font-size:15px;color:#fff;letter-spacing:.02em}
+.paper .ptt{padding:14px 2px 4px}.paper .ptt h1{font-size:21px;margin:0;letter-spacing:-.01em;color:#1B2028;animation:none}.paper .ptt p{color:#5A6472;font-size:11px;margin-top:2px}
+.paper .pstats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid #E0E4EA;border-radius:8px;margin:10px 0 6px;overflow:hidden}
+.paper .pstats div{padding:9px 12px;border-left:1px solid #E0E4EA}.paper .pstats div:first-child{border-left:0;background:#FDE9DF}
+.paper .pstats b{display:block;font-size:19px;letter-spacing:-.02em}.paper .pstats span{font-size:9px;color:#5A6472}
+.paper .pf{font-size:9.5px;color:#5A6472;margin:0 2px 8px}.paper .pf b{color:#1B2028}
+.paper .pgh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #F26222;margin:15px 0 0;padding:0 2px 4px;break-after:avoid}
+.paper .pgh h2{font-size:13.5px;margin:0;color:#1B2028}.paper .pgh small{font-weight:400;color:#5A6472;font-size:10px;margin-left:6px}.paper .pgh span{font-size:10px;color:#5A6472;font-weight:600}
+.paper table{width:100%;border-collapse:collapse;table-layout:fixed}.paper td{overflow-wrap:anywhere}
+.paper th{text-align:left;font-size:8.5px;text-transform:uppercase;letter-spacing:.06em;color:#5A6472;background:#F4F5F7;padding:5px 7px;font-weight:700}
+.paper td{padding:5px 7px;border-bottom:1px solid #E8EBF0;vertical-align:top}
+.paper tr{break-inside:avoid}.paper thead{display:table-header-group}
+.paper td.w{font-weight:700;white-space:nowrap}.paper td.m{color:#5A6472;white-space:nowrap}.paper td.o{color:#9A6400;font-size:9px;white-space:nowrap}
+.paper .pend{margin-top:16px;padding-top:8px;border-top:1px solid #E0E4EA;color:#5A6472;font-size:9px;display:flex;justify-content:space-between}
+.paper .none{padding:30px;text-align:center;color:#5A6472;border:1px dashed #E0E4EA;border-radius:8px;margin-top:14px}
+@page oh{size:A4 portrait;margin:11mm 10mm 15mm;@bottom-left{content:"Author: Andrew Fisher | POWERED BY SITEIQ";font-family:Inter,Arial,sans-serif;font-size:7.5pt;color:#5A6472}@bottom-right{content:"Page " counter(page) " of " counter(pages);font-family:Inter,Arial,sans-serif;font-size:7.5pt;color:#5A6472}}
+@media print{html.ohprint,html.ohprint body{background:#fff!important}html.ohprint body>*:not(#paperwrap){display:none!important}
+html.ohprint #paperwrap{position:static;display:block!important;background:#fff;overflow:visible;animation:none}html.ohprint .pbar,html.ohprint .pcos{display:none!important}
+html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}}
+@media (max-width:620px){.paper{padding:16px 12px;font-size:10px}.paper .pstats{grid-template-columns:repeat(3,1fr)}.paper .ph img{height:26px}}
+
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
@@ -598,6 +636,12 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp">Click anything underlined or listed to open it</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
+<div id="paperwrap" aria-hidden="true"><div class="pbar"><span class="ttl">On-hire report</span>
+<label>Group by<span class="seg" id="oh-g"><button data-k="co" class="on">Company</button><button data-k="who">Person</button><button data-k="tool">Tool</button></span></label>
+<label>Owner<span class="seg" id="oh-o"><button data-k="all" class="on">All</button><button data-k="coates">Coates</button><button data-k="other" id="oh-o2"></button></span></label>
+<input class="search" id="oh-f" placeholder="Filter by name or item" autocomplete="off"><span class="sp"></span>
+<button class="btn" id="oh-print">Print or save as PDF</button><a class="btn ghost" id="oh-mail" href="#">Email</a><a class="btn ghost" id="oh-x" href="onhire.xlsx">Excel</a><button class="btn ghost" id="oh-close">Close</button></div>
+<div class="pcos" id="oh-cosel"></div><div class="paper" id="paper"></div></div>
 <div id="tip"></div>
 
 <script>
@@ -730,11 +774,11 @@ columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],
 tip:i=>`<b>${D.hours[i]}</b><br>Issued: ${out[i]}<br>Still out: ${still[i]}<br>Already back: ${back[i]}`});
 $('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}.`;
 bars($('#cos'),C.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})),{});
-const dlh=`<a class="btn" href="onhire.pdf" download="${CLIENT} On-Hire Report.pdf">PDF</a><a class="btn" href="onhire.xlsx" download="${CLIENT} On-Hire Report.xlsx">Excel</a><a class="btn ghost mail" href="#">Email</a>`;
+const dlh=`<button class="btn" data-ohreport="1">Build the report: filter, print, email</button><a class="btn ghost" href="onhire.pdf" download="${CLIENT} On-Hire Report.pdf">Full PDF</a><a class="btn ghost" href="onhire.xlsx" download="${CLIENT} On-Hire Report.xlsx">Excel</a>`;
 $('#dl1').innerHTML=dlh+`<button class="btn ghost" data-go="onhire">See the list</button><a class="btn ghost" href="report.pdf" download="${CLIENT} Tool Store Report.pdf">This whole report (PDF)</a>`;$('#dl2').innerHTML=dlh;
 const cosN=C.map(c=>`${c.name}: ${c.n}`).join('%0D%0A');
 $$('.mail').forEach(a=>a.href=`mailto:?subject=${encodeURIComponent(CLIENT+' tool store – on-hire report, '+D.asat)}&body=${encodeURIComponent('On hire as at the SiteIQ pull of '+D.asat+': '+D.onhire.length+' items with '+C.length+' companies.')}%0D%0A%0D%0A${cosN}%0D%0A%0D%0A${encodeURIComponent('The full report and the PDF and Excel copies are on the tool store report site'+(location.protocol.startsWith('http')?': '+location.origin+'/':'.'))}`);
-$('#dlfoot').textContent=`${fmt(D.onhire.length)} items as at ${D.asat}. Email opens a draft in your mail app; nothing sends until you press send.`}
+$('#dlfoot').textContent=`${fmt(D.onhire.length)} items as at ${D.asat}. Filter by company, person or tool, then print, save as a PDF or email. Email opens a draft; nothing sends until you press send.`}
 
 /* ---------- on hire ---------- */
 {$('#oh-lead').textContent=`Everything out with crews at the ${asatT} pull on ${D.asat_day}, by company, by tool and item by item.`;
@@ -933,6 +977,51 @@ $('#dclose').onclick=close;sc.onclick=close;$('#dback').onclick=()=>{if(stack.le
 document.addEventListener('keydown',e=>{if(e.key=='Escape')close()});
 document.addEventListener('click',e=>{const el=e.target.closest('[data-open]');if(el&&el.dataset.open){e.preventDefault();openS(el.dataset.open);return}
 const g=e.target.closest('[data-go]');if(g){e.preventDefault();show(g.dataset.go)}})}
+
+/* ---------- the on-hire report: filter it, print it, save it as a PDF or email it ---------- */
+{const R=D.onhire,wrap=$('#paperwrap'),allCos=[...new Set(R.map(r=>r.co))].sort((a,b)=>a.localeCompare(b));
+const st={group:'co',own:'all',cos:new Set(),q:''};
+$('#oh-o2').textContent=K.other_owner+' owned';$('#oh-x').download=CLIENT+' On-Hire Report.xlsx';
+// a tool sorts by its name with the size set aside, then by the size, smallest first
+const val=x=>{const m=x.match(/^(\d+)?\s?(?:(\d+)\/(\d+))?\s?Inch/);if(m&&(m[1]||m[2]))return ((+m[1]||0)+(m[2]?m[2]/m[3]:0))*25.4;const f=parseFloat(x);return isNaN(f)?0:f};
+const key=n=>{const parts=n.replace(/\s*\([^)]*Owned\)$/,'').split(' - ');let size=0,got=0;const base=[];parts.forEach(x=>{if(!got&&/^\d/.test(x)&&!/Drive$/.test(x)){size=val(x);got=1}else base.push(x)});return [base.join(' - ').toLowerCase(),size]};
+const byItem=(a,b)=>{const A=key(a.desc),B=key(b.desc);return A[0].localeCompare(B[0])||A[1]-B[1]||a.desc.localeCompare(b.desc)||String(a.item).localeCompare(String(b.item))};
+const byWho=(a,b)=>a.who.localeCompare(b.who)||byItem(a,b);
+const rows=()=>{const q=st.q.trim().toUpperCase();return R.filter(r=>(st.own=='all'||(st.own=='coates')==(r.own=='Coates'))&&(!st.cos.size||st.cos.has(r.co))&&(!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q)))};
+const when=r=>`${r.date.slice(0,6)} ${r.time}`;
+const own=r=>r.own=='Coates'?'':`<td class="o">${esc(r.own)} owned</td>`;
+function says(){const a=[];a.push(st.cos.size?[...st.cos].sort().join(', '):'all companies');a.push(st.own=='all'?'Coates and '+K.other_owner+'-owned gear':st.own=='coates'?'Coates gear only':K.other_owner+'-owned gear only');if(st.q.trim())a.push('matching "'+st.q.trim()+'"');a.push('grouped by '+{co:'company',who:'person',tool:'tool'}[st.group]);return a}
+function build(){const rs=rows(),G=new Map(),g=st.group;
+rs.forEach(r=>{const k=g=='co'?r.co:g=='who'?r.who+'\u0001'+r.co:r.desc.replace(/\s*\([^)]*Owned\)$/,'')+'\u0001'+(r.own=='Coates'?'':r.own+' owned');(G.get(k)||G.set(k,[]).get(k)).push(r)});
+const keys=[...G.keys()].sort((a,b)=>g=='tool'?(key(a.split('\u0001')[0])[0].localeCompare(key(b.split('\u0001')[0])[0])||key(a.split('\u0001')[0])[1]-key(b.split('\u0001')[0])[1]||a.localeCompare(b)):a.localeCompare(b));
+const noun=(n,w,ws)=>`${n} ${n==1?w:ws||w+'s'}`;
+const sec=keys.map(k=>{const v=G.get(k),[a,b]=k.split('\u0001');let head,body;
+if(g=='co'){v.sort(byWho);let last='';head=['Person:19','Item:38','Item number:22','Issued:12',':9'];body=v.map(r=>{const first=r.who!=last;last=r.who;return `<tr><td class="w">${first?esc(r.who):''}</td><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`})}
+else if(g=='who'){v.sort(byItem);head=['Item:52','Item number:25','Issued:13',':10'];body=v.map(r=>`<tr><td>${esc(r.desc.replace(/\s*\([^)]*Owned\)$/,''))}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td>${own(r)||'<td></td>'}</tr>`)}
+else{v.sort((x,y)=>x.co.localeCompare(y.co)||x.who.localeCompare(y.who));head=['Company:27','Person:31','Item number:28','Issued:14'];body=v.map(r=>`<tr><td>${esc(r.co)}</td><td class="w">${esc(r.who)}</td><td class="m">${esc(r.item)}</td><td class="m">${when(r)}</td></tr>`)}
+const people=new Set(v.map(r=>r.pk)).size;
+return `<div class="pgh"><h2>${esc(a)}${b?`<small>${esc(b)}</small>`:''}</h2><span>${noun(v.length,'item')}${g=='co'?' · '+noun(people,'person','people'):g=='tool'?' · '+noun(people,'person','people'):''}</span></div><table><thead><tr>${head.map(h=>`<th style="width:${h.split(':')[1]}%">${h.split(':')[0]}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>`}).join('');
+const nco=new Set(rs.map(r=>r.co)).size,npe=new Set(rs.map(r=>r.pk)).size,nc=rs.filter(r=>r.own=='Coates').length;
+$('#paper').innerHTML=`<div class="ph"><div class="phl"><span class="pb">COATES</span>${LOGO?`<i></i><img src="${LOGO}" alt="${CLIENT}">`:''}</div><div class="phr"><b>On-hire report</b>SiteIQ pull ${esc(D.asat)}</div></div>
+<div class="ptt"><h1>${esc(D.job.title)}</h1><p>Shutdown tool store · everything out with crews as at ${esc(D.asat_day)} ${esc(D.asat)}</p></div>
+<div class="pstats"><div><b>${fmt(rs.length)}</b><span>Items on hire</span></div><div><b>${nco}</b><span>${nco==1?'Company':'Companies'}</span></div><div><b>${npe}</b><span>${npe==1?'Person':'People'}</span></div><div><b>${fmt(nc)}</b><span>Coates items</span></div><div><b>${fmt(rs.length-nc)}</b><span>${esc(K.other_owner)}-owned items</span></div></div>
+<div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest.</div>
+${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
+<div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
+// the email is a draft with the same filters in words and a count for each group; nothing sends itself
+const lines=keys.map(k=>`${k.split('\u0001')[0]}: ${G.get(k).length}`).join('\n');
+$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nThe PDF of this report is attached.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
+$('#oh-cosel').innerHTML=`<button class="pco on" data-c="">All companies</button>`+allCos.map(c=>`<button class="pco" data-c="${esc(c)}">${esc(c)} <span style="opacity:.7">${R.filter(r=>r.co==c).length}</span></button>`).join('');
+$$('#oh-cosel .pco').forEach(b=>b.onclick=()=>{const c=b.dataset.c;if(!c)st.cos.clear();else st.cos.has(c)?st.cos.delete(c):st.cos.add(c);$$('#oh-cosel .pco').forEach(x=>x.classList.toggle('on',x.dataset.c?st.cos.has(x.dataset.c):!st.cos.size));build()});
+const seg=(id,f)=>$$(id+' button').forEach(b=>b.onclick=()=>{st[f]=b.dataset.k;$$(id+' button').forEach(x=>x.classList.toggle('on',x===b));build()});seg('#oh-g','group');seg('#oh-o','own');
+$('#oh-f').addEventListener('input',e=>{st.q=e.target.value;build()});
+const openR=()=>{build();wrap.classList.add('on');wrap.setAttribute('aria-hidden','false');wrap.scrollTop=0;document.body.style.overflow='hidden'};
+const closeR=()=>{wrap.classList.remove('on');wrap.setAttribute('aria-hidden','true');document.body.style.overflow=''};
+$('#oh-close').onclick=closeR;document.addEventListener('keydown',e=>{if(e.key=='Escape')closeR()});
+$('#oh-print').onclick=()=>{root.classList.add('ohprint');const t=document.title;document.title=`${CLIENT} On-Hire Report ${D.asat.replace(':','')}`;const done=()=>{root.classList.remove('ohprint');document.title=t;removeEventListener('afterprint',done)};addEventListener('afterprint',done);print()};
+document.addEventListener('click',e=>{if(e.target.closest('[data-ohreport]')){e.preventDefault();openR()}});
+// ?ohreport: the whole report as the document itself, for making the downloadable PDF
+if(/[?&]ohreport/.test(QS)){openR();root.classList.add('ohprint')}}
 
 /* ---------- people ---------- */
 {const rated=D.people.filter(p=>p.rating!=null),fl=D.people.filter(p=>p.flags.length),now=D.people.filter(p=>p.now);
