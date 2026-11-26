@@ -437,7 +437,6 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="legend"><span><i style="background:var(--or)"></i>Tooling issued</span><span><i style="background:var(--si)"></i>Consumable units drawn</span></div>
 <div id="ref"></div><div class="foot" id="reffoot"></div></div>
 </div>
-<div class="card" style="margin-top:16px"><h3 id="refbh"></h3><div class="big-stat" id="refstats"></div></div>
 </section>
 
 <section class="reveal"><div class="sh"><div class="no">07</div><h2>What each figure means</h2></div>
@@ -522,7 +521,7 @@ bars($('#cos'),D.companies);
 $('#cofoot').textContent=`${K.on} items out with ${K.companies} companies. Every item is on a named person.`;
 // 02 dials
 const comm=D.kinds.filter(k=>/radio/i.test(k.name)).reduce((a,k)=>({on:a.on+k.on,fleet:a.fleet+k.fleet}),{on:0,fleet:0});
-$('#sd2').textContent=`The share of each fleet out with crews at the time of the pull. Day ${D.job.day} is early: these build as the shut ramps up${D.ref?` — in July, ${fmt(D.ref.peak_out)} items were out at once at the peak`:''}.`;
+$('#sd2').textContent=`The share of each fleet out with crews at the time of the pull. Day ${D.job.day} is early: these build as the shut ramps up.`;
 $('#dials').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(comm.on,comm.fleet,'Radios and radio batteries out','the busiest gear today');
 // 03
 $('#sd3').textContent=`The kinds of gear crews are taking, against how many of each the store holds.`;
@@ -541,15 +540,14 @@ bars($('#ctop'),D.cons_top);
 $('#below').innerHTML=D.below.length?`<div class="tscroll"><table class="t"><tr><th>Line</th><th style="text-align:right">On shelf</th><th style="text-align:right">Minimum</th><th style="text-align:right">Maximum</th><th></th></tr>${D.below.map(b=>`<tr><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max}</td><td><span class="pill">Top up</span></td></tr>`).join('')}</table></div><div class="note">Minimum and maximum for each line are set from the July 2026 shut's daily usage: the minimum covers the busiest July day or two days of use, the maximum covers seven counter days. ${fmt(D.to_max)} units would bring every line to its maximum.</div>`:'<div class="empty">Every line is at or above its minimum.</div>';
 // 06 trends
 const H=D.history;
-$('#sd6').textContent=`This shut builds a trend with every pull. Alongside it, the July 2026 shut day by day, for what the next days are likely to look like.`;
+$('#sd6').textContent=`This shut builds a trend with every pull. Beside it, for planning only, how a previous shut ran day by day.`;
 if(H.length>1){lines($('#trend'),H.map(h=>h.asat.slice(5).replace('-','/')),[{v:H.map(h=>h.on_hire),c:'#F26222'},{v:H.map(h=>h.issued_today),c:'#B9C3D0',w:2,area:false}],{label:'On hire by pull',dots:1});$('#trendfoot').textContent='Orange: items on hire at each pull. Silver: items issued that day.'}
 else{$('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${K.on} on hire, ${K.issued_today} issued today.<br>The line starts drawing from the next pull.</div>`}
 if(D.ref){const R=D.ref,MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],lab=R.days.map(d=>d.slice(8,10)+' '+MON[+d.slice(5,7)-1]);
-$('#refh').textContent=`${R.label} — day by day`;
+$('#refh').textContent=`For planning: ${R.label}, day by day`;
 lines($('#ref'),lab,[{v:R.tool_issued,c:'#F26222'},{v:R.cons_units,c:'#B9C3D0',w:2,area:false}],{label:'July shut by day',nlab:11,peak:(i,m)=>`${m}`});
 $('#reffoot').textContent=`Shift days 05:00 to 04:59. ${R.source}.`;
-$('#refbh').textContent=`${R.label} — how it closed out`;
-const T=R.totals;$('#refstats').innerHTML=[[T.tool_tx,'Tooling issues and returns'],[T.same_day,'Back the same day'],[T.cons_draws,'Consumable issues'],[R.peak_out,'Most out at once'],[T.mmg_owned,'MMG-owned items through the counter'],[T.left_out_at_end,'Left out at the end']].map(s=>`<div><div class="n" data-n="${s[0]}">0</div><div class="l">${s[1]}</div></div>`).join('')}
+}
 else{$('#ref').innerHTML='<div class="empty">No reference shut loaded.</div>'}
 // 07 defs
 $('#defs').innerHTML=[
