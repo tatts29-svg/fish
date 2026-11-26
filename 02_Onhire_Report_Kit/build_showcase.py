@@ -135,6 +135,14 @@ def _fonts(kit_folder):
     return out
 
 
+def _band(vals):
+    if not vals:
+        return []
+    return [{"name": "Quietest shut", "n": round(min(vals))},
+            {"name": "Typical shut", "n": round(sum(vals) / len(vals))},
+            {"name": "Busiest shut", "n": round(max(vals))}]
+
+
 def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
@@ -269,8 +277,11 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "comm": {"on": sum(v for k, v in kinds_on.items() if "RADIO" in k),
                  "fleet": sum(v for k, v in kinds_fleet.items() if "RADIO" in k)},
         "tools_util": tools_util,
-        "shuts": ({"cons": [{"name": c["label"], "n": c["per_day"]} for c in sh["cons"]],
-                   "tools": [{"name": t["label"], "n": t["per_day"]} for t in sh["tools"]], "min_days": sh["min_days"]}
+        #  Past shuts go to the page as a range only - quietest, typical and
+        #  busiest per day - with no shut names or dates, so the page never
+        #  shows which shuts are on record.
+        "shuts": ({"cons": _band([c["per_day"] for c in sh["cons"]]),
+                   "tools": _band([t["per_day"] for t in sh["tools"]]), "min_days": sh["min_days"]}
                   if sh else None),
         "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
         "held": held_groups(),
@@ -466,9 +477,9 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <p class="sd" id="sd6"></p>
 <div class="grid g2e">
 <div class="card"><h3>This shut, pull by pull</h3><div id="trend"></div><div class="foot" id="trendfoot"></div></div>
-<div class="card"><h3>Consumable units drawn per day — MMG shuts</h3><div class="cyls" id="hcons"></div><div class="foot" id="hconsfoot"></div></div>
+<div class="card"><h3>Consumable units drawn per day — the MMG range</h3><div class="cyls" id="hcons"></div><div class="foot" id="hconsfoot"></div></div>
 </div>
-<div class="card" style="margin-top:16px"><h3>Tool issues per day — MMG shuts</h3><div class="cyls" id="htools" style="justify-content:space-around"></div><div class="foot" id="htoolsfoot"></div></div>
+<div class="card" style="margin-top:16px"><h3>Tool issues per day — the MMG range</h3><div class="cyls" id="htools" style="justify-content:space-around"></div><div class="foot" id="htoolsfoot"></div></div>
 </section>
 
 <section class="reveal"><div class="sh"><div class="no">07</div><h2>What each figure means</h2></div>
@@ -573,14 +584,14 @@ bars($('#ctop'),D.cons_top);
 $('#below').innerHTML=D.below.length?`<div class="tscroll"><table class="t"><tr><th>Line</th><th style="text-align:right">On shelf</th><th style="text-align:right">Minimum</th><th style="text-align:right">Maximum</th><th></th></tr>${D.below.map(b=>`<tr><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max}</td><td><span class="pill">Top up</span></td></tr>`).join('')}</table></div><div class="note">Minimum and maximum for each line are set from what MMG's recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days. ${fmt(D.to_max)} units would bring every line to its maximum.</div>`:'<div class="empty">Every line is at or above its minimum.</div>';
 // 06 trends
 const H=D.history;
-$('#sd6').textContent=`How MMG's tool store runs, shut by shut, and this shut as it builds. Each shut figure is a daily average over whole shift days, 05:00 to 04:59.`;
+$('#sd6').textContent=`This shut as it builds, against the range MMG's tool store usually runs at: quietest, typical and busiest shut, each a daily average over whole shift days, 05:00 to 04:59.`;
 if(H.length>1){lines($('#trend'),H.map(h=>h.asat.slice(5).replace('-','/')),[{v:H.map(h=>h.on_hire),c:'#F26222'},{v:H.map(h=>h.issued_today),c:'#B9C3D0',w:2,area:false}],{label:'On hire by pull',dots:1});$('#trendfoot').textContent='Orange: items on hire at each pull. Silver: items issued that day.'}
 else{$('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${K.on} on hire, ${K.issued_today} issued today.<br>The line starts drawing from the next pull.</div>`}
-if(D.shuts){const S=D.shuts,r=a=>a.map(x=>({name:x.name,n:Math.round(x.n)})),mc=Math.max(...S.cons.map(x=>x.n)),mt=Math.max(...S.tools.map(x=>x.n));
-$('#hcons').innerHTML=r(S.cons).map(c=>cyl(c,{max:Math.round(mc)})).join('');
-$('#htools').innerHTML=r(S.tools).map(c=>cyl(c,{max:Math.round(mt)})).join('');
-$('#hconsfoot').textContent=`Units drawn per shift day. November 2026 joins once it has ${S.min_days} whole days.`;
-$('#htoolsfoot').textContent=`Tools issued per shift day, Coates and MMG-owned gear. November 2026 joins once it has ${S.min_days} whole days.`}
+if(D.shuts){const S=D.shuts,mc=Math.max(...S.cons.map(x=>x.n)),mt=Math.max(...S.tools.map(x=>x.n));
+$('#hcons').innerHTML=S.cons.map(c=>cyl(c,{max:mc})).join('');
+$('#htools').innerHTML=S.tools.map(c=>cyl(c,{max:mt})).join('');
+$('#hconsfoot').textContent=`Units drawn per shift day across MMG shuts. This shut joins once it has ${S.min_days} whole days.`;
+$('#htoolsfoot').textContent=`Tools issued per shift day across MMG shuts, Coates and MMG-owned gear. This shut joins once it has ${S.min_days} whole days.`}
 else{$('#hcons').innerHTML='<div class="empty">No shut history loaded.</div>'}
 // 07 defs
 $('#defs').innerHTML=[
@@ -589,7 +600,7 @@ $('#defs').innerHTML=[
 ['Coates tools ready','Coates-owned items in the store, less those held back (SiteIQ status "Failed Baseplan").'],
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Utilisation','Items out with crews as a share of the items of that kind in the store, at the time of the pull. By tool, \'busiest seen\' is the most of that tool ever out at once at MMG.'],
-['Per day (shuts)','Units drawn or tools issued, divided by the whole shift days (05:00 to 04:59) on record for that shut.'],
+['The MMG range','Each shut\'s units drawn or tools issued per whole shift day (05:00 to 04:59); quietest and busiest are the lowest and highest of those, typical is their average.'],
 ['Consumable units','Units on the shelf across MMG\'s consumable lines, from SiteIQ sales stock.'],
 ['Minimum and maximum','Set per line from what recent MMG shuts drew per day: minimum = the busiest day seen or two days\' use; maximum = seven counter days.'],
 ['Trends','Each pull adds a point. Nothing is drawn for a pull that has not happened.']].map(d=>`<p><b>${d[0]}.</b> ${esc(d[1])}</p>`).join('');
