@@ -715,7 +715,64 @@ def plain_tool_names(data, path):
             if " - " not in t["name"] or re.search(r"\d(in|Mm|MM)\b| Dr$", t["name"]):
                 import draft_tool_names
                 t["name"] = draft_tool_names.draft(t["name"])
+    _merge_same_names(data)
     return missed
+
+
+def _merge_same_names(data):
+    """Tools that now share a name are one tool. Their counts add, the busiest
+    seen is the higher of the two (the two were never counted together, so it
+    is not added), and every list points at the one entry."""
+    tools, canon, groups = data["tools"], {}, collections.OrderedDict()
+    for k, t in tools.items():
+        groups.setdefault(t["name"], []).append(k)
+    for keys in groups.values():
+        keys.sort(key=lambda k: -tools[k].get("site", 0))
+        keep = tools[keys[0]]
+        for k in keys[1:]:
+            t = tools.pop(k)
+            keep["site"], keep["on"] = keep.get("site", 0) + t.get("site", 0), keep.get("on", 0) + t.get("on", 0)
+            keep["best"] = max(keep.get("best") or 0, t.get("best") or 0)
+            if keep.get("pic") is None:
+                keep["pic"] = t.get("pic")
+            variants = sorted({v for x in (keep.get("var"), t.get("var")) if x for v in str(x).split(", ")})
+            keep["var"] = ", ".join(variants) if variants else None
+            canon[k] = keys[0]
+    fix = lambda k: canon.get(k, k)
+    for r in data.get("onhire") or []:
+        if r.get("dk"):
+            r["dk"] = fix(r["dk"])
+
+    def join(rows, adds, tops=()):
+        out = collections.OrderedDict()
+        for t in rows:
+            if "dk" in t:
+                t["dk"] = fix(t["dk"])
+            m = out.get(t["name"])
+            if m is None:
+                out[t["name"]] = t
+                continue
+            for f in adds:
+                m[f] = (m.get(f) or 0) + (t.get(f) or 0)
+            for f in tops:
+                m[f] = max(m.get(f) or 0, t.get(f) or 0)
+            if "pic" in m and m.get("pic") is None:
+                m["pic"] = t.get("pic")
+        return list(out.values())
+
+    if data.get("kinds"):
+        data["kinds"] = sorted(join(data["kinds"], ("on", "fleet")), key=lambda t: -(t.get("on") or 0))
+    if data.get("tools_util"):
+        data["tools_util"] = join(data["tools_util"], ("on", "site"), ("best",))
+    for g in (data.get("tagged") or {}).get("groups", []):
+        g["kinds"] = sorted(join(g.get("kinds", []), ("n",)), key=lambda t: -(t.get("n") or 0))
+    for person in data.get("people") or []:
+        if person.get("tools"):
+            person["tools"] = sorted(join(person["tools"], ("n",)), key=lambda t: -(t.get("n") or 0))
+    for cat in (data.get("cat") or {}).get("tools", []):
+        for k in cat.get("kinds", []):
+            if k.get("d"):
+                k["d"] = sorted({fix(d) for d in k["d"]})
 
 
 def main(argv=None):

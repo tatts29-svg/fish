@@ -89,6 +89,28 @@ class HouseStyle(unittest.TestCase):
         self.assertEqual(data["tools"]["BROOM"]["name"], "Broom")
         self.assertEqual([r["desc"] for r in data["onhire"]], ["Radio - Handheld (MMG Owned)", "Broom"])
 
+    def test_two_descriptions_with_one_name_become_one_tool(self):
+        import csv
+        import tempfile
+        data = {"tools": {"LEAD 10A": {"name": "Lead 10A", "site": 6, "on": 1, "best": 5, "var": "A", "pic": None},
+                          "LEAD NEOPRENE 10A": {"name": "Lead Neoprene 10A", "site": 1, "on": 2, "best": 1, "var": "B", "pic": 3}},
+                "kinds": [{"name": "Lead 10A", "on": 1, "fleet": 6}, {"name": "Lead Neoprene 10A", "on": 2, "fleet": 1}], "tools_util": [],
+                "onhire": [{"desc": "Lead Neoprene 10A", "dk": "LEAD NEOPRENE 10A"}], "tagged": {"groups": [{"kinds": [{"name": "Lead 10A", "n": 6}, {"name": "Lead Neoprene 10A", "n": 1}]}]},
+                "people": [], "cat": {"tools": [{"kinds": [{"name": "x", "n": 7, "o": 3, "sizes": [], "d": ["LEAD 10A", "LEAD NEOPRENE 10A"]}]}]}}
+        with tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False, newline="", encoding="utf-8") as f:
+            csv.writer(f).writerows([["SiteIQ description", "Plain name"], ["Lead 10A", "Extension Lead - 10A"], ["Lead Neoprene 10A", "Extension Lead - 10A"]])
+        try:
+            build_showcase.plain_tool_names(data, f.name)
+        finally:
+            os.unlink(f.name)
+        self.assertEqual(list(data["tools"]), ["LEAD 10A"])
+        self.assertEqual(data["tools"]["LEAD 10A"], {"name": "Extension Lead - 10A", "site": 7, "on": 3, "best": 5, "var": "A, B", "pic": 3})
+        self.assertEqual(data["onhire"][0]["dk"], "LEAD 10A")                      # the item on hire points at the one tool
+        self.assertEqual([(k["name"], k["on"], k["fleet"]) for k in data["kinds"]], [("Extension Lead - 10A", 3, 7)])
+        self.assertEqual(data["tagged"]["groups"][0]["kinds"], [{"name": "Extension Lead - 10A", "n": 7}])
+        self.assertEqual(data["cat"]["tools"][0]["kinds"][0]["d"], ["LEAD 10A"])
+
+
 
 class ConsumableNames(unittest.TestCase):
     def test_house_style(self):
