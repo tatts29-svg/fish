@@ -183,15 +183,15 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <div class="card">
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>TOOL STORE TEAM</div>
 <h1>Update the report</h1>
-<p>Drop in the SiteIQ exports from one pull. The report rebuilds itself in about a minute, and nothing changes unless the whole build works.</p>
+<p>Drop in whichever SiteIQ exports you have: all of them, or just one. The report rebuilds itself in about a minute, and nothing changes unless the whole build works.</p>
 <div class="drop" id="drop" tabindex="0" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Tap to choose the files</b><span>or drag them here. Pick them all at once.</span></div>
 <input id="pick" type="file" accept=".xlsx" multiple hidden>
 <ul id="list">
 <li data-k="RENTAL_STOCK"><i></i>Rental stock<small></small></li>
 <li data-k="SALES_STOCK"><i></i>Sales stock<small></small></li>
 <li data-k="TRANSACTIONS"><i></i>Transactions<small></small></li>
-<li data-k="STOCKTAKE"><i></i>Stocktake<em>optional</em><small></small></li>
-<li data-k="ON_HIRE"><i></i>On hire<em>optional</em><small></small></li>
+<li data-k="STOCKTAKE"><i></i>Stocktake<small></small></li>
+<li data-k="ON_HIRE"><i></i>On hire<small></small></li>
 </ul>
 <button id="go" disabled>Update the report</button>
 <div class="st" id="st" hidden></div>
@@ -205,7 +205,7 @@ const say=(c,h)=>{st.hidden=false;st.className='st '+c;st.innerHTML=h};
 const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function take(list){const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
  document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?f.name:''});
- go.disabled=!need.every(k=>files[k]);
+ go.disabled=!K.some(k=>files[k]);
  if(odd.length)say('bad','<b>Not a SiteIQ export:</b>'+esc(odd.join(', '))+'\\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.');
  else if(!go.disabled)say('','<b>Ready.</b>Press "Update the report".');else st.hidden=true}
 drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' ')pick.click()};pick.onchange=()=>{take(pick.files);pick.value=''};
@@ -280,7 +280,7 @@ def _rebuild():
     finally:
         shutil.rmtree(os.path.join(JOB_DIR, "incoming"), ignore_errors=True)
     if res.get("ok"):
-        _set_status(state="ok", message="The report is updated.", pull=res.get("pull", ""), files=res.get("files", {}), finished=time.time(), took=round(time.time() - started))
+        _set_status(state="ok", message="The report is updated.", pull=res.get("pull", ""), files=res.get("files", {}), kept=res.get("kept", []), finished=time.time(), took=round(time.time() - started))
     else:
         _set_status(state="failed", message=res.get("message", "Something went wrong. Nothing was changed."), finished=time.time())
     _build_lock.release()

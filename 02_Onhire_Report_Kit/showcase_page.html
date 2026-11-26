@@ -188,6 +188,21 @@ html.static .loop:after{display:none}
 .qre{margin-top:12px;background:rgba(242,98,34,.10);border:1px solid rgba(242,98,34,.4);border-radius:12px;padding:10px 14px;font-size:14px;color:#E9EDF2}
 .qre small{display:block;color:#A3ADBB;font-size:12px;margin-top:3px}
 .qrp .x{margin-top:16px;width:100%;height:50px;border:0;border-radius:12px;background:#F0773A;color:#11151B;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.updrop{margin-top:14px;border:2px dashed var(--line);border-radius:16px;padding:34px 18px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
+.updrop:hover,.updrop.over{border-color:var(--or);background:var(--orbg);box-shadow:0 0 34px color-mix(in srgb,var(--or) 22%,transparent)}
+.updrop svg{width:38px;height:38px;color:var(--or);margin-bottom:8px}.updrop b{display:block;font-size:18px}.updrop span{display:block;color:var(--mu);font-size:14px;margin-top:4px}
+.uplist div{display:flex;align-items:center;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+.uplist i{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:700;color:#fff}
+.uplist .got i{background:var(--or);border-color:var(--or);box-shadow:0 0 12px color-mix(in srgb,var(--or) 55%,transparent)}.uplist .got i:before{content:"\2713"}
+.uplist small{margin-left:auto;color:var(--mu);font-size:12px;text-align:right;overflow-wrap:anywhere;max-width:56%}
+.upgo{width:100%;height:56px;margin-top:14px;border:0;border-radius:14px;background:var(--or);color:#fff;font:inherit;font-weight:700;font-size:17px;cursor:pointer;box-shadow:0 12px 34px color-mix(in srgb,var(--or) 35%,transparent);transition:transform .15s,opacity .2s}
+.upgo:active{transform:scale(.985)}.upgo:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+.upbar{margin-top:18px}.upbar .tr{height:14px;border-radius:999px;background:var(--track);overflow:hidden}
+.upbar .tr i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#F26222,#FF8A4F);box-shadow:0 0 16px color-mix(in srgb,var(--or) 70%,transparent);transition:width .35s ease}
+.upst{display:flex;align-items:baseline;gap:12px;margin-top:10px}.upst b{font-size:26px;font-weight:800;letter-spacing:-.02em}.upst span{color:var(--mu);font-size:14px}
+.upmsg{margin-top:16px;border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;border:1px solid var(--line)}
+.upmsg b{display:block;font-size:16.5px;margin-bottom:2px}.upmsg.ok{border-color:var(--ok);background:var(--okbg)}.upmsg.bad{border-color:var(--or);background:var(--orbg)}
+.upmsg button{margin-top:12px;height:42px;padding:0 18px;border:0;border-radius:10px;background:var(--or);color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .askrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:14px 0 4px}
 .askrow div{border:1px solid color-mix(in srgb,var(--or) 40%,transparent);border-left:4px solid var(--or);background:var(--orbg);border-radius:10px;padding:10px 14px;font-size:13.5px;color:var(--mu)}
 .askrow b{display:block;color:var(--tx);font-size:14.5px;margin-bottom:2px}
@@ -679,6 +694,21 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 <div id="pp-list"></div><div class="foot" id="pp-foot"></div></div>
 </section>
 
+<section class="view pb noprint" id="v-upload" data-tab="Update data">
+<div class="vh"><h2>Update the data</h2><p>Drop in the SiteIQ exports you have: all four, or just one. The report rebuilds itself, and anything you do not upload stays as it was at the last upload.</p></div>
+<div class="grid c2">
+<div class="card"><h3>1 · Choose the files</h3><div class="sub">Straight from SiteIQ, as downloaded. No renaming needed.</div>
+<div class="updrop" id="up-drop" tabindex="0" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Drop the files here</b><span>or tap to choose them</span></div>
+<input id="up-pick" type="file" accept=".xlsx" multiple hidden>
+<div class="uplist" id="up-list"></div></div>
+<div class="card"><h3>2 · Update</h3><div class="sub" id="up-sub">Choose at least one file to start.</div>
+<button class="upgo" id="up-go" disabled>Update the report</button>
+<div class="upbar" id="up-bar" hidden><div class="tr"><i id="up-fill"></i></div><div class="upst"><b id="up-pct">0%</b><span id="up-stage"></span></div></div>
+<div class="upmsg" id="up-msg" hidden></div>
+<div class="sub" style="margin-top:16px" id="up-last"></div></div>
+</div>
+</section>
+
 <section class="view pb" id="v-guide" data-tab="Guide">
 <div class="vh"><h2>What each figure means</h2><p>Every figure in this report comes straight from SiteIQ. Nothing is estimated. Here is how each one is counted.</p></div>
 <div class="defs" id="defs"></div>
@@ -1123,14 +1153,44 @@ $$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg butt
 /* ---------- tabs, motion and tooltips ---------- */
 function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'',pre=el.dataset.pre||'';const put=v=>el.textContent=pre+(dec?v.toLocaleString('en-AU',{minimumFractionDigits:dec,maximumFractionDigits:dec}):fmt(Math.round(v)))+suf;
 if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
+const CAN_UP=!STATIC&&location.protocol.startsWith('http');if(!CAN_UP)$('#v-upload').remove();
 const views=$$('.view'),tabs=$('#tabs'),ink=$('#ink');
-views.forEach(v=>{const id=v.id.slice(2),b=document.createElement('button');b.className='tab';b.dataset.go=id;b.textContent=v.dataset.tab;
+views.forEach(v=>{const id=v.id.slice(2),b=document.createElement('button');b.className='tab';b.dataset.go=id;b.textContent=v.dataset.tab;if(id=='upload')b.hidden=true;
 if(id=='onhire')b.innerHTML+=`<span class="ct">${fmt(K.on)}</span>`;if(id=='consumables'&&D.below.length)b.innerHTML+=`<span class="ct w" title="lines to top up">${D.below.length}</span>`;tabs.insertBefore(b,ink)});
 function show(id,quiet){const v=$('#v-'+id)||views[0];id=v.id.slice(2);
 views.forEach(x=>{x.classList.toggle('on',x===v);if(x!==v)x.classList.remove('go')});
 $$('.tab').forEach(b=>{const on=b.dataset.go==id;b.classList.toggle('on',on);if(on){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`;if(tabs.scrollWidth>tabs.clientWidth)tabs.scrollTo({left:b.offsetLeft-tabs.clientWidth/2+b.offsetWidth/2,behavior:'smooth'})}});
 v.classList.remove('go');void v.offsetWidth;requestAnimationFrame(()=>{v.classList.add('go');$$('[data-n]',v).forEach(countUp)});
 if(!quiet){scrollTo({top:0});try{history.replaceState(null,'','#'+id)}catch(e){}}}
+/* ---------- update the data: only for logins the site lets upload ---------- */
+if(CAN_UP)(async()=>{const H={'X-Portal':'1'},tab=$('.tab[data-go="upload"]');let s;
+try{const r=await fetch('/upload/status',{headers:H});if(!r.ok)throw 0;s=await r.json()}catch(e){tab.remove();if($('#v-upload').classList.contains('on'))show('overview',1);$('#v-upload').remove();return}
+tab.hidden=false;if(location.hash=='#upload')show('upload',1);
+const KN={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'},KS=Object.keys(KN),files={};
+const go=$('#up-go'),drop=$('#up-drop'),pick=$('#up-pick'),msg=$('#up-msg'),bar=$('#up-bar');let busy=false;
+const kind=n=>KS.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
+const say=(c,h)=>{msg.hidden=false;msg.className='upmsg '+c;msg.innerHTML=h};
+const prog=(p,t)=>{bar.hidden=false;$('#up-fill').style.width=p+'%';$('#up-pct').textContent=Math.round(p)+'%';$('#up-stage').textContent=t};
+const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+const last=x=>{$('#up-last').textContent=x.state=='ok'&&x.finished?`Last update: ${when(x.finished)}, SiteIQ pull ${x.pull||''}.`:!x.pack?'The site is not set up for uploads yet. Ask Andrew.':''};last(s);
+const list=()=>{$('#up-list').innerHTML=KS.map(k=>`<div class="${files[k]?'got':''}"><i></i>${KN[k]}<small>${files[k]?esc(files[k].name):'keeps the last upload'}</small></div>`).join('');const n=KS.filter(k=>files[k]).length;go.disabled=busy||!n;$('#up-sub').textContent=n?`${n} ${n==1?'file':'files'} ready. Anything not ticked stays as it was.`:'Choose at least one file to start.'};list();
+const take=fl=>{if(busy)return;const odd=[];for(const f of fl){const k=kind(f.name);if(k&&/\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}list();bar.hidden=true;
+if(odd.length)say('bad',`<b>Not a SiteIQ export</b>${esc(odd.join(', '))}\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.`);else msg.hidden=true};
+drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' ')pick.click()};pick.onchange=()=>{take(pick.files);pick.value=''};
+['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));['dragleave','drop'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>take(e.dataTransfer.files));
+const send=(f,first,on)=>new Promise((ok,no)=>{const x=new XMLHttpRequest();x.open('PUT','/upload/export?name='+encodeURIComponent(f.name)+(first?'&first=1':''));x.setRequestHeader('X-Portal','1');
+x.upload.onprogress=e=>on(e.loaded);x.onload=()=>x.status==200?ok():no(new Error(x.status==401?'Your sign-in has run out. Sign in again and retry.':x.responseText||'Upload failed'));x.onerror=()=>no(new Error('The connection dropped. Check the signal and try again.'));x.send(f)});
+const fail=e=>{busy=false;bar.hidden=true;say('bad',`<b>Not updated</b>${esc(e.message||e)}`);list()};
+go.onclick=async()=>{busy=true;go.disabled=true;msg.hidden=true;const fs=KS.filter(k=>files[k]).map(k=>files[k]),total=fs.reduce((a,f)=>a+f.size,0);let done=0;
+try{for(let i=0;i<fs.length;i++){const f=fs[i];await send(f,i==0,n=>prog((done+n)/total*55,`Uploading ${i+1} of ${fs.length}: ${f.name}`));done+=f.size;prog(done/total*55,`Uploaded ${i+1} of ${fs.length}`)}
+const b=await fetch('/upload/build',{method:'POST',headers:H});if(!b.ok)throw new Error(await b.text());
+const t0=Date.now();for(;;){prog(Math.min(96,58+(Date.now()-t0)/1000*2.6),'Rebuilding the report and the PDFs…');await new Promise(r=>setTimeout(r,1000));
+const x=await (await fetch('/upload/status',{headers:H})).json();if(x.state=='running')continue;if(x.state!='ok')throw new Error(x.message||'The build failed. Nothing was changed.');
+prog(100,'Complete');const kept=(x.kept||[]).map(k=>KN[k]).join(', ');
+say('ok',`<b>Uploaded. The data is now updated.</b>SiteIQ pull ${esc(x.pull||'')} · ${Object.keys(x.files||{}).map(k=>KN[k]).join(', ')} updated${kept?`\nKept from the last upload: ${esc(kept)}`:''}\nThe report, the on-hire Excel and both PDFs have been rebuilt.<br><button id="up-see">Show the updated report</button>`);
+$('#up-see').onclick=()=>{location.hash='#overview';location.reload()};busy=false;for(const k of KS)delete files[k];list();last(x);break}}catch(e){fail(e)}};
+})();
 if(STATIC){views.forEach(v=>v.classList.add('on','go'));$$('[data-n]').forEach(countUp)}
 else{show((location.hash||'#overview').slice(1),1);addEventListener('resize',()=>{const b=$('.tab.on');if(b){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`}});
 addEventListener('hashchange',()=>show(location.hash.slice(1),1));

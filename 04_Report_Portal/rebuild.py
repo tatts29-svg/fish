@@ -49,7 +49,7 @@ def kind_of(path):
 
 
 def sort_incoming(job):
-    """Move the uploaded exports into the kit's Data_SiteIQ folder. Returns {kind: original name}."""
+    """Check the uploaded exports. Returns ({kind: path}, {kind: original name}); copy_in() puts them in the kit."""
     inc = os.path.join(job, "incoming")
     got, unknown = {}, []
     for name in sorted(os.listdir(inc)) if os.path.isdir(inc) else []:
@@ -63,14 +63,25 @@ def sort_incoming(job):
             got[k] = path
     if unknown:
         raise Stop("Not a SiteIQ export: {}. Nothing was changed.".format(", ".join(n.split("__", 1)[-1] for n in unknown)))
-    missing = [k.replace("_", " ") for k in NEEDED if k not in got]
-    if missing:
-        raise Stop("Still needed from the same pull: {}. Nothing was changed.".format(", ".join(missing)))
+    if not got:
+        raise Stop("No files arrived. Nothing was changed.")
     data = os.path.join(job, "kit", "Data_SiteIQ")
     os.makedirs(data, exist_ok=True)
+    # any export not uploaded this time is carried over from the last upload
+    missing = [k.replace("_", " ") for k in NEEDED if k not in got and not os.path.isfile(os.path.join(data, k + ".xlsx"))]
+    if missing:
+        raise Stop("Still needed, as there is no earlier copy on the site: {}. Nothing was changed.".format(", ".join(missing)))
+    return got, {k: os.path.basename(p).split("__", 1)[-1] for k, p in got.items()}
+
+
+def copy_in(job, got):
+    """Put the new exports in the kit, keeping the ones they replace. Returns the way back."""
+    data, back = os.path.join(job, "kit", "Data_SiteIQ"), {}
     for k, path in got.items():
-        shutil.copyfile(path, os.path.join(data, k + ".xlsx"))
-    return {k: os.path.basename(p).split("__", 1)[-1] for k, p in got.items()}
+        dest = os.path.join(data, k + ".xlsx")
+        back[dest] = open(dest, "rb").read() if os.path.isfile(dest) else None
+        shutil.copyfile(path, dest)
+    return back
 
 
 def build(job, out):
@@ -123,8 +134,10 @@ def main(job, data_dir):
     hist = os.path.join(job, hist) if hist else None
     keep = open(hist, "rb").read() if hist and os.path.isfile(hist) else None
     out = tempfile.mkdtemp(dir=data_dir, prefix=".build-")
+    back = {}
     try:
-        files = sort_incoming(job)
+        got, files = sort_incoming(job)
+        back = copy_in(job, got)
         build(job, out)
         made = os.environ.get("REBUILD_SKIP_PDF") != "1"
         if made:
@@ -140,9 +153,15 @@ def main(job, data_dir):
                 raise Stop("The build did not finish ({} is missing). Nothing was changed.".format(name))
         for name, path in ready:
             os.replace(path, os.path.join(data_dir, name))
-        print(json.dumps({"ok": True, "pull": asat, "files": files}))
+        print(json.dumps({"ok": True, "pull": asat, "files": files, "kept": [k for k in KINDS[:4] if k not in files]}))
         return 0
     except Exception as e:
+        for dest, old in back.items():           # a failed build puts the earlier exports back
+            if old is None:
+                os.remove(dest)
+            else:
+                with open(dest, "wb") as f:
+                    f.write(old)
         if hist and keep is not None:            # a failed build leaves no mark on the trend
             with open(hist, "wb") as f:
                 f.write(keep)
