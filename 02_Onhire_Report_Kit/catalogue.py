@@ -123,6 +123,57 @@ def cons_clean(desc):
     return re.sub(r"^GLOVER\b", "GLOVES", re.sub(r"\s+v$", "", d))
 
 
+
+# Consumable names in the house style: "Wheel - Abrasive - Cut-Off - 127 x 1 x 22mm".
+# Only abbreviations with one plain reading are opened up; the rest are left as written.
+_CONS_WORDS = {"hndl": "Handle", "adhsve": "Adhesive", "gry": "Grey", "thk": "Thick", "hemet": "Helmet", "glover": "Gloves",
+               "blk/ylw": "Black/Yellow", "red/wht": "Red/White", "w/flap": "with Flap", "c/w": "with", "ins": "Insulation",
+               "elec": "Electrical", "rnd": "Round", "sq": "Square", "pvc": "PVC", "hd": "HD"}
+_CONS_BRAND_3M = ("RESPIRATOR", "FILTER", "SWEATBAND")
+_SMALL = {"with", "to", "for", "of", "and", "x"}
+
+
+def _cons_word(w):
+    core = w.strip("()")
+    if core.lower() in _CONS_WORDS:
+        return w.replace(core, _CONS_WORDS[core.lower()])
+    if core.lower() in _SMALL:
+        return w.lower()
+    if re.search(r"\d", core) or any(ch.isupper() for ch in core[1:]):      # sizes and codes stay as written
+        return w
+    w = re.sub(r"(^|[-/])([a-z])", lambda m: m.group(1) + m.group(2).upper(), w)
+    return re.sub(r"\bPvc\b", "PVC", w)
+
+
+def house_cons(name):
+    """A consumable line in the house style. Running it twice changes nothing."""
+    d = " ".join(str(name or "").split())
+    if not d:
+        return d
+    brand = d.upper().startswith(_CONS_BRAND_3M)
+    d = re.sub(r",\s*x,\s*", " x ", d)                           # "127, x, 22mm"
+    d = re.sub(r"(\d+),\s*grit\b", r"\1 Grit", d, flags=re.I)
+    parts = [x.strip() for x in d.split(",")] if "," in d else [x.strip() for x in d.split(" - ")]
+    out = []
+    for part in parts:
+        if not part:
+            continue
+        part = re.sub(r"(?<=[\dm])x(?=\d)", " x ", part)         # 127x1x22mm, 900mmx50m
+        words = []
+        for w in part.split():
+            if brand and w.lower() == "3m":
+                words.append("3M")
+                continue
+            w = re.sub(r"^(\d+(?:\.\d+)?)m$", r"\1 Metre", w)
+            w = re.sub(r"^(\d+(?:/\d+)?)in$", r"\1 Inch", w)
+            w = re.sub(r"^(\d+)/pac$", r"\1/Pack", w)
+            w = re.sub(r"^(\d+)pk$", r"\1 Pack", w)
+            words.append(_cons_word(w) if not re.search(r"\b(Metre|Inch|Pack)$", w) else w)
+        out.append(" ".join(words))
+    out[0] = out[0][:1].upper() + out[0][1:]
+    return " - ".join(out)
+
+
 def cons_category(desc):
     u = cons_clean(desc).upper()
     for name, pat in CONS_CATS:

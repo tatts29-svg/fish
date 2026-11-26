@@ -105,9 +105,10 @@ def _cons_type(desc):
 def _cons_name(kit, desc):
     d = re.sub(r"\s*2?MMG2025\s*$", "", str(desc or "")).strip()
     try:
-        return kit.item_name(d) if hasattr(kit, "item_name") else d
+        d = kit.item_name(d) if hasattr(kit, "item_name") else d
     except Exception:
-        return d
+        pass
+    return catalogue.house_cons(d)
 
 
 def _fonts(kit_folder):
@@ -287,8 +288,9 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     by_hirer = collections.Counter((kit.person_name(r.get("HIRER_NAME")), kit.co_name(r.get("COMPANY_NAME"))) for r in on)
 
     dkey = lambda r: " ".join(str(r.get("ITEM_DESCRIPTION") or "").split()).upper()
-    dname, dvar = {}, {}
+    dname, dvar, down = {}, {}, {}
     for r in rental:
+        down.setdefault(dkey(r), set()).add("COATES" in kit._s(r.get("OWNER")).upper())
         raw = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
         dname.setdefault(dkey(r), raw.title() if raw.isupper() else raw)
         if str(r.get("PRODUCT_VARIANT") or "").strip():
@@ -499,7 +501,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "tagged": tagged,
         "onhire": onhire_rows,
         "draws": draws,
-        "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k)}
+        "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k),
+                      "own": "Coates" if True in down.get(k, {True}) else other_owner}
                   for k in kinds_fleet},
         "clines": clines,
         "people": people_rows, "ptyp": ptyp,
@@ -660,8 +663,11 @@ def plain_tool_names(data, path):
     import csv
     with open(path, encoding="utf-8-sig", newline="") as f:
         look = {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
-    name = lambda n: look.get(str(n).strip().upper(), n)
+    owned = {k: t.get("own") for k, t in data["tools"].items() if t.get("own") and t.get("own") != "Coates"}
+    name = lambda n: look.get(str(n).strip().upper(), n) + (" ({} Owned)".format(owned[str(n).strip().upper()]) if str(n).strip().upper() in owned else "")
     missed = [t["name"] for t in data["tools"].values() if t["name"].strip().upper() not in look]
+    for t in data["tools"].values():
+        t["raw_name"] = t["name"]
     for t in data["tools"].values():
         t["name"] = name(t["name"])
     for key in ("kinds", "tools_util"):
@@ -678,7 +684,9 @@ def plain_tool_names(data, path):
     for cat in (data.get("cat") or {}).get("tools", []):       # the browser: each group takes the name its tools share
         for k in cat.get("kinds", []):
             if k.get("d"):
-                k["name"] = _shared_name(sorted({name(d) if d in look else data["tools"].get(d, {}).get("name", d) for d in k["d"]}))
+                mine = all(d in owned for d in k["d"])
+                bare = lambda d: look.get(d, data["tools"].get(d, {}).get("raw_name", d))
+                k["name"] = _shared_name(sorted({bare(d) for d in k["d"]})) + (" ({} Owned)".format(owned[k["d"][0]]) if mine else "")
             for z in k.get("sizes", []):
                 z["s"] = re.sub(r"(\d)in\b", r"\1 Inch", z.get("s") or "")
         merged = collections.OrderedDict()                     # groups that now share a name become one
@@ -700,6 +708,13 @@ def plain_tool_names(data, path):
                     sizes[z["s"]] = z
             m["sizes"] = sorted(sizes.values(), key=lambda z: _size_mm(z["s"]))
         cat["kinds"] = sorted(merged.values(), key=lambda k: k["name"].lower())
+    for t in data["tools"].values():
+        t.pop("raw_name", None)
+    for person in data.get("people") or []:                 # a tool from a past shut that is not on this job's list
+        for t in person.get("tools") or []:
+            if " - " not in t["name"] or re.search(r"\d(in|Mm|MM)\b| Dr$", t["name"]):
+                import draft_tool_names
+                t["name"] = draft_tool_names.draft(t["name"])
     return missed
 
 
@@ -727,6 +742,12 @@ def main(argv=None):
         missed = plain_tool_names(data, a.tool_names)
         if missed:
             print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
+    for cat in (data.get("cat") or {}).get("cons", []):          # the consumables browser and past draws, same style
+        for k in cat.get("kinds", []):
+            k["name"] = catalogue.house_cons(k["name"])
+    for person in data.get("people") or []:
+        for ln in person.get("lines") or []:
+            ln["name"] = catalogue.house_cons(ln["name"])
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())

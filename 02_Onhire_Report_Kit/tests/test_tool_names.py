@@ -74,5 +74,36 @@ class HouseStyle(unittest.TestCase):
         self.assertEqual(build_showcase._shared_name(["Broom"]), "Broom")
 
 
+    def test_the_clients_own_gear_says_so(self):
+        import csv
+        import tempfile
+        data = {"tools": {"RADIO": {"name": "Radio", "own": "MMG"}, "BROOM": {"name": "Broom", "own": "Coates"}},
+                "kinds": [], "tools_util": [], "onhire": [{"desc": "Radio"}, {"desc": "Broom"}], "tagged": {"groups": []}, "people": []}
+        with tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False, newline="", encoding="utf-8") as f:
+            csv.writer(f).writerows([["SiteIQ description", "Plain name"], ["Radio", "Radio - Handheld"], ["Broom", "Broom"]])
+        try:
+            build_showcase.plain_tool_names(data, f.name)
+        finally:
+            os.unlink(f.name)
+        self.assertEqual(data["tools"]["RADIO"]["name"], "Radio - Handheld (MMG Owned)")
+        self.assertEqual(data["tools"]["BROOM"]["name"], "Broom")
+        self.assertEqual([r["desc"] for r in data["onhire"]], ["Radio - Handheld (MMG Owned)", "Broom"])
+
+
+class ConsumableNames(unittest.TestCase):
+    def test_house_style(self):
+        import catalogue
+        for raw, want in (
+            ("Wheel, abrasive, cut-off, 127x1x22mm", "Wheel - Abrasive - Cut-Off - 127 x 1 x 22mm"),
+            ("Tape, barricade, red/wht, 75mmx50m", "Tape - Barricade - Red/White - 75mm x 50 Metre"),
+            ("Gloves, cut 3, GFPR200, non-vend, size 10", "Gloves - Cut 3 - GFPR200 - Non-Vend - Size 10"),
+            ("Sling, endless, rnd, 1T, 3m, WRS-010-030-E", "Sling - Endless - Round - 1T - 3 Metre - WRS-010-030-E"),
+            ("Respirator, medium, 7502 70071042785, 3m", "Respirator - Medium - 7502 70071042785 - 3M"),
+            ("Disc, flap, zirconia, 127, x, 22mm, 80, grit", "Disc - Flap - Zirconia - 127 x 22mm - 80 Grit"),
+        ):
+            self.assertEqual(catalogue.house_cons(raw), want)
+            self.assertEqual(catalogue.house_cons(want), want)          # running it twice changes nothing
+
+
 if __name__ == "__main__":
     unittest.main()
