@@ -554,7 +554,7 @@ def read_aliases(base, fname="COMPANY_ALIASES.txt"):
 #  Filled in by build() from JOB.txt and COMPANY_ALIASES.txt, then used
 #  by co_name() everywhere a company name is read off an export.
 _NAMES = {"aliases": {}, "tidy": False, "acronyms": set(), "tidy_items": True, "tags": [],
-          "owners": {}}
+          "owners": {}, "statuses": {}}
 
 #  The owner columns SiteIQ carries. OWNER_ALIASES.txt renames an owner
 #  in these columns only (exact name, any case) as the exports are read,
@@ -569,6 +569,12 @@ def _fold_owner(row):
             v = row.get(k)
             if v is not None and _s(v).upper() in _NAMES["owners"]:
                 row[k] = _NAMES["owners"][_s(v).upper()]
+    #  STATUS_ALIASES.txt renames an ITEM_STATUS the same way (exact name,
+    #  any case) - e.g. a status SiteIQ shows that the job treats as active.
+    if _NAMES.get("statuses"):
+        v = row.get("ITEM_STATUS")
+        if v is not None and _s(v).upper() in _NAMES["statuses"]:
+            row["ITEM_STATUS"] = _NAMES["statuses"][_s(v).upper()]
     return row
 
 
@@ -1510,6 +1516,11 @@ def _build(base=HERE, when=None):
         say("  Names     {} alias{} applied from COMPANY_ALIASES.txt".format(
             len(_NAMES["aliases"]), "" if len(_NAMES["aliases"]) == 1 else "es"))
     _NAMES["owners"] = read_aliases(base, "OWNER_ALIASES.txt")
+    _NAMES["statuses"] = read_aliases(base, "STATUS_ALIASES.txt")
+    if _NAMES["statuses"]:
+        say("  Statuses  {} renamed from STATUS_ALIASES.txt: {}".format(
+            len(_NAMES["statuses"]), ", ".join("{} -> {}".format(a.title(), b)
+                                               for a, b in sorted(_NAMES["statuses"].items()))))
     if _NAMES["owners"]:
         say("  Owners    {} renamed from OWNER_ALIASES.txt: {}".format(
             len(_NAMES["owners"]), ", ".join("{} -> {}".format(a.title(), b)

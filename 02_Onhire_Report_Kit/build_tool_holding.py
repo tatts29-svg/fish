@@ -109,8 +109,7 @@ def on_site(path):
             continue
         o = out[k]
         o["site"] += 1
-        if str(r.get("ITEM_STATUS", "")).strip() != "Failed Baseplan":
-            o["ready"] += 1
+        o["ready"] += 1   # every item on site counts as ready (Failed Baseplan is treated as active - Andrew, 26 Nov 2026)
         owner = str(r.get("OWNER", "")).strip()
         o["owner"]["Coates" if "COATES" in owner.upper() or "DYNO" in owner.upper() else "MMG"] += 1
         o["family"][" ".join(str(r.get("PRODUCT_FAMILY") or "").split()).title()] += 1

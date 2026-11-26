@@ -183,6 +183,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
+    kit._NAMES["statuses"] = kit.read_aliases(folder, "STATUS_ALIASES.txt")
     kit._NAMES["tidy"] = s.tidy_names
     kit._NAMES["acronyms"] = s.acronyms
     find = lambda stem: kit.find_export(folder, stem + "*.xlsx", s)
@@ -526,7 +527,7 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <p class="sd" id="sd4"></p>
 <div class="grid g2">
 <div class="card"><h3>The fleet by family</h3><div class="bars silver wide" id="fams"></div></div>
-<div class="card"><h3>Held back from issue</h3><div id="held"></div><div class="note" id="heldnote"></div></div>
+<div class="card" id="heldcard"><h3>Held back from issue</h3><div id="held"></div><div class="note" id="heldnote"></div></div>
 </div>
 <div class="card tagcard" style="margin-top:16px"><h3>Tested by Coates</h3><div id="tagged"></div></div>
 </section>
@@ -572,7 +573,7 @@ $('#lead').innerHTML=`By ${D.asat.split(' ').slice(-1)} on ${D.asat_day}, <b>${f
 const kp=[
  {n:K.on,l:'On hire now',s:`${K.companies} companies · ${K.people} people`,hot:1},
  {n:K.issued_today,l:'Issued today',s:`${K.still_out_today} still out · ${K.back_today} already back`},
- {n:K.coates_ready,l:'Coates tools ready',s:`of ${fmt(K.coates)} on site · ${K.held} held back`},
+ {n:K.coates_ready,l:'Coates tools ready',s:K.held?`of ${fmt(K.coates)} on site · ${K.held} held back`:`of ${fmt(K.coates)} on site · all ready`},
  {n:K.other,l:`${K.other_owner}-owned items`,s:`${K.other_out} out now, looked after at the counter`},
  {n:K.cons_units,l:'Consumable units',s:`${K.cons_lines} lines on the shelf`},
  {n:K.store,l:'Items in the store',s:'every one tracked in SiteIQ'}];
@@ -639,10 +640,11 @@ $('#sd3').textContent=`The tools crews are taking, against how many of each the 
 $('#kinds').innerHTML=D.kinds.map(k=>cyl(k,{share:1})).join('');
 bars($('#hirers'),D.hirers.map(h=>({name:h.name,sub:h.co,n:h.n})));
 // 04
-$('#sd4').textContent=`${fmt(K.coates)} Coates tools on site. ${fmt(K.coates_ready)} are ready for work; ${K.held} are held back from issue until they pass inspection.`;
+$('#sd4').textContent=K.held?`${fmt(K.coates)} Coates tools on site. ${fmt(K.coates_ready)} are ready for work; ${K.held} are held back from issue until they pass inspection.`:`${fmt(K.coates)} Coates tools on site, every one ready for work.`;
+if(!K.held){$('#heldcard').remove();$('#fams').closest('.grid').style.gridTemplateColumns='1fr'}
 bars($('#fams'),D.families.map(f=>({name:f.name,n:f.fleet})));
 $('#held').innerHTML=D.held.length?`<div class="chips">${D.held.map(h=>`<span class="chip"><b>${h.n}</b>${esc(h.name)}</span>`).join('')}</div>`:'<div class="empty">Nothing held back.</div>';
-$('#heldnote').textContent=`SiteIQ status "Failed Baseplan": held in the store, not issued, until checked and cleared.`;
+$('#heldnote').textContent=`Held in the store, not issued, until checked and cleared.`;
 {const T=D.tagged,C=T.colour;
 const tagsvg=`<svg viewBox="0 0 230 150" width="210"><defs><linearGradient id="tgf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${C.hex}"/><stop offset="1" stop-color="${C.hex}" stop-opacity=".78"/></linearGradient></defs>
 <path d="M115 4 C 100 14, 96 22, 92 30" stroke="#8B96A6" stroke-width="2" fill="none"/>
@@ -675,7 +677,7 @@ $('#defs').innerHTML=[
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
 ['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Already back" are those issued today and since returned to the shelf.`],
 ['Tested by Coates','Coates electrical gear, and rigging, lifting and fall-arrest gear, is tested by Coates and carries the quarter\'s tag colour: Dec to Feb red, Mar to May green, Jun to Aug blue, Sep to Nov yellow.'],
-['Coates tools ready','Coates-owned items in the store, less those held back (SiteIQ status "Failed Baseplan").'],
+['Coates tools ready','Coates-owned items in the store that are ready to issue.'],
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Utilisation','Items out with crews as a share of the items of that kind in the store, at the time of the pull. By tool, \'busiest seen\' is the most of that tool ever out at once at MMG.'],
 ['The MMG range','Each shut\'s units drawn or tools issued per whole shift day (05:00 to 04:59); quietest and busiest are the lowest and highest of those, typical is their average.'],

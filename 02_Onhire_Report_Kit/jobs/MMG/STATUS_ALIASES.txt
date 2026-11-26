@@ -1,0 +1,4 @@
+# One per line: the ITEM_STATUS SiteIQ shows = the status the report shows.
+# Only the statuses written here are renamed. Andrew, 26 Nov 2026: items
+# SiteIQ shows as Failed Baseplan are active on this job.
+FAILED BASEPLAN = Available for Hire

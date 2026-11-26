@@ -41,6 +41,18 @@ class OwnerAliasTests(unittest.TestCase):
         self.assertEqual(kit._NAMES["owners"], {})
         self.assertEqual(kit._fold_owner({"OWNER": "Anyone"})["OWNER"], "Anyone")
 
+    def test_status_alias_renames_item_status(self):
+        kit = _kit()
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "STATUS_ALIASES.txt"), "w", encoding="utf-8") as f:
+                f.write("FAILED BASEPLAN = Available for Hire\n")
+            kit._NAMES["statuses"] = kit.read_aliases(d, "STATUS_ALIASES.txt")
+        try:
+            self.assertEqual(kit._fold_owner({"ITEM_STATUS": "Failed Baseplan"})["ITEM_STATUS"], "Available for Hire")
+            self.assertEqual(kit._fold_owner({"ITEM_STATUS": "On Hire"})["ITEM_STATUS"], "On Hire")
+        finally:
+            kit._NAMES["statuses"] = {}
+
 
 if __name__ == "__main__":
     unittest.main()
