@@ -173,6 +173,58 @@ def tag_kind(r):
     return None
 
 
+class Pictures(object):
+    """Tool pictures from a pictures pack (a folder with an index CSV that has
+    'Product variant' and 'File in this package' columns), matched to SiteIQ's
+    PRODUCT_VARIANT. Kept outside git. Radios and radio batteries get none."""
+
+    def __init__(self, folder, side=112):
+        self.files, self.used, self.order, self.side, self.folder = {}, {}, [], side, folder
+        if not folder or not os.path.isdir(folder):
+            return
+        import csv
+        for name in os.listdir(folder):
+            if name.lower().endswith(".csv"):
+                with open(os.path.join(folder, name), encoding="utf-8-sig", newline="") as f:
+                    for row in csv.DictReader(f):
+                        v, p = (row.get("Product variant") or "").strip().upper(), (row.get("File in this package") or "").strip()
+                        if v and p and os.path.isfile(os.path.join(folder, p)):
+                            self.files.setdefault(v, p)
+
+    def of(self, row):
+        """An index into the page's picture list for this stock row, or None."""
+        if "RADIO" in str(row.get("ITEM_DESCRIPTION") or "").upper():
+            return None
+        v = str(row.get("PRODUCT_VARIANT") or "").strip().upper()
+        if v not in self.files:
+            return None
+        if v not in self.used:
+            self.used[v] = len(self.order)
+            self.order.append(v)
+        return self.used[v]
+
+    def data(self):
+        from PIL import Image
+        out = []
+        for v in self.order:
+            im = Image.open(os.path.join(self.folder, self.files[v])).convert("RGB")
+            im.thumbnail((self.side, self.side), Image.LANCZOS)
+            buf = io.BytesIO()
+            im.save(buf, "JPEG", quality=78, optimize=True)
+            out.append("data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii"))
+        return out
+
+
+def _ops(kit, path):
+    """The average-day figures from build_store_ops.py, with consumable names tidied."""
+    if not path or not os.path.isfile(path):
+        return None
+    d = json.load(open(path))
+    for c in d.get("cons_lines", []):
+        c["name"] = _cons_name(kit, c["name"])
+    return d
+
+
 def _band(vals):
     if not vals:
         return []
@@ -181,7 +233,7 @@ def _band(vals):
             {"name": "Busiest shut", "n": round(max(vals))}]
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -212,6 +264,13 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     for r in rental:
         raw = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
         dname.setdefault(dkey(r), raw.title() if raw.isupper() else raw)
+    pix = Pictures(pictures)
+    dpic = {}
+    for r in rental:
+        if dkey(r) not in dpic:
+            p_ = pix.of(r)
+            if p_ is not None:
+                dpic[dkey(r)] = p_
     kinds_fleet = collections.Counter(dkey(r) for r in rental)
     kinds_on = collections.Counter(dkey(r) for r in on)
     fam_fleet = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in coates)
@@ -312,7 +371,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                 best[k] = max(best[k], v)
     cand = [k for k in kinds_fleet if kinds_on[k] or best[k]]
     cand.sort(key=lambda k: (-max(kinds_on[k], best[k]), -kinds_on[k], k))
-    tools_util = [{"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k]} for k in cand[:12]]
+    tools_util = [{"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k)} for k in cand[:12]]
     data = {
         "job": {"title": "MMG Dugald River", "sub": "Shutdown Tool Store · November 2026 shut",
                 "schedule": ref.get("schedule", ""), "day": day_no, "days": counter_days,
@@ -330,7 +389,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "hours": ["{:02d}:00".format(h) for h in hours], "hour_out": hour_out, "hour_back": hour_back,
         "companies": [{"name": k, "n": v} for k, v in by_co.most_common()],
         "hirers": [{"name": k[0], "co": k[1], "n": v} for k, v in by_hirer.most_common()],
-        "kinds": [{"name": dname.get(k, k), "on": kinds_on[k], "fleet": kinds_fleet[k]} for k in top_kinds],
+        "kinds": [{"name": dname.get(k, k), "on": kinds_on[k], "fleet": kinds_fleet[k], "pic": dpic.get(k)} for k in top_kinds],
         "comm": {"on": sum(v for k, v in kinds_on.items() if "RADIO" in k),
                  "fleet": sum(v for k, v in kinds_fleet.items() if "RADIO" in k)},
         "tools_util": tools_util,
@@ -343,7 +402,12 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
         "held": held_groups(),
         "tagged": tagged,
-        "cat": {"tools": catalogue.tool_catalogue(rental, lambda r: kit._s(r.get("ITEM_STATUS")) == "On Hire"),
+        "ops": _ops(kit, ops),
+        "pics": None,   # filled last, once every picture in use is known
+        "_pix": pix,
+        "shifts": {"day": {"name": "Day shift", "hours": "06:00 to 18:00", "who": keepers[0]},
+                   "night": {"name": "Night shift", "hours": "18:00 to 06:00", "who": keepers[1]}},
+        "cat": {"tools": catalogue.tool_catalogue(rental, lambda r: kit._s(r.get("ITEM_STATUS")) == "On Hire", pix.of),
                 "cons": catalogue.cons_catalogue(stock, lambda r: kit._n(r.get("AVAILABLE_QUANTITY")),
                                                  lambda k: _cons_name(kit, k))},
         "cons_types": [{"name": k, "n": int(v)} for k, v in ctype.most_common(8)],
@@ -434,8 +498,9 @@ svg text{font-family:inherit}
 .bars.wide .row{grid-template-columns:minmax(150px,290px) 1fr 48px}
 .bars.silver .fl{background:linear-gradient(90deg,#6E7987,var(--si));box-shadow:0 0 12px rgba(185,195,208,.25)}
 .bars .v{font-weight:700;text-align:right;font-size:15px}
-.tu .row{display:grid;grid-template-columns:minmax(150px,280px) 1fr 110px;align-items:center;gap:12px;margin:10px 0}
-.tu .nm{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tu .row{display:grid;grid-template-columns:minmax(170px,350px) 1fr 110px;align-items:center;gap:12px;margin:10px 0}
+.tu .nm{font-size:13.5px;min-width:0}
+.tu .nm span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .tu .tr{position:relative;height:14px;border-radius:8px;background:var(--g3);overflow:hidden}
 .tu .best{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:8px;background:linear-gradient(90deg,#55606E,var(--si));opacity:.55;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
 .tu .fl{position:absolute;left:0;top:3px;bottom:3px;width:0;border-radius:6px;background:linear-gradient(90deg,#B9481A,var(--or) 60%,var(--lit));box-shadow:0 0 12px rgba(242,98,34,.5);transition:width 1.4s .2s cubic-bezier(.2,.8,.2,1)}
@@ -454,6 +519,40 @@ svg text{font-family:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--g3);background:var(--g2);border-radius:999px;padding:7px 13px;font-size:13px}
 .chip b{color:var(--lit);margin-right:6px}
+.tp{width:42px;height:42px;border-radius:9px;object-fit:cover;flex:none;border:1px solid var(--g3);background:#000;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.tp:hover{transform:scale(2.6);box-shadow:0 14px 40px rgba(0,0,0,.7);position:relative;z-index:4}
+.tp.lg{width:54px;height:54px;border-radius:12px}
+.tp.ph{display:inline-block;background:linear-gradient(135deg,#171C23,#12161C);border-style:dashed}
+.tp.ph:hover{transform:none;box-shadow:none}
+.tu .nm,.krow .kn{display:flex;align-items:center;gap:11px}
+.krow .kn>span{min-width:0}
+.cyl .tp{display:block;margin:8px auto 0}
+.shifts{display:grid;grid-template-columns:1fr 340px 1fr;gap:16px;align-items:stretch}
+.shiftc{position:relative;overflow:hidden}
+.shiftc .ic{width:54px;height:54px;margin-bottom:10px}
+.shiftc h4{font-size:19px;font-weight:700}
+.shiftc .hrs{font-size:13px;color:var(--mu);margin-top:2px}
+.shiftc .who{display:inline-block;margin-top:10px;padding:5px 12px;border-radius:999px;border:1px solid var(--g3);background:var(--g2);font-size:12.5px;font-weight:600}
+.shiftc .bigtx{font-size:44px;font-weight:700;letter-spacing:-.02em;margin-top:16px;line-height:1}
+.shiftc .bigtx small{display:block;font-size:11.5px;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-top:6px}
+.shiftc .rows{margin-top:16px;border-top:1px solid #1E242D}
+.shiftc .rows div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1E242D;font-size:13.5px;color:#C4CDD8}
+.shiftc .rows b{color:var(--tx)}
+.shiftc.day:before,.shiftc.night:before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%}
+.shiftc.day:before{background:radial-gradient(circle,rgba(255,122,61,.20),transparent 65%)}
+.shiftc.night:before{background:radial-gradient(circle,rgba(185,195,208,.13),transparent 65%)}
+.spin{transform-origin:27px 27px;animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.twk{animation:twk 3.2s ease-in-out infinite}.twk.b{animation-delay:1.1s}.twk.c{animation-delay:2s}
+@keyframes twk{0%,100%{opacity:.25}50%{opacity:1}}
+.clockc{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.hb{transition:stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1)}
+.pstat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pstat .n{font-size:34px;font-weight:700;letter-spacing:-.02em}
+.pstat .l{font-size:11.5px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-top:4px}
+.static .spin,.static .twk{animation:none}.static .hb{transition:none!important}
+@media (max-width:980px){.shifts{grid-template-columns:1fr}.pstat{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){.spin,.twk{animation:none}}
 .seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--g2);border:1px solid var(--g3);margin-bottom:16px}
 .seg button{font:inherit;font-size:13px;font-weight:600;color:var(--mu);background:none;border:0;border-radius:999px;padding:8px 18px;cursor:pointer;transition:color .3s,background .3s}
 .seg button.on{color:#14181E;background:linear-gradient(90deg,var(--or),var(--lit));box-shadow:0 0 18px rgba(242,98,34,.45)}
@@ -474,7 +573,7 @@ opacity:0;transform:translateY(14px);animation:catin .6s cubic-bezier(.2,.8,.2,1
 .cph h4{font-size:20px;font-weight:700}
 .cph .hint{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);font-weight:600}
 .cph .tot{margin-left:auto;font-size:12.5px;color:var(--mu)}
-.krow{display:grid;grid-template-columns:minmax(180px,300px) 1fr;gap:16px;padding:11px 0;border-top:1px solid #1E242D;align-items:start}
+.krow{display:grid;grid-template-columns:minmax(200px,360px) 1fr;gap:16px;padding:11px 0;border-top:1px solid #1E242D;align-items:start}
 .krow .kn{font-size:13.5px;font-weight:600}
 .krow .kn small{display:block;color:var(--mu);font-weight:400;font-size:11.5px;margin-top:2px}
 .szs{display:flex;flex-wrap:wrap;gap:6px}
@@ -602,7 +701,17 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="card" style="margin-top:16px"><h3>Below minimum now — top up first</h3><div id="below"></div></div>
 </section>
 
-<section class="reveal pb"><div class="sh"><div class="no">07</div><h2>Trends</h2></div>
+<section class="reveal pb" id="opssec"><div class="sh"><div class="no">07</div><h2>How the store runs</h2></div>
+<p class="sd" id="sdo"></p>
+<div class="shifts"><div class="card shiftc day" id="shday"></div><div class="card clockc"><h3 style="align-self:flex-start">Busy times round the clock</h3><div id="clock"></div><div class="foot" id="clockfoot"></div></div><div class="card shiftc night" id="shnight"></div></div>
+<div class="card" style="margin-top:16px"><h3>Who the store serves on an average day</h3><div class="pstat" id="pstat"></div></div>
+<div class="grid g2e" style="margin-top:16px">
+<div class="card"><h3>Consumables used per day, by type</h3><div class="bars wide" id="octypes"></div><div class="foot">Average units drawn per shift day.</div></div>
+<div class="card"><h3>The ten most-used consumables per day</h3><div class="bars silver wide" id="oclines"></div><div class="foot">Average units drawn per shift day.</div></div>
+</div>
+</section>
+
+<section class="reveal pb"><div class="sh"><div class="no">08</div><h2>Trends</h2></div>
 <p class="sd" id="sd6"></p>
 <div class="grid g2e">
 <div class="card"><h3>This shut, pull by pull</h3><div id="trend"></div><div class="foot" id="trendfoot"></div></div>
@@ -611,7 +720,7 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="card" style="margin-top:16px"><h3>Tool issues per day — the MMG range</h3><div class="cyls" id="htools" style="justify-content:space-around"></div><div class="foot" id="htoolsfoot"></div></div>
 </section>
 
-<section class="reveal"><div class="sh"><div class="no">08</div><h2>What each figure means</h2></div>
+<section class="reveal"><div class="sh"><div class="no">09</div><h2>What each figure means</h2></div>
 <div class="defs" id="defs"></div></section>
 
 <footer><div><b>Author: Andrew Fisher | POWERED BY SITEIQ</b><br>Built from SiteIQ exports for MMG Shutdown November 2026. No figure on this page is estimated.</div>
@@ -625,6 +734,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const STATIC=/[?&]static/.test(location.search)||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if(/[?&]static/.test(location.search))document.documentElement.classList.add('static');
 const K=D.k;
+const pic=(i,c,ph)=>(i===null||i===undefined||!D.pics[i])?(ph&&D.pics.length?`<span class="tp ph${c?' '+c:''}"></span>`:''):`<img class="tp${c?' '+c:''}" src="${D.pics[i]}" alt="" loading="lazy">`;
 $('#asat').textContent=D.asat;
 $('#dayno').textContent=D.job.day;
 // day strip
@@ -675,7 +785,7 @@ return `<div class="cyl"><svg viewBox="0 0 ${W+10} ${H+46}" width="${W+10}" heig
 <rect x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id}g)"/>
 <line x1="5" y1="${top}" x2="5" y2="${bot}" stroke="#3A4452"/><line x1="${W+5}" y1="${top}" x2="${W+5}" y2="${bot}" stroke="#3A4452"/>
 <ellipse cx="${5+W/2}" cy="${top}" rx="${W/2}" ry="${ry}" fill="rgba(255,255,255,.04)" stroke="#4A5564"/>
-</svg><div class="val" data-n="${opt.share?item.on:item.n}">0</div><div class="cap">${esc(item.name)}${opt.share?`<br><small style="color:#6B7585">of ${fmt(item.fleet)} in the store</small>`:''}</div></div>`}
+</svg>${opt.share?pic(item.pic,'lg',1):''}<div class="val" data-n="${opt.share?item.on:item.n}">0</div><div class="cap">${esc(item.name)}${opt.share?`<br><small style="color:#6B7585">of ${fmt(item.fleet)} in the store</small>`:''}</div></div>`}
 
 function dial(v,of,cap,sub){const r=70,c=Math.PI*r,share=of?v/of:0,id='d'+(++uid);
 return `<div class="dial"><svg viewBox="0 0 180 104" width="220"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
@@ -695,7 +805,7 @@ $('#cofoot').textContent=`${K.on} items out with ${K.companies} companies. Every
 const comm=D.comm;
 $('#sd2').textContent=`The share of each fleet out with crews at the time of the pull. Day ${D.job.day} is early: these build as the shut ramps up.`;
 $('#dials').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(comm.on,comm.fleet,'Radios and radio batteries out','the busiest gear today');
-$('#tutil').innerHTML=`<div class="tu">${D.tools_util.map(t=>{const m=Math.max(t.site,t.best,1);return `<div class="row"><div class="nm" title="${esc(t.name)}">${esc(t.name)}</div><div class="tr"><div class="best" data-w="${(Math.min(t.best,m)/m*100).toFixed(1)}"></div><div class="fl" data-w="${(t.on/m*100).toFixed(1)}"></div></div><div class="v"><b data-n="${t.on}">0</b> of ${fmt(t.site)} out${t.best?`<br><span style="color:#B9C3D0">busiest ${t.best}</span>`:''}</div></div>`}).join('')}</div>`;
+$('#tutil').innerHTML=`<div class="tu">${D.tools_util.map(t=>{const m=Math.max(t.site,t.best,1);return `<div class="row"><div class="nm" title="${esc(t.name)}">${pic(t.pic,'',1)}<span>${esc(t.name)}</span></div><div class="tr"><div class="best" data-w="${(Math.min(t.best,m)/m*100).toFixed(1)}"></div><div class="fl" data-w="${(t.on/m*100).toFixed(1)}"></div></div><div class="v"><b data-n="${t.on}">0</b> of ${fmt(t.site)} out${t.best?`<br><span style="color:#B9C3D0">busiest ${t.best}</span>`:''}</div></div>`}).join('')}</div>`;
 // 03
 $('#sd3').textContent=`The tools crews are taking, against how many of each the store holds.`;
 $('#kinds').innerHTML=D.kinds.map(k=>cyl(k,{share:1})).join('');
@@ -722,6 +832,27 @@ const cmax=Math.max(...D.cons_types.map(c=>c.n));
 $('#ctypes').innerHTML=D.cons_types.slice(0,6).map(c=>cyl(c,{max:cmax})).join('');
 bars($('#ctop'),D.cons_top);
 $('#below').innerHTML=D.below.length?`<div class="tscroll"><table class="t"><tr><th>Line</th><th style="text-align:right">On shelf</th><th style="text-align:right">Minimum</th><th style="text-align:right">Maximum</th><th></th></tr>${D.below.map(b=>`<tr><td>${esc(b.line)}</td><td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max}</td><td><span class="pill">Top up</span></td></tr>`).join('')}</table></div><div class="note">Minimum and maximum for each line are set from what MMG's recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days. ${fmt(D.to_max)} units would bring every line to its maximum.</div>`:'<div class="empty">Every line is at or above its minimum.</div>';
+// 07 how the store runs
+if(D.ops&&D.ops.hours&&D.ops.hours.issue){const O=D.ops,P=O.per_day,hh=h=>String(h).padStart(2,'0')+':00',f1=v=>(Math.round(v*10)/10).toLocaleString('en-AU');
+$('#sdo').textContent=`An average shut day at MMG: about ${fmt(Math.round(P.tx))} transactions across two shifts, for about ${Math.round(P.people)} people from ${Math.round(P.companies)} companies. Busiest around ${hh(O.busiest)}, quietest around ${hh(O.quietest)}.`;
+const sun=`<svg class="ic" viewBox="0 0 54 54"><g class="spin" stroke="#FF7A3D" stroke-width="3" stroke-linecap="round">${[0,45,90,135,180,225,270,315].map(a=>`<line x1="27" y1="4" x2="27" y2="10" transform="rotate(${a} 27 27)"/>`).join('')}</g><circle cx="27" cy="27" r="11" fill="#FF7A3D" style="filter:drop-shadow(0 0 10px rgba(255,122,61,.8))"/></svg>`;
+const moon=`<svg class="ic" viewBox="0 0 54 54"><path d="M36 8a20 20 0 1 0 10 30A16 16 0 0 1 36 8z" fill="#B9C3D0" style="filter:drop-shadow(0 0 10px rgba(185,195,208,.55))"/><circle class="twk" cx="44" cy="12" r="1.8" fill="#DCE3EC"/><circle class="twk b" cx="12" cy="10" r="1.4" fill="#DCE3EC"/><circle class="twk c" cx="48" cy="26" r="1.2" fill="#DCE3EC"/></svg>`;
+const card=(k,ic)=>{const S=O.shift[k],M=D.shifts[k];return `${ic}<h4>${M.name}</h4><div class="hrs">${M.hours}</div>${M.who?`<span class="who">${esc(M.who)}</span>`:''}
+<div class="bigtx"><span data-n="${Math.round(S.tx)}">0</span><small>transactions a shift, on average</small></div>
+<div class="rows"><div><span>Tools issued</span><b>${f1(S.issues)}</b></div><div><span>Tools returned</span><b>${f1(S.returns)}</b></div><div><span>Consumable issues</span><b>${f1(S.sales)}</b></div><div><span>Consumable units</span><b>${f1(S.units)}</b></div><div><span>People served</span><b>${f1(S.people)}</b></div></div>`};
+$('#shday').innerHTML=card('day',sun);$('#shnight').innerHTML=card('night',moon);
+const tot=[...Array(24).keys()].map(h=>O.hours.issue[h]+O.hours.return[h]+O.hours.sale[h]),mx=Math.max(...tot),cx=160,cy=160,r0=58,L=84;let g='';
+for(let h=0;h<24;h++){const a=(h/24*360-90+7.5)*Math.PI/180,len=Math.max(3,tot[h]/mx*L),x1=cx+r0*Math.cos(a),y1=cy+r0*Math.sin(a),x2=cx+(r0+len)*Math.cos(a),y2=cy+(r0+len)*Math.sin(a),day=h>=6&&h<18,pk=h==O.busiest;
+g+=`<line x1="${cx+r0*Math.cos(a)}" y1="${cy+r0*Math.sin(a)}" x2="${cx+(r0+L)*Math.cos(a)}" y2="${cy+(r0+L)*Math.sin(a)}" stroke="#1B2028" stroke-width="9" stroke-linecap="round"/>
+<line class="hb" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${day?'#F26222':'#B9C3D0'}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${len}" stroke-dashoffset="${len}" style="transition-delay:${h*45}ms;${pk?'filter:drop-shadow(0 0 8px #FF7A3D)':day?'filter:drop-shadow(0 0 4px rgba(242,98,34,.55))':''}"><title>${hh(h)}: ${f1(tot[h])} transactions</title></line>`}
+[[0,'00'],[6,'06'],[12,'12'],[18,'18']].forEach(([h,t])=>{const a=(h/24*360-90)*Math.PI/180;g+=`<text x="${cx+(r0+L+16)*Math.cos(a)}" y="${cy+(r0+L+16)*Math.sin(a)+4}" fill="#8B96A6" font-size="11" font-weight="600" text-anchor="middle">${t}:00</text>`});
+$('#clock').innerHTML=`<svg viewBox="-34 -14 388 348" width="100%" style="max-width:340px"><circle cx="${cx}" cy="${cy}" r="${r0-9}" fill="#12161C" stroke="#232A34"/>${g}<text x="${cx}" y="${cy-2}" text-anchor="middle" fill="#DCE3EC" font-size="26" font-weight="700">${fmt(Math.round(P.tx))}</text><text x="${cx}" y="${cy+16}" text-anchor="middle" fill="#8B96A6" font-size="10" font-weight="600" letter-spacing="1.5">A DAY</text></svg>`;
+$('#clockfoot').innerHTML=`<span style="color:#FF7A3D">●</span> day shift &nbsp; <span style="color:#B9C3D0">●</span> night shift<br>Peak ${hh(O.busiest)} (${f1(O.busiest_n)} an hour) · quietest ${hh(O.quietest)} (${f1(O.quietest_n)} an hour)`;
+$('#pstat').innerHTML=[[Math.round(P.people),'People a day'],[Math.round(P.companies),'Companies a day'],[Math.round(P.tx),'Transactions a day'],[(P.tx/P.people).toFixed(1),'Transactions a person']].map(x=>`<div><div class="n" data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>0</div><div class="l">${x[1]}</div></div>`).join('');
+const b1=a=>a.map(x=>({name:x.name,n:x.n}));
+bars($('#octypes'),b1(O.cons_types));bars($('#oclines'),b1(O.cons_lines));
+document.querySelectorAll('#octypes .v,#oclines .v').forEach(v=>v.dataset.dec='1')}
+else if($('#opssec'))$('#opssec').remove();
 // 06 trends
 const H=D.history;
 $('#sd6').textContent=`This shut as it builds, against the range MMG's tool store usually runs at: quietest, typical and busiest shut, each a daily average over whole shift days, 05:00 to 04:59.`;
@@ -739,7 +870,7 @@ const unit=()=>mode=='tools'?'items':'units';
 $('#sdc').textContent=`Everything in the store, sorted into ${CAT.tools.length} tooling and ${CAT.cons.length} consumable categories. Pick a category to see each kind with its sizes in order, smallest to largest.`;
 function panel(){const c=CAT[mode][open];let i=0;
 $('#catpanel').innerHTML=`<div class="cph"><h4>${esc(c.name)}</h4><span class="hint">Smallest → largest</span><span class="tot">${fmt(c.n)} ${unit()} · ${c.kinds.length} kinds${mode=='tools'&&c.o?` · ${c.o} out now`:''}</span></div>`+
-c.kinds.map(k=>`<div class="krow"><div class="kn">${esc(k.name)}<small>${fmt(k.n)} ${unit()}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}" style="--i:${Math.min(i++,60)}"${s.o?` title="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('')}
+c.kinds.map(k=>`<div class="krow"><div class="kn">${pic(k.pic,'lg',mode=='tools')}<span>${esc(k.name)}<small>${fmt(k.n)} ${unit()}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}" style="--i:${Math.min(i++,60)}"${s.o?` title="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('')}
 function tiles(){const L=CAT[mode],mx=Math.max(...L.map(c=>c.n));
 $('#cats').innerHTML=L.map((c,i)=>`<button class="cat${i==open?' on':''}" data-i="${i}" style="--i:${i}"><div class="cn"><span data-n="${c.n}">0</span><small>${unit()}</small></div><div class="ct">${esc(c.name)}</div><div class="cs">${c.kinds.length} kinds · ${c.lines} sizes${mode=='tools'&&c.o?` · ${c.o} out`:''}</div><i class="cm" data-w="${(c.n/mx*100).toFixed(1)}"></i></button>`).join('');
 $('#cats').querySelectorAll('[data-n]').forEach(countUp);
@@ -759,6 +890,7 @@ $('#defs').innerHTML=[
 ['Consumable units','Units on the shelf across MMG\'s consumable lines, from SiteIQ sales stock.'],
 ['Minimum and maximum','Set per line from what recent MMG shuts drew per day: minimum = the busiest day seen or two days\' use; maximum = seven counter days.'],
 ['Categories and sizes','Each item is placed in a category by its SiteIQ description, grouped by kind, and its sizes are read off the description and listed smallest to largest. An orange dot marks a size with items out now.'],
+['How the store runs','Averages per whole shift day (05:00 to 04:59) across MMG shuts. A transaction is one tool issued, one tool returned or one consumable issue. Day shift is 06:00 to 18:00 and night shift 18:00 to 06:00. People and companies are counted once a day.'],
 ['Trends','Each pull adds a point. Nothing is drawn for a pull that has not happened.']].map(d=>`<p><b>${d[0]}.</b> ${esc(d[1])}</p>`).join('');
 $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
 
@@ -768,6 +900,7 @@ const t0=performance.now(),dur=1600;(function f(now){const p=Math.min(1,(now-t0)
 function play(root){root.querySelectorAll('[data-n]').forEach(countUp);
 root.querySelectorAll('.fl,.best').forEach(b=>b.style.width=b.dataset.w+'%');
 root.querySelectorAll('.arc').forEach(a=>a.style.strokeDashoffset=a.dataset.off);
+root.querySelectorAll('.hb').forEach(a=>a.style.strokeDashoffset=0);
 root.querySelectorAll('.fillrect').forEach(r=>{r.setAttribute('y',r.dataset.y);r.setAttribute('height',r.dataset.h)});
 root.querySelectorAll('.fillcap').forEach(c=>c.setAttribute('cy',c.dataset.cy))}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');setTimeout(()=>play(e.target),STATIC?0:120);io.unobserve(e.target)}}),{threshold:.12});
@@ -787,6 +920,8 @@ def _logo(path):
 def render(data, fonts, logo=None, client="MMG"):
     face = "".join("@font-face{{font-family:Inter;font-weight:{w};font-style:normal;src:url(data:font/woff;base64,{b}) format('woff')}}\n"
                    .format(w=w, b=b) for w, b in sorted(fonts.items()))
+    pix = data.pop("_pix", None)
+    data["pics"] = pix.data() if pix else []
     blob = json.dumps(data, ensure_ascii=False, default=str).replace("</", "<\\/")
     top = '<img class="toplogo" src="{}" alt="{}">'.format(logo, client) if logo else ""
     hero = ('<div class="clientcard"><img src="{0}" alt="{1}"><div class="pf">Prepared for</div>'
@@ -801,12 +936,16 @@ def main(argv=None):
     ap.add_argument("out_html")
     ap.add_argument("--reference")
     ap.add_argument("--shuts")
+    ap.add_argument("--ops", help="average-day figures from build_store_ops.py")
+    ap.add_argument("--pictures", help="folder of a tool pictures pack (kept outside git)")
+    ap.add_argument("--day-keeper", default="")
+    ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
     ap.add_argument("--history")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     a = ap.parse_args(argv)
     kit = _kit()
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts)
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures)
     html = render(data, _fonts(a.kit_folder), _logo(a.logo))
     with open(a.out_html, "w", encoding="utf-8") as f:
         f.write(html)

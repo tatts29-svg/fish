@@ -169,7 +169,7 @@ def cons_size(desc, tidy=None):
     return (tidy(d) if tidy else d), None, ""
 
 
-def _pack(groups, cat_order):
+def _pack(groups, cat_order, pics=None):
     """{cat: {kind: [(value, label, n, out)]}} -> the list the page reads."""
     out = []
     for cat in sorted(groups, key=lambda c: (cat_order.index(c) if c in cat_order else 99)):
@@ -186,21 +186,27 @@ def _pack(groups, cat_order):
             chips = [{"s": lab, "n": int(v[1]), "o": int(v[2])} for lab, v in merged.items()]
             vals = [v[0] for v in merged.values() if v[0] is not None]
             kinds.append({"name": kind, "n": sum(c["n"] for c in chips), "o": sum(c["o"] for c in chips),
-                          "min": min(vals) if vals else None, "sizes": chips})
+                          "min": min(vals) if vals else None, "sizes": chips, "pic": (pics or {}).get((cat, kind))})
         kinds.sort(key=lambda k: (k["name"].lower(), k["min"] or 0))
         out.append({"name": cat, "n": sum(k["n"] for k in kinds), "o": sum(k["o"] for k in kinds),
                     "kinds": kinds, "lines": sum(len(k["sizes"]) for k in kinds)})
     return out
 
 
-def tool_catalogue(rows, is_on):
+def tool_catalogue(rows, is_on, pic_of=None):
     groups = collections.defaultdict(lambda: collections.defaultdict(list))
+    pics = {}
     for r in rows:
         desc = r.get("ITEM_DESCRIPTION")
         kind, drive, val, lab = tool_size(desc)
         name = kind + (" · {} drive".format(drive) if drive else "")
-        groups[tool_category(desc)][name].append((val, lab, 1, 1 if is_on(r) else 0))
-    return _pack(groups, [c for c, _ in TOOL_CATS] + [TOOL_OTHER])
+        cat = tool_category(desc)
+        groups[cat][name].append((val, lab, 1, 1 if is_on(r) else 0))
+        if pic_of and (cat, name) not in pics:
+            p = pic_of(r)
+            if p is not None:
+                pics[(cat, name)] = p
+    return _pack(groups, [c for c, _ in TOOL_CATS] + [TOOL_OTHER], pics)
 
 
 def cons_catalogue(rows, qty, tidy=None):
