@@ -620,6 +620,31 @@ def render(data, fonts, logo=None, client="MMG"):
             .replace("__LOGO__", logo or "").replace("__DATA__", blob))
 
 
+def plain_tool_names(data, path):
+    """Swap SiteIQ tool descriptions for the plain names in a checked list
+    (a CSV with 'SiteIQ description' and 'Plain name'). A description that is
+    not on the list is shown as SiteIQ has it. The original stays on each tool
+    as "raw", so the page can still show it and the item numbers still match."""
+    import csv
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        look = {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
+    name = lambda n: look.get(str(n).strip().upper(), n)
+    for t in data["tools"].values():
+        t["raw"], t["name"] = t["name"], name(t["name"])
+    for key in ("kinds", "tools_util"):
+        for t in data.get(key) or []:
+            t["dk"], t["name"] = t["name"].upper(), name(t["name"])
+    for r in data.get("onhire") or []:
+        r["raw"], r["desc"] = r["desc"], name(r["desc"])
+    for g in (data.get("tagged") or {}).get("groups", []):
+        for k in g.get("kinds", []):
+            k["name"] = name(k["name"])
+    for person in data.get("people") or []:
+        for t in person.get("tools") or []:
+            t["name"] = name(t["name"])
+    return len(look)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("kit_folder")
@@ -633,12 +658,15 @@ def main(argv=None):
     ap.add_argument("--day-keeper", default="")
     ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
+    ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     a = ap.parse_args(argv)
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    if a.tool_names:
+        plain_tool_names(data, a.tool_names)
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())
