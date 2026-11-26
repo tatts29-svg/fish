@@ -427,8 +427,8 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .fut{opacity:.36}
 .vl{font-size:11px}
 /* labour and costs */
-.ca,.kl{fill:url(#gcylO)}.cb,.kt{fill:url(#gcylS)}.ks{fill:url(#gcylP)}.kf{fill:url(#gcylG)}
-.lk1{background:#F26222}.lk2{background:#B9C3D0}.lk3{background:#FFC9AE}.lk4{background:#6E7987}
+.ca,.kl{fill:url(#gcylO)}.cb{fill:url(#gcylS)}.kt{fill:url(#gcylB)}.ks{fill:url(#gcylP)}.kf{fill:url(#gcylG)}
+.lk1{background:#F26222}.lk2{background:#8FB2E0}.lk3{background:#F5DDAA}.lk4{background:#6E7987}
 .c5{grid-template-columns:repeat(5,1fr)}
 .c5 .kpi .n{font-size:32px}
 .costhero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
@@ -474,7 +474,7 @@ tr.tocome td{color:var(--mu)}tr.tocome td.n{font-weight:400}
 </style></head>
 <body>
 <div class="amb"><i></i><i></i><i></i></div><canvas id="fx"></canvas><div class="prog"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#D08A66"/><stop offset=".42" stop-color="#FFD9C2"/><stop offset="1" stop-color="#D49070"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -848,7 +848,7 @@ $('#defs').innerHTML=[
 
 /* ---------- labour and costs ---------- */
 const money=v=>'$'+Number(v).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
-if(D.costs){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#6E7987','#DCE3EC','#7C8796','#F2F5F8']],services:['ks','lk3',['#D08A66','#FFD9C2','#D49070','#FFE9DD']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
+if(D.costs){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#5F84B8','#B4CEF0','#6489BC','#D3E3F8']],services:['ks','lk3',['#C9AC6E','#FBEBC6','#CDB073','#FFF5DC']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
 $('#cs-lead').textContent=`${money(C.sofar)} of the shut's ${money(C.total)} has been incurred up to the end of ${C.upto}: ${C.days_done} of ${C.days.length} days and ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours.`;
 const rc=2*Math.PI*100,sh=C.total?C.sofar/C.total:0;
 $('#cs-ring').innerHTML=`<svg viewBox="0 0 240 240"><defs><linearGradient id="rgg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".5" stop-color="#F26222"/><stop offset="1" stop-color="#B9481A"/></linearGradient></defs>
