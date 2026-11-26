@@ -23,6 +23,8 @@ import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import catalogue  # noqa: E402
 
 
 def _kit():
@@ -341,6 +343,9 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
         "held": held_groups(),
         "tagged": tagged,
+        "cat": {"tools": catalogue.tool_catalogue(rental, lambda r: kit._s(r.get("ITEM_STATUS")) == "On Hire"),
+                "cons": catalogue.cons_catalogue(stock, lambda r: kit._n(r.get("AVAILABLE_QUANTITY")),
+                                                 lambda k: _cons_name(kit, k))},
         "cons_types": [{"name": k, "n": int(v)} for k, v in ctype.most_common(8)],
         "cons_top": [{"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "n": int(kit._n(r.get("AVAILABLE_QUANTITY")))} for r in top_lines],
         "below": below, "to_max": int(to_max), "mm_lines": mm_lines,
@@ -449,6 +454,40 @@ svg text{font-family:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--g3);background:var(--g2);border-radius:999px;padding:7px 13px;font-size:13px}
 .chip b{color:var(--lit);margin-right:6px}
+.seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--g2);border:1px solid var(--g3);margin-bottom:16px}
+.seg button{font:inherit;font-size:13px;font-weight:600;color:var(--mu);background:none;border:0;border-radius:999px;padding:8px 18px;cursor:pointer;transition:color .3s,background .3s}
+.seg button.on{color:#14181E;background:linear-gradient(90deg,var(--or),var(--lit));box-shadow:0 0 18px rgba(242,98,34,.45)}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cat{font:inherit;color:inherit;text-align:left;cursor:pointer;position:relative;overflow:hidden;border-radius:16px;padding:16px 16px 18px;
+background:linear-gradient(180deg,var(--g2),var(--g1));border:1px solid var(--g3);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;
+opacity:0;transform:translateY(14px);animation:catin .6s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*45ms)}
+@keyframes catin{to{opacity:1;transform:none}}
+.cat:hover{transform:translateY(-3px);border-color:#3A4452}
+.cat.on{border-color:var(--or);box-shadow:0 0 0 1px var(--or),0 10px 34px rgba(242,98,34,.22)}
+.cat .cn{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1}
+.cat .cn small{font-size:12px;color:var(--mu);font-weight:600;margin-left:5px}
+.cat .ct{font-size:13.5px;font-weight:600;margin-top:8px;min-height:36px;line-height:1.3}
+.cat .cs{font-size:11.5px;color:var(--mu);margin-top:4px}
+.cat .cm{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--or),var(--lit));box-shadow:0 0 12px rgba(242,98,34,.7);transition:width 1.3s cubic-bezier(.2,.8,.2,1) .2s}
+.catpanel{margin-top:14px}
+.cph{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.cph h4{font-size:20px;font-weight:700}
+.cph .hint{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);font-weight:600}
+.cph .tot{margin-left:auto;font-size:12.5px;color:var(--mu)}
+.krow{display:grid;grid-template-columns:minmax(180px,300px) 1fr;gap:16px;padding:11px 0;border-top:1px solid #1E242D;align-items:start}
+.krow .kn{font-size:13.5px;font-weight:600}
+.krow .kn small{display:block;color:var(--mu);font-weight:400;font-size:11.5px;margin-top:2px}
+.szs{display:flex;flex-wrap:wrap;gap:6px}
+.sz{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--g3);background:var(--g2);border-radius:9px;padding:4px 9px;font-size:12.5px;white-space:nowrap;
+opacity:0;transform:translateX(-8px) scale(.96);animation:szin .45s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*22ms)}
+@keyframes szin{to{opacity:1;transform:none}}
+.sz b{color:var(--si);font-weight:600}
+.sz.out{border-color:rgba(242,98,34,.6)}
+.sz.out:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lit);box-shadow:0 0 8px var(--lit)}
+.sz.zero{opacity:.45!important}
+.static .cat,.static .sz{animation:none;opacity:1;transform:none}.static .cat .cm{transition:none}
+@media (max-width:980px){.cats{grid-template-columns:repeat(2,1fr)}.krow{grid-template-columns:1fr;gap:8px}}
+@media (prefers-reduced-motion:reduce){.cat,.sz{animation:none;opacity:1;transform:none}}
 .tagwrap{display:grid;grid-template-columns:230px 1fr 1fr;gap:22px;align-items:start}
 .tagbig{text-align:center}.tagbig .cn{font-size:26px;font-weight:700;margin-top:6px}.tagbig .sp{font-size:12px;color:var(--mu)}
 .tagbig .tb{font-size:12.5px;color:#C4CDD8;margin-top:8px;font-weight:600;letter-spacing:.04em}
@@ -547,7 +586,14 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="card tagcard" style="margin-top:16px"><h3>Tested by Coates</h3><div id="tagged"></div></div>
 </section>
 
-<section class="reveal pb"><div class="sh"><div class="no">05</div><h2>Consumables</h2></div>
+<section class="reveal pb"><div class="sh"><div class="no">05</div><h2>The store, by category</h2></div>
+<p class="sd" id="sdc"></p>
+<div class="seg" id="catseg"><button data-k="tools" class="on">Tooling</button><button data-k="cons">Consumables</button></div>
+<div class="cats" id="cats"></div>
+<div class="card catpanel" id="catpanel"></div>
+</section>
+
+<section class="reveal pb"><div class="sh"><div class="no">06</div><h2>Consumables</h2></div>
 <p class="sd" id="sd5"></p>
 <div class="grid g2e">
 <div class="card"><h3>On the shelf, by type</h3><div class="cyls" id="ctypes"></div></div>
@@ -556,7 +602,7 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="card" style="margin-top:16px"><h3>Below minimum now — top up first</h3><div id="below"></div></div>
 </section>
 
-<section class="reveal pb"><div class="sh"><div class="no">06</div><h2>Trends</h2></div>
+<section class="reveal pb"><div class="sh"><div class="no">07</div><h2>Trends</h2></div>
 <p class="sd" id="sd6"></p>
 <div class="grid g2e">
 <div class="card"><h3>This shut, pull by pull</h3><div id="trend"></div><div class="foot" id="trendfoot"></div></div>
@@ -565,7 +611,7 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="card" style="margin-top:16px"><h3>Tool issues per day — the MMG range</h3><div class="cyls" id="htools" style="justify-content:space-around"></div><div class="foot" id="htoolsfoot"></div></div>
 </section>
 
-<section class="reveal"><div class="sh"><div class="no">07</div><h2>What each figure means</h2></div>
+<section class="reveal"><div class="sh"><div class="no">08</div><h2>What each figure means</h2></div>
 <div class="defs" id="defs"></div></section>
 
 <footer><div><b>Author: Andrew Fisher | POWERED BY SITEIQ</b><br>Built from SiteIQ exports for MMG Shutdown November 2026. No figure on this page is estimated.</div>
@@ -687,6 +733,20 @@ $('#htools').innerHTML=S.tools.map(c=>cyl(c,{max:mt})).join('');
 $('#hconsfoot').textContent=`Units drawn per shift day across MMG shuts. This shut joins once it has ${S.min_days} whole days.`;
 $('#htoolsfoot').textContent=`Tools issued per shift day across MMG shuts, Coates and MMG-owned gear. This shut joins once it has ${S.min_days} whole days.`}
 else{$('#hcons').innerHTML='<div class="empty">No shut history loaded.</div>'}
+// 05 categories
+{const CAT=D.cat;let mode='tools',open=0;
+const unit=()=>mode=='tools'?'items':'units';
+$('#sdc').textContent=`Everything in the store, sorted into ${CAT.tools.length} tooling and ${CAT.cons.length} consumable categories. Pick a category to see each kind with its sizes in order, smallest to largest.`;
+function panel(){const c=CAT[mode][open];let i=0;
+$('#catpanel').innerHTML=`<div class="cph"><h4>${esc(c.name)}</h4><span class="hint">Smallest → largest</span><span class="tot">${fmt(c.n)} ${unit()} · ${c.kinds.length} kinds${mode=='tools'&&c.o?` · ${c.o} out now`:''}</span></div>`+
+c.kinds.map(k=>`<div class="krow"><div class="kn">${esc(k.name)}<small>${fmt(k.n)} ${unit()}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}" style="--i:${Math.min(i++,60)}"${s.o?` title="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('')}
+function tiles(){const L=CAT[mode],mx=Math.max(...L.map(c=>c.n));
+$('#cats').innerHTML=L.map((c,i)=>`<button class="cat${i==open?' on':''}" data-i="${i}" style="--i:${i}"><div class="cn"><span data-n="${c.n}">0</span><small>${unit()}</small></div><div class="ct">${esc(c.name)}</div><div class="cs">${c.kinds.length} kinds · ${c.lines} sizes${mode=='tools'&&c.o?` · ${c.o} out`:''}</div><i class="cm" data-w="${(c.n/mx*100).toFixed(1)}"></i></button>`).join('');
+$('#cats').querySelectorAll('[data-n]').forEach(countUp);
+requestAnimationFrame(()=>$('#cats').querySelectorAll('.cm').forEach(b=>b.style.width=b.dataset.w+'%'));
+$('#cats').querySelectorAll('.cat').forEach(b=>b.onclick=()=>{open=+b.dataset.i;$('#cats').querySelectorAll('.cat').forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
+$('#catseg').querySelectorAll('button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;open=0;$('#catseg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));tiles()});
+window.__cats=tiles}
 // 07 defs
 $('#defs').innerHTML=[
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
@@ -698,6 +758,7 @@ $('#defs').innerHTML=[
 ['The MMG range','Each shut\'s units drawn or tools issued per whole shift day (05:00 to 04:59); quietest and busiest are the lowest and highest of those, typical is their average.'],
 ['Consumable units','Units on the shelf across MMG\'s consumable lines, from SiteIQ sales stock.'],
 ['Minimum and maximum','Set per line from what recent MMG shuts drew per day: minimum = the busiest day seen or two days\' use; maximum = seven counter days.'],
+['Categories and sizes','Each item is placed in a category by its SiteIQ description, grouped by kind, and its sizes are read off the description and listed smallest to largest. An orange dot marks a size with items out now.'],
 ['Trends','Each pull adds a point. Nothing is drawn for a pull that has not happened.']].map(d=>`<p><b>${d[0]}.</b> ${esc(d[1])}</p>`).join('');
 $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
 
@@ -710,6 +771,7 @@ root.querySelectorAll('.arc').forEach(a=>a.style.strokeDashoffset=a.dataset.off)
 root.querySelectorAll('.fillrect').forEach(r=>{r.setAttribute('y',r.dataset.y);r.setAttribute('height',r.dataset.h)});
 root.querySelectorAll('.fillcap').forEach(c=>c.setAttribute('cy',c.dataset.cy))}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');setTimeout(()=>play(e.target),STATIC?0:120);io.unobserve(e.target)}}),{threshold:.12});
+window.__cats();
 document.querySelectorAll('.reveal').forEach(s=>{if(STATIC){s.classList.add('in');play(s)}else io.observe(s)});
 </script></body></html>"""
 
