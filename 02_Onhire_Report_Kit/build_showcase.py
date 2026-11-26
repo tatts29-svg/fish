@@ -135,6 +135,42 @@ def _fonts(kit_folder):
     return out
 
 
+#  Test-and-tag / inspection colour, the standard three-monthly scheme
+#  (Andrew, 26 Nov 2026): Dec-Feb red, Mar-May green, Jun-Aug blue, Sep-Nov yellow.
+_TAG = [((12, 1, 2), "Red", "#E5322D", "Dec to Feb"), ((3, 4, 5), "Green", "#2FA84F", "Mar to May"),
+        ((6, 7, 8), "Blue", "#2F6FE0", "Jun to Aug"), ((9, 10, 11), "Yellow", "#F5C518", "Sep to Nov")]
+
+
+def tag_colour(day):
+    for months, name, hexv, span in _TAG:
+        if day.month in months:
+            return {"name": name, "hex": hexv, "span": span}
+
+
+_ELEC = re.compile(r"240V|415V|ELECTRIC|EXTENSION LEAD|EARTH LEAKAGE|POWER PACK|DISTRIBUTION BOARD|WELDER|"
+                   r"WELDING EARTH LEAD|GENERATOR|CHARGER|TRANSFORMER|\b(10|15|20|32) ?A\b|\b32 AMP\b", re.I)
+_NOT_ELEC = re.compile(r"CABLE HOOK|SOCKET ADAPTOR|AIR HOSE|IMPERIAL ADAPTOR|LEAD STAND|BATTERY|CORDLESS|\b18V\b|\bM18\b", re.I)
+_RIG = re.compile(r"SLING|SHACKLE|CHAIN BLOCK|LEVER HOIST|\bHOIST|BEAM CLAMP|PLATE CLAMP|LIFTING|RIGGING|TIRFOR|EYE BOLT|"
+                  r"SWIVEL|SPREADER|SNATCH|PULL ?LIFT|COME ?ALONG|HARNESS|INERTIA REEL|FALL ARREST|RESCUE|TRIPOD|"
+                  r"ROPE LANYARD|RETRACTABLE LANYARD|LANYARD - RETRACTABLE|SHOCK ABSORB|ANCHOR STRAP|DAVIT", re.I)
+
+
+def tag_kind(r):
+    """'elec', 'rig' or None for one RENTAL_STOCK row (Coates gear only)."""
+    desc = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
+    prod = " ".join(str(r.get("PRODUCT") or "").split()).upper()
+    fam = " ".join(str(r.get("PRODUCT_FAMILY") or "").split()).upper()
+    if "TOOL LANYARD" in prod or "TOOL LANYARD" in desc.upper():
+        return None
+    if _RIG.search(desc) or "SLINGS, SHACKLES" in prod or "RESCUE KIT" in prod:
+        return "rig"
+    if _NOT_ELEC.search(desc):
+        return None
+    if _ELEC.search(desc) or prod in ("ELECTRICAL LEADS & ACCESSORIES", "WELDERS - ELECTRIC") or fam.startswith("GENERATORS"):
+        return "elec"
+    return None
+
+
 def _band(vals):
     if not vals:
         return []
@@ -242,6 +278,24 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     else:
         hist = [snap]
 
+    tagc = tag_colour(dt.date(2026, 11, 25))   # tagged before the shut: the colour of the quarter the counter opened in
+    tg = {"elec": collections.Counter(), "rig": collections.Counter()}
+    tgo = {"elec": 0, "rig": 0}
+    for r in coates:
+        k = tag_kind(r) if r not in held else None   # held back = not cleared, so no tested tag
+        if k:
+            tg[k][" ".join(str(r.get("ITEM_DESCRIPTION")).split())] += 1
+            tgo[k] += 1 if r in on else 0
+    tagged = {"colour": tagc,
+              "groups": [{"key": k, "title": t, "n": sum(tg[k].values()), "out": tgo[k],
+                          "kinds": [{"name": n, "n": v} for n, v in tg[k].most_common()]}
+                         for k, t in (("elec", "Electrical"), ("rig", "Rigging, lifting and fall arrest"))]}
+    tag_of = {}
+    for r in coates:
+        k = tag_kind(r)
+        if k:
+            tag_of[dkey(r)] = k
+
     def held_groups():
         g = collections.Counter(kit._s(r.get("ITEM_DESCRIPTION")) for r in held)
         return [{"name": k, "n": v} for k, v in g.most_common()]
@@ -285,6 +339,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                   if sh else None),
         "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
         "held": held_groups(),
+        "tagged": tagged,
         "cons_types": [{"name": k, "n": int(v)} for k, v in ctype.most_common(8)],
         "cons_top": [{"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "n": int(kit._n(r.get("AVAILABLE_QUANTITY")))} for r in top_lines],
         "below": below, "to_max": int(to_max), "mm_lines": mm_lines,
@@ -380,6 +435,16 @@ svg text{font-family:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{border:1px solid var(--g3);background:var(--g2);border-radius:999px;padding:7px 13px;font-size:13px}
 .chip b{color:var(--lit);margin-right:6px}
+.tagwrap{display:grid;grid-template-columns:230px 1fr 1fr;gap:22px;align-items:start}
+.tagbig{text-align:center}.tagbig .cn{font-size:26px;font-weight:700;margin-top:6px}.tagbig .sp{font-size:12px;color:var(--mu)}
+.tagbig .tb{font-size:12.5px;color:#C4CDD8;margin-top:8px;font-weight:600;letter-spacing:.04em}
+.tg h4{font-size:15px;margin-bottom:4px}.tg .sub{font-size:12px;color:var(--mu);margin-bottom:12px}
+.tg .chip{display:inline-flex;align-items:center;gap:8px;margin:0 6px 8px 0}
+.tg .dot{width:12px;height:12px;border-radius:3px;box-shadow:0 0 10px var(--tc)}
+.swing{transform-origin:115px 18px;animation:swing 2.6s ease-in-out .6s both}
+@keyframes swing{0%{transform:rotate(-14deg)}35%{transform:rotate(9deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(2deg)}100%{transform:rotate(0)}}
+.static .swing{animation:none}
+@media (max-width:980px){.tagwrap{grid-template-columns:1fr}}
 table.t{width:100%;border-collapse:collapse;font-size:13.5px}
 table.t th{text-align:left;color:var(--mu);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;padding:8px 10px;border-bottom:1px solid var(--g3)}
 table.t td{padding:9px 10px;border-bottom:1px solid #1E242D}
@@ -462,7 +527,9 @@ body{padding:6mm 4mm 0}footer{margin-top:14px;padding-bottom:0}section{break-ins
 <div class="grid g2">
 <div class="card"><h3>The fleet by family</h3><div class="bars silver wide" id="fams"></div></div>
 <div class="card"><h3>Held back from issue</h3><div id="held"></div><div class="note" id="heldnote"></div></div>
-</div></section>
+</div>
+<div class="card tagcard" style="margin-top:16px"><h3>Tested by Coates</h3><div id="tagged"></div></div>
+</section>
 
 <section class="reveal pb"><div class="sh"><div class="no">05</div><h2>Consumables</h2></div>
 <p class="sd" id="sd5"></p>
@@ -576,6 +643,16 @@ $('#sd4').textContent=`${fmt(K.coates)} Coates tools on site. ${fmt(K.coates_rea
 bars($('#fams'),D.families.map(f=>({name:f.name,n:f.fleet})));
 $('#held').innerHTML=D.held.length?`<div class="chips">${D.held.map(h=>`<span class="chip"><b>${h.n}</b>${esc(h.name)}</span>`).join('')}</div>`:'<div class="empty">Nothing held back.</div>';
 $('#heldnote').textContent=`SiteIQ status "Failed Baseplan": held in the store, not issued, until checked and cleared.`;
+{const T=D.tagged,C=T.colour;
+const tagsvg=`<svg viewBox="0 0 230 150" width="210"><defs><linearGradient id="tgf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${C.hex}"/><stop offset="1" stop-color="${C.hex}" stop-opacity=".78"/></linearGradient></defs>
+<path d="M115 4 C 100 14, 96 22, 92 30" stroke="#8B96A6" stroke-width="2" fill="none"/>
+<g class="swing"><path d="M70 30 H160 L176 46 V136 a6 6 0 0 1 -6 6 H60 a6 6 0 0 1 -6 -6 V46 Z" fill="url(#tgf)" style="filter:drop-shadow(0 0 18px ${C.hex}66)"/>
+<circle cx="115" cy="46" r="7" fill="#151A21" stroke="rgba(0,0,0,.35)"/>
+<text x="115" y="86" text-anchor="middle" font-size="15" font-weight="700" fill="#1B2028" letter-spacing="2">TESTED</text>
+<text x="115" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#1B2028" letter-spacing="1.5">BY COATES</text>
+<text x="115" y="127" text-anchor="middle" font-size="11" font-weight="600" fill="#1B2028">${C.span}</text></g></svg>`;
+$('#tagged').innerHTML=`<div class="tagwrap"><div class="tagbig">${tagsvg}<div class="cn" style="color:${C.hex}">${C.name}</div><div class="sp">this quarter's tag colour · ${C.span}</div><div class="tb">Tested by Coates</div></div>`+
+T.groups.map(g=>`<div class="tg" style="--tc:${C.hex}"><h4><span data-n="${g.n}">0</span> ${esc(g.title.toLowerCase())} items</h4><div class="sub">${g.out} out with crews now · every one tested by Coates and tagged ${C.name.toLowerCase()}</div>${g.kinds.slice(0,10).map(k=>`<span class="chip"><span class="dot" style="background:${C.hex}"></span><b>${k.n}</b>${esc(k.name)}</span>`).join('')}${g.kinds.length>10?`<span class="chip">+ ${g.kinds.length-10} more kinds</span>`:''}</div>`).join('')+`</div>`}
 // 05
 $('#sd5').textContent=`${K.cons_lines} MMG consumable lines with ${fmt(K.cons_units)} units on the shelf. ${K.cons_drawn?`${K.cons_drawn} lines drawn so far.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
 const cmax=Math.max(...D.cons_types.map(c=>c.n));
@@ -597,6 +674,7 @@ else{$('#hcons').innerHTML='<div class="empty">No shut history loaded.</div>'}
 $('#defs').innerHTML=[
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
 ['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Already back" are those issued today and since returned to the shelf.`],
+['Tested by Coates','Coates electrical gear, and rigging, lifting and fall-arrest gear, is tested by Coates and carries the quarter\'s tag colour: Dec to Feb red, Mar to May green, Jun to Aug blue, Sep to Nov yellow.'],
 ['Coates tools ready','Coates-owned items in the store, less those held back (SiteIQ status "Failed Baseplan").'],
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Utilisation','Items out with crews as a share of the items of that kind in the store, at the time of the pull. By tool, \'busiest seen\' is the most of that tool ever out at once at MMG.'],
