@@ -49,16 +49,19 @@
     if (!btn) return;
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     const shape = document.createElementNS(svg.namespaceURI, "path");
-    for (const [key, value] of Object.entries({viewBox:"0 0 24 24", fill:"none", stroke:"currentColor", "stroke-width":"1.7", "stroke-linecap":"round", "stroke-linejoin":"round", "aria-hidden":"true"})) svg.setAttribute(key,value);
+    for (const [key, value] of Object.entries({viewBox:"0 0 16 16", fill:"none", stroke:"currentColor", "stroke-width":"1.8", "stroke-linecap":"round", "stroke-linejoin":"round", "aria-hidden":"true"})) svg.setAttribute(key,value);
     shape.setAttribute("d",path);
     svg.append(shape); btn.prepend(svg);
   }
+  // MyGear HQ's 16-unit print, download and navigation glyphs.
   const icons = {
-    print:"M7 8V3h10v5M7 17H4V9h16v8h-3M7 14h10v7H7zM17 11h.01",
-    save:"M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5",
-    share:"M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2",
-    email:"M3 5h18v14H3zM3 6l9 7 9-7",
-    camera:"M3 7h4l2-3h6l2 3h4v13H3zM15.5 13a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0"
+    print:"M5 5V2h6v3M4 12H2V6h12v6h-2M4 9h8v5H4zM11.5 7h.01",
+    save:"M8 1.5v9M4.5 7L8 10.5 11.5 7M2.5 12.5v2h11v-2",
+    reset:"M13.5 8H3M7 4L3 8l4 4",
+    "close-dialog":"M3.8 3.8l8.4 8.4M12.2 3.8l-8.4 8.4",
+    share:"M8 10V2M5.2 4.8 8 2l2.8 2.8M4.5 6.6H2.5v7.5h11V6.6h-2",
+    email:"M1.5 3.5h13v9h-13zM2 4l6 4.6L14 4",
+    camera:"M1.5 5h3l1.3-2h4.4l1.3 2h3v8.2h-13zM10.5 8.8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"
   };
   for (const [id,path] of Object.entries(icons)) buttonIcon(id,path);
   function endLookup() {
@@ -71,6 +74,8 @@
     stopCamera();
     $("report").hidden = true;
     $("report-body").replaceChildren();
+    $("section-nav").replaceChildren();
+    $("trail-current").textContent = "Lookup";
     $("report-heading").textContent = "";
     $("hero-count").textContent = "";
     $("report-subtitle").textContent = "";
@@ -118,7 +123,7 @@
     return [path + "?" + new URLSearchParams({company:selection}),options];
   }
   function section(parent, heading, note, full = false) {
-    const panel = el("section",full ? "panel full" : "panel");
+    const panel = el("section",full ? "panel readout full" : "panel readout");
     panel.append(el("h2","",heading));
     if (note) panel.append(el("p","note",note));
     parent.append(panel);
@@ -134,17 +139,17 @@
     return list;
   }
   function stats(parent, pairs) {
-    const group = el("div","stats");
+    const group = el("div","stats kpis");
     for (const [title,value] of pairs) {
-      const card = el("div","stat");
-      card.append(el("strong","stat-value",value),el("span","stat-label",title));
+      const card = el("div","stat kpi ro");
+      card.append(el("strong","stat-value kv",value),el("span","stat-label kl",title));
       group.append(card);
     }
     parent.append(group);
   }
   function table(parent, headings, rows, numeric = []) {
-    const wrap = el("div","table-wrap");
-    const tbl = el("table");
+    const wrap = el("div","table-wrap table-scroll");
+    const tbl = el("table","paper");
     const thRow = tbl.createTHead().insertRow();
     for (const [i,title] of headings.entries()) {
       const th = el("th",numeric.includes(i) ? "num" : "",title);
@@ -158,7 +163,7 @@
     wrap.append(tbl); parent.append(wrap);
   }
   function group(name, count) {
-    const d = el("details","tool-group");
+    const d = el("details","tool-group readout-group");
     const header = el("summary");
     header.append(el("span","summary-name",name));
     if (count !== null) header.append(el("span","badge",fmt(count)));
@@ -174,7 +179,7 @@
       return;
     }
     for (const tool of r.hires) {
-      const group=el("section","holding-group");
+      const group=el("section","holding-group readout");
       const title=el("h3","",tool.name);
       if(tool.count>1) title.append(el("span","badge",units(tool.count,"asset")));
       group.append(title);
@@ -194,8 +199,8 @@
       const d = group(tool.name,tool.count);
       const items = el("ul","data-list");
       for (const asset of tool.items) {
-        const line = el("li");
-        line.append(el("span","label",asset.item || "Asset number unavailable"),el("span","date",when(asset.date,asset.time) || "Issue time unavailable"));
+        const line = el("li","item");
+        line.append(el("span","label no",asset.item || "Asset number unavailable"),el("span","date days",when(asset.date,asset.time) || "Issue time unavailable"));
         items.append(line);
       }
       d.append(items);
@@ -531,6 +536,8 @@
     if(personal) {
       $("hero-label").textContent=(r.hire_count===1 ? "Asset" : "Assets")+" on hire to you";
       personalHires(body,r);returnsPanel(body,r);
+    } else {
+      hires(body,r);
     }
     const cov=chapter?.coverage || r.coverage || {};
     const pairs=[
@@ -539,16 +546,25 @@
       ["Consumable units issued",fmt(cov.sales_asat ? (chapter?.consumable_units ?? r.consumable_summary?.units) : null)]
     ];
     stats(body,pairs);
-    const recordNav=el("nav","record-links screen-only");recordNav.setAttribute("aria-label","Report sections");
-    for(const [id,title] of [["shutdown-story","This shutdown"],["current-gear","Current gear"],...(!personal?[["work-milestones","Work milestones"]]:[]),["past-chapters","Earlier shutdowns"]]){
-      const link=el("a","",title);link.href="#"+id;recordNav.append(link);
-    }
-    body.append(recordNav);
     currentStory(body,r,chapter);
-    if(!personal)hires(body,r);
     if(personal){consumablesPanel(body,r);historyPanel(body,r);}
     if(!personal)companyMilestones(body,r);
     earlierChapters(body,r);
+    const links = [["current-gear","Current gear"]];
+    if (personal) links.push(["return-rating","Return record"]);
+    links.push(["shutdown-story","This shutdown"]);
+    if (!personal) links.push(["work-milestones","Work milestones"]);
+    links.push(["past-chapters","Earlier shutdowns"]);
+    const sectionNav = $("section-nav");
+    sectionNav.replaceChildren();
+    for (const [id,title] of links) {
+      const section = $(id);
+      section.tabIndex = -1;
+      const link = el("a","",title);
+      link.href = "#" + id;
+      sectionNav.append(link);
+    }
+    $("trail-current").textContent = "Report";
     $("pull").textContent=r.asat ? "SiteIQ rental stock pull "+when(r.asat)+" AEST" : "SiteIQ rental stock pull time unavailable.";
     $("lookup").hidden=true;$("report").hidden=false;snapshot=r;$("report-heading").focus();
   }

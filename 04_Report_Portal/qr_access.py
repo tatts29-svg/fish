@@ -16,6 +16,7 @@ import threading
 import time
 from urllib.parse import parse_qs, urlsplit
 
+from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
 import qr_roster
 import qr_work_notes
 
@@ -32,12 +33,35 @@ BRANDING = {
 CSP = ("default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; "
        "font-src 'self' data:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'none'; "
        "form-action 'self'; base-uri 'none'; object-src 'none'")
-ENTER_HTML = b"""<!doctype html><html lang="en-AU"><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Open MMG report</title>
-<style>html{background:#0d1116;color:#fff;font:1.1rem system-ui}main{max-width:28em;margin:18vh auto;padding:1rem}</style>
-<main><h1>Open MMG report</h1><p id="status" role="status">Opening your report...</p>
+# The QR invitation renders before a scoped session exists. Inline the small first
+# paint so opening a poster never waits for the full report stylesheet or its fonts.
+_ENTRY_STYLE = """
+*{box-sizing:border-box}html{color-scheme:dark;background:#07090c;color:#f5f6f8;
+font:100%/1.5 system-ui,sans-serif}body{margin:0}header{border-top:3px solid #f26222;
+border-bottom:1px solid #28303a;background:linear-gradient(180deg,#12161c,#0b0e12)}
+.bar{max-width:1600px;margin:auto;padding:11px clamp(16px,3vw,28px);display:flex;align-items:center;
+justify-content:flex-start;gap:12px}.site{color:#c9cfd7;font-size:13px} @media(max-width:420px){.bar{flex-direction:column;align-items:flex-start;gap:6px}}
+.entry{width:min(480px,calc(100% - 32px));margin:clamp(40px,16vh,180px) auto;
+padding:clamp(20px,5vw,32px);border:1px solid #343c48;border-top:3px solid #f26222;border-radius:18px;
+background:linear-gradient(155deg,#1b212b,#11161e);box-shadow:0 18px 56px #0006}
+h1{margin:0;font-size:clamp(1.5rem,4vw,2rem);line-height:1.14;letter-spacing:-.035em}
+p{margin:.75rem 0 0;color:#c9cfd7}
+"""
+
+
+def invitation(scope, job_dir):
+    title = "Company on-hire report" if scope == "company" else "Personal on-hire report"
+    return f"""<!doctype html><html lang="en-AU"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090c"><meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer"><title>{title} · MyGear HQ</title>
+<style>{_ENTRY_STYLE}{LOCKUP_CSS}</style></head><body><header><div class="bar">{lockup(public_mmg_logo(job_dir))}
+<span class="site">Dugald River</span></div></header><main class="entry"><h1>{title}</h1>
+<p id="status" role="status">Opening your report…</p>
 <noscript>Enable JavaScript and scan the printed QR code again.</noscript></main>
-<script src="enter.js"></script></html>"""
+<script src="enter.js"></script></body></html>""".encode("utf-8")
+
+
 ENTER_JS = b"""(async()=>{
   const token=location.hash.slice(1);
   history.replaceState(null,'',location.pathname);
@@ -210,7 +234,7 @@ def serve(request, data_dir, job_dir):
         if action not in allowed or (path.query and not (scope == "company" and action in ("report", "report.pdf"))):
             return error(404, "Not found.")
         if read and action in ("enter", "enter.js"):
-            return reply(200, ENTER_HTML if action == "enter" else ENTER_JS,
+            return reply(200, invitation(scope, job_dir) if action == "enter" else ENTER_JS,
                          "text/html; charset=utf-8" if action == "enter" else "text/javascript; charset=utf-8")
         if action == "enter" and request.command == "POST":
             token = posted("token")
@@ -226,7 +250,8 @@ def serve(request, data_dir, job_dir):
             return error(403, "Scan the QR code on the MMG report poster to open this view.")
         if read and not action:
             from qr_views import page
-            shell = page(scope, barcode_ready=qr_roster.status(data_dir).get("linked", 0) > 0) if scope == "personal" else page(scope)
+            ready = scope != "personal" or qr_roster.status(data_dir).get("linked", 0) > 0
+            shell = page(scope, job_dir=job_dir, barcode_ready=ready)
             return reply(200, shell.encode(), "text/html; charset=utf-8")
         if read and action in ("qr_report.css", "qr_report.js", "badge_decoder.js", "badge_zxing.js"):
             return reply(200, (HERE / action).read_bytes(),

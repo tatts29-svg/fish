@@ -35,6 +35,28 @@ class QrViews(PortalHTTPCase):
         self.assertNotIn(url.fragment, cookie.value)
         return f"{cookie.key}={cookie.value}"
 
+    def test_poster_entry_and_report_use_same_hq_identity_without_portal_navigation(self):
+        from qr_brand import wordmark
+        import base64
+
+        logo = base64.b64decode("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/"
+                                "x8AAwMCAO+jrosAAAAASUVORK5CYII=")
+        (self.root / "job" / "logo.png").write_bytes(logo)
+        for scope in ("company", "personal"):
+            entry = f"/qr/{scope}/"
+            guest_status, _, invitation = self.request("GET", entry + "enter")
+            self.assertEqual(guest_status, 200)
+            cookie = self.activate(scope)
+            status, _, view = self.request("GET", entry, headers={"Cookie": cookie})
+            self.assertEqual(status, 200)
+            self.assertIn(b"data:image/png;base64," + base64.b64encode(logo), invitation)
+            self.assertIn(b'src="mmg-logo.png" alt="MMG"', view)
+            for page in (invitation, view):
+                self.assertIn(wordmark().encode(), page)
+                self.assertIn(b"MyGear HQ", page)
+                self.assertNotIn(b'href="/hq', page)
+                self.assertNotIn(b'href="/upload', page)
+
     def test_persistent_invitations_and_portal_session_isolation(self):
         self.assertEqual(self.request("GET", "/qr/company/enter")[0], 200)
         self.assertFalse((self.root / qr_access.KEY_FILE).exists())

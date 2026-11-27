@@ -88,8 +88,8 @@ def _mobile_markup(page):
 
 
 SESSION_HOURS = 12
-LOGIN = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved."><title>Sign in · __NAME__</title>__MOBILE_HEAD__<style>
+LOGIN_TEMPLATE = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved."><title>Sign in · __LOGIN_TITLE__</title>__MOBILE_HEAD__<style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{background:#07090D;color:#fff;font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
  background-image:radial-gradient(90% 46% at 50% -6%,rgba(242,98,34,.20),rgba(242,98,34,0) 70%);background-repeat:no-repeat}
@@ -142,12 +142,12 @@ button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}butto
  button,input,.drop{transition:none!important}
  button:active{transform:none}
 }
-</style></head><body><div class="wrap">
-<div class="top"><div class="brand">COATES</div><i></i><span>__NAME__</span></div>
+__LOGIN_STYLE__</style></head><body><div class="wrap">
+__LOGIN_HEADER__
 <form class="card" method="post" action="/login" autocomplete="on">
 <div class="intro">
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>PROJECT ACCESS</div>
-<h1>Sign in to the __NAME__</h1>
+<h1>__LOGIN_HEADING__</h1>
 <p>Enter your username and password to continue.</p></div>
 <div class="fields">__ERR__
 <label for="u">Username</label><input id="u" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required autofocus>
@@ -158,6 +158,36 @@ button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}butto
 <div class="foot">Author: Andrew Fisher<b>POWERED BY SITEIQ</b><small style="display:block;font-size:11.5px;line-height:1.5;margin-top:8px;color:#6B7583">Designed and built by Andrew Fisher · © 2026 Andrew Fisher.<br>All rights reserved. Not to be copied or reproduced without permission.</small></div>
 </div></body></html>"""
 
+
+def _login_template(title, heading, header, style=""):
+    return (LOGIN_TEMPLATE.replace("__LOGIN_TITLE__", title).replace("__LOGIN_HEADING__", heading)
+            .replace("__LOGIN_HEADER__", header).replace("__LOGIN_STYLE__", style))
+
+
+LOGIN = _login_template("__NAME__", "Sign in to the __NAME__",
+                        '<div class="top"><div class="brand">COATES</div><i></i><span>__NAME__</span></div>')
+
+# Keep the MMG sign-in panel close to MyGear HQ's single-column entry screen.
+MMG_LOGIN_CSS = """
+.wrap{align-items:center;justify-content:center;padding:clamp(1rem,4vh,3rem) 1rem}
+.login-masthead{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-bottom:1.35rem}
+.login-masthead .brand-lockup{gap:1rem}
+.login-masthead .logo{font-size:1.45rem}
+.login-masthead .mk svg{width:2.5rem;height:2.5rem}
+.login-masthead .wm i{font-size:1rem}
+.login-masthead .brand-divider{height:2.1rem}
+.login-masthead .brand-client img{height:2.7rem}
+.login-site{font-size:.93rem;font-weight:600;color:#bfccd7;letter-spacing:.025em}
+.wrap>form.card{display:block;width:min(100%,28rem);margin:0;padding:clamp(1.25rem,5.5vw,2rem);
+border-radius:1.35rem;background:linear-gradient(155deg,#1b212b,#11161e 72%)}
+.eyebrow{font-size:.75rem;letter-spacing:.13em}
+.intro h1{font-size:clamp(1.55rem,6vw,2rem);margin:.7rem 0 .5rem;letter-spacing:-.035em}
+.intro p{font-size:1rem}.fields{margin-top:1.45rem}
+input,button{height:3.15rem;border-radius:.7rem}label{font-size:.91rem;margin:1.1rem 0 .45rem}
+button{margin-top:1.25rem;background:#ff762e}.err{margin:0 0 1.1rem}
+.note{margin-top:1.25rem;padding-top:1rem;font-size:.88rem}.note>a{margin-top:0;padding:.4rem 0}
+.foot{margin-top:1.3rem}
+"""
 
 def _users():
     out = {}
@@ -211,7 +241,15 @@ def _session_role(cookie_header, now=None):
 def _login_page(err=""):
     name = html.escape(os.environ.get("PORTAL_NAME", "").strip() or "Tool Store Report")
     box = '<div class="err" role="alert">{}</div>'.format(html.escape(err)) if err else ""
-    return _mobile_markup(LOGIN.replace("__NAME__", name).replace("__ERR__", box)).encode("utf-8")
+    page = LOGIN
+    if is_mmg(JOB_DIR):
+        from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
+
+        header = ('<header class="login-masthead">' + lockup(public_mmg_logo(JOB_DIR))
+                  + '<p class="login-site">Dugald River</p></header>')
+        page = _login_template("MyGear HQ · MMG Dugald River", "Sign in to MyGear HQ", header,
+                               LOCKUP_CSS + MMG_LOGIN_CSS)
+    return _mobile_markup(page.replace("__NAME__", name).replace("__ERR__", box)).encode("utf-8")
 
 
 UPLOAD = """<style>
