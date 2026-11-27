@@ -795,6 +795,7 @@
   },{passive:true});
   async function lookup(event) {
     event?.preventDefault();
+    if (personal) identity.value = stripBadgePadding(identity.value);
     const value = identity.value;
     if (!value || !form.reportValidity()) return;
     renewDeadline();
@@ -971,10 +972,16 @@
       }
     };
   }
-  function usableBarcode(value) {
-    return typeof value === "string" && value.length > 0 && value.length <= identity.maxLength
-      && value === value.trim() && !/[\u0000-\u001f\u007f-\u009f]/u.test(value)
-      && !/^(?:[a-z][\w+.-]*:|[\\/]{2}|www\.)/i.test(value);
+  function stripBadgePadding(value) {
+    return value.replace(/^ +| +$/g, "");
+  }
+  function scannedBarcode(raw) {
+    if (typeof raw !== "string") return "";
+    const value = stripBadgePadding(raw);
+    if (!value || value.length > identity.maxLength || value !== value.trim()
+        || /[\u0000-\u001f\u007f-\u009f]/u.test(value)
+        || /^(?:[a-z][\w+.-]*:|[\\/]{2}|www\.)/i.test(value)) return "";
+    return value;
   }
   async function startCamera() {
     renewDeadline();
@@ -1009,7 +1016,7 @@
             }
             if (mine !== scanGeneration) return;
             if (readFrame) values = [readFrame(view)];
-            const value = values.length === 1 && usableBarcode(values[0]) ? values[0] : "";
+            const value = values.length === 1 ? scannedBarcode(values[0]) : "";
             if (value && value === prior) {
               stopCamera();
               identity.value = value;

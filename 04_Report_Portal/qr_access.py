@@ -206,11 +206,13 @@ def serve(request, data_dir, job_dir):
             payload = json.loads(body)
         except (ValueError, UnicodeError):
             payload = None
-        if (not isinstance(payload, dict) or set(payload) != {field} or not isinstance(payload[field], str)
-                or not 1 <= len(payload[field]) <= 256 or not payload[field].isprintable()):
+        value = payload.get(field) if isinstance(payload, dict) and set(payload) == {field} else None
+        if field == "barcode" and isinstance(value, str):
+            value = value.strip(" ")
+        if not isinstance(value, str) or not 1 <= len(value) <= 256 or not value.isprintable():
             error(400, "Enter the barcode exactly as printed." if field == "barcode" else "Scan the report QR code.")
             return None
-        return payload[field]
+        return value
 
     try:
         if path.path.startswith("/upload/report-qr/"):
@@ -327,6 +329,9 @@ def serve(request, data_dir, job_dir):
         else:
             return error(404, "Not found.")
         if result is None:
+            if scope == "personal":
+                return error(404, "No worker report matched that barcode. Check the number printed on your badge. "
+                             "If it matches, ask the tool store to check your badge link.")
             return error(404, "No matching report is available.")
         if action == "report.pdf":
             from qr_report_pdf import render_pdf

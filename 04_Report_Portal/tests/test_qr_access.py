@@ -131,6 +131,27 @@ class QrViews(PortalHTTPCase):
             self.assertEqual(code, 200)
             self.assertNotIn(text, html)
 
+    def test_worker_report_strips_only_outer_spaces_and_guides_unmatched_badges(self):
+        cookie = self.activate("personal")
+        badge = "00-aA  7"
+        with patch.object(qr_roster, "status", return_value={"linked": 1}), \
+             patch.object(qr_reports, "personal", return_value=None) as lookup:
+            for path in ("/qr/personal/report", "/qr/personal/report.pdf"):
+                with self.subTest(path=path):
+                    status, _, body = self.post(path, {"barcode": "  " + badge + " "}, cookie)
+                    self.assertEqual(status, 404)
+                    self.assertIn("number printed on your badge", json.loads(body)["error"])
+                    self.assertIn("tool store", json.loads(body)["error"])
+                    self.assertNotIn(badge, json.loads(body)["error"])
+                    lookup.assert_called_once_with(str(self.root), badge)
+                    lookup.reset_mock()
+            for invalid in ("   ", "00-aA\t", "\r00-aA", "\u00a000-aA", "00\x007"):
+                with self.subTest(invalid=invalid):
+                    self.assertEqual(self.post("/qr/personal/report", {"barcode": invalid}, cookie)[0], 400)
+            lookup.assert_not_called()
+        token = urlsplit(qr_access.entry_url(self.root, "personal")).fragment
+        self.assertEqual(self.post("/qr/personal/enter", {"token": " " + token})[0], 403)
+
     def test_only_selected_company_and_exact_personal_barcode_are_forwarded(self):
         c, p = self.activate("company"), self.activate("personal")
         ch = {"Cookie": c}

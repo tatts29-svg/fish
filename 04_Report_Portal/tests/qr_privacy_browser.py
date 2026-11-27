@@ -50,6 +50,8 @@ def exercise(browser, scope, fixture):
         if name == "companies":
             return r.fulfill(json=choices)
         if name == "report":
+            if scope == "personal":
+                assert r.request.post_data_json == {"barcode": badge}
             supplied.append(r.request.method)
             return r.fulfill(json=report)
         if name == "report.pdf":
@@ -61,7 +63,7 @@ def exercise(browser, scope, fixture):
     field = page.locator("#identity")
     def choose():
         if scope == "personal":
-            field.fill(badge)
+            field.fill(" " + badge + " ")
         else:
             field.select_option(company_id)
     def open_report():
