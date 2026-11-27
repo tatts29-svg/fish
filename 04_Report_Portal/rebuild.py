@@ -182,8 +182,8 @@ def capture_opening(report, destination, source):
                                       separators=(",", ":")), encoding="utf-8")
 
 
-def publish_outputs(ready, volume, staged_baseline):
-    """Publish the report and pin its first opening set; restore on file errors."""
+def publish_outputs(ready, volume, staged_baseline=None):
+    """Publish one report build and optionally pin the opening set; restore on file errors."""
     with tempfile.TemporaryDirectory(dir=volume) as prior:
         changed = []
         try:
@@ -193,8 +193,9 @@ def publish_outputs(ready, volume, staged_baseline):
                     os.link(dest, backup)
                 os.replace(src, dest)
                 changed.append((dest, backup))
-            # Create only. Pack refreshes and subsequent builds cannot replace it.
-            os.link(staged_baseline, volume / OPENING_BASELINE)
+            if staged_baseline is not None:
+                # Create only. Pack refreshes and subsequent builds cannot replace it.
+                os.link(staged_baseline, volume / OPENING_BASELINE)
         except BaseException:
             for dest, backup in reversed(changed):
                 if backup.exists():
@@ -257,6 +258,11 @@ def build(job, out):
         cmd += ["--" + flag, os.path.join(job, rel)]
     for flag, value in sorted(spec.get("options", {}).items()):
         cmd += ["--" + flag, str(value)]
+    if is_mmg(job):
+        cmd.extend(["--qr-report-data", str(Path(out) / "qr-report-data.json")])
+        previous_qr_data = Path(out).parent / "qr-report-data.json"
+        if previous_qr_data.is_file():
+            cmd.extend(["--qr-report-prior", str(previous_qr_data)])
     register = Path(out).parent / "sds" / "register.json"
     if is_mmg(job) and register.is_file():
         cmd.extend(["--sds-register", str(register)])
@@ -362,10 +368,15 @@ def main(job, data_dir, current=False):
                 raise Stop("The build did not finish ({} is missing). Nothing was changed.".format(name))
         if (Path(out) / VARIANT_ARCHIVE).is_file():
             ready.append((VARIANT_ARCHIVE, Path(out) / VARIANT_ARCHIVE))
-        if new_baseline:
-            # report.html is the public commit point during first-time adoption.
+        if is_mmg(job):
+            qr_data = Path(out) / "qr-report-data.json"
+            if not qr_data.is_file() or qr_data.stat().st_size == 0:
+                raise Stop("The scoped report data was not generated. Nothing was changed.")
+            ready.append((qr_data.name, qr_data))
+        if is_mmg(job):
+            # Stage the scoped data and document set before the main report's public commit point.
             ordered = [entry for entry in ready if entry[0] != "report.html"] + [ready[0]]
-            publish_outputs(ordered, Path(data_dir), staged_baseline)
+            publish_outputs(ordered, Path(data_dir), staged_baseline if new_baseline else None)
         else:
             for name, path in ready:
                 os.replace(path, os.path.join(data_dir, name))

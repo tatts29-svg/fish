@@ -27,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import catalogue  # noqa: E402
 import shut_costs  # noqa: E402
+import qr_facts
 import stocktake  # noqa: E402
 import sds_register  # noqa: E402
 import utilisation  # noqa: E402
@@ -348,7 +349,7 @@ def _band(vals):
             {"name": "Busiest shut", "n": round(max(vals))}]
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -628,6 +629,11 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "ref": ({k: v for k, v in json.load(open(reference)).items() if k in ("label", "source", "days", "tool_issued", "cons_units")}
                 if reference and os.path.isfile(reference) else None),
     }
+    if qr_report_data:
+        if s.customer.strip().casefold() != "mmg" or "dugald river" not in s.location.casefold():
+            raise ValueError("QR reports require the MMG Dugald River job configuration.")
+        qr_facts.write(qr_report_data, kit, rental, sales, p_trans, ref, sales_ref, tref, _date, _time,
+                       dname, lambda name: _cons_name(kit, name), qr_report_prior)
     return data
 
 
@@ -940,11 +946,13 @@ def main(argv=None):
     ap.add_argument("--sds-register", help="job-specific reviewed stock-to-SDS mapping (JSON, with local copies in adjacent pdfs/)")
     ap.add_argument("--variant-history", help="dated rental fleet and on-hire totals by variant")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
+    ap.add_argument("--qr-report-prior", help="previous private QR report snapshot for this job")
+    ap.add_argument("--qr-report-data", help="write the private data snapshot used by scoped QR reports")
     ap.add_argument("--stocktake-opening-baseline", help="private register snapshot for the approved MMG opening stocktake")
     ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
     a = ap.parse_args(argv)
     kit = _kit()
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline)
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline, a.qr_report_data, a.qr_report_prior)
     data["variant_history"] = []
     if a.variant_history:
         with open(a.variant_history, encoding="utf-8") as f:

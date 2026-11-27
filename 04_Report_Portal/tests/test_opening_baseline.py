@@ -43,6 +43,7 @@ class OpeningBaseline(unittest.TestCase):
         opening = {"tools": {"checked": 0}, "cons": {"checked": 0}}
         stocktake.accepted_opening(opening, baseline if baseline.is_file() else None, rebuild.MMG_SCHEDULE)
         report(dest / "report.html", self.now, [opening])
+        (dest / "qr-report-data.json").write_text('{"source": "fixture"}')
         (dest / "onhire").mkdir(exist_ok=True)
         (dest / "onhire/onhire.xlsx").write_bytes(b"r" * 1500)
 
@@ -108,6 +109,23 @@ class OpeningBaseline(unittest.TestCase):
         self.assertEqual(self.prior.read_bytes(), before)
         self.assertFalse(self.pin.exists())
         self.assertFalse((self.volume / "onhire.xlsx").exists())
+
+    def test_private_qr_facts_roll_back_with_the_report(self):
+        report(self.prior, [self.a])
+        self.assertEqual(self.rebuild(), 0)
+        private = self.volume / "qr-report-data.json"
+        private.write_bytes(b'{"source": "previous successful pull"}')
+        previous, original_replace = self.prior.read_bytes(), rebuild.os.replace
+
+        def fail_report(src, dst):
+            if Path(dst) == self.prior and Path(src).parent.name.startswith(".build-"):
+                raise OSError("report publication interrupted")
+            return original_replace(src, dst)
+
+        with patch.object(rebuild.os, "replace", side_effect=fail_report):
+            self.assertEqual(self.rebuild(), 1)
+        self.assertEqual(self.prior.read_bytes(), previous)
+        self.assertEqual(private.read_bytes(), b'{"source": "previous successful pull"}')
 
     def test_recover_published_opening_rows_instead_of_later_inventory(self):
         opening = {"baseline_rows": [self.a],

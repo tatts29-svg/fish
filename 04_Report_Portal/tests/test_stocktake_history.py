@@ -54,6 +54,7 @@ class StocktakeHistory(unittest.TestCase):
             out = Path(out)
             record = {"stocktake": {"schedule": MMG_SCHEDULE, "rows": [{"kind": "tool", "key": "A"}]}}
             (out / "report.html").write_text("const D=" + json.dumps(record) + ";" + "x" * 1200)
+            (out / "qr-report-data.json").write_text('{"source": "fixture"}')
             (out / "onhire").mkdir(exist_ok=True)
             (out / "onhire/onhire.xlsx").write_bytes(b"x" * 1200)
         with patch.object(rebuild, "sort_incoming", return_value=({"STOCKTAKE": incoming}, {})), \

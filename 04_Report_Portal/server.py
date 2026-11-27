@@ -44,6 +44,9 @@ import sqlite3
 import stocktake_store
 import sds_library
 import swms_store
+import qr_access
+import qr_admin
+import qr_roster
 from report_delivery import ReportCache, accepts_gzip
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import Stop, import_history, archive_stocktake, mmg_daily_kind, MMG_DAILY_KINDS, KINDS
@@ -254,7 +257,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <section id="up-last" aria-labelledby="last-title" hidden><h2 id="last-title">Last successful upload</h2>
 <strong id="last-who"></strong><time id="last-when"></time><ul id="last-files"></ul></section>
 </div></div>
-<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a><span id="staff-sds" hidden><a href="/upload/sds-label-check.zip">Supplier SDS pack for label checks</a></span>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
+<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a><span id="staff-qr" hidden><a href="/upload/qr-reports">QR reports and posters</a></span><span id="staff-sds" hidden><a href="/upload/sds-label-check.zip">Supplier SDS pack for label checks</a></span>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
 </div>
 <script>
 const labels={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'};
@@ -280,6 +283,7 @@ drop.addEventListener('drop',e=>take(e.dataTransfer.files));
 const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:names.length?'Australia/Brisbane':undefined})+(names.length?' AEST':'');
 function show(s){
  $('#staff-sds').hidden=s.sds_label_check!==true;
+ $('#staff-qr').hidden=s.qr_reports_staff!==true;
  if(!loaded){
   names=s.uploaders||[];
   K=(s.accepted_kinds||Object.keys(labels).filter(k=>k!=='ON_HIRE'||!('uploaders' in s))).filter(k=>Object.hasOwn(labels,k));
@@ -345,6 +349,7 @@ def _status(role=None):
     if is_mmg(JOB_DIR):
         st["uploaders"] = uploaders(JOB_DIR)
         if role in ("manager", "store"):
+            st["qr_reports_staff"] = True
             st["sds_label_check"] = os.path.isfile(os.path.join(DATA_DIR, sds_library.LABEL_CHECK_NAME))
         # Earlier successful uploads had no name recorded.
         if "last_upload" not in st:
@@ -529,7 +534,12 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("X-Robots-Tag", "noindex, nofollow")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
-        self.send_header("Referrer-Policy", "same-origin")
+        scoped = self.path.startswith("/qr/")
+        self.send_header("Referrer-Policy", "no-referrer" if scoped else "same-origin")
+        if scoped:
+            self.send_header("Content-Security-Policy", qr_access.CSP)
+            camera = "(self)" if self.path.startswith("/qr/personal/") else "()"
+            self.send_header("Permissions-Policy", f"camera={camera}, microphone=(), geolocation=()")
 
     def _redirect(self, where, cookie=None):
         self.send_response(303)
@@ -583,6 +593,10 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split("?", 1)[0]
+        if path.startswith(("/qr/", "/upload/report-qr/")) and is_mmg(JOB_DIR):
+            return qr_access.serve(self, DATA_DIR, JOB_DIR)
+        if path == "/upload/qr-reports" and is_mmg(JOB_DIR):
+            return self._qr_admin()
         if path == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries()
         if path in ("/swms/status", "/swms/current.pdf", "/swms/current.docx") and is_mmg(JOB_DIR):
@@ -642,6 +656,8 @@ class Handler(BaseHTTPRequestHandler):
     do_HEAD = do_GET
 
     def do_POST(self):
+        if self.path.startswith("/qr/") and is_mmg(JOB_DIR):
+            return qr_access.serve(self, DATA_DIR, JOB_DIR)
         if self.path.split("?", 1)[0] == "/swms/manager-review" and is_mmg(JOB_DIR):
             return self._swms("/swms/manager-review")
         if self.path.split("?", 1)[0] == "/stocktake/entries" and is_mmg(JOB_DIR):
@@ -667,6 +683,24 @@ class Handler(BaseHTTPRequestHandler):
             _failed(ip)
             return self._send(401, _login_page("That username or password is not right. Have another go."), "text/html; charset=utf-8")
         self._redirect("/", cookie=_session(user))
+
+    def _qr_admin(self):
+        write = self.command == "PUT"
+        role = self._role(cookie=write, page=not write)
+        if not role:
+            return
+        if role not in ("store", "manager") or (write and role != "manager"):
+            return self._send(403, b"Access restricted.", "text/plain")
+        if not write:
+            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR)), "text/html; charset=utf-8")
+        body = self._body(12 * 1024 * 1024)
+        if body is None:
+            return
+        try:
+            result = qr_roster.import_roster(DATA_DIR, body, confirmed_mmg=self.headers.get("X-Confirm-MMG") == "1")
+        except ValueError as exc:
+            return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
+        return self._send(200, json.dumps(result).encode(), "application/json")
 
     def _label_check_pack(self):
         write = self.command == "PUT"
@@ -953,6 +987,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/qr-roster.xlsx" and is_mmg(JOB_DIR):
+            return self._qr_admin()
         if path == "/upload/sds-label-check.zip" and is_mmg(JOB_DIR):
             return self._label_check_pack()
         if path == "/upload/swms.zip" and is_mmg(JOB_DIR):

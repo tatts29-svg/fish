@@ -1344,6 +1344,7 @@ __CONTACTS__
 <div class="upbar" id="up-bar" hidden><div class="tr"><i id="up-fill"><span class="tube-stream" aria-hidden="true"></span><span class="tube-stream" aria-hidden="true"></span></i></div><div class="upst"><b id="up-pct">0%</b><span id="up-stage"></span></div></div>
 <div class="upmsg" id="up-msg" role="status" hidden></div>
 <div class="sub" style="margin-top:16px" id="up-last"></div>
+<p id="staff-qr" hidden><a class="btn" href="/upload/qr-reports">QR reports and posters</a></p>
 <p id="staff-sds" hidden><a class="btn" href="/upload/sds-label-check.zip">Supplier SDS pack for label checks</a></p></div>
 </div>
 </section>
@@ -2715,6 +2716,7 @@ if(names.length){
 const when=t=>new Date(t*1000).toLocaleString('en-AU',{timeZone:names.length?'Australia/Brisbane':undefined,day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})+(names.length?' AEST':'');
 const last=x=>{
 $('#staff-sds').hidden=x.sds_label_check!==true;
+$('#staff-qr').hidden=x.qr_reports_staff!==true;
 const audit=x.last_upload;
 if(names.length && audit){
   $('#up-last').textContent=['Last successful upload',(audit.name||'Uploader not recorded')+' · '+when(audit.finished),...Object.values(audit.files)].join('\n');
