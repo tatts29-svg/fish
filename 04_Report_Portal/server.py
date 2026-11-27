@@ -42,6 +42,7 @@ import urllib.parse
 import zipfile
 import sqlite3
 import stocktake_store
+import sds_library
 from report_delivery import ReportCache, accepts_gzip
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import import_history, archive_stocktake, kind_of, KINDS
@@ -576,6 +577,18 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0]
         if path == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries()
+        if path.startswith("/sds/") and is_mmg(JOB_DIR):
+            if not self._role(page=True):
+                return
+            name = path.removeprefix("/sds/")
+            if sds_library.PDF_NAME.fullmatch(name):
+                try:
+                    with open(os.path.join(DATA_DIR, "sds", "pdfs", name), "rb") as document:
+                        return self._send(200, document.read(), "application/pdf",
+                                          headers=[("Content-Disposition", f'inline; filename="{name}"')])
+                except FileNotFoundError:
+                    pass
+            return self._send(404, b"Document not found.", "text/plain")
         if path in MOBILE_FILES or path == "/install":
             if not is_mmg(JOB_DIR):
                 return self._send(404, b"Not found", "text/plain")
@@ -839,6 +852,24 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/sds-register.zip" and is_mmg(JOB_DIR):
+            role = self._role()
+            if not role:
+                return
+            if role != "manager":
+                return self._send(403, b"Manager login needed.", "text/plain")
+            body = self._body(sds_library.MAX_BUNDLE)
+            if body is None:
+                return
+            if not _build_lock.acquire(blocking=False):
+                return self._send(409, b"Another build is running.", "text/plain")
+            try:
+                count = sds_library.install(body, DATA_DIR)
+            except (ValueError, zipfile.BadZipFile, RuntimeError):
+                return self._send(400, b"Check the MMG register index and PDF files.", "text/plain")
+            finally:
+                _build_lock.release()
+            return self._send(200, f"Loaded {count} documents for the next build.".encode(), "text/plain")
         if path in ("/upload/variant-history", "/upload/stocktake-history") and is_mmg(JOB_DIR):
             return self._put_history("RENTAL_STOCK" if path == "/upload/variant-history" else "STOCKTAKE")
         if path == "/upload/export":

@@ -645,6 +645,21 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
 }
 .static .ut-layout{grid-template-columns:85px 1fr}.static #ut-gauge .cyl svg{width:56px}
 
+/* Safety data sheet register */
+.sds-card{margin-top:16px}
+.sds-filters{display:flex;align-items:end;flex-wrap:wrap;gap:12px}
+.sds-filters label{display:grid;gap:5px;min-width:0;font-size:.85rem;color:var(--mu)}
+.sds-filters label:first-child{flex:1 1 240px}
+.sds-filters input,.sds-filters select{max-width:none;min-height:42px;font:inherit;color:var(--tx);background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+.sds-table{width:100%;border-collapse:collapse;text-align:left;font-size:.93rem}
+.sds-table th,.sds-table td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.sds-table th{color:var(--mu);font-size:.8rem}.sds-table small,.sds-table a{display:block;margin-top:3px}
+.sds-table small{color:var(--mu)}.sds-table a{width:fit-content;color:var(--tx);text-decoration:underline;text-underline-offset:.17em}
+.sds-pages[hidden]{display:none}.sds-pages{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:12px}
+@media(max-width:700px){.sds-filters label{flex:1 1 40%}.sds-filters label:first-child{flex-basis:100%}
+.sds-table,.sds-table tbody,.sds-table tr,.sds-table td{display:block}.sds-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.sds-table tr{padding:8px 0;border-bottom:1px solid var(--line)}.sds-table td{border:0;padding:3px 0}.sds-pages{justify-content:space-between}}
+@media print{.sds-card tr{break-inside:avoid}.sds-table thead{display:table-header-group}}
 /* Shutdown stocktake */
 .st-jump{display:flex;flex-wrap:wrap;gap:8px}#v-stocktake :is(h3,h4){scroll-margin-top:11rem}
 .st-duty{display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin:.65rem 0 1rem;color:var(--mu);font-size:.88rem}
@@ -936,6 +951,18 @@ __CONTACTS__
 <div class="card cb2 noprint" id="cb-cons" style="margin-top:16px"></div>
 </section>
 
+<section class="view pb" id="v-sds" data-tab="SDS register">
+<div class="vh"><h2>Safety data sheets</h2><p id="sds-coverage"></p></div>
+<div class="stats" id="sds-totals"></div>
+<div class="card tall sds-card">
+<div class="sds-filters noprint"><label>Find an item<input type="search" class="search" id="sds-q" placeholder="Name, stock code, barcode or supplier" autocomplete="off"></label>
+<label>Register status<select id="sds-state"><option value="">All statuses</option><option value="verified">Verified SDS</option><option value="review">Document under review</option><option value="label">Product label needed</option><option value="unassessed">Awaiting screening</option><option value="article">Screened article</option><option value="outstanding">All outstanding</option></select></label>
+<label>Stock type<select id="sds-kind"><option value="">All stock</option><option value="consumable">Consumables</option><option value="rental">Rental equipment</option></select></label></div>
+<p class="sub" id="sds-count" role="status" aria-live="polite"></p>
+<div id="sds-list"></div>
+<div class="sds-pages noprint" id="sds-pages"><button type="button" class="btn ghost" id="sds-prev">Previous</button><span id="sds-page"></span><button type="button" class="btn ghost" id="sds-next">Next</button></div>
+</div></section>
+
 <section class="view pb" id="v-rhythm" data-tab="How the store runs">
 <div class="vh"><h2>How the store runs</h2><p id="op-lead"></p></div>
 <div id="opsblock">
@@ -1029,6 +1056,7 @@ __CONTACTS__
 
 <section class="view pb" id="v-guide" data-tab="Guide">
 <div class="vh"><h2>What each figure means</h2><p>Every figure in this report comes straight from SiteIQ. Nothing is estimated. Here is how each one is counted.</p></div>
+<p id="mobile-install" class="noprint" hidden><a class="btn ghost" href="/install">Add MMG Tool Store to your home screen</a></p>
 <div class="defs" id="defs"></div>
 </section>
 
@@ -1058,6 +1086,10 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const QS=location.search, STATIC=/[?&]static/.test(QS);
 const root=document.documentElement;
 if(STATIC)root.classList.add('static');
+if(!STATIC && location.protocol.startsWith('http') && /^MMG\b/i.test(D.job.schedule||'') && D.job.title==='MMG Dugald River'){
+  $('#mobile-install').hidden=false;
+  document.head.insertAdjacentHTML('beforeend','<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="/mobile/icon-180.png"><meta name="theme-color" content="#0D1116"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MMG Tool Store">');
+}
 const K=D.k, MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const plural=(n,w,ws)=>`${fmt(n)} ${n==1?w:(ws||w+'s')}`;
 const whole=v=>fmt(Math.round(v));
@@ -1687,6 +1719,62 @@ $$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg butt
 function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'',pre=el.dataset.pre||'';const put=v=>el.textContent=pre+(dec?v.toLocaleString('en-AU',{minimumFractionDigits:dec,maximumFractionDigits:dec}):fmt(Math.round(v)))+suf;
 if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
 try{console.log('%cDesigned and built by Andrew Fisher','color:#F26222;font-weight:700;font-size:14px','\n(c) 2026 Andrew Fisher. All rights reserved. This design and code are not to be copied or reused without written permission.')}catch(e){}
+const sdsLabels={verified:'Verified SDS',review:'Document under review',label:'Product label needed',article:'Screened article',unassessed:'Awaiting screening'};
+const sdsOutstanding=r=>!['verified','article'].includes(r.status);
+function sdsSearchText(row){
+  return [row.name,row.product,row.supplier,row.code,row.barcode,row.sku,row.owner].filter(Boolean).join(' ')
+}
+function sdsDocument(row){
+  const articleDocs={technical:'Technical data sheet',product:'Product information',guide:'Product safety guide'};
+  let label;
+  if(row.status==='article')label=articleDocs[row.document_type];
+  else if(row.status==='verified')label='Open verified SDS';
+  else if(row.status==='review')label=articleDocs[row.document_type]?articleDocs[row.document_type]+' (under review)':'View SDS under review';
+  if(!label)return '';
+  const local=/^\/sds\/[^/\\?#]+\.pdf$/i.test(row.file||'')?row.file:'';
+  const href=location.protocol==='file:'||STATIC?sdsSource(row.url):(local||sdsSource(row.url));
+  if(!href)return '';
+  return `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}</a>`
+}
+function sdsSource(value){
+  try{const url=new URL(value);return url.protocol==='https:'?url.href:''}catch{return ''}
+}
+function initSds(){
+  const rows=D.sds, query=$('#sds-q'),state=$('#sds-state'),kind=$('#sds-kind'),limit=20;
+  const verified=rows.filter(r=>r.status==='verified').length, articles=rows.filter(r=>r.status==='article').length;
+  const outstanding=rows.filter(sdsOutstanding).length, consumables=rows.filter(r=>r.kind==='consumable').length;
+  $('#sds-coverage').textContent=fmt(consumables)+' consumable lines and '+fmt(rows.length-consumables)+' rental equipment groups in the current register.';
+  stats($('#sds-totals'),[[rows.length,'Catalogue entries'],[verified,'Verified SDS'],[outstanding,'Outstanding'],[articles,'Screened articles']]);
+  const order={verified:0,review:1,label:2,unassessed:3,article:4};
+  const records=rows.map(row=>({row,text:sdsSearchText(row).toLowerCase()})).sort((a,b)=>(order[a.row.status]??3)-(order[b.row.status]??3)||a.row.name.localeCompare(b.row.name));
+  let page=0;
+  function rowHtml(r){
+    const status=sdsLabels[r.status]||sdsLabels.unassessed;
+    const source=sdsSource(r.source), doc=sdsDocument(r);
+    const codes=[r.code,r.sku,r.barcode].filter((v,i,a)=>v&&a.indexOf(v)===i).map(esc).join(' · ');
+    const dates=[r.issued?'Issued '+esc(r.issued):'',r.checked?(r.status==='verified'?'Verified ':'Checked ')+esc(r.checked):''].filter(Boolean).join(' · ');
+    return `<tr><td><b>${esc(r.name)}</b><small>${r.kind==='rental'?'Rental equipment':'Consumable'}${codes?' · '+codes:''}</small></td>
+<td><strong>${esc(status)}</strong>${r.note?'<small>'+esc(r.note)+'</small>':''}</td>
+<td>${r.product?esc(r.product):''}${r.supplier?'<small>'+esc(r.supplier)+'</small>':''}${doc}${source&&(!doc||source!==r.url)?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Supplier reference</a>':''}${dates?'<small>'+dates+'</small>':''}</td></tr>`
+  }
+  function draw(){
+    const words=query.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const matches=records.filter(({row:r,text})=>{
+      if(STATIC)return ['verified','review','label'].includes(r.status)||(r.status==='article'&&sdsDocument(r));
+      return (!kind.value||r.kind===kind.value)&&(!state.value||(state.value==='outstanding'?sdsOutstanding(r):state.value===r.status))&&words.every(w=>text.includes(w))
+    });
+    const total=matches.length;
+    const shown=STATIC?matches:matches.slice(page*limit,(page+1)*limit);
+    $('#sds-count').textContent=STATIC?'Document and product-identification records. Search the live register for the full catalogue.':total?`Showing ${fmt(page*limit+1)}–${fmt(page*limit+shown.length)} of ${fmt(total)} matching entries.`:'No matching entries.';
+    $('#sds-list').innerHTML=shown.length?`<table class="sds-table"><thead><tr><th scope="col">Stock item</th><th scope="col">Register status</th><th scope="col">Document and source</th></tr></thead><tbody>${shown.map(x=>rowHtml(x.row)).join('')}</tbody></table>`:'';
+    $('#sds-pages').hidden=STATIC||total<=limit;
+    $('#sds-prev').disabled=page===0;$('#sds-next').disabled=(page+1)*limit>=total;
+    $('#sds-page').textContent=`Page ${page+1} of ${Math.max(1,Math.ceil(total/limit))}`
+  }
+  query.oninput=state.onchange=kind.onchange=()=>{page=0;draw()};
+  $('#sds-prev').onclick=()=>{page--;draw()};$('#sds-next').onclick=()=>{page++;draw()};
+  draw()
+}
 /* ---------- search anything ---------- */
 if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),box=$('#gs-r'),X=[];let indexed=false;
 function prepareSearch(){
@@ -1699,9 +1787,10 @@ Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.available)}
 D.clines.forEach((l,i)=>add('Consumables',l.name,`${fmt(l.have)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
 const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
+(D.sds||[]).forEach((r,i)=>add('Safety data sheets',r.name,[sdsLabels[r.status],r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r)));
 X.sort((a,b)=>a.n.localeCompare(b.n));indexed=true;
 }
-const ORD=['Tools','Consumables','Item numbers','People','Companies','On hire now'];let sel=-1;
+const ORD=['Tools','Consumables','Safety data sheets','Item numbers','People','Companies','On hire now'];let sel=-1;
 const safe=w=>w.replace(/[^A-Za-z0-9]/g,c=>'\\'+c);
 const highlight=(value,re)=>String(value).split(re).map((part,i)=>i%2?'<mark>'+esc(part)+'</mark>':esc(part)).join('');
 const run=()=>{prepareSearch();const ws=q.value.trim().toUpperCase().split(/\s+/).filter(Boolean);sel=-1;if(!ws.length){box.hidden=true;return}
@@ -1720,7 +1809,15 @@ box.innerHTML=matches.size?ORD.map(g=>{
  return `<h6><span>${g}</span><span>${hit.total>7?'7 of '+fmt(hit.total):hit.total}</span></h6>`+hit.best.flat().slice(0,7).map(x=>`<button class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span><b>${highlight(x.n,re)}</b><small>${highlight(x.sub,re)}</small></span></button>`).join('')}).join(''):`<div class="none">Nothing matches "${esc(q.value.trim())}". Try a name, a company, a tool, an item number or a code.</div>`;box.hidden=false};
 q.addEventListener('input',run);q.addEventListener('focus',run);
 q.addEventListener('keydown',e=>{if(box.hidden)return;const it=$$('.gsi',box);if(e.key=='Escape'){box.hidden=true;q.blur()}else if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(!it.length)return;sel=sel<0?(e.key=='ArrowDown'?0:it.length-1):(sel+(e.key=='ArrowDown'?1:-1)+it.length)%it.length;it.forEach((b,i)=>b.classList.toggle('sel',i==sel));it[sel].scrollIntoView({block:'nearest'})}else if(e.key=='Enter'&&it.length){(it[Math.max(sel,0)]).click()}});
-box.addEventListener('click',e=>{if(e.target.closest('.gsi'))box.hidden=true});
+box.addEventListener('click',e=>{
+ const result=e.target.closest('.gsi');if(!result)return;
+ box.hidden=true;
+ if(result.dataset.open.startsWith('sds:')){
+   e.stopPropagation();const row=D.sds[Number(result.dataset.open.slice(4))];
+   show('sds');$('#sds-state').value='';$('#sds-kind').value=row.kind;
+   const search=$('#sds-q');search.value=row.code||row.name;search.dispatchEvent(new Event('input'));search.focus()
+ }
+});
 document.addEventListener('click',e=>{if(!e.target.closest('#gs'))box.hidden=true});
 const drModalOpen=()=>document.querySelector('dialog[open],#drawer.on,#paperwrap.on,#qrbig.on');
 document.addEventListener('keydown',e=>{if(e.key=='/'&&!drModalOpen()&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable){e.preventDefault();q.focus()}})}
@@ -1890,11 +1987,12 @@ function initStocktake(st) {
   }
 }
 if(!D.stocktake)$('#v-stocktake').remove();
+if(!Array.isArray(D.sds))$('#v-sds').remove();
 
 const CAN_UP=!STATIC&&location.protocol.startsWith('http');if(!CAN_UP)$('#v-upload').remove();
 const views=$$('.view'), tabs=$('#tabs'), ink=$('#ink');
 const initialisers=new Map(Object.entries({onhire:initOnHire,tooling:initTooling,consumables:initConsumables,
-  rhythm:initRhythm,costs:initCosts,people:initPeople,stocktake:()=>initStocktake(D.stocktake)}));
+  rhythm:initRhythm,costs:initCosts,people:initPeople,sds:initSds,stocktake:()=>initStocktake(D.stocktake)}));
 function prepareView(view){
   const id=view.id.slice(2), init=initialisers.get(id);
   if(init){init();initialisers.delete(id)}

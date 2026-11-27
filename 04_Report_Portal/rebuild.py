@@ -173,6 +173,9 @@ def build(job, out):
         cmd += ["--" + flag, os.path.join(job, rel)]
     for flag, value in sorted(spec.get("options", {}).items()):
         cmd += ["--" + flag, str(value)]
+    register = Path(out).parent / "sds" / "register.json"
+    if is_mmg(job) and register.is_file():
+        cmd.extend(["--sds-register", str(register)])
     ledger = Path(out) / "physical_counts.json"
     if ledger.is_file():
         cmd.extend(["--stocktake-ledger", str(ledger)])

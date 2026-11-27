@@ -28,6 +28,7 @@ sys.path.insert(0, HERE)
 import catalogue  # noqa: E402
 import shut_costs  # noqa: E402
 import stocktake  # noqa: E402
+import sds_register  # noqa: E402
 import utilisation  # noqa: E402
 
 
@@ -450,6 +451,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         sku = kit._s(r.get("SKU_NUMBER"))
         clines.append({"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "type": catalogue.cons_category(r.get("SKU_DESCRIPTION")),
                        "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": int(kit._n(r.get("AVAILABLE_QUANTITY"))),
+                       "owner": kit.co_name(r["OWNER"]) if r.get("OWNER") else "",
+                       "stock_quantity": kit._n(r["AVAILABLE_QUANTITY"]) if kit._s(r.get("AVAILABLE_QUANTITY")) else None,
                        "min": int(mm[sku][0]) if sku in mm else None, "max": int(mm[sku][1]) if sku in mm else None,
                        "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
                        "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
@@ -925,6 +928,7 @@ def main(argv=None):
     ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
+    ap.add_argument("--sds-register", help="job-specific reviewed stock-to-SDS mapping (JSON, with local copies in adjacent pdfs/)")
     ap.add_argument("--variant-history", help="dated rental fleet and on-hire totals by variant")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
@@ -949,6 +953,10 @@ def main(argv=None):
         missed = plain_tool_names(data, a.tool_names)
         if missed:
             print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
+    site = kit.the_site(a.kit_folder)
+    if site.customer.strip().casefold() == "mmg" and "dugald river" in site.location.casefold():
+        register = a.sds_register or os.path.join(a.kit_folder, "..", "sds", "register.json")
+        data["sds"] = sds_register.build(data, register)
     got = named_pictures(data)
     if got:
         print("Pictures    {} more tool(s) matched by the name on the picture file".format(got))
