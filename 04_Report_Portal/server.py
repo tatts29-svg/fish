@@ -51,6 +51,7 @@ import qr_brand
 import upload_receipt
 import qr_roster
 import qr_work_notes
+import worker_register
 from report_delivery import ReportCache, accepts_gzip
 from mobile_brand import MOBILE_HEAD, MOBILE_FILES, public_asset
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
@@ -643,6 +644,8 @@ class Handler(BaseHTTPRequestHandler):
             return qr_access.serve(self, DATA_DIR, JOB_DIR)
         if path == "/upload/qr-reports" and is_mmg(JOB_DIR):
             return self._qr_admin()
+        if path == "/upload/worker-register.xlsx" and is_mmg(JOB_DIR):
+            return self._worker_register()
         if path == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries()
         if path == "/stocktake/shift-review" and is_mmg(JOB_DIR):
@@ -755,7 +758,8 @@ class Handler(BaseHTTPRequestHandler):
             except sqlite3.Error:
                 return self._send(503, b"QR work milestones are temporarily unavailable.", "text/plain")
             headers = (("X-Roster-Add-Endpoint", "/upload/qr-roster-add.xlsx"),) if role == "manager" else ()
-            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR), notes,
+            stamp = worker_register.updated(DATA_DIR) if role == "manager" else None
+            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR), notes, register_updated=stamp,
                                                 mmg_logo=qr_brand.public_mmg_logo(JOB_DIR)),
                               "text/html; charset=utf-8", headers=headers)
         body = self._body(12 * 1024 * 1024)
@@ -767,6 +771,30 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError("Use the dedicated additive roster endpoint for adding worker badges.")
             result = qr_roster.import_roster(DATA_DIR, body, confirmed_mmg=self.headers.get("X-Confirm-MMG") == "1",
                                              add_only=add_only)
+        except ValueError as exc:
+            return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
+        return self._send(200, json.dumps(result).encode(), "application/json")
+
+    def _worker_register(self):
+        write = self.command == "PUT"
+        role = self._role(cookie=write, page=not write)
+        if not role:
+            return
+        if role != "manager":
+            return self._send(403, b"Manager access required.", "text/plain")
+        if not write:
+            try:
+                with open(os.path.join(DATA_DIR, worker_register.FILE), "rb") as f:
+                    body = f.read()
+            except FileNotFoundError:
+                return self._send(404, b"No worker register has been uploaded.", "text/plain")
+            return self._send(200, body, worker_register.MIME,
+                              headers=(("Content-Disposition", 'attachment; filename="MMG_Full_Worker_Register.xlsx"'),))
+        body = self._body(qr_roster.MAX_BYTES)
+        if body is None:
+            return
+        try:
+            result = worker_register.install(DATA_DIR, body)
         except ValueError as exc:
             return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
         return self._send(200, json.dumps(result).encode(), "application/json")
@@ -1101,6 +1129,8 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0]
         if path in ("/upload/qr-roster.xlsx", "/upload/qr-roster-add.xlsx") and is_mmg(JOB_DIR):
             return self._qr_admin(add_only=path == "/upload/qr-roster-add.xlsx")
+        if path == "/upload/worker-register.xlsx" and is_mmg(JOB_DIR):
+            return self._worker_register()
         if path == "/upload/sds-label-check.zip" and is_mmg(JOB_DIR):
             return self._label_check_pack()
         if path == "/upload/swms.zip" and is_mmg(JOB_DIR):

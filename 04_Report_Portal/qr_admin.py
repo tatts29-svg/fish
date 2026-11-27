@@ -18,13 +18,18 @@ def _milestones(notes):
             + '<p role="status" id="note-result"></p></section>')
 
 
-def page(role, roster, notes=(), *, mmg_logo=None):
+def page(role, roster, notes=(), *, mmg_logo=None, register_updated=None):
     from qr_brand import PORTAL_MASTHEAD_CSS, portal_masthead
     linked = int(roster.get("linked") or 0)
     if linked:
         status = f"{linked:,} worker{'s' if linked != 1 else ''} linked to a barcode."
     else:
         status = "The personal report is waiting for the MMG worker barcode roster."
+    register_link = ""
+    if role == "manager" and register_updated is not None:
+        stamp = register_updated.strftime("%d %b %Y, %H:%M AEST")
+        register_link = ('<p><a class="button" href="/upload/worker-register.xlsx">Download full worker register</a></p>'
+                         f'<p>Register updated {escape(stamp)}.</p>')
     manager_form = """
       <form id="roster">
         <label for="file">MMG SiteIQ hirer roster (.xlsx)</label>
@@ -55,7 +60,7 @@ summary{cursor:pointer}details{margin-top:.75rem}#result:empty{display:none}#res
 <main><h1>QR reports and posters</h1><p>Print each poster in colour on A4 at actual size. Each code opens its own report area.</p>
 <div class="posters"><article><h2>Company on-hire report</h2><p>Scan the poster, choose a company and see its equipment and work history.</p><a class="button" href="/upload/report-qr/company.pdf">Download company poster</a></article>
 <article class="personal"><h2>Personal on-hire report</h2><p>Workers scan the poster and enter their own barcode to see their gear and tool-store history.</p><a class="button" href="/upload/report-qr/personal.pdf">Download personal poster</a></article></div>
-<section><h2>Worker barcode access</h2><p class="roster-state" id="roster-state">""" + escape(status) + """</p>""" + manager_form + """</section>""" + (_milestones(notes) if role == "manager" else "") + """
+<section><h2>Worker barcode access</h2><p class="roster-state" id="roster-state">""" + escape(status) + """</p>""" + register_link + manager_form + """</section>""" + (_milestones(notes) if role == "manager" else "") + """
 <p class="footer"><a href="/upload">Return to Update data</a></p></main>
 <script>
 const milestones=document.getElementById('milestones');
