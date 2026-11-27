@@ -107,6 +107,18 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
     left, right = 37, WIDTH-37
     key_colour = "#4C5660"
     line_colour = "#BBC1C5"
+
+    # Keep the entire outer stroke at least 6.7 mm inside each A4 edge.
+    # The bands meet the frame without intruding into the QR quiet zone.
+    frame = 20
+    rail = 1.8
+    inside = frame + rail/2
+    inside_width = WIDTH - 2*inside
+    pdf.setStrokeColor(HexColor(SLATE))
+    pdf.setLineWidth(rail)
+    pdf.rect(frame, frame, WIDTH-2*frame, HEIGHT-2*frame, stroke=1, fill=0)
+    pdf.setFillColor(HexColor(ORANGE))
+    pdf.rect(frame-rail/2, HEIGHT-frame-2.7, 112, 2.7+rail/2, stroke=0, fill=1)
     # Project identity is distinct from the worker instructions and the invitation.
     draw_coates(pdf, left, HEIGHT-61, 93)
     pdf.setStrokeColor(HexColor(line_colour))
@@ -125,13 +137,15 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
     pdf.setFillColor(HexColor(key_colour))
     pdf.setFont(regular, 10.5)
     pdf.drawRightString(right, HEIGHT-63, "Shutdown tool store")
-    _rule(pdf, left, right, HEIGHT-87, line_colour)
+    pdf.setFillColor(HexColor(SLATE))
+    pdf.rect(inside, HEIGHT-194, inside_width, 107, stroke=0, fill=1)
+    pdf.setFillColor(HexColor(ORANGE))
+    pdf.rect(inside, HEIGHT-197, inside_width, 3, stroke=0, fill=1)
 
-    _text(pdf, left-1, HEIGHT-145, TITLE[kind], bold, 39, INK, -1.35)
+    _text(pdf, left-1, HEIGHT-145, TITLE[kind], bold, 39, "#FFFFFF", -1.35)
     intro = ("View your company’s equipment on hire and its work history at Dugald River."
              if company else "See what is on hire to you, your returns and your tool-store history.")
-    _text(pdf, left, HEIGHT-174, intro, regular, 13.5, key_colour)
-    _rule(pdf, left, right, HEIGHT-197, ORANGE, 1.6)
+    _text(pdf, left, HEIGHT-174, intro, regular, 13.5, "#E6EBF2")
 
     # Read instructions in their natural order on the left. The unframed QR on the
     # right is 107 mm square including its four-module white quiet zone.
@@ -150,8 +164,11 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
     _text(pdf, left, HEIGHT-469, "Report options", bold, 11, INK)
     _lines(pdf, left, 486, ("Print, save as a PDF, share or email.",), regular, 10.7, 15, key_colour)
 
-    _rule(pdf, left, right, HEIGHT-515, "#535C63", 1)
-    _text(pdf, left, HEIGHT-547, "Equipment returns", bold, 19, INK, -.5)
+    pdf.setFillColor(HexColor("#F6E9DD"))
+    pdf.rect(inside, HEIGHT-556, inside_width, 41, stroke=0, fill=1)
+    pdf.setFillColor(HexColor(ORANGE))
+    pdf.rect(inside, HEIGHT-556, 3, 41, stroke=0, fill=1)
+    _text(pdf, left, HEIGHT-543, "Equipment returns", bold, 19, INK, -.5)
     labels_x = left
     data_x = left+182
     if company:
