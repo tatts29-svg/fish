@@ -311,6 +311,12 @@ def _load_pack(zip_path):
                 pass
         with open(os.path.join(new, hist), "w", encoding="utf-8") as f:
             json.dump([pts[k] for k in sorted(pts)], f, indent=1)
+    # the exports already on the site are newer than any in the pack: carry them over
+    live = os.path.join(JOB_DIR, "kit", "Data_SiteIQ")
+    if os.path.isdir(live):
+        os.makedirs(os.path.join(new, "kit", "Data_SiteIQ"), exist_ok=True)
+        for name in os.listdir(live):
+            shutil.copyfile(os.path.join(live, name), os.path.join(new, "kit", "Data_SiteIQ", name))
     with _build_lock:
         old = os.path.join(DATA_DIR, ".job-old")
         shutil.rmtree(old, ignore_errors=True)

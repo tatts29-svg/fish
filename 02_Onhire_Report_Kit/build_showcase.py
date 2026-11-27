@@ -192,13 +192,41 @@ def tag_kind(r):
     return None
 
 
+def _safe_name(name):
+    """A tool name as it is spelt in a picture file name."""
+    return " ".join(re.sub(r'[\\/:*?"<>|]', "-", str(name)).split()).lower()
+
+
+def named_pictures(data):
+    """Give tools that still have no picture one saved under their clean name."""
+    pix = data.get("_pix")
+    if not pix or not pix.named:
+        return 0
+    n = 0
+    for t in data["tools"].values():
+        if t.get("pic") is None:
+            bare = re.sub(r"\s*\([^)]*Owned\)$", "", t["name"])
+            tags = [v for v in str(t.get("var") or "").split(", ") if v] + ["COATES"] if t.get("own") == "Coates" else [t.get("own") or ""]
+            t["pic"] = pix.by_name(bare, tags)
+            n += t["pic"] is not None
+    tools = data["tools"]
+    for t in data.get("tools_util") or []:
+        if t.get("pic") is None and tools.get(t.get("dk")):
+            t["pic"] = tools[t["dk"]].get("pic")
+    for cat in (data.get("cat") or {}).get("tools", []):
+        for k in cat.get("kinds", []):
+            if k.get("pic") is None:
+                k["pic"] = next((tools[d]["pic"] for d in k.get("d") or [] if tools.get(d) and tools[d].get("pic") is not None), None)
+    return n
+
+
 class Pictures(object):
     """Tool pictures from a pictures pack (a folder with an index CSV that has
     'Product variant' and 'File in this package' columns), matched to SiteIQ's
     PRODUCT_VARIANT. Kept outside git. Radios and radio batteries get none."""
 
     def __init__(self, folder, side=112):
-        self.files, self.used, self.order, self.side, self.folder = {}, {}, [], side, folder
+        self.files, self.used, self.order, self.side, self.folder, self.named = {}, {}, [], side, folder, {}
         if not folder or not os.path.isdir(folder):
             return
         import csv
@@ -209,6 +237,28 @@ class Pictures(object):
                         v, p = (row.get("Product variant") or "").strip().upper(), (row.get("File in this package") or "").strip()
                         if v and p and os.path.isfile(os.path.join(folder, p)):
                             self.files.setdefault(v, p)
+        # pictures saved as "<clean name> [<tag>].jpg" anywhere in the folder: the tag is the
+        # product variant, COATES, or the owner's name for client-owned gear
+        indexed = {os.path.normpath(p) for p in self.files.values()}
+        for root, _, names in os.walk(folder):
+            for name in sorted(names):
+                m = re.match(r"^(.+?)\s*\[([^\]]*)\]\.(jpe?g|png)$", name, re.I)
+                rel = os.path.normpath(os.path.relpath(os.path.join(root, name), folder))
+                if m and rel not in indexed:
+                    self.named.setdefault((_safe_name(m.group(1)), _safe_name(m.group(2))), rel)
+
+    def by_name(self, name, tags):
+        """An index for a picture saved under a tool's clean name and one of these tags, or None."""
+        for tag in tags:
+            rel = self.named.get((_safe_name(name), _safe_name(tag)))
+            if rel:
+                key = "file:" + rel
+                if key not in self.used:
+                    self.files[key] = rel
+                    self.used[key] = len(self.order)
+                    self.order.append(key)
+                return self.used[key]
+        return None
 
     def of(self, row):
         """An index into the page's picture list for this stock row, or None."""
@@ -831,6 +881,9 @@ def main(argv=None):
         missed = plain_tool_names(data, a.tool_names)
         if missed:
             print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
+    got = named_pictures(data)
+    if got:
+        print("Pictures    {} more tool(s) matched by the name on the picture file".format(got))
     for cat in (data.get("cat") or {}).get("cons", []):          # the consumables browser and past draws, same style
         for k in cat.get("kinds", []):
             k["name"] = catalogue.house_cons(k["name"])
@@ -851,10 +904,19 @@ def main(argv=None):
         from PIL import Image
         with open(os.path.join(a.cons_pictures, "index.csv"), encoding="utf-8-sig", newline="") as f:
             use = {r["Code"].strip(): r["File"].strip() for r in csv.DictReader(f) if r.get("Use on the page", "").strip().lower() == "yes"}
+        raw = set()                                   # extra photos saved as "<name> [<code>].jpg": set on the stage here
+        for name in sorted(os.listdir(a.cons_pictures)):
+            m_ = re.match(r"^.+\[(\d{6,})\]\.(jpe?g|png)$", name, re.I)
+            if m_ and m_.group(1) not in use and name not in use.values():
+                use[m_.group(1)] = name
+                raw.add(name)
         for ln in data["clines"]:
             path = os.path.join(a.cons_pictures, use.get(ln.get("code") or "", "-"))
             if os.path.isfile(path):
                 im = Image.open(path).convert("RGB")
+                if os.path.basename(path) in raw and min(im.getpixel((2, 2))) > 200:      # a plain product photo on white
+                    import style_pictures
+                    im = style_pictures.styled(im).convert("RGB")
                 im.thumbnail((140, 140), Image.LANCZOS)
                 buf = io.BytesIO()
                 im.save(buf, "JPEG", quality=80, optimize=True)
