@@ -67,12 +67,25 @@ class ScopedPdfTests(unittest.TestCase):
                  coverage={"period_start": "2026-11-20", "period_end": "2026-11-28",
                            "transaction_periods": [{"start": "2026-11-20", "end": "2026-11-22"},
                                                    {"start": "2026-11-26", "end": "2026-11-28"}]},
-                 history=[], unselected_people=["DO NOT EXPORT"])
+                 history=[], unselected_people=["DO NOT EXPORT"],
+                 work_notes=[{"date":"2026-11-25","title":"PRIVATE COMPANY NOTE","description":"PRIVATE"}])
         pdf = self.output(r)
         for part in [b"Pat Example", b"Creek & Valley", b"Disposable gloves", b"3 units per draw day",
                      b"measure unavailable", b"Due dates were unavailable", b"Daily activity"]:
             self.assertIn(part, pdf)
         self.assertNotIn(b"DO NOT EXPORT", pdf)
+        self.assertNotIn(b"PRIVATE COMPANY NOTE", pdf)
+        self.assertIn(b"Currently on hire to you", pdf)
+        for section in (b"Record coverage", b"Daily activity", b"Return activity", b"Consumables drawn"):
+            self.assertLess(pdf.index(b"ITEM-0000"), pdf.index(section))
+        period = dict(current=True, schedule="Current verified shutdown", first_date="2026-11-26",
+                      last_date="2026-11-26", activity_days=1, issues=1, returned=1, consumable_units=3,
+                      consumable_returns=0, activity=r["activity"], equipment=[], consumables=[], coverage={})
+        story_pdf = self.output(dict(r, story=[period]))
+        self.assertLess(story_pdf.index(b"ITEM-0000"), story_pdf.index(b"This shutdown"))
+        zero = self.output(dict(r, hires=[], hire_count=0, story=[period]))
+        self.assertLess(zero.index(b"You have no equipment currently on hire"), zero.index(b"This shutdown"))
+
         self.assertNotIn(b"/ 5", pdf)
         self.assertIn(b"20 Nov 2026 to 22 Nov 2026", pdf)
         self.assertIn(b"26 Nov 2026 to 28 Nov 2026", pdf)
@@ -89,6 +102,24 @@ class ScopedPdfTests(unittest.TestCase):
         insufficient = self.output(r)
         self.assertIn(b"Insufficient comparison data", insufficient)
         self.assertNotIn(b"15 other recorded borrowers", insufficient)
+
+    def test_attributed_notes_and_shutdown_story_use_only_the_selected_company(self):
+        r = projection(2)
+        day = {"date": "2026-11-26", "issued": 3, "returned": 2, "consumable_units": 4, "consumable_returns": 0}
+        current = dict(schedule="MMG Shutdown Novermber26-December26", current=True, first_date=day["date"],
+                       last_date=day["date"], activity_days=1, issues=3, returned=2, consumable_units=4,
+                       consumable_returns=0, activity=[day], equipment=[dict(name="Rigging shackle", issued=3, returned=2)],
+                       consumables=[dict(name="Group gloves", quantity=4, returned=0)], coverage={},
+                       worker_names=["PRIVATE FIELD"])
+        r["story"] = [current, dict(current, schedule="Earlier verified shutdown", current=False)]
+        r["work_notes"] = [dict(date="2026-11-26", title="Compressor service", description="Changed inlet filter.",
+                                private_internal_field="PRIVATE COMMENT")]
+        pdf = self.output(r)
+        for field in [b"This shutdown", b"Daily tool movements", b"Group gloves", b"Rigging shackle",
+                      b"Earlier verified shutdown", b"Company work notes", b"Work descriptions supplied by the company",
+                      b"Compressor service", b"Changed inlet filter"]:
+            self.assertIn(field, pdf)
+        self.assertNotIn(b"PRIVATE", pdf)
 
     def test_generic_or_unscoped_inputs_are_rejected(self):
         for r in ({}, {"kind": "company", "name": ""}, {"kind": "inventory", "name": "full"}):

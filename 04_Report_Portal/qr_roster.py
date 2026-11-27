@@ -13,6 +13,8 @@ from collections import defaultdict
 
 import openpyxl
 
+from qr_identity import IdentityIndex
+
 from upload_policy import MMG_PROJECT, MMG_SCHEDULE, check_workbook
 
 MAX_BYTES = 12 * 1024 * 1024
@@ -90,24 +92,11 @@ def _evidence(root):
         return {}
     if facts.get('schedule') != MMG_SCHEDULE:
         raise ValueError('The current private report has no verified MMG schedule.')
-    evidence = defaultdict(lambda: defaultdict(set))
-    workers = facts.get('workers')
-    if workers is None:
-        workers = (row for group in ('hires', 'movements', 'draws') for row in facts.get(group, []))
-    for row in workers:
-        name = row.get('hirer', '')
-        employer = row.get('employer', '')
-        if not name or not employer:
-            continue
-        ids = evidence[(_normal(name), _normal(employer))][name, employer]
-        if row.get('hirer_id'):
-            ids.add(row['hirer_id'])
-    return evidence
+    return facts
 
 
 def _parse(root, body, confirmed):
-    records = []
-    skipped = 0
+    raw = []
     with contextlib.closing(_open(body)) as book:
         stamped = 'REFERENCE_INFO' in book.sheetnames
         if stamped:
@@ -137,9 +126,6 @@ def _parse(root, body, confirmed):
             raise ValueError('Confirm that this unstamped hirer roster belongs to MMG Dugald River.')
         if attested_only and 'status' not in fields:
             raise ValueError('An unstamped native hirer roster needs its Status column.')
-        evidence = _evidence(root)
-        if attested_only and not evidence:
-            raise ValueError('Load current MMG report data before linking an unstamped roster.')
         for row_no, cells in enumerate(rows, 1):
             if row_no > MAX_ROWS:
                 raise ValueError('The roster exceeds the worksheet limits.')
@@ -154,28 +140,45 @@ def _parse(root, body, confirmed):
                 raise ValueError('A roster row does not identify MMG Dugald River Mine.')
             name, employer = get(name_key), get(co_key)
             badges = tuple(dict.fromkeys(s for s in (get('hirer barcode'), get('external id')) if s))
-            if not name or not employer:
-                skipped += 1
-                continue
-            pair = (_normal(name), _normal(employer))
-            candidates = evidence.get(pair, {})
-            if attested_only and not candidates:
-                skipped += 1
-                continue
-            exact_ids = set()
-            if len(candidates) == 1:
-                (name, employer), exact_ids = next(iter(candidates.items()))
-            person_id = get('hirer id')
-            ids = exact_ids | ({person_id} if person_id else set())
             status = _normal(get('status'))
             inactive = status in {'inactive', 'disabled', 'archived', 'deactivated', 'suspended', 'terminated', 'blocked'}
-            conflicting = len(candidates) > 1 or len(ids) > 1 or status not in {'', 'active', 'enabled', 'current'} and not inactive
-            if not badges and not inactive and not conflicting:
+            raw.append(dict(hirer=name, company=employer, hirer_id=get('hirer id'), badges=badges,
+                            inactive=inactive, conflicting=status not in {'', 'active', 'enabled', 'current'} and not inactive))
+
+    facts = _evidence(root)
+    if attested_only and not any(facts.get(k) for k in ('workers','hires','movements','draws')):
+        raise ValueError('Load current MMG report data before linking an unstamped roster.')
+    # Index the whole workbook before job or activity filters. Even a worker
+    # outside the job, or an incomplete row, can hold a disputed credential.
+    index = IdentityIndex(facts, raw)
+    claims = defaultdict(set)
+    records = []
+    skipped = 0
+    for person in raw:
+        complete = bool(person['hirer'] and person['company'])
+        owner = _pair(person) if complete else None
+        if not complete or (attested_only and not index.has_activity(person)):
+            skipped += 1
+        else:
+            matched = index.match(person)
+            row = dict(person)
+            if matched is None:
+                # An explicit inactive status is itself a revocation, not a
+                # conflict unless its identity/credentials are also disputed.
+                row['conflicting'] |= (not row['inactive']
+                                        or (row['hirer'],row['company']) in index.ambiguous)
+            elif matched:
+                if len(matched) == 1:
+                    row['hirer'], row['company'] = next(iter(matched))
+                row['hirer_id'] = row['hirer_id'] or next(iter(index.native_ids(matched)), '')
+                owner = _pair(row)
+            if row['badges'] or row['inactive'] or row['conflicting']:
+                records.append(row)
+            else:
                 skipped += 1
-                continue
-            records.append(dict(hirer=name, company=employer, hirer_id=next(iter(ids), ''),
-                                badges=badges, inactive=inactive, conflicting=conflicting))
-    return kind, records, skipped
+        for code in person['badges']:
+            claims[code].add(owner)
+    return kind, records, skipped, claims
 
 
 def _pair(person):
@@ -186,12 +189,22 @@ def _badges(person):
     return {s for s in (person.get('barcode'), *person.get('barcodes', [])) if s}
 
 
-def _merge(kind, records, old):
+def _merge(kind, records, old, claims):
     # On-hire exports cover current holders only. They cannot revoke an absent
     # worker or reinstate a badge previously disabled by a full roster.
     partial = kind == 'ON_HIRE'
     blocked = set(old.get('blocked_barcodes', [])) if partial else set()
     disabled = {tuple(k) for k in old.get('disabled_pairs', [])} if partial else set()
+    # A partial export also has to agree with retained badge holders. For a
+    # revocation-only workbook the old directory is the set we may preserve.
+    if partial or not records:
+        for p in old.get('people', []):
+            if p.get('active') is not False:
+                for code in _badges(p):
+                    claims[code].add(_pair(p))
+    ambiguous = {code for code, owners in claims.items() if None in owners or len(owners) > 1}
+    if not records and not any(_badges(p) & ambiguous for p in old.get('people', [])):
+        raise ValueError('No eligible MMG badge records were found. The directory was preserved.')
     groups = defaultdict(list)
     if partial:
         for p in old.get('people', []):
@@ -212,6 +225,7 @@ def _merge(kind, records, old):
             rejected.add(pk)
             continue
         groups[pk].append(r)
+    blocked.update(ambiguous)
     candidates = {}
     conflicts = set()
     for pk, rows in groups.items():
@@ -226,7 +240,7 @@ def _merge(kind, records, old):
             shared.intersection_update(r['badges'])
         disputed = len(ids) > 1 or (len(rows) > 1 and not shared and
                                      not (len(ids) == 1 and all(r['hirer_id'] for r in rows)))
-        if disputed or any(r['conflicting'] for r in rows):
+        if disputed or codes & ambiguous or any(r['conflicting'] for r in rows):
             conflicts.add(pk)
         if pk in disabled or pk in conflicts:
             blocked.update(codes)
@@ -337,17 +351,15 @@ def status(data_dir):
 def import_roster(data_dir, body_bytes, *, confirmed_mmg=False):
     root = Path(data_dir)
     try:
-        kind, records, skipped = _parse(root, body_bytes, confirmed_mmg)
+        kind, records, skipped, claims = _parse(root, body_bytes, confirmed_mmg)
     except ValueError:
         raise
     except Exception as exc:
         raise ValueError('Choose a readable SiteIQ Excel workbook.') from exc
-    if not records:
-        raise ValueError('No eligible MMG badge records were found. The directory was preserved.')
     root.mkdir(parents=True, exist_ok=True)
     with (root / '.qr-roster.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        people, blocked, disabled, excluded, conflicts = _merge(kind, records, _load(root))
+        people, blocked, disabled, excluded, conflicts = _merge(kind, records, _load(root), claims)
         updated = dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
         data = dict(schedule=MMG_SCHEDULE, people=people, updated=updated, kind=kind,
                     disabled_pairs=disabled, blocked_barcodes=blocked)

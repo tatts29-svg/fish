@@ -70,6 +70,7 @@
     $("report").hidden = true;
     $("report-body").replaceChildren();
     $("report-heading").textContent = "";
+    $("hero-count").textContent = "";
     $("report-subtitle").textContent = "";
     $("pull").textContent = "SiteIQ pull time available with the report.";
     $("lookup").hidden = false;
@@ -161,11 +162,33 @@
     if (count !== null) header.append(el("span","badge",fmt(count)));
     d.append(header); return d;
   }
-  function hires(parent,r) {
-    const panel = section(parent,personal ? "Gear on your card" : "Gear on hire",
-      r.asat ? "On-hire position at " + when(r.asat) + " AEST. Open a tool to see its asset numbers and recorded issue times." : "Open a tool to see its asset numbers and recorded issue times.",true);
-    if (!r.hires.length) {panel.append(el("p","empty",personal ? "No gear is recorded on hire to your card." : "No gear is recorded on hire to this company.")); return;}
+  function personalHires(parent,r) {
+    const panel=section(parent,"Currently on hire to you",null,true);
+    panel.id="current-gear";panel.tabIndex=-1;panel.classList.add("personal-hires");
+    const captured=r.asat ? "SiteIQ rental stock at "+when(r.asat)+" AEST" : "SiteIQ rental stock time unavailable";
+    panel.append(el("p","note",captured));
+    if (!r.hires.length) {
+      panel.append(el("p","no-holdings","No equipment was recorded on hire to you at this stock pull."));
+      return;
+    }
     for (const tool of r.hires) {
+      const group=el("section","holding-group");
+      const title=el("h3","",tool.name);
+      if(tool.count>1) title.append(el("span","badge",units(tool.count,"asset")));
+      group.append(title);
+      table(group,["Asset number","On hire since (AEST)"],tool.items.map(a=>[
+        a.item || "Number unavailable",when(a.date,a.time) || "Issue date unavailable"
+      ]));
+      panel.append(group);
+    }
+  }
+  function hires(parent,r) {
+    const panel = section(parent,"Gear on hire",
+      r.asat ? "On-hire position at " + when(r.asat) + " AEST. Open a tool to see its asset numbers and recorded issue times." : "Open a tool to see its asset numbers and recorded issue times.",true);
+    panel.id="current-gear";panel.tabIndex=-1;
+    if (!r.hires.length) {panel.append(el("p","empty","No gear is recorded on hire to this company.")); return;}
+    const more = r.hires.length>6 ? group("More tool descriptions",r.hires.length-5) : null;
+    for (const [index,tool] of r.hires.entries()) {
       const d = group(tool.name,tool.count);
       const items = el("ul","data-list");
       for (const asset of tool.items) {
@@ -173,8 +196,10 @@
         line.append(el("span","label",asset.item || "Asset number unavailable"),el("span","date",when(asset.date,asset.time) || "Issue time unavailable"));
         items.append(line);
       }
-      d.append(items); panel.append(d);
+      d.append(items);
+      (more && index>=5 ? more : panel).append(d);
     }
+    if (more) {more.classList.add("more-tools");panel.append(more);}
   }
   function returnsPanel(parent, r) {
     const ret = r.returns;
@@ -227,62 +252,244 @@
       table(d,["Consumable","Issued","Returned"],r.consumables.map(c => [c.name,fmt(c.quantity),fmt(c.returned)]),[1,2]); panel.append(d);
     } else {panel.append(el("p","empty","No consumable lines were found for your card in this export."));}
   }
-  function activityPanel(parent,r) {
-    const panel = section(parent,"Your tool-store timeline","Each date is supported by a recorded transaction. These records do not establish site attendance.",true);
-    if (!r.activity.length) {panel.append(el("p","empty","No dated transactions were found for your card.")); return;}
-    const events = el("ol","timeline");
-    for (const day of [...r.activity].sort((a,b) => b.date.localeCompare(a.date))) {
-      const li = el("li");
-      const values = [[day.issued,"tool issues"],[day.returned,"tool returns"],[day.consumable_units,"consumable units issued"],[day.consumable_returns,"consumable units returned"]]
-        .filter(([qty]) => finite(qty) && qty > 0).map(([qty,label]) => fmt(qty)+" "+label);
-      li.append(el("strong","",when(day.date)),el("p","sub",values.join(" · ") || "Transaction recorded"));
+  const units = (value, one, many = one + "s") => fmt(value) + " " + (value === 1 ? one : many);
+  const shortDay = value => when(value).split(" ").slice(0,2).join(" ");
+  function spanOf(first, last) {
+    if (!first || !last) return "";
+    if (first === last) return when(first);
+    return (first.slice(0,4) === last.slice(0,4) ? shortDay(first) : when(first)) + " – " + when(last);
+  }
+  function dailyWords(d) {
+    return [[d.issued,"tool issue"],[d.returned,"tool return"],[d.consumable_units,"consumable unit issued","consumable units issued"],[d.consumable_returns,"consumable unit returned","consumable units returned"]]
+      .filter(([n])=>finite(n) && n>0).map(([n,one,many])=>units(n,one,many)).join(" · ");
+  }
+  function svgNode(tag,attrs={}) {
+    const g=document.createElementNS("http://www.w3.org/2000/svg",tag);
+    for(const [k,v] of Object.entries(attrs)) g.setAttribute(k,v);
+    return g;
+  }
+  function movementChart(parent, activity) {
+    const days=[...activity].sort((a,b)=>a.date.localeCompare(b.date)).slice(-7);
+    if (!days.length) return;
+    const toolDays=days.some(d=>d.issued>0 || d.returned>0);
+    const series=toolDays ? ["issued","returned"] : ["consumable_units","consumable_returns"];
+    const maximum=Math.max(...days.flatMap(d=>series.map(k=>d[k]||0)));
+    if (!(maximum>0)) return;
+    const power=10**Math.floor(Math.log10(maximum));
+    const step=[1,2,5,10].map(n=>n*power).find(n=>n>=maximum);
+    const top=16, bottom=111, left=30, right=424, band=(right-left)/days.length;
+    const figure=el("figure","movement-figure");
+    const cap=el("figcaption");
+    cap.append(el("strong","",toolDays ? "Tool movements" : "Consumable movements"),el("span","",days.length===1 ? "One recorded date" : "Latest "+units(days.length,"recorded date")));
+    figure.append(cap);
+    const chart=svgNode("svg",{viewBox:"0 0 434 140",role:"img","aria-label":(toolDays?"Tool":"Consumable")+" issues and returns by date. "+days.map(d=>shortDay(d.date)+", "+fmt(d[series[0]])+" issued and "+fmt(d[series[1]])+" returned").join(". ")});
+    const defs=svgNode("defs");
+    const colours=[["#96431f","#ff954b","#ffc293","#ed672b","#9f3d16"],["#69727f","#b9c7d5","#eef3f7","#9ba9b9","#626e7e"]];
+    colours.forEach((cs,index)=>{
+      const gradient=svgNode("linearGradient",{id:"movement-"+index});
+      ["0%","19%","39%","67%","100%"].forEach((offset,i)=>gradient.append(svgNode("stop",{offset,"stop-color":cs[i]})));
+      defs.append(gradient);
+    });
+    chart.append(defs);
+    for (const tick of [0, ...(step%2===0?[step/2]:[]), step]) {
+      const y=bottom-(bottom-top)*tick/step;
+      chart.append(svgNode("line",{x1:left,y1:y,x2:right,y2:y,class:"chart-rule"}));
+      const label=svgNode("text",{x:left-5,y:y+4,"text-anchor":"end",class:"axis-value"});label.textContent=fmt(tick);chart.append(label);
+    }
+    days.forEach((day,i)=>{
+      const mid=left+band*(i+.5),w=Math.min(band*.25,18);
+      series.forEach((key,j)=>{
+        const n=day[key]||0;
+        if (n<=0) return;
+        const height=(bottom-top)*n/step, y=bottom-height, x=mid+(j===0 ? -w-1.2 : 1.2);
+        const bar=svgNode("g");
+        const cap=Math.min(2,height*.17);
+        bar.append(svgNode("rect",{x,y:y+cap,width:w,height:Math.max(0,height-cap*2),fill:"url(#movement-"+j+")"}));
+        bar.append(svgNode("ellipse",{cx:x+w/2,cy:bottom-cap,rx:w/2,ry:cap,fill:"url(#movement-"+j+")"}));
+        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:j===0?"#ffb37e":"#d4dfe7"}));
+        if(height>=13 && w>=7){
+          bar.append(svgNode("line",{x1:x+w*.24,y1:y+cap*2,x2:x+w*.24,y2:bottom-cap*2,stroke:"white","stroke-opacity":".32","stroke-width":".65"}));
+          const bubble=svgNode("circle",{cx:x+w*.62,cy:y+7,r:Math.min(1.5,w*.1),class:"chart-bubble"});
+          bar.append(bubble);
+        }
+        chart.append(bar);
+      });
+      const l=svgNode("text",{x:mid,y:131,"text-anchor":"middle",class:"axis-date"});
+      l.textContent=shortDay(day.date);chart.append(l);
+    });
+    figure.append(chart);
+    const legend=el("div","movement-legend");
+    legend.append(el("span","key-issue","Issued"),el("span","key-return","Returned"));figure.append(legend);
+    parent.append(figure);
+  }
+  function itemMix(parent,summary) {
+    for (const [title,lines,keys] of [
+      ["Tool issues and returns by description",summary.equipment||[],["issued","returned"]],
+      ["Consumables issued and returned",summary.consumables||[],["quantity","returned"]]
+    ]) {
+      if (!lines.length) continue;
+      const d=group(title,lines.length);
+      table(d,["Description","Issued","Returned"],lines.map(t=>[t.name,fmt(t[keys[0]]),fmt(t[keys[1]])]),[1,2]);
+      parent.append(d);
+    }
+  }
+  function activityTable(parent,days) {
+    if (!days.length) return;
+    const d=group("Daily tool-store record",days.length);
+    const events=el("ol","timeline");
+    for(const day of [...days].sort((a,b)=>b.date.localeCompare(a.date))) {
+      const li=el("li");
+      li.append(el("strong","",when(day.date)),el("p","sub",dailyWords(day)||"Transaction recorded"));
       events.append(li);
     }
-    panel.append(events);
+    d.append(events);parent.append(d);
+  }
+  function recordedPeriod(parent,cov) {
+    if (!cov) return;
+    const dates=(cov.transaction_periods ?? [{start:cov.period_start,end:cov.period_end}]).filter(p=>p.start && p.end);
+    const facts=dates.map(p=>["Tool transaction period",when(p.start)+" – "+when(p.end)]);
+    for(const [key,label] of [["rental_asat","Rental stock pull"],["transactions_asat","Tool transaction pull"],["sales_asat","Sales pull"]]) {
+      if(cov[key]) facts.push([label,when(cov[key])]);
+    }
+    if (!facts.length) return;
+    const details=group("Source dates and export times (AEST)",null);details.append(factList(facts));parent.append(details);
+  }
+  function currentStory(parent,r,chapter) {
+    const days=chapter?.activity || r.activity || [];
+    const panel=section(parent,personal ? "Your shutdown at the tool store" : "The shutdown at the tool store",null,true);
+    panel.classList.add("record-panel");panel.id="shutdown-story";
+    const head=panel.querySelector("h2");
+    const first=chapter?.first_date || days.at(-1)?.date;
+    const last=chapter?.last_date || days[0]?.date;
+    const span=spanOf(first,last);
+    if (span) head.before(el("p","section-date",span));
+    if (!chapter && !days.length) {
+      panel.append(el("p","empty","Dated activity for this shutdown is unavailable in these exports."));
+      return;
+    }
+    const spread=el("div","story-spread");panel.append(spread);
+    const copy=el("div","story-copy");spread.append(copy);
+    if (days.length) {
+      const transactions=chapter?.coverage?.transactions_asat || r.coverage?.transactions_asat;
+      const issues=chapter?.issues ?? r.returns?.issues, returns=chapter?.returned ?? r.returns?.returned;
+      const drew=chapter?.consumable_units ?? r.consumable_summary?.units;
+      const lines=[];
+      if (transactions && finite(issues) && finite(returns)) lines.push(units(issues,"tool issue")+" and "+units(returns,"tool return"));
+      if (!lines.length && finite(drew)) lines.push(units(drew,"consumable unit issued","consumable units issued"));
+      copy.append(el("p","story-lede",lines.length ? "The records show "+lines.join(", ")+" in the available exports." : "The tool store recorded activity on "+units(days.length,"date")+"."));
+      const latest=days.reduce((a,b)=>a.date>b.date?a:b);
+      copy.append(el("p","latest","Latest recorded date · "+when(latest.date)),el("p","latest-events",dailyWords(latest)||"Recorded tool-store transaction"));
+      movementChart(spread,days);
+    } else {
+      copy.append(el("p","empty",personal?"No dated transactions are linked to your card for this shutdown.":"No dated transactions are linked to this company for this shutdown."));
+    }
+    panel.append(el("p","note",personal?"Dates reflect recorded tool-store activity. Attendance and hours worked are not supplied.":"Tool and consumable transactions describe the store activity recorded for this company."));
+    activityTable(panel,days);
+    if (!personal && chapter) itemMix(panel,chapter);
+    recordedPeriod(panel,chapter?.coverage || r.coverage);
+  }
+  function earlierChapters(parent,r) {
+    const prior=(r.story||[]).filter(c=>!c.current);
+    const chapters=prior.length ? prior : r.history || [];
+    const panel=section(parent,"Earlier shutdowns",null,true);
+    panel.id="past-chapters";
+    if (!chapters.length) {
+      panel.append(el("p","empty",personal?"No verified earlier MMG shutdown is linked to your card.":"No verified earlier MMG shutdown is linked to this company."));
+      return;
+    }
+    const list=el("div","chapter-list");panel.append(list);
+    for (const ch of chapters) {
+      const chapter=group(ch.schedule,null);list.append(chapter);
+      const span=spanOf(ch.first_date,ch.last_date);
+      if(span)chapter.append(el("p","section-date",span));
+      const pairs=[["Recorded activity dates",fmt(ch.activity_days)],["Tool issues",fmt(ch.issues)],["Tool returns",fmt(ch.returned)],["Same-day returns",fmt(ch.same_day)+" of "+fmt(ch.eligible)+" eligible hires"],["Consumable units issued",fmt(ch.consumable_units)]];
+      if(finite(ch.consumable_returns))pairs.push(["Consumable units returned",fmt(ch.consumable_returns)]);
+      if(ch.coverage?.rental_asat && finite(ch.hire_count))pairs.push(["Assets on hire at "+when(ch.coverage.rental_asat),fmt(ch.hire_count)]);
+      chapter.append(factList(pairs));
+      activityTable(chapter,ch.activity||[]);itemMix(chapter,ch);recordedPeriod(chapter,ch.coverage);
+    }
   }
   function historyPanel(parent,r) {
-    const panel = section(parent,"Your hire history","Issues and returns linked to your card in the available transaction export.",true);
-    if (r.rental_history?.length) {
-      const d = group("View individual hires",r.rental_history.length);
-      table(d,["Tool / asset","Issue","Return"],r.rental_history.map(t => [
-        [t.name,t.item].filter(Boolean).join(" · "),when(t.issued_at) || "Issue unrecorded",when(t.returned_at) || "Return unrecorded"
-      ]));
-      panel.append(d);
-    } else {panel.append(el("p","empty","No individual hire transactions were linked in this export."));}
-    const past = section(parent,"Earlier MMG shutdowns","Earlier records appear when they can be linked to your identity.",true);
-    if (!r.history?.length) {past.append(el("p","empty","No verified earlier shutdown is linked to this report.")); return;}
-    for (const h of r.history) {
-      const d = group(h.schedule,null);
-      d.append(factList([["Tool issues",fmt(h.issues)],["Recorded returns",fmt(h.returned)],["Same-day returns",fmt(h.same_day)+" of "+fmt(h.eligible)+" eligible hires"],["Consumable units",fmt(h.consumable_units)],["Recorded activity dates",fmt(h.activity_days)]]));
-      past.append(d);
+    if (!r.rental_history?.length) return;
+    const panel=section(parent,"Individual hire records","Issue and return times recorded against the assets on your card.",true);
+    const d=group("View individual hires",r.rental_history.length);
+    table(d,["Tool / asset","Issue","Return"],r.rental_history.map(t=>[
+      [t.name,t.item].filter(Boolean).join(" · "),when(t.issued_at)||"Issue unrecorded",when(t.returned_at)||"Return unrecorded"
+    ]));
+    panel.append(d);
+  }
+  function companyMilestones(parent,r) {
+    const panel=section(parent,"Company work milestones","Work updates contributed by the company and reviewed by the tool store.",true);
+    panel.id="work-milestones";
+    const notes=r.work_notes||[];
+    if(notes.length) {
+      const list=el("ol","milestone-list");
+      for (const note of notes) {
+        const li=el("li"), time=el("time","",when(note.date));
+        time.dateTime=note.date;
+        li.append(time,el("h3","",note.title),el("p","",note.description));list.append(li);
+      }
+      panel.append(list);
+    } else {panel.append(el("p","empty","There are no approved work milestones for this company yet."));}
+    const d=group("Add a work milestone",null);d.classList.add("work-contribution");
+    const form=el("form","work-form");
+    form.append(el("p","","Describe the work completed. Leave out names and personal details."));
+    for(const [key,label,max] of [["date","Work date",0],["title","Title",90],["description","Work completed",600]]) {
+      const input=el(key==="description"?"textarea":"input");input.id="work-"+key;input.name=key;input.required=true;
+      if(key==="date") input.type="date";else input.maxLength=max;
+      if(key==="description")input.rows=3;
+      const tag=el("label","",label);tag.htmlFor=input.id;form.append(tag,input);
     }
+    const submit=el("button","primary","Submit for review");submit.type="submit";
+    const feedback=el("p","message");feedback.setAttribute("role","status");
+    form.append(submit,feedback);d.append(form);panel.append(d);
+    form.addEventListener("submit",async e=>{
+      e.preventDefault();
+      if(!form.reportValidity() || submit.disabled || !transaction) return;
+      const mine=transaction;
+      const body=Object.fromEntries(new FormData(form));body.company=selection;
+      if(!body.title.trim() || !body.description.trim()){feedback.textContent="Enter a title and description for the milestone.";return;}
+      submit.disabled=true;feedback.textContent="Sending milestone…";
+      try {
+        const result=await json(await fetch("work-note",{...requestOptions(),signal:mine.signal,method:"POST",headers:{"Content-Type":"application/json","X-Portal":"1"},body:JSON.stringify(body)}));
+        if(mine!==transaction) return;
+        if(result.ok!==true)throw new Error("The milestone could not be submitted. Try again.");
+        form.reset();feedback.textContent="Sent to the tool store for review.";
+      } catch(err){if(mine===transaction && err.name!=="AbortError")feedback.textContent=err.message;}
+      finally{if(mine===transaction)submit.disabled=false;}
+    });
   }
   function render(r) {
     if (r.kind !== (personal ? "person" : "company") || !Array.isArray(r.hires)) throw new Error("The selected report is unavailable.");
-    const body = $("report-body"); body.replaceChildren();
-    $("report-heading").textContent = personal ? "Your time at MMG Dugald River" : r.name;
-    $("report-subtitle").textContent = personal ? [r.name,r.company].filter(Boolean).join(" · ") : "Equipment currently on hire to " + r.name + ".";
-    const pairs = [[personal ? "Assets on your card" : "Assets currently on hire",fmt(r.hire_count)]];
-    if (personal) pairs.push(["Recorded activity dates",fmt(r.activity.length)],["Consumable units issued",fmt(r.coverage?.sales_asat ? r.consumable_summary.units : null)]);
-    else pairs.push(["Tool descriptions",fmt(r.hires.length)]);
-    stats(body,pairs);
-    hires(body,r);
-    if (personal) {
-      activityPanel(body,r); returnsPanel(body,r); consumablesPanel(body,r); historyPanel(body,r);
-      const cov = r.coverage || {};
-      const words = [];
-      const periods = cov.transaction_periods ?? [{start:cov.period_start,end:cov.period_end}];
-      for (const period of periods) if (period.start && period.end) {
-        words.push("Tool transactions from "+when(period.start)+" to "+when(period.end)+".");
-      }
-      if (cov.transactions_asat) words.push("Tool transaction pull "+when(cov.transactions_asat)+".");
-      if (cov.sales_asat) words.push("Sales pull "+when(cov.sales_asat)+".");
-      if (words.length) section(body,"Record coverage",words.join(" ")+" Times are AEST.",true);
+    const body=$("report-body");body.replaceChildren();
+    const chapter=(r.story||[]).find(c=>c.current);
+    $("report-heading").textContent=r.name;
+    const who=personal && r.company ? r.company+" · " : "";
+    $("report-subtitle").textContent=who+(r.asat ? "Rental stock as at "+when(r.asat)+" AEST" : "Rental stock pull time unavailable");
+    $("hero-count").textContent=fmt(r.hire_count);
+    if(personal) {
+      $("hero-label").textContent=(r.hire_count===1 ? "Asset" : "Assets")+" on hire to you";
+      personalHires(body,r);
     }
-    $("pull").textContent = r.asat ? "SiteIQ rental stock pull " + when(r.asat) + " AEST" : "SiteIQ rental stock pull time unavailable.";
-    $("lookup").hidden = true; $("report").hidden = false;
-    snapshot=r;
-    $("report-heading").focus();
+    const cov=chapter?.coverage || r.coverage || {};
+    const pairs=[
+      ["Recorded activity dates",fmt(chapter?.activity_days ?? r.activity?.length)],
+      ["Tool issues",fmt(cov.transactions_asat ? (chapter?.issues ?? r.returns?.issues) : null)],
+      ["Consumable units issued",fmt(cov.sales_asat ? (chapter?.consumable_units ?? r.consumable_summary?.units) : null)]
+    ];
+    stats(body,pairs);
+    const recordNav=el("nav","record-links screen-only");recordNav.setAttribute("aria-label","Report sections");
+    for(const [id,title] of [["shutdown-story","This shutdown"],["current-gear","Current gear"],...(!personal?[["work-milestones","Work milestones"]]:[]),["past-chapters","Earlier shutdowns"]]){
+      const link=el("a","",title);link.href="#"+id;recordNav.append(link);
+    }
+    body.append(recordNav);
+    currentStory(body,r,chapter);
+    if(!personal)hires(body,r);
+    if(personal){returnsPanel(body,r);consumablesPanel(body,r);historyPanel(body,r);}
+    if(!personal)companyMilestones(body,r);
+    earlierChapters(body,r);
+    $("pull").textContent=r.asat ? "SiteIQ rental stock pull "+when(r.asat)+" AEST" : "SiteIQ rental stock pull time unavailable.";
+    $("lookup").hidden=true;$("report").hidden=false;snapshot=r;$("report-heading").focus();
   }
   async function lookup(event) {
     event?.preventDefault();

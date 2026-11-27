@@ -107,3 +107,43 @@ class ScopedReports(unittest.TestCase):
                                              {'start':'2026-11-26T00:00:00','end':'2026-11-28T04:59:59'}]
         self.save(); personal=qr.personal(self.dir,'00-aA');self.assertEqual(personal['returns']['eligible'],0)
         self.assertEqual(personal['returns']['issues'],0);self.assertEqual(personal['returns']['returned'],1)
+
+    def test_company_timeline_includes_returned_work_and_privately_scopes_every_aggregate(self):
+        self.facts['hires'] = [r for r in self.facts['hires'] if r['company'] != 'A Ltd']
+        self.save()
+        selected = next(row['id'] for row in qr.companies(self.dir)['companies'] if row['name']=='A Ltd')
+        report=qr.company(self.dir,selected)
+        self.assertEqual(report['hire_count'],0)
+        story=report['story'][0];self.assertTrue(story['current'])
+        self.assertEqual((story['issues'], story['returned'], story['consumable_units'], story['consumable_returns']), (5,5,8,1))
+        self.assertEqual(story['equipment'],[{'name':'Battery','issued':5,'returned':5}])
+        self.assertEqual((story['first_date'], story['last_date'], story['activity_days']), ('2026-11-25','2026-11-26',2))
+        serialized=json.dumps(story)
+        for withheld in ('A-1','B-MOVEMENT','B-CONSUMABLE','B LTD','B Ltd','Other Worker','Alex Smith', 'hirer_id'):
+            self.assertNotIn(withheld,serialized)
+
+    def test_archives_must_prove_same_project_employer_and_scope(self):
+        archived = self.dir/'qr_history';archived.mkdir()
+        def put(label,data):
+            path=archived/(hashlib.sha256(label.encode()).hexdigest()+'.json')
+            path.write_text(json.dumps(dict(data,schedule=label)))
+        old='MMG earlier works';other='Foreign site'; moved='Moved company'
+        # Historical label differs; the raw legal employer is identical.
+        earlier = dict(self.facts)
+        for source in ('hires','draws','movements'):
+            earlier[source] = [dict(r, company='Historic A Display') if r['employer']=='A LTD' else r
+                               for r in self.facts[source]]
+        put(old,earlier)
+        only=dict(self.other,hirer='Never disclose',company='Prior only',employer='PRIOR ONLY LEGAL')
+        put('Another earlier MMG shut',dict(self.facts,hires=[],draws=[],movements=[dict(self.facts['movements'][0],**only)]))
+        put(other,dict(self.facts,project='Not MMG Dugald'))
+        put(moved,dict(self.facts,hires=[],draws=[],movements=[dict(self.facts['movements'][0],employer='DIFFERENT EMPLOYER WITH SAME DISPLAY')]))
+        directory={row['name']:row['id'] for row in qr.companies(self.dir)['companies']}
+        self.assertNotIn('Historic A Display',directory)
+        history=qr.company(self.dir,directory['A Ltd'])['story']
+        self.assertEqual([r['schedule'] for r in history],[qr.MMG_SCHEDULE,old]);self.assertTrue(history[0]['current']);self.assertFalse(history[1]['current'])
+        prior=qr.company(self.dir,directory['Prior only']);self.assertEqual(prior['hire_count'],0)
+        self.assertEqual([r['issues'] for r in prior['story']],[0,1]);self.assertNotIn('Never disclose',json.dumps(prior))
+        personal=qr.personal(self.dir,'00-aA')
+        self.assertEqual([s['schedule'] for s in personal['story']],[qr.MMG_SCHEDULE])
+        self.assertNotIn('DIFFERENT EMPLOYER',json.dumps(history))

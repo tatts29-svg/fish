@@ -8,6 +8,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from upload_policy import MMG_PROJECT, MMG_SCHEDULE
+from qr_identity import matched_pairs
 
 
 @lru_cache(maxsize=12)
@@ -28,19 +29,65 @@ def _facts(data_dir):
     return data
 
 
-def _directory(data):
-    names = {r['company'] for field in ('hires', 'draws', 'movements') for r in data[field] if r.get('company')}
+SOURCES = ('hires', 'draws', 'movements')
+
+
+def _archives(data_dir, current):
+    """Only explicitly installed, schedule-addressed MMG Dugald River archives are eligible."""
+    archives = []
+    for path in (Path(data_dir) / 'qr_history').glob('*.json'):
+        if len(path.stem) != 64 or any(c not in '0123456789abcdef' for c in path.stem):
+            continue
+        try:
+            data = _json(path)
+        except (FileNotFoundError, json.JSONDecodeError):
+            continue
+        if not isinstance(data, dict) or any(not isinstance(data.get(k), list) for k in SOURCES):
+            continue
+        schedule = data.get('schedule')
+        if (data.get('project') != MMG_PROJECT or data.get('schema') != 1 or not isinstance(schedule, str)
+                or not schedule or schedule == current['schedule'] or not data.get('asat') or data['asat'] > current['asat']
+                or hashlib.sha256(schedule.encode()).hexdigest() != path.stem):
+            continue
+        archives.append(data)
+    return sorted(archives, key=lambda archive: (archive.get('period_end', ''), archive['asat']), reverse=True)
+
+
+def _company_employers(snapshot):
+    names = defaultdict(set)
+    for field in SOURCES:
+        for r in snapshot[field]:
+            employer = (r.get('employer') or '').strip().casefold()
+            if r.get('company') and employer:
+                names[r['company']].add(employer)
+    return names
+
+
+def _directory(data, archives):
+    # The current job's employer spellings and approved display labels take
+    # precedence. A renamed display label for the same raw entity is not a new
+    # company. Never join a different legal employer on a display label alone.
+    employers = _company_employers(data)
+    known = set().union(*employers.values())
+    for archive in archives:
+        for name, raw in _company_employers(archive).items():
+            unknown = raw - known
+            if unknown and name not in employers:
+                employers[name] = unknown
+                known.update(unknown)
     directory = {}
-    for name in sorted(names, key=str.casefold):
+    for name in sorted(employers, key=str.casefold):
         key = hashlib.sha256((data['schedule'] + '\0' + name).encode()).hexdigest()[:32]
         if key in directory:
             raise ValueError('Company directory is unavailable.')
-        directory[key] = name
+        directory[key] = (name, employers[name])
     return directory
 
 
 def companies(data_dir):
-    return {'companies': [{'id': key, 'name': name} for key, name in _directory(_facts(data_dir)).items()]}
+    data = _facts(data_dir)
+    directory = _directory(data, _archives(data_dir, data))
+    return {'companies': [{'id': key, 'name': name} for key, (name, _) in directory.items()]}
 
 
 def _hires(records):
@@ -53,12 +100,24 @@ def _hires(records):
 
 def company(data_dir, company_id):
     data = _facts(data_dir)
-    name = _directory(data).get(company_id) if isinstance(company_id, str) else None
-    if not name:
+    archives = _archives(data_dir, data)
+    directory = _directory(data, archives)
+    selected = directory.get(company_id) if isinstance(company_id, str) else None
+    if not selected:
         return None
-    hires = _hires(r for r in data['hires'] if r['company'] == name)
+    name, employers = selected
+    records = {field: [r for r in data[field] if r.get('company') == name] for field in SOURCES}
+    hires = _hires(records['hires'])
+    story = [_story(data, records, _metrics(data, records), current=True)]
+    # A source employer shared by two display entities cannot establish historical continuity.
+    unique_raw = {raw for raw in employers if sum(raw in other for _, other in directory.values()) == 1}
+    for archive in archives:
+        prior = {field: [r for r in archive[field] if r.get('employer', '').strip().casefold() in unique_raw]
+                 for field in SOURCES}
+        if any(prior.values()):
+            story.append(_story(archive, prior, _metrics(archive, prior), current=False))
     return {'kind': 'company', 'name': name, 'company': name, 'asat': data['asat'], 'hires': hires,
-            'hire_count': sum(g['count'] for g in hires)}
+            'hire_count': sum(g['count'] for g in hires), 'coverage': story[0]['coverage'], 'story': story}
 
 
 def _pairs(person):
@@ -101,8 +160,9 @@ def _matches(fact, who, pairs):
         not fact.get('hirer_id') or not who.get('hirer_id') or fact['hirer_id'] == who['hirer_id'])
 
 
-def _scope(data, who):
-    pairs = _pairs(who)
+def _scope(data, who, pairs=None):
+    if pairs is None:
+        pairs = _pairs(who)
     ids = {w['hirer_id'] for w in data.get('workers', [])
            if (w['hirer'], w['employer']) in pairs and w.get('hirer_id')}
     if len(ids) > 1 or who.get('hirer_id') and ids and who['hirer_id'] not in ids:
@@ -161,7 +221,7 @@ def _periods(data):
     return [{'start': data['period_start'], 'end': data['period_end']}] if data.get('period_start') else []
 
 
-def _benchmark(data, records, who):
+def _benchmark(data, records, own_pairs):
     method = ('Positive dated sales units per borrower in this period. High means above the 90th percentile '
               'of other recorded borrowers. At least ten comparators and two observed sale dates are required.')
     result = dict(status='insufficient', method=method, period_start='', period_end='', own_units=0,
@@ -170,7 +230,6 @@ def _benchmark(data, records, who):
         return result
     end = dt.date.fromisoformat(data['sales_asat'][:10]); start = end - dt.timedelta(days=6)
     result.update(period_start=start.isoformat(), period_end=end.isoformat())
-    own_pairs = _pairs(who)
     peers, days = Counter(), set()
     for r in data['draws']:
         if not r['hirer'] or not r['employer'] or not result['period_start'] <= r['date'] <= result['period_end'] or r['quantity'] <= 0:
@@ -192,6 +251,7 @@ def _metrics(data, records):
     issues = returned = eligible = same = 0
     due_recorded = due_assessed = returned_by_due = 0
     rentals = []
+    equipment = defaultdict(lambda: dict(issued=0, returned=0))
     for r in records['movements']:
         start, end = _instant(r['start'], r['start_time']), _instant(r['end'], r['end_time'])
         if not start or end and (r['end'] < r['start'] or r['end'] == r['start'] and r['start_time'] and r['end_time'] and end < start):
@@ -203,9 +263,11 @@ def _metrics(data, records):
         if inside_start:
             issues += 1
             activity[r['start']]['issued'] += 1
+            equipment[r['name']]['issued'] += 1
         if inside_end:
             returned += 1
             activity[r['end']]['returned'] += 1
+            equipment[r['name']]['returned'] += 1
         if inside_start and inside_end and start_window == end_window:
             eligible += 1
             same += int(r['start'] == r['end'])
@@ -222,6 +284,7 @@ def _metrics(data, records):
         score = 1 + ((16 * same + eligible) // (2 * eligible)) / 2
     lines, usage = _usage(records['draws'], data.get('sales_asat', ''), activity)
     return {'activity': [dict(date=d, **activity[d]) for d in sorted(activity, reverse=True)],
+            'equipment': [dict(name=n, **totals) for n, totals in sorted(equipment.items(), key=lambda row: row[0].casefold())],
             'rental_history': sorted(rentals, key=lambda r: r['issued_at'], reverse=True),
             'consumables': lines, 'consumable_summary': usage,
             'returns': dict(issues=issues, returned=returned, eligible=eligible, same_day=same, score=score,
@@ -230,11 +293,29 @@ def _metrics(data, records):
                             due_assessed=due_assessed, returned_by_due=returned_by_due)}
 
 
-def _history(data_dir, who, roster):
+def _coverage(data):
+    result = {k: data[k] for k in ('sales_asat', 'transactions_asat', 'period_start', 'period_end')}
+    return dict(result, rental_asat=data['asat'], transaction_periods=_periods(data))
+
+
+def _story(data, records, stats, current):
+    dates = [entry['date'] for entry in stats['activity']]
+    return dict(schedule=data['schedule'], current=current, first_date=min(dates, default=''),
+                last_date=max(dates, default=''), activity_days=len(dates), hire_count=len(records['hires']),
+                coverage=_coverage(data), activity=stats['activity'], equipment=stats['equipment'],
+                consumables=stats['consumables'], consumable_units=stats['consumable_summary']['units'],
+                consumable_returns=stats['consumable_summary']['returned_units'],
+                **{field: stats['returns'][field] for field in ('issues', 'returned', 'same_day', 'eligible')})
+
+
+def _history(data_dir, who, roster, current):
     history = []
     if not who.get('person_id'):
         return history
     linked = who.get('history', [])
+    if not linked:
+        return history
+    archives = {archive['schedule']: archive for archive in _archives(data_dir, current)}
     used = set()
     for link in linked:
         schedule = link.get('schedule')
@@ -245,21 +326,15 @@ def _history(data_dir, who, roster):
         if not pairs or any(_pairs(h) & pairs for p in roster if p is not who
                             for h in p.get('history', []) if h.get('schedule') == schedule):
             continue
-        name = hashlib.sha256(schedule.encode()).hexdigest() + '.json'
-        try:
-            data = _json(Path(data_dir) / 'qr_history' / name)
-        except FileNotFoundError:
-            continue
-        if data.get('project') != MMG_PROJECT or data.get('schedule') != schedule or data.get('schema') != 1:
+        data = archives.get(schedule)
+        if data is None:
             continue
         rows = _scope(data, link)
         if not rows or not any(rows.values()):
             continue
         stats = _metrics(data, rows)
-        history.append(dict(schedule=schedule, activity_days=len(stats['activity']),
-                            consumable_units=stats['consumable_summary']['units'],
-                            **{key: stats['returns'][key] for key in ('issues','returned','same_day','eligible')}))
-    return history
+        history.append(_story(data, rows, stats, current=False))
+    return sorted(history, key=lambda s: (s['last_date'], s['coverage']['rental_asat']), reverse=True)
 
 
 def personal(data_dir, exact_barcode):
@@ -268,14 +343,17 @@ def personal(data_dir, exact_barcode):
         return None
     who, registry = identity
     data = _facts(data_dir)
-    records = _scope(data, who)
+    pairs = matched_pairs(data, who, registry)
+    if pairs is None:
+        return None
+    records = _scope(data, who, pairs)
     if records is None:
         return None
     hires = _hires(records['hires'])
     metrics = _metrics(data, records)
-    metrics['consumable_summary']['benchmark'] = _benchmark(data, records, who)
-    coverage = {k: data[k] for k in ('sales_asat', 'transactions_asat', 'period_start', 'period_end')}
-    coverage['transaction_periods'] = _periods(data)
+    metrics['consumable_summary']['benchmark'] = _benchmark(data, records, pairs)
+    first = _story(data, records, metrics, current=True)
+    history = _history(data_dir, who, registry, data)
     return dict(kind='person', name=who['name'], company=who['company'], asat=data['asat'], hires=hires,
-                hire_count=sum(g['count'] for g in hires), coverage=coverage,
-                history=_history(data_dir, who, registry), **metrics)
+                hire_count=sum(g['count'] for g in hires), coverage=first['coverage'],
+                history=history, story=[first, *history], **metrics)

@@ -15,8 +15,8 @@ def page(scope, *, barcode_ready=True):
     fonts = job / "kit" / "_fonts"
     font_class = "job-font" if all((fonts / f"Inter-{w}.ttf").is_file() for w in ("Regular", "Bold")) else ""
     title = "Your time at MMG Dugald River" if personal else "Company on-hire report"
-    intro = ("View the gear on your card and your recorded tool-store activity."
-             if personal else "Choose your company to see the gear currently on hire.")
+    intro = ("Follow the gear on your card, your returns and your visits recorded by the tool store."
+             if personal else "Choose your company to see its current gear and recorded tool-store history.")
     form = ('''<label for="identity">Your SiteIQ barcode</label>
         <input id="identity" type="text" required maxlength="256" autocomplete="off"
                autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter the code on your card">
@@ -45,13 +45,17 @@ def page(scope, *, barcode_ready=True):
 <h1>{title}</h1><p>{intro}</p></div><form id="lookup-form" autocomplete="off">{form}</form>
 <noscript>Enable JavaScript to open this report.</noscript></section>
 <p id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></p>
-<article id="report" hidden><header class="report-head"><div><p class="eyebrow">{'Your tool-store report' if personal else 'Company on hire'}</p>
+<article id="report" hidden><header class="report-head"><div class="hero-copy">
+<p class="eyebrow">{'Your time at MMG Dugald River' if personal else 'Company record · MMG Dugald River'}</p>
 <h1 id="report-heading" tabindex="-1"></h1><p id="report-subtitle"></p></div>
-<button type="button" id="reset">{'Finish and clear' if personal else 'Change company'}</button></header>
+<a href="#current-gear" class="hero-holding" aria-label="Jump to the current on-hire list"><span id="hero-count"></span>
+<span><span id="hero-label">{'Assets on hire to you' if personal else 'Assets on hire now'}</span> <b aria-hidden="true">↘</b></span></a>
+</header>
+<div class="report-tools"><button type="button" id="reset">{'Finish and clear' if personal else 'Change company'}</button>
 <nav class="actions" aria-label="Report actions">
 <button id="print" type="button">Print</button><button id="save" type="button">Save PDF</button>
 <button id="share" type="button">Share PDF</button><button id="email" type="button">Email PDF</button>
-</nav><div id="report-body"></div></article>
+</nav></div><div id="report-body"></div></article>
 </main><footer class="frame foot"><p id="pull">SiteIQ pull time available with the report.</p>
 <p>Author: Andrew Fisher <span aria-hidden="true">|</span> <strong>POWERED BY SITEIQ</strong></p>
 <small>Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. Not to be copied or reproduced without permission.</small></footer>

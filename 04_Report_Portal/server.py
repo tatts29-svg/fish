@@ -47,6 +47,7 @@ import swms_store
 import qr_access
 import qr_admin
 import qr_roster
+import qr_work_notes
 from report_delivery import ReportCache, accepts_gzip
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import Stop, import_history, archive_stocktake, mmg_daily_kind, MMG_DAILY_KINDS, KINDS
@@ -658,6 +659,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path.startswith("/qr/") and is_mmg(JOB_DIR):
             return qr_access.serve(self, DATA_DIR, JOB_DIR)
+        if self.path == "/upload/qr-work-review" and is_mmg(JOB_DIR):
+            return self._qr_work_review()
         if self.path.split("?", 1)[0] == "/swms/manager-review" and is_mmg(JOB_DIR):
             return self._swms("/swms/manager-review")
         if self.path.split("?", 1)[0] == "/stocktake/entries" and is_mmg(JOB_DIR):
@@ -692,7 +695,11 @@ class Handler(BaseHTTPRequestHandler):
         if role not in ("store", "manager") or (write and role != "manager"):
             return self._send(403, b"Access restricted.", "text/plain")
         if not write:
-            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR)), "text/html; charset=utf-8")
+            try:
+                notes = qr_work_notes.entries(DATA_DIR) if role == "manager" else []
+            except sqlite3.Error:
+                return self._send(503, b"QR work milestones are temporarily unavailable.", "text/plain")
+            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR), notes), "text/html; charset=utf-8")
         body = self._body(12 * 1024 * 1024)
         if body is None:
             return
@@ -701,6 +708,29 @@ class Handler(BaseHTTPRequestHandler):
         except ValueError as exc:
             return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
         return self._send(200, json.dumps(result).encode(), "application/json")
+
+    def _qr_work_review(self):
+        role = self._role(cookie=True)
+        if not role:
+            return
+        def reply(status, payload):
+            return self._send(status, json.dumps(payload).encode(), "application/json")
+        if role != "manager" or self.headers.get("X-Portal") != "1":
+            return reply(403, {"error": "A manager must review work milestones."})
+        if self.headers.get_content_type() != "application/json":
+            return reply(415, {"error": "Send a JSON review."})
+        body = self._body(2048)
+        if body is None:
+            return
+        try:
+            qr_work_notes.review(DATA_DIR, json.loads(body))
+        except qr_work_notes.NoteError as exc:
+            return reply(exc.status, {"error": str(exc)})
+        except (ValueError, UnicodeError):
+            return reply(400, {"error": "Choose a milestone and a review action."})
+        except sqlite3.Error:
+            return reply(503, {"error": "Work milestones are temporarily unavailable."})
+        return reply(200, {"ok": True})
 
     def _label_check_pack(self):
         write = self.command == "PUT"

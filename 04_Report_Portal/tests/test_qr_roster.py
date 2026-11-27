@@ -90,6 +90,62 @@ class TestRoster(unittest.TestCase):
         self.assertEqual(self.links(),{'0001':('Field Worker','Raw Employer')})
         self.assertEqual((result['linked'],result['skipped']),(1,3))
 
+    def test_badges_checked_before_filtering_including_incomplete_and_inactive_rows(self):
+        self.facts([(n, 'Mine', '') for n in ('Worker A', 'Worker B', 'Worker C', 'Worker D', 'Independent')])
+        rows = [('Worker A', 'Mine', 'a', 'shared-a', 'Active'),
+                ('Off Job', 'Foreign', 'shared-a', 'offjob-alias', 'Active'),
+                ('Worker B', 'Mine', 'b', 'shared-b', 'Active'),
+                ('', 'Unknown employer', 'shared-b', '', 'Active'),
+                ('Worker C', 'Mine', 'c', 'shared-c', 'Active'),
+                ('Worker D', 'Mine', 'shared-c', 'd', 'Inactive'),
+                ('Independent', 'Mine', 'good', '', 'Active')]
+        result = self.install(workbook(rows, ref=None,
+                              headers=('Name','Employer','External ID','Hirer barcode','Status')), True)
+        self.assertEqual(self.links(), {'good': ('Independent','Mine')})
+        self.assertEqual((result['linked'], result['skipped'], result['conflicts']), (1, 6, 4))
+        self.assertNotIn('Foreign', (self.root/roster.FILE).read_text())
+        self.assertNotIn('offjob-alias', (self.root/roster.FILE).read_text())
+        self.install(on_hire([('Worker B', 'Mine', 'b', None, '', 'tool')]))
+        self.assertEqual(set(self.links()), {'good'})
+
+    def test_new_incomplete_claim_revokes_existing_link_without_changing_unrelated_holders(self):
+        self.facts([('Worker A','Mine',''),('Worker B','Mine','')])
+        self.install(workbook([('Worker A','Mine','one','Active'), ('Worker B','Mine','two','Active')]))
+        result = self.install(workbook([('Unknown',None,'one','Active')], ref=None), True)
+        self.assertEqual(self.links(), {'two': ('Worker B','Mine')})
+        self.assertEqual(result['skipped'], 1)
+        self.install(on_hire([('Worker A','Mine','one',None,'','tool')]))
+        self.assertEqual(set(self.links()), {'two'})
+
+    def test_full_roster_reimport_admits_new_activity_and_quarantines_off_job_collision(self):
+        self.facts([('Already Known','Mine','')])
+        source = workbook([('Already Known','Mine','early','Active'),
+                           ('New Worker','Mine','later','Active'),
+                           ('Off Job A','Elsewhere','disputed','Active'),
+                           ('Off Job B','Elsewhere','disputed','Inactive')], ref=None)
+        self.assertEqual(self.install(source, True)['linked'], 1)
+        directory = json.loads((self.root/roster.FILE).read_text())
+        self.assertIn('disputed', directory['blocked_barcodes'])
+        self.assertNotIn('New Worker', (self.root/roster.FILE).read_text())
+        self.install(on_hire([('Off Job A','Elsewhere','disputed',None,'','item')]))
+        self.assertEqual(set(self.links()), {'early'})
+        self.facts([('Already Known','Mine',''),('New Worker','Mine','')])
+        self.assertEqual(self.install(source, True)['linked'], 2)
+        self.assertEqual(set(self.links()), {'early','later'})
+
+    def test_hirer_spelling_matches_only_same_raw_employer_and_supported_source_separator(self):
+        facts = dict(schedule=MMG_SCHEDULE,
+                     hires=[dict(hirer='Field - Worker', employer='Raw Employer', hirer_id='stable')],
+                     draws=[dict(hirer='Field Worker', employer='Raw Employer')],
+                     workers=[dict(hirer='Field Worker', employer='Raw Employer')])
+        (self.root/'qr-report-data.json').write_text(json.dumps(facts))
+        source = workbook([('Field Worker','Raw Employer','field','Active'),
+                           ('Field Worker','Different Employer','other','Active')], ref=None)
+        result = self.install(source, True)
+        self.assertEqual(self.links(), {'field': ('Field Worker','Raw Employer')})
+        self.assertEqual((result['linked'],result['skipped'],result['conflicts']), (1,1,0))
+        self.assertEqual(json.loads((self.root/roster.FILE).read_text())['people'][0]['hirer_id'], 'stable')
+
     def test_foreign_or_invalid_workbook_keeps_previous(self):
         self.install(workbook([('First Worker','Em','0001','Active')]))
         for b in (b'not Excel',workbook([],ref='MMG other schedule'),

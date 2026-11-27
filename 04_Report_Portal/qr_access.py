@@ -10,12 +10,14 @@ import os
 from pathlib import Path
 import re
 import secrets
+import sqlite3
 import tempfile
 import threading
 import time
 from urllib.parse import parse_qs, urlsplit
 
 import qr_roster
+import qr_work_notes
 
 SCOPES = ("company", "personal")
 ORIGIN = "https://mmg-report-production.up.railway.app"
@@ -132,6 +134,7 @@ class LookupBudget:
 
 
 lookup_budget = LookupBudget()
+note_budget = LookupBudget()
 
 
 def _png(url):
@@ -201,7 +204,7 @@ def serve(request, data_dir, job_dir):
         allowed = {"", "enter", "enter.js", "qr_report.css", "qr_report.js", "report", "report.pdf"}
         allowed.update(BRANDING)
         if scope == "company":
-            allowed.add("companies")
+            allowed.update(("companies", "work-note"))
         else:
             allowed.add("badge_decoder.js")
         if action not in allowed or (path.query and not (scope == "company" and action in ("report", "report.pdf"))):
@@ -236,6 +239,27 @@ def serve(request, data_dir, job_dir):
                 return error(404, "Not found.")
             return reply(200, content, mime)
         import qr_reports
+        if scope == "company" and action == "work-note" and request.command == "POST":
+            if request.headers.get("X-Portal") != "1":
+                return error(403, "Use the company report on this device.")
+            if request.headers.get_content_type() != "application/json":
+                return error(415, "Send a JSON work milestone.")
+            body = request._body(8192)
+            if body is None:
+                return
+            try:
+                payload = json.loads(body)
+            except (UnicodeError, ValueError):
+                return error(400, "Enter the work milestone in the form.")
+            company_id, day, title, description = qr_work_notes.validate(payload)
+            peer = request.headers.get("X-Forwarded-For", "").rsplit(",", 1)[-1].strip() or request.client_address[0]
+            if not note_budget.allow(session, peer):
+                return error(429, "Please wait a minute before sending another milestone.")
+            selection = next((c for c in qr_reports.companies(data_dir)["companies"] if c["id"] == company_id), None)
+            if selection is None:
+                return error(404, "Company unavailable.")
+            qr_work_notes.submit(data_dir, company_id, selection["name"], day, title, description)
+            return reply(202, {"ok": True})
         if scope == "company" and read:
             if action == "companies" and not path.query:
                 return reply(200, qr_reports.companies(data_dir))
@@ -249,6 +273,8 @@ def serve(request, data_dir, job_dir):
             if not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", company):
                 return error(400, "Choose a company from the list.")
             result = qr_reports.company(data_dir, company)
+            if result is not None:
+                result = {**result, "work_notes": qr_work_notes.entries(data_dir, company)}
         elif scope == "personal" and request.command == "POST" and action in ("report", "report.pdf"):
             barcode = posted("barcode")
             if barcode is None:
@@ -270,5 +296,7 @@ def serve(request, data_dir, job_dir):
             return reply(200, render_pdf(result, job_dir=job_dir), "application/pdf",
                          [("Content-Disposition", f'attachment; filename="mmg-{scope}-on-hire-report.pdf"')])
         return reply(200, result)
-    except (OSError, ValueError, KeyError, TypeError):
+    except qr_work_notes.NoteError as exc:
+        return error(exc.status, str(exc))
+    except (OSError, ValueError, KeyError, TypeError, sqlite3.Error):
         return error(503, "The report is temporarily unavailable.")

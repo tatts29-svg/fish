@@ -2,7 +2,23 @@
 from html import escape
 
 
-def page(role, roster):
+def _milestones(notes):
+    items = []
+    for note in notes:
+        pending = note["status"] == "pending"
+        buttons = (("publish", "Publish"), ("decline", "Decline")) if pending else (("withdraw", "Withdraw"),)
+        actions = "".join(f'<button type="button" data-action="{key}">{label}</button>' for key, label in buttons)
+        items.append(f'<article class="milestone" data-id="{int(note["id"])}"><small>{escape(note["company_name"])} · '
+                     f'{escape(note["date"])} · {"For review" if pending else "Published"}</small>'
+                     f'<h3>{escape(note["title"])}</h3><p>{escape(note["description"])}</p>'
+                     f'<div class="review-actions">{actions}</div></article>')
+    return ('<section id="milestones"><h2>Company work milestones</h2>'
+            '<p>Check the company, work date and description before publishing to its company report.</p>'
+            + ("".join(items) or "<p>No milestones have been submitted.</p>")
+            + '<p role="status" id="note-result"></p></section>')
+
+
+def page(role, roster, notes=()):
     linked = int(roster.get("linked") or 0)
     if linked:
         status = f"{linked:,} worker{'s' if linked != 1 else ''} linked to a barcode."
@@ -33,14 +49,28 @@ main>p,article p,.intro,details,.confirm{color:#c5d0df}.posters{display:grid;gap
 article,section{border:1px solid #394659;border-radius:.85rem;padding:1.35rem;background:#1a2430}article{display:flex;align-items:flex-start;flex-direction:column;border-top:4px solid #ff813b}article.personal{border-top-color:#72d9cb}article p{flex:1}
 .button,button{display:inline-block;background:#ff8b45;color:#161b22;text-decoration:none;border:0;padding:.68rem 1rem;min-height:44px;line-height:1.3;font:inherit;font-weight:700;border-radius:.45rem;cursor:pointer}button:disabled{opacity:.65}
 .personal .button{background:#8ae3d6}form{display:grid;gap:.7rem;justify-items:start;margin-top:1rem}form>label:first-child{font-weight:650}input[type=file]{font:inherit;max-width:100%}.confirm{display:flex;align-items:baseline;gap:.45rem}.confirm input{accent-color:#ff813b}
-summary{cursor:pointer}details{margin-top:.75rem}#result:empty{display:none}#result{margin:.15rem 0}.roster-state{font-weight:650}.footer{margin:1.5rem 0 3rem}
+summary{cursor:pointer}details{margin-top:.75rem}#result:empty{display:none}#result{margin:.15rem 0}.roster-state{font-weight:650}.footer{margin:1.5rem 0 3rem}#milestones{margin-top:1rem}.milestone{margin-top:.8rem;background:#111923;border-top-width:1px}.milestone>*{margin:.3rem 0}.milestone p{overflow-wrap:anywhere}.review-actions{display:flex;gap:.5rem}.review-actions button:not([data-action=publish]){background:#354150;color:#e7ecf2}
 </style></head><body><header><div><span class="brand">COATES <span class="site">/ MMG</span></span><span class="site">Dugald River · Shutdown Tool Store</span></div></header>
 <main><h1>QR reports and posters</h1><p>Print each poster in colour on A4 at actual size. Each code opens its own report area.</p>
-<div class="posters"><article><h2>Company on-hire report</h2><p>Scan the poster, choose a company and see the gear currently on hire to it.</p><a class="button" href="/upload/report-qr/company.pdf">Download company poster</a></article>
+<div class="posters"><article><h2>Company on-hire report</h2><p>Scan the poster, choose a company and see its equipment and work history.</p><a class="button" href="/upload/report-qr/company.pdf">Download company poster</a></article>
 <article class="personal"><h2>Personal on-hire report</h2><p>Workers scan the poster and enter their own barcode to see their gear and tool-store history.</p><a class="button" href="/upload/report-qr/personal.pdf">Download personal poster</a></article></div>
-<section><h2>Worker barcode access</h2><p class="roster-state" id="roster-state">""" + escape(status) + """</p>""" + manager_form + """</section>
+<section><h2>Worker barcode access</h2><p class="roster-state" id="roster-state">""" + escape(status) + """</p>""" + manager_form + """</section>""" + (_milestones(notes) if role == "manager" else "") + """
 <p class="footer"><a href="/upload">Return to Update data</a></p></main>
 <script>
+const milestones=document.getElementById('milestones');
+if(milestones)milestones.addEventListener('click',async event=>{
+ const button=event.target.closest('button[data-action]');
+ if(!button)return;
+ const entry=button.closest('.milestone'), status=document.getElementById('note-result');
+ const controls=entry.querySelectorAll('button');
+ controls.forEach(b=>b.disabled=true);
+ try{
+  const response=await fetch('/upload/qr-work-review',{method:'POST',headers:{'Content-Type':'application/json','X-Portal':'1'},body:JSON.stringify({id:Number(entry.dataset.id),action:button.dataset.action})});
+  const result=await response.json();
+  if(!response.ok)throw Error(result.error||'Review could not be recorded.');
+  location.reload();
+ }catch(error){status.textContent=error.message;controls.forEach(b=>b.disabled=false)}
+});
 const form=document.getElementById('roster');
 if(form)form.addEventListener('submit',async event=>{
  event.preventDefault();
