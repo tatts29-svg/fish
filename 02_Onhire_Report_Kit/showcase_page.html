@@ -427,10 +427,10 @@ html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
 .cyl .cap{display:block;font-size:12px;color:var(--tx);line-height:1.35;margin:3px auto 0;max-width:15em;overflow-wrap:anywhere}
 .cyl .cap small{display:inline-block;margin-top:3px;color:var(--mu)}
 .cyl .tp{display:block;margin:6px auto 0}
-.cyl .shell{fill:var(--panel2);stroke:var(--neu);stroke-opacity:.46}
-.cyl .scale{fill:none;stroke:var(--tx);stroke-width:1;opacity:.32}
-.cyl .lip{fill:var(--panel2);fill-opacity:.15;stroke:var(--neu);stroke-opacity:.78}
-.cyl .footlight{opacity:.54}
+:is(.cyl,.hourly-chart) .shell{fill:var(--panel2);stroke:var(--neu);stroke-opacity:.46}
+:is(.cyl,.hourly-chart) .scale{fill:none;stroke:var(--tx);stroke-width:1;opacity:.32}
+:is(.cyl,.hourly-chart) .lip{fill:var(--panel2);fill-opacity:.15;stroke:var(--neu);stroke-opacity:.78}
+:is(.cyl,.hourly-chart) .footlight{opacity:.54}
 .view.go .liquid{transform-origin:37px 158px;animation:fill-cylinder 1.35s cubic-bezier(.22,.75,.25,1) backwards}
 @keyframes fill-cylinder{from{transform:scaleY(0)}}
 @media (hover:hover){.cyl[data-open]:hover{background:var(--hover)}.cyl[data-open]:hover .footlight{opacity:.9}}
@@ -838,6 +838,17 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 .liquid-reflection{stroke-width:.9px;opacity:.29}
 .liquid-meniscus{stroke-width:.75px;opacity:.72}
 .liquid-bubble{fill:url(#liquid-pearl);stroke:rgba(72,48,43,.54);stroke-width:.52;pointer-events:none;opacity:0}
+
+.hourly-chart .shell{fill-opacity:.32}
+.hourly-chart .footlight{opacity:.28}
+.hourly-chart .liquid-volume .ca{fill:url(#hourly-amber)}
+.hourly-chart .liquid-base.ca{fill-opacity:.9}
+.hourly-chart .liquid-volume .cb{fill:url(#hourly-silver)}
+.hourly-chart .liquid-seam{fill:none;stroke:white;stroke-opacity:.33;stroke-width:.65}
+@media screen and (prefers-reduced-motion:no-preference){
+  html:not(.static) .view.go .hourly-fill{transform-box:fill-box;transform-origin:center bottom;animation:fill-cylinder 1.35s cubic-bezier(.22,.75,.25,1) backwards}
+}
+.hourly-chart .lbl{paint-order:stroke;stroke:var(--panel);stroke-width:3;stroke-linejoin:round}
 .liquid-film{fill:#fff;fill-opacity:.2;pointer-events:none}
 .liquid-volume .liquid-cap{stroke:rgba(255,255,255,.6);stroke-width:.68px}
 .cyl .liquid-volume :is(.liquid-base,.liquid-cap){fill:var(--tank-ink)}
@@ -968,7 +979,7 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 </style></head>
 <body>
 <div class="amb"><i></i><i></i><i></i></div><div id="fx" aria-hidden="true"></div><div class="prog"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffd1a5"/><stop offset=".24" stop-color="#ff9654"/><stop offset=".63" stop-color="#e66b2b"/><stop offset=".86" stop-color="#b94c1e"/><stop offset="1" stop-color="#ffb474"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="hourly-amber"><stop stop-color="#a64419"/><stop offset=".2" stop-color="#ff944e"/><stop offset=".48" stop-color="#ff944e"/><stop offset="1" stop-color="#c3511c"/></linearGradient><linearGradient id="hourly-silver"><stop stop-color="#73808e"/><stop offset=".2" stop-color="#c2cfda"/><stop offset=".48" stop-color="#c2cfda"/><stop offset="1" stop-color="#8593a2"/></linearGradient><radialGradient id="hourly-glow"><stop stop-color="#ff944e" stop-opacity=".82"/><stop offset="1" stop-color="#ff944e" stop-opacity="0"/></radialGradient><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffd1a5"/><stop offset=".24" stop-color="#ff9654"/><stop offset=".63" stop-color="#e66b2b"/><stop offset=".86" stop-color="#b94c1e"/><stop offset="1" stop-color="#ffb474"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -1202,7 +1213,8 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const QS=location.search, STATIC=/[?&]static/.test(QS);
 const root=document.documentElement;
 if(STATIC)root.classList.add('static');
-if(!STATIC && location.protocol.startsWith('http') && /^MMG\b/i.test(D.job.schedule||'') && D.job.title==='MMG Dugald River'){
+const mmgDugaldRiver=/^MMG\b/i.test(D.job.schedule||'') && D.job.title==='MMG Dugald River';
+if(!STATIC && location.protocol.startsWith('http') && mmgDugaldRiver){
   $('#mobile-install').hidden=false;
   document.head.insertAdjacentHTML('beforeend','<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="/mobile/icon-180.png"><meta name="theme-color" content="#0D1116"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MMG Tool Store">');
 }
@@ -1307,38 +1319,82 @@ function liquidStreams(width,height,seed,surfaceRadius=0){
   return {inside,surface};
 }
 
+// Absolute SVG coordinates let the chart and standalone gauge use the same glass
+// without stretching the bubbles or changing either component's measurement scale.
+function glassVessel(x,y,w,h,cap,contents,reflection,halo){
+  const mid=x+w/2, bottom=y+h, right=x+w;
+  const outline=`M${x} ${y}a${w/2} ${cap} 0 0 1 ${w} 0v${h}a${w/2} ${cap} 0 0 1 ${-w} 0Z`;
+  const ticks=[.25,.375,.5,.625,.75].map((t,i)=>{
+    const length=w*(i===2?.15625:i%2?.078125:.125);
+    return `M${right-1-length} ${y+h*t}h${length}`;
+  }).join('');
+  return `<g class="glass-vessel">
+<ellipse class="footlight" cx="${mid}" cy="${bottom+cap*1.375}" rx="${w/2+cap*.5}" ry="${cap*1.125}" fill="url(#${halo})"/>
+<path class="shell" d="${outline}"/>${contents}
+<path d="${outline}" fill="url(#${reflection})"/>
+<path d="M${x+w*.09375} ${y+h*.065}v${h*.83}m0 ${h*.028}v${h*.036}" fill="none" stroke="#fff" stroke-opacity=".27" stroke-width=".8" stroke-linecap="round"/>
+<path class="scale" d="${ticks}"/>
+<ellipse class="lip" cx="${mid}" cy="${y}" rx="${w/2}" ry="${cap}"/></g>`;
+}
+
 // All upright vessels use this body, curved glass reflection and meniscus.
-function liquidVolume(width,height,cap,colour,seed,exposed=true){
+function liquidVolume(width,height,cap,colour,seed,exposed=true,upperLayer=null){
   if(!(height>0&&width>0))return '';
   const mid=width/2, ry=Math.min(cap,width*.22,height*.38), id='lv'+(++uid);
   const shell=`M0 0a${mid} ${ry} 0 0 1 ${width} 0v${height}a${mid} ${ry} 0 0 1 -${width} 0Z`;
   const streams=liquidStreams(width,height,seed,exposed?ry:0);
+  // A returned item colours the upper band of the same liquid surface. The
+  // band ends at the cumulative axis value; there is only one exposed top.
+  let band='';
+  if(upperLayer){
+    const depth=upperLayer.height, bow=Math.min(ry,depth*.4);
+    const boundary=`M0 ${depth}Q${mid} ${depth+2*bow} ${width} ${depth}`;
+    band=`<path class="${upperLayer.colour}" d="${boundary}V${-ry}H0Z"/>
+<path class="liquid-seam" d="${boundary}"/>`;
+  }
   return `<g class="liquid-volume" data-surface="${exposed?'open':'sealed'}" aria-hidden="true">
 <defs><clipPath id="${id}"><path d="${shell}"/></clipPath></defs>
 <path class="${colour} liquid-base" d="${shell}"/>
-<g clip-path="url(#${id})">
+<g clip-path="url(#${id})">${band}
 <path d="${shell}" fill="url(#liquid-glass)"/>
 <path class="liquid-reflection" d="M${width*.125} ${ry}v${Math.max(0,height-ry*1.4)}"/>
-<ellipse class="${colour} liquid-cap" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
+<ellipse class="${upperLayer?.colour||colour} liquid-cap" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
 <ellipse class="liquid-film" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
 <path class="liquid-meniscus" d="M${width*.055} ${ry*.07}Q${mid} ${ry*1.65} ${width*.945} ${ry*.07}"/>
 <g class="liquid-particles">${streams.inside}</g></g>${streams.surface}</g>`;
 }
 
-// columns: 3D blocks, one or more series stacked per slot
+// Hourly issues use one glass per hour. Both statuses share its meniscus
+// and its bubbles, including in hours with only returns or no issues.
+function hourlyGlass(x,width,top,bottom,scaleY,segments,seed){
+  const cap=Math.min(width*.125,8);
+  const total=segments.reduce((n,segment)=>n+segment.v,0);
+  let contents='';
+  if(total>0){
+    const surface=scaleY(total), height=bottom-surface;
+    const upper=segments.length===2?{colour:segments[1].c,height:scaleY(segments[0].v)-surface}:null;
+    const fluid=liquidVolume(width-1,height,cap*.94,segments[0].c,seed,true,upper);
+    contents=`<g transform="translate(${x+.5} ${surface})"><g class="hourly-fill">${fluid}</g></g>`;
+  }
+  return glassVessel(x,top,width,bottom-top,cap,contents,'liquid-glass','hourly-glow');
+}
+
+// Columns share the numeric axis and hit regions across the report.
 function columns(el,labels,series,o){o=o||{};chartLayout(el,o.w||680,W=>{const H=o.h||250,L=o.l||30,R=14,T=28,B=32,n=labels.length,dp=0,ry=Math.max(3,Math.min(6,(o.bw||34)/8));
 const tot=labels.map((_,i)=>series.reduce((t,se)=>t+se.v[i],0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(o.bw||34,sw*.6),y=v=>T+(H-T-B)*(1-v/max),af=o.axis||(v=>Math.round(v*10)/10);
 let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`}
 const pk=tot.indexOf(Math.max(...tot));let s='';
 labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2-dp/2,segs=series.map(se=>({v:se.v[i],c:typeof se.cls=='function'?se.cls(i):se.cls})).filter(z=>z.v>0),fut=o.fade&&o.fade(i)?' fut':'';let base=0;
-segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base);base+=z.v;
+if(o.glass){
+  s+=hourlyGlass(x,bw,T,H-B,y,segs,i*3);
+}else segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base);base+=z.v;
 s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><g transform="translate(${x} ${y1})">${liquidVolume(bw,y0-y1,ry,z.c,i*3+k,k===segs.length-1)}</g></g>`});
 const yt=y(tot[i]);
 if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-ry-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
 if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2}" y="${yt-ry-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
 if(i%Math.max(o.every||1,STATIC?1:Math.ceil(30/sw))==0)s+=`<text class="ax${o.mark&&o.mark(i)?' axb':''}" x="${x+bw/2}" y="${H-B+ry+15}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
 s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-3}" width="${bw}" height="2"/></g>`});
-el.innerHTML=`<svg class="liquid-chart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`})}
+el.innerHTML=`<svg class="liquid-chart${o.glass?' hourly-chart':''}" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`})}
 
 function lineChart(el,labels,series,o){o=o||{};chartLayout(el,640,W=>{const H=240,L=30,R=46,T=18,B=28,n=labels.length;
 const max=nice(Math.max(1,...series.flatMap(s=>s.v))*1.12),x=i=>L+(W-L-R)*(n<2?.5:i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
@@ -1382,13 +1438,7 @@ return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"
 <defs><linearGradient id="${id}"><stop stop-color="${color[0]}"/><stop offset=".20" stop-color="${color[1]}"/><stop offset=".48" stop-color="${color[1]}"/><stop offset="1" stop-color="${color[2]}"/></linearGradient>
 <linearGradient id="${id}g"><stop stop-color="#fff" stop-opacity=".05"/><stop offset=".12" stop-color="#fff" stop-opacity=".17"/><stop offset=".26" stop-color="#fff" stop-opacity=".015"/><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".14"/></linearGradient>
 <radialGradient id="${id}h"><stop stop-color="${color[1]}" stop-opacity=".82"/><stop offset="1" stop-color="${color[1]}" stop-opacity="0"/></radialGradient></defs>
-<ellipse class="footlight" cx="37" cy="169" rx="36" ry="9" fill="url(#${id}h)"/>
-<path class="shell" d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z"/>
-${volume?`<g class="liquid" style="--tank-ink:url(#${o.col?id:'gcylO'})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:''}
-<path d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z" fill="url(#${id}g)"/>
-<path d="M11 27v116m0 4v5" fill="none" stroke="#fff" stroke-opacity=".27" stroke-width=".8" stroke-linecap="round"/>
-<path class="scale" d="M60 53h8m-5 17.5h5M58 88h10m-5 17.5h5M60 123h8"/>
-<ellipse class="lip" cx="37" cy="18" rx="32" ry="8"/></svg>${o.pic?pic(it.pic,it.name,'lg'):''}
+${glassVessel(5,18,64,140,8,volume?`<g class="liquid" style="--tank-ink:url(#${o.col?id:'gcylO'})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:'',id+'g',id+'h')}</svg>${o.pic?pic(it.pic,it.name,'lg'):''}
 <span class="val">${it.val||`<span data-n="${value}">${fmt(value)}</span>`}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} on site</small>`:''))}</span></${tag}>`}
 function dial(v,of,cap,sub){const c=Math.PI*70,sh=of?v/of:0,id='d'+(++uid);
 return `<div class="dial"><div class="plot"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
@@ -1435,7 +1485,7 @@ $('#know').innerHTML=kn.map(k=>`<button class="know ${k.c}" data-go="${k.go}"><s
 const nh=Math.min(D.hours.length,Math.max(asatH-4,D.hour_out.reduce((m,v,i)=>v?i+1:m,0),8));
 const out=D.hour_out.slice(0,nh),back=D.hour_back.slice(0,nh),still=out.map((v,i)=>v-back[i]);
 $('#hoursub').textContent=`${fmt(K.issued_today)} issued on ${D.asat_day} up to ${asatT}. ${fmt(K.back_today)} of them are already back.`;
-columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Items issued by hour',short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
+columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Items issued by hour',glass:mmgDugaldRiver,bw:mmgDugaldRiver?42:34,short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
 tip:i=>`<b>${D.hours[i]}</b><br>Issued: ${out[i]}<br>Still out: ${still[i]}<br>Already back: ${back[i]}`});
 $('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}.`;
 bars($('#cos'),C.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})),{});
