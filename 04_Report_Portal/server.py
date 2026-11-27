@@ -25,6 +25,7 @@ Report"), DATA_DIR (default /data), PORT (default 8080).
 Standard library only.
 """
 import base64
+import gzip
 import hashlib
 import hmac
 import html
@@ -644,6 +645,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._qr_admin()
         if path == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries()
+        if path == "/stocktake/shift-review" and is_mmg(JOB_DIR):
+            return self._stocktake_shift_review()
         if path in ("/swms/status", "/swms/current.pdf", "/swms/current.docx") and is_mmg(JOB_DIR):
             return self._swms(path)
         if path == "/upload/sds-label-check.zip" and is_mmg(JOB_DIR):
@@ -874,6 +877,25 @@ class Handler(BaseHTTPRequestHandler):
         except sqlite3.Error:
             return reply(503, {"error": "SWMS records are unavailable. Try again."})
 
+    def _stocktake_shift_review(self):
+        role = self._role(cookie=True)
+        if not role:
+            return
+        if role != "manager":
+            return self._send(403, b"Manager sign-in required for shift review.", "text/plain")
+        try:
+            analysis = stocktake_store.shift_review(DATA_DIR)
+        except stocktake_store.CountError as exc:
+            return self._send(exc.status, json.dumps({"error": str(exc)}).encode(), "application/json")
+        except sqlite3.Error:
+            return self._send(503, b'{"error":"The stocktake ledger is unavailable. Try again."}', "application/json")
+        body = json.dumps(analysis, separators=(",", ":")).encode()
+        headers = [("Vary", "Accept-Encoding")]
+        if accepts_gzip(self.headers.get("Accept-Encoding", "")):
+            body = gzip.compress(body, compresslevel=4, mtime=0)
+            headers.append(("Content-Encoding", "gzip"))
+        return self._send(200, body, "application/json", headers=headers)
+
     def _stocktake_entries(self, write=False):
         def reply(status, payload):
             return self._send(status, json.dumps(payload).encode(), "application/json")
@@ -886,7 +908,8 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if not write:
                 return reply(200, {"entries": stocktake_store.all_entries(DATA_DIR),
-                                   "controllers": roster, "can_record": can_record})
+                                   "controllers": roster, "can_record": can_record,
+                                   "can_review_shifts": role == "manager"})
             if not can_record or self.headers.get("X-Portal") != "1":
                 return reply(403, {"error": "Use a signed-in staff account to record stocktakes."})
             if self.headers.get_content_type() != "application/json":

@@ -715,6 +715,35 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
   html.sds-print .sds-docs{display:none}
   html.sds-print .sds-entry::before,html.sds-print .sds-entry::after{display:none}
 }
+/* Supervisor view of retained counts. The private response is only fetched by an authorised manager. */
+#st-scan-review[hidden],#st-review-jump[hidden],#st-review-inventory[hidden],#st-review-log[hidden]{display:none}
+#st-scan-review{scroll-margin-top:10rem}#st-scan-review h4{font-size:1rem;margin:1.2rem 0 .38rem}
+.st-rev-head,.st-rev-pick,.st-rev-people header,.st-follow li{display:flex;align-items:center;gap:.55rem 1rem;justify-content:space-between;flex-wrap:wrap}
+.st-rev-pick{justify-content:flex-start;margin:.85rem 0}.st-rev-pick label{display:grid;grid-template-columns:minmax(0,1fr);gap:.3rem;font-size:.79rem;color:var(--mu);min-width:0;max-width:100%}
+.st-rev-pick select{width:100%;min-width:0;text-overflow:ellipsis;border:1px solid var(--line);border-radius:.55rem;background:var(--panel2);color:var(--tx);padding:.5rem;max-width:100%;min-height:2.6rem;font:inherit;font-size:.9rem}
+.st-rev-source{font-size:.84rem;color:var(--mu);line-height:1.55}.st-rev-source strong{color:var(--tx)}
+.st-rev-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem;background:var(--panel2);border:1px solid var(--line);border-radius:.7rem;margin:.7rem 0;padding:.65rem .2rem}
+.st-rev-stats div{padding:.1rem .75rem;display:grid;line-height:1.27;gap:.24rem}.st-rev-stats div+div{border-left:1px solid var(--line)}.st-rev-stats b{font-size:1.65rem;letter-spacing:-.04em}.st-rev-stats span{color:var(--mu);font-size:.78rem}
+.st-hour-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.28rem;margin-top:.65rem}
+.st-hour{font:inherit;color:var(--tx);border:1px solid var(--line);border-radius:.45rem;padding:.37rem .18rem;min-width:0;background:var(--panel2);display:grid;justify-items:center;gap:.15rem;cursor:pointer}
+.st-hour b{font-size:.88rem}.st-hour small{font-size:.72rem;color:var(--mu)}.st-hour:disabled{opacity:1;cursor:default}
+.st-hour:not(:disabled):hover,.st-hour:not(:disabled):focus-visible{border-color:var(--or)}
+.st-hour-well{width:min(1.3rem,60%);height:2.25rem;display:flex;align-items:flex-end;background:var(--track);border-radius:3px;overflow:hidden}
+.st-hour-well i{display:block;width:100%;background:linear-gradient(90deg,#36705c,#98e5a4 38%,#4b966c);border-radius:3px 3px 0 0}
+.st-hour.no-window .st-hour-well{background:repeating-linear-gradient(135deg,transparent 0 3px,var(--track) 3px 5px)}
+.st-hour.partial-window{border-style:dashed}
+.st-rev-people{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:.55rem}
+.st-rev-people article{border:1px solid var(--line);border-radius:.7rem;padding:.65rem .85rem;background:var(--panel2);min-width:0}
+.st-rev-people header>strong{font-size:1rem}.st-rev-people article p,.st-gaps li,.st-follow li{font-size:.84rem}.st-rev-people article p{margin:.32rem 0;overflow-wrap:anywhere}
+.st-rev-times,.st-follow small{color:var(--mu)}.st-rev-people details,.st-rev-history{margin-top:.55rem}
+#st-scan-review summary{cursor:pointer;color:var(--tx);font-size:.86rem;font-weight:650;padding:.3rem 0}
+.st-gaps,.st-follow{list-style:none;margin:.25rem 0;padding:0}.st-gaps li,.st-follow li{padding:.5rem 0;border-bottom:1px solid var(--line)}.st-follow small{display:block;font-size:.79rem;margin-top:.12rem}
+.st-follow li>div{flex:1;min-width:9rem;overflow-wrap:anywhere}.st-follow button,.st-rev-people button,.st-rev-head button{font-size:.8rem;min-height:2.5rem}
+#st-review-inventory,#st-review-log{font-size:.85rem;margin:.5rem 0;color:var(--tx)}
+@media(max-width:760px){.st-hour-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.st-hour-well{height:1.6rem}.st-rev-stats div{padding-inline:.35rem}.st-rev-stats b{font-size:1.3rem}.st-follow button,.st-rev-people button,.st-rev-head button{min-height:44px}}
+.static #st-scan-review,.static #st-review-jump{display:none!important}
+@media print{#st-scan-review,#st-review-jump,#st-review-inventory,#st-review-log{display:none!important}}
+
 /* Stocktake uses the same measured glass arcs as Tooling. */
 #st-rounds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin:1rem 0}
 #st-rounds .st-round{padding:.8rem 1rem;border-radius:12px}
@@ -1290,18 +1319,19 @@ __CONTACTS__
 <div class="st-duty" id="st-duty"></div><p id="st-live-status" class="foot" role="status"></p>
 <div class="st-rounds" id="st-rounds" aria-label="Stocktake period"></div>
 <div id="st-overview" class="card st-card"></div>
-<div class="st-jump noprint"><button type="button" class="btn ghost" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
+<div class="st-jump noprint"><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
 <div class="card st-card"><h3 id="st-cat-title">Coverage by category</h3><p class="sub" id="st-cat-sub"></p>
 <div class="st-filters noprint"><label>Find a category<input class="search" id="st-cat-q" type="search" placeholder="Category name"></label><label>Show categories<select id="st-cat-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label></div>
 <div class="st-category-grid" id="st-categories"></div><div id="st-print-categories"></div><div class="st-pages" id="st-category-pages"></div></div>
 
+<div class="card st-card noprint" id="st-scan-review" hidden></div>
 <div class="card st-card"><h3 id="st-log-title">Shift activity</h3>
 <p class="sub" id="st-source"></p>
 <div class="st-filters"><label>Activity<select id="st-mode"><option value="counts">Physical counts</option><option value="sightings">SiteIQ sightings</option></select></label>
 <label>Shift<select id="st-shift"><option value="">All shifts</option><option>Day</option><option>Night</option><option value="unknown">Shift unavailable</option></select></label>
 <label>Person<select id="st-person"><option value="">Everyone</option></select></label>
 <label>Find activity<input class="search" id="st-log-q" type="search" placeholder="Item, ID, barcode or activity"></label></div>
-<p class="st-active-category" id="st-activity-cat" hidden></p><div id="st-shift-summary"></div><div id="st-shift-pages" class="st-pages"></div><h4 id="st-detail-title">Item activity</h4><button type="button" id="st-reset-group" class="btn ghost" hidden>Show all shifts</button><div id="st-log"></div><div id="st-log-pages" class="st-pages"></div></div>
+<p class="st-active-category" id="st-activity-cat" hidden></p><div id="st-review-log" hidden></div><div id="st-shift-summary"></div><div id="st-shift-pages" class="st-pages"></div><h4 id="st-detail-title">Item activity</h4><button type="button" id="st-reset-group" class="btn ghost" hidden>Show all shifts</button><div id="st-log"></div><div id="st-log-pages" class="st-pages"></div></div>
 
 <div class="card st-card">
 <h3 id="st-inventory-title">Inventory</h3>
@@ -1311,7 +1341,7 @@ __CONTACTS__
 <label>Item type<select id="st-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label>
 <label>Category<select id="st-cat-filter"><option value="">All categories</option></select></label>
 <label>Count status<select id="st-progress"><option value="">All items</option><option value="open">Awaiting count</option><option value="done">Count recorded</option><option value="variance">Quantity difference</option></select></label></div>
-<button class="btn ghost noprint" id="st-category-log" type="button" hidden>Review this category by shift</button><div id="st-inventory"></div><div id="st-pages" class="st-pages"></div></div>
+<button class="btn ghost noprint" id="st-category-log" type="button" hidden>Review this category by shift</button><div id="st-review-inventory" hidden></div><div id="st-inventory"></div><div id="st-pages" class="st-pages"></div></div>
 <dialog id="st-dialog" aria-labelledby="st-count-title"><form id="st-form">
 <h3 id="st-count-title">Record a physical count</h3><p id="st-target"></p>
 <label>Count period<select id="st-entry-round" required><option value="routine">During shutdown</option><option value="opening">Opening count</option><option value="closeout">Close-out count</option></select></label>
@@ -2339,6 +2369,160 @@ box.addEventListener('click',e=>{
 document.addEventListener('click',e=>{if(!e.target.closest('#gs'))box.hidden=true});
 const drModalOpen=()=>document.querySelector('dialog[open],#drawer.on,#paperwrap.on,#qrbig.on');
 document.addEventListener('keydown',e=>{if(e.key=='/'&&!drModalOpen()&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable){e.preventDefault();q.focus()}})}
+// Manager-only review is fetched on demand. Shared HTML and print never contain this ledger.
+function stocktakeShiftReview({when, day, number, openEntries, openPending, refreshLedger}) {
+  const panel=$('#st-scan-review'),jump=$('#st-review-jump');
+  let permitted=false,model=null,selected='',person='',areaMode='areas',request=null;
+  const local=t=>t?String(t).slice(11,16):'—';
+  const shiftKey=s=>s.date+'|'+s.shift;
+  const label=s=>(s.date?day(s.date):'Date unavailable')+' · '+(s.shift||'Unrecorded')+' shift';
+  const agoSpan=n=>{const h=Math.floor(n/60),m=n%60;return h?(h+'h'+(m?' '+m+'m':'')):(m+'m')};
+  const counts=(n,one,many)=>number(n)+' '+(n===1?one:many);
+  function reset(){
+    permitted=false;request?.abort();request=null;model=null;selected=person='';areaMode='areas';
+    panel.replaceChildren();panel.hidden=jump.hidden=true;
+  }
+  function goToReview(){
+    panel.scrollIntoView({block:'start'});
+    panel.querySelector('h3')?.focus({preventScroll:true});
+  }
+  function header(message,loading){
+    panel.innerHTML='<div class="st-rev-head"><h3 id="st-review-title" tabindex="-1">Scan activity by shift</h3><button class="btn ghost" type="button" data-review-refresh>Refresh review</button></div>'+
+      '<p class="sub" id="st-review-state" role="status"></p><div id="st-review-content"></div>';
+    $('#st-review-state').textContent=message;
+    panel.querySelector('[data-review-refresh]').disabled=loading;
+    panel.hidden=jump.hidden=false;
+  }
+  function showShift(){
+    const shifts=model.shifts||[], chosen=shifts.find(s=>shiftKey(s)===selected);
+    const body=$('#st-shift-insight');
+    const picker=$('#st-review-person');
+    if(!chosen){picker.replaceChildren(new Option('Whole shift',''));picker.disabled=true;body.innerHTML='<p class="empty">No elapsed shifts with an assignment or recorded count are available.</p>';return}
+    const s=chosen,crew=s.operators||[];
+    const actor=crew.find(p=>p.name===person);if(!actor)person='';
+    picker.replaceChildren(new Option('Whole shift',''),...crew.map(p=>new Option(p.name+' · '+counts(p.count_events,'entry','entries'),p.name)));
+    picker.value=person;picker.disabled=!crew.length;
+    const series=actor||s,hours=series.hours||[],gaps=series.gaps||[];
+    const attribution=actor?esc(actor.name)+' · '+(actor.planned?.length?'Rostered '+actor.planned.map(p=>esc(when(p.start))+' to '+esc(when(p.end))).join(', '):actor.first&&actor.last?'Observed from '+esc(when(actor.first))+' to '+esc(when(actor.last)):'No dated roster or count interval'):'Whole shift';
+    const shiftSpan=(s.start&&s.elapsed_end)?when(s.start)+' to '+when(s.elapsed_end):'Shift times unavailable';
+    const coverageFor=entry=>['full','partial'].includes(entry.coverage)?agoSpan(entry.window_minutes||0)+' of '+agoSpan(entry.elapsed_minutes||0)+' elapsed covered by SiteIQ export windows':
+      entry.coverage==='none'?'No SiteIQ export window covers this shift':'SiteIQ export-window coverage unavailable';
+    const roster=(s.planned||[]).map(r=>esc(r.person||'Name not recorded')+(r.start&&r.end?' ('+esc(local(r.start))+'–'+esc(local(r.end))+')':'')).join(', ');
+    body.innerHTML='<p class="st-rev-source"><strong>'+esc(label(s))+'</strong> · '+esc(shiftSpan)+'<br>'+esc(coverageFor(s))+
+      (s.ongoing?' · Partial shift at snapshot':'')+'. '+(roster?'Rostered: '+roster+'.':'No dated roster entry for this shift.')+'</p><p class="st-rev-source"><b>'+attribution+'</b>'+(actor?' · '+esc(coverageFor(actor)):'')+'</p>'+
+      '<div class="st-rev-stats">'+[['Count entries',series.count_events],['Distinct tool assets',series.tools],['Distinct consumable lines',series.cons]].map(([l,v])=>'<div><b>'+number(v||0)+'</b><span>'+l+'</span></div>').join('')+'</div>'+
+      '<h4>Count entries by hour</h4><p class="sub">Bar heights compare hours within this shift. Choose a bar to see the entries. Times are AEST.</p><div id="st-shift-trend"></div>'+
+      '<h4>Operators on this shift</h4><div id="st-operator-review"></div><h4>Gaps in the count record</h4><div id="st-gap-review"></div>'+
+      '<h4>'+(s.ongoing?'Outstanding at snapshot · shift in progress':'Outstanding at shift handover · all operators')+'</h4><div id="st-handover-review"></div>';
+    const peak=Math.max(1,...hours.map(h=>h.count_events||0));
+    $('#st-shift-trend').innerHTML=hours.length?'<div class="st-hour-grid">'+hours.map((h,i)=>{
+      const n=h.count_events||0,covered=h.window_minutes||0,elapsed=h.elapsed_minutes||0;
+      const status=covered===0?'No export coverage':covered<elapsed?'Partial export coverage':'Export window covered';
+      const accessible=(h.start?when(h.start):'Time unavailable')+' to '+(h.end?local(h.end):'—')+', '+counts(n,'count entry','count entries')+', '+status.toLowerCase();
+      const num=n||covered?number(n):'—';
+      return '<button type="button" class="st-hour'+(covered===0?' no-window':covered<elapsed?' partial-window':'')+'" data-review-hour="'+i+'" aria-label="'+esc(accessible)+'" title="'+esc(accessible)+'"'+(!n?' disabled':'')+'><b>'+num+'</b><span class="st-hour-well"><i style="height:'+Math.min(100,100*n/peak)+'%"></i></span><small>'+esc(local(h.start))+'</small></button>';
+    }).join('')+'</div><p class="foot">A dash marks an hour without export coverage or recorded counts. Counts can also come from the portal ledger.</p>':'<p class="empty">No elapsed hourly intervals are available.</p>';
+    const groupNames=arr=>(arr||[]).map(x=>esc(x.name)+' ('+number(x.count_events)+')').join(', ');
+    $('#st-operator-review').innerHTML=crew.length?'<div class="st-rev-people">'+crew.map((p,i)=>{
+      const categories=groupNames(p.categories),areas=groupNames(p.areas);
+      return '<article><header><strong>'+esc(p.name||'Name not recorded')+'</strong><button type="button" class="btn ghost" data-review-operator="'+i+'">View entries</button></header>'+
+      '<p>'+counts(p.count_events,'entry','entries')+' · '+counts(p.tools,'tool','tools')+' · '+counts(p.cons,'consumable line','consumable lines')+'</p>'+
+      (p.first&&p.last?'<p class="st-rev-times">First '+esc(when(p.first))+' · Last '+esc(when(p.last))+'</p>':'<p class="st-rev-times">No named physical counts recorded.</p>')+
+      (categories||areas?'<details><summary>Categories and storage areas</summary>'+(categories?'<p><strong>Categories</strong> · '+categories+'</p>':'')+(areas?'<p><strong>Storage areas</strong> · '+areas+'</p>':'')+'</details>':'')+'</article>';
+    }).join('')+'</div>':'<p class="empty">No named physical counts were recorded for this shift in the supplied records.</p>';
+    const gapSummary=gaps.length?'<ul class="st-gaps">'+gaps.map(g=>'<li><strong>'+esc(local(g.start))+'–'+esc(local(g.end))+'</strong> · '+esc(agoSpan(g.minutes||0))+' without a named count'+(actor?' for '+esc(actor.name):'')+(Number.isInteger(g.other_sightings)?' · '+counts(g.other_sightings,'other SiteIQ sighting','other SiteIQ sightings'):'')+'</li>').join('')+'</ul>':
+      '<p class="empty">'+(hours.some(h=>h.window_minutes>0)?'No gap of 60 minutes or more appears in the covered portion.':'There is no covered interval to assess for this selection.')+'</p>';
+    $('#st-gap-review').innerHTML=gapSummary+'<p class="foot">'+(actor?'For this operator, gaps are limited to their dated roster or, without a roster, their first to last named check. ':'')+'Gaps cover elapsed time inside supplied export windows. The records do not measure attendance, breaks or other work.</p>';
+    const handover=s.follow_up||{};
+    const byDimension=(mode,title)=>{
+      const groups=handover[mode]||[];if(!groups.length)return '';
+      return '<details class="st-rev-handover"'+(mode==='areas'?' open':'')+'><summary>'+title+'</summary><ul class="st-follow">'+groups.map((g,i)=>
+        '<li><div><strong>'+esc(g.name)+'</strong><small>'+(g.kind==='cons'?'Consumables':'Tools')+' · '+number(g.checked)+' of '+number(g.total)+' counted by cutoff · '+number(g.remaining)+' outstanding then</small></div>'+
+        (g.still_remaining?'<button type="button" class="btn ghost" data-review-handover="'+mode+'" data-group="'+i+'">'+number(g.still_remaining)+' still outstanding</button>':'<span>All checked since</span>')+'</li>').join('')+'</ul></details>';
+    };
+    const handoverDetails=byDimension('areas','Storage areas touched this shift')+byDimension('categories','Categories touched this shift');
+    $('#st-handover-review').innerHTML=handoverDetails?'<p class="sub">Reconstructed at '+esc(when(handover.asat||s.elapsed_end))+
+      ' using today’s register. Groups listed had recorded checks during this shift and outstanding lines at the cutoff.</p>'+handoverDetails:
+      '<p class="empty">No partially counted groups with recorded checks in this shift were identified by the cutoff.</p>';
+
+  }
+  function showAreas(){
+    const follow=model.follow_up||{},entries=follow[areaMode]||[];
+    const remaining=entries.filter(x=>x.remaining>0).sort((a,b)=>b.remaining-a.remaining||String(a.name).localeCompare(String(b.name)));
+    const box=$('#st-area-review');box.replaceChildren();
+    const selector=$('#st-area-type');selector.value=areaMode;
+    const limit=8,shown=remaining.slice(0,limit),extra=remaining.slice(limit);
+    const list=xs=>xs.map(x=>{const index=entries.indexOf(x);
+      return '<li><div><strong>'+esc(x.name)+'</strong><small>'+(x.kind==='cons'?'Consumables':'Tools')+' · '+number(x.checked)+' of '+number(x.total)+' checked</small></div><button type="button" class="btn ghost" data-review-pending="'+index+'" aria-label="Review '+number(x.remaining)+' outstanding '+esc(x.name)+' lines">'+number(x.remaining)+' remaining</button></li>';
+    }).join('');
+    box.innerHTML=remaining.length?'<ul class="st-follow">'+list(shown)+'</ul>'+(extra.length?'<details><summary>Show '+number(extra.length)+' more</summary><ul class="st-follow">'+list(extra)+'</ul></details>':''):
+      '<p class="empty">'+(entries.length?'All listed lines have a physical count.':'No register breakdown is available.')+'</p>';
+  }
+  function paint(){
+    const shifts=model.shifts||[],ordered=[...shifts].sort((a,b)=>String(b.start||b.date).localeCompare(String(a.start||a.date)));
+    if(!ordered.some(s=>shiftKey(s)===selected))selected=ordered.length?shiftKey(ordered[0]):'';
+    const dates=[model.asat?'Review through '+when(model.asat):'',model.siteiq_asat?'SiteIQ export '+when(model.siteiq_asat):'',model.ledger_asat?'Portal ledger '+when(model.ledger_asat):''].filter(Boolean);
+    header(dates.join(' · ')||'Source timestamps unavailable.',false);
+    const lastSessions=ordered.filter(s=>s.count_events>0).slice(0,2).map(s=>'<button class="btn ghost" type="button" data-review-shift="'+esc(shiftKey(s))+'">'+esc(label(s))+' · '+counts(s.count_events,'entry','entries')+'</button>').join('');
+    const missing=[model.unattributed_counts?counts(model.unattributed_counts,'count without a name','counts without names'):'',model.unconfirmed_counts?counts(model.unconfirmed_counts,'unconfirmed quantity','unconfirmed quantities'):''].filter(Boolean).join(' · ');
+    $('#st-review-content').innerHTML='<p class="sub">Since arrival · '+counts(model.count_events||0,'named physical count entry','named physical count entries')+' across '+counts(model.tools||0,'distinct tool','distinct tools')+' and '+counts(model.cons||0,'distinct consumable line','distinct consumable lines')+'. Recounts remain in the activity totals.'+(missing?' Excluded from named entries: '+esc(missing)+'.':'')+'</p>'+
+      (lastSessions?'<div class="st-recent-shifts"><span>Most recent shifts with recorded counts</span>'+lastSessions+'</div>':'')+
+      '<div class="st-rev-pick"><label>Shift to review<select id="st-review-shift"></select></label><label>Operator<select id="st-review-person"></select></label></div><div id="st-shift-insight"></div>'+
+      '<details class="st-rev-history"><summary>Compare shifts since arrival</summary><div id="st-review-history"></div></details>'+
+      '<h4 id="st-follow-title">Areas needing a count</h4><p class="sub">'+(model.follow_up?.round==='closeout'?'Close-out':'Since arrival')+' · Current register, ordered by outstanding stock lines. Choose a remaining count to open the matching inventory.</p>'+
+      '<div class="st-rev-pick"><label>Group outstanding inventory by<select id="st-area-type"><option value="areas">Storage area</option><option value="categories">Category</option></select></label></div><div id="st-area-review"></div>';
+    const select=$('#st-review-shift');select.replaceChildren(...ordered.map(s=>new Option(label(s)+' · '+counts(s.count_events,'entry','entries'),shiftKey(s))));select.value=selected;select.disabled=!shifts.length;
+    $('#st-review-history').innerHTML='<ul class="st-follow">'+ordered.map(s=>'<li><div><strong>'+esc(label(s))+'</strong><small>'+esc(s.first?when(s.first)+' to '+when(s.last):'No named counts recorded')+'</small></div><button type="button" class="btn ghost" data-review-shift="'+esc(shiftKey(s))+'">'+counts(s.count_events,'entry','entries')+'</button></li>').join('')+'</ul>';
+    showShift();showAreas();
+  }
+  async function refresh(){
+    if(!permitted)return;
+    request?.abort();const ticket=new AbortController();request=ticket;
+    const old=panel.querySelector('#st-review-state');if(old)old.textContent='Refreshing manager scan review…';
+    try {
+      const res=await fetch('/stocktake/shift-review',{headers:{'X-Portal':'1'},cache:'no-store',signal:ticket.signal});
+      if(ticket!==request)return;
+      if(res.status===401||res.status===403){reset();return}
+      if(!res.ok)throw Error();
+      const result=await res.json();
+      if(ticket!==request||!permitted)return;
+      if(!Array.isArray(result.shifts)||!result.follow_up)throw Error();
+      const version=document.querySelector('meta[name="mmg-report-version"]')?.content;
+      if(version&&result.report_version&&version!==result.report_version){
+        model=null;header('A newer report is available. Reload stocktake to use the updated register and counts.',false);
+        const reload=panel.querySelector('[data-review-refresh]');reload.removeAttribute('data-review-refresh');
+        reload.setAttribute('data-review-reload','');reload.textContent='Reload stocktake';return;
+      }
+      model=result;paint();
+    }catch(err){
+      if(ticket!==request||!permitted||err.name==='AbortError')return;
+      model=null;header('The manager scan review could not be loaded. Refresh to try again.',false);
+    }
+  }
+  panel.addEventListener('change',e=>{
+    if(e.target.id==='st-review-shift'){selected=e.target.value;person='';showShift()}
+    if(e.target.id==='st-review-person'){person=e.target.value;showShift()}
+    if(e.target.id==='st-area-type'){areaMode=e.target.value;showAreas()}
+  });
+  panel.addEventListener('click',e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.hasAttribute('data-review-reload')){location.reload();return}
+    if(b.hasAttribute('data-review-refresh')){header('Refreshing the portal ledger and manager scan review…',true);refreshLedger();return}
+    if(!model)return;
+    const s=model.shifts.find(x=>shiftKey(x)===selected);
+    if(b.hasAttribute('data-review-shift')){selected=b.dataset.reviewShift;person='';$('#st-review-shift').value=selected;showShift();$('#st-review-shift').focus();return}
+    if(s&&b.hasAttribute('data-review-hour')){const actor=(s.operators||[]).find(p=>p.name===person);openEntries(s,actor,(actor||s).hours[Number(b.dataset.reviewHour)]);}
+    if(s&&b.hasAttribute('data-review-operator'))openEntries(s,s.operators[Number(b.dataset.reviewOperator)],null);
+    if(s&&b.hasAttribute('data-review-handover')){
+      const mode=b.dataset.reviewHandover;
+      openPending(model.follow_up,mode,s.follow_up[mode][Number(b.dataset.group)]);return;
+    }
+    if(b.hasAttribute('data-review-pending'))openPending(model.follow_up,areaMode,model.follow_up[areaMode][Number(b.dataset.reviewPending)]);
+  });
+  jump.onclick=goToReview;
+  return {permission(ok){if(!ok){reset();return}permitted=true;refresh()},refresh};
+}
+
 // The stock register counts each asset or SKU once per round. Keep event history separate.
 function initStocktake(st) {
   const view=$('#v-stocktake');
@@ -2362,12 +2546,13 @@ function initStocktake(st) {
   const openingView=()=>Boolean(carry)&&round===0;
   let round=carry?1:-1,page=0,logPage=0,groupPage=0,categoryPage=0,groupFilter='',manual=st.recorded_entries||[],staff=[],canRecord=false,target=null,sequence=0;
   let requestId='',busy=false,intent='',events=[],checks=new Map(),coverage=new Map();
+  let reviewLog=null,reviewInventory=null;
   const arrival=st.arrival||st.rounds[0]?.start||'';
   const scope=r=>r<0?'Since arrival':r===0?'Opening':'Close-out';
+  $('#st-mode').add(new Option('Physical counts since arrival','since-arrival'),1);
   if(carry){
     $('#st-intro').textContent='The opening baseline is complete. Close-out tracks the physical check of each tool asset and consumable line before departure.';
     $('#st-rounds').classList.add('st-formal-rounds');
-    $('#st-mode').add(new Option('Physical counts since arrival','since-arrival'),1);
     $('#st-entry-round').replaceChildren(new Option('Close-out count','closeout'));
   }
   const noun=k=>k==='cons'?'Consumable':'Tool';
@@ -2513,11 +2698,13 @@ function initStocktake(st) {
     $('#st-progress option[value=done]').textContent=basis?'Covered by baseline':'Count recorded';
     const matches=(basis?baselineRows:rows).filter(r=>{
       const e=checks.get(key(r.kind,r.key));
-      return (!type||r.kind===type)&&(!picked||catKey(r)===picked)&&(!state||state==='done'&&(basis||e)||state==='open'&&!basis&&!e||state==='variance'&&difference(e))
+      return (!reviewInventory||reviewInventory.ids.has(key(r.kind,r.key)))&&(!type||r.kind===type)&&(!picked||catKey(r)===picked)&&(!state||state==='done'&&(basis||e)||state==='open'&&!basis&&!e||state==='variance'&&difference(e))
        &&words([r.name,r.key,r.barcode,r.owner,r.status,category(r),r.family,r.storage_unit,r.product,r.tool_store].join(' '),q);
     });
     $('#st-inventory-title').textContent=scope(round)+' inventory';
     $('#st-category-log').hidden=!picked;
+    const reviewNote=$('#st-review-inventory');reviewNote.hidden=!reviewInventory;
+    if(reviewInventory){reviewNote.innerHTML=esc(reviewInventory.label)+' · <button type="button" class="btn ghost">Clear review filter</button>';reviewNote.querySelector('button').onclick=()=>{reviewInventory=null;page=0;inventory()}}
     const body=matches.slice(page*pageSize,(page+1)*pageSize).map(r=>{
       const e=checks.get(key(r.kind,r.key)),diff=difference(e), label=basis?'Carried forward':e?(diff?'Quantity difference':'Checked'):'Awaiting count';
       const dataKey=esc(key(r.kind,r.key));
@@ -2534,7 +2721,10 @@ function initStocktake(st) {
     const mode=$('#st-mode').value,sightings=mode==='sightings',history=mode==='since-arrival',picked=$('#st-cat-filter').value;
     const sourceRows=st.sightings||rows.filter(r=>r.sighted);
     const data=sightings?sourceRows.map(r=>({...imported(r),source:r.action||'Action not recorded',evidence:r.evidence})).sort((a,b)=>b.time.localeCompare(a.time)):events.filter(history?sinceArrival:selectedPeriod);
-    const scoped=picked?data.filter(e=>catKey(openingView()&&!sightings&&!history?baselineByKey.get(key(e.row.kind,e.row.key))||e.row:e.row)===picked):data;
+    const reviewNote=$('#st-review-log');reviewNote.hidden=!reviewLog;
+    if(reviewLog){reviewNote.innerHTML=esc(reviewLog.label)+' · <button type="button" class="btn ghost">Clear review filter</button>';reviewNote.querySelector('button').onclick=()=>{reviewLog=null;groupFilter='';logPage=groupPage=0;log()}}
+    const reviewData=reviewLog?data.filter(e=>e.who&&e.shift===reviewLog.shift&&shiftDate(e)===reviewLog.day&&(!reviewLog.who||e.who.trim().toLowerCase()===reviewLog.who.trim().toLowerCase())&&(!reviewLog.hour||e.time.slice(0,13)===reviewLog.hour)):data;
+    const scoped=picked?reviewData.filter(e=>catKey(openingView()&&!sightings&&!history?baselineByKey.get(key(e.row.kind,e.row.key))||e.row:e.row)===picked):reviewData;
     const who=$('#st-person'),current=who.value,unknown='__unnamed__',names=[...new Set(scoped.map(e=>e.who).filter(Boolean))].sort();
     who.replaceChildren(new Option('Everyone',''),...names.map(n=>new Option(n,n)));
     if(scoped.some(e=>!e.who))who.add(new Option('Name not recorded',unknown));
@@ -2577,6 +2767,23 @@ function initStocktake(st) {
     $('#st-log').innerHTML=body?table(['Item and category','Time (AEST)','Shift','Person','Activity','Quantity'],body):`<p class="empty">${sightings?'No sightings match these filters.':'No physical count records match this selection.'}</p>`;
     pager($('#st-log-pages'),records.length,logPage,n=>{logPage=n;log()});
   }
+  function reviewEntries(s,operator,hour){
+    reviewInventory=null;groupFilter='';groupPage=logPage=page=0;
+    $('#st-cat-filter').value='';$('#st-mode').value='since-arrival';$('#st-person').value='';$('#st-shift').value='';$('#st-log-q').value='';
+    reviewLog={day:s.date,shift:s.shift,who:operator?.name||'',hour:hour?.start?.slice(0,13)||'',label:[dateText(s.date),s.shift+' shift',operator?.name,hour?hour.start.slice(11,16)+' AEST':''].filter(Boolean).join(' · ')};
+    categories();inventory();log();$('#st-log-title').scrollIntoView({block:'start'});$('#st-mode').focus({preventScroll:true});
+  }
+  function reviewPending(follow,mode,group){
+    if(!group)return;
+    const ck=r=>mode==='categories'?category(r):String(r.storage_unit||'').trim()||'Location not recorded';
+    const pending=new Set((follow.pending_ids||[]).map(x=>key(x.kind,x.key))),keys=new Set();
+    const source=group.pending_ids||follow.pending_ids||[];
+    for(const x of source){const k=key(x.kind,x.key),r=byKey.get(k);if(r&&pending.has(k)&&r.kind===group.kind&&ck(r)===group.name)keys.add(k)}
+    round=follow.round==='closeout'?1:-1;reviewLog=null;reviewInventory={ids:keys,label:(mode==='areas'?'Storage area':'Category')+' · '+group.name+' · outstanding in the manager review'};
+    groupFilter='';groupPage=logPage=page=categoryPage=0;$('#st-kind').value=group.kind;$('#st-q').value='';$('#st-cat-filter').value='';$('#st-progress').value='';
+    update();$('#st-inventory-title').scrollIntoView({block:'start'});$('#st-q').focus({preventScroll:true});
+  }
+  const scanReview=stocktakeShiftReview({when:timeText,day:dateText,number:fmt,openEntries:reviewEntries,openPending:reviewPending,refreshLedger:()=>refresh()});
   function update(){selectDirectory();compile();progress();inventory();log()}
   const baseline=st.ledger_asat?'Portal ledger snapshot '+timeText(st.ledger_asat)+'.':'No dated portal ledger snapshot is available.';
   async function refresh(){
@@ -2588,31 +2795,34 @@ function initStocktake(st) {
       const data=await res.json();if(serial!==sequence)return;
       if(!Array.isArray(data.entries)||!Array.isArray(data.controllers))throw Error('Invalid portal ledger.');
       manual=data.entries;staff=data.controllers;canRecord=data.can_record===true;
+      if(data.can_review_shifts!==true)reviewInventory=reviewLog=null;
+      scanReview.permission(data.can_review_shifts===true);
       $('#st-live-status').textContent=(st.asat?'SiteIQ stocktake imported through '+timeText(st.asat)+'. ':'')+'Additional count entries saved in the portal: '+fmt(manual.length)+'.';update();
-    }catch(err){if(serial===sequence)$('#st-live-status').textContent='Live portal counts could not be refreshed. '+baseline}
+    }catch(err){if(serial===sequence){scanReview.permission(false);reviewInventory=reviewLog=null;inventory();log();$('#st-live-status').textContent='Live portal counts could not be refreshed. '+baseline}}
   }
   $('#st-overview').onclick=e=>{
-    const b=e.target.closest('[data-st-crew]');if(!b)return;
+    const b=e.target.closest('[data-st-crew]');if(!b)return;reviewInventory=reviewLog=null;
     const categoryChanged=!!$('#st-cat-filter').value;$('#st-cat-filter').value='';
     $('#st-mode').value='counts';$('#st-person').value='';$('#st-shift').value='';$('#st-log-q').value='';
     groupFilter=b.dataset.stCrew;groupPage=logPage=0;
     if(categoryChanged){page=0;categories();inventory()}log();
     $('#st-detail-title').scrollIntoView({block:'start'});$('#st-reset-group').focus({preventScroll:true});
   };
-  $('#st-rounds').onclick=e=>{const b=e.target.closest('[data-round]');if(b){round=Number(b.dataset.round);groupFilter='';groupPage=page=logPage=categoryPage=0;$('#st-mode').value='counts';$('#st-progress').value='';update()}};
+  $('#st-rounds').onclick=e=>{const b=e.target.closest('[data-round]');if(b){reviewInventory=reviewLog=null;round=Number(b.dataset.round);groupFilter='';groupPage=page=logPage=categoryPage=0;$('#st-mode').value='counts';$('#st-progress').value='';update()}};
   function selectCategory(k,focus){
+    reviewInventory=reviewLog=null;
     $('#st-cat-filter').value=k;
     const c=directory.find(c=>c.key===k);if(c)$('#st-kind').value=c.kind;
     groupFilter='';page=groupPage=logPage=0;categories();inventory();log();
     if(focus){$('#st-inventory-title').scrollIntoView({block:'start'});$('#st-cat-filter').focus({preventScroll:true})}
   }
   $('#st-categories').onclick=e=>{const b=e.target.closest('[data-st-category]');if(b)selectCategory(b.dataset.stCategory,true)};
-  $('#st-category-log').onclick=()=>{groupFilter='';groupPage=logPage=0;$('#st-mode').value='counts';log();$('#st-log-title').scrollIntoView({block:'start'});$('#st-mode').focus({preventScroll:true})};
+  $('#st-category-log').onclick=()=>{reviewLog=null;groupFilter='';groupPage=logPage=0;$('#st-mode').value='counts';log();$('#st-log-title').scrollIntoView({block:'start'});$('#st-mode').focus({preventScroll:true})};
   $('#st-cat-filter').onchange=e=>selectCategory(e.target.value,false);
   for(const id of ['st-cat-kind','st-cat-q'])$('#'+id).addEventListener('input',()=>{categoryPage=0;categories()});
   $('#st-kind').addEventListener('input',()=>{const c=cats.get($('#st-cat-filter').value);if(c&&$('#st-kind').value&&c.kind!==$('#st-kind').value)selectCategory('',false)});
   for(const id of ['st-q','st-kind','st-progress'])$('#'+id).addEventListener('input',()=>{page=0;inventory()});
-  for(const id of ['st-mode','st-shift','st-person','st-log-q'])$('#'+id).addEventListener('input',()=>{groupFilter='';groupPage=logPage=0;log()});
+  for(const id of ['st-mode','st-shift','st-person','st-log-q'])$('#'+id).addEventListener('input',()=>{if(id==='st-mode')reviewLog=null;groupFilter='';groupPage=logPage=0;log()});
   $('#st-inventory').onclick=e=>{
     const button=e.target.closest('[data-count]');if(!button||!canRecord||openingView())return;
     target=byKey.get(button.dataset.count);requestId='';intent='';
@@ -2634,6 +2844,7 @@ function initStocktake(st) {
       const res=await fetch('/stocktake/entries',{method:'POST',headers:{'X-Portal':'1','Content-Type':'application/json'},body:JSON.stringify({...fields,request_id:requestId})});
       const data=await res.json();if(!res.ok)throw Error(data.error||'Could not save count.');
       sequence++;if(!manual.some(x=>x.request_id===data.entry.request_id))manual.push(data.entry);
+      reviewInventory=reviewLog=null;scanReview.refresh();
       groupFilter='';groupPage=page=logPage=0;$('#st-mode').value='counts';update();$('#st-dialog').close();$('#st-live-status').textContent='Saved count for '+target.name+'.';
     }catch(err){$('#st-submit-status').textContent=err.message||'Could not save. Try again.'}
     finally{busy=false;$('#st-save').disabled=$('#st-cancel').disabled=false}

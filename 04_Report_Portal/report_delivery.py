@@ -10,7 +10,7 @@ from html import escape
 from threading import Lock
 
 import upload_receipt
-from stocktake_store import QUEENSLAND
+from stocktake_store import QUEENSLAND, report_version
 from mobile_brand import web_report_html
 from qr_brand import PORTAL_MASTHEAD_CSS, portal_masthead, public_mmg_logo
 
@@ -132,6 +132,8 @@ class ReportCache:
                             # Management-only fields stay inside the private version on disk.
                             html = upload_receipt.STAMP.sub(b"", html, count=1)
                             html = _report_masthead(web_report_html(html), logo, receipt)
+                            meta = f'<meta name="mmg-report-version" content="{report_version(stat)}">'.encode()
+                            html = html.replace(b"</head>", meta + b"</head>", 1)
                         self.report = WebReport(html)
                         self.version = version
                     return self.report

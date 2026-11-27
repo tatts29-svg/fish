@@ -33,6 +33,39 @@ def published_report(report_path):
     return json.JSONDecoder().raw_decode(html, start)[0]
 
 
+def report_version(stat):
+    return f"{stat.st_ino:x}-{stat.st_mtime_ns:x}-{stat.st_size:x}"
+
+
+@lru_cache(maxsize=1)
+def _review_inputs(path, revision):
+    report = published_report(path)
+    stocktake = report.get("stocktake")
+    if not stocktake or stocktake.get("schedule") != MMG_SCHEDULE:
+        raise CountError("A published MMG stocktake is needed for shift review.", 409)
+    return stocktake, (report.get("costs") or {}).get("roster", [])
+
+
+def shift_review(data_dir):
+    # The portal's rebuild module adds the report kit to the application path.
+    from stocktake import shift_analysis
+
+    path = Path(data_dir) / "report.html"
+    try:
+        while True:
+            revision = report_version(path.stat())
+            stocktake, roster = _review_inputs(path, revision)
+            if revision == report_version(path.stat()):
+                break
+    except CountError:
+        raise
+    except (OSError, ValueError, TypeError, AttributeError) as exc:
+        raise CountError("The published stocktake could not be read. Refresh to try again.", 503) from exc
+    ledger_asat = dt.datetime.now(QUEENSLAND).isoformat(timespec="microseconds")
+    analysis = shift_analysis(stocktake, roster, all_entries(data_dir), ledger_asat)
+    return {**analysis, "report_version": revision}
+
+
 @lru_cache(maxsize=1)
 def _inventory(report_path, revision):
     # Rebuilds publish this file by atomic replacement.
