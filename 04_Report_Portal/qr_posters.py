@@ -4,16 +4,21 @@ from functools import lru_cache
 from io import BytesIO
 from pathlib import Path
 from urllib.parse import urlsplit
+from xml.etree import ElementTree
 import os
 
 import qrcode
-from reportlab.lib.colors import HexColor
+from reportlab.graphics import renderPDF
+from reportlab.graphics.shapes import Drawing
+from reportlab.graphics.svgpath import SvgPath
+from reportlab.lib.colors import HexColor, white
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont, TTFError
 from reportlab.pdfgen import canvas
 
+from qr_brand import wordmark
 from qr_wordmark import draw_coates
 
 
@@ -22,7 +27,7 @@ TITLE = {
     "personal": "Personal on-hire report",
 }
 AUTHOR = "Andrew Fisher"
-CREDIT = "Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. Not to be copied or reproduced without permission."
+CREDIT = "Designed and built by Andrew Fisher · © Andrew Fisher. For printing and display at MMG Dugald River. Other reproduction requires permission."
 SLATE = "#2A313C"
 INK = "#1B2028"
 ORANGE = "#F26222"
@@ -39,6 +44,31 @@ def _register_inter(fonts):
     except (OSError, TTFError):
         return "Helvetica", "Helvetica-Bold"
     return "PosterInter-Regular", "PosterInter-Bold"
+
+
+def _hq_lockup(pdf, x, y, bold):
+    """Draw the digital HQ mark as vector paths at print resolution."""
+    size = 30
+    symbol = ElementTree.fromstring("<root>" + wordmark() + "</root>").find(".//svg")
+    path = symbol.find("path")
+    art = Drawing(32, 32)
+    art.add(SvgPath(path.attrib["d"], fillColor=white, strokeColor=None))
+    colours = [HexColor(stop.attrib["stop-color"]) for stop in symbol.findall(".//stop")]
+    pdf.saveState()
+    tile = pdf.beginPath()
+    tile.roundRect(x, y, size, size, 6.5)
+    pdf.clipPath(tile, stroke=0)
+    pdf.linearGradient(x, y+size, x+size, y, colours)
+    pdf.translate(x, y+size)
+    pdf.scale(size/32, -size/32)
+    renderPDF.draw(art, pdf, 0, 0)
+    pdf.restoreState()
+
+    pen = x + size + 7
+    for text, colour, points in (("My", "#F5F6F8", 19), ("Gear", "#FF7A3D", 19), (" HQ", "#BBC3CE", 13)):
+        _text(pdf, pen, y+7, text, bold, points, colour)
+        pen += pdfmetrics.stringWidth(text, bold, points)
+    return pen
 
 
 def _qr(pdf, url, left, bottom, size):
@@ -101,7 +131,7 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
     pdf.setTitle(TITLE[kind] + " | MMG Dugald River tool store")
     pdf.setAuthor(AUTHOR)
     pdf.setSubject(CREDIT)
-    pdf.setCreator("Coates | MMG Dugald River tool store")
+    pdf.setCreator("MyGear HQ | Coates | MMG Dugald River tool store")
     pdf.setViewerPreference("PrintScaling", "None")
 
     left, right = 37, WIDTH-37
@@ -119,26 +149,29 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
     pdf.rect(frame, frame, WIDTH-2*frame, HEIGHT-2*frame, stroke=1, fill=0)
     pdf.setFillColor(HexColor(ORANGE))
     pdf.rect(frame-rail/2, HEIGHT-frame-2.7, 112, 2.7+rail/2, stroke=0, fill=1)
-    # Project identity is distinct from the worker instructions and the invitation.
-    draw_coates(pdf, left, HEIGHT-61, 93)
-    pdf.setStrokeColor(HexColor(line_colour))
-    pdf.setLineWidth(.6)
-    pdf.line(left+107, HEIGHT-35, left+107, HEIGHT-64)
+    # The same adjacent MyGear HQ and MMG marks used on both QR entry screens.
+    pdf.setFillColor(HexColor("#141922"))
+    pdf.rect(inside, HEIGHT-87, inside_width, 64, stroke=0, fill=1)
+    lockup_end = _hq_lockup(pdf, left, HEIGHT-69, bold)
+    divider = lockup_end+13
+    pdf.setStrokeColor(HexColor("#596470"))
+    pdf.setLineWidth(.8)
+    pdf.line(divider, HEIGHT-69, divider, HEIGHT-39)
     try:
         logo = ImageReader(str(job / "logo.png"))
         width, height = logo.getSize()
-        scale = min(42/width, 35/height)
-        pdf.drawImage(logo, left+122, HEIGHT-68, width=width*scale, height=height*scale, mask="auto")
+        scale = min(47/width, 36/height)
+        pdf.drawImage(logo, divider+14, HEIGHT-72, width=width*scale, height=height*scale, mask="auto")
     except (OSError, ValueError):
-        _text(pdf, left+122, HEIGHT-59, "MMG", bold, 21, "#B31F2B")
-    pdf.setFillColor(HexColor(INK))
-    pdf.setFont(bold, 12)
-    pdf.drawRightString(right, HEIGHT-47, "Dugald River")
-    pdf.setFillColor(HexColor(key_colour))
-    pdf.setFont(regular, 10.5)
-    pdf.drawRightString(right, HEIGHT-63, "Shutdown tool store")
+        _text(pdf, divider+14, HEIGHT-61, "MMG", bold, 20, "#F5F6F8")
+    draw_coates(pdf, right-82, HEIGHT-56, 82)
+    pdf.setFillColor(HexColor("#E6EBF2"))
+    pdf.setFont(regular, 10)
+    pdf.drawRightString(right, HEIGHT-74, "Dugald River shutdown tool store")
+
     pdf.setFillColor(HexColor(SLATE))
     pdf.rect(inside, HEIGHT-194, inside_width, 107, stroke=0, fill=1)
+    _rule(pdf, inside, WIDTH-inside, HEIGHT-87, "#414B57", .65)
     pdf.setFillColor(HexColor(ORANGE))
     pdf.rect(inside, HEIGHT-197, inside_width, 3, stroke=0, fill=1)
 
@@ -157,9 +190,9 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
         _lines(pdf, step_x, top+21, body, regular, 12, 17, key_colour)
     step(1, 276, "Scan the QR code", ("Point your phone camera", "at the code and tap the link."))
     if company:
-        step(2, 365, "Choose your company", ("Select its name, then open", "the on-hire report."))
+        step(2, 365, "Choose your company", ("Select its name, then tap", "View on-hire report."))
     else:
-        step(2, 365, "Open your own report", ("Scan or enter your assigned", "barcode number. Only your", "own report opens."))
+        step(2, 365, "Open your own report", ("Scan or enter your assigned", "barcode number. On a shared", "phone, tap Finish and clear", "when done."))
     _qr(pdf, scoped_url, right-302, HEIGHT-499, 302)
     _text(pdf, left, HEIGHT-469, "Report options", bold, 11, INK)
     _lines(pdf, left, 486, ("Print, save as a PDF, share or email.",), regular, 10.7, 15, key_colour)
@@ -189,8 +222,9 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
 
     _text(pdf, left, HEIGHT-676, "Report updates", bold, 14.5, INK, -.2)
     _lines(pdf, left, 700, (
-        "The tool store updates reports throughout the day and night. Speak to the tool store",
-        "controller at any time for a fresh copy or if anything in your report looks wrong.",
+        "The tool store updates reports throughout the day and night. Recent returns may",
+        "still appear on the last stock snapshot. Ask the tool store controller at any time",
+        "for a fresh copy or to check an item.",
     ), regular, 12, 17, INK)
 
     _rule(pdf, left, right, HEIGHT-756, line_colour, .6)
@@ -199,8 +233,8 @@ def build_poster(kind: str, scoped_url: str) -> bytes:
     pdf.setFillColor(HexColor(key_colour))
     pdf.drawRightString(right, HEIGHT-776, "Each report shows the latest SiteIQ update.")
     _lines(pdf, left, 793, (
-        "Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved.",
-        "Not to be copied or reproduced without permission.",
+        "Designed and built by Andrew Fisher · © Andrew Fisher. For printing and display at MMG Dugald River.",
+        "Other reproduction requires permission.",
     ), regular, 7.4, 11, key_colour)
     pdf.showPage()
     pdf.save()
