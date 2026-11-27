@@ -848,7 +848,10 @@ def _merge_same_names(data):
         for k in keys[1:]:
             t = tools.pop(k)
             keep["site"], keep["on"] = keep.get("site", 0) + t.get("site", 0), keep.get("on", 0) + t.get("on", 0)
-            keep["available"] = keep.get("available", 0) + t.get("available", 0)
+            if "available" in keep and "available" in t:
+                keep["available"] += t["available"]
+            else:
+                keep.pop("available", None)
             keep["best"] = max(keep.get("best") or 0, t.get("best") or 0)
             if keep.get("pic") is None:
                 keep["pic"] = t.get("pic")
