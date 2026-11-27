@@ -59,6 +59,15 @@ class RegisterTests(PortalHTTPCase):
             self.assertEqual(b'Register updated' in html,should_show)
         self.assertEqual(qr_roster.status(self.root), before)
 
+    def test_same_base_cannot_overwrite_intervening_manager_update(self):
+        first, second, third = (register(badge=s) for s in ('0001', '0002', '0003'))
+        self.assertEqual(self.request('PUT', self.path, 'testmanager', first)[0], 200)
+        _, headers, _ = self.request('GET', self.path, 'testmanager')
+        match = {'If-Match': headers['ETag']}
+        self.assertEqual(self.request('PUT', self.path, 'testmanager', second, match)[0], 200)
+        self.assertEqual(self.request('PUT', self.path, 'testmanager', third, match)[0], 412)
+        self.assertEqual(self.request('GET', self.path, 'testmanager')[2], second)
+
     def test_bad_register_cannot_replace_last_accepted_download(self):
         good = register()
         self.assertEqual(self.request('PUT', self.path,'testmanager',good)[0],200)

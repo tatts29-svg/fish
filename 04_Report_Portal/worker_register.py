@@ -2,6 +2,8 @@
 import contextlib
 import datetime as dt
 import io
+import hashlib
+import fcntl
 import os
 from pathlib import Path
 import re
@@ -96,7 +98,15 @@ def updated(data_dir):
     return dt.datetime.fromtimestamp(stamp, AEST)
 
 
-def install(data_dir, body):
+class RegisterChanged(ValueError):
+    pass
+
+
+def etag(body):
+    return '"' + hashlib.sha256(body).hexdigest() + '"'
+
+
+def install(data_dir, body, *, if_match=None):
     count = _validate(body)
     root = Path(data_dir)
     root.mkdir(parents=True, exist_ok=True)
@@ -108,12 +118,21 @@ def install(data_dir, body):
             handle.flush()
             os.fsync(handle.fileno())
             stamp = dt.datetime.fromtimestamp(os.fstat(handle.fileno()).st_mtime, AEST)
-        os.replace(tmp, root / FILE)
-        fd = os.open(root, os.O_RDONLY | os.O_DIRECTORY)
-        try:
-            os.fsync(fd)
-        finally:
-            os.close(fd)
+        with (root / '.worker-register.lock').open('a') as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX)
+            if if_match is not None:
+                try:
+                    current = (root / FILE).read_bytes()
+                except FileNotFoundError:
+                    raise RegisterChanged('No previous worker register matches this update.') from None
+                if if_match != etag(current):
+                    raise RegisterChanged('The worker register has changed since this update was prepared.')
+            os.replace(tmp, root / FILE)
+            fd = os.open(root, os.O_RDONLY | os.O_DIRECTORY)
+            try:
+                os.fsync(fd)
+            finally:
+                os.close(fd)
     finally:
         if tmp is not None:
             tmp.unlink(missing_ok=True)

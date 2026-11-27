@@ -775,6 +775,27 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
         return self._send(200, json.dumps(result).encode(), "application/json")
 
+    def _correct_worker_barcodes(self):
+        role = self._role(cookie=True)
+        if not role:
+            return
+        if role != "manager":
+            return self._send(403, b"Manager access required.", "text/plain")
+        if self.headers.get_content_type() != "application/json":
+            return self._send(415, b"Send worker barcode corrections as JSON.", "text/plain")
+        body = self._body(128 * 1024)
+        if body is None:
+            return
+        try:
+            payload = json.loads(body)
+        except (ValueError, UnicodeError):
+            return self._send(400, b"Invalid JSON.", "text/plain")
+        try:
+            result = qr_roster.correct_verified(DATA_DIR, payload)
+        except ValueError as exc:
+            return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
+        return self._send(200, json.dumps(result).encode(), "application/json")
+
     def _worker_register(self):
         write = self.command == "PUT"
         role = self._role(cookie=write, page=not write)
@@ -789,12 +810,15 @@ class Handler(BaseHTTPRequestHandler):
             except FileNotFoundError:
                 return self._send(404, b"No worker register has been uploaded.", "text/plain")
             return self._send(200, body, worker_register.MIME,
-                              headers=(("Content-Disposition", 'attachment; filename="MMG_Full_Worker_Register.xlsx"'),))
+                              headers=(("Content-Disposition", 'attachment; filename="MMG_Full_Worker_Register.xlsx"'),
+                                       ("ETag", worker_register.etag(body))))
         body = self._body(qr_roster.MAX_BYTES)
         if body is None:
             return
         try:
-            result = worker_register.install(DATA_DIR, body)
+            result = worker_register.install(DATA_DIR, body, if_match=self.headers.get("If-Match"))
+        except worker_register.RegisterChanged as exc:
+            return self._send(412, json.dumps({"error": str(exc)}).encode(), "application/json")
         except ValueError as exc:
             return self._send(400, json.dumps({"error": str(exc)}).encode(), "application/json")
         return self._send(200, json.dumps(result).encode(), "application/json")
@@ -1127,6 +1151,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/qr-roster-corrections" and is_mmg(JOB_DIR):
+            return self._correct_worker_barcodes()
         if path in ("/upload/qr-roster.xlsx", "/upload/qr-roster-add.xlsx") and is_mmg(JOB_DIR):
             return self._qr_admin(add_only=path == "/upload/qr-roster-add.xlsx")
         if path == "/upload/worker-register.xlsx" and is_mmg(JOB_DIR):

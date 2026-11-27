@@ -6,6 +6,18 @@ import qr_roster
 
 
 class QRPrintStation(PortalHTTPCase):
+    def test_only_manager_can_correct_existing_worker_barcodes(self):
+        route = "/upload/qr-roster-corrections"
+        headers = {"Content-Type": "application/json"}
+        with patch.object(qr_roster, "correct_verified", return_value={"corrected": 1}) as replace:
+            for role in ("store", "client"):
+                self.assertEqual(self.request("PUT", route, role, b"{}", headers)[0], 403)
+            self.assertEqual(self.request("PUT", route, "testmanager", b"{}", {})[0], 415)
+            self.assertEqual(self.request("PUT", route, "testmanager", b"x", headers)[0], 400)
+            replace.assert_not_called()
+            self.assertEqual(self.request("PUT", route, "testmanager", b"{}", headers)[0], 200)
+            replace.assert_called_once_with(str(self.root), {})
+
     def test_staff_poster_hub_and_manager_only_import(self):
         path = "/upload/qr-reports"
         self.assertEqual(self.request("GET", path)[0], 303)

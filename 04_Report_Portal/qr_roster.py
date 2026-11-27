@@ -411,6 +411,27 @@ def _load(root):
     return data
 
 
+def _save(root, data):
+    with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=root, prefix='.roster-', delete=False) as f:
+        tmp = Path(f.name)
+        try:
+            json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+            f.flush()
+            os.fsync(f.fileno())
+        except BaseException:
+            tmp.unlink(missing_ok=True)
+            raise
+    try:
+        os.replace(tmp, root / FILE)
+        directory_fd = os.open(root, os.O_RDONLY | os.O_DIRECTORY)
+        try:
+            os.fsync(directory_fd)
+        finally:
+            os.close(directory_fd)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
 def status(data_dir):
     data = _load(Path(data_dir))
     return dict(linked=len(data['people']), updated=data.get('updated'), kind=data.get('kind'))
@@ -442,22 +463,85 @@ def import_roster(data_dir, body_bytes, *, confirmed_mmg=False, add_only=False):
             data = dict(schedule=MMG_SCHEDULE, people=people, updated=updated, kind=kind,
                         disabled_pairs=disabled, blocked_barcodes=blocked)
             result = dict(linked=len(people), skipped=skipped+excluded, conflicts=conflicts, kind=kind)
-        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=root, prefix='.roster-', delete=False) as f:
-            tmp = Path(f.name)
-            try:
-                json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
-                f.flush()
-                os.fsync(f.fileno())
-            except BaseException:
-                tmp.unlink(missing_ok=True)
-                raise
-        try:
-            os.replace(tmp, root / FILE)
-            directory_fd = os.open(root, os.O_RDONLY | os.O_DIRECTORY)
-            try:
-                os.fsync(directory_fd)
-            finally:
-                os.close(directory_fd)
-        finally:
-            tmp.unlink(missing_ok=True)
+        _save(root, data)
     return dict(result, updated=updated)
+
+
+def _corrections(body):
+    if (not isinstance(body, dict) or set(body) != {'project', 'schedule', 'corrections'}
+            or body['project'] != MMG_PROJECT or body['schedule'] != MMG_SCHEDULE):
+        raise ValueError('Badge corrections require the exact MMG project and schedule.')
+    items = body['corrections']
+    if not isinstance(items, list) or not 1 <= len(items) <= MAX_ROWS:
+        raise ValueError('Supply at least one worker badge correction within the roster limit.')
+    workers, codes = set(), set()
+    result = []
+    for item in items:
+        if (not isinstance(item, dict) or set(item) != {'worker', 'employer', 'previous', 'corrected'}
+                or not all(isinstance(s, str) and 1 <= len(s) <= 256 and s.isprintable() and s == s.strip()
+                           for s in item.values())):
+            raise ValueError('Each correction requires a worker, employer, previous badge and corrected badge.')
+        key = identity_key((item['worker'], item['employer']))
+        old, new = item['previous'], item['corrected']
+        if old == new or key in workers or old in codes or new in codes:
+            raise ValueError('Specify each worker and each distinct badge only once.')
+        workers.add(key)
+        codes.update((old, new))
+        result.append((key, old, new))
+    return result
+
+
+def correct_verified(data_dir, body):
+    """Compare and replace verified primary badges atomically without changing any other identity."""
+    corrections = _corrections(body)
+    root = Path(data_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    with (root / '.qr-roster.lock').open('a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        data = _load(root)
+        people = data['people']
+        blocked = set(data.get('blocked_barcodes', []))
+        disabled = {identity_key(pair) for pair in data.get('disabled_pairs', [])}
+        index = IdentityIndex(_evidence(root), people)
+        by_name, by_badge, by_native = defaultdict(set), defaultdict(set), defaultdict(set)
+        for i, person in enumerate(people):
+            for owner in [person, *person.get('aliases', [])]:
+                by_name[identity_key((owner['hirer'], owner['company']))].add(i)
+            for badge in _badges(person):
+                by_badge[badge].add(i)
+            if person.get('hirer_id'):
+                by_native[person['hirer_id']].add(i)
+
+        pending = []
+        for key, old, new in corrections:
+            candidates = by_name[key]
+            if len(candidates) != 1:
+                raise ValueError('A correction does not identify one worker and employer.')
+            i = next(iter(candidates))
+            person = people[i]
+            keys = {identity_key((owner['hirer'], owner['company']))
+                    for owner in [person, *person.get('aliases', [])]}
+            if (key != identity_key((person['hirer'], person['company'])) or keys & disabled
+                    or new in blocked or _badges(person) & blocked or index.match(person) is None):
+                raise ValueError('A correction targets an unverified, inactive or blocked worker or badge.')
+            if (by_badge[new] - {i} or by_native[new] - {i}
+                    or index.native_owners.get(new, set()) - keys):
+                raise ValueError('A corrected badge is associated with a different identity.')
+            if person.get('barcode') == new and old in blocked and not by_badge[old]:
+                continue
+            if person.get('barcode') != old or by_badge[old] != {i} or old in blocked:
+                raise ValueError('The previous badge does not match the current unique primary credential.')
+            pending.append((i, old, new))
+
+        if pending:
+            for i, old, new in pending:
+                person = people[i]
+                person['barcode'] = new
+                if 'barcodes' in person:
+                    person['barcodes'] = [badge for badge in person['barcodes'] if badge not in (old, new)]
+                blocked.add(old)
+            data.update(blocked_barcodes=sorted(blocked), kind='HIRERS_ID_CORRECT',
+                        updated=dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'))
+            _save(root, data)
+        return dict(kind='HIRERS_ID_CORRECT', linked=len(people), corrected=len(pending),
+                    already_corrected=len(corrections) - len(pending), updated=data.get('updated'))
