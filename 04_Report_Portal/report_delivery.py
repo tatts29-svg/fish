@@ -7,8 +7,52 @@ import os
 import re
 from threading import Lock
 
+from mobile_brand import web_report_html
+from qr_brand import PORTAL_MASTHEAD_CSS, portal_masthead, public_mmg_logo
+
 # Only replace quoted image literals. Embedded typefaces, CSS and inline SVG stay intact.
 _IMAGE = re.compile(rb'"data:image/(webp|jpeg|png);base64,([A-Za-z0-9+/]+=*)"')
+
+
+# The showcase template and the persisted MMG reports share this masthead.
+_OLD_MASTHEAD = re.compile(
+    rb'(<header class="top">\s*<div class="wrap bar">\s*)<div class="brand">COATES</div>'
+    rb'(<span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="[^"]*">)'
+)
+_REPORT_BRAND_CSS = PORTAL_MASTHEAD_CSS + """
+@media(max-width:620px){
+ .bar:has(.portal-masthead){display:grid;grid-template-columns:minmax(0,1fr) auto auto;
+ gap:.2rem .4rem;padding-block:.3rem}
+ .bar:has(.portal-masthead) .asat{grid-column:1/-1;grid-row:2;margin:0;text-align:left}
+ .bar:has(.portal-masthead) .gs{grid-column:1/-1;grid-row:3}
+ .bar:has(.portal-masthead) #full-screen{grid-column:2;grid-row:1}
+ .bar:has(.portal-masthead) #theme{grid-column:3;grid-row:1}
+ .bar .portal-masthead{flex-direction:column;align-items:flex-start;gap:2px}
+ .bar .portal-site{flex-direction:row;align-items:baseline;gap:.45rem;font-size:.66rem}
+ .bar .portal-site b{font-size:.61rem}
+}
+@media(min-width:2400px){
+ .bar .brand-lockup{gap:.65rem}.bar .brand-lockup .logo{font-size:1rem;gap:.45rem}
+ .bar .brand-lockup .wm i{font-size:.75rem}.bar .brand-lockup .mk svg{width:1.7rem;height:1.7rem}
+ .bar .brand-client img{height:1.8rem}.bar .brand-divider{height:1.4rem}
+}
+"""
+
+
+def _report_masthead(html, logo):
+    match = _OLD_MASTHEAD.search(html)
+    if not match:
+        return html
+    if logo is None:
+        # The standalone report can outlive its job pack on a restored volume.
+        packed = re.search(rb', LOGO="(data:image/png;base64,[A-Za-z0-9+/=]+)", CLIENT=', html)
+        if packed:
+            logo = packed[1].decode("ascii")
+    # The original client-logo setup still uses these two IDs to populate
+    # the overview and print copy. Preserve its DOM contract in a hidden span.
+    header = match[1] + portal_masthead(logo).encode() + b'<span hidden>' + match[2] + b'</span>'
+    html = html[:match.start()] + header + html[match.end():]
+    return html.replace(b"</head>", b"<style>" + _REPORT_BRAND_CSS.encode() + b"</style></head>", 1)
 
 
 class WebReport:
@@ -35,12 +79,16 @@ class ReportCache:
         self.version = None
         self.report = None
 
-    def load(self, path):
+    def load(self, path, *, mmg_job=None):
         with self.lock, open(path, "rb") as source:
             stat = os.fstat(source.fileno())
-            version = (stat.st_dev, stat.st_ino, stat.st_mtime_ns, stat.st_size)
+            logo = public_mmg_logo(mmg_job) if mmg_job is not None else None
+            version = (stat.st_dev, stat.st_ino, stat.st_mtime_ns, stat.st_size, mmg_job, logo)
             if version != self.version:
-                self.report = WebReport(source.read())
+                html = source.read()
+                if mmg_job is not None:
+                    html = _report_masthead(web_report_html(html), logo)
+                self.report = WebReport(html)
                 self.version = version
             return self.report
 

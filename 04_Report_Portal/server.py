@@ -46,9 +46,11 @@ import sds_library
 import swms_store
 import qr_access
 import qr_admin
+import qr_brand
 import qr_roster
 import qr_work_notes
 from report_delivery import ReportCache, accepts_gzip
+from mobile_brand import MOBILE_HEAD, MOBILE_FILES, public_asset
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import Stop, import_history, archive_stocktake, mmg_daily_kind, MMG_DAILY_KINDS, KINDS
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -69,16 +71,6 @@ _fails, _lock = {}, threading.Lock()
 EMPTY = """<main class="card"><h1>The report is being prepared</h1>
 <p>The first SiteIQ upload will appear here when the report is ready.</p>
 <nav class="portal-links" aria-label="Portal"><a href="/upload">Open uploads</a><a href="/logout">Sign out</a></nav></main>"""
-
-
-MOBILE_HEAD = """<link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" sizes="180x180" href="/mobile/icon-180.png">
-<meta name="theme-color" content="#0D1116">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="MMG Tool Store">"""
-MOBILE_FILES = {"/manifest.webmanifest": ("manifest.webmanifest", "application/manifest+json"),
-                **{f"/mobile/icon-{size}.png": (f"icon-{size}.png", "image/png") for size in (180, 192, 512)}}
 
 
 def _mobile_markup(page):
@@ -187,6 +179,12 @@ input,button{height:3.15rem;border-radius:.7rem}label{font-size:.91rem;margin:1.
 button{margin-top:1.25rem;background:#ff762e}.err{margin:0 0 1.1rem}
 .note{margin-top:1.25rem;padding-top:1rem;font-size:.88rem}.note>a{margin-top:0;padding:.4rem 0}
 .foot{margin-top:1.3rem}
+@media screen and (prefers-reduced-motion:no-preference){
+ .wrap>form.card::after{content:"";position:absolute;top:0;left:0;height:4px;width:36%;pointer-events:none;
+   background:linear-gradient(90deg,transparent,#ffac63 30%,#fff1d4 54%,#ffab66 70%,transparent);
+   filter:drop-shadow(0 1px 5px #ff903f);animation:hqLoginLight 4.8s ease-in-out infinite}
+ @keyframes hqLoginLight{0%{transform:translateX(-105%)}72%,100%{transform:translateX(285%)}}
+}
 """
 
 def _users():
@@ -367,7 +365,14 @@ poll();
 
 def _shell(inner):
     name = html.escape(os.environ.get("PORTAL_NAME", "").strip() or "Tool Store Report")
-    head, tail = LOGIN[:LOGIN.index("<form")], LOGIN[LOGIN.index('<div class="foot">'):]
+    page = LOGIN
+    if is_mmg(JOB_DIR):
+        header = ('<header class="portal-heading">' + qr_brand.portal_masthead(qr_brand.public_mmg_logo(JOB_DIR))
+                  + '</header>')
+        style = (qr_brand.PORTAL_MASTHEAD_CSS + ".portal-heading{padding-bottom:1rem;margin-bottom:1.3rem;"
+                 "border-bottom:1px solid #2b323d}")
+        page = _login_template("MyGear HQ · MMG Dugald River", "", header, style)
+    head, tail = page[:page.index("<form")], page[page.index('<div class="foot">'):]
     return _mobile_markup((head.replace("Sign in · ", "") + inner + tail).replace("__NAME__", name)).encode("utf-8")
 
 
@@ -604,7 +609,8 @@ class Handler(BaseHTTPRequestHandler):
         if not self._role(page=True):
             return
         try:
-            report = _web_report.load(os.path.join(DATA_DIR, "report.html"))
+            report = _web_report.load(os.path.join(DATA_DIR, "report.html"),
+                                      mmg_job=JOB_DIR if is_mmg(JOB_DIR) else None)
         except FileNotFoundError:
             if path == "/":
                 return self._send(200, _shell(EMPTY), FILES["report.html"])
@@ -661,8 +667,16 @@ class Handler(BaseHTTPRequestHandler):
                 with open(os.path.join(HERE, "mobile", "install.html"), encoding="utf-8") as page:
                     return self._send(200, _shell(page.read()), "text/html; charset=utf-8")
             name, content_type = MOBILE_FILES[path]
-            with open(os.path.join(HERE, "mobile", name), "rb") as asset:
-                return self._send(200, asset.read(), content_type, cache_control="public, max-age=3600")
+            body = public_asset(os.path.join(HERE, "mobile"), name)
+            etag = '"' + hashlib.sha256(body).hexdigest() + '"'
+            validators = self.headers.get("If-None-Match", "").split(",")
+            if any(v.strip().removeprefix("W/") in (etag, "*") for v in validators):
+                self.send_response(304)
+                self.send_header("ETag", etag)
+                self._common("public, no-cache")
+                self.end_headers()
+                return
+            return self._send(200, body, content_type, headers=[("ETag", etag)], cache_control="public, no-cache")
         if path == "/health":
             return self._send(200, b"ok", "text/plain")
         if path == "/login":
@@ -737,7 +751,8 @@ class Handler(BaseHTTPRequestHandler):
                 notes = qr_work_notes.entries(DATA_DIR) if role == "manager" else []
             except sqlite3.Error:
                 return self._send(503, b"QR work milestones are temporarily unavailable.", "text/plain")
-            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR), notes), "text/html; charset=utf-8")
+            return self._send(200, qr_admin.page(role, qr_roster.status(DATA_DIR), notes,
+                                                mmg_logo=qr_brand.public_mmg_logo(JOB_DIR)), "text/html; charset=utf-8")
         body = self._body(12 * 1024 * 1024)
         if body is None:
             return

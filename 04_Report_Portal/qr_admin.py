@@ -18,7 +18,8 @@ def _milestones(notes):
             + '<p role="status" id="note-result"></p></section>')
 
 
-def page(role, roster, notes=()):
+def page(role, roster, notes=(), *, mmg_logo=None):
+    from qr_brand import PORTAL_MASTHEAD_CSS, portal_masthead
     linked = int(roster.get("linked") or 0)
     if linked:
         status = f"{linked:,} worker{'s' if linked != 1 else ''} linked to a barcode."
@@ -48,9 +49,9 @@ a{color:#ffad79;text-underline-offset:.2em}h1{font-size:clamp(2rem,5vw,3.25rem);
 main>p,article p,.intro,details,.confirm{color:#c5d0df}.posters{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));margin:1.5rem 0}
 article,section{border:1px solid #394659;border-radius:.85rem;padding:1.35rem;background:#1a2430}article{display:flex;align-items:flex-start;flex-direction:column;border-top:4px solid #ff813b}article.personal{border-top-color:#72d9cb}article p{flex:1}
 .button,button{display:inline-block;background:#ff8b45;color:#161b22;text-decoration:none;border:0;padding:.68rem 1rem;min-height:44px;line-height:1.3;font:inherit;font-weight:700;border-radius:.45rem;cursor:pointer}button:disabled{opacity:.65}
-.personal .button{background:#8ae3d6}form{display:grid;gap:.7rem;justify-items:start;margin-top:1rem}form>label:first-child{font-weight:650}input[type=file]{font:inherit;max-width:100%}.confirm{display:flex;align-items:baseline;gap:.45rem}.confirm input{accent-color:#ff813b}
+.personal .button{background:#8ae3d6}form{display:grid;grid-template-columns:minmax(0,1fr);gap:.7rem;justify-items:start;margin-top:1rem}form>label:first-child{font-weight:650}input[type=file]{font:inherit;max-width:100%}.confirm{display:flex;align-items:baseline;gap:.45rem}.confirm input{accent-color:#ff813b}
 summary{cursor:pointer}details{margin-top:.75rem}#result:empty{display:none}#result{margin:.15rem 0}.roster-state{font-weight:650}.footer{margin:1.5rem 0 3rem}#milestones{margin-top:1rem}.milestone{margin-top:.8rem;background:#111923;border-top-width:1px}.milestone>*{margin:.3rem 0}.milestone p{overflow-wrap:anywhere}.review-actions{display:flex;gap:.5rem}.review-actions button:not([data-action=publish]){background:#354150;color:#e7ecf2}
-</style></head><body><header><div><span class="brand">COATES <span class="site">/ MMG</span></span><span class="site">Dugald River · Shutdown Tool Store</span></div></header>
+""" + PORTAL_MASTHEAD_CSS + """</style></head><body><header><div>""" + portal_masthead(mmg_logo) + """</div></header>
 <main><h1>QR reports and posters</h1><p>Print each poster in colour on A4 at actual size. Each code opens its own report area.</p>
 <div class="posters"><article><h2>Company on-hire report</h2><p>Scan the poster, choose a company and see its equipment and work history.</p><a class="button" href="/upload/report-qr/company.pdf">Download company poster</a></article>
 <article class="personal"><h2>Personal on-hire report</h2><p>Workers scan the poster and enter their own barcode to see their gear and tool-store history.</p><a class="button" href="/upload/report-qr/personal.pdf">Download personal poster</a></article></div>

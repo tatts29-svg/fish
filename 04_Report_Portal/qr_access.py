@@ -16,6 +16,7 @@ import threading
 import time
 from urllib.parse import parse_qs, urlsplit
 
+from mobile_brand import ICON_LINKS
 from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
 import qr_roster
 import qr_work_notes
@@ -46,6 +47,12 @@ padding:clamp(20px,5vw,32px);border:1px solid #343c48;border-top:3px solid #f262
 background:linear-gradient(155deg,#1b212b,#11161e);box-shadow:0 18px 56px #0006}
 h1{margin:0;font-size:clamp(1.5rem,4vw,2rem);line-height:1.14;letter-spacing:-.035em}
 p{margin:.75rem 0 0;color:#c9cfd7}
+.entry[aria-busy="true"]{position:relative;overflow:hidden}
+@media screen and (prefers-reduced-motion:no-preference){
+ .entry[aria-busy="true"]::after{content:"";position:absolute;inset:0 auto auto 0;width:40%;height:3px;
+   background:linear-gradient(90deg,transparent,#ffcf97,transparent);animation:inviteScan 1.65s ease-in-out infinite}
+ @keyframes inviteScan{from{transform:translateX(-100%)}to{transform:translateX(250%)}}
+}
 """
 
 
@@ -55,8 +62,9 @@ def invitation(scope, job_dir):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090c"><meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer"><title>{title} · MyGear HQ</title>
+{ICON_LINKS}
 <style>{_ENTRY_STYLE}{LOCKUP_CSS}</style></head><body><header><div class="bar">{lockup(public_mmg_logo(job_dir))}
-<span class="site">Dugald River</span></div></header><main class="entry"><h1>{title}</h1>
+<span class="site">Dugald River</span></div></header><main class="entry" aria-busy="true"><h1>{title}</h1>
 <p id="status" role="status">Opening your report…</p>
 <noscript>Enable JavaScript and scan the printed QR code again.</noscript></main>
 <script src="enter.js"></script></body></html>""".encode("utf-8")
@@ -71,7 +79,10 @@ ENTER_JS = b"""(async()=>{
       headers:{'Content-Type':'application/json','X-Portal':'1'},body:JSON.stringify({token})});
     if(!res.ok)throw Error();
     location.replace('./');
-  }catch(e){document.getElementById('status').textContent='Scan the QR code on the MMG report poster to open this report.'}
+  }catch(e){
+    document.getElementById('status').textContent='Scan the QR code on the MMG report poster to open this report.';
+    document.querySelector('.entry').setAttribute('aria-busy','false');
+  }
 })();"""
 
 
@@ -225,7 +236,8 @@ def serve(request, data_dir, job_dir):
         if not route:
             return error(404, "Not found.")
         scope, action = route.groups()
-        allowed = {"", "enter", "enter.js", "qr_report.css", "qr_report.js", "report", "report.pdf"}
+        report_assets = ("qr_report.css", "qr_report.js", "qr_motion.js")
+        allowed = {"", "enter", "enter.js", "report", "report.pdf", *report_assets}
         allowed.update(BRANDING)
         if scope == "company":
             allowed.update(("companies", "work-note"))
@@ -253,7 +265,7 @@ def serve(request, data_dir, job_dir):
             ready = scope != "personal" or qr_roster.status(data_dir).get("linked", 0) > 0
             shell = page(scope, job_dir=job_dir, barcode_ready=ready)
             return reply(200, shell.encode(), "text/html; charset=utf-8")
-        if read and action in ("qr_report.css", "qr_report.js", "badge_decoder.js", "badge_zxing.js"):
+        if read and action in (*report_assets, "badge_decoder.js", "badge_zxing.js"):
             return reply(200, (HERE / action).read_bytes(),
                          "text/css; charset=utf-8" if action.endswith(".css") else "text/javascript; charset=utf-8")
         if read and action in BRANDING:

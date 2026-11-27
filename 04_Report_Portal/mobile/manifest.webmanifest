@@ -1,16 +1,16 @@
 {
   "id": "/",
-  "name": "MMG Dugald River Tool Store",
-  "short_name": "MMG Tool Store",
+  "name": "MyGear HQ · MMG Dugald River Tool Store",
+  "short_name": "MyGear HQ MMG",
   "lang": "en-AU",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0D1116",
-  "theme_color": "#0D1116",
+  "background_color": "#101419",
+  "theme_color": "#101419",
   "icons": [
-    {"src": "/mobile/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "/mobile/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "/mobile/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {"src": "/mobile/mygear-mmg-192.png?v=hq-mmg-1", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/mobile/mygear-mmg-512.png?v=hq-mmg-1", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/mobile/mygear-mmg-maskable-512.png?v=hq-mmg-1", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ]
 }

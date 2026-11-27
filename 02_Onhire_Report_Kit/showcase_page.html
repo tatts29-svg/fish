@@ -1351,7 +1351,7 @@ __CONTACTS__
 
 <section class="view pb" id="v-guide" data-tab="Guide">
 <div class="vh"><h2>What each figure means</h2><p>Every figure in this report comes straight from SiteIQ. Nothing is estimated. Here is how each one is counted.</p></div>
-<p id="mobile-install" class="noprint" hidden><a class="btn ghost" href="/install">Add MMG Tool Store to your home screen</a></p>
+<p id="mobile-install" class="noprint" hidden><a class="btn ghost" href="/install">Add MyGear HQ and MMG to your home screen</a></p>
 <div class="defs" id="defs"></div>
 </section>
 
@@ -1386,7 +1386,7 @@ $('#hire-checks').hidden=!mmgDugaldRiver;
 $('#hire-checks-link').hidden=!mmgDugaldRiver||STATIC;
 if(!STATIC && location.protocol.startsWith('http') && mmgDugaldRiver){
   $('#mobile-install').hidden=false;
-  document.head.insertAdjacentHTML('beforeend','<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="/mobile/icon-180.png"><meta name="theme-color" content="#0D1116"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MMG Tool Store">');
+  if(!document.querySelector('link[rel="manifest"]')) document.head.insertAdjacentHTML('beforeend','<link rel="manifest" href="/manifest.webmanifest?v=hq-mmg-1"><link rel="icon" type="image/png" sizes="32x32" href="/mobile/mygear-mmg-32.png?v=hq-mmg-1"><link rel="apple-touch-icon" sizes="180x180" href="/mobile/mygear-mmg-180.png?v=hq-mmg-1"><meta name="apple-mobile-web-app-title" content="MyGear HQ MMG"><meta name="theme-color" content="#101419"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">');
 }
 const K=D.k, MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 const plural=(n,w,ws)=>`${fmt(n)} ${n==1?w:(ws||w+'s')}`;

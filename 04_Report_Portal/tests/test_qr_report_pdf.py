@@ -34,12 +34,27 @@ class ScopedPdfTests(unittest.TestCase):
         r = projection(2)
         r["another_company"] = "PRIVATE OTHER COMPANY"
         r["hires"][0]["items"][0]["hirer"] = "PRIVATE WORKER"
+        r["hires"][0]["items"][0]["holder"] = "PRIVATE PERSONAL HOLDER"
         pdf = self.output(r)
         for field in [b"Company on-hire report", b"Creek & Valley", b"Impact socket", b"ITEM-0000", b"ITEM-0001",
                       b"26 Nov 2026", b"08:45", b"28 Nov 2026 05:39 AEST", b"Page 1", b"POWERED BY SITEIQ"]:
             self.assertIn(field, pdf)
         self.assertNotIn(b"PRIVATE", pdf)
         self.assertNotIn(b"Return activity", pdf)
+        self.assertIn(b"Company holding these assets: Creek & Valley", pdf)
+        self.assertIn(b"ask your crew to return unneeded gear", pdf)
+        self.assertIn(b"a correction or a fresh copy", pdf)
+
+    def test_partial_issue_details_and_latest_rental_snapshot(self):
+        r = projection(2)
+        r["coverage"] = {"rental_asat": "2026-11-28T07:51"}
+        r["hires"][0]["items"] = [{"item": "ASSET-123", "date": "", "time": "05:07"},
+                                  {"item": "", "date": "2026-11-27", "time": ""}]
+        pdf = self.output(r)
+        for part in (b"28 Nov 2026 07:51 AEST", b"ASSET-123", b"Date not recorded", b"05:07",
+                     b"Asset ID not recorded", b"27 Nov 2026", b"Time not"):
+            self.assertIn(part, pdf)
+        self.assertNotIn(b"05:39 AEST", pdf)
 
     def test_empty_current_hires_have_a_dated_report(self):
         pdf = self.output(projection(0))
@@ -87,6 +102,9 @@ class ScopedPdfTests(unittest.TestCase):
         self.assertLess(zero.index(b"You have no equipment currently on hire"), zero.index(b"This shutdown"))
 
         self.assertNotIn(b"/ 5", pdf)
+        self.assertIn(b"same Queensland calendar date", pdf)
+        self.assertIn(b"night shift", pdf)
+        self.assertIn(b"Before you leave site", pdf)
         self.assertIn(b"1 of 5 eligible completed", pdf)
         self.assertNotIn(b"SAME-DAY RETURN SCORE", pdf)
         qualifying = dict(r, returns={**r["returns"], "score": 3.5, "eligible": 8, "same_day": 5})
@@ -128,6 +146,31 @@ class ScopedPdfTests(unittest.TestCase):
                       b"Compressor service", b"Changed inlet filter"]:
             self.assertIn(field, pdf)
         self.assertNotIn(b"PRIVATE", pdf)
+        self.assertLess(pdf.index(b"ITEM-0001"), pdf.index(b"This shutdown"))
+        self.assertLess(pdf.index(b"ITEM-0001"), pdf.index(b"Company work notes"))
+        self.assertEqual(pdf.count(b"ITEM-0001"), 1)
+
+    def test_missing_history_sources_are_distinct_from_a_measured_zero(self):
+        r = projection(0)
+        r.update(kind="person", name="Pat Example", coverage={}, activity=[], consumables=[],
+                 consumable_summary={"units": 0, "returned_units": 0, "active_days": 0},
+                 returns={"issues": 0, "returned": 0, "eligible": 0, "same_day": 0, "score": None},
+                 history=[])
+        period = dict(schedule="Past shutdown", current=False, activity_days=0, hire_count=0, issues=0, returned=0,
+                      consumable_units=0, consumable_returns=0, activity=[], equipment=[], consumables=[], coverage={})
+        r["story"] = [period]
+        pdf = self.output(r)
+        for part in (b"Previous shutdown activity", b"Dated activity records are unavailable",
+                     b"Issue and return totals are unavailable", b"Consumable totals are unavailable",
+                     b"Unavailable"):
+            self.assertIn(part, pdf)
+        for false_zero in (b"0 issued", b"0 of 5 eligible", b"0 assets were on hire at the saved"):
+            self.assertNotIn(false_zero, pdf)
+        r["coverage"] = {"transaction_periods": [{"start":"2026-11-26","end":"2026-11-27"}],
+                         "sales_asat":"2026-11-28T05:39"}
+        measured = self.output(r)
+        self.assertIn(b"Recorded issues: 0. Recorded returns: 0.", measured)
+        self.assertIn(b"Units drawn: 0. Units returned: 0.", measured)
 
     def test_generic_or_unscoped_inputs_are_rejected(self):
         for r in ({}, {"kind": "company", "name": ""}, {"kind": "inventory", "name": "full"}):

@@ -72,6 +72,18 @@ def when(value):
         return raw
 
 
+def transaction_periods(coverage):
+    periods = coverage.get("transaction_periods")
+    if periods is None:
+        periods = [{"start": coverage.get("period_start"), "end": coverage.get("period_end")}]
+    return [p for p in periods if p.get("start") and p.get("end")]
+
+
+def observed(value, covered):
+    """An export can establish zero only when its source exists."""
+    return number(value) if value is not None and (covered or value != 0) else "Unavailable"
+
+
 class DailyMovements(Flowable):
     """A compact, vector print chart with legible values independent of colour."""
     def __init__(self, rows, normal, bold, accent, wash):
@@ -163,7 +175,9 @@ def render_pdf(report, *, job_dir=None):
     accent = ORANGE if company_report else MMG_RED
     ink_accent = ORANGE_INK if company_report else MMG_RED
     wash = HexColor("#FFF0E3" if company_report else "#FBEDEE")
-    issue_time = when(report.get("asat"))
+    coverage = report.get("coverage") or {}
+    rental_asat = coverage.get("rental_asat") or report.get("asat")
+    issue_time = when(rental_asat) if rental_asat else "Timestamp unavailable"
     normal, bold = fonts(job_dir)
     logo = None
     if job_dir:
@@ -236,7 +250,7 @@ def render_pdf(report, *, job_dir=None):
     company = text(report.get("company"))
     if not company_report and company:
         flow.append(para(company, 11, colour=MUTED, spaceAfter=3))
-    flow.extend([para("SiteIQ rental stock pull  ·  " + issue_time, 9, colour=MUTED), Spacer(1, 13)])
+    flow.extend([para("Latest SiteIQ rental stock snapshot  ·  " + issue_time, 9, colour=MUTED), Spacer(1, 10)])
 
     def heading(label):
         flow.extend([CondPageBreak(82), para(label, 13, bold, spaceBefore=14, spaceAfter=5)])
@@ -258,24 +272,28 @@ def render_pdf(report, *, job_dir=None):
 
     def record_coverage(coverage):
         heading("Record coverage")
-        periods = coverage.get("transaction_periods")
-        if periods is None:
-            start, end = coverage.get("period_start"), coverage.get("period_end")
-            periods = [{"start": start, "end": end}] if start and end else []
+        periods = transaction_periods(coverage)
         for period in periods:
             flow.append(para("Tool transactions  ·  " + when(period["start"]) + " to " + when(period["end"])))
         if not periods:
-            flow.append(para("Transaction periods were unavailable."))
+            flow.append(para("Tool transaction dates are unavailable. Issue and return totals for this period cannot be confirmed."))
         for key, label in [("rental_asat", "Rental stock pull"), ("transactions_asat", "Transactions pull"),
                            ("sales_asat", "Sales stock pull")]:
             if coverage.get(key):
                 flow.append(para(label + "  ·  " + when(coverage[key]), 8.8, colour=MUTED))
+        if not coverage.get("sales_asat"):
+            flow.append(para("Sales stock snapshot date unavailable.", 8.8, colour=MUTED))
 
-    def daily_table(activity):
+    def daily_table(activity, source):
+        periods = transaction_periods(source)
+        def values(a):
+            day = a["date"]
+            tools = any(p["start"][:10] <= day <= p["end"][:10] for p in periods)
+            sales = bool(source.get("sales_asat") and day <= source["sales_asat"][:10])
+            return (when(day), observed(a.get("issued"), tools), observed(a.get("returned"), tools),
+                    observed(a.get("consumable_units"), sales), observed(a.get("consumable_returns"), sales))
         table(("Date", "Tools issued", "Tools returned", "Units drawn", "Units returned"),
-              [(when(a["date"]), number(a["issued"]), number(a["returned"]),
-                number(a["consumable_units"]), number(a.get("consumable_returns")))
-               for a in activity], (.24, .19, .19, .19, .19))
+              [values(a) for a in activity], (.24, .19, .19, .19, .19))
 
     def chapter(period):
         # SiteIQ retains this misspelling as its immutable import key.
@@ -284,23 +302,33 @@ def render_pdf(report, *, job_dir=None):
         heading("This shutdown" if period["current"] else schedule)
         if period["current"]:
             flow.append(para(schedule, 9.4, bold, ink_accent, spaceAfter=3))
+        source = period["coverage"]
+        tools = bool(transaction_periods(source))
+        sales = bool(source.get("sales_asat"))
         recorded = period["activity_days"]
         if recorded:
             first, last = period.get("first_date"), period.get("last_date")
-            dates = (" on " + when(first)) if first and first == last else (
-                " from " + when(first) + " to " + when(last) if first and last else "")
-            flow.append(para(f"Tool-store records cover {number(recorded)} activity "
+            dates = (" (" + when(first) + ")") if first and first == last else (
+                ", from " + when(first) + " to " + when(last) if first and last else "")
+            flow.append(para(f"The tool store recorded activity on {number(recorded)} "
                              + ("date" if recorded == 1 else "dates") + dates + "."))
+        elif tools or sales:
+            flow.append(para("No dated activity was recorded in the available tool-store records."))
         else:
-            flow.append(para("There are no dated tool-store transactions for this shutdown."))
-        flow.append(para(f"Tool issues: {number(period['issues'])}. Returns: {number(period['returned'])}. "
-                         f"Consumables: {number(period['consumable_units'])} units drawn, "
-                         f"{number(period['consumable_returns'])} returned."))
-        if not period["current"] and period.get("hire_count") is not None:
-            asat = period["coverage"].get("rental_asat")
+            flow.append(para("Dated activity records are unavailable for this shutdown."))
+        flow.append(para("Activity dates refer to tool-store issues, returns and draws. Use the site attendance register to check hours on site.",
+                         8.8, colour=MUTED, spaceAfter=5))
+        table(("Tool issues", "Tool returns", "Consumable units drawn", "Consumable units returned"),
+              [(observed(period.get("issues"), tools), observed(period.get("returned"), tools),
+                observed(period.get("consumable_units"), sales), observed(period.get("consumable_returns"), sales))],
+              (.21, .21, .29, .29))
+        if not period["current"] and period.get("hire_count") is not None and (source.get("rental_asat") or period["hire_count"]):
+            asat = source.get("rental_asat")
             flow.append(para(f"{number(period['hire_count'])} assets were on hire at the saved rental stock pull"
                              + (" on " + when(asat) if asat else "") + ".", colour=MUTED))
-        days = sorted(period["activity"], key=lambda d: d["date"])
+        days = sorted((d for d in period["activity"] if d["issued"] or d["returned"]
+                       or any(p["start"][:10] <= d["date"] <= p["end"][:10] for p in transaction_periods(source))),
+                      key=lambda d: d["date"])
         if days and any(d["issued"] or d["returned"] for d in days):
             heading("Daily tool movements" if len(days) <= 7 else "Tool movements on the latest seven recorded dates")
             flow.append(DailyMovements(days[-7:], normal, bold, accent, wash))
@@ -308,7 +336,7 @@ def render_pdf(report, *, job_dir=None):
     def chapter_detail(period, include_daily):
         if include_daily and period["activity"]:
             heading("Daily activity")
-            daily_table(period["activity"])
+            daily_table(period["activity"], period["coverage"])
         if period["equipment"]:
             heading("Equipment issued and returned")
             table(("Equipment", "Tool issues", "Tool returns"),
@@ -328,15 +356,13 @@ def render_pdf(report, *, job_dir=None):
     for group in groups:
         inventory = group["items"]
         for i, item in enumerate(inventory):
-            issued = when(item.get("date")) if item.get("date") else ""
-            if item.get("time"):
-                issued = (issued + "  " + text(item["time"])).strip()
+            issued = when(item["date"]) if item.get("date") else "Date not recorded"
+            issued += " · " + (text(item.get("time")) or "Time not recorded")
             assets.append((group["name"], number(group["count"]) if i == 0 else "",
-                           text(item.get("item")) or "Not supplied", issued or "Not supplied"))
-    stats = [(report["hire_count"], "Assets on hire"), (len(groups), "Equipment types")]
-    if now and company_report:
-        stats.append((now["activity_days"], "Recorded activity dates"))
-    strip = Table([[[para(number(n), 21, bold), para(label, 8, normal, MUTED)] for n, label in stats]],
+                           text(item.get("item")) or "Asset ID not recorded", issued))
+    stats = [(observed(report["hire_count"], rental_asat), "Assets on hire"),
+             (observed(len(groups), rental_asat), "Equipment types")]
+    strip = Table([[[para(value, 21, bold), para(label, 8, normal, MUTED)] for value, label in stats]],
                   colWidths=[CONTENT / len(stats)] * len(stats), hAlign="LEFT")
     strip.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), wash),
                                ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -345,7 +371,24 @@ def render_pdf(report, *, job_dir=None):
                                ("TOPPADDING", (0, 0), (-1, -1), 8),
                                ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
     flow.append(strip)
-    if company_report and now:
+    heading("Equipment currently on hire" if company_report else "Currently on hire to you")
+    if company_report:
+        flow.append(para("Company holding these assets: " + name, 9.4, bold, spaceAfter=5))
+    if assets:
+        table(("Equipment", "Type qty", "Asset ID", "Date hired (AEST)"), assets, (.37, .095, .27, .265))
+    elif rental_asat:
+        message = ("No equipment is currently on hire in this rental stock pull." if company_report else
+                   "You have no equipment currently on hire in this rental stock pull.")
+        flow.append(para(message))
+    else:
+        flow.append(para("Current holdings are unavailable because the rental stock snapshot is undated."))
+    guidance = ("At shift end, ask your crew to return unneeded gear to the tool store. Before anyone leaves site, "
+                "check that all gear on their card has been returned." if company_report else
+                "At shift end, return gear you no longer need to the tool store. Before you leave site, return all gear on your card.")
+    flow.append(para(guidance, 9.0, spaceBefore=8, spaceAfter=3))
+    flow.append(para("For a correction or a fresh copy, give the tool store controller the asset ID and the snapshot time above. "
+                     "The tool store updates reports throughout the day and night.", 8.8, colour=MUTED))
+    if now:
         chapter(now)
     if company_report and report.get("work_notes"):
         heading("Company work notes")
@@ -357,31 +400,27 @@ def render_pdf(report, *, job_dir=None):
             if caption:
                 flow.append(para(caption, 10, bold, ink_accent, spaceBefore=4))
             flow.append(para(note.get("description"), spaceAfter=4))
-    heading("Equipment currently on hire" if company_report else "Currently on hire to you")
-    if assets:
-        table(("Equipment", "Type qty", "Asset ID", "Date hired (AEST)"), assets, (.43, .11, .21, .25))
-    else:
-        message = ("No equipment is currently on hire in this rental stock pull." if company_report else
-                   "You have no equipment currently on hire in this rental stock pull.")
-        flow.append(para(message))
-
-    if not company_report and now:
-        chapter(now)
     if now:
         chapter_detail(now, include_daily=company_report)
         if company_report:
             record_coverage(now["coverage"])
 
     if not company_report:
-        record_coverage(report.get("coverage", {}))
+        record_coverage(coverage)
         heading("Daily activity")
         if report["activity"]:
-            daily_table(report["activity"])
+            daily_table(report["activity"], coverage)
+        elif transaction_periods(coverage) or coverage.get("sales_asat"):
+            flow.append(para("No dated activity was recorded in the available tool-store records."))
         else:
-            flow.append(para("No daily activity recorded in the supplied period."))
+            flow.append(para("Dated tool-store activity is unavailable."))
         heading("Consumables drawn")
         summary = report["consumable_summary"]
-        flow.append(para(f"{number(summary['units'])} units drawn · {number(summary.get('returned_units'))} units returned."))
+        if coverage.get("sales_asat") or summary.get("units") or summary.get("returned_units"):
+            flow.append(para(f"Units drawn: {observed(summary.get('units'), coverage.get('sales_asat'))}. "
+                             f"Units returned: {observed(summary.get('returned_units'), coverage.get('sales_asat'))}."))
+        else:
+            flow.append(para("Consumable totals are unavailable because no dated sales stock snapshot was supplied."))
         rate = summary.get("units_per_draw_day")
         if rate is not None:
             flow.append(para(f"Average {number(rate)} units per draw day, based on {number(summary['active_days'])} "
@@ -409,14 +448,24 @@ def render_pdf(report, *, job_dir=None):
                 flow.append(para(benchmark["method"], 8.8, colour=MUTED))
         heading("Return activity")
         ret = report["returns"]
-        flow.append(para(f"{number(ret['issues'])} issued · {number(ret['returned'])} returned. "
-                         f"{number(ret['same_day'])} of {number(ret['eligible'])} eligible completed hires returned on the same day."))
+        tools_covered = bool(transaction_periods(coverage))
+        if tools_covered or ret.get("issues") or ret.get("returned"):
+            flow.append(para(f"Recorded issues: {observed(ret.get('issues'), tools_covered)}. "
+                             f"Recorded returns: {observed(ret.get('returned'), tools_covered)}. "
+                             "The transaction dates in Record coverage define which issues and returns are included."))
+        else:
+            flow.append(para("Issue and return totals are unavailable because the transaction period is missing."))
         score, eligible = ret.get("score"), ret.get("eligible", 0)
+        if eligible:
+            flow.append(para(f"{number(ret['same_day'])} of {number(eligible)} eligible completed hires returned on the same day."))
         if score is None or eligible < 5:
-            flow.append(para(f"Same-day return measure unavailable. {number(eligible)} of 5 eligible completed "
-                             "hires recorded. A score requires at least five."))
+            reason = (f"{number(eligible)} of 5 eligible completed hires recorded." if tools_covered or eligible else
+                      "Completed hire records are unavailable for assessment.")
+            flow.append(para("Same-day return measure unavailable. " + reason + " A score requires at least five."))
         else:
             flow.extend([Spacer(1, 5), ReturnStars(score, bold, accent, wash), Spacer(1, 5)])
+        flow.append(para("Same day means the same Queensland calendar date. During a night shift, a tool issued before midnight "
+                         "and returned after midnight counts as a next-day return, even if the crew is still on shift.", 8.8, colour=MUTED))
         if ret.get("method"):
             flow.append(para(ret["method"], 8.8, colour=MUTED))
         if not ret.get("due_dates_available"):
@@ -429,17 +478,28 @@ def render_pdf(report, *, job_dir=None):
         if report.get("rental_history"):
             heading("Rental transactions")
             table(("Equipment", "Asset ID", "Issued (AEST)", "Returned (AEST)"),
-                  [(r["name"], r["item"], when(r.get("issued_at")), when(r.get("returned_at")))
-                   for r in report["rental_history"]], (.35, .21, .22, .22))
+                  [(r["name"], r["item"], when(r["issued_at"]) if r.get("issued_at") else "Issue date not recorded",
+                    when(r["returned_at"]) if r.get("returned_at") else "Return not recorded")
+                   for r in report["rental_history"]], (.29, .27, .22, .22))
         if not previous:
             heading("Previous shutdown activity")
         if not previous and report.get("history"):
+            rows = []
+            for earlier in report["history"]:
+                source = earlier.get("coverage") or {}
+                tools = bool(transaction_periods(source))
+                sales = bool(source.get("sales_asat"))
+                rows.append((earlier["schedule"], observed(earlier.get("issues"), tools),
+                             observed(earlier.get("returned"), tools), observed(earlier.get("same_day"), tools),
+                             observed(earlier.get("consumable_units"), sales),
+                             observed(earlier.get("activity_days"), tools or sales)))
             table(("Shutdown", "Issued", "Returned", "Same day", "Drawn units", "Active days"),
-                  [(r["schedule"], number(r["issues"]), number(r["returned"]), number(r["same_day"]),
-                    number(r["consumable_units"]), number(r["activity_days"]))
-                   for r in report["history"]], (.35, .12, .14, .12, .14, .13))
+                  rows, (.35, .12, .14, .12, .14, .13))
         elif not previous:
-            flow.append(para("No previous shutdown records are linked to this person."))
+            flow.append(para("Previous shutdown records are unavailable for this person."))
+    elif not previous and now:
+        heading("Previous shutdown activity")
+        flow.append(para("Previous shutdown records are unavailable for this company."))
     if previous:
         heading("Previous shutdown activity")
         for period in previous:

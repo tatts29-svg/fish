@@ -64,13 +64,71 @@
     camera:"M1.5 5h3l1.3-2h4.4l1.3 2h3v8.2h-13zM10.5 8.8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"
   };
   for (const [id,path] of Object.entries(icons)) buttonIcon(id,path);
-  function endLookup() {
+  // Use an absolute deadline so a backgrounded or suspended tab still expires.
+  const idleDialog = $("idle-dialog");
+  const minute = 60_000;
+  let expiresAt = 0;
+  let idleTimer = 0;
+  let printing = false;
+  function syncDeadline() {
+    clearTimeout(idleTimer);
+    if (!expiresAt || printing) return;
+    const left = expiresAt - Date.now();
+    if (left <= 0) {
+      endLookup("Screen cleared after 5 minutes without activity.");
+    } else if (left <= minute) {
+      if (!document.hidden && !idleDialog.open) idleDialog.showModal();
+      idleTimer = setTimeout(syncDeadline, left);
+    } else {
+      idleTimer = setTimeout(syncDeadline, left - minute);
+    }
+  }
+  function renewDeadline() {
+    expiresAt = Date.now() + 5 * minute;
+    $("clear-entry").hidden = false;
+    syncDeadline();
+  }
+  function activity(event) {
+    if (!expiresAt || printing || document.hidden) return;
+    if (Date.now() >= expiresAt) {
+      syncDeadline();
+      if (event.cancelable) event.preventDefault();
+      event.stopImmediatePropagation();
+    } else if (!idleDialog.open) {
+      renewDeadline();
+    }
+  }
+  for (const type of ["pointerdown", "keydown", "input", "click", "wheel", "touchmove"]) {
+    document.addEventListener(type, activity, {capture:true, passive:false});
+  }
+  identity.addEventListener("input", () => { if (identity.value) renewDeadline(); });
+  identity.addEventListener("change", () => { if (identity.value) renewDeadline(); });
+  $("keep-open").addEventListener("click", () => {
+    if (Date.now() >= expiresAt) {syncDeadline(); return;}
+    idleDialog.close();
+    renewDeadline();
+  });
+  idleDialog.addEventListener("cancel", event => {
+    event.preventDefault();
+    endLookup("Screen cleared.");
+  });
+  function endLookup(message = "") {
+    clearTimeout(idleTimer);
+    expiresAt = 0;
+    printing = false;
+    printClosed = [];
+    if (idleDialog.open) idleDialog.close();
     ratingObserver?.disconnect();ratingObserver=null;
     if (transaction) transaction.abort();
     transaction = null;
     selection = ""; pdfRequest = null; pdf = null; snapshot = null;
     dialogGeneration++;
     if (dialog.open) dialog.close();
+    $("send-status").textContent = "";
+    $("email-draft").removeAttribute("href");
+    $("dialog-save").disabled = true;
+    $("native-share").hidden = true;
+    $("email-draft").hidden = true;
     stopCamera();
     $("report").hidden = true;
     $("report-body").replaceChildren();
@@ -78,14 +136,36 @@
     $("trail-current").textContent = "Lookup";
     $("report-heading").textContent = "";
     $("hero-count").textContent = "";
+    $("hero-label").textContent = personal ? "Assets on hire to you" : "Assets on hire now";
     $("report-subtitle").textContent = "";
     $("pull").textContent = "SiteIQ pull time available with the report.";
     $("lookup").hidden = false;
     identity.value = "";
+    $("clear-entry").hidden = true;
     form.querySelector("[type=submit]").disabled = !personal && identity.disabled;
     form.removeAttribute("aria-busy");
-    status();
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+    status(message);
+    if (message && !document.hidden) {
+      $("lookup-title").focus({preventScroll:true});
+      window.scrollTo(0, 0);
+    }
   }
+  for (const id of ["reset","finish-report","clear-entry","finish-idle"]) {
+    $(id).addEventListener("click", () => endLookup("Screen cleared."));
+  }
+  // Section navigation does not put report sections in the browser Back list.
+  document.addEventListener("click", event => {
+    if (event.defaultPrevented || event.button || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target.closest('a[href^="#"]');
+    const target = link && $(link.hash.slice(1));
+    if (target) {
+      event.preventDefault();
+      history.replaceState(null, "", link.hash);
+      target.focus({preventScroll:true});
+      target.scrollIntoView({block:"start"});
+    }
+  });
   async function json(response) {
     let data;
     try { data = await response.json(); } catch (_) { /* A session may have expired. */ }
@@ -169,44 +249,66 @@
     if (count !== null) header.append(el("span","badge",fmt(count)));
     d.append(header); return d;
   }
+  function rentalSnapshot(r) {
+    const stamp = r.asat || r.coverage?.rental_asat;
+    return stamp ? "Rental stock snapshot · " + when(stamp) + " AEST" : "Rental stock snapshot time unavailable";
+  }
+  function gearRows(tool) {
+    return tool.items.map(asset => [
+      asset.item || "Number unavailable",
+      asset.date ? when(asset.date,asset.time) + (asset.time ? "" : " · time unavailable") : "Issue date unavailable"
+    ]);
+  }
   function personalHires(parent,r) {
-    const panel=section(parent,"Currently on hire to you",null,true);
+    const panel=section(parent,"Currently on hire to you",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;panel.classList.add("personal-hires");
-    const captured=r.asat ? "SiteIQ rental stock at "+when(r.asat)+" AEST" : "SiteIQ rental stock time unavailable";
-    panel.append(el("p","note",captured));
     if (!r.hires.length) {
-      panel.append(el("p","no-holdings","No equipment was recorded on hire to you at this stock pull."));
+      panel.append(el("p","no-holdings",r.asat || r.coverage?.rental_asat ? "No equipment is listed against your card in this rental stock export." : "A dated rental stock export is needed to confirm your current gear."));
       return;
     }
     for (const tool of r.hires) {
       const group=el("section","holding-group readout");
       const title=el("h3","",tool.name);
-      if(tool.count>1) title.append(el("span","badge",units(tool.count,"asset")));
+      title.append(el("span","badge",units(tool.count,"asset")));
       group.append(title);
-      table(group,["Asset number","On hire since (AEST)"],tool.items.map(a=>[
-        a.item || "Number unavailable",when(a.date,a.time) || "Issue date unavailable"
-      ]));
+      table(group,["Asset number","Issued (AEST)"],gearRows(tool));
       panel.append(group);
     }
   }
   function hires(parent,r) {
-    const panel = section(parent,"Gear on hire",
-      r.asat ? "On-hire position at " + when(r.asat) + " AEST. Open a tool to see its asset numbers and recorded issue times." : "Open a tool to see its asset numbers and recorded issue times.",true);
+    const panel=section(parent,"Gear on hire",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;
-    if (!r.hires.length) {panel.append(el("p","empty","No gear is recorded on hire to this company.")); return;}
+    if (!r.hires.length) {
+      panel.append(el("p","empty",r.asat || r.coverage?.rental_asat ? "No equipment is listed against this company in this rental stock export." : "A dated rental stock export is needed to confirm this company’s current gear."));
+      return;
+    }
+    panel.append(el("p","note","Open an equipment description for the asset numbers and issue times recorded against "+(r.company || r.name)+"."));
     const more = r.hires.length>6 ? group("More tool descriptions",r.hires.length-5) : null;
     for (const [index,tool] of r.hires.entries()) {
-      const d = group(tool.name,tool.count);
-      const items = el("ul","data-list");
-      for (const asset of tool.items) {
-        const line = el("li","item");
-        line.append(el("span","label no",asset.item || "Asset number unavailable"),el("span","date days",when(asset.date,asset.time) || "Issue time unavailable"));
-        items.append(line);
-      }
-      d.append(items);
+      const d=group(tool.name,null);
+      d.querySelector("summary").append(el("span","badge",units(tool.count,"asset")));
+      table(d,["Asset number","Issued (AEST)"],gearRows(tool));
       (more && index>=5 ? more : panel).append(d);
     }
     if (more) {more.classList.add("more-tools");panel.append(more);}
+  }
+  function handoverPanel(parent) {
+    const panel=section(parent,"Equipment returns",null,true);
+    panel.id="handover";
+    const list=el("ul","handover-actions");
+    const instructions=personal ? [
+      ["At shift end","Return any gear you no longer need to the tool store."],
+      ["Before you leave site","Return all gear on your card."]
+    ] : [
+      ["At shift end","Ask your crew to return any unneeded gear to the tool store."],
+      ["Before anyone leaves site","Check that all gear on their card has been returned."]
+    ];
+    for (const [heading,body] of instructions) {
+      const item=el("li");
+      item.append(el("strong","",heading),el("p","",body));
+      list.append(item);
+    }
+    panel.append(list,el("p","handover-updates note","The tool store updates reports throughout the day and night. Gear returned after the stock snapshot can still appear on this list. Speak to the tool store controller at any time for a fresh copy or if anything looks wrong."));
   }
   function stars(value) {
     const chart=svgNode("svg",{viewBox:"0 0 278 54",class:"rating-stars","aria-hidden":"true",focusable:"false"});
@@ -251,13 +353,26 @@
     },{threshold:.12});
     ratingObserver.observe(panel);
   }
+  function coveredTransactions(cov) {
+    if (!cov?.transactions_asat) return false;
+    const periods=cov.transaction_periods ?? [{start:cov.period_start,end:cov.period_end}];
+    return periods.some(p=>p.start && p.end);
+  }
+  function coveredActivity(days,cov) {
+    const tools=coveredTransactions(cov), sales=Boolean(cov?.sales_asat);
+    if (tools && sales) return days;
+    return days.map(d=>({...d,issued:tools ? d.issued : null,returned:tools ? d.returned : null,
+      consumable_units:sales ? d.consumable_units : null,consumable_returns:sales ? d.consumable_returns : null}))
+      .filter(d=>dailyWords(d));
+  }
   function returnsPanel(parent,r) {
     const ret=r.returns;
     const panel=section(parent,"Your return record",null,true);
     panel.id="return-rating";panel.tabIndex=-1;panel.classList.add("return-panel");
-    if (!r.coverage?.transactions_asat) {
-      panel.append(el("p","empty","A dated transaction export is needed before your return record can be shown."));return;
+    if (!coveredTransactions(r.coverage)) {
+      panel.append(el("p","empty","A tool transaction export with a dated reporting period is needed to show your return record."));return;
     }
+    panel.append(el("p","note","Tool transaction export · "+when(r.coverage.transactions_asat)+" AEST"));
     const earned=finite(ret.score) && ret.score>=1 && ret.score<=5 && ret.eligible>=5;
     const stage=el("div","rating-stage");
     const art=el("div","rating-display");
@@ -279,12 +394,13 @@
       evidence.append(el("strong","",fmt(ret.eligible)+" of 5 eligible completed hires"),el("p","","A score appears once five hires have a recorded issue and return in the same export period."));
     }
     stage.append(evidence);panel.append(stage);
+    panel.append(el("p","note","Same-day means the issue and return share a calendar date in Queensland. Gear issued before midnight and returned after midnight counts as a next-day return, even on the same night shift. The rating measures timing, and due dates are assessed separately when recorded."));
     const details=group("How your return record is calculated",null);
     details.append(factList([["Tool issues in the records",fmt(ret.issues)],["Tool returns in the records",fmt(ret.returned)]]));
     if(ret.method)details.append(el("p","explain",ret.method));
-    if(ret.due_dates_available && finite(ret.due_assessed)){
+    if(ret.due_assessed>0){
       details.append(el("p","explain",fmt(ret.returned_by_due)+" of "+fmt(ret.due_assessed)+" completed hires with recorded due dates were returned by the due date."));
-    } else details.append(el("p","explain","SiteIQ supplies no due dates for these hires."));
+    } else details.append(el("p","explain",ret.due_dates_available ? "No completed returns have a due date available for assessment." : "SiteIQ supplies no due dates for these hires."));
     panel.append(details);
     revealRating(panel);
   }
@@ -421,27 +537,27 @@
     const details=group("Source dates and export times (AEST)",null);details.append(factList(facts));parent.append(details);
   }
   function currentStory(parent,r,chapter) {
-    const days=chapter?.activity || r.activity || [];
+    const coverage=chapter?.coverage || r.coverage || {};
+    const days=coveredActivity(chapter?.activity || r.activity || [],coverage);
     const panel=section(parent,personal ? "Your shutdown at the tool store" : "The shutdown at the tool store",null,true);
     panel.classList.add("record-panel");panel.id="shutdown-story";
     const head=panel.querySelector("h2");
-    const first=chapter?.first_date || days.at(-1)?.date;
-    const last=chapter?.last_date || days[0]?.date;
-    const span=spanOf(first,last);
+    const dates=days.map(day=>day.date).sort();
+    const span=spanOf(dates[0],dates.at(-1));
     if (span) head.before(el("p","section-date",span));
-    if (!chapter && !days.length) {
+    if ((!coveredTransactions(coverage) && !coverage.sales_asat) || (!chapter && !days.length)) {
       panel.append(el("p","empty","Dated activity for this shutdown is unavailable in these exports."));
       return;
     }
     const spread=el("div","story-spread");panel.append(spread);
     const copy=el("div","story-copy");spread.append(copy);
     if (days.length) {
-      const transactions=chapter?.coverage?.transactions_asat || r.coverage?.transactions_asat;
+      const transactions=coveredTransactions(coverage);
       const issues=chapter?.issues ?? r.returns?.issues, returns=chapter?.returned ?? r.returns?.returned;
       const drew=chapter?.consumable_units ?? r.consumable_summary?.units;
       const lines=[];
       if (transactions && finite(issues) && finite(returns)) lines.push(units(issues,"tool issue")+" and "+units(returns,"tool return"));
-      if (!lines.length && finite(drew)) lines.push(units(drew,"consumable unit issued","consumable units issued"));
+      if (!lines.length && coverage.sales_asat && finite(drew)) lines.push(units(drew,"consumable unit issued","consumable units issued"));
       copy.append(el("p","story-lede",lines.length ? "The records show "+lines.join(", ")+" in the available exports." : "The tool store recorded activity on "+units(days.length,"date")+"."));
       const latest=days.reduce((a,b)=>a.date>b.date?a:b);
       copy.append(el("p","latest","Latest recorded date · "+when(latest.date)),el("p","latest-events",dailyWords(latest)||"Recorded tool-store transaction"));
@@ -451,8 +567,8 @@
     }
     panel.append(el("p","note",personal?"Dates reflect recorded tool-store activity. Attendance and hours worked are not supplied.":"Tool and consumable transactions describe the store activity recorded for this company."));
     activityTable(panel,days);
-    if (!personal && chapter) itemMix(panel,chapter);
-    recordedPeriod(panel,chapter?.coverage || r.coverage);
+    if (!personal && chapter) itemMix(panel,{equipment:coveredTransactions(coverage) ? chapter.equipment : [],consumables:coverage.sales_asat ? chapter.consumables : []});
+    recordedPeriod(panel,coverage);
   }
   function earlierChapters(parent,r) {
     const prior=(r.story||[]).filter(c=>!c.current);
@@ -466,21 +582,37 @@
     const list=el("div","chapter-list");panel.append(list);
     for (const ch of chapters) {
       const chapter=group(ch.schedule,null);list.append(chapter);
-      const span=spanOf(ch.first_date,ch.last_date);
+      const cov=ch.coverage || {};
+      const metric=(value,stamp)=>stamp && finite(value) ? fmt(value) : "Unavailable";
+      const tools=coveredTransactions(cov);
+      const days=coveredActivity(ch.activity || [],cov);
+      const dates=days.map(day=>day.date).sort();
+      const span=spanOf(dates[0],dates.at(-1));
       if(span)chapter.append(el("p","section-date",span));
-      const pairs=[["Recorded activity dates",fmt(ch.activity_days)],["Tool issues",fmt(ch.issues)],["Tool returns",fmt(ch.returned)],["Same-day returns",fmt(ch.same_day)+" of "+fmt(ch.eligible)+" eligible hires"],["Consumable units issued",fmt(ch.consumable_units)]];
-      if(finite(ch.consumable_returns))pairs.push(["Consumable units returned",fmt(ch.consumable_returns)]);
-      if(ch.coverage?.rental_asat && finite(ch.hire_count))pairs.push(["Assets on hire at "+when(ch.coverage.rental_asat),fmt(ch.hire_count)]);
+      const sameDay=tools && finite(ch.same_day) && finite(ch.eligible)
+        ? fmt(ch.same_day)+" of "+fmt(ch.eligible)+" eligible completed hires" : "Unavailable";
+      const pairs=[
+        ["Recorded activity dates",metric(ch.activity ? days.length : ch.activity_days,tools || cov.sales_asat)],
+        ["Tool issues",metric(ch.issues,tools)],
+        ["Tool returns",metric(ch.returned,tools)],
+        ["Same-day returns",sameDay],
+        ["Consumable units issued",metric(ch.consumable_units,cov.sales_asat)],
+        ["Consumable units returned",metric(ch.consumable_returns,cov.sales_asat)]
+      ];
+      if(cov.rental_asat) pairs.push(["Assets on hire at "+when(cov.rental_asat)+" AEST",metric(ch.hire_count,cov.rental_asat)]);
       chapter.append(factList(pairs));
-      activityTable(chapter,ch.activity||[]);itemMix(chapter,ch);recordedPeriod(chapter,ch.coverage);
+      activityTable(chapter,days);
+      itemMix(chapter,{equipment:tools ? ch.equipment : [],consumables:cov.sales_asat ? ch.consumables : []});
+      recordedPeriod(chapter,cov);
     }
   }
   function historyPanel(parent,r) {
     if (!r.rental_history?.length) return;
     const panel=section(parent,"Individual hire records","Issue and return times recorded against the assets on your card.",true);
+    if(r.coverage?.transactions_asat) panel.append(el("p","note","Tool transaction export · "+when(r.coverage.transactions_asat)+" AEST. Check the current gear list for the rental stock position."));
     const d=group("View individual hires",r.rental_history.length);
-    table(d,["Tool / asset","Issue","Return"],r.rental_history.map(t=>[
-      [t.name,t.item].filter(Boolean).join(" · "),when(t.issued_at)||"Issue unrecorded",when(t.returned_at)||"Return unrecorded"
+    table(d,["Tool / asset","Issued (AEST)","Returned (AEST)"],r.rental_history.map(t=>[
+      [t.name,t.item].filter(Boolean).join(" · "),when(t.issued_at)||"Issue date unavailable",when(t.returned_at)||"No return in this export"
     ]));
     panel.append(d);
   }
@@ -531,19 +663,22 @@
     const chapter=(r.story||[]).find(c=>c.current);
     $("report-heading").textContent=r.name;
     const who=personal && r.company ? r.company+" · " : "";
-    $("report-subtitle").textContent=who+(r.asat ? "Rental stock as at "+when(r.asat)+" AEST" : "Rental stock pull time unavailable");
-    $("hero-count").textContent=fmt(r.hire_count);
+    $("report-subtitle").textContent=who+rentalSnapshot(r);
+    $("hero-count").textContent=fmt(r.asat || r.coverage?.rental_asat || r.hires.length ? r.hire_count : null);
+    $("hero-label").textContent=(r.hire_count===1 ? "Asset" : "Assets")+(personal ? " on your card at snapshot" : " on hire at snapshot");
     if(personal) {
-      $("hero-label").textContent=(r.hire_count===1 ? "Asset" : "Assets")+" on hire to you";
       personalHires(body,r);returnsPanel(body,r);
     } else {
       hires(body,r);
     }
+    handoverPanel(body);
     const cov=chapter?.coverage || r.coverage || {};
+    const tools=coveredTransactions(cov);
+    const days=coveredActivity(chapter?.activity || r.activity || [],cov);
     const pairs=[
-      ["Recorded activity dates",fmt(chapter?.activity_days ?? r.activity?.length)],
-      ["Tool issues",fmt(cov.transactions_asat ? (chapter?.issues ?? r.returns?.issues) : null)],
-      ["Consumable units issued",fmt(cov.sales_asat ? (chapter?.consumable_units ?? r.consumable_summary?.units) : null)]
+      ["Recorded activity dates",tools || cov.sales_asat ? fmt(days.length) : "Unavailable"],
+      ["Tool issues",tools ? fmt(chapter?.issues ?? r.returns?.issues) : "Unavailable"],
+      ["Consumable units issued",cov.sales_asat ? fmt(chapter?.consumable_units ?? r.consumable_summary?.units) : "Unavailable"]
     ];
     stats(body,pairs);
     currentStory(body,r,chapter);
@@ -552,6 +687,7 @@
     earlierChapters(body,r);
     const links = [["current-gear","Current gear"]];
     if (personal) links.push(["return-rating","Return record"]);
+    links.push(["handover","Shift handover"]);
     links.push(["shutdown-story","This shutdown"]);
     if (!personal) links.push(["work-milestones","Work milestones"]);
     links.push(["past-chapters","Earlier shutdowns"]);
@@ -572,6 +708,7 @@
     event?.preventDefault();
     const value = identity.value;
     if (!value || !form.reportValidity()) return;
+    renewDeadline();
     if (transaction) transaction.abort();
     stopCamera();
     transaction = new AbortController();
@@ -580,6 +717,7 @@
     status("Opening report…");
     try {
       const data = await json(await fetch(...endpoint(false)));
+      if (mine === transaction) syncDeadline();
       if (mine !== transaction) return;
       render(data); identity.value=""; status();
     } catch (err) {
@@ -591,13 +729,23 @@
     }
   }
   form.addEventListener("submit",lookup);
-  $("reset").addEventListener("click",() => {endLookup();identity.focus();});
   $("print").addEventListener("click",() => window.print());
   window.addEventListener("beforeprint",() => {
+    syncDeadline();
+    if (!snapshot || printing) return;
+    if (idleDialog.open) idleDialog.close();
+    printing = true;
+    clearTimeout(idleTimer);
     printClosed=Array.from($("report").querySelectorAll("details:not([open])"));
     printClosed.forEach(d => {d.open=true;});
   });
-  window.addEventListener("afterprint",() => {printClosed.forEach(d => {d.open=false;});printClosed=[];});
+  window.addEventListener("afterprint",() => {
+    if (!printing) return;
+    printClosed.forEach(d => {d.open=false;});
+    printClosed = [];
+    printing = false;
+    renewDeadline();
+  });
   function fileInfo() {
     const label = personal ? "personal" : "company";
     return {name:"mmg-"+label+"-on-hire-report.pdf", title:personal ? "My MMG tool-store report" : "MMG company on-hire report"};
@@ -612,6 +760,7 @@
       if (!response.ok) await json(response);
       const blob=await response.blob();
       if (await blob.slice(0,5).text() !== "%PDF-") throw new Error("The PDF is unavailable. Try again or use Print.");
+      if (mine === transaction) syncDeadline();
       if (mine !== transaction) throw new DOMException("Report closed","AbortError");
       pdf=blob; return blob;
     })();
@@ -624,9 +773,14 @@
     setTimeout(() => URL.revokeObjectURL(url),1500);
   }
   $("save").addEventListener("click",async () => {
+    const mine = transaction;
     status("Preparing PDF…");
-    try {const blob=await getPDF();download(blob);status("PDF ready. Use your browser’s downloads or save menu to keep it.");}
-    catch(err){if(err.name!=="AbortError")status(err.message,true);}
+    try {
+      const blob = await getPDF();
+      if (mine !== transaction) return;
+      download(blob);
+      status("PDF ready. Use your browser’s downloads or save menu to keep it.");
+    } catch(err) {if(mine === transaction && err.name !== "AbortError") status(err.message,true);}
   });
   const pdfFile=blob => new File([blob],fileInfo().name,{type:"application/pdf"});
   async function sendDialog(email) {
@@ -657,8 +811,9 @@
   $("dialog-save").addEventListener("click",()=> {if(pdf)download(pdf);});
   $("native-share").addEventListener("click",async () => {
     if (!pdf) return;
+    const mine = dialogGeneration;
     try {await navigator.share({files:[pdfFile(pdf)],title:fileInfo().title});}
-    catch(err){if(err.name!=="AbortError")$("send-status").textContent="Your device could not share the PDF. Save it and attach the file in your preferred app.";}
+    catch(err){if(mine === dialogGeneration && err.name!=="AbortError")$("send-status").textContent="Your device could not share the PDF. Save it and attach the file in your preferred app.";}
   });
   function stopCamera() {
     scanGeneration++;
@@ -733,6 +888,7 @@
       && !/^(?:[a-z][\w+.-]*:|[\\/]{2}|www\.)/i.test(value);
   }
   async function startCamera() {
+    renewDeadline();
     stopCamera();
     status("");
     const mine = scanGeneration;
@@ -796,8 +952,14 @@
     $("camera").hidden=!(window.isSecureContext && navigator.mediaDevices?.getUserMedia);
     $("camera").addEventListener("click",startCamera);
     $("stop-scan").addEventListener("click",stopCamera);
-    document.addEventListener("visibilitychange",()=> {if(document.hidden)stopCamera();});
+
   } else {companies();$("retry-companies").addEventListener("click",companies);}
-  window.addEventListener("pagehide",endLookup);
-  window.addEventListener("pageshow",e => {if(e.persisted)endLookup();});
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopCamera();
+    syncDeadline();
+  });
+  window.addEventListener("focus", syncDeadline);
+  window.addEventListener("pagehide", () => endLookup());
+  window.addEventListener("pageshow", event => {if (event.persisted) endLookup("Screen cleared.");});
+  window.addEventListener("popstate", () => {if (expiresAt) endLookup("Screen cleared.");});
 })();

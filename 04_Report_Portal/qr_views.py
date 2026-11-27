@@ -3,6 +3,7 @@
 import os
 from pathlib import Path
 
+from mobile_brand import ICON_LINKS
 from qr_brand import lockup
 
 
@@ -30,6 +31,10 @@ def page(scope, *, barcode_ready=True, job_dir=None):
         <select id="identity" required disabled><option value="">Loading companies…</option></select>
         <div class="form-actions"><button class="primary" type="submit" disabled>View on-hire report</button>
         <button id="retry-companies" type="button" hidden>Retry company list</button></div>''')
+    if not (personal and not barcode_ready):
+        fields += ('<p class="privacy-note">Choose Finish and clear when you’re done. '
+                   'This screen clears after 5 minutes without activity.</p>'
+                   '<button type="button" id="clear-entry" hidden>Finish and clear</button>')
     return_jump = ('<a class="return-jump screen-only" href="#return-rating">Your return record</a>'
                    if personal else "")
     setup = personal and not barcode_ready
@@ -40,9 +45,11 @@ def page(scope, *, barcode_ready=True, job_dir=None):
     return f'''<!doctype html>
 <html lang="en-AU"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+{ICON_LINKS}
 <meta name="theme-color" content="#101419"><meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex,nofollow"><title>{title} · MyGear HQ</title>
-<link rel="stylesheet" href="qr_report.css"><script defer src="qr_report.js"></script></head>
+<link rel="stylesheet" href="qr_report.css"><script defer src="qr_report.js"></script>
+<script defer src="qr_motion.js"></script></head>
 <body class="hq-shell {font_class}" data-scope="{scope}" data-setup="{int(setup)}">
 <a class="skip screen-only" href="#main">Skip to content</a>
 <header class="brandbar hq-topbar"><div class="frame top in">
@@ -55,7 +62,7 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <section id="lookup" class="entry-card hq-entry"><header class="ch intro"><p class="eyebrow">Coates tool store</p>
 <h1>{title}</h1><p class="lede">{intro}</p></header>
 <form id="lookup-form" class="lookup-readout readout" aria-labelledby="lookup-title" autocomplete="off">
-<h2 class="readout-head" id="lookup-title">{form_title}</h2><div class="form-fields">{fields}</div></form>
+<h2 class="readout-head" id="lookup-title" tabindex="-1">{form_title}</h2><div class="form-fields">{fields}</div></form>
 <noscript>Enable JavaScript to open this report.</noscript></section>
 <p id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></p>
 <article id="report" hidden><header class="ch report-head"><div class="hero-copy">
@@ -64,15 +71,19 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <a href="#current-gear" class="side hero-holding" aria-label="Jump to the current on-hire list"><span id="hero-count"></span>
 <span><span id="hero-label">{'Assets on hire to you' if personal else 'Assets on hire now'}</span> <b aria-hidden="true">↘</b></span></a>
 </header>
-<div class="report-tools"><button type="button" id="reset">{'Finish and clear' if personal else 'Change company'}</button>
+<div class="report-tools"><button type="button" id="reset">Finish and clear</button>
 <nav class="actions" aria-label="Report actions">
 <button id="print" type="button">Print</button><button id="save" type="button">Save PDF</button>
 <button id="share" type="button">Share PDF</button><button id="email" type="button">Email PDF</button>
 </nav></div><nav id="section-nav" class="record-links screen-only" aria-label="Report sections"></nav>
-<div id="report-body"></div></article>
+<div id="report-body"></div><div class="finish-actions screen-only"><button id="finish-report" type="button">Finish and clear</button></div></article>
 </main><footer class="frame foot hq-footer"><p id="pull">SiteIQ pull time available with the report.</p>
 <p>Author: Andrew Fisher <span aria-hidden="true">·</span> <strong>Powered by SiteIQ</strong></p>
 <small>Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. Not to be copied or reproduced without permission.</small></footer>
+<dialog id="idle-dialog" role="alertdialog" aria-labelledby="idle-title" aria-describedby="idle-description">
+<h2 id="idle-title">Still using this screen?</h2><p id="idle-description">Your details will clear within a minute.</p>
+<div class="dialog-actions"><button id="keep-open" class="primary" type="button" autofocus>Keep open</button>
+<button id="finish-idle" type="button">Finish and clear</button></div></dialog>
 <dialog id="send-dialog" aria-labelledby="send-title"><div class="dialog-head"><h2 id="send-title">Share PDF</h2>
 <button id="close-dialog" type="button" aria-label="Close"></button></div>
 <p id="send-status" role="status"></p><div class="dialog-actions">
