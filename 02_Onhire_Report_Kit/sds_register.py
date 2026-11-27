@@ -1,7 +1,10 @@
 """Build the register from held products with identity-confirmed Australian SDS documents."""
+import base64
+import binascii
 from calendar import monthrange
 from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
+import io
 import json
 import math
 from pathlib import Path
@@ -76,6 +79,28 @@ def matches_name(record, name):
     return allowed is None or isinstance(allowed, list) and norm(name) in {norm(s) for s in allowed}
 
 
+def approved_photo(record):
+    """Keep a verified catalogue photo with its caption and supplier attribution."""
+    uri = record.get("photo_data") or ""
+    caption = str(record.get("photo_caption") or "").strip()
+    source = safe_url(record.get("photo_source"))
+    prefix = "data:image/webp;base64,"
+    if not isinstance(uri, str) or len(uri) > 3 * 1024 * 1024 or not uri.startswith(prefix) or not caption or not source:
+        return {}
+    try:
+        from PIL import Image
+    except ImportError:
+        return {}
+    try:
+        with Image.open(io.BytesIO(base64.b64decode(uri[len(prefix):], validate=True))) as image:
+            if image.format != "WEBP" or not 0 < max(image.size) <= 3840:
+                return {}
+            image.verify()
+    except (ValueError, OSError, binascii.Error, Image.DecompressionBombError):
+        return {}
+    return {"photo": uri, "photo_caption": caption, "photo_source": source}
+
+
 def confirmed_document(record, folder, checked, today):
     # A legacy 'review' encompasses brand guesses as well as old sheets; only an
     # explicit match can promote a reviewed record into the operational register.
@@ -110,7 +135,7 @@ def confirmed_document(record, folder, checked, today):
         "manufacturer": record.get("manufacturer") or "", "issued": issued, "review_due": due,
         "review_status": review_status, "checked": date_text(record.get("checked") or checked),
         "url": url, "source": safe_url(record.get("source")), "file": "/sds/" + name,
-        "sds_details": details, "note": str(record.get("note") or ""),
+        "sds_details": details, "note": str(record.get("note") or ""), **approved_photo(record),
     }
 
 

@@ -43,6 +43,7 @@ import zipfile
 import sqlite3
 import stocktake_store
 import sds_library
+import swms_store
 from report_delivery import ReportCache, accepts_gzip
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import Stop, import_history, archive_stocktake, mmg_daily_kind, MMG_DAILY_KINDS, KINDS
@@ -581,6 +582,8 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0]
         if path == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries()
+        if path in ("/swms/status", "/swms/current.pdf", "/swms/current.docx") and is_mmg(JOB_DIR):
+            return self._swms(path)
         if path.startswith("/sds/") and is_mmg(JOB_DIR):
             if not self._role(page=True):
                 return
@@ -634,6 +637,8 @@ class Handler(BaseHTTPRequestHandler):
     do_HEAD = do_GET
 
     def do_POST(self):
+        if self.path.split("?", 1)[0] == "/swms/manager-review" and is_mmg(JOB_DIR):
+            return self._swms("/swms/manager-review")
         if self.path.split("?", 1)[0] == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries(write=True)
         if self.path.split("?", 1)[0] == "/upload/rebuild-current" and is_mmg(JOB_DIR):
@@ -657,6 +662,66 @@ class Handler(BaseHTTPRequestHandler):
             _failed(ip)
             return self._send(401, _login_page("That username or password is not right. Have another go."), "text/html; charset=utf-8")
         self._redirect("/", cookie=_session(user))
+
+    def _swms(self, path):
+        write = self.command in ("PUT", "POST")
+        role = self._role(cookie=write, page=not write)
+        if not role:
+            return
+
+        def reply(status, payload):
+            return self._send(status, json.dumps(payload).encode(), "application/json")
+
+        if write and role != "manager":
+            return reply(403, {"error": "The manager login is required."})
+        try:
+            if path == "/upload/swms.zip":
+                body = self._body(swms_store.MAX_BUNDLE)
+                if body is None:
+                    return
+                version = swms_store.publish(DATA_DIR, body)
+                return reply(200, {"version": version, "pdf": "/swms/current.pdf", "docx": "/swms/current.docx"})
+            if path.startswith("/swms/current."):
+                ext = path.rsplit(".", 1)[1]
+                params = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query, keep_blank_values=True)
+                requested = params.get("version", [None])
+                if len(requested) != 1:
+                    return reply(400, {"error": "Choose one document version."})
+                head = self.command == "HEAD"
+                version, content = swms_store.document(DATA_DIR, ext, requested[0], head)
+                mime, disposition = swms_store.FORMATS[ext]
+                self.send_response(200)
+                self.send_header("Content-Type", mime)
+                self.send_header("Content-Length", str(content if head else len(content)))
+                self.send_header("Content-Disposition", f'{disposition}; filename="MMG-Dugald-River-SWMS.{ext}"')
+                self.send_header("X-SWMS-Version", version)
+                self._common()
+                self.end_headers()
+                if not head:
+                    self.wfile.write(content)
+                return
+            identity = swms_store.manager_identity(JOB_DIR) if role == "manager" else None
+            if write:
+                if self.headers.get("X-Portal") != "1":
+                    return reply(403, {"error": "Use the portal review action to record a review."})
+                if self.headers.get_content_type() != "application/json":
+                    return reply(415, {"error": "Send a JSON acknowledgement."})
+                body = self._body(2048)
+                if body is None:
+                    return
+                try:
+                    payload = json.loads(body)
+                except (ValueError, UnicodeError):
+                    return reply(400, {"error": "Invalid review acknowledgement."})
+                status = swms_store.review(DATA_DIR, payload, identity)
+            else:
+                status = swms_store.current_status(DATA_DIR)
+            return reply(200, {**status, "reviewer_name": identity[1] if identity else None,
+                               "can_review": bool(identity and status["version"] and not status["reviewed_at"])})
+        except swms_store.SwmsError as exc:
+            return reply(exc.status, {"error": str(exc)})
+        except sqlite3.Error:
+            return reply(503, {"error": "SWMS records are unavailable. Try again."})
 
     def _stocktake_entries(self, write=False):
         def reply(status, payload):
@@ -854,6 +919,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/swms.zip" and is_mmg(JOB_DIR):
+            return self._swms(path)
         if path == "/upload/sds-register.zip" and is_mmg(JOB_DIR):
             role = self._role()
             if not role:

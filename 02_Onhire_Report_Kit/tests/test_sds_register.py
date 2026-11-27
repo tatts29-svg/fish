@@ -86,3 +86,21 @@ class SdsRegister(unittest.TestCase):
             self.assertIsNone(stock_quantity(value))
         for value, expected in [("0", 0), ("1,234", 1234), ("2.5", 2.5), (12, 12)]:
             self.assertEqual(stock_quantity(value), expected)
+
+    def test_photo_requires_real_image_and_provenance(self):
+        import base64
+        import io
+        try:
+            from PIL import Image
+        except ImportError:
+            self.skipTest("Pillow is needed for embedded photographs")
+        photo = io.BytesIO()
+        Image.new("RGB", (2, 2), "#888888").save(photo, format="WEBP")
+        metadata = {"photo_caption": "Supplier catalogue image", "photo_source": "https://example.org/p/adhesive",
+                    "photo_data": "data:image/webp;base64," + base64.b64encode(photo.getvalue()).decode()}
+        row, = self.rows({"12345678": {**self.record, **metadata}})
+        self.assertEqual(row["photo"], metadata["photo_data"])
+        for bad in [{"photo_caption": ""}, {"photo_source": "javascript:bad"}, {"photo_data": "data:image/webp;base64,AAAA"}]:
+            row, = self.rows({"12345678": {**self.record, **metadata, **bad}})
+            self.assertNotIn("photo", row)
+            self.assertEqual(row["status"], "verified")

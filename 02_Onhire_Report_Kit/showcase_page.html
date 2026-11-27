@@ -58,6 +58,17 @@ main{padding:28px 0 20px}
 .card>h3{font-size:15.5px;font-weight:600;letter-spacing:-.005em}
 .card>.sub{font-size:13px;color:var(--mu);margin:3px 0 16px}
 .card>h3+*:not(.sub){margin-top:14px}
+#v-swms [hidden]{display:none!important}
+.swms-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(13rem,100%),1fr));gap:.85rem 1.25rem;margin:1rem 0}
+.swms-meta dt{color:var(--mu);font-size:.9rem}.swms-meta dd{margin:.2rem 0 0;font-weight:650}
+.swms-note{margin:.85rem 0;max-width:68ch;color:var(--mu)}
+#swms-review-form label{display:flex;gap:.65rem;align-items:baseline;max-width:65ch;margin:1rem 0}
+.hire-checks{margin-bottom:20px}
+.hire-checks h4{font-size:1.05rem;color:var(--tx)}
+.hire-checks ol{padding-left:1.5em;margin-top:.7rem;font-size:1rem;line-height:1.5}
+.hire-checks li{padding-left:.2em;max-width:68ch}
+.hire-checks li+li{margin-top:.65rem}
+.hire-checks li::marker{color:var(--ortx);font-weight:700}
 .foot{font-size:12px;color:var(--dim);margin-top:12px}
 .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--mu);margin-bottom:10px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
@@ -649,6 +660,22 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
 .sds-entry dt{color:var(--mu);font-size:.8rem}.sds-entry dd{margin:2px 0 0;font-weight:600}
 .sds-docs{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .sds-docs a:not(.btn){text-decoration:underline;text-underline-offset:.16em;color:var(--tx)}
+.sds-media{display:flex;justify-content:flex-end;align-items:flex-start;gap:clamp(16px,2vw,36px);min-width:0}
+.sds-print-link{display:none}
+.sds-photo{margin:0;width:clamp(140px,13vw,228px);max-width:100%;font-size:.85rem;color:var(--mu)}
+.sds-photo-button{display:block;position:relative;cursor:zoom-in;width:100%;aspect-ratio:1;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0;overflow:hidden}
+.sds-photo-button img{display:block;width:100%;height:100%;object-fit:contain}
+.sds-photo-button:focus-visible,.sds-code button:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.sds-photo figcaption{margin-top:5px;text-align:center}
+.sds-photo-button span{position:absolute;right:5px;bottom:5px;padding:2px 6px;border-radius:4px;background:#16191eee;color:white;font:600 12px/1.3 Inter,sans-serif}
+#sds-photo-dialog{width:fit-content;max-width:94vw;max-height:92dvh;margin:auto;padding:0;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--tx);overflow:auto}
+#sds-photo-dialog::backdrop{background:#090b10d9}
+#sds-photo-dialog .sds-photo-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:12px 16px}
+#sds-photo-name{font-size:1rem;max-width:65ch;margin:0}
+#sds-photo-large{display:block;object-fit:contain;width:min(720px,88vw);height:min(65dvh,660px);background:white}
+#sds-photo-credit{padding:10px 16px;font-size:.9rem}#sds-photo-credit a{color:inherit;text-decoration:underline}
+@media screen and (min-width:601px) and (max-width:999px){.sds-media{flex-direction:column;align-items:center}}
+@media screen and (max-width:600px){.sds-media{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.18fr);width:min(100%,380px);gap:14px}.sds-media .sds-code,.sds-media .sds-photo{width:100%;min-width:0;text-align:center}.sds-media .sds-code:only-child{grid-column:1/-1;width:max-content}}
 .sds-code{align-self:start;text-align:center;font-size:.85rem;color:var(--mu)}
 .sds-code button{border:0;border-radius:6px;background:white;display:block;max-width:100%;padding:0;margin:0 auto 4px;cursor:zoom-in}
 .sds-code svg,#sds-qr-dialog svg{display:block;max-width:100%;height:auto;margin:auto}
@@ -671,16 +698,23 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
   html.sds-print #v-sds{opacity:1!important;transform:none!important;font:10pt/1.25 Arial,sans-serif}
   html.sds-print .sds-list{display:block}
   html.sds-print #v-sds h2{font-size:21pt;margin:0}
-  html.sds-print #v-sds .vh{margin:0 0 4mm}
-  html.sds-print #sds-totals{display:flex;gap:6mm;margin:0 0 5mm;background:white;padding:0}
+  html.sds-print #v-sds .vh{margin:0 0 2mm}
+  html.sds-print #sds-totals{display:flex;gap:6mm;margin:0 0 3mm;background:white;padding:0}
   html.sds-print #sds-totals>*{background:white;color:#111;padding:1mm 3mm;border:1px solid #aaa}
   html.sds-print .sds-entry{break-inside:auto;grid-template-columns:minmax(0,1fr) 42mm;gap:1mm 7mm;background:white;border:0;border-top:1.5pt solid #444;padding:3mm 0 0;margin:0}
   html.sds-print .sds-entry+.sds-entry{break-before:page}
+  html.sds-print .sds-media{display:flex;flex-direction:column-reverse;align-items:center;gap:2mm;break-inside:avoid}
+  html.sds-print .sds-photo{width:30mm;font-size:8pt}
+  html.sds-print .sds-code .sds-screen-label{display:none}
+  html.sds-print .sds-print-link{display:block;color:#222;text-decoration:underline;font:9pt/1.2 Arial,sans-serif}
+  html.sds-print .sds-photo-button{border:0;border-radius:0}
+  html.sds-print .sds-photo-button span,html.sds-print #sds-photo-dialog{display:none}
+  html.sds-print .sds-photo figcaption{margin-top:1mm}
   html.sds-print .sds-entry h3{font-size:14pt}
   html.sds-print .sds-entry dl{font-size:10pt;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm 3mm;margin:3mm 0}
   html.sds-print .sds-entry dt,html.sds-print .sub{font-size:9pt;color:#333}
   html.sds-print .sds-entry dl:not(.sds-extract){grid-template-columns:repeat(3,minmax(0,1fr))}
-  html.sds-print .sds-entry .sds-extract{font:9.5pt/1.25 Arial,sans-serif;gap:2mm 6mm}
+  html.sds-print .sds-entry .sds-extract{font:9.5pt/1.25 Arial,sans-serif;gap:1mm 6mm}
   html.sds-print .sds-extract dd{font-weight:400}
   html.sds-print .sds-entry :is(dd,p,ul){line-height:1.25}
   html.sds-print #sds-totals .n{font-size:13pt}
@@ -1043,11 +1077,12 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 <div class="grid c3" id="know"></div>
 __CONTACTS__
 <div class="sect">Why Coates is on site</div>
-<div class="card loopc"><h3>Every tool goes out safe, and comes back to be made safe again</h3><div class="sub" id="loop-sub"></div>
-<div class="loop" id="loop"></div></div>
+<div class="card loopc"><h3>How Coates checks gear at the counter</h3><div class="sub" id="loop-sub"></div>
+<div class="loop" id="loop"></div>
+<button type="button" id="hire-checks-link" class="more noprint" data-go="rhythm" hidden>View hire and return checks</button></div>
 <div class="grid c21">
 <div class="card"><h3>Items issued today, hour by hour</h3><div class="sub" id="hoursub"></div>
-<div class="legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>Already back on the shelf</span></div>
+<div class="legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>Recorded as returned</span></div>
 <div id="hourly"></div></div>
 <div class="card"><h3>Who has the gear now</h3><div class="sub" id="cosub"></div><div id="cos"></div></div>
 </div>
@@ -1125,11 +1160,44 @@ __CONTACTS__
 <label>Review date<select id="sds-state"><option value="">All records</option><option value="in_date">In date</option><option value="review_required">Review required</option></select></label><button class="btn ghost" id="sds-print" type="button">Print register</button></div>
 <p class="sub noprint" id="sds-count" role="status" aria-live="polite"></p>
 <div id="sds-list" class="sds-list"></div>
+<dialog id="sds-photo-dialog" aria-labelledby="sds-photo-name"><div class="sds-photo-bar"><h3 id="sds-photo-name"></h3><form method="dialog"><button type="submit" class="btn ghost">Close photo</button></form></div><img id="sds-photo-large" alt=""><div id="sds-photo-credit"></div></dialog>
 <dialog id="sds-qr-dialog" aria-labelledby="sds-qr-name"><h3 id="sds-qr-name"></h3><div id="sds-qr-large"></div><form method="dialog"><button class="btn ghost">Close</button></form></dialog>
 </section>
 
+<section class="view pb" id="v-swms" data-tab="Store SWMS">
+<div class="vh"><h2>Tool store safe work method statement</h2><p>MMG Dugald River · Daily tool store operations</p></div>
+<div class="grid c21">
+<article class="card"><h3>Site document</h3>
+<p class="swms-note">This SWMS covers shift start-up, handling and transporting gear, issuing and returning tools, and managing hazards in the store.</p>
+<dl class="swms-meta"><div><dt>Review date</dt><dd>1 November 2026</dd></div><div><dt>Shutdown manager</dt><dd>Andrew Fisher</dd></div><div><dt>Day shift controller</dt><dd>Thomas Maher</dd></div><div><dt>Night shift controller</dt><dd>Cody Mitchell</dd></div></dl>
+<div class="dl" id="swms-documents" hidden><a class="btn" href="/swms/current.pdf" target="_blank" rel="noopener">Open SWMS PDF</a><a class="btn ghost" href="/swms/current.docx" download>Download Word copy</a></div>
+</article>
+<article class="card"><h3>Sign-off for this revision</h3>
+<p class="swms-note" id="swms-state" role="status" aria-live="polite">Loading document status…</p>
+<p class="swms-note">The document has separate spaces for site acceptance, worker consultation and signatures.</p>
+<form id="swms-review-form" hidden><label><input type="checkbox" id="swms-confirm" required> <span>I have reviewed this MMG revision as shutdown manager. My review will be recorded as <strong id="swms-reviewer"></strong>.</span></label><button type="submit" class="btn" id="swms-confirm-button" disabled>Record my manager review</button></form>
+<button type="button" class="btn ghost noprint" id="swms-retry" hidden>Refresh document status</button>
+</article></div></section>
+
 <section class="view pb" id="v-rhythm" data-tab="How the store runs">
 <div class="vh"><h2>How the store runs</h2><p id="op-lead"></p></div>
+<section class="card hire-checks" id="hire-checks" aria-labelledby="hire-checks-title" hidden>
+<h3 id="hire-checks-title">Hire and return checks at the counter</h3>
+<p class="sub">We check SiteIQ after each scan so the hire record shows who took the tool and when it came back.</p>
+<div class="grid c2">
+<div><h4>When we issue gear</h4>
+<ol>
+<li><strong>Check the gear.</strong> We check for damage and missing accessories, make sure the tool is clean and charged where needed, and check that any required tag has more than a week to run.</li>
+<li><strong>Scan the hirer.</strong> We check the name, status and company on screen. We select Hire only when the details match.</li>
+<li><strong>Scan each tool.</strong> We scan the tool itself, check that its description matches on screen and watch the count go up by one. We match the final count to the gear on the counter and select Finish before handover.</li>
+</ol></div>
+<div><h4>When gear comes back</h4>
+<ol>
+<li><strong>Check the open hire.</strong> After the first scan, we look at the screen and match the hire record to the gear on the counter.</li>
+<li><strong>Inspect the returned gear.</strong> We check for damage and missing accessories with the person returning it. We keep damaged gear out of circulation.</li>
+<li><strong>Confirm it is off hire.</strong> We scan again and look at the screen a second time to confirm the correct item has come off the hirer’s record, including gear held back for damage. If it still shows on hire, we resolve it at the counter.</li>
+</ol></div>
+</div></section>
 <div id="opsblock">
 <div class="stats" id="op-stats"></div>
 <div class="card" style="margin-top:16px"><h3>Busy times round the clock</h3><div class="sub" id="clock-sub"></div>
@@ -1252,6 +1320,8 @@ const QS=location.search, STATIC=/[?&]static/.test(QS);
 const root=document.documentElement;
 if(STATIC)root.classList.add('static');
 const mmgDugaldRiver=/^MMG\b/i.test(D.job.schedule||'') && D.job.title==='MMG Dugald River';
+$('#hire-checks').hidden=!mmgDugaldRiver;
+$('#hire-checks-link').hidden=!mmgDugaldRiver||STATIC;
 if(!STATIC && location.protocol.startsWith('http') && mmgDugaldRiver){
   $('#mobile-install').hidden=false;
   document.head.insertAdjacentHTML('beforeend','<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" sizes="180x180" href="/mobile/icon-180.png"><meta name="theme-color" content="#0D1116"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MMG Tool Store">');
@@ -1511,12 +1581,12 @@ else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} i
 if(D.below.length){const z=D.below.filter(b=>b.have==0).length;kn.push({c:'w',i:ic.box,t:`${plural(D.below.length,'consumable line')} to top up`,d:z?`${plural(z,'line')} at zero. The list is on the Consumables tab.`:'Each is below its minimum. The list is on the Consumables tab.',go:'consumables'})}
 else kn.push({c:'g',i:ic.ok,t:'Every consumable line is above its minimum',d:`${K.cons_lines} lines on the shelf.`,go:'consumables'});
 {const I=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-$('#loop-sub').textContent='A tool store with Coates people on the counter is more than a shelf. This is what happens to every item, every time.';
-const st=[['<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>','Issued to a named person','Scanned out in SiteIQ, so every item has an owner.',`${fmt(K.issued_today)} issued today`,''],
+$('#loop-sub').textContent='The counter team records who takes each tool and checks its condition when it comes back.';
+const st=[['<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>','Issued to a named person','SiteIQ records the hirer and their company.',`${fmt(K.issued_today)} issued today`,''],
 ['<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>','Checked each day before use','Crews check their gear before they start.','',''],
-['<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>','Returned to the store','Gear not being used comes back to the counter.',`${fmt(K.back_today)} back today`,''],
-['<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>','Checked and cleaned by Coates','Every return is checked for safe use and cleaned.',`${fmt(D.tagged.groups.reduce((a,g)=>a+g.n,0))} items carry a test tag`,'c'],
-['<path d="M5 13l4 4L19 7"/>','Ready for the next person','Back on the shelf, clean and safe to use.',`${fmt(K.coates_ready-K.coates_out)} Coates items ready now`,'']];
+['<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>','Returned to the store','We confirm the returned tool has come off hire in SiteIQ.',`${fmt(K.back_today)} back today`,''],
+['<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>','Checked and cleaned by Coates','We check returned gear for damage and missing accessories.',`${fmt(D.tagged.groups.reduce((a,g)=>a+g.n,0))} items carry a test tag`,'c'],
+['<path d="M5 13l4 4L19 7"/>','Ready for the next person','Damaged gear is held back from the next hire.',`${fmt(K.coates_ready-K.coates_out)} Coates items ready now`,'']];
 $('#loop').innerHTML=st.map(x=>`<div class="lstep ${x[4]}"><div class="ic">${I(x[0])}</div><b>${x[1]}</b><span>${x[2]}</span>${x[3]?`<em>${x[3]}</em>`:''}</div>`).join('')}
 $('#know').innerHTML=kn.map(k=>`<button class="know ${k.c}" data-go="${k.go}"><span class="ic">${k.i}</span><span><b>${esc(k.t)}</b><span>${esc(k.d)}</span></span></button>`).join('');
 // today, hour by hour: each column is the items issued in that hour
@@ -1726,6 +1796,48 @@ ${l.pd?`<div class="qre"><b>Estimate:</b> about ${l.pd} used a day, so roughly $
 <button class="x">Close</button></div>`;big.classList.add('on')},true)}
 
 
+/* ---------- controlled tool store document ---------- */
+function initSwms(){
+  const docs=$('#swms-documents'),status=$('#swms-state'),form=$('#swms-review-form');
+  const check=$('#swms-confirm'),submit=$('#swms-confirm-button'),retry=$('#swms-retry');
+  let version='';
+  function reset(){
+    version='';docs.hidden=true;form.hidden=true;retry.hidden=true;check.checked=false;submit.disabled=true;
+  }
+  async function refresh(){
+    reset();
+    try{
+      const response=await fetch('/swms/status',{cache:'no-store',headers:{'X-Portal':'1'}});
+      if(!response.ok)throw new Error();
+      const doc=await response.json();
+      if(!doc.version){status.textContent='The site copy has not been published yet.';retry.hidden=false;return}
+      version=doc.version;docs.hidden=false;
+      for(const link of docs.querySelectorAll('a'))link.search='?version='+encodeURIComponent(version);
+      if(doc.reviewed_at&&doc.reviewed_by){
+        const when=new Intl.DateTimeFormat('en-AU',{dateStyle:'medium',timeStyle:'short',timeZone:'Australia/Brisbane'}).format(new Date(doc.reviewed_at));
+        status.textContent='Manager review recorded by '+doc.reviewed_by+' on '+when+' AEST.';
+      }else{
+        status.textContent='Awaiting manager review of this revision.';form.hidden=!doc.can_review;
+        $('#swms-reviewer').textContent=doc.reviewer_name||'';
+      }
+    }catch{status.textContent='Document status could not be loaded.';retry.hidden=false}
+  }
+  retry.onclick=refresh;
+  check.onchange=()=>{submit.disabled=!check.checked};
+  form.onsubmit=async event=>{
+    event.preventDefault();
+    if(!version||!check.checked||submit.disabled)return;
+    submit.disabled=true;check.disabled=true;
+    try{
+      const response=await fetch('/swms/manager-review',{method:'POST',headers:{'Content-Type':'application/json','X-Portal':'1'},body:JSON.stringify({version,acknowledged:true})});
+      if(response.status===409){reset();status.textContent='The site document has changed. Open and review the current revision before signing.';retry.hidden=false;return}
+      if(!response.ok)throw new Error();
+      await refresh();
+    }catch{reset();status.textContent='Refresh the document status to check whether your review was recorded.';retry.hidden=false}
+    finally{check.disabled=false}
+  };
+  refresh();
+}
 /* ---------- how the store runs ---------- */
 function initRhythm(){const O=D.ops,hh=h=>String(h).padStart(2,'0')+':00';
 if(O&&O.hours&&O.hours.issue){const P=O.per_day;
@@ -1756,7 +1868,7 @@ else{$('#range-sub').textContent='';$('#range').innerHTML='<div class="empty">No
 /* ---------- guide ---------- */
 $('#defs').innerHTML=[
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
-['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Already back" are those issued today and since returned to the shelf.`],
+['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Recorded as returned" means those items are no longer on hire at the time of the pull.`],
 ['Coates tools ready for work','Coates-owned items in the store that are ready to issue.'],
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Tested by Coates','Coates electrical gear, and rigging, lifting and fall-arrest gear, is tested by Coates and carries the quarter\'s tag colour: Dec to Feb red, Mar to May green, Jun to Aug blue, Sep to Nov yellow.'],
@@ -2008,7 +2120,15 @@ function initSds(){
     return items?`<details ${printing?'open':''}><summary>Details from the safety data sheet</summary><dl class="sds-extract">${items}</dl></details>`:''
   }
   const list=$('#sds-list'),dialog=$('#sds-qr-dialog');
+  const photoDialog=$('#sds-photo-dialog'),largePhoto=$('#sds-photo-large');
+  let lastPhotoButton;
+  function stockPhoto(r,index){
+    if(!r.photo)return '';
+    const caption=r.photo_caption||r.product;
+    return `<figure class="sds-photo"><button type="button" class="sds-photo-button" data-sds-photo="${index}" aria-haspopup="dialog" aria-label="Enlarge product photo of ${esc(r.product)}"><img src="${esc(r.photo)}" alt="${esc(caption)}"><span aria-hidden="true">Enlarge</span></button><figcaption>Product photo</figcaption></figure>`
+  }
   function productCard(r){
+    const index=rows.indexOf(r);
     const dims=Number(r.qr.split(':',1)[0])+8,qr=qrsvg(r.qr,dims*3,4);
     const units=r.quantity==null?'Quantity not recorded':fmt(r.quantity)+(r.uom?' '+r.uom:'');
     const productCodes=[...new Set([r.code,r.sku].filter(Boolean))].join(' · ');
@@ -2020,7 +2140,7 @@ function initSds(){
 <dl>${meta('On hand in SiteIQ',units)}${meta('Pack',r.pack)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)+(r.uom?' '+r.uom:'')):''}${meta('Stock code / SKU',productCodes)}${meta('Storage location',r.storage_location)}${meta('Bin',r.bin)}${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl>
 <div class="sds-docs"><a class="btn" href="${esc(doc)}" target="_blank" rel="noopener noreferrer">Open full Australian SDS</a>${local&&location.protocol.startsWith('http')&&!STATIC?'<a href="'+esc(local)+'" target="_blank" rel="noopener noreferrer">Portal PDF copy</a>':''}</div>
 <p class="sub">${esc([r.source_export,stockTime?stockTime+' AEST':''].filter(Boolean).join(' · '))}</p></div>
-<div class="sds-code"><button type="button" data-sds-qr="${rows.indexOf(r)}" aria-haspopup="dialog" aria-label="Enlarge SDS QR code for ${esc(r.product)}">${qr}</button>Scan for the full SDS</div>${extract(r)}</article>`
+<div class="sds-media">${stockPhoto(r,index)}<div class="sds-code"><button type="button" data-sds-qr="${index}" aria-haspopup="dialog" aria-label="Enlarge SDS QR code for ${esc(r.product)}">${qr}</button><span class="sds-screen-label">Scan for the full SDS</span><a class="sds-print-link" href="${esc(doc)}">Scan or open full SDS</a></div></div>${extract(r)}</article>`
   }
   let printing=STATIC;
   function draw(){
@@ -2030,11 +2150,24 @@ function initSds(){
     $('#sds-count').textContent=words.length||state.value?(matches.length?fmt(matches.length)+' matching '+(matches.length===1?'product':'products'):'No matching products.'):'';
     list.innerHTML=matches.map(productCard).join('')
   }
-  list.onclick=e=>{const b=e.target.closest('[data-sds-qr]');if(!b)return;
+  list.onclick=e=>{
+    const picture=e.target.closest('[data-sds-photo]');
+    if(picture){
+      lastPhotoButton=picture;
+      const r=rows[Number(picture.dataset.sdsPhoto)],credit=$('#sds-photo-credit'),source=sdsSource(r.photo_source);
+      $('#sds-photo-name').textContent=r.product;
+      largePhoto.alt=r.photo_caption||r.product;largePhoto.src=r.photo;
+      credit.textContent=r.photo_caption||'';
+      if(source){const link=document.createElement('a');link.href=source;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Photo source';credit.append(credit.textContent?' · ':'',link)}
+      credit.hidden=!credit.textContent;photoDialog.showModal();return
+    }
+    const b=e.target.closest('[data-sds-qr]');if(!b)return;
     const r=rows[Number(b.dataset.sdsQr)],dim=Number(r.qr.split(':',1)[0])+8;
     $('#sds-qr-name').textContent=r.product;$('#sds-qr-large').innerHTML=qrsvg(r.qr,dim*Math.max(4,Math.floor(480/dim)),4);dialog.showModal()
   };
   dialog.onclick=e=>{if(e.target===dialog)dialog.close()};
+  photoDialog.onclick=e=>{if(e.target===photoDialog)photoDialog.close()};
+  photoDialog.addEventListener('close',()=>{largePhoto.removeAttribute('src');lastPhotoButton?.focus({preventScroll:true})});
   query.oninput=state.onchange=draw;
   $('#sds-print').onclick=()=>window.print();
   if(!STATIC){
@@ -2263,11 +2396,12 @@ function initStocktake(st) {
 }
 if(!D.stocktake)$('#v-stocktake').remove();
 if(!Array.isArray(D.sds))$('#v-sds').remove();
+if(!mmgDugaldRiver||STATIC||!/^https?:$/.test(location.protocol))$('#v-swms').remove();
 
 const CAN_UP=!STATIC&&location.protocol.startsWith('http');if(!CAN_UP)$('#v-upload').remove();
 const views=$$('.view'), tabs=$('#tabs'), ink=$('#ink');
 const initialisers=new Map(Object.entries({onhire:initOnHire,tooling:initTooling,consumables:initConsumables,
-  rhythm:initRhythm,costs:initCosts,people:initPeople,sds:initSds,stocktake:()=>initStocktake(D.stocktake)}));
+  rhythm:initRhythm,swms:initSwms,costs:initCosts,people:initPeople,sds:initSds,stocktake:()=>initStocktake(D.stocktake)}));
 function prepareView(view){
   const id=view.id.slice(2), init=initialisers.get(id);
   if(init){init();initialisers.delete(id)}
