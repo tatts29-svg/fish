@@ -2379,7 +2379,11 @@ function initStocktake(st) {
   function compile(){
     // site records are deduplicated by the importer. Older bundles provide
     // dated sightings before they provide the separate physical-count list.
-    const verified=st.physical_counts||st.sightings?.filter(r=>r.quantity!=null&&Number(r.quantity)>=0&&/^(stocktake|stock take|stock count|physical count|cycle count)$/i.test((r.action||'').trim()))||rows.flatMap(r=>(r.checks||[]).map(c=>({...r,...c})));
+    const verified=st.physical_counts||st.sightings?.filter(r=>{
+      const n=Number(r.quantity),action=(r.action||'').trim().replace(/\s+/g,' ');
+      return r.quantity!=null&&String(r.quantity).trim()!==''&&Number.isInteger(n)&&n>=0&&(r.kind==='cons'||r.kind==='tool'&&n<=1)
+        &&/^(stocktake|stock take|stock count|physical count|cycle count)$/i.test(action);
+    })||rows.flatMap(r=>(r.checks||[]).map(c=>({...r,...c})));
     events=manual.slice().reverse().map(e=>({row:byKey.get(key(e.kind,e.item_id))||{key:e.item_id,kind:e.kind,name:e.description||e.item_id,category:e.category},round:ids.includes(e.round)?ids.indexOf(e.round):null,time:e.counted_at||'',who:e.person||'',quantity:e.quantity,shift:readShift(e.shift,e.counted_at),shift_date:e.shift_date,source:'Portal count',expected:e.expected_quantity,origin:'Portal',routine:e.round==='routine'})).concat(verified.map(imported));
     // Stable sorting keeps the last-inserted manual recount for a same-second tie.
     events.sort((a,b)=>b.time.localeCompare(a.time));
