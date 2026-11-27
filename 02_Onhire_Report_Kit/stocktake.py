@@ -539,18 +539,21 @@ def shift_analysis(st, roster=None, recorded_entries=None, ledger_asat=None):
     pending = register.keys() - first_close.keys()
     shifts = []
     for key in sorted(shift_keys):
-        planned = plans.get(key,())
-        if planned and (min(a for a,b,n in planned)>limit or max(b for a,b,n in planned)<=begin):
+        planned = plans.get(key, ())
+        group = by_shift.get(key, [])
+        has_count_action = any(r['evidence'] != 'activity' for r in group)
+        if planned and not has_count_action:
+            if min(a for a, b, n in planned) > limit or max(b for a, b, n in planned) <= begin:
+                continue
+        s = _review_shift(key, planned, group, windows, unknown or not st.get('windows'), begin, limit)
+        if not s['elapsed_minutes'] and not has_count_action:
             continue
-        group = by_shift.get(key,[])
-        s = _review_shift(key,planned,group,windows,unknown or not st.get('windows'),begin,limit)
-        if not s['elapsed_minutes'] and not group:
-            continue
-        cutoff = _local(s['elapsed_end'])
-        checked = {k for k, t in first_close.items() if t < cutoff or (s['ongoing'] and t == cutoff)}
+        cutoff = min(_local(s['end']), limit)
+        include_cutoff = cutoff == limit and limit < _local(s['end'])
+        checked = {k for k, t in first_close.items() if t < cutoff or (include_cutoff and t == cutoff)}
         touched = [r for r in group if r['close'] and r['key'] in checked and
-                   (r['time'] < cutoff or (s['ongoing'] and r['time'] == cutoff))]
-        s['follow_up'] = {'asat':s['elapsed_end']}
+                   (r['time'] < cutoff or (include_cutoff and r['time'] == cutoff))]
+        s['follow_up'] = {'asat': _iso(cutoff)}
         for dimension,field,record_field in [('areas','storage_unit','area'),('categories','category','category')]:
             touch = {(r['kind'],r[record_field]) for r in touched}
             touch.discard(('cons','Location not recorded'))

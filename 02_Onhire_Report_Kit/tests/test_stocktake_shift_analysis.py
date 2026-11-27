@@ -130,6 +130,17 @@ class ShiftAnalysisTests(unittest.TestCase):
         self.assertFalse(any(p["name"] == "Superseded" for p in shift["operators"]))
         self.assertEqual(stocktake.shift_analysis(st, [plan("A")], [])["asat"], at("11:00:00"))
 
+    def test_later_roster_start_isnt_a_completed_or_absent_operator(self):
+        st = model([stock("X")], [scan("X", "07:00")], at("07:00"))
+        s = stocktake.shift_analysis(st, [plan("A"), plan("B", start="09:00", finish="13:00")])["shifts"][0]
+        upcoming = operator(s, "B")
+        self.assertTrue(upcoming["upcoming"])
+        self.assertEqual((upcoming["elapsed_minutes"], upcoming["elapsed_end"]), (0, ""))
+        self.assertEqual(upcoming["gaps"], [])
+        only_later_roster = stocktake.shift_analysis(st, [plan("B", start="09:00", finish="13:00")])
+        self.assertEqual(only_later_roster["shifts"][0]["count_events"], 1)
+        self.assertEqual(only_later_roster["follow_up"]["pending_ids"], [])
+
     def test_no_window_is_unknown_and_unrequested_is_none(self):
         st = model([stock("A")], [], at("12:00"), [])
         unknown = stocktake.shift_analysis(st, [plan("C")])
