@@ -221,12 +221,30 @@ def named_pictures(data):
     return n
 
 
+# Preserve the native job-pack resolution for the enlarged inspection view.
+PICTURE_SIDE = 512
+
+
+def picture_uri(image, side=PICTURE_SIDE):
+    from PIL import Image
+    image.thumbnail((side, side), Image.Resampling.LANCZOS)
+    buf = io.BytesIO()
+    from PIL import features
+    if features.check("webp"):
+        image.save(buf, "WEBP", quality=84, method=3)
+        mime = "image/webp"
+    else:
+        image.save(buf, "JPEG", quality=84, optimize=True)
+        mime = "image/jpeg"
+    return f"data:{mime};base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+
+
 class Pictures(object):
     """Tool pictures from a pictures pack (a folder with an index CSV that has
     'Product variant' and 'File in this package' columns), matched to SiteIQ's
     PRODUCT_VARIANT. Kept outside git. Radios and radio batteries get none."""
 
-    def __init__(self, folder, side=112):
+    def __init__(self, folder, side=PICTURE_SIDE):
         self.files, self.used, self.order, self.side, self.folder, self.named = {}, {}, [], side, folder, {}
         if not folder or not os.path.isdir(folder):
             return
@@ -277,11 +295,8 @@ class Pictures(object):
         from PIL import Image
         out = []
         for v in self.order:
-            im = Image.open(os.path.join(self.folder, self.files[v])).convert("RGB")
-            im.thumbnail((self.side, self.side), Image.LANCZOS)
-            buf = io.BytesIO()
-            im.save(buf, "JPEG", quality=78, optimize=True)
-            out.append("data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii"))
+            with Image.open(os.path.join(self.folder, self.files[v])) as image:
+                out.append(picture_uri(image.convert("RGB"), self.side))
         return out
 
 
@@ -943,11 +958,8 @@ def main(argv=None):
                 if os.path.basename(path) in raw and min(im.getpixel((2, 2))) > 200:      # a plain product photo on white
                     import style_pictures
                     im = style_pictures.styled(im).convert("RGB")
-                im.thumbnail((140, 140), Image.LANCZOS)
-                buf = io.BytesIO()
-                im.save(buf, "JPEG", quality=80, optimize=True)
                 ln["cp"] = len(data["cpics"])
-                data["cpics"].append("data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode("ascii"))
+                data["cpics"].append(picture_uri(im))
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())

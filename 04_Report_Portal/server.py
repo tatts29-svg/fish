@@ -71,41 +71,52 @@ LOGIN = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta n
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{background:#07090D;color:#fff;font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
  background-image:radial-gradient(90% 46% at 50% -6%,rgba(242,98,34,.20),rgba(242,98,34,0) 70%);background-repeat:no-repeat}
-.wrap{max-width:460px;margin:0 auto;padding:36px 18px 48px}
-.top{display:flex;align-items:center;gap:16px;margin:6px 2px 40px}
-.brand{color:#F26222;font-weight:900;font-size:32px;letter-spacing:-.02em;line-height:1}
-.top i{width:1px;height:28px;background:#3A424F}.top span{font-weight:700;font-size:17px}
-.card{position:relative;background:linear-gradient(180deg,#171C25,#10141B);border:1px solid #2B323D;border-radius:26px;padding:34px 28px 30px;
+html{font-size:clamp(16px, .83vw, 26px)}
+.wrap{width:100%;min-height:100vh;min-height:100dvh;padding:clamp(16px,2.3vw,72px) clamp(16px,4vw,160px);display:flex;flex-direction:column;align-items:stretch}
+.wrap>.card{width:min(100%,72rem);margin:auto;align-self:center}
+form.card{display:grid;gap:1rem}
+form.card .fields>label:first-child{margin-top:0}
+.intro,.fields,.file-column,.submit-column{min-width:0}
+@media(min-width:900px){
+ form.card{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:clamp(32px,5vw,140px)}
+ form.card .intro{align-self:center}
+}
+.top{display:flex;align-items:center;gap:1rem;padding-bottom:1.2rem;margin-bottom:clamp(20px,3vh,76px);border-bottom:1px solid #2B323D;overflow-wrap:anywhere}
+.brand{color:#F26222;font-weight:900;font-size:2rem;letter-spacing:-.02em;line-height:1}
+.top i{width:1px;height:28px;background:#3A424F}.top span{font-weight:700;font-size:1.05rem}
+.card{position:relative;background:linear-gradient(180deg,#171C25,#10141B);border:1px solid #2B323D;border-radius:clamp(16px,2vw,40px);padding:clamp(20px,3vw,80px);
  box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 60px rgba(242,98,34,.07);overflow:hidden;animation:in .6s cubic-bezier(.2,.8,.2,1) both}
 .card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:#F26222;box-shadow:0 0 22px 2px rgba(242,98,34,.65)}
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.eyebrow{display:flex;align-items:center;gap:12px;color:#F26222;font-weight:700;font-size:13px;letter-spacing:.2em}
+.eyebrow{display:flex;align-items:center;gap:12px;color:#F26222;font-weight:700;font-size:.8125rem;letter-spacing:.18em}
 .eyebrow svg{width:18px;height:18px;flex:none}
-h1{font-size:28px;line-height:1.15;letter-spacing:-.02em;margin:22px 0 14px}
-p{color:#A3ADBB;font-size:17px;line-height:1.6;margin:0}
-label{display:block;font-weight:700;font-size:15px;margin:30px 0 12px}
-input{width:100%;height:58px;border-radius:14px;border:1px solid #47505E;background:#0A0D13;color:#fff;font:inherit;font-size:17px;padding:0 16px;outline:none;
+h1{font-size:clamp(1.7rem,2.8vw,3rem);overflow-wrap:anywhere;line-height:1.15;letter-spacing:-.02em;margin:22px 0 14px}
+p{color:#A3ADBB;font-size:1.0625rem;line-height:1.6;margin:0}
+label{display:block;font-weight:700;font-size:.94rem;margin:1.6rem 0 .65rem}
+input{width:100%;height:3.4rem;border-radius:14px;border:1px solid #47505E;background:#0A0D13;color:#fff;font:inherit;font-size:1.05rem;padding:0 1rem;outline:none;
  transition:border-color .2s,box-shadow .2s}
 input:focus{border-color:#F26222;box-shadow:0 0 0 3px rgba(242,98,34,.25),0 0 26px rgba(242,98,34,.18)}
-button{width:100%;height:60px;margin-top:26px;border:0;border-radius:14px;background:#F0773A;color:#11151B;font:inherit;font-weight:700;font-size:18px;cursor:pointer;
+button{width:100%;height:3.4rem;margin-top:26px;border:0;border-radius:14px;background:#F0773A;color:#11151B;font:inherit;font-weight:700;font-size:1.1rem;cursor:pointer;
  box-shadow:0 12px 34px rgba(242,98,34,.28);transition:transform .15s,box-shadow .2s,background .2s}
 button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}button:active{transform:scale(.985)}
 .err{margin-top:22px;border:1px solid rgba(242,98,34,.5);background:rgba(242,98,34,.10);color:#FFC9AE;border-radius:12px;padding:12px 14px;font-size:15px}
-.note{border-top:1px solid #2B323D;margin-top:30px;padding-top:26px;font-size:15.5px}
-.foot{text-align:center;color:#8B95A3;font-size:14px;margin-top:34px;line-height:2}
-.foot b{display:block;font-size:12px;letter-spacing:.2em;font-weight:700}
+.note{border-top:1px solid #2B323D;margin-top:30px;padding-top:26px;font-size:.94rem}
+.foot{text-align:center;color:#8B95A3;font-size:.875rem;margin-top:clamp(20px,3vh,76px);line-height:1.65}
+.foot small{font-size:.75rem!important}
+.foot b{display:block;font-size:.75rem;letter-spacing:.2em;font-weight:700}
 @media (prefers-reduced-motion:reduce){.card{animation:none}}
 </style></head><body><div class="wrap">
 <div class="top"><div class="brand">COATES</div><i></i><span>__NAME__</span></div>
 <form class="card" method="post" action="/login" autocomplete="on">
+<div class="intro">
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>PROJECT ACCESS</div>
 <h1>Sign in to the __NAME__</h1>
-<p>Enter your username and password to continue.</p>
-__ERR__
+<p>Enter your username and password to continue.</p></div>
+<div class="fields">__ERR__
 <label for="u">Username</label><input id="u" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required autofocus>
 <label for="p">Password</label><input id="p" name="password" type="password" autocomplete="current-password" required>
 <button type="submit">Sign in</button>
-<p class="note">Trouble signing in? Ask your Coates tool store team.</p>
+<p class="note">Trouble signing in? Ask your Coates tool store team.</p></div>
 </form>
 <div class="foot">Author: Andrew Fisher<b>POWERED BY SITEIQ</b><small style="display:block;font-size:11.5px;line-height:1.5;margin-top:8px;color:#6B7583">Designed and built by Andrew Fisher · © 2026 Andrew Fisher.<br>All rights reserved. Not to be copied or reproduced without permission.</small></div>
 </div></body></html>"""
@@ -167,21 +178,26 @@ def _login_page(err=""):
 
 
 UPLOAD = """<style>
-.wrap{max-width:560px}.drop{margin-top:26px;border:2px dashed #47505E;border-radius:16px;padding:30px 18px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
+.upload-columns{display:grid;gap:1.5rem;margin-top:1.5rem}
+@media(min-width:900px){.upload-columns{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,4.5vw,128px)}}
+.submit-column label,.submit-column .st:first-child,.drop:first-child{margin-top:0}
+#up-person,.st,li,.drop span{font-size:1rem}
+.drop{margin-top:26px;border:2px dashed #47505E;border-radius:16px;padding:30px 18px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
 .drop:hover,.drop.over{border-color:#F26222;background:rgba(242,98,34,.07);box-shadow:0 0 30px rgba(242,98,34,.15)}
-.drop b{display:block;font-size:18px}.drop span{display:block;color:#A3ADBB;font-size:14.5px;margin-top:6px}
+.drop b{display:block;font-size:1.125rem}.drop span{display:block;color:#A3ADBB;font-size:.92rem;margin-top:6px}
 .drop svg{width:34px;height:34px;color:#F26222;margin-bottom:10px}
-ul{list-style:none;margin:22px 0 0;padding:0}li{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #232A34;font-size:15.5px}
+ul{list-style:none;margin:22px 0 0;padding:0}li{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #232A34;font-size:.97rem}
 li i{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #47505E;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:700;color:#11151B}
 li.got i{background:#F26222;border-color:#F26222}li.got i:before{content:"\\2713"}
-li small{margin-left:auto;color:#8B95A3;font-size:12.5px;text-align:right;overflow-wrap:anywhere;max-width:52%}
+li small{margin-left:auto;color:#8B95A3;font-size:.82rem;text-align:right;overflow-wrap:anywhere;max-width:52%}
 li em{font-style:normal;color:#8B95A3;font-size:12.5px;margin-left:6px}
 button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
-.st{margin-top:22px;border-radius:12px;padding:13px 15px;font-size:15px;line-height:1.5;white-space:pre-wrap;border:1px solid #2B323D;background:#0A0D13;color:#DCE3EC}
+.st{margin-top:22px;border-radius:12px;padding:.85rem 1rem;font-size:.94rem;line-height:1.5;white-space:pre-wrap;border:1px solid #2B323D;background:#0A0D13;color:#DCE3EC}
 .st.run{border-color:rgba(242,98,34,.5)}.st.ok{border-color:#2FA84F;background:rgba(47,168,79,.10)}.st.bad{border-color:rgba(242,98,34,.6);background:rgba(242,98,34,.10);color:#FFC9AE}
 .st b{display:block;color:#fff}.bar{height:4px;border-radius:4px;background:#232A34;margin-top:10px;overflow:hidden}.bar:before{content:"";display:block;height:100%;width:35%;border-radius:4px;background:#F26222;box-shadow:0 0 12px #F26222;animation:go 1.3s ease-in-out infinite}
 @keyframes go{from{margin-left:-35%}to{margin-left:100%}}
-#up-person{width:100%;min-height:48px;border-radius:10px;border:1px solid #47505E;background:#0A0D13;color:#fff;font:inherit;padding:0 12px}
+#up-person{width:100%;min-height:3rem;border-radius:10px;border:1px solid #47505E;background:#0A0D13;color:#fff;font:inherit;padding:0 12px}
+.st,.top span{overflow-wrap:anywhere}
 #up-last{overflow-wrap:anywhere}
 .note a{color:#F58448;font-weight:700;text-decoration:none}
 </style>
@@ -189,6 +205,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>TOOL STORE TEAM</div>
 <h1>Update the report</h1>
 <p>Drop in whichever SiteIQ exports you have: all of them, or just one. The report rebuilds itself in about a minute, and nothing changes unless the whole build works.</p>
+<div class="upload-columns"><div class="file-column">
 <div class="drop" id="drop" tabindex="0" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Tap to choose the files</b><span>or drag them here. Pick them all at once.</span></div>
 <input id="pick" type="file" accept=".xlsx" multiple hidden>
 <ul id="list">
@@ -197,12 +214,13 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <li data-k="TRANSACTIONS"><i></i>Transactions<small></small></li>
 <li data-k="STOCKTAKE"><i></i>Stocktake<small></small></li>
 <li data-k="ON_HIRE"><i></i>On hire<small></small></li>
-</ul>
-<div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
+</ul></div>
+<div class="submit-column"><div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
 <select id="up-person" required><option value="">Choose your first and last name</option></select></div>
 <div class="st" id="up-last" hidden></div>
 <button id="go" disabled>Update the report</button>
 <div class="st" id="st" role="status" hidden></div>
+</div></div>
 <p class="note"><a href="/">Open the report</a> &nbsp;·&nbsp; <a href="/logout">Sign out</a></p>
 </div>
 <script>
