@@ -43,7 +43,7 @@ import zipfile
 import sqlite3
 import stocktake_store
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
-from rebuild import archive_stocktake, kind_of, KINDS
+from rebuild import import_history, archive_stocktake, kind_of, KINDS
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -732,8 +732,34 @@ class Handler(BaseHTTPRequestHandler):
             raise
         self._send(202, b"started", "text/plain")
 
+    def _put_history(self, kind):
+        role = self._role()
+        if not role:
+            return
+        if role != "manager":
+            return self._send(403, b"The manager login is needed to import a past pull.", "text/plain")
+        body = self._body(MAX_UPLOAD)
+        if body is None:
+            return
+        if not _build_lock.acquire(blocking=False):
+            return self._send(409, b"A rebuild is running. Try again in a minute.", "text/plain")
+        try:
+            with tempfile.TemporaryDirectory(dir=DATA_DIR) as staging:
+                path = os.path.join(staging, kind + ".xlsx")
+                with open(path, "wb") as f:
+                    f.write(body)
+                try:
+                    stamp = import_history(JOB_DIR, DATA_DIR, path, kind)
+                except (ValueError, KeyError, StopIteration, IndexError):
+                    return self._send(400, b"Choose an earlier MMG export of the requested type with a valid, distinct SiteIQ pull.", "text/plain")
+        finally:
+            _build_lock.release()
+        return self._send(200, ("Recorded {} history for {}.".format(kind, stamp)).encode(), "text/plain")
+
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path in ("/upload/variant-history", "/upload/stocktake-history") and is_mmg(JOB_DIR):
+            return self._put_history("RENTAL_STOCK" if path == "/upload/variant-history" else "STOCKTAKE")
         if path == "/upload/export":
             return self._put_export()
         if path == "/upload/pack.zip":

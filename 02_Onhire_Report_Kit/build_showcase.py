@@ -28,6 +28,7 @@ sys.path.insert(0, HERE)
 import catalogue  # noqa: E402
 import shut_costs  # noqa: E402
 import stocktake  # noqa: E402
+import utilisation  # noqa: E402
 
 
 def _kit():
@@ -596,6 +597,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                       "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
+        "utilisation": utilisation.build(rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name),
         "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock),
         "people": people_rows, "ptyp": ptyp,
         "ops": _ops(kit, ops),
@@ -779,6 +781,10 @@ def plain_tool_names(data, path):
     import csv
     with open(path, encoding="utf-8-sig", newline="") as f:
         look = {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
+    for group in (data.get("utilisation") or {}).get("variants", []):
+        raw = group["aliases"]
+        group["aliases"] = sorted(set(raw) | {look[n.upper()] for n in raw if n.upper() in look})
+        group["name"] = look.get(group["name"].upper(), group["name"])
     owned = {k: t.get("own") for k, t in data["tools"].items() if t.get("own") and t.get("own") != "Coates"}
     name = lambda n: look.get(str(n).strip().upper(), n) + (" ({} Owned)".format(owned[str(n).strip().upper()]) if str(n).strip().upper() in owned else "")
     missed = [t["name"] for t in data["tools"].values() if t["name"].strip().upper() not in look]
@@ -915,11 +921,17 @@ def main(argv=None):
     ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
+    ap.add_argument("--variant-history", help="dated rental fleet and on-hire totals by variant")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
     a = ap.parse_args(argv)
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    data["variant_history"] = []
+    if a.variant_history:
+        with open(a.variant_history, encoding="utf-8") as f:
+            asat = dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").isoformat(timespec="seconds")
+            data["variant_history"] = [pull for pull in json.load(f) if pull["asat"] < asat]
     if a.stocktake_ledger and data.get("stocktake"):
         with open(a.stocktake_ledger, encoding="utf-8") as f:
             snapshot = json.load(f)

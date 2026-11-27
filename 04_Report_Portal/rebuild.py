@@ -32,6 +32,9 @@ from datetime import datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 KIT_CODE = os.environ.get("KIT_CODE") or os.path.join(os.path.dirname(HERE), "02_Onhire_Report_Kit")
+sys.path.insert(0, KIT_CODE)
+from variant_history import rental_snapshot, requested_time
+
 KINDS = ("RENTAL_STOCK", "SALES_STOCK", "TRANSACTIONS", "STOCKTAKE", "ON_HIRE")
 NEEDED = ("RENTAL_STOCK", "SALES_STOCK", "TRANSACTIONS")
 SHEET = {"TRANSACTIONS": "TRANSACTION_CHARGES"}       # the sheet that marks each export, where it is not the export's own name
@@ -115,6 +118,52 @@ def copy_in(job, got, back):
         shutil.copyfile(path, dest)
 
 
+VARIANT_ARCHIVE = "variant_history.json"
+
+
+def updated_snapshots(data_dir, snapshot, historical=False):
+    path = Path(data_dir) / VARIANT_ARCHIVE
+    history = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else []
+    by_time = {item["asat"]: item for item in history}
+    stamp = snapshot["asat"]
+    if historical and stamp in by_time and by_time[stamp]["counts"] != snapshot["counts"]:
+        raise ValueError("Different totals already exist for that SiteIQ pull.")
+    by_time[stamp] = snapshot
+    return json.dumps([by_time[key] for key in sorted(by_time)], separators=(",", ":"))
+
+
+def import_history(job, data_dir, path, kind):
+    """Import verified historical evidence without changing current stock or a published report."""
+    from openpyxl import load_workbook
+    if kind not in ("RENTAL_STOCK", "STOCKTAKE") or kind_of(path) != kind:
+        raise ValueError("Choose the original {} SiteIQ export.".format(kind))
+    check_workbook(path)
+    kit = Path(job) / "kit"
+    current = kit / "Data_SiteIQ" / (kind + ".xlsx")
+    if not current.is_file():
+        raise ValueError("A current {} export is needed first.".format(kind))
+    stamps = []
+    for source in (path, current):
+        wb = load_workbook(source, read_only=True, data_only=True, keep_links=False)
+        try:
+            stamps.append(requested_time(wb))
+        finally:
+            wb.close()
+    if stamps[0] >= stamps[1]:
+        raise ValueError("Historical imports must predate the current SiteIQ export.")
+    if kind == "STOCKTAKE":
+        archive_stocktake(job, path)
+    else:
+        payload = updated_snapshots(data_dir, rental_snapshot(path, kit), historical=True)
+        with tempfile.NamedTemporaryFile(dir=data_dir, mode="w", encoding="utf-8", delete=False) as tmp:
+            tmp.write(payload)
+        try:
+            os.replace(tmp.name, Path(data_dir) / VARIANT_ARCHIVE)
+        finally:
+            Path(tmp.name).unlink(missing_ok=True)
+    return stamps[0].isoformat(timespec="minutes")
+
+
 def build(job, out):
     with open(os.path.join(job, "job.json"), encoding="utf-8") as f:
         spec = json.load(f)
@@ -127,6 +176,9 @@ def build(job, out):
     ledger = Path(out) / "physical_counts.json"
     if ledger.is_file():
         cmd.extend(["--stocktake-ledger", str(ledger)])
+    variants = Path(out) / VARIANT_ARCHIVE
+    if variants.is_file():
+        cmd.extend(["--variant-history", str(variants)])
     run = subprocess.run(cmd, cwd=KIT_CODE, capture_output=True, text=True, timeout=600)
     if run.returncode or not os.path.isfile(os.path.join(out, "report.html")):
         tail = (run.stderr or run.stdout or "").strip().splitlines()[-6:]
@@ -183,6 +235,10 @@ def main(job, data_dir, current=False):
                 saved_stocktake = archive_stocktake(job, previous)
         copy_in(job, got, back)
         if is_mmg(job):
+            rental = Path(job) / "kit" / "Data_SiteIQ" / "RENTAL_STOCK.xlsx"
+            if rental.is_file():
+                variant_snapshot = rental_snapshot(rental, Path(job) / "kit")
+                (Path(out) / VARIANT_ARCHIVE).write_text(updated_snapshots(data_dir, variant_snapshot), encoding="utf-8")
             snapshot = {"recorded_entries": all_entries(data_dir),
                         "ledger_asat": datetime.now(QUEENSLAND).isoformat(timespec="seconds")}
             (Path(out) / "physical_counts.json").write_text(json.dumps(snapshot), encoding="utf-8")
@@ -201,6 +257,8 @@ def main(job, data_dir, current=False):
                 raise Stop("The build did not finish ({} is missing). Nothing was changed.".format(name))
         for name, path in ready:
             os.replace(path, os.path.join(data_dir, name))
+        if (Path(out) / VARIANT_ARCHIVE).is_file():
+            os.replace(Path(out) / VARIANT_ARCHIVE, Path(data_dir) / VARIANT_ARCHIVE)
         print(json.dumps({"ok": True, "pull": asat, "files": files, "kept": [k for k in KINDS[:4] if k not in files]}))
         return 0
     except Exception as e:

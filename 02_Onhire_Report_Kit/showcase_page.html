@@ -606,6 +606,41 @@ html.ohprint #paperwrap{position:static;display:block!important;background:#fff;
 html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}}
 @media (max-width:620px){.paper{padding:16px 12px;font-size:10px}.paper .pstats{grid-template-columns:repeat(3,1fr)}.paper .ph img{height:26px}}
 
+#util-card{margin:0 0 var(--space,16px);--liquid:#9DE7A6}
+#util-card[hidden],#util-card [hidden]{display:none!important}
+.ut-heading,.ut-filters{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.ut-heading h3{font-size:1.12rem}
+.ut-layout{display:grid;grid-template-columns:minmax(72px,.37fr) minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:clamp(1rem,2.5vw,3rem);padding:1.2rem 0}
+#ut-gauge{display:grid;align-items:center;justify-items:center;border-radius:14px;padding:8px 0;background:radial-gradient(ellipse at 50% 81%,color-mix(in srgb,var(--liquid) 14%,transparent),transparent 68%)}
+#ut-gauge .cyl svg{width:clamp(70px,6.6vw,146px);max-width:100%}
+#ut-gauge .cyl .val,#ut-gauge .cyl .cap{display:none}
+.ut-readout h4{font-size:1.06rem;overflow-wrap:anywhere}
+.ut-number{color:#a4e9ac;font-size:clamp(2.4rem,4vw,4.75rem);line-height:1.1;font-weight:700;letter-spacing:-.04em;margin:.3rem 0;font-variant-numeric:tabular-nums}
+html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
+.ut-readout p{font-size:1.05rem;font-weight:600}.ut-readout small,#util-card .ut-note{display:block;color:var(--mu);font-size:.86rem;margin:.5rem 0}
+.ut-picker{display:grid;align-content:start;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.65rem}
+.ut-picker label:has(#ut-variant),.ut-picker label:has(#ut-pull){grid-column:1/-1}
+#util-card label{display:grid;align-content:start;font-size:.81rem;gap:3px;color:var(--mu);min-width:0}
+#util-card :is(select,input){max-width:none;width:100%;min-width:0;min-height:42px;font:inherit;font-size:.91rem;border:1px solid var(--line);background:var(--panel2);color:var(--tx);border-radius:8px;padding:.5rem .65rem}
+#util-card details{border-top:1px solid var(--line);margin-top:.7rem}
+#util-card summary{cursor:pointer;font-weight:600;color:var(--ortx);padding:.7rem .1rem}
+.ut-filters{justify-content:flex-start;margin:.2rem 0 .7rem}
+.ut-filters label:first-child{flex:1 1 14rem;max-width:30rem}
+#util-card .ut-table{table-layout:fixed}.ut-table td{overflow-wrap:anywhere}
+@media screen and (max-width:780px){
+ .ut-layout{grid-template-columns:minmax(70px,.4fr) minmax(0,1fr);gap:1rem}
+ .ut-picker{grid-column:1/-1}
+}
+@media screen and (max-width:620px){
+ .ut-heading{display:block}.ut-heading .seg{margin-top:.5rem}.ut-heading .seg button{padding:6px 8px}
+ #util-card .ut-table,#util-card .ut-table tbody,#util-card .ut-table tr,#util-card .ut-table td{display:block}
+ #util-card .ut-table thead{display:none}
+ #util-card .ut-table tr{padding:.5rem 0;border-top:1px solid var(--line)}
+ #util-card .ut-table td{padding:2px 0;border:0}
+ .ut-table td[data-label]:before{content:attr(data-label) ' · ';color:var(--mu)}
+}
+.static .ut-layout{grid-template-columns:85px 1fr}.static #ut-gauge .cyl svg{width:56px}
+
 /* Shutdown stocktake */
 .st-jump{display:flex;flex-wrap:wrap;gap:8px}#v-stocktake :is(h3,h4){scroll-margin-top:11rem}
 .st-duty{display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin:.65rem 0 1rem;color:var(--mu);font-size:.88rem}
@@ -794,6 +829,28 @@ __CONTACTS__
 
 <section class="view pb" id="v-tooling" data-tab="Tooling">
 <div class="vh"><h2>Tooling</h2><p id="tl-lead"></p></div>
+<div class="card" id="util-card" hidden>
+<div class="ut-heading"><h3>Rental fleet utilisation</h3><div id="ut-modes" class="seg noprint" role="group" aria-label="Utilisation measure">
+<button type="button" value="on" aria-pressed="true" class="on">Out now</button>
+<button type="button" value="used" aria-pressed="false">Used during period</button>
+<button type="button" value="past" aria-pressed="false">Previous pulls</button></div></div>
+<div class="ut-layout">
+<div id="ut-gauge" aria-hidden="true"></div>
+<div class="ut-readout" aria-live="polite"><h4 id="ut-title"></h4><div class="ut-number" id="ut-percent"></div><p id="ut-count"></p><small id="ut-date"></small></div>
+<div class="ut-picker noprint">
+<label id="ut-date-field" hidden>Recorded stock pull<select id="ut-pull"></select></label>
+<label>Fleet<select id="ut-owner"></select></label>
+<label>Search variants<input class="search" type="search" id="ut-find" placeholder="Tool name or product variant code"></label>
+<label>Product variant<select id="ut-variant"></select></label>
+</div></div>
+<p class="ut-note" id="ut-note"></p>
+<details id="ut-assets" class="noprint"><summary>View individual assets</summary>
+<div class="ut-filters"><label>Find asset<input type="search" id="ut-asset-find" class="search" placeholder="Asset number, barcode or tool"></label>
+<label>Show assets<select id="ut-asset-scope"><option value="">All assets</option><option value="yes">Included in numerator</option><option value="no">Outside numerator</option></select></label></div>
+<div id="ut-list"></div><div id="ut-pages" class="st-pages"></div></details>
+<details id="ut-peaks" hidden><summary>Peaks in previous shutdowns</summary><p class="ut-note">Maximum tools on hire at once, matched by SiteIQ tool description. The historical register size and product variant codes are unavailable for these peaks.</p><div id="ut-peaklist"></div></details>
+</div>
+
 <div class="card"><div class="dials" id="tl-util"></div></div>
 <div class="card" style="margin-top:16px"><h3>Utilisation by tool</h3><div class="sub">How many of each tool are out now, against the most that have ever been out at once at __CLIENT__.</div>
 <div class="legend"><span><i class="la"></i>Out now</span><span><i class="lb" style="opacity:.55"></i>Busiest seen at __CLIENT__</span><span style="color:var(--dim)">Full bar = all in the store</span></div>
@@ -1146,6 +1203,112 @@ function list(q){q=(q||'').trim().toUpperCase();const rs=R.filter(r=>!q||(r.who+
 $('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Date of hire</th><th>Time</th><th>Days on hire</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${esc(r.date)}</td><td>${esc(r.time)}</td><td style="white-space:nowrap"><b>${days(r)}</b></td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
 $('#oh-foot').innerHTML=`${rs.length} of ${R.length} items. Click a person, company or item for more.${rs.some(r=>r.tag)?` ${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).`:''}`}
 $('#oh-q').addEventListener('input',e=>list(e.target.value));list('')}
+
+// Asset counts are unique within each register pull. Historical pulls keep their original fleet.
+function initUtilisation(model, history){
+  const card=$('#util-card');
+  if(!model)return;
+  card.hidden=false;
+  const groups=new Map(model.variants.map(g=>[g.history_key,g]));
+  const historyList=(history||[]).filter(s=>s.counts);
+  let source=[], selected='', mode='on', page=0;
+  const pageSize=20, find=$('#ut-find'), variant=$('#ut-variant'), owner=$('#ut-owner'), pull=$('#ut-pull');
+  const percent=(n,total)=>n==null||!total?'—':(100*n/total).toLocaleString('en-AU',{maximumFractionDigits:1})+'%';
+  const datetime=t=>String(t||'').replace('T',' ');
+  const matches=(value,query)=>query.trim().toLowerCase().split(/\s+/).every(word=>value.toLowerCase().includes(word));
+  const label=g=>[g.name||g.variant||'Tool',g.variant||'No variant code',g.owner||'Owner unrecorded'].join(' · ');
+  const green=['#36705C','#98E5A4','#4B966C','#BAF3BB'];
+  const stockById=new Map((D.assets||[]).map(a=>[String(a.i),a]));
+  const timeScope=()=>mode==='past'?'Recorded pull '+datetime(pull.value)+' AEST':mode==='used'?
+    datetime(model.period.start)+' to '+datetime(model.period.end)+' AEST':'Stock pull '+datetime(model.asat)+' AEST';
+  const field=()=>mode==='used'?'used':'on';
+  pull.replaceChildren(...historyList.slice().reverse().map(s=>new Option(datetime(s.asat)+' AEST',s.asat)));
+  const modes=$$('#ut-modes button');
+  modes.find(b=>b.value==='past').hidden=!historyList.length;
+  modes.find(b=>b.value==='used').hidden=!model.period;
+  function readSource(){
+    if(mode==='past'){
+      const snap=historyList.find(s=>s.asat===pull.value);
+      source=Object.entries(snap?.counts||{}).map(([k,counts])=>{
+        const meta=snap.labels?.[k]||groups.get(k)||{};
+        return {...meta,history_key:k,fleet:counts[0],on:counts[1]};
+      });
+    }else source=model.variants;
+    const prior=owner.value,ownerNames=mode==='past'?source.map(g=>g.owner):source.flatMap(g=>g.assets.map(a=>a.owner||g.owner));
+    const owners=[...new Set(ownerNames.filter(Boolean))].sort();
+    owner.disabled=mode==='past'&&owners.includes('Multiple owners');
+    owner.replaceChildren(new Option('All rental assets',''),...owners.map(n=>new Option(n,n)));
+    if(!owner.disabled&&owners.includes(prior))owner.value=prior;
+    choose();
+  }
+  function owned(){
+    if(!owner.value)return source;
+    if(mode==='past')return source.filter(g=>g.owner===owner.value);
+    return source.flatMap(g=>{
+      const assets=g.assets.filter(a=>(a.owner||g.owner)===owner.value);
+      return assets.length?[{...g,owner:owner.value,assets,fleet:assets.length,on:assets.filter(a=>a.on).length,
+        used:model.period?assets.filter(a=>a.used).length:null}]:[];
+    });
+  }
+  function choose(){
+    const ls=owned().filter(g=>matches([label(g),...(g.aliases||[])].join(' '),find.value)).sort((a,b)=>label(a).localeCompare(label(b)));
+    const allText=owner.value?'All '+owner.value+' variants':'All variants';
+    const searching=!!find.value.trim();
+    const options=ls.map(g=>new Option(label(g),g.history_key));
+    if(!searching)options.unshift(new Option(allText,''));
+    if(!options.length)options.push(new Option('No matching variants',''));
+    variant.replaceChildren(...options);
+    if(options.some(o=>o.value===selected))variant.value=selected;
+    selected=variant.value;page=0;draw();
+  }
+  const scopeRows=()=>selected?owned().filter(g=>g.history_key===selected):find.value.trim()?[]:owned();
+  function draw(){
+    const rows=scopeRows(), single=selected&&rows[0], known=rows.length>0;
+    const fleet=rows.reduce((n,g)=>n+g.fleet,0),count=rows.reduce((n,g)=>n+(g[field()]||0),0);
+    $('#ut-date-field').hidden=mode!=='past';
+    for(const b of modes){const on=b.value===mode;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)}
+    $('#ut-title').textContent=single?label(single):known?(owner.value?owner.value+' rental fleet':'Whole rental fleet'):'No matching variants';
+    $('#ut-percent').textContent=known?percent(count,fleet):'—';
+    $('#ut-count').textContent=known?fmt(count)+' of '+fmt(fleet)+' assets '+(mode==='used'?'had hire evidence in this period':mode==='past'?'were on hire at this pull':'are on hire'):'Change the search or fleet to see utilisation.';
+    $('#ut-date').textContent=timeScope();
+    $('#ut-gauge').innerHTML=cyl({name:'',on:count,fleet,val:' ',cap:' '},{share:true,col:green});
+    $('#ut-note').textContent=mode==='used'?'Each current rental asset counts once if a dated hire or transaction shows it was out during the selected period. Repeat issues count once.':
+      mode==='past'?'Each percentage uses the rental fleet recorded at that pull. Archived pulls retain totals by variant.':'Each percentage uses the unique rental assets in the selected fleet at this stock pull.';
+    const details=$('#ut-assets');details.hidden=mode==='past'||!known;
+    if(details.hidden)details.open=false;
+    if(details.open)drawAssets();
+    const peak=single?groups.get(selected)?.prior_peak:null;
+    const peaks=$('#ut-peaks');peaks.hidden=peak==null;
+    if(peak!=null)drawPeak(peak);
+  }
+  function drawPeak(peak){
+    $('#ut-peaklist').innerHTML=`<p><strong>${fmt(peak)}</strong> on hire at once for this description across previous shutdowns.</p>`;
+  }
+  function drawAssets(){
+    const filter=$('#ut-asset-scope').value,query=$('#ut-asset-find').value;
+    const items=scopeRows().flatMap(group=>(group.assets||[]).map(a=>({group,a}))).filter(({group,a})=>{
+      const included=a[field()]===true;
+      return matches([group.name,group.variant,a.id,a.barcode,a.status].join(' '),query)&&(!filter||(filter==='yes')===included);
+    }).sort((a,b)=>String(a.a.id).localeCompare(String(b.a.id),undefined,{numeric:true}));
+    page=Math.min(page,Math.max(0,Math.ceil(items.length/pageSize)-1));
+    const visible=items.slice(page*pageSize,(page+1)*pageSize);
+    $('#ut-list').innerHTML=visible.length?`<table class="t ut-table"><thead><tr><th>Asset / barcode</th><th>Tool and variant</th><th>Current status</th><th>Evidence during period</th></tr></thead><tbody>${visible.map(({group,a})=>{
+      const dk=stockById.get(String(a.id))?.dk;
+      const name=dk?`<button type="button" class="more" data-open="t:${esc(dk)}">${esc(group.name)}</button>`:esc(group.name);
+      const use=!model.period?'History unavailable':a.used?esc(a.source||'Recorded hire')+(a.last_used?'<br>'+esc(datetime(a.last_used))+' AEST':''):'No hire evidenced';
+      return `<tr><td><strong>${esc(a.id)}</strong>${a.barcode&&a.barcode!==a.id?'<br>'+esc(a.barcode):''}</td><td>${name}<br><small>${esc(group.variant||'No variant code')}</small></td><td data-label="Current status">${esc(a.status||'Status unknown')}${a.on_since?'<br><small>Hired '+esc(datetime(a.on_since))+' AEST</small>':''}</td><td data-label="Period evidence">${use}</td></tr>`;
+    }).join('')}</tbody></table>`:'<p class="empty">No assets match these filters.</p>';
+    $('#ut-pages').innerHTML=`<span>${items.length?fmt(page*pageSize+1)+'–'+fmt(Math.min((page+1)*pageSize,items.length))+' of '+fmt(items.length)+' assets':'0 assets'}</span>`+
+      (items.length>pageSize?`<button type="button" class="btn ghost" data-step="-1" ${page===0?'disabled':''}>Previous</button><button type="button" class="btn ghost" data-step="1" ${(page+1)*pageSize>=items.length?'disabled':''}>Next</button>`:'');
+  }
+  $('#ut-modes').onclick=e=>{const b=e.target.closest('button');if(!b||b.hidden)return;mode=b.value;readSource()};
+  $('#ut-assets').addEventListener('toggle',e=>{if(e.currentTarget.open)drawAssets()});
+  $('#ut-pages').onclick=e=>{const b=e.target.closest('button[data-step]');if(b&&!b.disabled){page+=Number(b.dataset.step);drawAssets()}};
+  for(const id of ['ut-asset-find','ut-asset-scope'])$('#'+id).addEventListener('input',()=>{page=0;drawAssets()});
+  find.addEventListener('input',choose);owner.addEventListener('change',choose);pull.addEventListener('change',readSource);
+  variant.addEventListener('change',()=>{selected=variant.value;page=0;draw()});readSource();
+}
+initUtilisation(D.utilisation,D.variant_history);
 
 /* ---------- tooling ---------- */
 {$('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
