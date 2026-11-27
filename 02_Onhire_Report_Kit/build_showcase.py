@@ -27,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import catalogue  # noqa: E402
 import shut_costs  # noqa: E402
+import stocktake  # noqa: E402
 
 
 def _kit():
@@ -595,6 +596,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                       "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
+        "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock),
         "people": people_rows, "ptyp": ptyp,
         "ops": _ops(kit, ops),
         "pics": None,   # filled last, once every picture in use is known
@@ -911,9 +913,15 @@ def main(argv=None):
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
+    ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
     a = ap.parse_args(argv)
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    if a.stocktake_ledger and data.get("stocktake"):
+        with open(a.stocktake_ledger, encoding="utf-8") as f:
+            snapshot = json.load(f)
+        data["stocktake"]["recorded_entries"] = snapshot["recorded_entries"]
+        data["stocktake"]["ledger_asat"] = snapshot["ledger_asat"]
     contacts_path = os.path.join(a.kit_folder, "contacts.json")
     if os.path.isfile(contacts_path):
         with open(contacts_path, encoding="utf-8") as contacts_file:

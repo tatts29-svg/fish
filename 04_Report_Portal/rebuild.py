@@ -15,6 +15,7 @@ The exports in incoming/ are recognised by what is inside them, not by their
 names. Nothing in DATA_DIR changes unless the whole build works: the report,
 the on-hire Excel and both PDFs are swapped in together at the end.
 """
+import hashlib
 import json
 import os
 import re
@@ -23,8 +24,11 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+from pathlib import Path
 
 from upload_policy import check_workbook, is_mmg
+from stocktake_store import all_entries, QUEENSLAND
+from datetime import datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 KIT_CODE = os.environ.get("KIT_CODE") or os.path.join(os.path.dirname(HERE), "02_Onhire_Report_Kit")
@@ -76,14 +80,39 @@ def sort_incoming(job):
     return got, {k: os.path.basename(p).split("__", 1)[-1] for k, p in got.items()}
 
 
-def copy_in(job, got):
+def archive_stocktake(job, source):
+    """Keep an earlier, verified MMG stocktake for the report's sighting history."""
+    if kind_of(source) != "STOCKTAKE":
+        raise Stop("The stocktake history contains a file that is not a SiteIQ stocktake.")
+    check_workbook(source)
+    digest = hashlib.sha256()
+    with open(source, "rb") as stock:
+        for block in iter(lambda: stock.read(1048576), b""):
+            digest.update(block)
+    history = Path(job) / "kit" / "stocktake_history"
+    history.mkdir(exist_ok=True)
+    saved = history / (digest.hexdigest() + ".xlsx")
+    if saved.exists():
+        return None
+    with tempfile.NamedTemporaryFile(dir=history, delete=False) as tmp:
+        try:
+            with open(source, "rb") as stock:
+                shutil.copyfileobj(stock, tmp)
+            tmp.close()
+            os.replace(tmp.name, saved)
+        finally:
+            if os.path.exists(tmp.name):
+                os.remove(tmp.name)
+    return saved
+
+
+def copy_in(job, got, back):
     """Put the new exports in the kit, keeping the ones they replace. Returns the way back."""
-    data, back = os.path.join(job, "kit", "Data_SiteIQ"), {}
+    data = os.path.join(job, "kit", "Data_SiteIQ")
     for k, path in got.items():
         dest = os.path.join(data, k + ".xlsx")
-        back[dest] = open(dest, "rb").read() if os.path.isfile(dest) else None
+        back[dest] = Path(dest).read_bytes() if os.path.isfile(dest) else None
         shutil.copyfile(path, dest)
-    return back
 
 
 def build(job, out):
@@ -95,6 +124,9 @@ def build(job, out):
         cmd += ["--" + flag, os.path.join(job, rel)]
     for flag, value in sorted(spec.get("options", {}).items()):
         cmd += ["--" + flag, str(value)]
+    ledger = Path(out) / "physical_counts.json"
+    if ledger.is_file():
+        cmd.extend(["--stocktake-ledger", str(ledger)])
     run = subprocess.run(cmd, cwd=KIT_CODE, capture_output=True, text=True, timeout=600)
     if run.returncode or not os.path.isfile(os.path.join(out, "report.html")):
         tail = (run.stderr or run.stdout or "").strip().splitlines()[-6:]
@@ -137,6 +169,7 @@ def main(job, data_dir, current=False):
     keep = open(hist, "rb").read() if hist and os.path.isfile(hist) else None
     out = tempfile.mkdtemp(dir=data_dir, prefix=".build-")
     back = {}
+    saved_stocktake = None
     try:
         got, files = ({}, {}) if current else sort_incoming(job)
         if is_mmg(job):
@@ -145,7 +178,14 @@ def main(job, data_dir, current=False):
                 path = got.get(kind, os.path.join(job, "kit", "Data_SiteIQ", kind + ".xlsx"))
                 if os.path.isfile(path):
                     check_workbook(path)
-        back = copy_in(job, got)
+            previous = Path(job) / "kit" / "Data_SiteIQ" / "STOCKTAKE.xlsx"
+            if "STOCKTAKE" in got and previous.is_file():
+                saved_stocktake = archive_stocktake(job, previous)
+        copy_in(job, got, back)
+        if is_mmg(job):
+            snapshot = {"recorded_entries": all_entries(data_dir),
+                        "ledger_asat": datetime.now(QUEENSLAND).isoformat(timespec="seconds")}
+            (Path(out) / "physical_counts.json").write_text(json.dumps(snapshot), encoding="utf-8")
         build(job, out)
         made = os.environ.get("REBUILD_SKIP_PDF") != "1"
         if made:
@@ -164,6 +204,8 @@ def main(job, data_dir, current=False):
         print(json.dumps({"ok": True, "pull": asat, "files": files, "kept": [k for k in KINDS[:4] if k not in files]}))
         return 0
     except Exception as e:
+        if saved_stocktake is not None:
+            saved_stocktake.unlink(missing_ok=True)
         for dest, old in back.items():           # a failed build puts the earlier exports back
             if old is None:
                 os.remove(dest)

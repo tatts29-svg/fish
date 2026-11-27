@@ -40,8 +40,10 @@ import threading
 import time
 import urllib.parse
 import zipfile
+import sqlite3
+import stocktake_store
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
-from rebuild import kind_of, KINDS
+from rebuild import archive_stocktake, kind_of, KINDS
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -375,6 +377,23 @@ def _load_pack(zip_path):
                 for filename in os.listdir(folder):
                     if filename.lower().endswith(".xlsx") or folder.endswith("incoming"):
                         check_workbook(os.path.join(folder, filename))
+        # Preserve both sets of historical sightings as well as any stocktake
+        # bundled with the pack that the live, more recent export will replace.
+        packed_history = os.path.join(new, "kit", "stocktake_history")
+        with tempfile.TemporaryDirectory(dir=DATA_DIR) as staging:
+            staged_history = os.path.join(staging, "stocktake_history")
+            if os.path.isdir(packed_history):
+                os.replace(packed_history, staged_history)
+            for folder in (staged_history, os.path.join(JOB_DIR, "kit", "stocktake_history")):
+                if os.path.isdir(folder):
+                    for filename in os.listdir(folder):
+                        if not filename.lower().endswith(".xlsx"):
+                            continue
+                        archive_stocktake(new, os.path.join(folder, filename))
+            if os.path.isfile(os.path.join(JOB_DIR, "kit", "Data_SiteIQ", "STOCKTAKE.xlsx")):
+                packed_stocktake = os.path.join(new, "kit", "Data_SiteIQ", "STOCKTAKE.xlsx")
+                if os.path.isfile(packed_stocktake):
+                    archive_stocktake(new, packed_stocktake)
     if hist:                                   # keep every point the live site already has
         pts = {}
         for path in (os.path.join(new, hist), os.path.join(JOB_DIR, hist)):
@@ -483,6 +502,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split("?", 1)[0]
+        if path == "/stocktake/entries" and is_mmg(JOB_DIR):
+            return self._stocktake_entries()
         if path == "/health":
             return self._send(200, b"ok", "text/plain")
         if path == "/login":
@@ -515,6 +536,8 @@ class Handler(BaseHTTPRequestHandler):
     do_HEAD = do_GET
 
     def do_POST(self):
+        if self.path.split("?", 1)[0] == "/stocktake/entries" and is_mmg(JOB_DIR):
+            return self._stocktake_entries(write=True)
         if self.path.split("?", 1)[0] == "/upload/rebuild-current" and is_mmg(JOB_DIR):
             return self.do_POST_build(current=True)
         if self.path.split("?", 1)[0] == "/upload/build":
@@ -536,6 +559,37 @@ class Handler(BaseHTTPRequestHandler):
             _failed(ip)
             return self._send(401, _login_page("That username or password is not right. Have another go."), "text/html; charset=utf-8")
         self._redirect("/", cookie=_session(user))
+
+    def _stocktake_entries(self, write=False):
+        def reply(status, payload):
+            return self._send(status, json.dumps(payload).encode(), "application/json")
+
+        role = self._role(cookie=True)
+        if not role:
+            return
+        can_record = role in stocktake_store.COUNT_ROLES
+        roster = uploaders(JOB_DIR)
+        try:
+            if not write:
+                return reply(200, {"entries": stocktake_store.all_entries(DATA_DIR),
+                                   "controllers": roster, "can_record": can_record})
+            if not can_record or self.headers.get("X-Portal") != "1":
+                return reply(403, {"error": "Use a signed-in staff account to record stocktakes."})
+            if self.headers.get_content_type() != "application/json":
+                return reply(415, {"error": "Send a JSON count entry."})
+            body = self._body(8192)
+            if body is None:
+                return
+            try:
+                payload = json.loads(body)
+            except (ValueError, UnicodeError):
+                return reply(400, {"error": "Cannot read this count entry."})
+            entry = stocktake_store.record(DATA_DIR, payload, roster)
+            return reply(200, {"entry": entry})
+        except stocktake_store.CountError as exc:
+            return reply(exc.status, {"error": str(exc)})
+        except sqlite3.Error:
+            return reply(503, {"error": "Stocktake records are unavailable. Try again."})
 
     def _uploader(self):
         return self._role(cookie=True)       # every login may upload exports (Andrew, 27 Nov 2026)
