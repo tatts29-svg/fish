@@ -24,6 +24,8 @@ import sys
 import tempfile
 import zipfile
 
+from upload_policy import check_workbook, is_mmg
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 KIT_CODE = os.environ.get("KIT_CODE") or os.path.join(os.path.dirname(HERE), "02_Onhire_Report_Kit")
 KINDS = ("RENTAL_STOCK", "SALES_STOCK", "TRANSACTIONS", "STOCKTAKE", "ON_HIRE")
@@ -124,7 +126,7 @@ def pdfs(out):
     return asat
 
 
-def main(job, data_dir):
+def main(job, data_dir, current=False):
     hist = None
     try:
         with open(os.path.join(job, "job.json"), encoding="utf-8") as f:
@@ -136,7 +138,13 @@ def main(job, data_dir):
     out = tempfile.mkdtemp(dir=data_dir, prefix=".build-")
     back = {}
     try:
-        got, files = sort_incoming(job)
+        got, files = ({}, {}) if current else sort_incoming(job)
+        if is_mmg(job):
+            # Check the effective inputs before changing any file on the site.
+            for kind in KINDS:
+                path = got.get(kind, os.path.join(job, "kit", "Data_SiteIQ", kind + ".xlsx"))
+                if os.path.isfile(path):
+                    check_workbook(path)
         back = copy_in(job, got)
         build(job, out)
         made = os.environ.get("REBUILD_SKIP_PDF") != "1"
@@ -175,7 +183,7 @@ def main(job, data_dir):
 
 if __name__ == "__main__":
     try:
-        sys.exit(main(sys.argv[1], sys.argv[2]))
+        sys.exit(main(sys.argv[1], sys.argv[2], "--current" in sys.argv[3:]))
     except Stop as e:
         print(json.dumps({"ok": False, "message": str(e)}))
         sys.exit(1)

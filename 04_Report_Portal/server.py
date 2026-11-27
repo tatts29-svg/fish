@@ -28,6 +28,7 @@ import base64
 import hashlib
 import hmac
 import html
+import io
 import json
 import os
 import re
@@ -39,6 +40,8 @@ import threading
 import time
 import urllib.parse
 import zipfile
+from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
+from rebuild import kind_of, KINDS
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -178,6 +181,8 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 .st.run{border-color:rgba(242,98,34,.5)}.st.ok{border-color:#2FA84F;background:rgba(47,168,79,.10)}.st.bad{border-color:rgba(242,98,34,.6);background:rgba(242,98,34,.10);color:#FFC9AE}
 .st b{display:block;color:#fff}.bar{height:4px;border-radius:4px;background:#232A34;margin-top:10px;overflow:hidden}.bar:before{content:"";display:block;height:100%;width:35%;border-radius:4px;background:#F26222;box-shadow:0 0 12px #F26222;animation:go 1.3s ease-in-out infinite}
 @keyframes go{from{margin-left:-35%}to{margin-left:100%}}
+#up-person{width:100%;min-height:48px;border-radius:10px;border:1px solid #47505E;background:#0A0D13;color:#fff;font:inherit;padding:0 12px}
+#up-last{overflow-wrap:anywhere}
 .note a{color:#F58448;font-weight:700;text-decoration:none}
 </style>
 <div class="card">
@@ -193,8 +198,11 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <li data-k="STOCKTAKE"><i></i>Stocktake<small></small></li>
 <li data-k="ON_HIRE"><i></i>On hire<small></small></li>
 </ul>
+<div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
+<select id="up-person" required><option value="">Choose your first and last name</option></select></div>
+<div class="st" id="up-last" hidden></div>
 <button id="go" disabled>Update the report</button>
-<div class="st" id="st" hidden></div>
+<div class="st" id="st" role="status" hidden></div>
 <p class="note"><a href="/">Open the report</a> &nbsp;·&nbsp; <a href="/logout">Sign out</a></p>
 </div>
 <script>
@@ -203,29 +211,50 @@ const $=s=>document.querySelector(s),st=$('#st'),go=$('#go'),drop=$('#drop'),pic
 const kind=n=>K.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
 const say=(c,h)=>{st.hidden=false;st.className='st '+c;st.innerHTML=h};
 const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-function take(list){const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
+const person=$('#up-person');let names=[],busy=false,loaded=false;
+const buttons=()=>{person.disabled=busy;go.disabled=!loaded||busy||!K.some(k=>files[k])||(names.length>0&&!person.value)};
+person.onchange=buttons;
+function take(list){if(busy)return;const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
  document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?f.name:''});
- go.disabled=!K.some(k=>files[k]);
+ buttons();
  if(odd.length)say('bad','<b>Not a SiteIQ export:</b>'+esc(odd.join(', '))+'\\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.');
  else if(!go.disabled)say('','<b>Ready.</b>Press "Update the report".');else st.hidden=true}
 drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' ')pick.click()};pick.onchange=()=>{take(pick.files);pick.value=''};
 ['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>take(e.dataTransfer.files));
-const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false});
+const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:names.length?'Australia/Brisbane':undefined})+(names.length?' AEST':'');
 function show(s){
+ if(!loaded){
+  names=s.uploaders||[];loaded=true;
+  if(names.length){
+   $('#up-person-field').hidden=false;
+   for(const name of names)person.add(new Option(name,name));
+   $('h1 + p').textContent='Choose the SiteIQ exports for MMG Dugald River. The portal checks the project in each workbook before updating the report.';
+  }
+ }
+ const audit=s.last_upload||(s.state==='ok'&&s.finished?{name:'Uploader not recorded',finished:s.finished,files:s.files||{}}:null);
+ if(names.length&&audit){
+  const last=$('#up-last');last.hidden=false;
+  last.textContent=['Last successful upload',(audit.name||'Uploader not recorded')+' · '+when(audit.finished),...Object.values(audit.files)].join('\\n');
+ }
+ busy=s.state==='running';buttons();
  if(s.state=='running'){say('run','<b>Rebuilding the report…</b>This takes about a minute. You can leave this page open.<div class="bar"></div>');go.disabled=true;return true}
  if(s.state=='ok')say('ok','<b>Done. The report is updated.</b>SiteIQ pull '+esc(s.pull||'')+' · finished '+when(s.finished)+(s.took?' · took '+s.took+' seconds':''));
  else if(s.state=='failed')say('bad','<b>Not updated.</b>'+esc(s.message||''));
  else if(!s.pack)say('bad','<b>Not ready yet.</b>The job pack has not been loaded. Ask the Manager.');
  return false}
-async function poll(){try{const s=await (await fetch('/upload/status',{headers:{'X-Portal':'1'}})).json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'){for(const k in files)delete files[k];take([])&&0;show(s)}}catch(e){setTimeout(poll,4000)}}
-go.onclick=async()=>{go.disabled=true;try{let first=1;
+let submitted=false,submittedBatch='';
+async function poll(){try{const s=await (await fetch('/upload/status',{headers:{'X-Portal':'1'}})).json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'&&submitted){submitted=false;if(submittedBatch&&s.last_upload?.batch!==submittedBatch){say('','<b>A later upload has completed.</b>See the last successful upload above.');return}
+ person.value='';for(const k in files)delete files[k];take([]);show(s)}}catch(e){setTimeout(poll,4000)}}
+go.onclick=async()=>{if(go.disabled)return;busy=true;buttons();try{let first=1;
+ const headers={'X-Portal':'1'};
+ if(names.length){headers['X-Upload-By']=person.value;headers['X-Upload-Batch']=crypto.randomUUID()}
  for(const k of K){const f=files[k];if(!f)continue;say('run','<b>Sending '+esc(f.name)+'…</b><div class="bar"></div>');
-  const r=await fetch('/upload/export?name='+encodeURIComponent(f.name)+(first?'&first=1':''),{method:'PUT',body:f,headers:{'X-Portal':'1'}});first=0;
+  const r=await fetch('/upload/export?name='+encodeURIComponent(f.name)+(first?'&first=1':''),{method:'PUT',body:f,headers});first=0;
   if(r.status==401){location.href='/login';return}if(!r.ok)throw new Error(await r.text())}
- const b=await fetch('/upload/build',{method:'POST',headers:{'X-Portal':'1'}});if(!b.ok)throw new Error(await b.text());poll()}
- catch(e){say('bad','<b>Not updated.</b>'+esc(e.message));go.disabled=false}};
+ const b=await fetch('/upload/build',{method:'POST',headers});if(!b.ok)throw new Error(await b.text());submitted=true;submittedBatch=headers['X-Upload-Batch']||'';poll()}
+ catch(e){say('bad','<b>Not updated.</b>'+esc(e.message));busy=false;buttons()}};
 poll();
 </script>"""
 
@@ -247,12 +276,20 @@ def _status():
     except (OSError, ValueError):
         st = {"state": "idle"}
     if st.get("state") == "running" and not _build_lock.locked():      # the server restarted mid-build
-        st = {"state": "failed", "message": "The last rebuild was interrupted. Nothing was changed. Upload the files again."}
+        st.update({"state": "failed", "message": "The last rebuild was interrupted. Nothing was changed. Upload the files again."})
     st["pack"] = os.path.isfile(os.path.join(JOB_DIR, "job.json"))
+    if is_mmg(JOB_DIR):
+        st["uploaders"] = uploaders(JOB_DIR)
+        # Earlier successful uploads had no name recorded.
+        if "last_upload" not in st:
+            st["last_upload"] = ({"name": None, "files": st["files"], "finished": st["finished"]}
+                                 if st.get("state") == "ok" and st.get("files") and st.get("finished") else None)
     return st
 
 
 def _set_status(**kw):
+    if "last_upload" not in kw and is_mmg(JOB_DIR):
+        kw["last_upload"] = _status().get("last_upload")
     os.makedirs(DATA_DIR, exist_ok=True)
     tmp = os.path.join(DATA_DIR, ".upload_status.tmp")
     with open(tmp, "w", encoding="utf-8") as f:
@@ -260,11 +297,14 @@ def _set_status(**kw):
     os.replace(tmp, os.path.join(DATA_DIR, "upload_status.json"))
 
 
-def _rebuild():
+def _rebuild(name=None, batch=None, current=False):
     """Run the rebuild in its own process; the lock is already held."""
     started = time.time()
     try:
-        run = subprocess.run([sys.executable, os.path.join(HERE, "rebuild.py"), JOB_DIR, DATA_DIR], capture_output=True, text=True, timeout=900)
+        cmd = [sys.executable, os.path.join(HERE, "rebuild.py"), JOB_DIR, DATA_DIR]
+        if current:
+            cmd.append("--current")
+        run = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
         try:
             res = json.loads(run.stdout.strip().splitlines()[-1])
         except Exception:
@@ -275,11 +315,19 @@ def _rebuild():
         res = {"ok": False, "message": "The rebuild could not start: {}. Nothing was changed.".format(e)}
     finally:
         shutil.rmtree(os.path.join(JOB_DIR, "incoming"), ignore_errors=True)
+    try:
+        _finish_build(res, started, name, batch)
+    finally:
+        _build_lock.release()
+
+
+def _finish_build(res, started, name, batch):
     if res.get("ok"):
-        _set_status(state="ok", message="The report is updated.", pull=res.get("pull", ""), files=res.get("files", {}), kept=res.get("kept", []), finished=time.time(), took=round(time.time() - started))
+        finished = time.time()
+        audit = {"last_upload": {"name": name, "batch": batch, "files": res["files"], "finished": finished}} if name else {}
+        _set_status(state="ok", message="The report is updated.", pull=res.get("pull", ""), files=res.get("files", {}), kept=res.get("kept", []), finished=finished, took=round(finished - started), **audit)
     else:
         _set_status(state="failed", message=res.get("message", "Something went wrong. Nothing was changed."), finished=time.time())
-    _build_lock.release()
 
 
 def _load_pack(zip_path):
@@ -301,6 +349,14 @@ def _load_pack(zip_path):
             n += 1
     with open(os.path.join(new, "job.json"), encoding="utf-8") as f:
         hist = json.load(f).get("paths", {}).get("history")
+    if is_mmg(JOB_DIR) or is_mmg_pack(new):
+        if not is_mmg_pack(new):
+            raise ValueError("This portal needs the MMG Dugald River job pack.")
+        for folder in (os.path.join(new, "kit", "Data_SiteIQ"), os.path.join(new, "incoming")):
+            if os.path.isdir(folder):
+                for filename in os.listdir(folder):
+                    if filename.lower().endswith(".xlsx") or folder.endswith("incoming"):
+                        check_workbook(os.path.join(folder, filename))
     if hist:                                   # keep every point the live site already has
         pts = {}
         for path in (os.path.join(new, hist), os.path.join(JOB_DIR, hist)):
@@ -317,13 +373,12 @@ def _load_pack(zip_path):
         os.makedirs(os.path.join(new, "kit", "Data_SiteIQ"), exist_ok=True)
         for name in os.listdir(live):
             shutil.copyfile(os.path.join(live, name), os.path.join(new, "kit", "Data_SiteIQ", name))
-    with _build_lock:
-        old = os.path.join(DATA_DIR, ".job-old")
-        shutil.rmtree(old, ignore_errors=True)
-        if os.path.isdir(JOB_DIR):
-            os.replace(JOB_DIR, old)
-        os.replace(new, JOB_DIR)
-        shutil.rmtree(old, ignore_errors=True)
+    old = os.path.join(DATA_DIR, ".job-old")
+    shutil.rmtree(old, ignore_errors=True)
+    if os.path.isdir(JOB_DIR):
+        os.replace(JOB_DIR, old)
+    os.replace(new, JOB_DIR)
+    shutil.rmtree(old, ignore_errors=True)
     return n
 
 
@@ -442,6 +497,8 @@ class Handler(BaseHTTPRequestHandler):
     do_HEAD = do_GET
 
     def do_POST(self):
+        if self.path.split("?", 1)[0] == "/upload/rebuild-current" and is_mmg(JOB_DIR):
+            return self.do_POST_build(current=True)
         if self.path.split("?", 1)[0] == "/upload/build":
             return self.do_POST_build()
         if self.path.split("?", 1)[0] != "/login":
@@ -492,6 +549,41 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(400, b"That is not an Excel export.", "text/plain")
         q = urllib.parse.parse_qs(self.path.partition("?")[2])
         name = re.sub(r"[^A-Za-z0-9._ -]", "_", os.path.basename(q.get("name", ["export.xlsx"])[0]))[:80] or "export.xlsx"
+        if is_mmg(JOB_DIR):
+            identity = self._batch_identity()
+            if not identity:
+                return
+            who, batch, folder = identity
+            source = io.BytesIO(body)
+            kind = kind_of(source)
+            if not kind:
+                return self._send(400, b"Choose a supported SiteIQ Excel export.", "text/plain")
+            try:
+                check_workbook(source)
+            except ValueError as exc:
+                return self._send(400, str(exc).encode(), "text/plain")
+            if not _build_lock.acquire(blocking=False):
+                return self._send(409, b"A rebuild is running. Try again in a minute.", "text/plain")
+            try:
+                base = os.path.dirname(folder)
+                os.makedirs(base, exist_ok=True)
+                if q.get("first"):
+                    for old in os.scandir(base):
+                        if old.is_dir() and old.stat().st_mtime < time.time() - 86400:
+                            shutil.rmtree(old.path)
+                    if len(os.listdir(base)) >= 64 and not os.path.isdir(folder):
+                        return self._send(409, b"Too many unfinished uploads. Try again later.", "text/plain")
+                    shutil.rmtree(folder, ignore_errors=True)
+                    os.makedirs(folder)
+                if not os.path.isdir(folder):
+                    return self._send(409, b"Start this upload again.", "text/plain")
+                if any(file.startswith(kind + "__") for file in os.listdir(folder)):
+                    return self._send(400, b"Choose one file of each export type.", "text/plain")
+                with open(os.path.join(folder, kind + "__" + name), "wb") as f:
+                    f.write(body)
+            finally:
+                _build_lock.release()
+            return self._send(200, b"ok", "text/plain")
         inc = os.path.join(JOB_DIR, "incoming")
         if q.get("first"):                       # a new batch: forget any half-finished one
             shutil.rmtree(inc, ignore_errors=True)
@@ -501,6 +593,14 @@ class Handler(BaseHTTPRequestHandler):
         with open(os.path.join(inc, "{:02d}__{}".format(len(os.listdir(inc)), name)), "wb") as f:
             f.write(body)
         self._send(200, b"ok", "text/plain")
+
+    def _batch_identity(self):
+        who = self.headers.get("X-Upload-By", "")
+        batch = self.headers.get("X-Upload-Batch", "")
+        if who not in uploaders(JOB_DIR) or not re.fullmatch(r"[a-fA-F0-9]{8}-(?:[a-fA-F0-9]{4}-){3}[a-fA-F0-9]{12}", batch):
+            self._send(400, b"Choose your first and last name and start a new upload.", "text/plain")
+            return None
+        return who, batch, os.path.join(DATA_DIR, ".upload-batches", hashlib.sha256(who.encode()).hexdigest()[:16] + "-" + batch)
 
     def _put_pack(self):
         role = self._role()
@@ -516,23 +616,48 @@ class Handler(BaseHTTPRequestHandler):
         with os.fdopen(fd, "wb") as f:
             f.write(body)
         try:
-            n = _load_pack(tmp)
+            if not _build_lock.acquire(blocking=False):
+                return self._send(409, b"A rebuild is running. Try again in a minute.", "text/plain")
+            try:
+                n = _load_pack(tmp)
+            finally:
+                _build_lock.release()
         except Exception as e:
             return self._send(400, ("That pack could not be loaded: {}".format(e)).encode(), "text/plain")
         finally:
             os.remove(tmp)
         self._send(200, "Job pack loaded ({} files).".format(n).encode(), "text/plain")
 
-    def do_POST_build(self):
+    def do_POST_build(self, current=False):
         role = self._uploader()
         if not role:
             return
         if not os.path.isfile(os.path.join(JOB_DIR, "job.json")):
             return self._send(409, b"The job pack is not loaded yet.", "text/plain")
+        if current and role != "manager":
+            return self._send(403, b"Manager login needed.", "text/plain")
+        identity = None
+        if not current and is_mmg(JOB_DIR):
+            identity = self._batch_identity()
+            if not identity:
+                return
         if not _build_lock.acquire(blocking=False):
             return self._send(409, b"A rebuild is already running.", "text/plain")
-        _set_status(state="running", message="Building the report from the new exports…", started=time.time(), by=role)
-        threading.Thread(target=_rebuild, daemon=True).start()
+        try:
+            name, batch = None, None
+            if identity:
+                name, batch, folder = identity
+                if not os.path.isdir(folder) or not os.listdir(folder):
+                    _build_lock.release()
+                    return self._send(409, b"No files in this upload. Choose your files again.", "text/plain")
+                incoming = os.path.join(JOB_DIR, "incoming")
+                shutil.rmtree(incoming, ignore_errors=True)
+                os.replace(folder, incoming)
+            _set_status(state="running", message="Building the report…", started=time.time(), by=role)
+            threading.Thread(target=_rebuild, args=(name, batch, current), daemon=True).start()
+        except Exception:
+            _build_lock.release()
+            raise
         self._send(202, b"started", "text/plain")
 
     def do_PUT(self):
@@ -549,6 +674,8 @@ class Handler(BaseHTTPRequestHandler):
             return
         if role != "manager":
             return self._send(403, b"Manager login needed to load a report.", "text/plain")
+        if is_mmg(JOB_DIR):
+            return self._send(400, b"Build MMG reports from verified SiteIQ exports on the upload page.", "text/plain")
         try:
             size = int(self.headers.get("Content-Length", ""))
         except ValueError:

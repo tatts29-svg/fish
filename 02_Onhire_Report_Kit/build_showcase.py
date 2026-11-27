@@ -372,6 +372,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                 dpic[dkey(r)] = p_
     kinds_fleet = collections.Counter(dkey(r) for r in rental)
     kinds_on = collections.Counter(dkey(r) for r in on)
+    available = collections.Counter(dkey(r) for r in rental if kit._s(r.get("ITEM_STATUS")).casefold() == "available for hire")
     fam_fleet = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in coates)
     fam_on = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in on if r in coates)
 
@@ -572,9 +573,10 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "tagged": tagged,
         "onhire": onhire_rows,
         # every item in the store, so any item number or barcode can be searched
-        "assets": [{"i": kit._s(r.get("ITEM_NUMBER")), "b": kit._s(r.get("ITEM_BARCODE")), "dk": dkey(r)} for r in rental],
+        "assets": [{"i": kit._s(r.get("ITEM_NUMBER")), "b": kit._s(r.get("ITEM_BARCODE")), "dk": dkey(r),
+                    "status": kit._s(r.get("ITEM_STATUS"))} for r in rental],
         "draws": draws,
-        "tools": {k: {"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k),
+        "tools": {k: {"name": dname.get(k, k), "available": available[k], "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k),
                       "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
@@ -829,6 +831,7 @@ def _merge_same_names(data):
         for k in keys[1:]:
             t = tools.pop(k)
             keep["site"], keep["on"] = keep.get("site", 0) + t.get("site", 0), keep.get("on", 0) + t.get("on", 0)
+            keep["available"] = keep.get("available", 0) + t.get("available", 0)
             keep["best"] = max(keep.get("best") or 0, t.get("best") or 0)
             if keep.get("pic") is None:
                 keep["pic"] = t.get("pic")

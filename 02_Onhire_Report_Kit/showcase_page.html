@@ -199,6 +199,9 @@ html.static .loop:after{display:none}
 .uplist i{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:700;color:#fff}
 .uplist .got i{background:var(--or);border-color:var(--or);box-shadow:0 0 12px color-mix(in srgb,var(--or) 55%,transparent)}.uplist .got i:before{content:"\2713"}
 .uplist small{margin-left:auto;color:var(--mu);font-size:12px;text-align:right;overflow-wrap:anywhere;max-width:56%}
+#up-person-field label{display:block;margin:16px 0 6px;font-weight:700}
+#up-person{width:100%;min-height:46px;background:var(--panel);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:0 12px;font:inherit}
+#up-last{white-space:pre-line;overflow-wrap:anywhere}
 .upgo{width:100%;height:56px;margin-top:14px;border:0;border-radius:14px;background:var(--or);color:#fff;font:inherit;font-weight:700;font-size:17px;cursor:pointer;box-shadow:0 12px 34px color-mix(in srgb,var(--or) 35%,transparent);transition:transform .15s,opacity .2s}
 .upgo:active{transform:scale(.985)}.upgo:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
 .upbar{margin-top:18px}.upbar .tr{height:14px;border-radius:999px;background:var(--track);overflow:hidden}
@@ -398,22 +401,34 @@ html[data-theme=dark] .sa{filter:drop-shadow(0 0 5px rgba(255,122,61,.8))}
 html[data-theme=dark] .seg button.on,html[data-theme=dark] .btn:not(.ghost){background:linear-gradient(90deg,#F26222,#FF7A3D);box-shadow:0 0 18px rgba(242,98,34,.4)}
 html[data-theme=dark] .cbi.on{box-shadow:inset 0 0 0 1px rgba(242,98,34,.45)}
 html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
-.cyls{display:flex;justify-content:space-around;align-items:flex-start;gap:2px}
-.cyl{text-align:center;width:84px;flex:none;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.cyl[data-open]:hover{transform:translateY(-5px)}
-.cyl .val{font-size:20px;font-weight:700;margin-top:4px}
-.cyl .cap{font-size:12px;color:var(--mu);line-height:1.3;margin-top:2px;overflow-wrap:anywhere}
-.cyl .cap small{color:var(--dim)}
+@media (min-width:981px){#v-onhire>.grid:has(#oh-kinds){grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}#v-consumables>.grid:has(#cn-types){grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr)}}
+.card:has(.cyls){container-type:inline-size;min-width:0}
+.cyls{display:grid;grid-auto-columns:minmax(0,1fr);grid-auto-flow:column;align-items:start;gap:8px;padding:12px 0 8px}
+.cyl{min-width:0;text-align:center;border:0;padding:4px 0 6px;background:none;line-height:1.3;border-radius:9px}
+.cyl[data-open]:focus-visible{outline:2px solid var(--ortx);outline-offset:2px}
+.cyl svg{display:block;width:min(100%,78px);height:auto;margin:auto;overflow:visible}
+.cyl .val{display:block;font-variant-numeric:tabular-nums;font-size:clamp(16px,3.8cqi,21px);font-weight:700;margin-top:4px}
+.cyl .cap{display:block;font-size:12px;color:var(--tx);line-height:1.35;margin:3px auto 0;max-width:15em;overflow-wrap:anywhere}
+.cyl .cap small{display:inline-block;margin-top:3px;color:var(--mu)}
 .cyl .tp{display:block;margin:6px auto 0}
-.cgl{fill:var(--panel2);stroke:var(--line)}.cst{stroke:var(--neu);opacity:.6}.ctop{fill:rgba(255,255,255,.05);stroke:var(--neu)}
-.cf{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);transition:transform 1.8s cubic-bezier(.2,.8,.2,1)}
-.go .cf{transform:scaleY(var(--s))}
-.cc{transition:transform 1.8s cubic-bezier(.2,.8,.2,1)}
-.go .cc{transform:translateY(calc(var(--s)*-140px))}
-html[data-theme=dark] .cyl svg{filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
-html[data-theme=dark] .cf{filter:drop-shadow(0 0 10px rgba(255,160,120,.35))}
-html[data-theme=dark] .cc{animation:bob 3.4s ease-in-out infinite}
-@keyframes bob{0%,100%{opacity:.75}50%{opacity:1}}
+.cyl .shell{fill:var(--panel2);stroke:var(--neu);stroke-opacity:.46}
+.cyl .scale{fill:none;stroke:var(--tx);stroke-width:1;opacity:.32}
+.cyl .lip{fill:var(--panel2);fill-opacity:.15;stroke:var(--neu);stroke-opacity:.78}
+.cyl .footlight{opacity:.54}
+.cyl .surface{stroke:#fff;stroke-opacity:.48;stroke-width:.8}
+.view.go .liquid{transform-origin:37px 158px;animation:fill-cylinder 1.35s cubic-bezier(.22,.75,.25,1) backwards}
+@keyframes fill-cylinder{from{transform:scaleY(0)}}
+.cyl .bub{fill:#fff;fill-opacity:.68;stroke:#fff;stroke-opacity:.85;stroke-width:.32;opacity:0}
+.view.go .bub{animation:bubble-rise var(--duration) linear infinite;animation-delay:var(--phase)}
+@keyframes bubble-rise{0%{opacity:0;transform:translate(0,0)}15%{opacity:.77}78%{opacity:.55}100%{opacity:0;transform:translate(var(--drift),var(--rise))}}
+.cyl .ripple{fill:none;stroke:white;stroke-opacity:.6;stroke-width:.85;transform-box:fill-box;transform-origin:center;opacity:0}
+.view.go .ripple{animation:surface-ripple 3.6s ease-out infinite;animation-delay:var(--phase)}
+@keyframes surface-ripple{0%{transform:scale(.35);opacity:0}20%{opacity:.62}90%,100%{transform:scale(1);opacity:0}}
+@media (hover:hover){.cyl[data-open]:hover{background:var(--hover)}.cyl[data-open]:hover .footlight{opacity:.9}}
+@container (max-width:495px){.cyls:has(>:nth-child(6)){grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-flow:row;row-gap:14px}}
+@container (max-width:360px){.cyls:has(>:nth-child(4)):not(:has(>:nth-child(5))){grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:row}}
+@media (prefers-reduced-motion:reduce){.cyl .bub,.cyl .ripple{display:none}}
+.static .cyl .bub,.static .cyl .ripple{display:none}
 .rt{font-size:13.5px;font-weight:600;text-align:center;margin-bottom:8px}
 .dials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .dial{text-align:center}
@@ -424,7 +439,7 @@ html[data-theme=dark] .cc{animation:bob 3.4s ease-in-out infinite}
 .arc{fill:none;stroke-width:14;stroke-linecap:round;stroke-dasharray:var(--c);stroke-dashoffset:var(--c);transition:stroke-dashoffset 2s cubic-bezier(.2,.8,.2,1)}
 .go .arc{stroke-dashoffset:var(--off)}
 html[data-theme=dark] .arc{filter:drop-shadow(0 0 8px rgba(255,122,61,.55))}
-@media (max-width:980px){.dials{grid-template-columns:1fr}.cyls{flex-wrap:wrap;justify-content:space-around}}
+@media (max-width:980px){.dials{grid-template-columns:1fr}}
 
 /* elite layer: embers, orbiting borders, spotlight, staggered entrances, bubbles and pulses */
 #fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
@@ -477,11 +492,6 @@ html[data-theme=dark] .arc{animation:arcglow 3s ease-in-out infinite}
 @keyframes arcglow{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.5))}50%{filter:drop-shadow(0 0 16px rgba(255,150,100,.95))}}
 .dtk{stroke:var(--neu);opacity:.45}
 html[data-theme=dark] .dial .big{text-shadow:0 0 26px rgba(255,138,80,.45)}
-.bub{fill:#FFD9C2;opacity:0;animation:bub var(--d,3s) ease-in infinite;animation-delay:var(--dl,0s)}
-@keyframes bub{0%{transform:translateY(0);opacity:0}15%{opacity:.75}85%{opacity:.5}100%{transform:translateY(calc(var(--s)*-132px));opacity:0}}
-html[data-theme=light] .bub{fill:#fff}
-html[data-theme=dark] .cyl[data-open]:hover svg{filter:drop-shadow(0 10px 18px rgba(0,0,0,.45)) drop-shadow(0 0 22px rgba(255,122,61,.6))}
-html[data-theme=dark] .cyl .val{text-shadow:0 0 20px rgba(255,138,80,.5)}
 html[data-theme=dark] .row[data-open]:hover .fl{filter:brightness(1.25)}
 html[data-theme=dark] .tp:not(.mono){transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
 html[data-theme=dark] .row:hover .tp:not(.mono),html[data-theme=dark] .krow:hover .tp:not(.mono),html[data-theme=dark] .cyl:hover .tp:not(.mono){transform:scale(1.18);box-shadow:0 0 20px rgba(242,98,34,.55)}
@@ -596,7 +606,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
-<div class="gs noprint" id="gs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gs-q" type="search" placeholder="Search anything: person, company, tool, item number, consumable, code" autocomplete="off" spellcheck="false" aria-label="Search the report"><div class="gsr" id="gs-r" hidden></div></div>
+<div class="gs noprint" id="gs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gs-q" type="search" placeholder="Search stock, item codes, people or companies" autocomplete="off" spellcheck="false" aria-label="Search the report"><div class="gsr" id="gs-r" hidden></div></div>
 <div class="asat"><span class="live"></span>SiteIQ pull <b id="asat"></b><br><span class="au">Author: Andrew Fisher | POWERED BY SITEIQ</span></div>
 <button class="theme" id="theme" aria-label="Switch between light and dark"></button>
 </div><div class="tabsw"><nav class="wrap"><div class="tabs" id="tabs"><i class="ink" id="ink"></i></div></nav></div></header>
@@ -721,9 +731,11 @@ __CONTACTS__
 <input id="up-pick" type="file" accept=".xlsx" multiple hidden>
 <div class="uplist" id="up-list"></div></div>
 <div class="card"><h3>2 · Update</h3><div class="sub" id="up-sub">Choose at least one file to start.</div>
+<div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
+<select id="up-person" required><option value="">Choose your first and last name</option></select></div>
 <button class="upgo" id="up-go" disabled>Update the report</button>
 <div class="upbar" id="up-bar" hidden><div class="tr"><i id="up-fill"></i></div><div class="upst"><b id="up-pct">0%</b><span id="up-stage"></span></div></div>
-<div class="upmsg" id="up-msg" hidden></div>
+<div class="upmsg" id="up-msg" role="status" hidden></div>
 <div class="sub" style="margin-top:16px" id="up-last"></div></div>
 </div>
 </section>
@@ -829,19 +841,31 @@ ${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle clas
 
 // cylinders and dials
 let uid=0;
-function cyl(it,o){const H=140,W=64,ry=9,id='c'+(++uid),sh=Math.max(.02,Math.min(1,o.share?it.on/Math.max(1,it.fleet):it.n/o.max)),top=18,bot=top+H,cx=5+W/2,K=o.col||['#B9481A','#FF7A3D','#C24D17','#FF8C55'];
-return `<div class="cyl"${it.open?` data-open="${esc(it.open)}"`:''}><svg viewBox="0 0 ${W+10} ${H+34}" width="${W+10}" height="${H+34}" style="--s:${sh.toFixed(3)}">
-<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${K[0]}"/><stop offset=".45" stop-color="${K[1]}"/><stop offset="1" stop-color="${K[2]}"/></linearGradient>
-<linearGradient id="${id}g" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset=".3" stop-color="#fff" stop-opacity=".02"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".08"/></linearGradient></defs>
-<ellipse class="cgl" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}"/><rect class="cgl" x="5" y="${top}" width="${W}" height="${H}" style="stroke:none"/>
-<ellipse cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="${K[2]}"/>
-<rect class="cf" x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id})"/>
-${STATIC?'':[[.28,2.6,0,1.6],[.55,3.4,1.1,2.2],[.74,2.9,.5,1.3],[.42,4.1,2,1.8]].map(b=>`<circle class="bub" cx="${5+W*b[0]}" cy="${bot-2}" r="${b[3]}" style="--d:${b[1]}s;--dl:${b[2]}s"/>`).join('')}
-<ellipse class="cc" cx="${cx}" cy="${bot}" rx="${W/2}" ry="${ry}" fill="${K[3]}"/>
-<rect x="5" y="${top}" width="${W}" height="${H}" fill="url(#${id}g)"/>
-<line class="cst" x1="5" y1="${top}" x2="5" y2="${bot}"/><line class="cst" x1="${W+5}" y1="${top}" x2="${W+5}" y2="${bot}"/>
-<ellipse class="ctop" cx="${cx}" cy="${top}" rx="${W/2}" ry="${ry}"/></svg>${o.pic?pic(it.pic,it.name,'lg'):''}
-<div class="val">${it.val||`<span data-n="${o.share?it.on:it.n}">${fmt(o.share?it.on:it.n)}</span>`}</div><div class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} in the store</small>`:''))}</div></div>`}
+function cyl(it,o){
+const value=o.share?it.on:it.n, total=o.share?it.fleet:o.max;
+const share=total>0?Math.max(0,Math.min(1,value/total)):0;
+const height=140*share, surface=158-height, id='c'+(++uid);
+const color=o.col||['#AE3F13','#FF894E','#B74819','#FFA276'];
+const bubbleCount=height<9?0:Math.min(10,Math.ceil(height/12)+2);
+const bubbles=STATIC?'':Array.from({length:bubbleCount},(_,i)=>{
+  const x=14+((i*19+uid*3)%45), radius=1+((i*7+uid)%5)*.24;
+  const seconds=2.7+((i+uid)%5)*.38, phase=-seconds*((i*.618+uid*.173)%1);
+  return `<circle class="bub" cx="${x}" cy="157" r="${radius}" style="--duration:${seconds.toFixed(2)}s;--phase:${phase.toFixed(2)}s;--rise:${-(height-3)}px;--drift:${i%2?2:-2}px"/>`;
+}).join('');
+const tag=it.open?'button':'div';
+return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
+<defs><linearGradient id="${id}"><stop stop-color="${color[0]}"/><stop offset=".20" stop-color="${color[1]}"/><stop offset=".48" stop-color="${color[1]}"/><stop offset="1" stop-color="${color[2]}"/></linearGradient>
+<linearGradient id="${id}g"><stop stop-color="#fff" stop-opacity=".05"/><stop offset=".12" stop-color="#fff" stop-opacity=".17"/><stop offset=".26" stop-color="#fff" stop-opacity=".015"/><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".14"/></linearGradient>
+<radialGradient id="${id}h"><stop stop-color="${color[1]}" stop-opacity=".82"/><stop offset="1" stop-color="${color[1]}" stop-opacity="0"/></radialGradient></defs>
+<ellipse class="footlight" cx="37" cy="169" rx="36" ry="9" fill="url(#${id}h)"/>
+<path class="shell" d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z"/>
+${height>0?`<g class="liquid"><ellipse cx="37" cy="158" rx="31.5" ry="7.5" fill="url(#${id})"/><rect x="5.5" y="${surface}" width="63" height="${height}" fill="url(#${id})"/>
+${bubbles}<ellipse class="surface" cx="37" cy="${surface}" rx="31.5" ry="7.5" fill="${color[3]}"/>
+${bubbleCount?`<ellipse class="ripple" cx="35" cy="${surface}" rx="21" ry="4" style="--phase:-${uid%4}s"/>`:''}</g>`:''}
+<path d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z" fill="url(#${id}g)"/>
+<path class="scale" d="M60 53h8m-5 17.5h5M58 88h10m-5 17.5h5M60 123h8"/>
+<ellipse class="lip" cx="37" cy="18" rx="32" ry="8"/></svg>${o.pic?pic(it.pic,it.name,'lg'):''}
+<span class="val">${it.val||`<span data-n="${value}">${fmt(value)}</span>`}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} on site</small>`:''))}</span></${tag}>`}
 function dial(v,of,cap,sub){const c=Math.PI*70,sh=of?v/of:0,id='d'+(++uid);
 return `<div class="dial"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
 ${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<path class="dtr" d="M20,95 A70,70 0 0 1 160,95"/><path class="arc" d="M20,95 A70,70 0 0 1 160,95" stroke="url(#${id})" style="--c:${c};--off:${c*(1-Math.min(1,sh))}"/></svg>
@@ -932,7 +956,7 @@ const open={};const drawT=()=>{$('#tagged').innerHTML=`<div class="tagrow"><div 
 $$('#tagged .more').forEach(b=>b.onclick=()=>{open[b.dataset.g]=!open[b.dataset.g];drawT()})};drawT()}
 
 const CL={};D.clines.forEach(l=>CL[l.name]=l);
-const cpic=(n,c)=>{const l=CL[n];return l&&l.cp!=null&&D.cpics&&D.cpics[l.cp]?`<img class="tp${c?' '+c:''}" src="${D.cpics[l.cp]}" alt="" loading="lazy" style="background:#fff">`:''};
+const cpic=(n,c,l=CL[n])=>{return l&&l.cp!=null&&D.cpics&&D.cpics[l.cp]?`<img class="tp${c?' '+c:''}" src="${D.cpics[l.cp]}" alt="" loading="lazy" style="background:#fff">`:''};
 /* ---------- consumables ---------- */
 {const dr=D.draws,B=D.below;
 $('#cn-lead').textContent=`${K.cons_lines} ${CLIENT} consumable lines are on the shelf. ${dr.n?`${fmt(dr.units)} units have been drawn so far this shut, in ${dr.n} issues to ${dr.people} people.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
@@ -1084,17 +1108,18 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
 t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
- return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} in the store${t.var?` · product variant ${esc(t.var)}`:''}</div>${tgc(t.tag)}</div></div>`+
- stat([[t.site,'In the store'],[t.on,'Out now'],[t.site-t.on,'On the shelf'],[t.best||'–','Busiest seen']])+
- (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Hired · days on hire'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`)):'<div class="note g"><b>All on the shelf</b> right now.</div>')},
+ return `<div class="dh">${t.pic!=null&&D.pics[t.pic]?`<img src="${D.pics[t.pic]}" alt="">`:''}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} total on site${t.var?` · product variant ${esc(t.var)}`:''}</div>${tgc(t.tag)}</div></div>`+
+ stat([[t.available,'Available for hire'],[t.on,'Out on hire'],[t.site,'Total on site'],t.site>t.available+t.on?[t.site-t.available-t.on,'Other status']:[t.best||'–','Busiest seen']])+
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Hired · days on hire'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`)):'')},
 k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));
  return `<div class="dh">${k.pic!=null&&D.pics[k.pic]?`<img src="${D.pics[k.pic]}" alt="">`:''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div>${tgc(m=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}</div></div>`+
- `<h5>Sizes, smallest to largest</h5>`+tbl(['Size','<span style="float:right">In the store</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
+ `<h5>Sizes, smallest to largest</h5>`+tbl(['Size',m=='tools'?'<span style="float:right">Total on site</span>':'<span style="float:right">On the shelf</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
  (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,1))):'')},
 ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
  return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(ls.length,'line')} · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div><div style="height:10px"></div>`+
  tbl(['Scan','Line',CLIENT+' code','On shelf','Min','Max','Used a day',''],ls.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${qrb(l.name)}</td><td>${esc(l.name)}</td><td style="color:var(--mu)">${esc(l.code||'')}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill w">Top up</span>':''}</td></tr>`))},
-cl(n){const l=D.clines.find(x=>x.name==n);if(!l)return '<div class="dh"><h3>No record</h3></div>';const who=Object.entries(D.draws.by).filter(([k,a])=>a.some(x=>x.name==n));
+stockline(i){const l=D.clines[Number(i)];return this.cl(l?.name,l)},
+cl(n,line){const l=line||D.clines.find(x=>x.name==n);if(!l)return '<div class="dh"><h3>No record</h3></div>';const who=Object.entries(D.draws.by).filter(([k,a])=>a.some(x=>x.name==n));
  return `<div class="dh">${l.cp!=null&&D.cpics[l.cp]?`<img src="${D.cpics[l.cp]}" alt="" style="background:#fff">`:''}<div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span>${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}${l.bin?` · ${CLIENT} bin ${esc(l.bin)}`:''}</div></div>${l.qr?`<button class="qrb" data-qr="${esc(l.name)}" style="margin-left:auto;padding:5px" data-tip="Tap to make it big">${qrsvg(l.qr,74)}</button>`:''}</div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+(l.peak?stat([[l.avgpeak,'Usual busiest day'],[l.peak,'Busiest day on record'],[fmt(l.most),'Most in one shut'],[l.have<l.peak?'Short':'Covered','Shelf against busiest day']]):'')+
  (l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
  (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')}};
@@ -1178,11 +1203,11 @@ if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),
 const cos=new Map();D.people.forEach(p=>{if(p.co)cos.set(p.co,(cos.get(p.co)||0)+1)});D.companies.forEach(c=>cos.has(c.name)||cos.set(c.name,0));
 const outC={};D.companies.forEach(c=>outC[c.name]=c.n);[...cos.keys()].sort().forEach(c=>add('Companies',c,`${outC[c]||0} on hire now · ${cos.get(c)} ${cos.get(c)==1?'person':'people'}`,'co:'+c,''));
 D.people.forEach(p=>add('People',p.name,`${p.co||''}${p.now?' · '+p.now+' out now':''}`,'p:'+p.key,p.co||''));
-Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.site)} in the store · ${t.on} out now`,'t:'+k,(t.var||'')+' '+(t.tag?'test tag':''),()=>pic(t.pic,t.name)));
-D.clines.forEach(l=>add('Consumables',l.name,`${fmt(l.have)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'cl:'+l.name,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name)));
-const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:'on the shelf'}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
+Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.available)} available · ${fmt(t.on)} out on hire · ${fmt(t.site)} total on site`,'t:'+k,[k,t.var,t.own,t.tag?'test tag':''].join(' '),()=>pic(t.pic,t.name)));
+D.clines.forEach((l,i)=>add('Consumables',l.name,`${fmt(l.have)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
+const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
-const ORD=['People','Companies','Tools','Consumables','On hire now','Item numbers'];let sel=-1;
+const ORD=['Tools','Consumables','Item numbers','People','Companies','On hire now'];let sel=-1;
 const safe=w=>w.replace(/[^A-Za-z0-9]/g,c=>'\\'+c);
 const hl=(t,ws)=>{let h=esc(t);ws.forEach(w=>{h=h.replace(new RegExp('('+safe(w)+')','ig'),'<mark>$1</mark>')});return h};
 const run=()=>{const ws=q.value.trim().toUpperCase().split(/\s+/).filter(Boolean);sel=-1;if(!ws.length){box.hidden=true;return}
@@ -1213,25 +1238,50 @@ const go=$('#up-go'),drop=$('#up-drop'),pick=$('#up-pick'),msg=$('#up-msg'),bar=
 const kind=n=>KS.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
 const say=(c,h)=>{msg.hidden=false;msg.className='upmsg '+c;msg.innerHTML=h};
 const prog=(p,t)=>{bar.hidden=false;$('#up-fill').style.width=p+'%';$('#up-pct').textContent=Math.round(p)+'%';$('#up-stage').textContent=t};
-const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
-const last=x=>{$('#up-last').textContent=x.state=='ok'&&x.finished?`Last update: ${when(x.finished)}, SiteIQ pull ${x.pull||''}.`:!x.pack?'The site is not set up for uploads yet. Ask Andrew.':''};last(s);
-const list=()=>{$('#up-list').innerHTML=KS.map(k=>`<div class="${files[k]?'got':''}"><i></i>${KN[k]}<small>${files[k]?esc(files[k].name):'keeps the last upload'}</small></div>`).join('');const n=KS.filter(k=>files[k]).length;go.disabled=busy||!n;$('#up-sub').textContent=n?`${n} ${n==1?'file':'files'} ready. Anything not ticked stays as it was.`:'Choose at least one file to start.'};list();
+const names=s.uploaders||[],person=$('#up-person');
+if(names.length){
+  $('#up-person-field').hidden=false;
+  for(const name of names) person.add(new Option(name,name));
+  $('#v-upload .vh p').textContent='Choose the SiteIQ exports for MMG Dugald River. The portal checks the project in each workbook before updating the report.';
+}
+const when=t=>new Date(t*1000).toLocaleString('en-AU',{timeZone:names.length?'Australia/Brisbane':undefined,day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})+(names.length?' AEST':'');
+const last=x=>{
+const audit=x.last_upload;
+if(names.length && audit){
+  $('#up-last').textContent=['Last successful upload',(audit.name||'Uploader not recorded')+' · '+when(audit.finished),...Object.values(audit.files)].join('\n');
+  return;
+}
+if(names.length && x.state==='ok' && x.finished){
+  $('#up-last').textContent=['Last successful upload',when(x.finished)+' · Uploader not recorded',...Object.values(x.files||{})].join('\n');
+  return;
+}
+$('#up-last').textContent=x.state=='ok'&&x.finished?`Last update: ${when(x.finished)}, SiteIQ pull ${x.pull||''}.`:!x.pack?'The site is not set up for uploads yet. Ask Andrew.':''};last(s);
+const refreshLast=async()=>{
+ if(busy)return;
+ try{const response=await fetch('/upload/status',{headers:H,cache:'no-store'});if(response.ok)last(await response.json())}catch(e){/* Keep the last known receipt if offline. */}
+};
+tab.addEventListener('click',refreshLast);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&location.hash==='#upload')refreshLast()});
+const list=()=>{$('#up-list').innerHTML=KS.map(k=>`<div class="${files[k]?'got':''}"><i></i>${KN[k]}<small>${files[k]?esc(files[k].name):'keeps the last upload'}</small></div>`).join('');const n=KS.filter(k=>files[k]).length;person.disabled=busy;go.disabled=busy||!n||(names.length>0&&!person.value);$('#up-sub').textContent=n&&names.length&&!person.value?'Select your name to update the report.':n?`${n} ${n==1?'file':'files'} ready. Anything not ticked stays as it was.`:'Choose at least one file to start.'};list();person.onchange=list;
 const take=fl=>{if(busy)return;const odd=[];for(const f of fl){const k=kind(f.name);if(k&&/\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}list();bar.hidden=true;
 if(odd.length)say('bad',`<b>Not a SiteIQ export</b>${esc(odd.join(', '))}\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.`);else msg.hidden=true};
 drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' ')pick.click()};pick.onchange=()=>{take(pick.files);pick.value=''};
 ['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));['dragleave','drop'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>take(e.dataTransfer.files));
-const send=(f,first,on)=>new Promise((ok,no)=>{const x=new XMLHttpRequest();x.open('PUT','/upload/export?name='+encodeURIComponent(f.name)+(first?'&first=1':''));x.setRequestHeader('X-Portal','1');
+const send=(f,first,headers,on)=>new Promise((ok,no)=>{const x=new XMLHttpRequest();x.open('PUT','/upload/export?name='+encodeURIComponent(f.name)+(first?'&first=1':''));for(const [key,value] of Object.entries(headers))x.setRequestHeader(key,value);
 x.upload.onprogress=e=>on(e.loaded);x.onload=()=>x.status==200?ok():no(new Error(x.status==401?'Your sign-in has run out. Sign in again and retry.':x.responseText||'Upload failed'));x.onerror=()=>no(new Error('The connection dropped. Check the signal and try again.'));x.send(f)});
-const fail=e=>{busy=false;bar.hidden=true;say('bad',`<b>Not updated</b>${esc(e.message||e)}`);list()};
-go.onclick=async()=>{busy=true;go.disabled=true;msg.hidden=true;const fs=KS.filter(k=>files[k]).map(k=>files[k]),total=fs.reduce((a,f)=>a+f.size,0);let done=0;
-try{for(let i=0;i<fs.length;i++){const f=fs[i];await send(f,i==0,n=>prog((done+n)/total*55,`Uploading ${i+1} of ${fs.length}: ${f.name}`));done+=f.size;prog(done/total*55,`Uploaded ${i+1} of ${fs.length}`)}
-const b=await fetch('/upload/build',{method:'POST',headers:H});if(!b.ok)throw new Error(await b.text());
+const fail=e=>{busy=false;bar.hidden=true;say('bad',`<b>Check upload status</b>${esc(e.message||e)}`);list()};
+go.onclick=async()=>{if(go.disabled)return;busy=true;person.disabled=true;go.disabled=true;msg.hidden=true;const fs=KS.filter(k=>files[k]).map(k=>files[k]),total=fs.reduce((a,f)=>a+f.size,0);let done=0;
+try{const headers={...H};
+if(names.length){headers['X-Upload-By']=person.value;headers['X-Upload-Batch']=crypto.randomUUID()}
+for(let i=0;i<fs.length;i++){const f=fs[i];await send(f,i==0,headers,n=>prog((done+n)/total*55,`Uploading ${i+1} of ${fs.length}: ${f.name}`));done+=f.size;prog(done/total*55,`Uploaded ${i+1} of ${fs.length}`)}
+const b=await fetch('/upload/build',{method:'POST',headers});if(!b.ok)throw new Error(await b.text());
 const t0=Date.now();for(;;){prog(Math.min(96,58+(Date.now()-t0)/1000*2.6),'Rebuilding the report and the PDFs…');await new Promise(r=>setTimeout(r,1000));
-const x=await (await fetch('/upload/status',{headers:H})).json();if(x.state=='running')continue;if(x.state!='ok')throw new Error(x.message||'The build failed. Nothing was changed.');
+const x=await (await fetch('/upload/status',{headers:H})).json();if(x.state=='running')continue;last(x);if(x.state!='ok')throw new Error(x.message||'The build failed. Nothing was changed.');
+if(names.length&&x.last_upload?.batch!==headers['X-Upload-Batch'])throw new Error('A later upload has completed. See the last successful upload below.');
 prog(100,'Complete');const kept=(x.kept||[]).map(k=>KN[k]).join(', ');
 say('ok',`<b>Uploaded. The data is now updated.</b>SiteIQ pull ${esc(x.pull||'')} · ${Object.keys(x.files||{}).map(k=>KN[k]).join(', ')} updated${kept?`\nKept from the last upload: ${esc(kept)}`:''}\nThe report, the on-hire Excel and both PDFs have been rebuilt.<br><button id="up-see">Show the updated report</button>`);
-$('#up-see').onclick=()=>{location.hash='#overview';location.reload()};busy=false;for(const k of KS)delete files[k];list();last(x);break}}catch(e){fail(e)}};
+$('#up-see').onclick=()=>{location.hash='#overview';location.reload()};busy=false;person.value='';for(const k of KS)delete files[k];list();last(x);break}}catch(e){fail(e)}};
 })();
 if(STATIC){views.forEach(v=>v.classList.add('on','go'));$$('[data-n]').forEach(countUp)}
 else{show((location.hash||'#overview').slice(1),1);addEventListener('resize',()=>{const b=$('.tab.on');if(b){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`}});
