@@ -45,7 +45,7 @@ import stocktake_store
 import sds_library
 from report_delivery import ReportCache, accepts_gzip
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
-from rebuild import import_history, archive_stocktake, kind_of, KINDS
+from rebuild import Stop, import_history, archive_stocktake, mmg_daily_kind, MMG_DAILY_KINDS, KINDS
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
@@ -245,13 +245,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <div class="upload-columns"><div class="file-column">
 <div class="drop" id="drop" tabindex="0" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Tap to choose the files</b><span>or drag them here. Pick them all at once.</span></div>
 <input id="pick" type="file" accept=".xlsx" multiple hidden>
-<ul id="list">
-<li data-k="RENTAL_STOCK"><i></i>Rental stock<small></small></li>
-<li data-k="SALES_STOCK"><i></i>Sales stock<small></small></li>
-<li data-k="TRANSACTIONS"><i></i>Transactions<small></small></li>
-<li data-k="STOCKTAKE"><i></i>Stocktake<small></small></li>
-<li data-k="ON_HIRE"><i></i>On hire<small></small></li>
-</ul></div>
+<ul id="list" aria-label="Accepted export types"></ul></div>
 <div class="submit-column"><div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
 <select id="up-person" required><option value="">Choose your first and last name</option></select></div>
 <button id="go" disabled>Update the report</button>
@@ -262,7 +256,8 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
 </div>
 <script>
-const K=['RENTAL_STOCK','SALES_STOCK','TRANSACTIONS','STOCKTAKE','ON_HIRE'],need=K.slice(0,3),files={};
+const labels={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'};
+const files={};let K=[];
 const $=s=>document.querySelector(s),st=$('#st'),go=$('#go'),drop=$('#drop'),pick=$('#pick');
 const kind=n=>K.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
 const say=(c,h)=>{st.hidden=false;st.className='st '+c;st.innerHTML=h};
@@ -270,10 +265,12 @@ const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[
 const person=$('#up-person');let names=[],busy=false,loaded=false;
 const buttons=()=>{person.disabled=busy;go.disabled=!loaded||busy||!K.some(k=>files[k])||(names.length>0&&!person.value)};
 person.onchange=buttons;
-function take(list){if(busy)return;const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
+function take(list){if(busy)return;
+ if(!loaded){say('','Loading the accepted export types. Please choose your files in a moment.');return}
+ const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
  document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?f.name:''});
  buttons();
- if(odd.length)say('bad','<b>Not a SiteIQ export:</b>'+esc(odd.join(', '))+'\\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.');
+ if(odd.length)say('bad','<b>Files skipped</b>'+esc(odd.join(', '))+'\\nChoose an .xlsx file beginning with '+K.join(', ')+'.');
  else if(!go.disabled)say('','<b>Ready.</b>Press "Update the report".');else st.hidden=true}
 drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();pick.click()}};pick.onchange=()=>{take(pick.files);pick.value=''};
 ['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));
@@ -282,7 +279,10 @@ drop.addEventListener('drop',e=>take(e.dataTransfer.files));
 const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:names.length?'Australia/Brisbane':undefined})+(names.length?' AEST':'');
 function show(s){
  if(!loaded){
-  names=s.uploaders||[];loaded=true;
+  names=s.uploaders||[];
+  K=(s.accepted_kinds||Object.keys(labels).filter(k=>k!=='ON_HIRE'||!('uploaders' in s))).filter(k=>Object.hasOwn(labels,k));
+  $('#list').innerHTML=K.map(k=>'<li data-k="'+k+'"><i></i>'+labels[k]+'<small></small></li>').join('');
+  loaded=true;
   if(names.length){
    $('#up-person-field').hidden=false;
    for(const name of names)person.add(new Option(name,name));
@@ -339,6 +339,7 @@ def _status():
     if st.get("state") == "running" and not _build_lock.locked():      # the server restarted mid-build
         st.update({"state": "failed", "message": "The last rebuild was interrupted. Nothing was changed. Upload the files again."})
     st["pack"] = os.path.isfile(os.path.join(JOB_DIR, "job.json"))
+    st["accepted_kinds"] = list(MMG_DAILY_KINDS if is_mmg(JOB_DIR) else KINDS)
     if is_mmg(JOB_DIR):
         st["uploaders"] = uploaders(JOB_DIR)
         # Earlier successful uploads had no name recorded.
@@ -417,7 +418,10 @@ def _load_pack(zip_path):
             if os.path.isdir(folder):
                 for filename in os.listdir(folder):
                     if filename.lower().endswith(".xlsx") or folder.endswith("incoming"):
-                        check_workbook(os.path.join(folder, filename))
+                        path = os.path.join(folder, filename)
+                        if folder.endswith("incoming"):
+                            mmg_daily_kind(path, filename.split("__", 1)[-1])
+                        check_workbook(path)
         # Preserve both sets of historical sightings as well as any stocktake
         # bundled with the pack that the live, more recent export will replace.
         packed_history = os.path.join(new, "kit", "stocktake_history")
@@ -721,12 +725,10 @@ class Handler(BaseHTTPRequestHandler):
                 return
             who, batch, folder = identity
             source = io.BytesIO(body)
-            kind = kind_of(source)
-            if not kind:
-                return self._send(400, b"Choose a supported SiteIQ Excel export.", "text/plain")
             try:
+                kind = mmg_daily_kind(source, name)
                 check_workbook(source)
-            except ValueError as exc:
+            except (Stop, ValueError) as exc:
                 return self._send(400, str(exc).encode(), "text/plain")
             if not _build_lock.acquire(blocking=False):
                 return self._send(409, b"A rebuild is running. Try again in a minute.", "text/plain")

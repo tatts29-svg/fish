@@ -1165,7 +1165,7 @@ __CONTACTS__
 </section>
 
 <section class="view pb noprint" id="v-upload" data-tab="Update data">
-<div class="vh"><h2>Update the data</h2><p>Drop in the SiteIQ exports you have: all four, or just one. The report rebuilds itself, and anything you do not upload stays as it was at the last upload.</p></div>
+<div class="vh"><h2>Update the data</h2><p>Choose one or more SiteIQ exports to update the report.</p></div>
 <div class="grid c2">
 <div class="card"><h3>1 · Choose the files</h3><div class="sub">Straight from SiteIQ, as downloaded. No renaming needed.</div>
 <div class="updrop" id="up-drop" tabindex="0" role="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Drop the files here</b><span>or tap to choose them</span></div>
@@ -2254,7 +2254,8 @@ tabs.addEventListener('keydown',e=>{
 if(CAN_UP)(async()=>{const H={'X-Portal':'1'},tab=$('.tab[data-go="upload"]');let s;
 try{const r=await fetch('/upload/status',{headers:H});if(!r.ok)throw 0;s=await r.json()}catch(e){tab.remove();if($('#v-upload').classList.contains('on'))show('overview',1);$('#v-upload').remove();return}
 tab.hidden=false;if(location.hash=='#upload')show('upload',1);
-const KN={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'},KS=Object.keys(KN),files={};
+const KN={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'},files={};
+const KS=(s.accepted_kinds||Object.keys(KN).filter(k=>k!=='ON_HIRE'||!('uploaders' in s))).filter(k=>Object.hasOwn(KN,k));
 const go=$('#up-go'),drop=$('#up-drop'),pick=$('#up-pick'),msg=$('#up-msg'),bar=$('#up-bar');let busy=false;
 const kind=n=>KS.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
 const say=(c,h)=>{msg.hidden=false;msg.className='upmsg '+c;msg.innerHTML=h};
@@ -2285,7 +2286,7 @@ tab.addEventListener('click',refreshLast);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&location.hash==='#upload')refreshLast()});
 const list=()=>{$('#up-list').innerHTML=KS.map(k=>`<div class="${files[k]?'got':''}"><i></i>${KN[k]}<small>${files[k]?esc(files[k].name):'keeps the last upload'}</small></div>`).join('');const n=KS.filter(k=>files[k]).length;person.disabled=busy;go.disabled=busy||!n||(names.length>0&&!person.value);$('#up-sub').textContent=n&&names.length&&!person.value?'Select your name to update the report.':n?`${n} ${n==1?'file':'files'} ready. Anything not ticked stays as it was.`:'Choose at least one file to start.'};list();person.onchange=list;
 const take=fl=>{if(busy)return;const odd=[];for(const f of fl){const k=kind(f.name);if(k&&/\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}list();bar.hidden=true;
-if(odd.length)say('bad',`<b>Not a SiteIQ export</b>${esc(odd.join(', '))}\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.`);else msg.hidden=true};
+if(odd.length)say('bad',`<b>Files skipped</b>${esc(odd.join(', '))}\nChoose an .xlsx file beginning with ${KS.join(', ')}.`);else msg.hidden=true};
 drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' ')pick.click()};pick.onchange=()=>{take(pick.files);pick.value=''};
 ['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));['dragleave','drop'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>take(e.dataTransfer.files));

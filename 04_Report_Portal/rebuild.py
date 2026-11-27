@@ -24,6 +24,7 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from upload_policy import check_workbook, is_mmg
@@ -35,7 +36,8 @@ KIT_CODE = os.environ.get("KIT_CODE") or os.path.join(os.path.dirname(HERE), "02
 sys.path.insert(0, KIT_CODE)
 from variant_history import rental_snapshot, requested_time
 
-KINDS = ("RENTAL_STOCK", "SALES_STOCK", "TRANSACTIONS", "STOCKTAKE", "ON_HIRE")
+MMG_DAILY_KINDS = ("RENTAL_STOCK", "SALES_STOCK", "TRANSACTIONS", "STOCKTAKE")
+KINDS = MMG_DAILY_KINDS + ("ON_HIRE",)
 NEEDED = ("RENTAL_STOCK", "SALES_STOCK", "TRANSACTIONS")
 SHEET = {"TRANSACTIONS": "TRANSACTION_CHARGES"}       # the sheet that marks each export, where it is not the export's own name
 
@@ -44,26 +46,47 @@ class Stop(Exception):
     """A problem to show the person who uploaded, in plain words."""
 
 
-def kind_of(path):
-    """Which SiteIQ export a workbook is, from its sheet names; None if it is not one."""
+def _sheet_names(source):
     try:
-        with zipfile.ZipFile(path) as z:
-            book = z.read("xl/workbook.xml").decode("utf-8", "replace").upper()
-    except Exception:
-        return None
-    for k in KINDS:
-        if 'NAME="{}"'.format(SHEET.get(k, k)) in book:
-            return k
-    return None
+        with zipfile.ZipFile(source) as archive:
+            xml = ET.fromstring(archive.read("xl/workbook.xml"))
+        return {sheet.get("name", "").strip().upper() for sheet in xml.findall("./{*}sheets/{*}sheet")}
+    except (ET.ParseError, zipfile.BadZipFile, OSError, KeyError, ValueError):
+        return set()
+
+
+def kind_of(path):
+    """Identify an export using its workbook, independent of the filename."""
+    names = _sheet_names(path)
+    return next((kind for kind in KINDS if SHEET.get(kind, kind) in names), None)
+
+
+def mmg_daily_kind(source, filename):
+    """Only four primary exports feed the MMG report. On hire is a generated output."""
+    normal = re.sub(r"[ _-]+", "_", os.path.basename(filename).upper())
+    names = _sheet_names(source)
+    # Check the on-hire marker independently so an extra allowed sheet cannot mask it.
+    if (normal.startswith(("ON_HIRE", "ONHIRE")) or
+            any(re.sub(r"[ _-]+", "", name) == "ONHIRE" for name in names)):
+        raise Stop("MMG generates the on-hire report. Remove the on-hire file and upload the SiteIQ stock exports.")
+    kinds = [kind for kind in MMG_DAILY_KINDS if SHEET.get(kind, kind) in names]
+    if len(kinds) != 1:
+        raise Stop("Choose a single MMG rental stock, sales stock, transactions or stocktake export.")
+    declared = next((kind for kind in MMG_DAILY_KINDS if normal.startswith(kind)), None)
+    if declared and declared != kinds[0]:
+        raise Stop("The filename and workbook export type disagree. Choose the original SiteIQ file.")
+    return kinds[0]
 
 
 def sort_incoming(job):
     """Check the uploaded exports. Returns ({kind: path}, {kind: original name}); copy_in() puts them in the kit."""
     inc = os.path.join(job, "incoming")
     got, unknown = {}, []
+    mmg = is_mmg(job)
     for name in sorted(os.listdir(inc)) if os.path.isdir(inc) else []:
         path = os.path.join(inc, name)
-        k = kind_of(path)
+        original = name.split("__", 1)[-1]
+        k = mmg_daily_kind(path, original) if mmg else kind_of(path)
         if k is None:
             unknown.append(name)
         elif k in got:
@@ -229,7 +252,7 @@ def main(job, data_dir, current=False):
         got, files = ({}, {}) if current else sort_incoming(job)
         if is_mmg(job):
             # Check the effective inputs before changing any file on the site.
-            for kind in KINDS:
+            for kind in MMG_DAILY_KINDS:
                 path = got.get(kind, os.path.join(job, "kit", "Data_SiteIQ", kind + ".xlsx"))
                 if os.path.isfile(path):
                     check_workbook(path)

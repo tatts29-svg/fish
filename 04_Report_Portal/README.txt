@@ -15,8 +15,8 @@ Load a new report (Manager login):
 
 Updating from the browser (no laptop kit needed):
   https://SITE/upload   Any login. Drop in the SiteIQ exports
-  from one pull (rental stock, sales stock, transactions; stocktake and on
-  hire are optional). The site rebuilds the report, the on-hire Excel and
+  from one pull. MMG accepts Rental Stock, Sales Stock, Transactions and
+  Stocktake. Other jobs can also accept On Hire. The site rebuilds the report, the on-hire Excel and
   both PDFs, and swaps them in together only if the whole build works.
 
   This needs the Dockerfile build (repo root as the build folder,
