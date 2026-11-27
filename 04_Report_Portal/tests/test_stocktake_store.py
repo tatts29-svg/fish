@@ -23,6 +23,22 @@ class CountLedgerTests(unittest.TestCase):
         self.entry = {"request_id": str(uuid.uuid4()), "round": "opening", "kind": "cons",
                       "item_id": "007", "quantity": 9, "person": self.roster[0]}
 
+    def test_routine_checks_remain_distinct_from_formal_rounds(self):
+        rows = []
+        for stage in ("opening", "routine", "closeout"):
+            payload = dict(self.entry, round=stage, request_id=str(uuid.uuid4()))
+            entry = store.record(self.folder, payload, self.roster)
+            self.assertEqual(store.record(self.folder, payload, self.roster), entry)
+            self.assertEqual((entry["round"], entry["person"], entry["quantity"]), (stage, self.roster[0], 9))
+            self.assertEqual(store.shift_for(dt.datetime.fromisoformat(entry["counted_at"]))[1:],
+                             (entry["shift"], entry["shift_date"]))
+            rows.append(entry)
+        self.assertEqual(store.all_entries(self.folder), rows)
+        with self.assertRaises(store.CountError):
+            store.record(self.folder, dict(self.entry, round="since_arrival"), self.roster)
+        with self.assertRaises(store.CountError):
+            store.record(self.folder, dict(self.entry, round="routine", person="Unlisted Counter"), self.roster)
+
     def test_concurrent_retries_and_recounts(self):
         recount = dict(self.entry, request_id=str(uuid.uuid4()), quantity=11)
         with ThreadPoolExecutor(max_workers=5) as pool:

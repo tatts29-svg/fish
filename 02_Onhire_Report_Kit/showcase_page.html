@@ -715,6 +715,38 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
   html.sds-print .sds-docs{display:none}
   html.sds-print .sds-entry::before,html.sds-print .sds-entry::after{display:none}
 }
+/* Stocktake uses the same measured glass arcs as Tooling. */
+#st-rounds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin:1rem 0}
+#st-rounds .st-round{padding:.8rem 1rem;border-radius:12px}
+#st-rounds .st-round small{display:block;margin-top:.24rem;color:var(--mu);font-size:.75rem}
+#v-stocktake .st-filters>label{min-width:0;max-width:100%}
+#v-stocktake .st-filters select{width:100%;min-width:0;max-width:min(100%,22rem);text-overflow:ellipsis}
+.st-recent-shifts{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.st-recent-shifts>span{color:var(--mu);font-size:.8rem}
+.st-recent-shifts button{padding:.35rem .65rem;font-size:.82rem;white-space:normal;text-align:left}
+.st-measures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:.9rem 0}
+.st-measure{text-align:center;min-width:0}
+.st-measure .st-dial{position:relative;width:min(10rem,100%);margin:0 auto .25rem}
+.st-dial svg{display:block;width:100%;height:auto}
+.st-dial strong{position:absolute;left:0;right:0;bottom:1%;font-size:clamp(1.22rem,2vw,2rem);line-height:1.1;letter-spacing:-.035em}
+.st-measure b,.st-measure small{display:block}.st-measure small{font-size:.83rem;color:var(--mu)}
+.st-period-note,.st-latest{color:var(--mu);font-size:.85rem;margin:.65rem 0 0}.st-latest strong{color:var(--tx)}
+.st-category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.6rem}
+.st-category-tile{min-width:0;position:relative;border:1px solid var(--line);border-radius:10px;padding:.7rem .85rem;background:var(--panel2);font:inherit;color:var(--tx);text-align:left;cursor:pointer}
+.st-category-tile[aria-pressed=true]{border-color:var(--or)}.st-category-tile:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.st-cat-label{font-size:.79rem;color:var(--mu)}.st-cat-name{display:block;margin:.12rem 0 .3rem;font-size:.95rem;overflow-wrap:anywhere}
+.st-cat-amount{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline;color:var(--mu);font-size:.8rem}.st-cat-amount strong{color:var(--tx);font-size:.95rem}
+.st-category-tile .meter{display:block;margin:.45rem 0 .1rem}
+.st-active-category{margin:.4rem 0;color:var(--mu);font-size:.85rem}.st-active-category button{margin-left:.6rem}
+#st-shift-summary .st-table th:first-child{width:23%}
+@media(max-width:550px){
+ #st-rounds{gap:.3rem}#st-rounds .st-round{padding:.55rem .4rem}.st-round-head b{font-size:.87rem!important}
+ #st-rounds .st-round small{font-size:.67rem}.st-measures{gap:.3rem}.st-dial strong{font-size:clamp(.85rem,3.8vw,1.2rem)}
+ .st-measure b,.st-measure small{font-size:.75rem}.st-measure{overflow-wrap:anywhere}
+}
+#st-print-categories{display:none}
+.static #st-print-categories{display:block}.static #st-categories{display:none}
+@media print{.st-jump,.st-active-category button,#st-categories{display:none!important}#st-print-categories{display:block}.st-measures{break-inside:avoid}.st-card:has(#st-print-categories){break-inside:auto}}
 /* Shutdown stocktake */
 .st-jump{display:flex;flex-wrap:wrap;gap:8px}#v-stocktake :is(h3,h4){scroll-margin-top:11rem}
 .st-duty{display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin:.65rem 0 1rem;color:var(--mu);font-size:.88rem}
@@ -1251,16 +1283,22 @@ __CONTACTS__
 
 <section class="view pb" id="v-stocktake" data-tab="Stocktake">
 <div class="vh"><h2>Stocktake</h2><p>Physical counts for the MMG shutdown. Each tool asset and consumable stock line needs a separate check in each round.</p></div>
-<div class="st-jump noprint"><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button><button type="button" class="btn ghost" data-stock-focus="st-log-title">Review shift activity</button></div>
+
 <div class="st-duty" id="st-duty"></div><p id="st-live-status" class="foot" role="status"></p>
-<div class="grid c2 st-rounds" id="st-rounds" aria-label="Stocktake round"></div>
+<div class="st-rounds" id="st-rounds" aria-label="Stocktake period"></div>
+<div id="st-overview" class="card st-card"></div>
+<div class="st-jump noprint"><button type="button" class="btn ghost" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
+<div class="card st-card"><h3 id="st-cat-title">Coverage by category</h3><p class="sub" id="st-cat-sub"></p>
+<div class="st-filters noprint"><label>Find a category<input class="search" id="st-cat-q" type="search" placeholder="Category name"></label><label>Show categories<select id="st-cat-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label></div>
+<div class="st-category-grid" id="st-categories"></div><div id="st-print-categories"></div><div class="st-pages" id="st-category-pages"></div></div>
+
 <div class="card st-card"><h3 id="st-log-title">Shift activity</h3>
 <p class="sub" id="st-source"></p>
 <div class="st-filters"><label>Activity<select id="st-mode"><option value="counts">Physical counts</option><option value="sightings">SiteIQ sightings</option></select></label>
-<label>Shift<select id="st-shift"><option value="">Both shifts</option><option>Day</option><option>Night</option></select></label>
+<label>Shift<select id="st-shift"><option value="">All shifts</option><option>Day</option><option>Night</option><option value="unknown">Shift unavailable</option></select></label>
 <label>Person<select id="st-person"><option value="">Everyone</option></select></label>
 <label>Find activity<input class="search" id="st-log-q" type="search" placeholder="Item, ID, barcode or activity"></label></div>
-<div id="st-shift-summary"></div><div id="st-shift-pages" class="st-pages"></div><h4 id="st-detail-title">Item activity</h4><button type="button" id="st-reset-group" class="btn ghost" hidden>Show all shifts</button><div id="st-log"></div><div id="st-log-pages" class="st-pages"></div></div>
+<p class="st-active-category" id="st-activity-cat" hidden></p><div id="st-shift-summary"></div><div id="st-shift-pages" class="st-pages"></div><h4 id="st-detail-title">Item activity</h4><button type="button" id="st-reset-group" class="btn ghost" hidden>Show all shifts</button><div id="st-log"></div><div id="st-log-pages" class="st-pages"></div></div>
 
 <div class="card st-card">
 <h3 id="st-inventory-title">Inventory</h3>
@@ -1268,10 +1306,12 @@ __CONTACTS__
 <div class="st-filters" id="st-inventory-filters">
 <label>Find an item<input class="search" id="st-q" type="search" placeholder="Item name, stock number or barcode"></label>
 <label>Item type<select id="st-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label>
+<label>Category<select id="st-cat-filter"><option value="">All categories</option></select></label>
 <label>Count status<select id="st-progress"><option value="">All items</option><option value="open">Awaiting count</option><option value="done">Count recorded</option><option value="variance">Quantity difference</option></select></label></div>
-<div id="st-inventory"></div><div id="st-pages" class="st-pages"></div></div>
+<button class="btn ghost noprint" id="st-category-log" type="button" hidden>Review this category by shift</button><div id="st-inventory"></div><div id="st-pages" class="st-pages"></div></div>
 <dialog id="st-dialog" aria-labelledby="st-count-title"><form id="st-form">
 <h3 id="st-count-title">Record a physical count</h3><p id="st-target"></p>
+<label>Count period<select id="st-entry-round" required><option value="routine">During shutdown</option><option value="opening">Opening count</option><option value="closeout">Close-out count</option></select></label>
 <label>Counted by<select id="st-counter" required></select></label>
 <label>Quantity physically counted<input type="number" id="st-qty" min="0" step="1" required inputmode="numeric"></label>
 <p class="foot" id="st-confirm-info"></p><p role="status" id="st-submit-status"></p>
@@ -2300,16 +2340,24 @@ function initStocktake(st) {
   const view=$('#v-stocktake');
   if(!st){view.remove();return}
   const ids=['opening','closeout'], rows=st.rows, byKey=new Map(), pageSize=20;
-  const key=(kind,id)=>JSON.stringify([kind,String(id)]);
-  for(const row of rows)byKey.set(key(row.kind,row.key),row);
-  let round=0, page=0, logPage=0, groupPage=0, groupFilter='', manual=st.recorded_entries||[], staff=[], canRecord=false, target=null, sequence=0;
-  let requestId='',busy=false,intent='',events=[],checks=new Map();
-  $('#st-duty').innerHTML=['day','night'].map(k=>{const s=D.shifts&&D.shifts[k];return s?`<span>${esc(s.name)} controller · <strong>${esc(s.who||'Unassigned')}</strong> · ${esc(s.hours)}</span>`:''}).join('');
-  const dateText=d=>d?new Intl.DateTimeFormat('en-AU',{timeZone:'UTC',weekday:'short',day:'numeric',month:'short'}).format(new Date(d+'T12:00:00Z')):'Date unavailable';
-  const lastOpeningDay=new Date(st.rounds[0].end+'T12:00:00Z');lastOpeningDay.setUTCDate(lastOpeningDay.getUTCDate()-1);
-  const timeText=t=>t?String(t).replace('T',' ').slice(0,16)+' AEST':'Time unavailable';
-  const scope=r=>r===0?'Opening':'Close-out';
+  const key=(kind,id)=>JSON.stringify([kind,String(id).toLowerCase()]);
+  const category=r=>String(r.category||'').trim()||'Uncategorised';
+  const catKey=r=>JSON.stringify([r.kind,category(r)]);
+  const cats=new Map();
+  for(const row of rows){
+    byKey.set(key(row.kind,row.key),row);
+    const k=catKey(row);
+    if(!cats.has(k))cats.set(k,{key:k,kind:row.kind,name:category(row),total:0});
+    cats.get(k).total++;
+  }
+  let round=-1,page=0,logPage=0,groupPage=0,categoryPage=0,groupFilter='',manual=st.recorded_entries||[],staff=[],canRecord=false,target=null,sequence=0;
+  let requestId='',busy=false,intent='',events=[],checks=new Map(),coverage=new Map();
+  const arrival=st.arrival||st.rounds[0]?.start||'';
+  const scope=r=>r<0?'Since arrival':r===0?'Opening':'Close-out';
   const noun=k=>k==='cons'?'Consumable':'Tool';
+  const pct=(n,total)=>total?(100*n/total).toLocaleString('en-AU',{maximumFractionDigits:1})+'%':'—';
+  const timeText=t=>t?String(t).replace('T',' ').slice(0,16)+' AEST':'Time not recorded';
+  const dateText=d=>d?new Intl.DateTimeFormat('en-AU',{timeZone:'UTC',weekday:'short',day:'numeric',month:'short'}).format(new Date(d+'T12:00:00Z')):'Date not supplied';
   const shiftOf=t=>{const h=Number(String(t||'').slice(11,13));return t&&Number.isFinite(h)?(h>=6&&h<18?'Day':'Night'):''};
   const shiftDate=e=>{
     if(e.shift_date)return e.shift_date;
@@ -2319,99 +2367,156 @@ function initStocktake(st) {
     const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-1);return d.toISOString().slice(0,10);
   };
   const words=(str,q)=>q.trim().toLowerCase().split(/\s+/).every(w=>str.toLowerCase().includes(w));
+  const selectedPeriod=e=>round<0?(!arrival||e.time?.slice(0,10)>=arrival):e.round===round;
+  const readShift=(raw,time)=>raw==='Day'||raw==='Night'?raw:shiftOf(time);
+  const personName=e=>e.who||'Name not recorded';
+  const directory=[...cats.values()].sort((a,b)=>a.kind.localeCompare(b.kind)||a.name.localeCompare(b.name,'en-AU'));
+  $('#st-cat-filter').replaceChildren(new Option('All categories',''),...directory.map(c=>new Option(noun(c.kind)+' · '+c.name,c.key)));
+  $('#st-duty').innerHTML=['day','night'].map(k=>{const s=D.shifts&&D.shifts[k];return s?`<span>${esc(s.name)} controller · <strong>${esc(s.who||'Unassigned')}</strong> · ${esc(s.hours)}</span>`:''}).join('');
+  function imported(r){
+    return {row:byKey.get(key(r.kind,r.key))||r,round:r.who&&Number.isInteger(r.round)?r.round:null,time:r.sighted||'',who:r.who||'',quantity:r.quantity,shift:readShift(r.shift,r.sighted),shift_date:r.shift_date,shift_source:r.shift_source,source:r.action||'SiteIQ physical count',expected:null,origin:'SiteIQ'};
+  }
   function compile(){
-    events=[];checks=new Map();
-    for(const row of rows)for(const c of row.checks||[])events.push({row,round:c.round,time:c.sighted,who:c.who,quantity:c.quantity,shift:c.shift||shiftOf(c.sighted),source:c.action||'SiteIQ physical count',expected:null});
-    // Same-second recounts follow ledger insertion order, newest first.
-    for(const e of manual.slice().reverse()){
-      const row=byKey.get(key(e.kind,e.item_id))||{key:e.item_id,kind:e.kind,name:e.description||e.item_id};
-      events.push({row,round:ids.indexOf(e.round),time:e.counted_at,who:e.person,quantity:e.quantity,shift:e.shift||shiftOf(e.counted_at),shift_date:e.shift_date,source:'Portal count',expected:e.expected_quantity});
-    }
-    events.sort((a,b)=>String(b.time||'').localeCompare(String(a.time||'')));
-    for(const e of events){const k=key(e.row.kind,e.row.key);if(e.round===round&&!checks.has(k))checks.set(k,e)}
-  }
-  const late=(e)=>e.round===0 && st.rounds[0].end && e.time.slice(0,10)>=String(st.rounds[0].end).slice(0,10);
-  const difference=e=>e&&e.expected!=null&&e.quantity!=null&&Number(e.quantity)!==Number(e.expected);
-  function progress(){
-    $('#st-rounds').innerHTML=st.rounds.map((r,i)=>{
-      const seen=new Set(),ontime=new Set(),beforeDeparture=new Set(),onDeparture=new Set();
-      for(const e of events)if(e.round===i&&byKey.has(key(e.row.kind,e.row.key))){
-        const k=key(e.row.kind,e.row.key);seen.add(k);if(!late(e))ontime.add(k);if(i===1&&e.time.slice(0,10)<st.departure)beforeDeparture.add(k);else if(i===1&&e.time.slice(0,10)===st.departure)onDeparture.add(k);
+    // site records are deduplicated by the importer. Older bundles provide
+    // dated sightings before they provide the separate physical-count list.
+    const verified=st.physical_counts||st.sightings?.filter(r=>r.quantity!=null&&Number(r.quantity)>=0&&/^(stocktake|stock take|stock count|physical count|cycle count)$/i.test((r.action||'').trim()))||rows.flatMap(r=>(r.checks||[]).map(c=>({...r,...c})));
+    events=manual.slice().reverse().map(e=>({row:byKey.get(key(e.kind,e.item_id))||{key:e.item_id,kind:e.kind,name:e.description||e.item_id,category:e.category},round:ids.includes(e.round)?ids.indexOf(e.round):null,time:e.counted_at||'',who:e.person||'',quantity:e.quantity,shift:readShift(e.shift,e.counted_at),shift_date:e.shift_date,source:'Portal count',expected:e.expected_quantity,origin:'Portal',routine:e.round==='routine'})).concat(verified.map(imported));
+    // Stable sorting keeps the last-inserted manual recount for a same-second tie.
+    events.sort((a,b)=>b.time.localeCompare(a.time));
+    checks=new Map();coverage=new Map(directory.map(c=>[c.key,0]));
+    for(const e of events){
+      const k=key(e.row.kind,e.row.key);
+      if(selectedPeriod(e)&&byKey.has(k)&&!checks.has(k)){
+        checks.set(k,e);const ck=catKey(byKey.get(k));coverage.set(ck,coverage.get(ck)+1);
       }
-      const meters=['tool','cons'].map(kind=>{
-        const all=rows.filter(row=>row.kind===kind), n=all.filter(row=>seen.has(key(kind,row.key))).length;
-        const percent=all.length?(100*n/all.length).toLocaleString('en-AU',{maximumFractionDigits:1})+'%':'—';
-        return `<div><div class="st-meter-label"><b>${kind==='cons'?'Consumable lines':'Tool assets'}</b><strong>${percent}</strong></div><progress class="st-native-progress" aria-label="${noun(kind)} coverage" max="${all.length||1}" value="${n}"></progress><span class="meter st-liquid-track" aria-hidden="true"><i style="--w:${all.length?100*n/all.length:0}%">${horizontalStreams()}</i></span><small>${fmt(n)} of ${fmt(all.length)} checked</small></div>`;
-      }).join('');
-      const note=!seen.size?'No verified counts recorded for this round.':i===0?`${fmt(ontime.size)} checked by the opening deadline · ${fmt(seen.size-ontime.size)} first checked late`:
-         `${fmt(beforeDeparture.size)} checked before departure day · ${fmt([...onDeparture].filter(k=>!beforeDeparture.has(k)).length)} first checked on departure day (time to confirm) · ${fmt([...seen].filter(k=>!beforeDeparture.has(k)&&!onDeparture.has(k)).length)} first checked after deadline.`;
-      return `<button type="button" class="card st-round" aria-pressed="${round===i}" data-round="${i}"><span class="st-round-head"><b>${scope(i)} count</b><span>${rows.length?(seen.size*100/rows.length).toLocaleString('en-AU',{maximumFractionDigits:1})+'% overall · ':''}${round===i?'Selected':'View round'}</span></span><p>${i===0?dateText(r.start)+' to '+dateText(lastOpeningDay.toISOString().slice(0,10)):'Before departure · '+dateText(st.departure)}</p><span class="st-round-meters">${meters}</span><span class="st-note">${esc(note)}</span></button>`;
-    }).join('');
+    }
   }
-  function pager(el,total,current,act){
-    const last=Math.max(0,Math.ceil(total/pageSize)-1);
-    el.innerHTML=`<span>${total?`${fmt(current*pageSize+1)}–${fmt(Math.min(total,(current+1)*pageSize))} of ${fmt(total)}`:'0 results'}</span>`+(last?`<button class="btn ghost" type="button" data-step="-1" ${current<=0?'disabled':''}>Previous</button><button class="btn ghost" type="button" data-step="1" ${current>=last?'disabled':''}>Next</button>`:'');
+  const late=e=>e.round===0&&st.rounds[0].end&&e.time.slice(0,10)>=st.rounds[0].end;
+  const difference=e=>e&&e.expected!=null&&e.quantity!=null&&Number(e.quantity)!==Number(e.expected);
+  function gauge(kind,title,checked,total){
+    const rate=total?checked/total:0;
+    return `<div class="st-measure" data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${pct(checked,total)}</strong></div><b>${title}</b><small>${fmt(checked)} of ${fmt(total)} checked</small></div>`;
+  }
+  function progress(){
+    const r=st.rounds[0],openingEnd=r.end?new Date(r.end+'T12:00:00Z'):null;if(openingEnd)openingEnd.setUTCDate(openingEnd.getUTCDate()-1);
+    const captions=[arrival?'From '+dateText(arrival):'All supplied dates',(r.start?dateText(r.start):'Opening')+' to '+dateText(openingEnd?.toISOString().slice(0,10)),st.departure?'Before departure · '+dateText(st.departure):'Before departure'];
+    $('#st-rounds').innerHTML=[-1,0,1].map((n,i)=>`<button type="button" class="card st-round" aria-pressed="${round===n}" data-round="${n}"><span class="st-round-head"><b>${scope(n)}${n<0?'':' count'}</b></span><small>${esc(captions[i])}</small></button>`).join('');
+    const kinds={tool:{total:0,checked:0},cons:{total:0,checked:0}};
+    for(const c of directory){kinds[c.kind].total+=c.total;kinds[c.kind].checked+=coverage.get(c.key)}
+    const eligible=events.filter(e=>selectedPeriod(e)&&byKey.has(key(e.row.kind,e.row.key)));
+    let note='';
+    if(!eligible.length)note='No physical counts are recorded for this period in the available records.';
+    else if(round===0){
+      const timely=new Set(eligible.filter(e=>!late(e)).map(e=>key(e.row.kind,e.row.key)));
+      note=`${fmt(timely.size)} checked by the opening deadline · ${fmt(checks.size-timely.size)} first checked late.`;
+    }else if(round===1&&st.departure){
+      const earliest=new Map();for(const e of eligible)earliest.set(key(e.row.kind,e.row.key),e.time.slice(0,10));
+      const dates=[...earliest.values()];note=`${fmt(dates.filter(d=>d<st.departure).length)} first checked before departure day · ${fmt(dates.filter(d=>d===st.departure).length)} on departure day (time to confirm) · ${fmt(dates.filter(d=>d>st.departure).length)} after the deadline.`;
+    }else note='Each current tool asset or consumable stock line counts once, including lines with zero physically counted.';
+    const recentGroups=new Map();
+    for(const e of events.filter(selectedPeriod)){
+      const group=JSON.stringify([shiftDate(e),e.shift,e.who||'']);
+      if(!recentGroups.has(group)&&recentGroups.size===2)continue;
+      if(!recentGroups.has(group))recentGroups.set(group,{e,items:new Set()});
+      recentGroups.get(group).items.add(key(e.row.kind,e.row.key));
+    }
+    const crew=[...recentGroups].map(([group,{e,items}])=>`<button type="button" class="btn ghost" data-st-crew="${esc(group)}" aria-label="View ${esc(personName(e))}, ${esc(e.shift||'unrecorded')} shift ${esc(shiftDate(e))}, ${items.size} items"><b>${esc(personName(e))}</b> · ${esc(e.shift||'Shift not recorded')} · ${fmt(items.size)} ${items.size===1?'item':'items'}</button>`).join('');
+    const recent=eligible[0];
+    $('#st-overview').innerHTML=`<h3>${scope(round)} · stocktake coverage</h3><div class="st-measures">${gauge('all','Whole register',checks.size,rows.length)}${gauge('tool','Tool assets',kinds.tool.checked,kinds.tool.total)}${gauge('cons','Consumable lines',kinds.cons.checked,kinds.cons.total)}</div><p class="st-period-note">${fmt(rows.length-checks.size)} still to check. ${esc(note)}</p>${recent?`<p class="st-latest"><strong>Latest physical count</strong> · ${esc(personName(recent))} · ${esc(timeText(recent.time))} · ${esc(recent.row.name||recent.row.key)}</p>`:''}${crew?`<div class="st-recent-shifts"><span>Recent count sessions</span>${crew}</div>`:''}`;
+    $('#st-cat-sub').textContent=scope(round)+' · Select a category to see its stock lines and shift activity.';
+    $('#st-print-categories').innerHTML=table(['Category','Item type','Checked / total','Remaining','Coverage'],directory.map(c=>{
+      const n=coverage.get(c.key);return `<tr><td>${esc(c.name)}</td><td>${noun(c.kind)}</td><td>${fmt(n)} / ${fmt(c.total)}</td><td>${fmt(c.total-n)}</td><td>${pct(n,c.total)}</td></tr>`;
+    }).join(''));
+    categories();
+  }
+  function categories(){
+    const q=$('#st-cat-q').value,type=$('#st-cat-kind').value,selected=$('#st-cat-filter').value;
+    const list=directory.filter(c=>(!type||c.kind===type)&&words(c.name,q)).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
+    const size=8;const from=categoryPage*size;
+    $('#st-categories').innerHTML=list.slice(from,from+size).map(c=>{
+      const n=coverage.get(c.key);
+      return `<button type="button" class="st-category-tile" data-st-category="${esc(c.key)}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${fmt(n)} of ${fmt(c.total)} checked</span><strong>${pct(n,c.total)}</strong></span><span class="meter" aria-hidden="true"><i style="--w:${100*n/c.total}%">${n?horizontalStreams():''}</i></span><small class="st-cat-label">${fmt(c.total-n)} remaining</small></button>`;
+    }).join('')||'<p class="empty">No categories match.</p>';
+    pager($('#st-category-pages'),list.length,categoryPage,n=>{categoryPage=n;categories()},size);
+  }
+  function pager(el,total,current,act,size=pageSize){
+    const last=Math.max(0,Math.ceil(total/size)-1);
+    el.innerHTML=`<span>${total?`${fmt(current*size+1)}–${fmt(Math.min(total,(current+1)*size))} of ${fmt(total)}`:'0 results'}</span>`+(last?`<button class="btn ghost" type="button" data-step="-1" ${current<=0?'disabled':''}>Previous</button><button class="btn ghost" type="button" data-step="1" ${current>=last?'disabled':''}>Next</button>`:'');
     el.onclick=e=>{const b=e.target.closest('[data-step]');if(b)act(current+Number(b.dataset.step))};
   }
   function table(headers,body){
     return `<table class="t st-table"><thead><tr>${headers.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table>`;
   }
   function inventory(){
-    const q=$('#st-q').value,type=$('#st-kind').value,state=$('#st-progress').value;
+    const q=$('#st-q').value,type=$('#st-kind').value,state=$('#st-progress').value,picked=$('#st-cat-filter').value;
     const matches=rows.filter(r=>{
       const e=checks.get(key(r.kind,r.key));
-      return (!type||r.kind===type)&&(!state||state==='done'&&e||state==='open'&&!e||state==='variance'&&difference(e))
-       &&words([r.name,r.key,r.barcode,r.owner,r.status].join(' '),q);
+      return (!type||r.kind===type)&&(!picked||catKey(r)===picked)&&(!state||state==='done'&&e||state==='open'&&!e||state==='variance'&&difference(e))
+       &&words([r.name,r.key,r.barcode,r.owner,r.status,category(r),r.family,r.storage_unit,r.product,r.tool_store].join(' '),q);
     });
     $('#st-inventory-title').textContent=scope(round)+' inventory';
+    $('#st-category-log').hidden=!picked;
     const body=matches.slice(page*pageSize,(page+1)*pageSize).map(r=>{
       const e=checks.get(key(r.kind,r.key)),diff=difference(e), label=e?(diff?'Quantity difference':'Checked'):'Awaiting count';
       const dataKey=esc(key(r.kind,r.key));
-      return `<tr><td><b>${esc(r.name)}</b><small class="st-row-meta">${noun(r.kind)} · ${esc(r.key)}${r.barcode&&r.barcode!==r.key?' · '+esc(r.barcode):''}</small></td>
+      return `<tr><td><b>${esc(r.name)}</b><small class="st-row-meta">${noun(r.kind)} · ${esc(category(r))} · ${esc(r.key)}${r.storage_unit?' · '+esc(r.storage_unit):''}${r.barcode&&r.barcode!==r.key?' · '+esc(r.barcode):''}</small></td>
         <td data-label="Register">${r.kind==='tool'?esc(r.status||'Status unavailable'):r.expected!=null?fmt(r.expected)+' available':'Quantity unavailable'}</td>
         <td data-label="Progress"><span class="st-chip ${diff?'diff':e?'checked':''}">${label}</span>${e?`<small>Counted ${fmt(e.quantity)}${e.expected!=null?' · expected '+fmt(e.expected):''}</small>`:''}</td>
-        <td data-label="Latest count">${e?esc(e.who||'Person unavailable')+'<small>'+esc(timeText(e.time))+'</small>':'—'}</td>
+        <td data-label="Latest count">${e?esc(personName(e))+'<small>'+esc(timeText(e.time))+'</small>':'—'}</td>
         ${canRecord?`<td><button class="btn ghost" type="button" data-count="${dataKey}">${e?'Recount':'Count'}</button></td>`:''}</tr>`;
     }).join('');
     $('#st-inventory').innerHTML=body?table(['Item','Current register','Progress','Latest count',...(canRecord?['Record']:[])],body):'<p class="empty">No items match these filters.</p>';
     pager($('#st-pages'),matches.length,page,n=>{page=n;inventory()});
   }
   function log(){
-    const sightings=$('#st-mode').value==='sightings';
-    const data=sightings?(st.sightings||rows.filter(r=>r.sighted)).map(r=>({row:byKey.get(key(r.kind,r.key))||r,time:r.sighted,who:r.who,quantity:r.quantity,shift:r.shift||shiftOf(r.sighted),source:r.action||'Action not recorded'})).sort((a,b)=>b.time.localeCompare(a.time)):events.filter(e=>e.round===round);
-    const names=[...new Set(data.map(e=>e.who).filter(Boolean))].sort(),who=$('#st-person'),current=who.value;
-    who.replaceChildren(new Option('Everyone',''),...names.map(n=>new Option(n,n)));if(names.includes(current))who.value=current;
-    const filtered=data.filter(e=>(!who.value||e.who===who.value)&&(!$('#st-shift').value||e.shift===$('#st-shift').value)&&words([e.row.name,e.row.key,e.row.barcode,e.source].join(' '),$('#st-log-q').value));
-    $('#st-log-title').textContent=sightings?'SiteIQ sightings · all supplied dates':scope(round)+' shift activity';
-    const windows=st.windows||[];
-    const windowInfo=windows.length?' Export coverage: '+windows.map(w=>(w.start||'').replace('T',' ')+' to '+(w.end||'').replace('T',' ')).join('; ')+'.':'';
-    $('#st-source').textContent=(sightings?'An issue, return or sighting with no count action provides evidence of activity only.':'Each entry records a physical check. A recount counts once toward coverage.')+' Night shifts use their starting date.'+(st.asat?' Latest stocktake export '+timeText(st.asat)+'.':' No dated stocktake export available.')+(sightings?windowInfo:'')+(sightings&&st.unmatched?' '+fmt(st.unmatched)+' historic IDs are outside the current coverage denominator.':'');
+    const sightings=$('#st-mode').value==='sightings', picked=$('#st-cat-filter').value;
+    const sourceRows=st.sightings||rows.filter(r=>r.sighted);
+    const data=sightings?sourceRows.map(r=>({...imported(r),source:r.action||'Action not recorded',evidence:r.evidence})).sort((a,b)=>b.time.localeCompare(a.time)):events.filter(selectedPeriod);
+    const scoped=picked?data.filter(e=>catKey(e.row)===picked):data;
+    const who=$('#st-person'),current=who.value,unknown='__unnamed__',names=[...new Set(scoped.map(e=>e.who).filter(Boolean))].sort();
+    who.replaceChildren(new Option('Everyone',''),...names.map(n=>new Option(n,n)));
+    if(scoped.some(e=>!e.who))who.add(new Option('Name not recorded',unknown));
+    if([...who.options].some(o=>o.value===current))who.value=current;
+    const sh=$('#st-shift').value;
+    const filtered=scoped.filter(e=>(!who.value||(e.who||unknown)===who.value)&&(!sh||(e.shift||'unknown')===sh)&&words([e.row.name,e.row.key,e.row.barcode,category(e.row),e.row.family,e.row.storage_unit,e.source,e.who].join(' '),$('#st-log-q').value));
+    $('#st-log-title').textContent=sightings?'SiteIQ sightings · all supplied dates':scope(round)+' · who counted what';
+    const windows=st.windows||[],w=windows[windows.length-1];
+    const windowInfo=w?' Latest export window '+timeText(w.start)+' to '+timeText(w.end)+'.':'';
+    $('#st-source').textContent=(sightings?'This lists all SiteIQ activity. An issue, return or blank action does not establish a physical count.':'Each row groups one person’s entries for one shift. Open View items to see each stock line, quantity and time.')+' Night shifts use their starting date.'+(sightings?windowInfo:'')+(sightings&&st.unmatched?' '+fmt(st.unmatched)+' historic IDs fall outside current coverage.':'');
+    const filterInfo=$('#st-activity-cat');filterInfo.hidden=!picked;
+    if(picked){filterInfo.innerHTML='Category · '+esc(cats.get(picked)?.name||'Uncategorised')+' <button type="button" class="btn ghost">Clear category</button>';filterInfo.querySelector('button').onclick=()=>selectCategory('',false)}
     const groupKey=e=>JSON.stringify([shiftDate(e),e.shift,e.who||'']);
     const groups=new Map();
     for(const e of filtered){
       const k=groupKey(e);
-      if(!groups.has(k))groups.set(k,{first:e.time,last:e.time,shift:e.shift,day:shiftDate(e),who:e.who,tools:new Set(),cons:new Set(),entries:0});
+      if(!groups.has(k))groups.set(k,{first:e.time,last:e.time,shift:e.shift,day:shiftDate(e),who:e.who,tools:new Set(),cons:new Set(),categories:new Set(),entries:0});
       const g=groups.get(k);g.first=g.first<e.time?g.first:e.time;g.last=g.last>e.time?g.last:e.time;
-      (e.row.kind==='cons'?g.cons:g.tools).add(e.row.key);g.entries++;
+      (e.row.kind==='cons'?g.cons:g.tools).add(e.row.key);g.categories.add(category(e.row));g.entries++;
     }
     const grouped=[...groups].sort((a,b)=>b[1].last.localeCompare(a[1].last));
-    const groupRows=grouped.slice(groupPage*pageSize,(groupPage+1)*pageSize).map(([k,g])=>`<tr><td><b>${esc(g.who||'Person unavailable')}</b><small>${esc(g.shift||'Unknown')} shift · ${esc(g.day)}</small></td><td data-label="First to last">${esc(timeText(g.first))}<small>${esc(timeText(g.last))}</small></td><td data-label="Tool assets">${fmt(g.tools.size)}</td><td data-label="Consumable lines">${fmt(g.cons.size)}</td><td data-label="Entries">${fmt(g.entries)}</td><td><button class="btn ghost" type="button" data-session="${esc(k)}">View items</button></td></tr>`).join('');
-    $('#st-shift-summary').innerHTML=groupRows?table(['Person and shift','First and last entry','Tool assets','Consumable lines','Entries','Details'],groupRows):'';
-    pager($('#st-shift-pages'),grouped.length,groupPage,n=>{groupPage=n;log()});
-    $('#st-shift-pages').hidden=!grouped.length;
+    const groupRows=grouped.slice(groupPage*pageSize,(groupPage+1)*pageSize).map(([k,g])=>{
+      const catNames=[...g.categories].sort(),range=g.first&&g.last?g.first.slice(11,16)+'–'+g.last.slice(11,16)+' AEST':'Time not recorded';
+      return `<tr><td><b>${esc(personName(g))}</b><small>${esc(g.shift||'Unrecorded')} shift · ${esc(g.day||'Date not recorded')}</small></td><td data-label="Time span">${esc(range)}</td><td data-label="Tool assets">${fmt(g.tools.size)}</td><td data-label="Consumable lines">${fmt(g.cons.size)}</td><td data-label="Categories">${esc(catNames.slice(0,2).join(', '))}${catNames.length>2?' + '+(catNames.length-2):''}</td><td data-label="Entries">${fmt(g.entries)}</td><td><button class="btn ghost" type="button" data-session="${esc(k)}" aria-label="View items for ${esc(personName(g))}, ${esc(g.day)} ${esc(g.shift)} shift">View items</button></td></tr>`;
+    }).join('');
+    $('#st-shift-summary').innerHTML=groupRows?table(['Person and shift','First to last','Tool assets','Consumable lines','Categories','Entries','Details'],groupRows):'';
+    pager($('#st-shift-pages'),grouped.length,groupPage,n=>{groupPage=n;log()});$('#st-shift-pages').hidden=!grouped.length;
     if(!groups.has(groupFilter))groupFilter='';
     const records=groupFilter?filtered.filter(e=>groupKey(e)===groupFilter):filtered;
     $('#st-reset-group').hidden=!groupFilter;
-    $('#st-detail-title').textContent=groupFilter?'Item activity · '+JSON.parse(groupFilter).filter(Boolean).join(' · '):'Item activity';
-    $('#st-shift-summary').onclick=e=>{const b=e.target.closest('[data-session]');if(b){groupFilter=b.dataset.session;logPage=0;log();$('#st-detail-title').scrollIntoView({block:'center'})}};
+    const group=groups.get(groupFilter);
+    $('#st-detail-title').textContent=group?`Item activity · ${personName(group)} · ${group.shift||'Unrecorded'} shift · ${group.day||'Date not recorded'}`:'Item activity';
+    $('#st-shift-summary').onclick=e=>{const b=e.target.closest('[data-session]');if(b){groupFilter=b.dataset.session;logPage=0;log();$('#st-detail-title').scrollIntoView({block:'center'});$('#st-reset-group').focus({preventScroll:true})}};
     $('#st-reset-group').onclick=()=>{groupFilter='';logPage=0;log()};
-    const body=records.slice(logPage*pageSize,(logPage+1)*pageSize).map(e=>`<tr><td><b>${esc(e.row.name)}</b><small class="st-row-meta">${noun(e.row.kind)} · ${esc(e.row.key)}</small></td>
-      <td data-label="Time">${esc(timeText(e.time))}</td><td data-label="Shift">${esc(e.shift||'Unknown')}<small>${esc(shiftDate(e))}</small></td><td data-label="Person">${esc(e.who||'Person unavailable')}</td><td data-label="Activity">${esc(e.source)}${!sightings&&late(e)?' · late':''}</td><td data-label="Quantity">${e.quantity==null?'—':fmt(e.quantity)}</td></tr>`).join('');
-    $('#st-log').innerHTML=body?table(['Item','Time (AEST)','Shift','Person','Activity','Quantity'],body):`<p class="empty">${sightings?'No sightings match these filters.':'No physical counts recorded for this selection.'}</p>`;
+    const body=records.slice(logPage*pageSize,(logPage+1)*pageSize).map(e=>{
+      const source=sightings?e.source:e.source+' · '+(e.round!=null?scope(e.round)+(late(e)?' (late)':''):e.routine?'During shutdown':'Round not recorded');
+      const details=[noun(e.row.kind),category(e.row),e.row.key,e.row.barcode!==e.row.key?e.row.barcode:'',e.row.storage_unit].filter(Boolean).join(' · ');
+      return `<tr><td><b>${esc(e.row.name||e.row.key)}</b><small class="st-row-meta">${esc(details)}${byKey.has(key(e.row.kind,e.row.key))?'':' · Outside current inventory'}</small></td><td data-label="Time">${esc(timeText(e.time))}</td><td data-label="Shift">${esc(e.shift||'Shift not recorded')}<small>${esc(shiftDate(e)||'Date not recorded')}</small></td><td data-label="Person">${esc(personName(e))}</td><td data-label="Activity">${esc(source)}${sightings&&e.evidence==='quantity_unconfirmed'?'<small>Quantity not confirmed</small>':''}</td><td data-label="Quantity">${e.quantity==null?'Not recorded':fmt(e.quantity)}</td></tr>`;
+    }).join('');
+    $('#st-log').innerHTML=body?table(['Item and category','Time (AEST)','Shift','Person','Activity','Quantity'],body):`<p class="empty">${sightings?'No sightings match these filters.':'No physical count records match this selection.'}</p>`;
     pager($('#st-log-pages'),records.length,logPage,n=>{logPage=n;log()});
   }
   function update(){compile();progress();inventory();log()}
-  const baseline=st.ledger_asat?'Portal counts as at '+timeText(st.ledger_asat)+'.':'Available coverage includes SiteIQ evidence only.';
+  const baseline=st.ledger_asat?'Portal ledger snapshot '+timeText(st.ledger_asat)+'.':'No dated portal ledger snapshot is available.';
   async function refresh(){
     if(STATIC||!location.protocol.startsWith('http'))return;
     const serial=++sequence;
@@ -2419,18 +2524,39 @@ function initStocktake(st) {
       const res=await fetch('/stocktake/entries',{headers:{'X-Portal':'1'},cache:'no-store'});
       if(!res.ok)throw Error('Could not load portal counts.');
       const data=await res.json();if(serial!==sequence)return;
+      if(!Array.isArray(data.entries)||!Array.isArray(data.controllers))throw Error('Invalid portal ledger.');
       manual=data.entries;staff=data.controllers;canRecord=data.can_record===true;
-      $('#st-live-status').textContent='Live portal counts and SiteIQ evidence loaded.';update();
+      $('#st-live-status').textContent=(st.asat?'SiteIQ stocktake imported through '+timeText(st.asat)+'. ':'')+'Additional count entries saved in the portal: '+fmt(manual.length)+'.';update();
     }catch(err){if(serial===sequence)$('#st-live-status').textContent='Live portal counts could not be refreshed. '+baseline}
   }
+  $('#st-overview').onclick=e=>{
+    const b=e.target.closest('[data-st-crew]');if(!b)return;
+    const categoryChanged=!!$('#st-cat-filter').value;$('#st-cat-filter').value='';
+    $('#st-mode').value='counts';$('#st-person').value='';$('#st-shift').value='';$('#st-log-q').value='';
+    groupFilter=b.dataset.stCrew;groupPage=logPage=0;
+    if(categoryChanged){page=0;categories();inventory()}log();
+    $('#st-detail-title').scrollIntoView({block:'start'});$('#st-reset-group').focus({preventScroll:true});
+  };
   $('#st-rounds').onclick=e=>{const b=e.target.closest('[data-round]');if(b){round=Number(b.dataset.round);groupFilter='';groupPage=page=logPage=0;update()}};
+  function selectCategory(k,focus){
+    $('#st-cat-filter').value=k;
+    const c=cats.get(k);if(c)$('#st-kind').value=c.kind;
+    groupFilter='';page=groupPage=logPage=0;categories();inventory();log();
+    if(focus){$('#st-inventory-title').scrollIntoView({block:'start'});$('#st-cat-filter').focus({preventScroll:true})}
+  }
+  $('#st-categories').onclick=e=>{const b=e.target.closest('[data-st-category]');if(b)selectCategory(b.dataset.stCategory,true)};
+  $('#st-category-log').onclick=()=>{groupFilter='';groupPage=logPage=0;$('#st-mode').value='counts';log();$('#st-log-title').scrollIntoView({block:'start'});$('#st-mode').focus({preventScroll:true})};
+  $('#st-cat-filter').onchange=e=>selectCategory(e.target.value,false);
+  for(const id of ['st-cat-kind','st-cat-q'])$('#'+id).addEventListener('input',()=>{categoryPage=0;categories()});
+  $('#st-kind').addEventListener('input',()=>{const c=cats.get($('#st-cat-filter').value);if(c&&$('#st-kind').value&&c.kind!==$('#st-kind').value)selectCategory('',false)});
   for(const id of ['st-q','st-kind','st-progress'])$('#'+id).addEventListener('input',()=>{page=0;inventory()});
   for(const id of ['st-mode','st-shift','st-person','st-log-q'])$('#'+id).addEventListener('input',()=>{groupFilter='';groupPage=logPage=0;log()});
   $('#st-inventory').onclick=e=>{
     const button=e.target.closest('[data-count]');if(!button||!canRecord)return;
     target=byKey.get(button.dataset.count);requestId='';intent='';
     $('#st-counter').replaceChildren(new Option('Choose your name',''),...staff.map(n=>new Option(n,n)));
-    $('#st-target').textContent=scope(round)+' · '+target.name+' · '+target.key;
+    $('#st-entry-round').value=round<0?'routine':ids[round];
+    $('#st-target').textContent=target.name+' · '+target.key+' · '+category(target);
     const qty=$('#st-qty');qty.value='';qty.max=target.kind==='tool'?'1':'';qty.step='1';
     $('#st-confirm-info').textContent=target.kind==='tool'?'Enter 1 for an asset physically sighted or 0 if it was not found. '+(target.status||''):'Enter the number of units physically counted, including zero.';
     $('#st-submit-status').textContent='';$('#st-dialog').showModal();
@@ -2439,7 +2565,7 @@ function initStocktake(st) {
   $('#st-dialog').addEventListener('cancel',e=>{if(busy)e.preventDefault()});
   $('#st-form').onsubmit=async e=>{
     e.preventDefault();if(busy||!target)return;
-    const fields={round:ids[round],kind:target.kind,item_id:target.key,quantity:Number($('#st-qty').value),person:$('#st-counter').value};
+    const fields={round:$('#st-entry-round').value,kind:target.kind,item_id:target.key,quantity:Number($('#st-qty').value),person:$('#st-counter').value};
     const next=JSON.stringify(fields);if(intent!==next){intent=next;requestId=crypto.randomUUID()}
     busy=true;$('#st-save').disabled=$('#st-cancel').disabled=true;$('#st-submit-status').textContent='Saving count…';
     try{
@@ -2450,8 +2576,7 @@ function initStocktake(st) {
     }catch(err){$('#st-submit-status').textContent=err.message||'Could not save. Try again.'}
     finally{busy=false;$('#st-save').disabled=$('#st-cancel').disabled=false}
   };
-  if(!(st.recorded_entries||[]).length && !rows.some(row=>row.checks?.length))$('#st-mode').value='sightings';
-  for(const b of $$('[data-stock-focus]',view))b.onclick=()=>{const el=document.getElementById(b.dataset.stockFocus);el.scrollIntoView();const field=b.dataset.stockFocus==='st-inventory-title'?$('#st-q'):$('#st-mode');field.focus({preventScroll:true})};
+  for(const b of $$('[data-stock-focus]',view))b.onclick=()=>{const el=document.getElementById(b.dataset.stockFocus);el.scrollIntoView();const field=b.dataset.stockFocus==='st-inventory-title'?$('#st-q'):b.dataset.stockFocus==='st-cat-title'?$('#st-cat-q'):$('#st-mode');field.focus({preventScroll:true})};
   update();
   $('#st-live-status').textContent=baseline+(STATIC||!location.protocol.startsWith('http')?' Open the live report for subsequent counts.':' Checking for newer portal counts…');
   if(!STATIC){

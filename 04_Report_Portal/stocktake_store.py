@@ -83,7 +83,7 @@ def record(data_dir, payload, roster):
     except (ValueError, TypeError, AttributeError, KeyError) as exc:
         raise CountError("Start this count again to get a new entry ID.") from exc
     kind, quantity = payload.get("kind"), payload.get("quantity")
-    if payload.get("round") not in ("opening", "closeout") or kind not in ("tool", "cons"):
+    if payload.get("round") not in ("opening", "routine", "closeout") or kind not in ("tool", "cons"):
         raise CountError("Select a stocktake round and a stock item.")
     if not isinstance(payload.get("item_id"), str) or not payload["item_id"]:
         raise CountError("Choose an item from the current stock list.")
