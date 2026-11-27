@@ -266,3 +266,88 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
 #clear-entry{margin-top:.65rem}
 .finish-actions{display:flex;justify-content:flex-end;margin:1rem 0}
 #idle-dialog h2{margin:0 0 .5rem}#idle-dialog .dialog-actions{margin-top:1rem}
+
+/* The two audiences share the Coates frame. Their holdings have different reading patterns. */
+.gear-heading{display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.gear-heading h2{font:inherit;font-size:clamp(1.35rem,2.2vw,1.8rem);font-weight:700;letter-spacing:-.03em;line-height:1.17}
+.gear-find{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem 1rem;margin:.5rem 0 .8rem}
+.gear-find input{flex:1 1 13rem;max-width:32rem;font-size:1rem}
+.gear-find-result{font-size:.88rem;color:var(--on-2);font-variant-numeric:tabular-nums}
+.gear-find-result:empty{display:none}
+.gear-find-toggle{min-height:42px;white-space:nowrap;gap:.48rem;padding:6px 11px;font-size:.83rem}
+.gear-find-toggle:before{content:"";background:currentColor;width:.95rem;height:.95rem;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' d='M10.7 10.7l3.6 3.6M12 7A5 5 0 1 1 2 7a5 5 0 1 1 10 0Z'/%3E%3C/svg%3E") center/contain no-repeat}
+.handover-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:.7rem;
+  margin:.9rem 0 .7rem;padding:0;list-style:none}
+.handover-actions li{padding:.7rem .9rem;border-left:2px solid var(--edge);background:var(--panel)}
+.handover-actions strong{font-size:.95rem}.handover-actions p{margin:.18rem 0 0;color:var(--on-2)}
+@media screen {
+  #report{--scope-accent:#86cbda;--scope-quiet:#15343b;--scope-line:#406b75}
+  body[data-scope="personal"] #report{--scope-accent:#ffb482;--scope-quiet:#37281e;--scope-line:#81533a}
+  #report .report-head{background:radial-gradient(55% 125% at 90% 0,color-mix(in srgb,var(--scope-accent) 8%,transparent),transparent 85%),linear-gradient(155deg,#1b2129,#10141a 55%,#0b0f14)}
+  .report-head .hero-copy>.eyebrow{color:var(--scope-accent)}
+  .hero-holding{border-left-color:var(--scope-line)}
+  .record-links a{border-color:transparent;background:transparent;color:var(--on-3)}
+  .record-links a[aria-current="location"]{border-color:var(--scope-line);background:var(--scope-quiet);color:var(--scope-accent)}
+  #current-gear{--gear-border:rgba(255,255,255,.14);background:linear-gradient(160deg,#1b222b,#131820 52%,#11151b)}
+  #current-gear>h2,.gear-heading h2{font-size:clamp(1.35rem,2.2vw,1.8rem)}
+  #current-gear>h2:before{background:var(--scope-accent);box-shadow:0 0 8px color-mix(in srgb,var(--scope-accent) 35%,transparent)}
+  .gear-find-toggle{border-color:var(--scope-line);color:var(--scope-accent);background:var(--scope-quiet)}
+  .gear-omit,.gear-searching .more-tools>summary{display:none}
+  .gear-searching .more-tools{display:contents}
+  .gear-list .gear-entry{margin:0;border:1px solid var(--gear-border);border-radius:12px;background:#10151c}
+  .gear-list{display:grid;gap:.45rem}
+  .personal-hires .gear-list{grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));align-items:start;gap:.7rem}
+  .gear-list .holding-group{overflow:hidden;background:linear-gradient(105deg,#222a34,#181f28)}
+  .gear-list .holding-group h3{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;margin:0;
+    padding:.65rem .8rem;gap:.6rem;font-size:1rem;line-height:1.35}
+  .gear-list .badge{justify-self:end;white-space:nowrap;background:var(--scope-quiet);color:var(--scope-accent);font-size:.76rem;border:1px solid var(--scope-line)}
+  .gear-list .table-wrap{margin:0;border-radius:0;box-shadow:none}
+  .gear-list .paper{table-layout:fixed;font-size:.9rem}
+  .gear-list .paper th{background:#262e38;color:#d1d9e2;border-bottom:1px solid var(--gear-border);font-size:.7rem;
+    padding:.35rem .8rem;letter-spacing:.06em}
+  .gear-list .paper td{background:#f7f9fb;padding:.48rem .8rem;line-height:1.4}
+  .gear-list .paper td:first-child{font:.86rem/1.45 var(--mono);font-weight:600}
+  .gear-list .paper tr:nth-child(even)>td{background:#eaf0f5}
+  .gear-list .gear-entry[open]{border-color:var(--scope-line)}
+  .gear-entry>summary{min-height:46px;padding:.65rem .85rem}.gear-entry>summary:after{color:var(--scope-accent)}
+  .gear-list .more-tools{margin:0}.gear-list .more-tools>.gear-entry{margin:.5rem}
+  .gear-searching .more-tools>.gear-entry{margin:0}
+  .gear-entry:focus-within{outline:2px solid var(--ring);outline-offset:2px}
+  .handover-updates{max-width:90ch}.panel>.handover-updates{margin-bottom:0}
+  @media(min-width:1000px){body[data-scope="company"] .gear-list{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+    .gear-list>.more-tools{grid-column:1/-1}}
+  @media(max-width:640px){.gear-heading{gap:.35rem}.gear-find-toggle{min-height:40px;font-size:.78rem;padding-inline:8px}
+    .gear-list .holding-group h3{padding:.5rem .65rem}.gear-list .paper td,.gear-list .paper th{padding-inline:.65rem}
+    .personal-hires .gear-list{gap:.55rem}.handover-actions{gap:.45rem}
+  }
+}
+@media print{.gear-heading{display:block}.handover-actions{display:block}.handover-actions li{background:white;border:0;padding:.4mm 0}}
+
+@media screen{
+  body[data-scope="company"] #lookup{--entry-accent:#86cbda;--entry-line:#406b75}
+  body[data-scope="personal"] #lookup{--entry-accent:#ffb482;--entry-line:#81533a}
+  #lookup{background:radial-gradient(78% 100% at 88% 0,color-mix(in srgb,var(--entry-accent) 9%,transparent),transparent 78%),linear-gradient(160deg,#1c222a,#12171d 65%,#0f1319)}
+  #lookup .intro .lede{max-width:44ch;font-size:clamp(1rem,1.3vw,1.125rem)}
+  #lookup .intro .eyebrow{color:var(--entry-accent)}
+  #lookup-form{padding:clamp(1rem,2vw,1.7rem);background:#10151c;border-color:var(--hair-2)}
+  #lookup .readout-head{align-items:center;margin-bottom:1rem;font-size:1.15rem}
+  #lookup .readout-head:before{width:23px;height:23px;background:var(--entry-accent);box-shadow:none;border-radius:0}
+  body[data-scope="personal"] #lookup .readout-head:before{mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath stroke='black' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M3 8V4h4m10 0h4v4M3 16v4h4m10 0h4v-4M7 8v8m3-8v8m3-8v8m4-8v8'/%3E%3C/svg%3E") center/contain no-repeat}
+  body[data-scope="company"] #lookup .readout-head:before{mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath stroke='black' stroke-width='1.7' fill='none' stroke-linecap='round' stroke-linejoin='round' d='M2 20h20M4 20V6l10-3v17m0-10h6v10M8 8v1m3-2v1m-3 4v1m3-2v1m-3 4v1m3-2v1m6-3v2'/%3E%3C/svg%3E") center/contain no-repeat}
+  #lookup .form-fields label{font-size:.925rem}
+  #lookup #identity{border-color:var(--entry-line);min-height:48px;font-size:1rem}
+  #lookup select{appearance:none;padding-right:2.4rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23e1e8ec' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:16px;background-position:right .8rem center}
+  #lookup .privacy-note{max-width:54ch;border-top:1px solid var(--hair-2);margin-top:1rem;padding-top:.75rem}
+  @media(min-width:821px){.hq-main:has(#lookup:not([hidden])){padding-top:clamp(1rem,4vh,4rem)}
+    #lookup{grid-template-columns:minmax(0,1fr) minmax(23rem,.82fr);min-height:clamp(310px,37vh,430px);
+      padding:clamp(1.8rem,3.2vw,4.5rem);gap:clamp(2rem,4vw,6rem)}
+    #lookup .intro h1{font-size:clamp(2.5rem,3.5vw,3.8rem);max-width:14ch;letter-spacing:-.047em}
+    #lookup .intro .lede{margin-top:.8rem}
+  }
+  @media(max-width:640px){#lookup .intro .lede{font-size:.96rem;line-height:1.45}
+    #lookup .form-actions{gap:6px}#lookup .form-actions button{padding-inline:8px;font-size:.9rem}
+    #lookup .readout-head{margin-bottom:.7rem}
+  }
+}
+@media(forced-colors:active){#lookup .readout-head:before,.gear-find-toggle:before{background:CanvasText}}

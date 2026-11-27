@@ -17,8 +17,8 @@ def page(scope, *, barcode_ready=True, job_dir=None):
     font_class = "job-font" if all((fonts / f"Inter-{w}.ttf").is_file() for w in ("Regular", "Bold")) else ""
     title = "Personal on-hire report" if personal else "Company on-hire report"
     trail = "Personal report" if personal else "Company report"
-    intro = ("See what is on hire to you, your returns and your tool-store history."
-             if personal else "See your company’s gear on hire and its work history at Dugald River.")
+    intro = ("Use your own barcode to see the gear on your card, your returns and your shutdown history."
+             if personal else "Choose your company to see its current gear, asset numbers and shutdown history.")
     fields = ('''<label for="identity">Scan or enter your assigned barcode number</label>
         <input id="identity" type="text" required maxlength="256" autocomplete="off"
                autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter your barcode number">
@@ -38,8 +38,9 @@ def page(scope, *, barcode_ready=True, job_dir=None):
     return_jump = ('<a class="return-jump screen-only" href="#return-rating">Your return record</a>'
                    if personal else "")
     setup = personal and not barcode_ready
-    form_title = "Worker access" if personal else "Company selection"
+    form_title = "Your worker barcode" if personal else "Company selection"
     if setup:
+        form_title = "Worker access"
         intro = "Worker barcode access is being set up. Please ask the tool store."
         fields = '<button type="button" id="refresh">Refresh availability</button>'
     return f'''<!doctype html>

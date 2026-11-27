@@ -23,6 +23,7 @@
   let printClosed = [];
   let decoderRequest;
   let ratingObserver=null;
+  let sectionFrame=0;
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -259,6 +260,72 @@
       asset.date ? when(asset.date,asset.time) + (asset.time ? "" : " · time unavailable") : "Issue date unavailable"
     ]);
   }
+  function gearList(panel,r) {
+    const list=el("div","gear-list");
+    const groups=r.hires;
+    if (groups.length>6 || groups.reduce((sum,g)=>sum+g.items.length,0)>=12) {
+      const heading=panel.querySelector("h2");
+      const head=el("div","gear-heading");
+      heading.replaceWith(head);
+      const toggle=el("button","gear-find-toggle screen-only","Find gear");
+      toggle.type="button";
+      toggle.setAttribute("aria-controls","gear-find");
+      toggle.setAttribute("aria-expanded","false");
+      head.append(heading,toggle);
+      const form=el("div","gear-find screen-only");
+      form.id="gear-find";form.hidden=true;
+      const field=el("input");
+      field.id="gear-query";field.type="search";field.autocomplete="off";field.spellcheck=false;
+      field.setAttribute("aria-label","Filter current gear by equipment or asset number");
+      field.placeholder="Equipment or asset number";
+      const result=el("span","gear-find-result");
+      result.setAttribute("role","status");
+      form.append(field,result);
+      panel.append(form);
+      let beforeSearch=null;
+      function filter() {
+        const words=field.value.toLocaleLowerCase().trim().split(/\s+/).filter(Boolean);
+        const entries=list.querySelectorAll(".gear-entry");
+        if (words.length && !beforeSearch) {
+          beforeSearch=new Map(Array.from(list.querySelectorAll("details"),d=>[d,d.open]));
+        }
+        let matches=0;
+        entries.forEach((entry,i)=>{
+          const tool=groups[i];
+          let visible=0;
+          entry.querySelectorAll("tbody tr").forEach((tr,j)=>{
+            const terms=(tool.name+" "+(tool.items[j].item || "")).toLocaleLowerCase();
+            const match=words.every(word=>terms.includes(word));
+            tr.classList.toggle("gear-omit",!match);
+            if (match) visible++;
+          });
+          matches+=visible;
+          entry.classList.toggle("gear-omit",Boolean(words.length) && !visible);
+          if (words.length && visible && entry.tagName==="DETAILS") entry.open=true;
+        });
+        const more=list.querySelector(".more-tools");
+        if (more && words.length) more.open=true;
+        list.classList.toggle("gear-searching",Boolean(words.length));
+        if (!words.length && beforeSearch) {
+          beforeSearch.forEach((open,d)=>{d.open=open;});
+          beforeSearch=null;
+        }
+        result.textContent=words.length ? (matches ? units(matches,"matching asset") : "No matching assets") : "";
+      }
+      field.addEventListener("input",filter);
+      toggle.addEventListener("click",()=>{
+        form.hidden=!form.hidden;
+        toggle.setAttribute("aria-expanded",String(!form.hidden));
+        toggle.textContent=form.hidden ? "Find gear" : "Close search";
+        if (form.hidden) {field.value="";filter();} else field.focus();
+      });
+      field.addEventListener("keydown",event=>{
+        if(event.key==="Escape"){event.preventDefault();toggle.click();toggle.focus();}
+      });
+    }
+    panel.append(list);
+    return list;
+  }
   function personalHires(parent,r) {
     const panel=section(parent,"Currently on hire to you",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;panel.classList.add("personal-hires");
@@ -266,13 +333,14 @@
       panel.append(el("p","no-holdings",r.asat || r.coverage?.rental_asat ? "No equipment is listed against your card in this rental stock export." : "A dated rental stock export is needed to confirm your current gear."));
       return;
     }
+    const list=gearList(panel,r);
     for (const tool of r.hires) {
-      const group=el("section","holding-group readout");
+      const group=el("section","holding-group readout gear-entry");
       const title=el("h3","",tool.name);
       title.append(el("span","badge",units(tool.count,"asset")));
       group.append(title);
       table(group,["Asset number","Issued (AEST)"],gearRows(tool));
-      panel.append(group);
+      list.append(group);
     }
   }
   function hires(parent,r) {
@@ -282,15 +350,16 @@
       panel.append(el("p","empty",r.asat || r.coverage?.rental_asat ? "No equipment is listed against this company in this rental stock export." : "A dated rental stock export is needed to confirm this company’s current gear."));
       return;
     }
-    panel.append(el("p","note","Open an equipment description for the asset numbers and issue times recorded against "+(r.company || r.name)+"."));
+    const list=gearList(panel,r);
     const more = r.hires.length>6 ? group("More tool descriptions",r.hires.length-5) : null;
     for (const [index,tool] of r.hires.entries()) {
       const d=group(tool.name,null);
+      d.classList.add("gear-entry");
       d.querySelector("summary").append(el("span","badge",units(tool.count,"asset")));
       table(d,["Asset number","Issued (AEST)"],gearRows(tool));
-      (more && index>=5 ? more : panel).append(d);
+      (more && index>=5 ? more : list).append(d);
     }
-    if (more) {more.classList.add("more-tools");panel.append(more);}
+    if (more) {more.classList.add("more-tools");list.append(more);}
   }
   function handoverPanel(parent) {
     const panel=section(parent,"Equipment returns",null,true);
@@ -698,12 +767,32 @@
       section.tabIndex = -1;
       const link = el("a","",title);
       link.href = "#" + id;
+      if(id==="current-gear")link.setAttribute("aria-current","location");
       sectionNav.append(link);
     }
     $("trail-current").textContent = "Report";
     $("pull").textContent=r.asat ? "SiteIQ rental stock pull "+when(r.asat)+" AEST" : "SiteIQ rental stock pull time unavailable.";
     $("lookup").hidden=true;$("report").hidden=false;snapshot=r;$("report-heading").focus();
   }
+  function syncSection() {
+    sectionFrame=0;
+    if ($("report").hidden) return;
+    const links=Array.from($("section-nav").querySelectorAll("a"));
+    if (!links.length) return;
+    const top=Math.min(100,innerHeight*.18);
+    let active=links[0];
+    for (const link of links) {
+      if ($(link.hash.slice(1)).getBoundingClientRect().top<=top) active=link;
+    }
+    if (window.scrollY+innerHeight>=document.documentElement.scrollHeight-2) active=links.at(-1);
+    for (const link of links) {
+      if(link===active)link.setAttribute("aria-current","location");
+      else link.removeAttribute("aria-current");
+    }
+  }
+  window.addEventListener("scroll",()=>{
+    if (!sectionFrame && !$("report").hidden) sectionFrame=requestAnimationFrame(syncSection);
+  },{passive:true});
   async function lookup(event) {
     event?.preventDefault();
     const value = identity.value;
