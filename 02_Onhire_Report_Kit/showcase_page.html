@@ -453,10 +453,6 @@ html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
 .dial .big{font-size:30px;font-weight:700;letter-spacing:-.02em;margin-top:-62px}
 .dial .of{font-size:12.5px;color:var(--mu);margin-top:2px}
 .dial .cap{font-size:13.5px;margin-top:20px;font-weight:600}
-.dtr{fill:none;stroke:var(--track);stroke-width:14;stroke-linecap:round}
-.arc{fill:none;stroke-width:14;stroke-linecap:round;stroke-dasharray:var(--c);stroke-dashoffset:var(--c);transition:stroke-dashoffset 2s cubic-bezier(.2,.8,.2,1)}
-.go .arc{stroke-dashoffset:var(--off)}
-html[data-theme=dark] .arc{filter:drop-shadow(0 0 8px rgba(255,122,61,.55))}
 @media (max-width:980px){.dials{grid-template-columns:1fr}}
 
 /* elite layer: embers, orbiting borders, spotlight, staggered entrances, bubbles and pulses */
@@ -511,8 +507,6 @@ html[data-theme=dark] .pk{animation:pk 2.2s ease-in-out infinite}
 html[data-theme=dark] .lbl{paint-order:stroke;stroke:var(--panel);stroke-width:2px;stroke-linejoin:round}
 .comet{fill:#FFE3D3;filter:drop-shadow(0 0 7px #FF7A3D) drop-shadow(0 0 14px #F26222)}
 html[data-theme=light] .comet{display:none}
-html[data-theme=dark] .dial:hover .arc{animation:arcglow 3s ease-in-out infinite}
-@keyframes arcglow{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.5))}50%{filter:drop-shadow(0 0 16px rgba(255,150,100,.95))}}
 .dtk{stroke:var(--neu);opacity:.45}
 html[data-theme=dark] .dial .big{text-shadow:0 0 26px rgba(255,138,80,.45)}
 html[data-theme=dark] .row[data-open]:hover .fl{filter:brightness(1.25)}
@@ -546,11 +540,7 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .ringt .a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:700}
 .ringt .b{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-top:2px}
 .ringt .c{font-size:12.5px;color:var(--mu);margin-top:2px}
-.rg0{fill:none;stroke:var(--track);stroke-width:18}
-.rg1{fill:none;stroke-width:18;stroke-linecap:round;stroke-dasharray:var(--c);stroke-dashoffset:var(--c);transition:stroke-dashoffset 2.2s cubic-bezier(.2,.8,.2,1)}
-.go .rg1{stroke-dashoffset:var(--off)}
 .rg2{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:2 7}
-html[data-theme=dark] .rg1{filter:drop-shadow(0 0 10px rgba(255,122,61,.7))}
 html[data-theme=dark] .rg2{animation:spin2 40s linear infinite;transform-origin:50% 50%}
 @keyframes spin2{to{transform:rotate(360deg)}}
 html[data-theme=dark] .ringt .b{text-shadow:0 0 26px rgba(255,138,80,.55)}
@@ -903,6 +893,33 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
     & .view .row:focus-within .fl,& .view .row:hover .fl{animation:flow 3.2s linear infinite}
   }
 }
+
+/* Curved instruments use the same lit glass edge and amber liquid as the
+   straight vessels. SVG paths preserve the radius, tick spacing and scale. */
+.curved-gauge{--curve-rim:#526071;--curve-shadow:#111820;--curve-core:#28313c;--curve-glass:#384652;--curve-shine:#697785}
+html[data-theme=light] .curved-gauge,.static .curved-gauge{--curve-rim:#a1aeb9;--curve-shadow:#bdc7ce;--curve-core:#dfe5e9;--curve-glass:#e6ebed;--curve-shine:#fff}
+.ringw svg.curved-gauge{transform:none}
+.curve-aura{display:none}
+@media screen{html[data-theme=dark]:not(.static) .curve-aura{display:inline;fill:#ff7734;stroke:#ff8d42;stroke-width:2.5;opacity:.34;filter:blur(3px)}}
+.curve-face{fill:#ffaf6e;stroke:#ffd6ac;stroke-width:.58}
+.curve-meniscus{fill:none;stroke:#fff2db;stroke-opacity:.88;stroke-width:.7;stroke-linecap:round}
+.curve-bubble{transform-origin:0 0;opacity:0;pointer-events:none}
+.curve-bubble circle{fill:url(#liquid-pearl);stroke:#854520;stroke-width:.45}
+@keyframes curve-rise{
+  0%{opacity:0;transform:rotate(0deg)}
+  13%{opacity:.92}
+  65%{opacity:.95}
+  69%{opacity:.8;transform:rotate(var(--arc-travel))}
+  73%,100%{opacity:0;transform:rotate(var(--arc-travel))}
+}
+@media screen and (prefers-reduced-motion:no-preference){
+  html:not(.static) .view.on .curved-gauge.liquid-inview .curve-bubble{animation:curve-rise var(--duration) linear var(--phase) infinite}
+}
+@media (prefers-reduced-motion:reduce),print{
+  .curved-gauge :is(.curve-bubble,.curve-pop){display:none!important}
+  .curved-gauge .rg2{animation:none!important}
+}
+@media print{.curved-gauge{--curve-rim:#a1aeb9;--curve-shadow:#bdc7ce;--curve-core:#dfe5e9;--curve-glass:#e6ebed;--curve-shine:white;print-color-adjust:exact}}
 
 /* Vessel readings use the same scale and series colours in every theme. */
 html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none;animation:none}
@@ -1548,9 +1565,57 @@ return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"
 <radialGradient id="${id}h"><stop stop-color="${color[1]}" stop-opacity=".82"/><stop offset="1" stop-color="${color[1]}" stop-opacity="0"/></radialGradient></defs>
 ${glassVessel(5,18,64,140,8,volume?`<g class="liquid" style="--tank-ink:url(#${o.col?id:'gcylO'})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:'',id+'g',id+'h')}</svg>${o.pic?pic(it.pic,it.name,'lg'):''}
 <span class="val">${it.val||`<span data-n="${value}">${fmt(value)}</span>`}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} on site</small>`:''))}</span></${tag}>`}
-function dial(v,of,cap,sub){const c=Math.PI*70,sh=of?v/of:0,id='d'+(++uid);
-return `<div class="dial"><div class="plot"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
-${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<path class="dtr" d="M20,95 A70,70 0 0 1 160,95"/><path class="arc" d="M20,95 A70,70 0 0 1 160,95" stroke="url(#${id})" style="--c:${c};--off:${c*(1-Math.min(1,sh))}"/></svg>
+// Radius and sweep retain the original dial or ring scale. Lighting follows
+// the section of the tube, and every bubble stays inside the measured liquid.
+function curvedGlass(radius, thickness, start, sweep, value) {
+  const id='curved'+(++uid), fraction=Math.max(0,Math.min(1,Number(value)||0));
+  const half=thickness/2, outer=radius+half, inner=radius-half, tau=2*Math.PI;
+  const finish=start+sweep*fraction, length=radius*sweep*fraction;
+  const closed=sweep===tau, full=fraction===1, hasSurface=!closed||!full;
+  const round=n=>Number(n.toFixed(5));
+  const coords=(r,a)=>round(r*Math.cos(a))+' '+round(r*Math.sin(a));
+  function arc(r,from,to) {
+    // Two spans also describe a complete revolution without an SVG seam.
+    const mid=(from+to)/2, flag=to>=from?1:0;
+    return `A${r} ${r} 0 0 ${flag} ${coords(r,mid)}A${r} ${r} 0 0 ${flag} ${coords(r,to)}`;
+  }
+  const track='M'+coords(radius,start)+arc(radius,start,start+sweep);
+  const depth=Math.min(thickness*.24,length*.24,closed?(1-fraction)*radius*sweep*.44:Infinity);
+  const backDepth=Math.min(half,length*.32,closed?(1-fraction)*radius*sweep*.44:Infinity);
+  const face=(a,depth,to)=>`A${half} ${round(depth)} ${round(a*180/Math.PI)} 0 1 ${coords(to,a)}`;
+  const liquid=full&&closed
+    ? 'M'+coords(outer,start)+arc(outer,start,finish)+'Z M'+coords(inner,finish)+arc(inner,finish,start)+'Z'
+    : 'M'+coords(outer,start)+arc(outer,start,finish)+face(finish,depth,inner)+arc(inner,finish,start)+face(start,backDepth,outer)+'Z';
+  // Explicit stop positions place the glint and dark far wall within the
+  // thickness of the tube, irrespective of the arc's direction or length.
+  const shade=(key,colours)=>`<radialGradient id="${id}-${key}" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${outer}">${colours.map(([pos,colour])=>`<stop offset="${round((inner+pos*thickness)/outer)}" stop-color="${colour}"/>`).join('')}</radialGradient>`;
+  const shell=shade('shell',[[0,'var(--curve-rim)'],[.08,'var(--curve-shadow)'],[.26,'var(--curve-core)'],[.51,'var(--track)'],[.77,'var(--curve-glass)'],[.83,'var(--curve-shine)'],[.92,'var(--curve-glass)'],[1,'var(--curve-rim)']]);
+  const amber=shade('liquid',[[0,'#973b13'],[.1,'#b94a17'],[.3,'#e06323'],[.5,'#f87831'],[.69,'#ff944e'],[.79,'#ffc28d'],[.83,'#ffb477'],[.92,'#e77430'],[1,'#a74718']]);
+  const facePosition=`translate(${coords(radius,finish)}) rotate(${round(finish*180/Math.PI)})`;
+  const meniscus=hasSurface&&fraction>0?`<g transform="${facePosition}"><ellipse class="curve-face" rx="${half*.96}" ry="${round(depth)}"/><path class="curve-meniscus" d="M${-half*.71} 0Q0 ${round(depth*1.62)} ${half*.7} 0"/></g>`:'';
+  let bubbles='',pop='';
+  if(!STATIC&&fraction>0){
+    const count=Math.min(12,Math.max(2,Math.ceil(length/(thickness*1.75))));
+    for(let i=0;i<count;i++){
+      const terminal=i===0&&hasSurface;
+      const end=terminal?finish:start+(finish-start)*((i+.54)/count);
+      const travel=Math.min(end-start,(thickness*(1.05+i%4*.49))/radius);
+      const r=radius+half*(terminal?.04:(((i*.618+.14)%1)-.5)*1.38);
+      const size=Math.min(thickness*(.09+(i%3)*.02),length*.15);
+      const angle=round(travel*180/Math.PI), duration=3.4+i%4*.51;
+      const clock=`--duration:${duration}s;--phase:-${round(duration*((i*.382+.37)%1))}s`;
+      bubbles+=`<g class="curve-bubble" style="${clock};--arc-travel:${angle}deg"><circle cx="${round(r*Math.cos(end-travel))}" cy="${round(r*Math.sin(end-travel))}" r="${round(size)}"/></g>`;
+      if(terminal)pop=`<g transform="${facePosition}"><g class="surface-pop curve-pop" style="${clock}"><ellipse class="pop-edge" rx="${round(half*.42)}" ry="${round(depth*.46)}"/><ellipse class="pop-pearl" rx="${round(half*.42)}" ry="${round(depth*.46)}"/></g></g>`;
+    }
+  }
+  return `<g class="curved-glass" data-fraction="${fraction}"><defs>${shell}${fraction>0?amber+`<clipPath id="${id}-fill"><path d="${liquid}" clip-rule="evenodd"/></clipPath>`:''}</defs>
+${fraction>0?`<path class="curve-aura" d="${liquid}" fill-rule="evenodd"/>`:''}<path class="curve-shell" d="${track}" stroke="url(#${id}-shell)" stroke-width="${thickness}" fill="none" stroke-linecap="round"/>
+${fraction>0?`<g clip-path="url(#${id}-fill)"><path class="curve-fill" d="${liquid}" fill="url(#${id}-liquid)" fill-rule="evenodd"/>${bubbles}${meniscus}${pop}</g>`:''}</g>`;
+}
+
+function dial(v,of,cap,sub){const sh=of?v/of:0;
+return `<div class="dial"><div class="plot"><svg class="liquid-gauge curved-gauge" viewBox="-4 -2 188 106" width="230" aria-hidden="true" focusable="false">
+${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<g transform="translate(90 95)">${curvedGlass(70,14,Math.PI,Math.PI,sh)}</g></svg>
 <div class="reading"><div class="big"><span data-n="${(sh*100).toFixed(1)}" data-dec="1" data-suf="%">${(sh*100).toFixed(1)}%</span></div><div class="of">${fmt(v)} of ${fmt(of)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
 
 /* ---------- overview ---------- */
@@ -1888,9 +1953,9 @@ $('#defs').innerHTML=[
 const money=v=>'$'+Number(v).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
 function initCosts(){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#5F84B8','#B4CEF0','#6489BC','#D3E3F8']],services:['ks','lk3',['#C9AC6E','#FBEBC6','#CDB073','#FFF5DC']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
 $('#cs-lead').textContent=`${money(C.sofar)} of the shut's ${money(C.total)} has been incurred up to the end of ${C.upto}: ${C.days_done} of ${C.days.length} days and ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours.`;
-const rc=2*Math.PI*100,sh=C.total?C.sofar/C.total:0;
-$('#cs-ring').innerHTML=`<svg viewBox="0 0 240 240"><defs><linearGradient id="rgg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".5" stop-color="#F26222"/><stop offset="1" stop-color="#B9481A"/></linearGradient></defs>
-<circle class="rg2" cx="120" cy="120" r="116"/><circle class="rg0" cx="120" cy="120" r="100"/><circle class="rg1" cx="120" cy="120" r="100" stroke="url(#rgg)" style="--c:${rc};--off:${rc*(1-sh)}"/></svg>
+const sh=C.total?C.sofar/C.total:0;
+$('#cs-ring').innerHTML=`<svg class="liquid-gauge curved-gauge" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+<circle class="rg2" cx="120" cy="120" r="116"/><g transform="translate(120 120)">${curvedGlass(100,18,-Math.PI/2,2*Math.PI,sh)}</g></svg>
 <div class="ringt"><div class="a">Cost to date</div><div class="b"><span data-n="${C.sofar}" data-dec="2" data-pre="$">${money(C.sofar)}</span></div><div class="c">${(sh*100).toFixed(1)}% of ${money(C.total)}</div></div>`;
 const S=C.starts,st=[];if(S.labour)st.push(['Labour, day shift',`From ${S.labour}`]);if(S.nights)st.push(['Night shift',`From ${S.nights}, 18:00`]);if(S.tooling)st.push(['Tooling charge',`From ${S.tooling}`]);if(S.services)st.push(['Site services charge',`From ${S.services}`]);
 $('#cs-starts').innerHTML=st.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('');
