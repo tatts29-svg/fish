@@ -13,7 +13,7 @@ from collections import defaultdict
 
 import openpyxl
 
-from qr_identity import IdentityIndex
+from qr_identity import IdentityIndex, _key as identity_key
 
 from upload_policy import MMG_PROJECT, MMG_SCHEDULE, check_workbook
 
@@ -95,7 +95,7 @@ def _evidence(root):
     return facts
 
 
-def _parse(root, body, confirmed):
+def _parse(root, body, confirmed, *, add_only=False):
     raw = []
     with contextlib.closing(_open(body)) as book:
         stamped = 'REFERENCE_INFO' in book.sheetnames
@@ -121,6 +121,18 @@ def _parse(root, body, confirmed):
         if kind == 'ON_HIRE' and 'item number' not in fields:
             raise ValueError('The on-hire worksheet is missing its item number column.')
         row_stamp = 'project schedule' in fields
+        if add_only:
+            if kind != 'HIRERS_ID' or 'status' not in fields:
+                raise ValueError('The additive import requires a verified worker roster with a Status column.')
+            if stamped:
+                ref = book['REFERENCE_INFO']
+                ref.reset_dimensions()
+                ref_fields = _headers(next(ref.iter_rows(), ()))
+            else:
+                ref_fields = {}
+            if not ({'project', 'project schedule'} <= fields.keys()
+                    or {'project', 'project schedule'} <= ref_fields.keys()):
+                raise ValueError('The additive roster needs the exact MMG project and schedule.')
         attested_only = not stamped and not row_stamp
         if attested_only and confirmed is not True:
             raise ValueError('Confirm that this unstamped hirer roster belongs to MMG Dugald River.')
@@ -142,8 +154,9 @@ def _parse(root, body, confirmed):
             badges = tuple(dict.fromkeys(s for s in (get('hirer barcode'), get('external id')) if s))
             status = _normal(get('status'))
             inactive = status in {'inactive', 'disabled', 'archived', 'deactivated', 'suspended', 'terminated', 'blocked'}
+            valid_status = status in {'active', 'enabled', 'current'} or (not status and not add_only)
             raw.append(dict(hirer=name, company=employer, hirer_id=get('hirer id'), badges=badges,
-                            inactive=inactive, conflicting=status not in {'', 'active', 'enabled', 'current'} and not inactive))
+                            inactive=inactive, conflicting=not valid_status and not inactive))
 
     facts = _evidence(root)
     if attested_only and not any(facts.get(k) for k in ('workers','hires','movements','draws')):
@@ -333,6 +346,61 @@ def _retain_verified_links(people, previous):
                 p[field] = links
 
 
+def _add_verified(records, old, claims):
+    """Only add new, unambiguous subjects. Existing credentials and revocations win."""
+    previous = old['people']
+    by_name, by_badge, by_native = defaultdict(set), defaultdict(set), defaultdict(set)
+    for i, person in enumerate(previous):
+        for alias in [person, *person.get('aliases', [])]:
+            by_name[identity_key((alias['hirer'], alias['company']))].add(i)
+        for badge in _badges(person):
+            by_badge[badge].add(i)
+        if person.get('hirer_id'):
+            by_native[person['hirer_id']].add(i)
+    blocked = set(old.get('blocked_barcodes', []))
+    disabled = {identity_key(pair) for pair in old.get('disabled_pairs', [])}
+    groups, native_claims = defaultdict(list), defaultdict(set)
+    for row in records:
+        key = identity_key((row['hirer'], row['company']))
+        groups[key].append(row)
+        if row['hirer_id']:
+            native_claims[row['hirer_id']].add(key)
+
+    additions = []
+    already = conflicts = 0
+    for key, rows in groups.items():
+        codes = {badge for row in rows for badge in row['badges']}
+        native_ids = {row['hirer_id'] for row in rows if row['hirer_id']}
+        if (key in disabled or len(codes) != 1 or len(native_ids) > 1
+                or codes & blocked or any(r['inactive'] or r['conflicting'] for r in rows)):
+            conflicts += 1
+            continue
+        badge = next(iter(codes))
+        native = next(iter(native_ids), '')
+        owners = claims[badge]
+        if (None in owners or {identity_key(pair) for pair in owners} != {key}
+                or (native and len(native_claims[native]) != 1)):
+            conflicts += 1
+            continue
+        matching = by_name.get(key, set())
+        if matching:
+            if (len(matching) == 1 and by_badge.get(badge) == matching
+                    and not (native and by_native.get(native, set()) - matching)):
+                person = previous[next(iter(matching))]
+                if (person.get('active') is not False
+                        and (not native or not person.get('hirer_id') or person['hirer_id'] == native)):
+                    already += 1
+                    continue
+            conflicts += 1
+            continue
+        if badge in by_badge or (native and native in by_native):
+            conflicts += 1
+            continue
+        name, company = rows[0]['hirer'], rows[0]['company']
+        additions.append(dict(name=name, hirer=name, company=company, barcode=badge, barcodes=[], hirer_id=native))
+    return additions, already, conflicts
+
+
 def _load(root):
     try:
         data = json.loads((root / FILE).read_text(encoding='utf-8'))
@@ -348,10 +416,10 @@ def status(data_dir):
     return dict(linked=len(data['people']), updated=data.get('updated'), kind=data.get('kind'))
 
 
-def import_roster(data_dir, body_bytes, *, confirmed_mmg=False):
+def import_roster(data_dir, body_bytes, *, confirmed_mmg=False, add_only=False):
     root = Path(data_dir)
     try:
-        kind, records, skipped, claims = _parse(root, body_bytes, confirmed_mmg)
+        kind, records, skipped, claims = _parse(root, body_bytes, confirmed_mmg, add_only=add_only)
     except ValueError:
         raise
     except Exception as exc:
@@ -359,10 +427,21 @@ def import_roster(data_dir, body_bytes, *, confirmed_mmg=False):
     root.mkdir(parents=True, exist_ok=True)
     with (root / '.qr-roster.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        people, blocked, disabled, excluded, conflicts = _merge(kind, records, _load(root), claims)
+        old = _load(root)
         updated = dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')
-        data = dict(schedule=MMG_SCHEDULE, people=people, updated=updated, kind=kind,
-                    disabled_pairs=disabled, blocked_barcodes=blocked)
+        if add_only:
+            additions, already, conflicts = _add_verified(records, old, claims)
+            people = old['people'] + additions
+            result = dict(linked=len(people), added=len(additions), already_linked=already,
+                          skipped=skipped+conflicts, conflicts=conflicts, kind='HIRERS_ID_ADD')
+            if not additions:
+                return dict(result, updated=old.get('updated'))
+            data = dict(old, people=people, updated=updated, kind='HIRERS_ID_ADD')
+        else:
+            people, blocked, disabled, excluded, conflicts = _merge(kind, records, old, claims)
+            data = dict(schedule=MMG_SCHEDULE, people=people, updated=updated, kind=kind,
+                        disabled_pairs=disabled, blocked_barcodes=blocked)
+            result = dict(linked=len(people), skipped=skipped+excluded, conflicts=conflicts, kind=kind)
         with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=root, prefix='.roster-', delete=False) as f:
             tmp = Path(f.name)
             try:
@@ -381,4 +460,4 @@ def import_roster(data_dir, body_bytes, *, confirmed_mmg=False):
                 os.close(directory_fd)
         finally:
             tmp.unlink(missing_ok=True)
-    return dict(linked=len(people), skipped=skipped+excluded, conflicts=conflicts, kind=kind, updated=updated)
+    return dict(result, updated=updated)

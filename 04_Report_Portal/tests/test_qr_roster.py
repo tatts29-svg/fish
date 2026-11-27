@@ -237,6 +237,64 @@ class TestRoster(unittest.TestCase):
             self.install(workbook([('Unknown','Not there','X2',None)],ref=None),True)
         self.assertEqual(set(self.links()),{'X'})
 
+    def test_additive_roster_preserves_every_existing_subject_and_revocation(self):
+        rows = [('Existing Worker','Em','badge','Active'),('Retired Worker','Em','retired','Inactive')]
+        self.install(workbook(rows))
+        file = self.root/roster.FILE
+        prior = json.loads(file.read_text())
+        prior['people'][0].update(hirer_id='stable-id', barcodes=['alias-badge'],
+                                  aliases=[dict(hirer='Alternate - Name',company='Em')],
+                                  history=[dict(schedule='Other',hirer='Old Name',company='Em')])
+        prior['custom'] = {'other': True}
+        file.write_text(json.dumps(prior))
+        def add():
+            return roster.import_roster(self.root, workbook([
+                ('Independent Worker','Em','003','Active',''),
+                ('Existing Worker','EM','alias-badge','Active',''),
+                ('Another Worker','Em','badge','Active',''),
+                ('Alternate Name','Em','new-alias','Active',''),
+                ('Different Name','Em','new-code','Active','stable-id'),
+                ('Retired - Worker','Em','replacement','Active',''),
+                ('Another Name','Em','retired','Active',''),
+                ('Inactive Name','Em','inactive','Inactive',''),
+                ('Unknown Status','Em','pending','',''),
+                ('Incomplete','', 'claimed-by-incomplete','Active',''),
+                ('Other Subject','Em', 'claimed-by-incomplete','Active',''),
+                ('Same Name','Em','one','Active',''),
+                ('Same Name','Em','two','Active',''),
+                ('Another New','Em','shared-new','Active',''),
+                ('Third New','Em','shared-new','Active',''),
+            ], headers=('Name','Employer','External ID','Status','Hirer ID')), add_only=True)
+        result = add()
+        self.assertEqual((result['added'],result['already_linked'],result['linked']),(1,1,2))
+        current = json.loads(file.read_text())
+        self.assertEqual(current['people'][0],prior['people'][0])
+        for key in ('blocked_barcodes','disabled_pairs','custom'):
+            self.assertEqual(current[key],prior[key])
+        self.assertEqual(set(self.links()), {'badge','alias-badge','003'})
+        before = file.read_bytes()
+        result = add()
+        self.assertEqual((result['added'],result['already_linked'],result['linked']),(0,2,2))
+        self.assertEqual(file.read_bytes(),before)
+
+    def test_additive_scope_is_explicit_and_concurrent_updates_accumulate(self):
+        def add(body):
+            return roster.import_roster(self.root, body, confirmed_mmg=True, add_only=True)
+        rows = [('Field Worker','Em','id','Active')]
+        for body in (workbook(rows, ref=None), workbook(rows, ref='Other schedule'),
+                     workbook([(*rows[0],MMG_SCHEDULE)],ref=None,
+                              headers=('Name','Employer','External ID','Status','Project Schedule')),
+                     on_hire([('Field Worker','Em','id','','42','123')])):
+            with self.assertRaises(ValueError):
+                add(body)
+        self.assertFalse((self.root/roster.FILE).exists())
+        def submit(i):
+            return add(workbook([(f'Worker {i}','Em',f'00{i}','Active',MMG_PROJECT,MMG_SCHEDULE)],
+                                ref=None,headers=('Name','Employer','External ID','Status','Project','Project Schedule')))
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            self.assertEqual(sum(r['added'] for r in pool.map(submit,range(7))),7)
+        self.assertEqual(set(self.links()), {f'00{i}' for i in range(7)})
+
     def test_workbook_limits_sparse_row_and_noncredential_types(self):
         good=workbook([('Good Guy','Em','valid',None),
                        ('Bad Formula','Em','=1+1',None),('Bad precision','Em',1000000000000000,None)])
