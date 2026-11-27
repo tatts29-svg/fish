@@ -65,9 +65,25 @@ EMPTY = """<main class="card"><h1>The report is being prepared</h1>
 <nav class="portal-links" aria-label="Portal"><a href="/upload">Open uploads</a><a href="/logout">Sign out</a></nav></main>"""
 
 
+MOBILE_HEAD = """<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" sizes="180x180" href="/mobile/icon-180.png">
+<meta name="theme-color" content="#0D1116">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MMG Tool Store">"""
+MOBILE_FILES = {"/manifest.webmanifest": ("manifest.webmanifest", "application/manifest+json"),
+                **{f"/mobile/icon-{size}.png": (f"icon-{size}.png", "image/png") for size in (180, 192, 512)}}
+
+
+def _mobile_markup(page):
+    enabled = is_mmg(JOB_DIR)
+    install_link = '<a href="/install">Add to home screen</a>' if enabled else ""
+    return page.replace("__MOBILE_HEAD__", MOBILE_HEAD if enabled else "").replace("__INSTALL_LINK__", install_link)
+
+
 SESSION_HOURS = 12
 LOGIN = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved."><title>Sign in · __NAME__</title><style>
+<meta name="robots" content="noindex,nofollow"><meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved."><title>Sign in · __NAME__</title>__MOBILE_HEAD__<style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{background:#07090D;color:#fff;font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
  background-image:radial-gradient(90% 46% at 50% -6%,rgba(242,98,34,.20),rgba(242,98,34,0) 70%);background-repeat:no-repeat}
@@ -100,6 +116,7 @@ button{width:100%;height:3.4rem;margin-top:26px;border:0;border-radius:14px;back
  box-shadow:0 12px 34px rgba(242,98,34,.28);transition:transform .15s,box-shadow .2s,background .2s}
 button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}button:active{transform:scale(.985)}
 .err{margin-top:22px;border:1px solid rgba(242,98,34,.5);background:rgba(242,98,34,.10);color:#FFC9AE;border-radius:12px;padding:12px 14px;font-size:15px}
+.note>a{display:block;width:fit-content;color:#FFAA77;margin-top:.35rem;padding:.55rem 0;text-underline-offset:.2em}
 .note{border-top:1px solid #2B323D;margin-top:30px;padding-top:26px;font-size:.94rem}
 .foot{text-align:center;color:#8B95A3;font-size:.875rem;margin-top:clamp(20px,3vh,76px);line-height:1.65}
 .foot small{font-size:.75rem!important}
@@ -130,7 +147,7 @@ button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}butto
 <label for="u">Username</label><input id="u" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required autofocus>
 <label for="p">Password</label><input id="p" name="password" type="password" autocomplete="current-password" required>
 <button type="submit">Sign in</button>
-<p class="note">Trouble signing in? Ask your Coates tool store team.</p></div>
+<p class="note">Trouble signing in? Ask your Coates tool store team.__INSTALL_LINK__</p></div>
 </form>
 <div class="foot">Author: Andrew Fisher<b>POWERED BY SITEIQ</b><small style="display:block;font-size:11.5px;line-height:1.5;margin-top:8px;color:#6B7583">Designed and built by Andrew Fisher · © 2026 Andrew Fisher.<br>All rights reserved. Not to be copied or reproduced without permission.</small></div>
 </div></body></html>"""
@@ -188,7 +205,7 @@ def _session_role(cookie_header, now=None):
 def _login_page(err=""):
     name = html.escape(os.environ.get("PORTAL_NAME", "").strip() or "Tool Store Report")
     box = '<div class="err" role="alert">{}</div>'.format(html.escape(err)) if err else ""
-    return LOGIN.replace("__NAME__", name).replace("__ERR__", box).encode("utf-8")
+    return _mobile_markup(LOGIN.replace("__NAME__", name).replace("__ERR__", box)).encode("utf-8")
 
 
 UPLOAD = """<style>
@@ -241,7 +258,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <section id="up-last" aria-labelledby="last-title" hidden><h2 id="last-title">Last successful upload</h2>
 <strong id="last-who"></strong><time id="last-when"></time><ul id="last-files"></ul></section>
 </div></div>
-<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a><a href="/logout">Sign out</a></nav>
+<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
 </div>
 <script>
 const K=['RENTAL_STOCK','SALES_STOCK','TRANSACTIONS','STOCKTAKE','ON_HIRE'],need=K.slice(0,3),files={};
@@ -305,7 +322,7 @@ poll();
 def _shell(inner):
     name = html.escape(os.environ.get("PORTAL_NAME", "").strip() or "Tool Store Report")
     head, tail = LOGIN[:LOGIN.index("<form")], LOGIN[LOGIN.index('<div class="foot">'):]
-    return (head.replace("Sign in · ", "") + inner + tail).replace("__NAME__", name).encode("utf-8")
+    return _mobile_markup((head.replace("Sign in · ", "") + inner + tail).replace("__NAME__", name)).encode("utf-8")
 
 
 def _upload_page(role):
@@ -559,6 +576,15 @@ class Handler(BaseHTTPRequestHandler):
         path = self.path.split("?", 1)[0]
         if path == "/stocktake/entries" and is_mmg(JOB_DIR):
             return self._stocktake_entries()
+        if path in MOBILE_FILES or path == "/install":
+            if not is_mmg(JOB_DIR):
+                return self._send(404, b"Not found", "text/plain")
+            if path == "/install":
+                with open(os.path.join(HERE, "mobile", "install.html"), encoding="utf-8") as page:
+                    return self._send(200, _shell(page.read()), "text/html; charset=utf-8")
+            name, content_type = MOBILE_FILES[path]
+            with open(os.path.join(HERE, "mobile", name), "rb") as asset:
+                return self._send(200, asset.read(), content_type, cache_control="public, max-age=3600")
         if path == "/health":
             return self._send(200, b"ok", "text/plain")
         if path == "/login":

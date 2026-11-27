@@ -1,0 +1,40 @@
+<style>
+.install-head{display:flex;gap:1rem;align-items:center}
+.install-head img{width:4.5rem;height:4.5rem;border-radius:21%}
+.install-head h1{margin:0;font-size:clamp(1.5rem,3.2vw,2.5rem)}
+.install-head p{margin-top:.25rem}
+.install-guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.25rem;margin:1.7rem 0}
+.install-guide h2{font-size:1.1rem;margin:0 0 .5rem}
+.install-guide p{font-size:1rem;line-height:1.6}
+.install-guide strong{color:#E6EBF2}
+.install[hidden]{display:none}
+.install{width:auto;height:auto;min-height:2.9rem;padding:.55rem 1.3rem}
+</style>
+<main class="card">
+<div class="install-head"><img src="/mobile/icon-192.png" width="192" height="192" alt="">
+<div><h1>Add MMG Tool Store to your home screen</h1><p>Open the Dugald River portal from your phone.</p></div></div>
+<button type="button" class="install" id="install-app" hidden>Install MMG Tool Store</button>
+<div class="install-guide">
+<section><h2>iPhone or iPad</h2><p>Open this page in Safari. Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>. If asked, enable <strong>Open as Web App</strong>, then tap <strong>Add</strong>.</p></section>
+<section><h2>Android</h2><p>Open this page in Chrome. Tap the <strong>⋮ menu</strong>, then <strong>Add to home screen</strong> or <strong>Install app</strong>. Confirm when prompted.</p></section>
+</div>
+<nav class="portal-links" aria-label="Portal"><a href="/">Open the portal</a></nav>
+</main>
+<script>
+const installButton=document.getElementById('install-app');
+let installEvent;
+if(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone)location.replace('/');
+window.addEventListener('beforeinstallprompt',event=>{
+  event.preventDefault();
+  installEvent=event;
+  installButton.hidden=false;
+});
+installButton.addEventListener('click',async()=>{
+  if(!installEvent)return;
+  const event=installEvent;
+  installEvent=null;
+  installButton.hidden=true;
+  try{await event.prompt();await event.userChoice}catch{/* The browser menu also offers installation. */}
+});
+window.addEventListener('appinstalled',()=>{installButton.hidden=true;installEvent=null});
+</script>
