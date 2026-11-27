@@ -839,6 +839,68 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
   }
 }
 
+:root{--bubble-tile:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2276%22%20height%3D%2224%22%20viewBox%3D%220%200%2076%2024%22%3E%3Ccircle%20cx%3D%223%22%20cy%3D%224%22%20r%3D%221.6%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%222.50%22%20cy%3D%223.42%22%20r%3D%220.45%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2217%22%20r%3D%222.05%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2210.36%22%20cy%3D%2216.26%22%20r%3D%220.57%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%228%22%20r%3D%222.55%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2220.21%22%20cy%3D%227.08%22%20r%3D%220.71%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2227%22%20cy%3D%2221%22%20r%3D%221.15%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2226.64%22%20cy%3D%2220.59%22%20r%3D%220.40%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2236%22%20cy%3D%224%22%20r%3D%221.25%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2235.61%22%20cy%3D%223.55%22%20r%3D%220.40%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2215%22%20r%3D%222.85%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2241.12%22%20cy%3D%2213.97%22%20r%3D%220.80%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%229%22%20r%3D%221.05%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2248.67%22%20cy%3D%228.62%22%20r%3D%220.40%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2256%22%20cy%3D%2221%22%20r%3D%221.7%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2255.47%22%20cy%3D%2220.39%22%20r%3D%220.48%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2262%22%20cy%3D%226%22%20r%3D%222.1%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2261.35%22%20cy%3D%225.24%22%20r%3D%220.59%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2212%22%20r%3D%221.6%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2269.50%22%20cy%3D%2211.42%22%20r%3D%220.45%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E")}
+/* Vessel readings use the same scale and series colours in every theme. */
+html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none;animation:none}
+.liquid-chart .col.pk .liquid-reflection{stroke-width:1.3;opacity:.55}
+.liquid-cap{stroke:rgba(255,255,255,.46);stroke-width:.65px}
+.liquid-reflection,.liquid-meniscus{stroke:white;fill:none;stroke-linecap:round;pointer-events:none}
+.liquid-reflection{stroke-width:.9px;opacity:.29}
+.liquid-meniscus{stroke-width:.75px;opacity:.72}
+.liquid-bubble{fill:url(#liquid-pearl);stroke:rgba(72,48,43,.54);stroke-width:.52;pointer-events:none;opacity:0}
+@keyframes tank-rise{
+  0%{opacity:0;transform:translate(0,0)}
+  12%{opacity:.97}
+  40%{transform:translate(var(--sway),calc(var(--rise)*.39))}
+  76%{opacity:.88;transform:translate(calc(var(--sway)*-.55),calc(var(--rise)*.76))}
+  100%{opacity:0;transform:translate(0,var(--rise))}
+}
+@keyframes bar-effervescence{
+  0%{transform:translate(0,0)}
+  32%{transform:translate(2px,-8px)}
+  68%{transform:translate(-1px,-16px)}
+  100%{transform:translate(0,-24px)}
+}
+@media screen{
+  html:not(.static){
+    & .liquid-range .band{opacity:.51}
+    & :is(.fl,.fb,.meter>i,.cbi .m>i,.upbar .tr>i){overflow:hidden;isolation:isolate}
+    & :is(.meter>i,.cbi .m>i,.upbar .tr>i){position:relative}
+    & :is(.fl,.fb,.meter>i,.cbi .m>i,.upbar .tr>i)::before{
+      content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+      background:linear-gradient(180deg,rgba(255,255,255,.51),rgba(255,255,255,.12) 23%,transparent 47%,rgba(45,15,11,.24) 80%,rgba(255,255,255,.22))
+    }
+    & :is(.tr,.meter,.cbi .m){--phase:-.85s}
+    & :is(.row,tr,.cbi):nth-child(3n+1){--bar-offset:26px;--bar-phase:-.24s}
+    & :is(.row,tr,.cbi):nth-child(3n+2){--bar-offset:53px;--bar-phase:-1.48s}
+    & :is(.row,tr,.cbi):nth-child(3n){--bar-offset:9px;--bar-phase:-2.77s}
+    & .tr{height:clamp(12px,.66vw,20px);border-radius:999px}
+    & .fl,& .fb{border-radius:999px}
+    & .cbi .m,& .meter{height:clamp(8px,.46vw,14px)}
+    & .st-native-progress{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+    & .st-liquid-track{display:block;margin:.25rem 0}
+  }
+}
+@media screen and (max-width:620px){html:not(.static) .row:has(.tp) .tr{height:9px}}
+@media screen and (prefers-reduced-motion:no-preference){
+  html:not(.static) :is(.view.on,.drawer.on) .liquid-inview .liquid-bubble{
+    animation:tank-rise var(--duration) linear var(--phase) infinite
+  }
+  html:not(.static) :is(.view.on,.drawer.on) .liquid-inview:is(.tr,.meter,.m)>:is(.fl,.fb,i:not(.tick))::after{
+    content:"";position:absolute;inset:0 0 -24px;border-radius:0;pointer-events:none;
+    background-image:radial-gradient(circle at 50% 4px,rgba(255,255,255,.84) .42px,rgba(64,42,32,.32) .8px,rgba(255,255,255,.8) 1.25px,transparent 1.6px),var(--bubble-tile);
+    background-size:100% 12px,76px 24px;background-position:0 0,var(--bar-offset,0px) 0;
+    animation:bar-effervescence 3.7s linear var(--bar-phase,-.85s) infinite
+  }
+  html:not(.static) :is(.view.on,.drawer.on) .liquid-inview.tr>.fb::after{animation-duration:4.6s;background-position:0 0,19px 0}
+}
+/* Half-density retains a moving stream in each volume on large displays. */
+@media screen and (min-width:2400px),screen and (min-width:1500px) and (min-resolution:2dppx){
+  html .liquid-chart .liquid-bubble:nth-child(even),html .liquid-range .liquid-bubble:nth-child(even){display:none;animation:none!important}
+}
+.st-liquid-track{display:none}
+@media print{.liquid-particles,.liquid-bubble,.st-liquid-track{display:none!important}}
+
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
@@ -852,7 +914,7 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
 </style></head>
 <body>
 <div class="amb"><i></i><i></i><i></i></div><div id="fx" aria-hidden="true"></div><div class="prog"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -1161,20 +1223,49 @@ function chartLayout(el, defaultWidth, render) {
   if(!STATIC && window.ResizeObserver)new ResizeObserver(resize).observe(el);
 }
 
+// Each stream stays inside its own measured volume. Small segments use smaller bubbles.
+function liquidBubbles(width,height,seed){
+  if(STATIC||width<=0||height<=0)return '';
+  const wide=width>height*2, count=wide?Math.min(18,Math.max(2,Math.ceil(width/16))):Math.min(12,Math.max(2,Math.ceil(height/11)));
+  const phase=seed*.314;
+  let result='';
+  for(let j=0;j<count;j++){
+    const size=Math.min(width*.14,height*.24,1.4+((j*5+seed)%7)*.24);
+    const x=size+(width-2*size)*((.19+(j+1)*.618+phase)%1);
+    const travel=Math.max(.15,height-2*size);
+    const duration=1.8+Math.min(2.4,height/46)+((j+seed)%4)*.31;
+    const delay=-duration*((.31+j*.382+phase)%1);
+    result+=`<circle class="liquid-bubble" cx="${x.toFixed(2)}" cy="${(height-size).toFixed(2)}" r="${size.toFixed(2)}" style="--rise:${(-travel).toFixed(2)}px;--sway:${(Math.min(2.8,width*.055)*(j%2?1:-1)).toFixed(2)}px;--duration:${duration.toFixed(2)}s;--phase:${delay.toFixed(2)}s"/>`;
+  }
+  return result;
+}
+
+function liquidColumn(x,top,bottom,width,cap,colour,seed){
+  const h=bottom-top, mid=width/2, ry=Math.min(cap,width*.22,h*.38);
+  const id='lc'+(++uid), shell=`M0 0a${mid} ${ry} 0 0 1 ${width} 0v${h}a${mid} ${ry} 0 0 1 -${width} 0Z`;
+  const fluid=liquidBubbles(width,h,seed);
+  return `<g transform="translate(${x} ${top})"><defs><clipPath id="${id}"><path d="${shell}"/></clipPath></defs>
+<path class="${colour} liquid-base" d="${shell}"/>
+<g clip-path="url(#${id})" aria-hidden="true"><g class="liquid-particles">${fluid}</g>
+<path class="liquid-reflection" d="M${width*.11} ${ry}v${Math.max(0,h-ry*1.4)}"/>
+<ellipse class="${colour} liquid-cap" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
+<path class="liquid-meniscus" d="M${width*.055} ${ry*.07}Q${mid} ${ry*1.65} ${width*.945} ${ry*.07}"/></g></g>`;
+}
+
 // columns: 3D blocks, one or more series stacked per slot
 function columns(el,labels,series,o){o=o||{};chartLayout(el,o.w||680,W=>{const H=o.h||250,L=o.l||30,R=14,T=28,B=32,n=labels.length,dp=0,ry=Math.max(3,Math.min(6,(o.bw||34)/8));
 const tot=labels.map((_,i)=>series.reduce((t,se)=>t+se.v[i],0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(o.bw||34,sw*.6),y=v=>T+(H-T-B)*(1-v/max),af=o.axis||(v=>Math.round(v*10)/10);
 let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`}
 const pk=tot.indexOf(Math.max(...tot));let s='';
 labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2-dp/2,segs=series.map(se=>({v:se.v[i],c:typeof se.cls=='function'?se.cls(i):se.cls})).filter(z=>z.v>0),fut=o.fade&&o.fade(i)?' fut':'';let base=0;
-segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base),top=k==segs.length-1;base+=z.v;
-s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><ellipse class="${z.c}" cx="${x+bw/2}" cy="${y0}" rx="${bw/2}" ry="${ry}"/><rect class="${z.c}" x="${x}" y="${y1}" width="${bw}" height="${y0-y1}"/><ellipse class="${z.c} t3" cx="${x+bw/2}" cy="${y1}" rx="${bw/2}" ry="${ry}"/></g>`});
+segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base);base+=z.v;
+s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}">${liquidColumn(x,y1,y0,bw,ry,z.c,i*3+k)}</g>`});
 const yt=y(tot[i]);
 if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-ry-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
 if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2}" y="${yt-ry-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
 if(i%Math.max(o.every||1,STATIC?1:Math.ceil(30/sw))==0)s+=`<text class="ax${o.mark&&o.mark(i)?' axb':''}" x="${x+bw/2}" y="${H-B+ry+15}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
 s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-3}" width="${bw}" height="2"/></g>`});
-el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`})}
+el.innerHTML=`<svg class="liquid-chart" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`})}
 
 function lineChart(el,labels,series,o){o=o||{};chartLayout(el,640,W=>{const H=240,L=30,R=46,T=18,B=28,n=labels.length;
 const max=nice(Math.max(1,...series.flatMap(s=>s.v))*1.12),x=i=>L+(W-L-R)*(n<2?.5:i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
@@ -1189,10 +1280,12 @@ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="$
 $$('.draw',el).forEach(p=>p.style.setProperty('--len',p.getTotalLength()))})}
 
 // quietest / typical / busiest on one line
-function rangeRow(title,unit,r){const W=560,H=112,L=24,R=24,max=r[2].n*1.12,x=v=>L+(W-L-R)*v/max,cy=58;
+function rangeRow(title,unit,r){const W=560,H=112,L=24,R=24,max=Math.max(1,r[2].n*1.12),x=v=>L+(W-L-R)*v/max,cy=58;
+const span=x(r[2].n)-x(r[0].n), id='lr'+(++uid);
 return `<div style="margin-top:6px"><div style="font-size:13.5px;font-weight:600">${title}</div>
-<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><rect class="rtrack" x="${L}" y="${cy-4}" width="${W-L-R}" height="8" rx="4"/>
-<rect class="band" x="${x(r[0].n)}" y="${cy-9}" width="${x(r[2].n)-x(r[0].n)}" height="18" rx="9"/>
+<svg class="liquid-range" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><rect class="rtrack" x="${L}" y="${cy-4}" width="${W-L-R}" height="8" rx="4"/>
+<g transform="translate(${x(r[0].n)} ${cy-9})"><defs><clipPath id="${id}"><rect width="${span}" height="18" rx="9"/></clipPath></defs>
+<rect class="band" width="${span}" height="18" rx="9"/><g class="liquid-particles" clip-path="url(#${id})" aria-hidden="true">${liquidBubbles(span,18,uid)}</g></g>
 ${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle class="rdot${i==1?'':' e'}" cx="${x(p.n)}" cy="${cy}" r="${i==1?9:7}"/><text class="rv" x="${x(p.n)}" y="${i==1?cy-18:cy+32}" text-anchor="middle">${fmt(p.n)}</text><text class="rl" x="${x(p.n)}" y="${i==1?cy-38:cy+48}" text-anchor="middle">${['Quietest','Typical','Busiest'][i]}</text></g>`).join('')}
 </svg></div>`}
 
@@ -1406,7 +1499,7 @@ function initTooling(){
 initUtilisation(D.utilisation,D.variant_history);
 browser($('#cb-tools'),'tools');
 $('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
-const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.max(p,.8).toFixed(1)}%"></i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
+const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.min(100,Math.max(0,p)).toFixed(1)}%"></i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
 $('#tl-util').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(D.comm.on,D.comm.fleet,'Radios and radio batteries out','the busiest gear today');
 bars($('#tl-tools'),D.tools_util.map(t=>{const k=t.dk||t.name.toUpperCase();return {name:t.name,pic:t.pic,n:t.on,b:t.best,open:D.tools[k]?'t:'+k:'',v:`${t.on} <small>of ${fmt(t.site)} out${t.best?' · busiest '+t.best:''}</small>`,_m:Math.max(t.site,t.best,1)}}),{pic:1});
 // each row is scaled to its own store count, so a full bar always means "all out"
@@ -1867,7 +1960,7 @@ function initStocktake(st) {
       const meters=['tool','cons'].map(kind=>{
         const all=rows.filter(row=>row.kind===kind), n=all.filter(row=>seen.has(key(kind,row.key))).length;
         const percent=all.length?(100*n/all.length).toLocaleString('en-AU',{maximumFractionDigits:1})+'%':'—';
-        return `<div><div class="st-meter-label"><b>${kind==='cons'?'Consumable lines':'Tool assets'}</b><strong>${percent}</strong></div><progress aria-label="${noun(kind)} coverage" max="${all.length||1}" value="${n}"></progress><small>${fmt(n)} of ${fmt(all.length)} checked</small></div>`;
+        return `<div><div class="st-meter-label"><b>${kind==='cons'?'Consumable lines':'Tool assets'}</b><strong>${percent}</strong></div><progress class="st-native-progress" aria-label="${noun(kind)} coverage" max="${all.length||1}" value="${n}"></progress><span class="meter st-liquid-track" aria-hidden="true"><i style="--w:${all.length?100*n/all.length:0}%"></i></span><small>${fmt(n)} of ${fmt(all.length)} checked</small></div>`;
       }).join('');
       const note=!seen.size?'No verified counts recorded for this round.':i===0?`${fmt(ontime.size)} checked by the opening deadline · ${fmt(seen.size-ontime.size)} first checked late`:
          `${fmt(beforeDeparture.size)} checked before departure day · ${fmt([...onDeparture].filter(k=>!beforeDeparture.has(k)).length)} first checked on departure day (time to confirm) · ${fmt([...seen].filter(k=>!beforeDeparture.has(k)&&!onDeparture.has(k)).length)} first checked after deadline.`;
@@ -2128,6 +2221,31 @@ if(!STATIC){
       for(const entry of entries)entry.target.classList.toggle('motion-outside',!entry.isIntersecting);
     },{rootMargin:'64px 0px'});
     roots.forEach(el=>visible.observe(el));
+  }
+  // Tables and drawers can replace their rows after any search or filter.
+  // Mount animation only for metrics actually in view, including scrollable panels.
+  const metricSelector='.tr,.meter,.cbi .m,.liquid-chart,.liquid-range';
+  const watchMetric=window.IntersectionObserver?new IntersectionObserver(entries=>{
+    for(const entry of entries)entry.target.classList.toggle('liquid-inview',entry.isIntersecting);
+  }):null;
+  function registerMetrics(node,add){
+    if(node.nodeType!==1)return;
+    const update=el=>{
+      if(watchMetric){if(add)watchMetric.observe(el);else watchMetric.unobserve(el)}
+      else el.classList.toggle('liquid-inview',add);
+    };
+    if(node.matches(metricSelector))update(node);
+    node.querySelectorAll(metricSelector).forEach(update);
+  }
+  const newMetrics=new MutationObserver(changes=>{
+    for(const change of changes){
+      change.removedNodes.forEach(n=>registerMetrics(n,false));
+      change.addedNodes.forEach(n=>registerMetrics(n,true));
+    }
+  });
+  for(const host of [document.querySelector('main'),$('#drawer')]){
+    registerMetrics(host,true);
+    newMetrics.observe(host,{childList:true,subtree:true});
   }
   views.forEach(v=>$$('.eyebrow,h1,.lead,.client,.vh,.day,.kpi,.sect,.know,.stats,.card,.def',v)
     .forEach((el,i)=>el.style.setProperty('--ci',Math.min(i,5))));
