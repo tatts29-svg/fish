@@ -225,26 +225,25 @@ def named_pictures(data):
 
 # Preserve the native job-pack resolution for the enlarged inspection view.
 PICTURE_SIDE = 512
+DETAIL_SIDE = 3840
 
 
-def picture_uri(image, side=PICTURE_SIDE):
+def picture_uri(image, side=PICTURE_SIDE, quality=84):
     from PIL import Image
     image.thumbnail((side, side), Image.Resampling.LANCZOS)
     buf = io.BytesIO()
     from PIL import features
     if features.check("webp"):
-        image.save(buf, "WEBP", quality=84, method=3)
+        image.save(buf, "WEBP", quality=quality, method=3)
         mime = "image/webp"
     else:
-        image.save(buf, "JPEG", quality=84, optimize=True)
+        image.save(buf, "JPEG", quality=quality, optimize=True)
         mime = "image/jpeg"
     return f"data:{mime};base64," + base64.b64encode(buf.getvalue()).decode("ascii")
 
 
 class Pictures(object):
-    """Tool pictures from a pictures pack (a folder with an index CSV that has
-    'Product variant' and 'File in this package' columns), matched to SiteIQ's
-    PRODUCT_VARIANT. Kept outside git. Radios and radio batteries get none."""
+    """Job-pack tool pictures, matched by indexed variant or by their stocked name and owner."""
 
     def __init__(self, folder, side=PICTURE_SIDE):
         self.files, self.used, self.order, self.side, self.folder, self.named = {}, {}, [], side, folder, {}
@@ -268,37 +267,39 @@ class Pictures(object):
                 if m and rel not in indexed:
                     self.named.setdefault((_safe_name(m.group(1)), _safe_name(m.group(2))), rel)
 
+    def _index(self, relative_path):
+        if not relative_path:
+            return None
+        path = os.path.normpath(relative_path)
+        if path not in self.used:
+            self.used[path] = len(self.order)
+            self.order.append(path)
+        return self.used[path]
+
     def by_name(self, name, tags):
         """An index for a picture saved under a tool's clean name and one of these tags, or None."""
         for tag in tags:
             rel = self.named.get((_safe_name(name), _safe_name(tag)))
             if rel:
-                key = "file:" + rel
-                if key not in self.used:
-                    self.files[key] = rel
-                    self.used[key] = len(self.order)
-                    self.order.append(key)
-                return self.used[key]
+                return self._index(rel)
         return None
 
     def of(self, row):
         """An index into the page's picture list for this stock row, or None."""
         if "RADIO" in str(row.get("ITEM_DESCRIPTION") or "").upper():
             return None
-        v = str(row.get("PRODUCT_VARIANT") or "").strip().upper()
-        if v not in self.files:
-            return None
-        if v not in self.used:
-            self.used[v] = len(self.order)
-            self.order.append(v)
-        return self.used[v]
+        variant = str(row.get("PRODUCT_VARIANT") or "").strip().upper()
+        return self._index(self.files.get(variant))
 
-    def data(self):
-        from PIL import Image
+    def data(self, detail_images=None):
+        from PIL import Image, ImageOps
         out = []
-        for v in self.order:
-            with Image.open(os.path.join(self.folder, self.files[v])) as image:
-                out.append(picture_uri(image.convert("RGB"), self.side))
+        for path in self.order:
+            with Image.open(os.path.join(self.folder, path)) as image:
+                source = ImageOps.exif_transpose(image).convert("RGB")
+                if detail_images is not None and max(source.size) > self.side:
+                    detail_images[len(out)] = picture_uri(source.copy(), DETAIL_SIDE, quality=91)
+                out.append(picture_uri(source, self.side))
         return out
 
 
@@ -735,7 +736,10 @@ def render(data, fonts, logo=None, client="MMG"):
     face = "".join("@font-face{{font-family:Inter;font-weight:{w};font-style:normal;src:url(data:font/woff;base64,{b}) format('woff')}}\n"
                    .format(w=w, b=b) for w, b in sorted(fonts.items()))
     pix = data.pop("_pix", None)
-    data["pics"] = pix.data() if pix else []
+    detail_images = {}
+    data["pics"] = pix.data(detail_images) if pix else []
+    if detail_images:
+        data["detail_pics"] = detail_images
     blob = json.dumps(data, ensure_ascii=False, default=str).replace("</", "<\\/")
     with open(PAGE_FILE, encoding="utf-8") as f:
         page = f.read()
@@ -965,7 +969,7 @@ def main(argv=None):
     data["cpics"] = []
     if a.cons_pictures and os.path.isfile(os.path.join(a.cons_pictures, "index.csv")):
         import csv
-        from PIL import Image
+        from PIL import Image, ImageOps
         with open(os.path.join(a.cons_pictures, "index.csv"), encoding="utf-8-sig", newline="") as f:
             use = {r["Code"].strip(): r["File"].strip() for r in csv.DictReader(f) if r.get("Use on the page", "").strip().lower() == "yes"}
         raw = set()                                   # extra photos saved as "<name> [<code>].jpg": set on the stage here
@@ -974,15 +978,31 @@ def main(argv=None):
             if m_ and m_.group(1) not in use and name not in use.values():
                 use[m_.group(1)] = name
                 raw.add(name)
+        # Different sizes and stock codes can legitimately share the same catalogue photograph.
+        index_by_path, index_by_pair, detail_images = {}, {}, {}
         for ln in data["clines"]:
             path = os.path.join(a.cons_pictures, use.get(ln.get("code") or "", "-"))
-            if os.path.isfile(path):
-                im = Image.open(path).convert("RGB")
-                if os.path.basename(path) in raw and min(im.getpixel((2, 2))) > 200:      # a plain product photo on white
+            if not os.path.isfile(path):
+                continue
+            if path not in index_by_path:
+                with Image.open(path) as image:
+                    im = ImageOps.exif_transpose(image).convert("RGB")
+                detail_uri = picture_uri(im.copy(), DETAIL_SIDE, quality=91) if max(im.size) > PICTURE_SIDE else None
+                if os.path.basename(path) in raw and min(im.size) > 2 and min(im.getpixel((2, 2))) > 200:
                     import style_pictures
                     im = style_pictures.styled(im).convert("RGB")
-                ln["cp"] = len(data["cpics"])
-                data["cpics"].append(picture_uri(im))
+                uri = picture_uri(im)
+                pair = (uri, detail_uri)
+                if pair not in index_by_pair:
+                    index = len(data["cpics"])
+                    index_by_pair[pair] = index
+                    data["cpics"].append(uri)
+                    if detail_uri:
+                        detail_images[index] = detail_uri
+                index_by_path[path] = index_by_pair[pair]
+            ln["cp"] = index_by_path[path]
+        if detail_images:
+            data["detail_cpics"] = detail_images
     data["costs"] = None
     if a.costs:
         data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())

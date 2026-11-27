@@ -339,6 +339,9 @@ footer .cr{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--dim)
 .stock-photo-bar h3{margin:0;font-size:16px}
 .stock-photo-bar button{flex:none;width:44px;height:44px}
 #stock-photo-large{display:block;width:100%;height:min(76dvh,clamp(512px,36vw,780px));object-fit:contain;background:#080a0c}
+#stock-photo-dialog.full-resolution{width:fit-content;max-width:94vw}
+#stock-photo-dialog.full-resolution #stock-photo-large{width:auto;height:auto;max-width:92vw;max-height:calc(93dvh - 84px);margin:auto;object-fit:scale-down}
+
 @media(max-width:500px){.dh:has(.stock-photo){display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px}.dh .stock-photo{width:100%}.dh:has(.stock-photo) .qrb{justify-self:start;grid-column:2;margin-left:0!important}.dh:has(.stock-photo) h3{overflow-wrap:anywhere}}
 /* detail drawer */
 .scrim{position:fixed;inset:0;z-index:50;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .25s}
@@ -402,10 +405,11 @@ html[data-theme=dark] .client img{filter:drop-shadow(0 6px 22px rgba(238,39,36,.
 html[data-theme=dark] h1 .gl{background:linear-gradient(100deg,#fff 20%,#FFC9AE 40%,#fff 60%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s ease-in-out infinite}
 @keyframes shine{0%,100%{background-position:120% 0}50%{background-position:-20% 0}}
 .tr{height:12px;border-radius:7px}.fl,.fb{border-radius:7px}
-html[data-theme=dark] .fl{background-image:linear-gradient(90deg,#B9481A,#F26222 30%,#FFB48F 50%,#F26222 70%,#B9481A);background-size:200% 100%;animation:flow 3.2s linear infinite;box-shadow:0 0 14px rgba(242,98,34,.45)}
+html[data-theme=dark] .fl{background-image:linear-gradient(90deg,#B9481A,#F26222 30%,#FFB48F 50%,#F26222 70%,#B9481A);background-size:200% 100%;box-shadow:0 0 14px rgba(242,98,34,.45)}
 html[data-theme=dark] .neu .fl{background-image:linear-gradient(90deg,#6E7987,#B9C3D0 30%,#F2F5F8 50%,#B9C3D0 70%,#6E7987);box-shadow:0 0 12px rgba(185,195,208,.25)}
 html[data-theme=dark] .warnb .fl{background-image:linear-gradient(90deg,#B07E1E,#F2B544 30%,#FFE2A6 50%,#F2B544 70%,#B07E1E);box-shadow:0 0 12px rgba(242,181,68,.35)}
 html[data-theme=dark] .fb{background:linear-gradient(90deg,#55606E,#B9C3D0)}
+html[data-theme=dark] .row:is(:hover,:focus-within) .fl{animation:flow 3.2s linear infinite}
 @keyframes flow{from{background-position:200% 0}to{background-position:0 0}}
 html[data-theme=dark] .meter i{box-shadow:0 0 10px rgba(242,98,34,.6)}
 html[data-theme=dark] .ca{filter:drop-shadow(0 0 7px rgba(242,98,34,.55))}
@@ -432,7 +436,7 @@ html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
 @keyframes fill-cylinder{from{transform:scaleY(0)}}
 .cyl .bub{fill:#fff;fill-opacity:.68;stroke:#fff;stroke-opacity:.85;stroke-width:.32;opacity:0}
 .view.go .bub{animation:bubble-rise var(--duration) linear infinite;animation-delay:var(--phase)}
-@keyframes bubble-rise{0%{opacity:0;transform:translate(0,0)}15%{opacity:.77}78%{opacity:.55}100%{opacity:0;transform:translate(var(--drift),var(--rise))}}
+@keyframes bubble-rise{0%{opacity:0;transform:translate(0,0)}16%{opacity:.78}38%{transform:translate(var(--drift),calc(var(--rise)*.35))}72%{opacity:.55;transform:translate(calc(var(--drift)*-.45),calc(var(--rise)*.69))}100%{opacity:0;transform:translate(var(--drift),var(--rise))}}
 .cyl .ripple{fill:none;stroke:white;stroke-opacity:.6;stroke-width:.85;transform-box:fill-box;transform-origin:center;opacity:0}
 .view.go .ripple{animation:surface-ripple 3.6s ease-out infinite;animation-delay:var(--phase)}
 @keyframes surface-ripple{0%{transform:scale(.35);opacity:0}20%{opacity:.62}90%,100%{transform:scale(1);opacity:0}}
@@ -469,18 +473,18 @@ html[data-theme=dark] .tab.on{text-shadow:0 0 18px rgba(255,138,80,.7)}
 html[data-theme=dark] .brand{text-shadow:0 0 18px rgba(242,98,34,.65);animation:brandglow 4s ease-in-out infinite}
 @keyframes brandglow{50%{text-shadow:0 0 30px rgba(255,122,61,1)}}
 /* every card, tile and strip rises in, one after the other, each time a tab opens */
-.view.on .card,.view.on .kpi,.view.on .know,.view.on .stats,.view.on .day,.view.on .def,.view.on .client,.view.on .vh,.view.on .sect,.view.on .eyebrow,.view.on h1,.view.on .lead{animation:rise .75s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--ci,0)*55ms)}
-@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.975)}to{opacity:1;transform:none}}
+.view.on .card,.view.on .kpi,.view.on .know,.view.on .stats,.view.on .day,.view.on .def,.view.on .client,.view.on .vh,.view.on .sect,.view.on .eyebrow,.view.on h1,.view.on .lead{animation:rise .38s cubic-bezier(.22,.76,.22,1) backwards;animation-delay:calc(var(--ci,0)*22ms)}
+@keyframes rise{from{opacity:.3;transform:translateY(9px)}to{opacity:1;transform:none}}
 /* a light that orbits the edge of a card */
 @property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes orbit{to{--ang:360deg}}
-html[data-theme=dark] .card::before,html[data-theme=dark] .kpi::before,html[data-theme=dark] .know::before,html[data-theme=dark] .stats::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--ang),transparent 0 62%,rgba(255,122,61,.15) 72%,#FF7A3D 86%,#FFD9C2 90%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .5s;animation:orbit 4.5s linear infinite;pointer-events:none;z-index:2}
-html[data-theme=dark] .card:hover::before,html[data-theme=dark] .kpi:hover::before,html[data-theme=dark] .know:hover::before,html[data-theme=dark] .stats:hover::before,html[data-theme=dark] .kpi.hot::before{opacity:1}
+html[data-theme=dark] .card::before,html[data-theme=dark] .kpi::before,html[data-theme=dark] .know::before,html[data-theme=dark] .stats::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--ang),transparent 0 62%,rgba(255,122,61,.15) 72%,#FF7A3D 86%,#FFD9C2 90%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s;animation:none;pointer-events:none;z-index:2}
+html[data-theme=dark] .card:hover::before,html[data-theme=dark] .kpi:hover::before,html[data-theme=dark] .know:hover::before,html[data-theme=dark] .stats:hover::before,html[data-theme=dark] .kpi.hot::before{opacity:1;animation:orbit 6s linear infinite}
 .know,.stats{position:relative}
 /* a spotlight that follows the pointer */
 html[data-theme=dark] .card::after,html[data-theme=dark] .kpi::after,html[data-theme=dark] .know::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(460px circle at var(--mx,50%) var(--my,50%),rgba(255,122,61,.13),transparent 60%);z-index:0}
 html[data-theme=dark] .card:hover::after,html[data-theme=dark] .kpi:hover::after,html[data-theme=dark] .know:hover::after{opacity:1}
-.kpi{transform-style:preserve-3d;will-change:transform}
+.kpi{isolation:isolate}
 html[data-theme=dark] .kpi:hover{box-shadow:0 26px 70px rgba(0,0,0,.5),0 0 40px rgba(242,98,34,.22)}
 html[data-theme=dark] .kpi .n{text-shadow:0 0 26px rgba(220,227,236,.22)}
 html[data-theme=dark] .stats .n{text-shadow:0 0 22px rgba(220,227,236,.2)}
@@ -502,10 +506,10 @@ html[data-theme=dark] .client::after{content:"";position:absolute;top:0;bottom:0
 
 html[data-theme=dark] .pk{animation:pk 2.2s ease-in-out infinite}
 @keyframes pk{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.55))}50%{filter:drop-shadow(0 0 20px rgba(255,160,110,1))}}
-html[data-theme=dark] .lbl{filter:drop-shadow(0 0 8px rgba(255,138,80,.8))}
+html[data-theme=dark] .lbl{paint-order:stroke;stroke:var(--panel);stroke-width:2px;stroke-linejoin:round}
 .comet{fill:#FFE3D3;filter:drop-shadow(0 0 7px #FF7A3D) drop-shadow(0 0 14px #F26222)}
 html[data-theme=light] .comet{display:none}
-html[data-theme=dark] .arc{animation:arcglow 3s ease-in-out infinite}
+html[data-theme=dark] .dial:hover .arc{animation:arcglow 3s ease-in-out infinite}
 @keyframes arcglow{0%,100%{filter:drop-shadow(0 0 6px rgba(255,122,61,.5))}50%{filter:drop-shadow(0 0 16px rgba(255,150,100,.95))}}
 .dtk{stroke:var(--neu);opacity:.45}
 html[data-theme=dark] .dial .big{text-shadow:0 0 26px rgba(255,138,80,.45)}
@@ -756,6 +760,7 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
     & .drawer{width:100%}
     & .prow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 16px}
     & .prow>div{min-width:0;overflow-wrap:anywhere}
+    & .prow .tags .pill{white-space:normal;max-width:100%;overflow-wrap:anywhere}
     & .card.cb2{padding:0}
     & .stats.in{grid-template-columns:repeat(2,minmax(0,1fr))}
     & .stats.in>div{padding:8px}
@@ -764,6 +769,59 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
 }
 @media screen and (max-height:520px) and (orientation:landscape) {
   html:not(.static) .top{position:relative}
+}
+
+/* Screen interactions share a short settle time; readings stay in place. */
+@media screen {
+  html:not(.static) {
+    --settle:cubic-bezier(.22,.76,.22,1);
+    & :is(button,a,summary,input,select):focus-visible{outline:2px solid var(--ortx);outline-offset:3px}
+    & .view.on{animation:none}
+    & .drawer{transition:transform .28s var(--settle)}
+    & .scrim{transition:opacity .2s ease}
+    & .gsr:not([hidden]),& :is(.upmsg,.upbar):not([hidden]){animation:surface-in .19s var(--settle) both}
+    & :is(#st-dialog,#stock-photo-dialog)[open],& #qrbig.on .qrp{animation:surface-in .24s var(--settle) both}
+    & dialog[open]::backdrop{animation:scrim-in .18s ease-out both}
+    & .view :is(.seg button,.btn,.upgo,.qrb,.qrline,.cbi,.chip,.sz,.st-round),& .dhead button{
+      transition:background-color .16s,border-color .16s,box-shadow .16s,transform .16s var(--settle)
+    }
+    & :is(.btn,.upgo,.seg button,.qrb,.ib,.cbi,.st-round):enabled:active{transform:translateY(1px)}
+    & .view :is(.fl,.fb){width:var(--w,0%);transform:scaleX(0);transform-origin:left;transition:transform .75s var(--settle)}
+    & .view.go :is(.fl,.fb){transform:scaleX(1)}
+    & .chart-comet{offset-distance:0%;offset-rotate:0deg}
+    & .view.go .chart-comet{animation:chart-trace 3.6s linear infinite}
+    & .kpi{will-change:auto}
+    & .dial .plot{width:min(100%,clamp(182px,15vw,380px));margin:auto;position:relative}
+    & .dial .plot svg{display:block;max-width:100%;width:100%;height:auto}
+    & .dial .reading{position:absolute;bottom:1%;left:10%;right:10%;text-align:center}
+    & .dial .big{font-size:clamp(1.5rem,2.4vw,2.35rem);line-height:1.05;margin:0}
+    & .dial .of{font-size:.81rem}
+    & .dial .cap{margin-top:.6rem}
+  }
+  .motion-outside,.motion-outside *,.motion-outside::before,.motion-outside::after,
+  .motion-outside *::before,.motion-outside *::after,
+  html.motion-idle *,html.motion-idle *::before,html.motion-idle *::after{animation-play-state:paused!important}
+}
+@keyframes surface-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes scrim-in{from{opacity:0}to{opacity:1}}
+@keyframes chart-trace{to{offset-distance:100%}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .chart-comet,.client::after,.loop::after,#fx{display:none}
+}
+@media print{.chart-comet,#fx,.amb{display:none}}
+
+/* Keep continuous motion local on wall displays and high-density desktops. */
+@media screen and (min-width:2400px), screen and (min-width:1500px) and (min-resolution:2dppx){
+  html:not(.static) {
+    & :is(#fx,.amb){display:none}
+    & .top::after{animation:none}
+    & .view.on,& .view.on :is(.card,.kpi,.stats,.know,.day,.def,.client,.vh,.sect,.eyebrow,h1,.lead,.krow){animation:none}
+    & .view :is(.card,.kpi,.know,.stats)::before,& .view :is(.card,.kpi,.know)::after{display:none;animation:none}
+    & .view .card{transition:border-color .15s}
+    & .view :is(.fl,.fb){transform:none;transition:none}
+    & .view .row:focus-within .fl,& .view .row:hover .fl{animation:flow 3.2s linear infinite}
+  }
 }
 
 /* print and the PDF: every tab, one after another, on white */
@@ -979,7 +1037,7 @@ __CONTACTS__
 </main>
 
 <div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp">Click anything underlined or listed to open it</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Report details" aria-hidden="true" inert><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp">Click anything underlined or listed to open it</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
 <div id="paperwrap" aria-hidden="true"><div class="pbar"><span class="ttl">On-hire report</span>
 <label>Group by<span class="seg" id="oh-g"><button data-k="co" class="on">Company</button><button data-k="who">Person</button><button data-k="tool">Tool</button></span></label>
 <label>Owner<span class="seg" id="oh-o"><button data-k="all" class="on">All</button><button data-k="coates">Coates</button><button data-k="other" id="oh-o2"></button></span></label>
@@ -1091,7 +1149,7 @@ const max=nice(Math.max(1,...series.flatMap(s=>s.v))*1.12),x=i=>L+(W-L-R)*(n<2?.
 let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`}
 const labelStep=STATIC?1:Math.max(1,Math.ceil(n*75/(W-L-R)));
 labels.forEach((l,i)=>{if(i%labelStep && i!==n-1 || i!==n-1 && n-1-i<labelStep)return;g+=`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="${i==0?'start':i==n-1?'end':'middle'}">${esc(l)}</text>`});
-let s='';series.forEach((se,k)=>{const dd=se.v.map((v,i)=>(i?'L':'M')+x(i)+','+y(v)).join(' ');s+=`<path class="draw ${k?'sb':'sa'}" d="${dd}"/>`;if(!k&&!STATIC&&n>1)s+=`<circle class="comet" r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite" path="${dd}"/></circle>`;
+let s='';series.forEach((se,k)=>{const dd=se.v.map((v,i)=>(i?'L':'M')+x(i)+','+y(v)).join(' ');s+=`<path class="draw ${k?'sb':'sa'}" d="${dd}"/>`;if(!k&&!STATIC&&n>1)s+=`<circle class="comet chart-comet" r="3" style="offset-path:path('${dd}')"/>`;
 se.v.forEach((v,i)=>{s+=`<circle class="pt ${k?'pb2':'pa'}" cx="${x(i)}" cy="${y(v)}" r="5"/>`});
 const lv=se.v[n-1];s+=`<text class="lbl" x="${x(n-1)+10}" y="${y(lv)+4}">${fmt(lv)}</text>`});
 labels.forEach((l,i)=>{const w=(W-L-R)/Math.max(1,n-1);s+=`<g class="hit" data-tip="${esc('<b>'+l+'</b><br>'+series.map(se=>se.name+': '+fmt(se.v[i])).join('<br>'))}"><rect x="${x(i)-w/2}" y="${T}" width="${w}" height="${H-T-B}"/><rect class="hl" x="${x(i)-.5}" y="${T}" width="1" height="${H-T-B}"/></g>`});
@@ -1131,13 +1189,14 @@ ${height>0?`<g class="liquid"><ellipse cx="37" cy="158" rx="31.5" ry="7.5" fill=
 ${bubbles}<ellipse class="surface" cx="37" cy="${surface}" rx="31.5" ry="7.5" fill="${color[3]}"/>
 ${bubbleCount?`<ellipse class="ripple" cx="35" cy="${surface}" rx="21" ry="4" style="--phase:-${uid%4}s"/>`:''}</g>`:''}
 <path d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z" fill="url(#${id}g)"/>
+<path d="M11 27v116m0 4v5" fill="none" stroke="#fff" stroke-opacity=".27" stroke-width=".8" stroke-linecap="round"/>
 <path class="scale" d="M60 53h8m-5 17.5h5M58 88h10m-5 17.5h5M60 123h8"/>
 <ellipse class="lip" cx="37" cy="18" rx="32" ry="8"/></svg>${o.pic?pic(it.pic,it.name,'lg'):''}
 <span class="val">${it.val||`<span data-n="${value}">${fmt(value)}</span>`}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} on site</small>`:''))}</span></${tag}>`}
 function dial(v,of,cap,sub){const c=Math.PI*70,sh=of?v/of:0,id='d'+(++uid);
-return `<div class="dial"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
+return `<div class="dial"><div class="plot"><svg viewBox="-4 -2 188 106" width="230"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset="1" stop-color="#FF7A3D"/></linearGradient></defs>
 ${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<path class="dtr" d="M20,95 A70,70 0 0 1 160,95"/><path class="arc" d="M20,95 A70,70 0 0 1 160,95" stroke="url(#${id})" style="--c:${c};--off:${c*(1-Math.min(1,sh))}"/></svg>
-<div class="big"><span data-n="${(sh*100).toFixed(1)}" data-dec="1" data-suf="%">${(sh*100).toFixed(1)}%</span></div><div class="of">${fmt(v)} of ${fmt(of)}</div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
+<div class="reading"><div class="big"><span data-n="${(sh*100).toFixed(1)}" data-dec="1" data-suf="%">${(sh*100).toFixed(1)}%</span></div><div class="of">${fmt(v)} of ${fmt(of)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
 
 /* ---------- overview ---------- */
 {const day=D.job.day,days=D.job.days,p=D.asat.split(' '),today=new Date(+p[2],MON.indexOf(p[1]),+p[0]);
@@ -1190,7 +1249,7 @@ $$('.mail').forEach(a=>a.href=`mailto:?subject=${encodeURIComponent(CLIENT+' too
 $('#dlfoot').textContent=`${fmt(D.onhire.length)} items as at ${D.asat}. Filter by company, person or tool, then print, save as a PDF or email. Email opens a draft; nothing sends until you press send.`}
 
 /* ---------- on hire ---------- */
-{$('#oh-lead').textContent=`Everything out with crews at the ${asatT} pull on ${D.asat_day}, by company, by tool and item by item.`;
+function initOnHire(){$('#oh-lead').textContent=`Everything out with crews at the ${asatT} pull on ${D.asat_day}, by company, by tool and item by item.`;
 stats($('#oh-stats'),[[K.on,'Items on hire'],[K.companies,'Companies'],[K.people,'People holding gear'],[K.issued_today,'Issued today'],[K.back_today,'Issued today and already back']]);
 bars($('#oh-cos'),D.companies.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})));
 const kinds=Object.entries(D.tools).filter(([k,t])=>t.on>0).sort((a,b)=>b[1].on-a[1].on||a[1].name.localeCompare(b[1].name));
@@ -1308,10 +1367,13 @@ function initUtilisation(model, history){
   find.addEventListener('input',choose);owner.addEventListener('change',choose);pull.addEventListener('change',readSource);
   variant.addEventListener('change',()=>{selected=variant.value;page=0;draw()});readSource();
 }
-initUtilisation(D.utilisation,D.variant_history);
+
 
 /* ---------- tooling ---------- */
-{$('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
+function initTooling(){
+initUtilisation(D.utilisation,D.variant_history);
+browser($('#cb-tools'),'tools');
+$('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
 const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.max(p,.8).toFixed(1)}%"></i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
 $('#tl-util').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(D.comm.on,D.comm.fleet,'Radios and radio batteries out','the busiest gear today');
 bars($('#tl-tools'),D.tools_util.map(t=>{const k=t.dk||t.name.toUpperCase();return {name:t.name,pic:t.pic,n:t.on,b:t.best,open:D.tools[k]?'t:'+k:'',v:`${t.on} <small>of ${fmt(t.site)} out${t.best?' · busiest '+t.best:''}</small>`,_m:Math.max(t.site,t.best,1)}}),{pic:1});
@@ -1332,7 +1394,10 @@ $$('#tagged .more').forEach(b=>b.onclick=()=>{open[b.dataset.g]=!open[b.dataset.
 const CL={};D.clines.forEach(l=>CL[l.name]=l);
 const cpic=(n,c,l=CL[n])=>{return l&&l.cp!=null&&D.cpics&&D.cpics[l.cp]?`<img class="tp${c?' '+c:''}" src="${D.cpics[l.cp]}" alt="" loading="lazy" style="background:#fff">`:''};
 /* ---------- consumables ---------- */
-{const dr=D.draws,B=D.below;
+function initConsumables(){
+browser($('#cb-cons'),'cons');
+initQrGrid();
+const dr=D.draws,B=D.below;
 $('#cn-lead').textContent=`${K.cons_lines} ${CLIENT} consumable lines are on the shelf. ${dr.n?`${fmt(dr.units)} units have been drawn so far this shut, in ${dr.n} issues to ${dr.people} people.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
 stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[K.cons_units,'Units on the shelf'],[dr.units,'Units drawn this shut'],[B.length,B.length==1?'Line to top up':'Lines to top up',B.length?'w':'']]);
 if(B.length){$('#below-h').textContent=`Top up first: ${plural(B.length,'line')} below minimum`;
@@ -1345,7 +1410,7 @@ if(dr.n){$('#draw-sub').textContent=`${fmt(dr.units)} units in ${dr.n} issues to
 const src={types:()=>dr.types.map(t=>({name:t.name,n:t.n,open:'ct:'+t.name})),lines:()=>dr.lines.map(t=>({name:t.name,n:t.n,open:'cl:'+t.name})),cos:()=>dr.cos.map(t=>({name:t.name,n:t.n}))};
 const drawD=k=>{bars($('#cn-draws'),src[k]())};drawD('types');
 $$('#drawseg button').forEach(b=>b.onclick=()=>{$$('#drawseg button').forEach(x=>x.classList.toggle('on',x===b));drawD(b.dataset.k);$('#cn-draws').classList.remove('now');void $('#cn-draws').offsetWidth;$('#cn-draws').classList.add('now')})}
-else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHTML='<div class="empty">No draws recorded in SiteIQ yet. Usage shows here from the first one.</div>'}}
+else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHTML='<div class="empty">No draws recorded in SiteIQ yet. Usage shows here from the first one.</div>'}
 
 // what past shuts used at their busiest, line by line
 {const P=D.clines.filter(l=>l.peak).sort((a,b)=>b.avgpeak-a.avgpeak||b.peak-a.peak);
@@ -1354,6 +1419,7 @@ $('#peak-sub').textContent=`For each line: what a normal day uses, what its busi
 const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td><div class="tr" style="overflow:visible"><div class="fl" style="--w:${(l.avgpeak/mx*100).toFixed(1)}%"></div><i class="tick" style="left:calc(${(l.peak/mx*100).toFixed(1)}% - 1px)"></i></div></td><td class="n">${fmt(l.most)}</td><td class="n">${l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${fmt(l.have)}</span>`:fmt(l.have)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
 const m=$('#peaks .more');if(m)m.onclick=()=>{all=!all;draw();$('#peaks').classList.add('now')}};draw()}
 else $('#peakcard').remove()}
+}
 
 /* ---------- category browser, used for tooling and for consumables ---------- */
 function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units',mx=Math.max(...L.map(c=>c.n));let open=0;
@@ -1361,22 +1427,22 @@ el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" 
 const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${fmt(c.n)} ${unit} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
 c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}${tgd(mode=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}<small>${fmt(k.n)} ${unit}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
 $$('.cbi',el).forEach(b=>b.onclick=()=>{open=+b.dataset.i;$$('.cbi',el).forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
-{const L=D.clines.filter(l=>l.qr),g=$('#qrgrid');if(!L.length)$('#qrcard').remove();else{
+function initQrGrid(){const L=D.clines.filter(l=>l.qr),g=$('#qrgrid');if(!L.length)$('#qrcard').remove();else{
 const drawQ=()=>{const q=$('#qr-q').value.trim().toUpperCase(),rs=L.filter(l=>!q||(l.name+' '+l.type+' '+(l.code||'')+' '+l.bar).toUpperCase().includes(q));
 g.innerHTML=rs.map(l=>`<button class="qrt" data-qr="${esc(l.name)}"><span class="q">${qrsvg(l.qr,62)}</span><span><b>${esc(l.name)}</b><small${l.min!=null&&l.have<l.min?' class="w"':''}>${fmt(l.have)} on the shelf${l.min!=null&&l.have<l.min?' · top up':''}</small></span></button>`).join('')||'<div class="empty">No consumable matches that.</div>';
-$('#qr-foot').textContent=`${rs.length} of ${L.length} lines. The code is the line's SiteIQ barcode.`};$('#qr-q').oninput=drawQ;drawQ()}
-const big=document.createElement('div');big.id='qrbig';document.body.appendChild(big);const shut=()=>big.classList.remove('on');
-big.onclick=e=>{if(e.target===big||e.target.closest('.x'))shut()};document.addEventListener('keydown',e=>{if(e.key=='Escape')shut()});
+$('#qr-foot').textContent=`${rs.length} of ${L.length} lines. The code is the line's SiteIQ barcode.`};$('#qr-q').oninput=drawQ;drawQ()}}
+{const big=document.createElement('div');big.id='qrbig';document.body.appendChild(big);const shut=()=>big.classList.remove('on');
+big.onclick=e=>{if(e.target===big||e.target.closest('.x'))shut()};document.addEventListener('keydown',e=>{if(e.key==='Escape'&&big.classList.contains('on')){e.stopImmediatePropagation();shut()}});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-qr]');if(!b)return;e.preventDefault();e.stopPropagation();const l=D.clines.find(x=>x.name==b.dataset.qr);if(!l)return;
 const low=l.min!=null&&l.have<l.min,left=l.pd?Math.floor(l.have/l.pd):null;
 big.innerHTML=`<div class="qrp"><div class="q">${qrsvg(l.qr,340)}</div><h3>${esc(l.name)}</h3><div class="cd">SiteIQ barcode <b>${esc(l.bar)}</b> · SKU ${esc(l.sku)}${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}</div>
 <div class="qrn"><div class="${low?'hot':''}"><b>${fmt(l.have)}</b><span>On the shelf${low?' · top up':''}</span></div><div><b>${l.min??'–'}</b><span>Minimum</span></div><div><b>${l.max??'–'}</b><span>Maximum</span></div></div>
 ${l.pd?`<div class="qre"><b>Estimate:</b> about ${l.pd} used a day, so roughly ${left} ${left==1?'day':'days'} of stock on the shelf.<small>A guide only, from what past shuts used a day. Stock is as at the SiteIQ pull of ${esc(D.asat)}.</small></div>`:`<div class="qre">No usage estimate for this line yet: past shuts did not draw it.<small>Stock is as at the SiteIQ pull of ${esc(D.asat)}.</small></div>`}
 <button class="x">Close</button></div>`;big.classList.add('on')},true)}
-browser($('#cb-tools'),'tools');browser($('#cb-cons'),'cons');
+
 
 /* ---------- how the store runs ---------- */
-{const O=D.ops,hh=h=>String(h).padStart(2,'0')+':00';
+function initRhythm(){const O=D.ops,hh=h=>String(h).padStart(2,'0')+':00';
 if(O&&O.hours&&O.hours.issue){const P=O.per_day;
 $('#op-lead').textContent=`An average shut day at ${CLIENT}, from past shuts: about ${whole(P.tx)} transactions across two shifts, for about ${whole(P.people)} people from ${whole(P.companies)} companies.`;
 stats($('#op-stats'),[[Math.round(P.tx),'Transactions a day','','One tool out, one tool back or one consumable issue'],[Math.round(P.people),'People served a day'],[Math.round(P.companies),'Companies a day'],[(P.tx/P.people).toFixed(1),'Transactions a person']]);
@@ -1423,7 +1489,7 @@ $('#defs').innerHTML=[
 
 /* ---------- labour and costs ---------- */
 const money=v=>'$'+Number(v).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
-if(D.costs){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#5F84B8','#B4CEF0','#6489BC','#D3E3F8']],services:['ks','lk3',['#C9AC6E','#FBEBC6','#CDB073','#FFF5DC']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
+function initCosts(){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#5F84B8','#B4CEF0','#6489BC','#D3E3F8']],services:['ks','lk3',['#C9AC6E','#FBEBC6','#CDB073','#FFF5DC']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
 $('#cs-lead').textContent=`${money(C.sofar)} of the shut's ${money(C.total)} has been incurred up to the end of ${C.upto}: ${C.days_done} of ${C.days.length} days and ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours.`;
 const rc=2*Math.PI*100,sh=C.total?C.sofar/C.total:0;
 $('#cs-ring').innerHTML=`<svg viewBox="0 0 240 240"><defs><linearGradient id="rgg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFB48F"/><stop offset=".5" stop-color="#F26222"/><stop offset="1" stop-color="#B9481A"/></linearGradient></defs>
@@ -1450,6 +1516,8 @@ const cell=v=>v?money(v):'<span style="color:var(--dim)">–</span>';
 $('#cs-table').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Day</th><th>Day type</th>${C.cats.map(c=>`<th class="n">${esc(c.name)}</th>`).join('')}<th class="n">Day total</th><th class="n">Running total</th></tr>${C.days.map(d=>`<tr class="${d.today?'tdy':d.done?'':'tocome'}"><td style="white-space:nowrap">${d.date}${d.today?' <span class="pill o">Today</span>':''}</td><td>${esc(d.type)}</td>${C.cats.map(c=>`<td class="n" style="font-weight:400">${cell(d[c.key])}</td>`).join('')}<td class="n">${money(d.total)}</td><td class="n">${money(d.running)}</td></tr>`).join('')}
 <tr class="tot"><td colspan="2">Whole shut</td>${C.cats.map(c=>`<td class="n">${money(c.total)}</td>`).join('')}<td class="n">${money(C.total)}</td><td></td></tr>
 <tr class="tot"><td colspan="2">To the end of ${C.upto}</td>${C.cats.map(c=>`<td class="n">${money(c.sofar)}</td>`).join('')}<td class="n">${money(C.sofar)}</td><td></td></tr></table></div>`;
+}
+if(D.costs){const C=D.costs;
 // a fifth headline tile on the overview
 $('#kpis').classList.replace('c4','c5');$('#kpis').insertAdjacentHTML('beforeend',`<button class="kpi" data-go="costs"><span class="go">→</span><div class="l">Shut cost to date</div><div class="n"><span data-n="${Math.round(C.sofar)}" data-pre="$">$${fmt(Math.round(C.sofar))}</span></div><div class="s">of $${fmt(Math.round(C.total))} for the shut</div></button>`);
 $('#defs').insertAdjacentHTML('beforeend',[['Labour cost','Each rostered shift is its hours times the hourly rate for that shift, day or night.'],['Shut cost to date',`Labour, tooling, site services and flights for every day up to and including the day of the SiteIQ pull. The day of the pull counts as a whole day, including a night shift that has started.`],['Still to come','The days after the pull, at the rostered hours and the agreed daily charges.']].map(d=>`<div class="def"><b>${d[0]}</b><span>${d[1]}</span></div>`).join(''))}
@@ -1459,7 +1527,7 @@ else $('#v-costs').remove();
 function detailPhoto(kind,index,name){
  const images=kind==='tools'?D.pics:D.cpics;
  if(index==null||!images?.[index])return '';
- return `<button type="button" class="stock-photo" aria-haspopup="dialog" aria-label="Enlarge photo of ${esc(name)}"><img src="${images[index]}" alt="${esc(name)}"></button>`;
+ return `<button type="button" class="stock-photo" data-photo-set="${kind}" data-photo-index="${index}" aria-haspopup="dialog" aria-label="Enlarge photo of ${esc(name)}"><img src="${images[index]}" alt="${esc(name)}"></button>`;
 }
 {
  const viewer=$('#stock-photo-dialog'),large=$('#stock-photo-large');
@@ -1471,14 +1539,18 @@ function detailPhoto(kind,index,name){
   const image=button.querySelector('img');
   $('#stock-photo-name').textContent=image.alt;
   large.alt=image.alt;
-  large.src=image.src;
+  const detailSet=button.dataset.photoSet==='tools'?D.detail_pics:D.detail_cpics;
+  const detailSrc=detailSet?.[button.dataset.photoIndex];
+  viewer.classList.toggle('full-resolution',Boolean(detailSrc));
+  large.onerror=detailSrc?()=>{large.onerror=null;viewer.classList.remove('full-resolution');large.src=image.src}:null;
+  large.src=detailSrc||image.src;
   viewer.showModal();
   $('#stock-photo-close').focus();
  });
  $('#stock-photo-close').onclick=()=>viewer.close();
  viewer.addEventListener('click',e=>{if(e.target===viewer)viewer.close()});
  viewer.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();viewer.close()}});
- viewer.addEventListener('close',()=>{large.removeAttribute('src');opener?.focus()});
+ viewer.addEventListener('close',()=>{large.onerror=null;large.removeAttribute('src');viewer.classList.remove('full-resolution');opener?.focus()});
 }
 const PB={};D.people.forEach(p=>PB[p.key]=p);
 const lc=t=>t.startsWith('PPE')?t:t[0].toLowerCase()+t.slice(1);
@@ -1521,13 +1593,32 @@ cl(n,line){const l=line||D.clines.find(x=>x.name==n);if(!l)return '<div class="d
  return `<div class="dh">${detailPhoto('cons',l.cp,l.name)}<div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span>${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}${l.bin?` · ${CLIENT} bin ${esc(l.bin)}`:''}</div></div>${l.qr?`<button class="qrb" data-qr="${esc(l.name)}" style="margin-left:auto;padding:5px" data-tip="Tap to make it big">${qrsvg(l.qr,74)}</button>`:''}</div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+(l.peak?stat([[l.avgpeak,'Usual busiest day'],[l.peak,'Busiest day on record'],[fmt(l.most),'Most in one shut'],[l.have<l.peak?'Short':'Covered','Shelf against busiest day']]):'')+
  (l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
  (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')}};
-{const dr=$('#drawer'),sc=$('#scrim'),body=$('#dbody');let stack=[];
+{const dr=$('#drawer'),sc=$('#scrim'),body=$('#dbody');let stack=[],opener=null;
 const paint=()=>{const key=stack[stack.length-1],i=key.indexOf(':');body.innerHTML=V[key.slice(0,i)](key.slice(i+1));body.scrollTop=0;body.classList.remove('sw');void body.offsetWidth;body.classList.add('sw');$('#dback').disabled=stack.length<2};
-const close=()=>{dr.classList.remove('on');sc.classList.remove('on');dr.setAttribute('aria-hidden','true');stack=[]};
-const openS=key=>{if(!V[key.slice(0,key.indexOf(':'))])return;if(stack[stack.length-1]!==key)stack.push(key);paint();dr.classList.add('on');sc.classList.add('on');dr.setAttribute('aria-hidden','false')};
-$('#dclose').onclick=close;sc.onclick=close;$('#dback').onclick=()=>{if(stack.length>1){stack.pop();paint()}};
-document.addEventListener('keydown',e=>{if(e.key=='Escape')close()});
-document.addEventListener('click',e=>{const el=e.target.closest('[data-open]');if(el&&el.dataset.open){e.preventDefault();openS(el.dataset.open);return}
+const close=()=>{
+ if(!stack.length)return;
+ dr.classList.remove('on');sc.classList.remove('on');dr.inert=true;dr.setAttribute('aria-hidden','true');stack=[];
+ if(opener?.isConnected)opener.focus({preventScroll:true});opener=null
+};
+const openS=(key,el)=>{
+ if(!Object.hasOwn(V,key.slice(0,key.indexOf(':')))||stack.at(-1)===key)return;
+ if(!stack.length)opener=el.closest('#gs')?$('#gs-q'):el;
+ stack.push(key);paint();dr.inert=false;dr.classList.add('on');sc.classList.add('on');
+ dr.setAttribute('aria-hidden','false');$('#dclose').focus({preventScroll:true})
+};
+$('#dclose').onclick=close;sc.onclick=close;$('#dback').onclick=()=>{if(stack.length>1){stack.pop();paint();(stack.length>1?$('#dback'):$('#dclose')).focus()}};
+window.addEventListener('hashchange',close);
+document.addEventListener('keydown',e=>{
+ if(!stack.length||document.querySelector('dialog[open]')||$('#qrbig')?.classList.contains('on'))return;
+ if(e.key==='Escape'){close();return}
+ if(e.key==='Tab'){
+   const buttons=$$('button:not(:disabled),a[href],input,select,[tabindex="0"]',dr).filter(el=>el.getClientRects().length);
+   const first=buttons[0],last=buttons.at(-1);
+   if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}
+   else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}
+ }
+});
+document.addEventListener('click',e=>{const el=e.target.closest('[data-open]');if(el&&el.dataset.open){e.preventDefault();openS(el.dataset.open,el);return}
 const g=e.target.closest('[data-go]');if(g){e.preventDefault();show(g.dataset.go)}})}
 
 /* ---------- the on-hire report: filter it, print it, save it as a PDF or email it ---------- */
@@ -1578,7 +1669,7 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-ohreport]')){e.
 if(/[?&]ohreport/.test(QS)){openR();root.classList.add('ohprint')}}
 
 /* ---------- people ---------- */
-{const rated=D.people.filter(p=>p.rating!=null),fl=D.people.filter(p=>p.flags.length),now=D.people.filter(p=>p.now);
+function initPeople(){const rated=D.people.filter(p=>p.rating!=null),fl=D.people.filter(p=>p.flags.length),now=D.people.filter(p=>p.now);
 $('#pp-lead').textContent=`Everyone who has used the ${CLIENT} tool store. The returns rating shows how promptly each person brings tools back; a flag marks unusually high use of one consumable type.`;
 stats($('#pp-stats'),[[D.people.length,'People on record'],[now.length,'Holding gear now'],[rated.filter(p=>p.rating>=4.5).length,`Rated 4.5 or better, of ${rated.length} rated`],[fl.length,'Flagged for high consumable use',fl.length?'w':'']]);
 let mode='all',q='';
@@ -1597,7 +1688,10 @@ function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),s
 if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
 try{console.log('%cDesigned and built by Andrew Fisher','color:#F26222;font-weight:700;font-size:14px','\n(c) 2026 Andrew Fisher. All rights reserved. This design and code are not to be copied or reused without written permission.')}catch(e){}
 /* ---------- search anything ---------- */
-if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),box=$('#gs-r'),X=[];const add=(g,n,sub,open,text,pc)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc});
+if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),box=$('#gs-r'),X=[];let indexed=false;
+function prepareSearch(){
+if(indexed)return;
+const add=(g,n,sub,open,text,pc)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc});
 const cos=new Map();D.people.forEach(p=>{if(p.co)cos.set(p.co,(cos.get(p.co)||0)+1)});D.companies.forEach(c=>cos.has(c.name)||cos.set(c.name,0));
 const outC={};D.companies.forEach(c=>outC[c.name]=c.n);[...cos.keys()].sort().forEach(c=>add('Companies',c,`${outC[c]||0} on hire now · ${cos.get(c)} ${cos.get(c)==1?'person':'people'}`,'co:'+c,''));
 D.people.forEach(p=>add('People',p.name,`${p.co||''}${p.now?' · '+p.now+' out now':''}`,'p:'+p.key,p.co||''));
@@ -1605,19 +1699,31 @@ Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.available)}
 D.clines.forEach((l,i)=>add('Consumables',l.name,`${fmt(l.have)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
 const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
+X.sort((a,b)=>a.n.localeCompare(b.n));indexed=true;
+}
 const ORD=['Tools','Consumables','Item numbers','People','Companies','On hire now'];let sel=-1;
 const safe=w=>w.replace(/[^A-Za-z0-9]/g,c=>'\\'+c);
-const hl=(t,ws)=>{let h=esc(t);ws.forEach(w=>{h=h.replace(new RegExp('('+safe(w)+')','ig'),'<mark>$1</mark>')});return h};
-const run=()=>{const ws=q.value.trim().toUpperCase().split(/\s+/).filter(Boolean);sel=-1;if(!ws.length){box.hidden=true;return}
-const hits=X.filter(x=>ws.every(w=>x.k.includes(w))&&(x.g!='Item numbers'||ws.join('').length>2));
-const rank=x=>x.n.toUpperCase().startsWith(ws[0])?0:x.n.toUpperCase().includes(ws[0])?1:2;
-box.innerHTML=hits.length?ORD.map(g=>{const a=hits.filter(x=>x.g==g).sort((x,y)=>rank(x)-rank(y)||x.n.localeCompare(y.n));if(!a.length)return '';
-return `<h6><span>${g}</span><span>${a.length>7?'7 of '+fmt(a.length):a.length}</span></h6>`+a.slice(0,7).map(x=>`<button class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span><b>${hl(x.n,ws)}</b><small>${hl(x.sub,ws)}</small></span></button>`).join('')}).join(''):`<div class="none">Nothing matches "${esc(q.value.trim())}". Try a name, a company, a tool, an item number or a code.</div>`;box.hidden=false};
+const highlight=(value,re)=>String(value).split(re).map((part,i)=>i%2?'<mark>'+esc(part)+'</mark>':esc(part)).join('');
+const run=()=>{prepareSearch();const ws=q.value.trim().toUpperCase().split(/\s+/).filter(Boolean);sel=-1;if(!ws.length){box.hidden=true;return}
+const re=new RegExp('('+ws.map(safe).join('|')+')','ig');
+const matches=new Map(),includeIds=ws.join('').length>2;
+for(const x of X){
+ if((x.g==='Item numbers'&&!includeIds)||!ws.every(w=>x.k.includes(w)))continue;
+ let hit=matches.get(x.g);
+ if(!hit){hit={total:0,best:[[],[],[]]};matches.set(x.g,hit)}
+ hit.total++;
+ const title=x.n.toUpperCase(),rank=title.startsWith(ws[0])?0:title.includes(ws[0])?1:2;
+ if(hit.best[rank].length<7)hit.best[rank].push(x)
+}
+box.innerHTML=matches.size?ORD.map(g=>{
+ const hit=matches.get(g);if(!hit)return '';
+ return `<h6><span>${g}</span><span>${hit.total>7?'7 of '+fmt(hit.total):hit.total}</span></h6>`+hit.best.flat().slice(0,7).map(x=>`<button class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span><b>${highlight(x.n,re)}</b><small>${highlight(x.sub,re)}</small></span></button>`).join('')}).join(''):`<div class="none">Nothing matches "${esc(q.value.trim())}". Try a name, a company, a tool, an item number or a code.</div>`;box.hidden=false};
 q.addEventListener('input',run);q.addEventListener('focus',run);
-q.addEventListener('keydown',e=>{const it=$$('.gsi',box);if(e.key=='Escape'){box.hidden=true;q.blur()}else if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(!it.length)return;sel=(sel+(e.key=='ArrowDown'?1:-1)+it.length)%it.length;it.forEach((b,i)=>b.classList.toggle('sel',i==sel));it[sel].scrollIntoView({block:'nearest'})}else if(e.key=='Enter'&&it.length){(it[Math.max(sel,0)]).click()}});
+q.addEventListener('keydown',e=>{if(box.hidden)return;const it=$$('.gsi',box);if(e.key=='Escape'){box.hidden=true;q.blur()}else if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(!it.length)return;sel=sel<0?(e.key=='ArrowDown'?0:it.length-1):(sel+(e.key=='ArrowDown'?1:-1)+it.length)%it.length;it.forEach((b,i)=>b.classList.toggle('sel',i==sel));it[sel].scrollIntoView({block:'nearest'})}else if(e.key=='Enter'&&it.length){(it[Math.max(sel,0)]).click()}});
 box.addEventListener('click',e=>{if(e.target.closest('.gsi'))box.hidden=true});
 document.addEventListener('click',e=>{if(!e.target.closest('#gs'))box.hidden=true});
-document.addEventListener('keydown',e=>{if(e.key=='/'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();q.focus()}})}
+const drModalOpen=()=>document.querySelector('dialog[open],#drawer.on,#paperwrap.on,#qrbig.on');
+document.addEventListener('keydown',e=>{if(e.key=='/'&&!drModalOpen()&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable){e.preventDefault();q.focus()}})}
 // The stock register counts each asset or SKU once per round. Keep event history separate.
 function initStocktake(st) {
   const view=$('#v-stocktake');
@@ -1778,22 +1884,59 @@ function initStocktake(st) {
   update();
   $('#st-live-status').textContent=baseline+(STATIC||!location.protocol.startsWith('http')?' Open the live report for subsequent counts.':' Checking for newer portal counts…');
   if(!STATIC){
-    let active=false;const observe=new MutationObserver(()=>{const now=view.classList.contains('on');if(now&&!active)refresh();active=now});
+    let active=view.classList.contains('on');if(active)refresh();const observe=new MutationObserver(()=>{const now=view.classList.contains('on');if(now&&!active)refresh();active=now});
     observe.observe(view,{attributes:true,attributeFilter:['class']});
     document.addEventListener('visibilitychange',()=>{if(!document.hidden&&view.classList.contains('on'))refresh()});
   }
 }
-initStocktake(D.stocktake);
+if(!D.stocktake)$('#v-stocktake').remove();
 
 const CAN_UP=!STATIC&&location.protocol.startsWith('http');if(!CAN_UP)$('#v-upload').remove();
-const views=$$('.view'),tabs=$('#tabs'),ink=$('#ink');
-views.forEach(v=>{const id=v.id.slice(2),b=document.createElement('button');b.className='tab';b.dataset.go=id;b.textContent=v.dataset.tab;if(id=='upload')b.hidden=true;
-if(id=='onhire')b.innerHTML+=`<span class="ct">${fmt(K.on)}</span>`;if(id=='consumables'&&D.below.length)b.innerHTML+=`<span class="ct w" title="lines to top up">${D.below.length}</span>`;tabs.insertBefore(b,ink)});
-function show(id,quiet){const v=$('#v-'+id)||views[0];id=v.id.slice(2);
-views.forEach(x=>{x.classList.toggle('on',x===v);if(x!==v)x.classList.remove('go')});
-$$('.tab').forEach(b=>{const on=b.dataset.go==id;b.classList.toggle('on',on);if(on){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`;if(tabs.scrollWidth>tabs.clientWidth)tabs.scrollTo({left:b.offsetLeft-tabs.clientWidth/2+b.offsetWidth/2,behavior:'smooth'})}});
-v.classList.remove('go');void v.offsetWidth;requestAnimationFrame(()=>{v.classList.add('go');$$('[data-n]',v).forEach(countUp)});
-if(!quiet){scrollTo({top:0});try{history.replaceState(null,'','#'+id)}catch(e){}}}
+const views=$$('.view'), tabs=$('#tabs'), ink=$('#ink');
+const initialisers=new Map(Object.entries({onhire:initOnHire,tooling:initTooling,consumables:initConsumables,
+  rhythm:initRhythm,costs:initCosts,people:initPeople,stocktake:()=>initStocktake(D.stocktake)}));
+function prepareView(view){
+  const id=view.id.slice(2), init=initialisers.get(id);
+  if(init){init();initialisers.delete(id)}
+}
+const tabFor=new Map();
+tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Report sections');
+views.forEach(v=>{
+  const id=v.id.slice(2),b=document.createElement('button');
+  b.className='tab';b.id='tab-'+id;b.dataset.go=id;b.textContent=v.dataset.tab;b.hidden=id==='upload';
+  b.setAttribute('role','tab');b.setAttribute('aria-controls',v.id);
+  v.setAttribute('role','tabpanel');v.setAttribute('aria-labelledby',b.id);
+  if(id==='onhire')b.innerHTML+=`<span class="ct">${fmt(K.on)}</span>`;
+  if(id==='consumables'&&D.below.length)b.innerHTML+=`<span class="ct w">${D.below.length}</span>`;
+  tabs.insertBefore(b,ink);tabFor.set(id,b)
+});
+let activeView=null;
+function show(id,quiet=false){
+  const selected=tabFor.get(id);
+  const view=selected?.isConnected&&!selected.hidden?document.getElementById('v-'+id):views[0];
+  id=view.id.slice(2);
+  if(activeView===view)return;
+  if(activeView)activeView.classList.remove('on','go');
+  activeView=view; view.classList.add('on');prepareView(view);
+  const button=tabFor.get(id);
+  for(const b of tabFor.values()){
+    const current=b===button;
+    b.classList.toggle('on',current);b.setAttribute('aria-selected',String(current));b.tabIndex=current?0:-1
+  }
+  ink.style.width=button.offsetWidth+'px';ink.style.transform=`translateX(${button.offsetLeft}px)`;
+  if(tabs.scrollWidth>tabs.clientWidth)tabs.scrollTo({left:button.offsetLeft-tabs.clientWidth/2+button.offsetWidth/2,behavior:'instant'});
+  requestAnimationFrame(()=>{if(activeView===view){view.classList.add('go');$$('[data-n]',view).forEach(countUp)}});
+  if(!quiet){
+    scrollTo({top:0,behavior:'instant'});
+    if(location.hash!=='#'+id){try{history.pushState(null,'','#'+id)}catch(e){location.hash=id}}
+  }
+}
+tabs.addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)||!e.target.matches('.tab'))return;
+  const buttons=[...tabFor.values()].filter(b=>b.isConnected&&!b.hidden),index=buttons.indexOf(e.target);
+  let next=e.key==='Home'?0:e.key==='End'?buttons.length-1:(index+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;
+  e.preventDefault();buttons[next].focus({preventScroll:true});show(buttons[next].dataset.go)
+});
 /* ---------- update the data: only for logins the site lets upload ---------- */
 if(CAN_UP)(async()=>{const H={'X-Portal':'1'},tab=$('.tab[data-go="upload"]');let s;
 try{const r=await fetch('/upload/status',{headers:H});if(!r.ok)throw 0;s=await r.json()}catch(e){tab.remove();if($('#v-upload').classList.contains('on'))show('overview',1);$('#v-upload').remove();return}
@@ -1848,39 +1991,73 @@ prog(100,'Complete');const kept=(x.kept||[]).map(k=>KN[k]).join(', ');
 say('ok',`<b>Uploaded. The data is now updated.</b>SiteIQ pull ${esc(x.pull||'')} · ${Object.keys(x.files||{}).map(k=>KN[k]).join(', ')} updated${kept?`\nKept from the last upload: ${esc(kept)}`:''}\nThe report, the on-hire Excel and both PDFs have been rebuilt.<br><button id="up-see">Show the updated report</button>`);
 $('#up-see').onclick=()=>{location.hash='#overview';location.reload()};busy=false;person.value='';for(const k of KS)delete files[k];list();last(x);break}}catch(e){fail(e)}};
 })();
-if(STATIC){views.forEach(v=>v.classList.add('on','go'));$$('[data-n]').forEach(countUp)}
+if(STATIC){views.forEach(v=>{v.classList.add('on','go');prepareView(v)});$$('[data-n]').forEach(countUp)}
 else{show((location.hash||'#overview').slice(1),1);addEventListener('resize',()=>{const b=$('.tab.on');if(b){ink.style.width=b.offsetWidth+'px';ink.style.transform=`translateX(${b.offsetLeft}px)`}});
 addEventListener('hashchange',()=>show(location.hash.slice(1),1));
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>dispatchEvent(new Event('resize')))}
 
-/* ---------- elite layer: embers, spotlight, tilt, staggered entrances ---------- */
+/* Ambient light and scroll feedback are independent of chart values. */
 if(!STATIC){
-// rising embers behind the page
-const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(!still){
+  const motion=matchMedia('(prefers-reduced-motion: reduce)');
+  const canHover=matchMedia('(hover:hover) and (pointer:fine)');
+  const largeDisplay=matchMedia('(min-width:2400px), (min-width:1500px) and (min-resolution:2dppx)');
+  const fx=$('#fx'),pr=$('.prog');
+  function syncMotion(){
+    root.classList.toggle('motion-idle',document.hidden);
+    if(motion.matches||largeDisplay.matches){fx.replaceChildren();return}
+    if(fx.childElementCount)return;
     const embers=document.createDocumentFragment();
-    const count=Math.min(42,Math.ceil(innerWidth/36));
+    const count=Math.min(32,Math.ceil(innerWidth/48));
     for(let i=0;i<count;i++){
-        const ember=document.createElement('i');
-        const duration=16+Math.random()*18;
-        ember.style.setProperty('--x',Math.random()*100+'%');
-        ember.style.setProperty('--size',5+Math.random()*14+'px');
-        ember.style.setProperty('--alpha',.15+Math.random()*.36);
-        ember.style.setProperty('--drift',Math.round((Math.random()-.5)*130)+'px');
-        ember.style.setProperty('--duration',duration+'s');
-        ember.style.setProperty('--delay',-Math.random()*duration+'s');
-        embers.appendChild(ember);
+      const ember=document.createElement('i'),duration=16+Math.random()*18;
+      ember.style.setProperty('--x',Math.random()*100+'%');
+      ember.style.setProperty('--size',5+Math.random()*14+'px');
+      ember.style.setProperty('--alpha',.13+Math.random()*.32);
+      ember.style.setProperty('--drift',Math.round((Math.random()-.5)*130)+'px');
+      ember.style.setProperty('--duration',duration+'s');
+      ember.style.setProperty('--delay',-Math.random()*duration+'s');
+      embers.appendChild(ember);
     }
-    $('#fx').appendChild(embers);
+    fx.appendChild(embers);
+  }
+  syncMotion();
+  motion.addEventListener('change',syncMotion);
+  largeDisplay.addEventListener('change',syncMotion);
+  document.addEventListener('visibilitychange',syncMotion);
+  const roots=$$('.view .card,.view .kpi,.view .day.now,.view .know,.view .client');
+  if(window.IntersectionObserver){
+    const visible=new IntersectionObserver(entries=>{
+      for(const entry of entries)entry.target.classList.toggle('motion-outside',!entry.isIntersecting);
+    },{rootMargin:'64px 0px'});
+    roots.forEach(el=>visible.observe(el));
+  }
+  views.forEach(v=>$$('.eyebrow,h1,.lead,.client,.vh,.day,.kpi,.sect,.know,.stats,.card,.def',v)
+    .forEach((el,i)=>el.style.setProperty('--ci',Math.min(i,5))));
+  let cursor=null,frame=0;
+  function paintLight(){
+    frame=0;
+    if(!cursor||motion.matches||!canHover.matches||document.hidden||root.dataset.theme!=='dark')return;
+    const {card,x,y}=cursor,r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',Math.round(x-r.left)+'px');
+    card.style.setProperty('--my',Math.round(y-r.top)+'px');
+  }
+  document.addEventListener('pointermove',e=>{
+    if(largeDisplay.matches||motion.matches||!canHover.matches||e.pointerType==='touch'||root.dataset.theme!=='dark')return;
+    const card=e.target.closest?.('.card,.kpi,.know');
+    cursor=card?{card,x:e.clientX,y:e.clientY}:null;
+    if(cursor&&!frame)frame=requestAnimationFrame(paintLight);
+  },{passive:true});
+  let scrollFrame=0;
+  function paintProgress(){
+    scrollFrame=0;
+    const h=document.documentElement,m=h.scrollHeight-h.clientHeight;
+    pr.style.transform='scaleX('+(m>0?Math.max(0,Math.min(1,h.scrollTop/m)):0)+')';
+  }
+  function queueProgress(){if(!scrollFrame)scrollFrame=requestAnimationFrame(paintProgress)}
+  addEventListener('scroll',queueProgress,{passive:true});
+  addEventListener('resize',queueProgress,{passive:true});
+  paintProgress();
 }
-// spotlight and tilt follow the pointer
-document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card,.kpi,.know');if(!c)return;const r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
-if(c.classList.contains('kpi')&&!still){const dx=(e.clientX-r.left)/r.width-.5,dy=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateX(${(-dy*9).toFixed(2)}deg) rotateY(${(dx*11).toFixed(2)}deg) translateY(-4px)`}},{passive:true});
-$$('.kpi').forEach(k=>k.addEventListener('pointerleave',()=>k.style.transform=''));
-// each tab's pieces rise in turn
-views.forEach(v=>$$('.eyebrow,h1,.lead,.client,.vh,.day,.kpi,.sect,.know,.stats,.card,.def',v).forEach((el,i)=>el.style.setProperty('--ci',Math.min(i,16))));
-// progress along the page
-const pr=$('.prog');addEventListener('scroll',()=>{const h=document.documentElement,m=h.scrollHeight-h.clientHeight;pr.style.transform=`scaleX(${m>0?h.scrollTop/m:0})`},{passive:true})}
 {const tip=$('#tip');let cur=null;
 document.addEventListener('pointermove',e=>{const el=e.target.closest&&e.target.closest('[data-tip]');if(!el){if(cur){tip.classList.remove('on');cur=null}return}
 if(el!==cur){cur=el;tip.innerHTML=el.dataset.tip;tip.classList.add('on')}

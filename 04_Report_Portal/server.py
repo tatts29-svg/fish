@@ -42,6 +42,7 @@ import urllib.parse
 import zipfile
 import sqlite3
 import stocktake_store
+from report_delivery import ReportCache, accepts_gzip
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import import_history, archive_stocktake, kind_of, KINDS
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -55,16 +56,13 @@ MAX_PACK = 120 * 1024 * 1024
 JOB_DIR = os.path.join(DATA_DIR, "job")
 HERE = os.path.dirname(os.path.abspath(__file__))
 _build_lock = threading.Lock()
+_web_report = ReportCache()
 FAIL_LIMIT, FAIL_WINDOW = 10, 600
 _fails, _lock = {}, threading.Lock()
 
-EMPTY = """<!doctype html><html lang="en-AU"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Tool store report</title><body style="margin:0;background:#0B0E12;color:#DCE3EC;font-family:Inter,Segoe UI,system-ui,sans-serif">
-<div style="max-width:560px;margin:18vh auto;padding:0 24px;text-align:center">
-<div style="letter-spacing:.18em;font-weight:700;color:#F26222">COATES</div>
-<h1 style="font-size:26px;margin:18px 0 8px">The report is being prepared</h1>
-<p style="color:#8B96A6">It will show here as soon as the first SiteIQ pull is loaded.</p>
-<p style="color:#5C6676;font-size:12px;margin-top:40px">Author: Andrew Fisher | POWERED BY SITEIQ</p></div></body></html>"""
+EMPTY = """<main class="card"><h1>The report is being prepared</h1>
+<p>The first SiteIQ upload will appear here when the report is ready.</p>
+<nav class="portal-links" aria-label="Portal"><a href="/upload">Open uploads</a><a href="/logout">Sign out</a></nav></main>"""
 
 
 SESSION_HOURS = 12
@@ -73,7 +71,7 @@ LOGIN = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta n
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{background:#07090D;color:#fff;font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
  background-image:radial-gradient(90% 46% at 50% -6%,rgba(242,98,34,.20),rgba(242,98,34,0) 70%);background-repeat:no-repeat}
-html{font-size:clamp(16px, .83vw, 26px)}
+html{font-size:clamp(16px, .83vw, 26px);color-scheme:dark}
 .wrap{width:100%;min-height:100vh;min-height:100dvh;padding:clamp(16px,2.3vw,72px) clamp(16px,4vw,160px);display:flex;flex-direction:column;align-items:stretch}
 .wrap>.card{width:min(100%,72rem);margin:auto;align-self:center}
 form.card{display:grid;gap:1rem}
@@ -106,7 +104,21 @@ button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}butto
 .foot{text-align:center;color:#8B95A3;font-size:.875rem;margin-top:clamp(20px,3vh,76px);line-height:1.65}
 .foot small{font-size:.75rem!important}
 .foot b{display:block;font-size:.75rem;letter-spacing:.2em;font-weight:700}
-@media (prefers-reduced-motion:reduce){.card{animation:none}}
+.portal-links{display:flex;align-items:center;gap:.45rem 1.4rem;flex-wrap:wrap;margin-top:1.25rem;padding-top:.75rem;border-top:1px solid #2B323D}
+.portal-links a{display:inline-flex;align-items:center;min-height:44px;color:#FFAA77;font-size:.95rem;text-decoration:underline;text-underline-offset:.24em;text-decoration-color:#855135}
+.portal-links a:hover{color:#FFD7C0;text-decoration-color:currentColor}
+:where(a,button,select,[tabindex]):focus-visible{outline:3px solid #FFAA77;outline-offset:3px}
+@media(max-width:540px){
+ .wrap{padding:max(16px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+ .top{padding-bottom:.8rem;margin-bottom:1rem;gap:.75rem}.eyebrow{font-size:.75rem}
+ .card{padding:1.15rem}.intro h1{margin-top:.8rem}
+ .foot{margin-top:1.3rem}.note{margin-top:1.1rem;padding-top:1rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .card,.bar:before{animation:none!important}
+ button,input,.drop{transition:none!important}
+ button:active{transform:none}
+}
 </style></head><body><div class="wrap">
 <div class="top"><div class="brand">COATES</div><i></i><span>__NAME__</span></div>
 <form class="card" method="post" action="/login" autocomplete="on">
@@ -187,9 +199,9 @@ UPLOAD = """<style>
 .drop{margin-top:26px;border:2px dashed #47505E;border-radius:16px;padding:30px 18px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s,box-shadow .2s}
 .drop:hover,.drop.over{border-color:#F26222;background:rgba(242,98,34,.07);box-shadow:0 0 30px rgba(242,98,34,.15)}
 .drop b{display:block;font-size:1.125rem}.drop span{display:block;color:#A3ADBB;font-size:.92rem;margin-top:6px}
-.drop svg{width:34px;height:34px;color:#F26222;margin-bottom:10px}
+.drop svg{width:2.15rem;height:2.15rem;color:#F26222;margin-bottom:10px}
 ul{list-style:none;margin:22px 0 0;padding:0}li{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #232A34;font-size:.97rem}
-li i{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #47505E;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:700;color:#11151B}
+li i{flex:none;width:1.5rem;height:1.5rem;border-radius:50%;border:2px solid #47505E;display:grid;place-items:center;font-style:normal;font-size:14px;font-weight:700;color:#11151B}
 li.got i{background:#F26222;border-color:#F26222}li.got i:before{content:"\\2713"}
 li small{margin-left:auto;color:#8B95A3;font-size:.82rem;text-align:right;overflow-wrap:anywhere;max-width:52%}
 li em{font-style:normal;color:#8B95A3;font-size:12.5px;margin-left:6px}
@@ -197,11 +209,16 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 .st{margin-top:22px;border-radius:12px;padding:.85rem 1rem;font-size:.94rem;line-height:1.5;white-space:pre-wrap;border:1px solid #2B323D;background:#0A0D13;color:#DCE3EC}
 .st.run{border-color:rgba(242,98,34,.5)}.st.ok{border-color:#2FA84F;background:rgba(47,168,79,.10)}.st.bad{border-color:rgba(242,98,34,.6);background:rgba(242,98,34,.10);color:#FFC9AE}
 .st b{display:block;color:#fff}.bar{height:4px;border-radius:4px;background:#232A34;margin-top:10px;overflow:hidden}.bar:before{content:"";display:block;height:100%;width:35%;border-radius:4px;background:#F26222;box-shadow:0 0 12px #F26222;animation:go 1.3s ease-in-out infinite}
-@keyframes go{from{margin-left:-35%}to{margin-left:100%}}
+@keyframes go{from{transform:translateX(-100%)}to{transform:translateX(286%)}}
 #up-person{width:100%;min-height:3rem;border-radius:10px;border:1px solid #47505E;background:#0A0D13;color:#fff;font:inherit;padding:0 12px}
 .st,.top span{overflow-wrap:anywhere}
-#up-last{overflow-wrap:anywhere}
-.note a{color:#F58448;font-weight:700;text-decoration:none}
+#up-last{border-top:1px solid #303844;margin-top:1.6rem;padding-top:1rem;overflow-wrap:anywhere}
+#up-last h2{font-size:1rem;margin:0 0 .55rem}
+#last-who,#last-when{display:block;color:#C9D1DC;font-size:.9rem}
+#last-when{color:#A4AFBE;font-variant-numeric:tabular-nums}
+#last-files{list-style:disc;margin:.55rem 0 0;padding-left:1.1rem}
+#last-files li{display:list-item;font-size:.84rem;color:#A4AFBE;line-height:1.45;padding:.16rem 0;border:0}
+@media(max-width:540px){.upload-columns{gap:1rem}.drop{padding:1.25rem .75rem}.portal-links{justify-content:space-between}}
 </style>
 <div class="card">
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>TOOL STORE TEAM</div>
@@ -219,11 +236,12 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 </ul></div>
 <div class="submit-column"><div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
 <select id="up-person" required><option value="">Choose your first and last name</option></select></div>
-<div class="st" id="up-last" hidden></div>
 <button id="go" disabled>Update the report</button>
 <div class="st" id="st" role="status" hidden></div>
+<section id="up-last" aria-labelledby="last-title" hidden><h2 id="last-title">Last successful upload</h2>
+<strong id="last-who"></strong><time id="last-when"></time><ul id="last-files"></ul></section>
 </div></div>
-<p class="note"><a href="/">Open the report</a> &nbsp;·&nbsp; <a href="/logout">Sign out</a></p>
+<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a><a href="/logout">Sign out</a></nav>
 </div>
 <script>
 const K=['RENTAL_STOCK','SALES_STOCK','TRANSACTIONS','STOCKTAKE','ON_HIRE'],need=K.slice(0,3),files={};
@@ -239,7 +257,7 @@ function take(list){if(busy)return;const odd=[];for(const f of list){const k=kin
  buttons();
  if(odd.length)say('bad','<b>Not a SiteIQ export:</b>'+esc(odd.join(', '))+'\\nThe file name should start with RENTAL_STOCK, SALES_STOCK, TRANSACTIONS, STOCKTAKE or ON_HIRE.');
  else if(!go.disabled)say('','<b>Ready.</b>Press "Update the report".');else st.hidden=true}
-drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' ')pick.click()};pick.onchange=()=>{take(pick.files);pick.value=''};
+drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();pick.click()}};pick.onchange=()=>{take(pick.files);pick.value=''};
 ['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>take(e.dataTransfer.files));
@@ -256,7 +274,12 @@ function show(s){
  const audit=s.last_upload||(s.state==='ok'&&s.finished?{name:'Uploader not recorded',finished:s.finished,files:s.files||{}}:null);
  if(names.length&&audit){
   const last=$('#up-last');last.hidden=false;
-  last.textContent=['Last successful upload',(audit.name||'Uploader not recorded')+' · '+when(audit.finished),...Object.values(audit.files)].join('\\n');
+  $('#last-who').textContent=audit.name||'Uploader not recorded';
+  const stamp=$('#last-when');
+  stamp.dateTime=new Date(audit.finished*1000).toISOString();stamp.textContent=when(audit.finished);
+  $('#last-files').replaceChildren(...Object.values(audit.files).map(file=>{
+   const li=document.createElement('li');li.textContent=file;return li;
+  }));
  }
  busy=s.state==='running';buttons();
  if(s.state=='running'){say('run','<b>Rebuilding the report…</b>This takes about a minute. You can leave this page open.<div class="bar"></div>');go.disabled=true;return true}
@@ -265,7 +288,7 @@ function show(s){
  else if(!s.pack)say('bad','<b>Not ready yet.</b>The job pack has not been loaded. Ask the Manager.');
  return false}
 let submitted=false,submittedBatch='';
-async function poll(){try{const s=await (await fetch('/upload/status',{headers:{'X-Portal':'1'}})).json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'&&submitted){submitted=false;if(submittedBatch&&s.last_upload?.batch!==submittedBatch){say('','<b>A later upload has completed.</b>See the last successful upload above.');return}
+async function poll(){try{const s=await (await fetch('/upload/status',{headers:{'X-Portal':'1'}})).json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'&&submitted){submitted=false;if(submittedBatch&&s.last_upload?.batch!==submittedBatch){say('','<b>A later upload has completed.</b>See the last successful upload below.');return}
  person.value='';for(const k in files)delete files[k];take([]);show(s)}}catch(e){setTimeout(poll,4000)}}
 go.onclick=async()=>{if(go.disabled)return;busy=true;buttons();try{let first=1;
  const headers={'X-Portal':'1'};
@@ -475,8 +498,8 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
         return role
 
-    def _common(self):
-        self.send_header("Cache-Control", "no-store")
+    def _common(self, cache_control="no-store"):
+        self.send_header("Cache-Control", cache_control)
         self.send_header("X-Robots-Tag", "noindex, nofollow")
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("X-Frame-Options", "DENY")
@@ -491,14 +514,46 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", "0")
         self.end_headers()
 
-    def _send(self, code, body, ctype):
+    def _send(self, code, body, ctype, *, headers=(), cache_control="no-store"):
         self.send_response(code)
         self.send_header("Content-Type", ctype)
         self.send_header("Content-Length", str(len(body)))
-        self._common()
+        for key, value in headers:
+            self.send_header(key, value)
+        self._common(cache_control)
         self.end_headers()
         if self.command != "HEAD":
             self.wfile.write(body)
+
+    def _report_page(self, path):
+        if not self._role(page=True):
+            return
+        try:
+            report = _web_report.load(os.path.join(DATA_DIR, "report.html"))
+        except FileNotFoundError:
+            if path == "/":
+                return self._send(200, _shell(EMPTY), FILES["report.html"])
+            return self._send(404, b"Picture not found", "text/plain")
+        if path == "/":
+            headers = [("Vary", "Accept-Encoding")]
+            body = report.html
+            if accepts_gzip(self.headers.get("Accept-Encoding", "")):
+                headers.append(("Content-Encoding", "gzip"))
+                body = report.gzip
+            return self._send(200, body, FILES["report.html"], headers=headers)
+
+        key = path.removeprefix("/report-media/")
+        item = report.images.get(key)
+        if item is None:
+            return self._send(404, b"Picture not found", "text/plain")
+        etag = '"' + key + '"'
+        if self.headers.get("If-None-Match") == etag:
+            self.send_response(304)
+            self.send_header("ETag", etag)
+            self._common("private, no-cache")
+            self.end_headers()
+            return
+        return self._send(200, item[1], item[0], headers=[("ETag", etag)], cache_control="private, no-cache")
 
     def do_GET(self):
         path = self.path.split("?", 1)[0]
@@ -519,18 +574,18 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/upload/status":
                 return self._send(200, json.dumps(_status()).encode(), "application/json")
             return self._send(200, _upload_page(role), "text/html; charset=utf-8")
-        name = "report.html" if path == "/" else path[1:]
-        if name not in FILES or path == "/report.html":
+        if path == "/" or path.startswith("/report-media/"):
+            return self._report_page(path)
+        name = path[1:]
+        if name not in FILES or name == "report.html":
             return self._send(404, b"Not found", "text/plain")
         if not self._role(page=True):
             return
         try:
             with open(os.path.join(DATA_DIR, name), "rb") as f:
                 body = f.read()
-        except OSError:
-            if name != "report.html":
-                return self._send(404, b"That file is not loaded yet.", "text/plain")
-            body = EMPTY.encode("utf-8")
+        except FileNotFoundError:
+            return self._send(404, b"That file is not loaded yet.", "text/plain")
         self._send(200, body, FILES[name])
 
     do_HEAD = do_GET
