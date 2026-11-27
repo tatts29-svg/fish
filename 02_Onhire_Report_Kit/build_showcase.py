@@ -15,6 +15,7 @@ import argparse
 import base64
 import collections
 import datetime as dt
+import html
 import importlib.util
 import io
 import json
@@ -691,6 +692,24 @@ def write_onhire(data, folder):
         f.write(page)
 
 
+def contact_cards(contacts):
+    cards = []
+    for contact in contacts:
+        role = html.escape(contact["role"])
+        name = html.escape(contact["name"])
+        email = html.escape(contact["email"], quote=True)
+        phone = contact.get("phone")
+        links = [f'<a href="mailto:{email}">{email}</a>']
+        if phone:
+            number = re.sub(r"[^+0-9]", "", phone)
+            links.append(f'<a href="tel:{number}">{html.escape(phone)}</a>')
+        cards.append(f'<div class="card"><div class="sub">{role}</div><h3>{name}</h3>'
+                     + "<br>".join(links) + "</div>")
+    if not cards:
+        return ""
+    return '<div class="sect">Shutdown contacts</div><div class="grid c3">' + "".join(cards) + "</div>"
+
+
 def render(data, fonts, logo=None, client="MMG"):
     face = "".join("@font-face{{font-family:Inter;font-weight:{w};font-style:normal;src:url(data:font/woff;base64,{b}) format('woff')}}\n"
                    .format(w=w, b=b) for w, b in sorted(fonts.items()))
@@ -699,7 +718,7 @@ def render(data, fonts, logo=None, client="MMG"):
     blob = json.dumps(data, ensure_ascii=False, default=str).replace("</", "<\\/")
     with open(PAGE_FILE, encoding="utf-8") as f:
         page = f.read()
-    return (page.replace("__FONTS__", face).replace("__CLIENT__", client)
+    return (page.replace("__CONTACTS__", contact_cards(data.get("contacts", []))).replace("__FONTS__", face).replace("__CLIENT__", client)
             .replace("__LOGO__", logo or "").replace("__DATA__", blob))
 
 
@@ -877,6 +896,10 @@ def main(argv=None):
     a = ap.parse_args(argv)
     kit = _kit()
     data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    contacts_path = os.path.join(a.kit_folder, "contacts.json")
+    if os.path.isfile(contacts_path):
+        with open(contacts_path, encoding="utf-8") as contacts_file:
+            data["contacts"] = json.load(contacts_file)
     if a.tool_names:
         missed = plain_tool_names(data, a.tool_names)
         if missed:
