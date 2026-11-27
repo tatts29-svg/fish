@@ -5,8 +5,12 @@ import gzip
 import hashlib
 import os
 import re
+from datetime import datetime
+from html import escape
 from threading import Lock
 
+import upload_receipt
+from stocktake_store import QUEENSLAND
 from mobile_brand import web_report_html
 from qr_brand import PORTAL_MASTHEAD_CSS, portal_masthead, public_mmg_logo
 
@@ -20,6 +24,17 @@ _OLD_MASTHEAD = re.compile(
     rb'(<span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="[^"]*">)'
 )
 _REPORT_BRAND_CSS = PORTAL_MASTHEAD_CSS + """
+.bar .portal-upload{display:flex;align-items:baseline;justify-content:flex-end;gap:0 .45em;
+flex-wrap:wrap;line-height:1.45;color:#d1dae5;font-size:inherit}
+.portal-upload-time{white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:620px){.bar .portal-upload{justify-content:flex-start;font-size:12px}}
+@media screen and (min-width:901px){
+ html:not(.static) .bar:has(.portal-masthead){height:auto;min-height:3.6rem;padding-block:.35rem}
+}
+@media screen and (min-width:901px) and (max-width:1100px){
+ .bar:has(.portal-masthead) .what{display:none}
+ .bar:has(.portal-masthead) .gs{min-width:0;margin-inline:6px}
+}
 @media(max-width:620px){
  .bar:has(.portal-masthead){display:grid;grid-template-columns:minmax(0,1fr) auto auto;
  gap:.2rem .4rem;padding-block:.3rem}
@@ -39,7 +54,19 @@ _REPORT_BRAND_CSS = PORTAL_MASTHEAD_CSS + """
 """
 
 
-def _report_masthead(html, logo):
+def _upload_readout(receipt):
+    if receipt is None:
+        return '<span class="portal-upload">Last successful upload: details unavailable</span>'
+    name = receipt.get("name")
+    when = datetime.fromtimestamp(receipt["finished"], QUEENSLAND)
+    display = f'{when.day} {when:%b %Y, %H:%M} AEST'
+    operator = (f'Last updated by <b class="portal-upload-by">{escape(name)}</b>'
+                if name else 'Last successful upload · <b class="portal-upload-by">Uploader not recorded</b>')
+    return (f'<span class="portal-upload"><span>{operator}</span>'
+            f'<time class="portal-upload-time" datetime="{when.isoformat(timespec="seconds")}">{display}</time></span>')
+
+
+def _report_masthead(html, logo, receipt):
     match = _OLD_MASTHEAD.search(html)
     if not match:
         return html
@@ -52,6 +79,9 @@ def _report_masthead(html, logo):
     # the overview and print copy. Preserve its DOM contract in a hidden span.
     header = match[1] + portal_masthead(logo).encode() + b'<span hidden>' + match[2] + b'</span>'
     html = html[:match.start()] + header + html[match.end():]
+    clock = b'<b id="asat"></b><br><span class="au">'
+    html = html.replace(clock, b'<b id="asat"></b> AEST' + _upload_readout(receipt).encode()
+                        + b'<span class="au">', 1)
     return html.replace(b"</head>", b"<style>" + _REPORT_BRAND_CSS.encode() + b"</style></head>", 1)
 
 
@@ -80,17 +110,31 @@ class ReportCache:
         self.report = None
 
     def load(self, path, *, mmg_job=None):
-        with self.lock, open(path, "rb") as source:
-            stat = os.fstat(source.fileno())
-            logo = public_mmg_logo(mmg_job) if mmg_job is not None else None
-            version = (stat.st_dev, stat.st_ino, stat.st_mtime_ns, stat.st_size, mmg_job, logo)
-            if version != self.version:
-                html = source.read()
-                if mmg_job is not None:
-                    html = _report_masthead(web_report_html(html), logo)
-                self.report = WebReport(html)
-                self.version = version
-            return self.report
+        with self.lock:
+            while True:
+                with open(path, "rb") as source:
+                    stat = os.fstat(source.fileno())
+                    logo = public_mmg_logo(mmg_job) if mmg_job is not None else None
+                    version = (stat.st_dev, stat.st_ino, stat.st_mtime_ns, stat.st_size, mmg_job, logo)
+                    receipt = None
+                    if mmg_job is not None:
+                        head = source.read(upload_receipt.HEADER_BYTES)
+                        receipt = upload_receipt.resolve(head, os.path.dirname(path))
+                        # On an old report the receipt lives separately. If a new
+                        # report won the race, reopen it with its own attribution.
+                        if not os.path.samestat(stat, os.stat(path)):
+                            continue
+                        version += (receipt and receipt["name"], receipt and receipt["finished"])
+                    if version != self.version:
+                        source.seek(0)
+                        html = source.read()
+                        if mmg_job is not None:
+                            # Management-only fields stay inside the private version on disk.
+                            html = upload_receipt.STAMP.sub(b"", html, count=1)
+                            html = _report_masthead(web_report_html(html), logo, receipt)
+                        self.report = WebReport(html)
+                        self.version = version
+                    return self.report
 
 
 def accepts_gzip(header):

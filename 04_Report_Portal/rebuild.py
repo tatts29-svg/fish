@@ -22,12 +22,14 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 import tempfile
 import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from upload_policy import check_workbook, is_mmg, MMG_SCHEDULE
+import upload_receipt
+from upload_policy import check_workbook, is_mmg, MMG_SCHEDULE, uploaders
 from stocktake_store import all_entries, published_report, QUEENSLAND
 from datetime import datetime
 
@@ -187,15 +189,18 @@ def publish_outputs(ready, volume, staged_baseline=None):
     with tempfile.TemporaryDirectory(dir=volume) as prior:
         changed = []
         try:
+            if staged_baseline is not None:
+                # Create-only private prerequisites precede the report's final
+                # atomic rename. Undo our new link if any later output fails.
+                pinned = volume / OPENING_BASELINE
+                os.link(staged_baseline, pinned)
+                changed.append((pinned, Path(prior) / OPENING_BASELINE))
             for name, src in ready:
                 dest, backup = volume / name, Path(prior) / name
                 if dest.exists():
                     os.link(dest, backup)
                 os.replace(src, dest)
                 changed.append((dest, backup))
-            if staged_baseline is not None:
-                # Create only. Pack refreshes and subsequent builds cannot replace it.
-                os.link(staged_baseline, volume / OPENING_BASELINE)
         except BaseException:
             for dest, backup in reversed(changed):
                 if backup.exists():
@@ -306,7 +311,7 @@ def pdfs(out):
     return asat
 
 
-def main(job, data_dir, current=False):
+def main(job, data_dir, current=False, *, uploader=None, batch=None):
     hist = None
     try:
         with open(os.path.join(job, "job.json"), encoding="utf-8") as f:
@@ -373,14 +378,25 @@ def main(job, data_dir, current=False):
             if not qr_data.is_file() or qr_data.stat().st_size == 0:
                 raise Stop("The scoped report data was not generated. Nothing was changed.")
             ready.append((qr_data.name, qr_data))
+        audit = {}
         if is_mmg(job):
+            if current:
+                receipt = upload_receipt.published(data_dir)
+            else:
+                if uploader is not None and uploader not in uploaders(job):
+                    raise Stop("Select an MMG uploader before rebuilding.")
+                receipt = {"name":uploader, "batch":batch, "files":files, "finished":time.time()}
+            # The receipt and the report become visible through the same atomic
+            # rename. A failed publish restores the old file, including its receipt.
+            upload_receipt.stamp(Path(out) / "report.html", receipt)
+            audit["last_upload"] = receipt
             # Stage the scoped data and document set before the main report's public commit point.
             ordered = [entry for entry in ready if entry[0] != "report.html"] + [ready[0]]
             publish_outputs(ordered, Path(data_dir), staged_baseline if new_baseline else None)
         else:
             for name, path in ready:
                 os.replace(path, os.path.join(data_dir, name))
-        print(json.dumps({"ok": True, "pull": asat, "files": files, "kept": [k for k in KINDS[:4] if k not in files]}))
+        print(json.dumps({"ok": True, "pull": asat, "files": files, "kept": [k for k in KINDS[:4] if k not in files], **audit}))
         return 0
     except Exception as e:
         if saved_stocktake is not None:
@@ -404,7 +420,16 @@ def main(job, data_dir, current=False):
 
 if __name__ == "__main__":
     try:
-        sys.exit(main(sys.argv[1], sys.argv[2], "--current" in sys.argv[3:]))
+        import argparse
+        args = argparse.ArgumentParser()
+        args.add_argument("job")
+        args.add_argument("data_dir")
+        args.add_argument("--current", action="store_true")
+        args.add_argument("--uploader")
+        args.add_argument("--batch")
+        options = args.parse_args()
+        sys.exit(main(options.job, options.data_dir, options.current,
+                      uploader=options.uploader, batch=options.batch))
     except Stop as e:
         print(json.dumps({"ok": False, "message": str(e)}))
         sys.exit(1)

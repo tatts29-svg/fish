@@ -47,6 +47,7 @@ import swms_store
 import qr_access
 import qr_admin
 import qr_brand
+import upload_receipt
 import qr_roster
 import qr_work_notes
 from report_delivery import ReportCache, accepts_gzip
@@ -332,7 +333,7 @@ function show(s){
    $('h1 + p').textContent='Choose the SiteIQ exports for MMG Dugald River. The portal checks the project in each workbook before updating the report.';
   }
  }
- const audit=s.last_upload||(s.state==='ok'&&s.finished?{name:'Uploader not recorded',finished:s.finished,files:s.files||{}}:null);
+ const audit=s.last_upload;
  if(names.length&&audit){
   const last=$('#up-last');last.hidden=false;
   $('#last-who').textContent=audit.name||'Uploader not recorded';
@@ -395,10 +396,7 @@ def _status(role=None):
         if role in ("manager", "store"):
             st["qr_reports_staff"] = True
             st["sds_label_check"] = os.path.isfile(os.path.join(DATA_DIR, sds_library.LABEL_CHECK_NAME))
-        # Earlier successful uploads had no name recorded.
-        if "last_upload" not in st:
-            st["last_upload"] = ({"name": None, "files": st["files"], "finished": st["finished"]}
-                                 if st.get("state") == "ok" and st.get("files") and st.get("finished") else None)
+        st["last_upload"] = upload_receipt.published(DATA_DIR, st)
     return st
 
 
@@ -419,6 +417,8 @@ def _rebuild(name=None, batch=None, current=False):
         cmd = [sys.executable, os.path.join(HERE, "rebuild.py"), JOB_DIR, DATA_DIR]
         if current:
             cmd.append("--current")
+        elif name and batch:
+            cmd.extend(("--uploader", name, "--batch", batch))
         run = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
         try:
             res = json.loads(run.stdout.strip().splitlines()[-1])
@@ -431,15 +431,15 @@ def _rebuild(name=None, batch=None, current=False):
     finally:
         shutil.rmtree(os.path.join(JOB_DIR, "incoming"), ignore_errors=True)
     try:
-        _finish_build(res, started, name, batch)
+        _finish_build(res, started)
     finally:
         _build_lock.release()
 
 
-def _finish_build(res, started, name, batch):
+def _finish_build(res, started):
     if res.get("ok"):
         finished = time.time()
-        audit = {"last_upload": {"name": name, "batch": batch, "files": res["files"], "finished": finished}} if name else {}
+        audit = {"last_upload": res["last_upload"]} if "last_upload" in res else {}
         _set_status(state="ok", message="The report is updated.", pull=res.get("pull", ""), files=res.get("files", {}), kept=res.get("kept", []), finished=finished, took=round(finished - started), **audit)
     else:
         _set_status(state="failed", message=res.get("message", "Something went wrong. Nothing was changed."), finished=time.time())
