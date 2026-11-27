@@ -22,6 +22,7 @@
   let dialogGeneration = 0;
   let printClosed = [];
   let decoderRequest;
+  let ratingObserver=null;
   function el(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -61,6 +62,7 @@
   };
   for (const [id,path] of Object.entries(icons)) buttonIcon(id,path);
   function endLookup() {
+    ratingObserver?.disconnect();ratingObserver=null;
     if (transaction) transaction.abort();
     transaction = null;
     selection = ""; pdfRequest = null; pdf = null; snapshot = null;
@@ -201,26 +203,85 @@
     }
     if (more) {more.classList.add("more-tools");panel.append(more);}
   }
-  function returnsPanel(parent, r) {
-    const ret = r.returns;
-    const panel = section(parent,"Your return record","Recorded issues and completed hires in the available transaction periods.");
-    if (!r.coverage?.transactions_asat) {panel.append(el("p","empty","A dated transaction export is unavailable."));return;}
-    if (finite(ret.score)) {
-      const score = el("div","score");
-      const value = el("strong","",fmt(ret.score));
-      value.append(el("span",""," / 5"));
-      const meter = el("meter");
-      meter.min=0; meter.max=5; meter.value=ret.score;
-      meter.setAttribute("aria-label","Same-day return score");
-      score.append(value,meter); panel.append(score);
-    } else {
-      panel.append(el("p","empty","Score unavailable. At least five eligible completed hires are needed."));
+  function stars(value) {
+    const chart=svgNode("svg",{viewBox:"0 0 278 54",class:"rating-stars","aria-hidden":"true",focusable:"false"});
+    const defs=svgNode("defs"),path="M24 3.1 30.3 16.3 45.1 18.4 34.4 28.9 37 43.7 24 36.7 11 43.7 13.6 28.9 2.9 18.4 17.7 16.3Z";
+    const clip=svgNode("clipPath",{id:"rating-star-cut"});
+    clip.append(svgNode("path",{d:path}));defs.append(clip);
+    for(const [id,colours] of [
+      ["rating-copper",["#ffe6b0","#ff9953","#fe7635","#bf491c"]],
+      ["rating-steel",["#586474","#354150","#27313b","#1b232d"]]
+    ]) {
+      const grad=svgNode("linearGradient",{id,x1:"0",x2:".4",y1:"0",y2:"1"});
+      colours.forEach((c,i)=>grad.append(svgNode("stop",{offset:[0,.32,.56,1][i],"stop-color":c})));
+      defs.append(grad);
     }
-    panel.append(factList([["Same-day returns",fmt(ret.same_day) + " of " + fmt(ret.eligible) + " eligible hires"],["Recorded issues",fmt(ret.issues)],["Recorded returns",fmt(ret.returned)]]));
-    if (ret.method) panel.append(el("p","sub",ret.method));
-    if (ret.due_dates_available && finite(ret.due_assessed)) {
-      panel.append(el("p","sub",fmt(ret.returned_by_due)+" of "+fmt(ret.due_assessed)+" completed hires with recorded due dates were returned by the due date."));
-    } else panel.append(el("p","sub","SiteIQ supplies no due dates for these hires. Contractual lateness cannot be assessed."));
+    chart.append(defs);
+    for(let i=0;i<5;i++){
+      const amount=Math.max(0,Math.min(1,value-i));
+      const anchor=svgNode("g",{transform:"translate("+(i*56+2)+" 3)"});
+      const face=svgNode("g",{class:"rating-face"});
+      face.append(svgNode("path",{d:path,fill:"url(#rating-steel)",stroke:"#8b99a9","stroke-width":"1.35","stroke-linejoin":"round"}));
+      if(amount>0){
+        const cut=svgNode("g",{"clip-path":"url(#rating-star-cut)"});
+        // The symmetric star spans x=2.9..45.1. A half rating ends at the centre point.
+        const w=2.9+(45.1-2.9)*amount;
+        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"url(#rating-copper)",class:"rating-fill"}));
+        const clippedGlint=svgNode("svg",{x:0,y:0,width:w,height:48,overflow:"hidden"});
+        clippedGlint.append(svgNode("path",{d:"M-13 0H-6L-23 48H-30Z",fill:"white",class:"rating-reflection"}));
+        cut.append(clippedGlint);face.append(cut);
+      }
+      anchor.append(face);chart.append(anchor);
+    }
+    return chart;
+  }
+  function revealRating(panel) {
+    if(ratingObserver)ratingObserver.disconnect();
+    if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    ratingObserver=new IntersectionObserver(entries=>{
+      if(entries.some(e=>e.isIntersecting)) {
+        panel.classList.add("rating-seen");
+        ratingObserver?.disconnect();ratingObserver=null;
+      }
+    },{threshold:.12});
+    ratingObserver.observe(panel);
+  }
+  function returnsPanel(parent,r) {
+    const ret=r.returns;
+    const panel=section(parent,"Your return record",null,true);
+    panel.id="return-rating";panel.tabIndex=-1;panel.classList.add("return-panel");
+    if (!r.coverage?.transactions_asat) {
+      panel.append(el("p","empty","A dated transaction export is needed before your return record can be shown."));return;
+    }
+    const earned=finite(ret.score) && ret.score>=1 && ret.score<=5 && ret.eligible>=5;
+    const stage=el("div","rating-stage");
+    const art=el("div","rating-display");
+    if(earned){
+      const score=el("strong","rating-value",fmt(ret.score));
+      score.append(el("span",""," / 5"));
+      art.append(el("p","rating-label","Same-day return rating"),score,stars(ret.score));
+    } else {
+      art.append(el("p","rating-label","Same-day return rating"),el("strong","qualifying-label","Building your rating"));
+      const progress=el("div","qualifying-track");progress.setAttribute("aria-hidden","true");
+      for(let i=0;i<5;i++)progress.append(el("span",i<ret.eligible?"qualified":""));
+      art.append(progress);
+    }
+    stage.append(art);
+    const evidence=el("div","rating-evidence");
+    if(earned){
+      evidence.append(el("strong","",fmt(ret.same_day)+" of "+fmt(ret.eligible)+" eligible hires"),el("p","","returned on their issue date."));
+    } else {
+      evidence.append(el("strong","",fmt(ret.eligible)+" of 5 eligible completed hires"),el("p","","A score appears once five hires have a recorded issue and return in the same export period."));
+    }
+    stage.append(evidence);panel.append(stage);
+    const details=group("How your return record is calculated",null);
+    details.append(factList([["Tool issues in the records",fmt(ret.issues)],["Tool returns in the records",fmt(ret.returned)]]));
+    if(ret.method)details.append(el("p","explain",ret.method));
+    if(ret.due_dates_available && finite(ret.due_assessed)){
+      details.append(el("p","explain",fmt(ret.returned_by_due)+" of "+fmt(ret.due_assessed)+" completed hires with recorded due dates were returned by the due date."));
+    } else details.append(el("p","explain","SiteIQ supplies no due dates for these hires."));
+    panel.append(details);
+    revealRating(panel);
   }
   function consumablesPanel(parent, r) {
     const c = r.consumable_summary;
@@ -469,7 +530,7 @@
     $("hero-count").textContent=fmt(r.hire_count);
     if(personal) {
       $("hero-label").textContent=(r.hire_count===1 ? "Asset" : "Assets")+" on hire to you";
-      personalHires(body,r);
+      personalHires(body,r);returnsPanel(body,r);
     }
     const cov=chapter?.coverage || r.coverage || {};
     const pairs=[
@@ -485,7 +546,7 @@
     body.append(recordNav);
     currentStory(body,r,chapter);
     if(!personal)hires(body,r);
-    if(personal){returnsPanel(body,r);consumablesPanel(body,r);historyPanel(body,r);}
+    if(personal){consumablesPanel(body,r);historyPanel(body,r);}
     if(!personal)companyMilestones(body,r);
     earlierChapters(body,r);
     $("pull").textContent=r.asat ? "SiteIQ rental stock pull "+when(r.asat)+" AEST" : "SiteIQ rental stock pull time unavailable.";
@@ -586,56 +647,133 @@
   function stopCamera() {
     scanGeneration++;
     clearTimeout(scanTimer);
-    if (media) {media.getTracks().forEach(t => t.stop());media=null;}
-    if (personal) {$("preview").srcObject=null;$("scan-box").hidden=true;}
+    if (media) {
+      media.getTracks().forEach(track => track.stop());
+      media = null;
+    }
+    if (personal) {
+      $("preview").pause();
+      $("preview").srcObject = null;
+      $("scan-box").hidden = true;
+    }
   }
-  async function decoder() {
+  function loadBarcodeLibrary() {
     if (!decoderRequest) {
-      decoderRequest=new Promise((resolve,reject) => {
-        const s=document.createElement("script");s.src="badge_decoder.js";
-        s.onload=()=> resolve(window.jsQR);s.onerror=()=> {decoderRequest=null;reject(new Error("The QR decoder could not load."));};document.head.append(s);
+      decoderRequest = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "badge_zxing.js";
+        script.onload = () => resolve(window.ZXing);
+        script.onerror = () => {
+          decoderRequest = null;
+          script.remove();
+          reject(new Error("Could not load the barcode reader."));
+        };
+        document.head.append(script);
       });
     }
     return decoderRequest;
   }
-  async function startCamera() {
-    stopCamera();status();const mine=scanGeneration;
-    const view=$("preview");$("scan-box").hidden=false;
+  const barcodeFormats = ["code_128", "code_39", "ean_13", "ean_8", "qr_code"];
+  async function nativeBarcodeReader() {
     try {
-      const stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:"environment"}}});
-      if (mine!==scanGeneration){stream.getTracks().forEach(t=>t.stop());return;}
-      media=stream;view.srcObject=stream;await view.play();
-      let detector=null;
-      try {if (window.BarcodeDetector) detector=new BarcodeDetector();} catch(_) {}
-      let decode=null;
-      if (!detector) decode=await decoder();
-      const canvas=el("canvas");
-      const cx=canvas.getContext("2d",{willReadFrequently:true});
+      if (!window.BarcodeDetector) return null;
+      const available = await window.BarcodeDetector.getSupportedFormats();
+      if (barcodeFormats.every(format => available.includes(format))) {
+        return new window.BarcodeDetector({formats: barcodeFormats});
+      }
+    } catch (_) { /* The locally bundled decoder also handles these formats. */ }
+    return null;
+  }
+  async function localBarcodeReader() {
+    const library = await loadBarcodeLibrary();
+    const reader = new library.MultiFormatReader();
+    reader.setHints(new Map([
+      [library.DecodeHintType.POSSIBLE_FORMATS, barcodeFormats.map(format => library.BarcodeFormat[format.toUpperCase()])],
+      [library.DecodeHintType.TRY_HARDER, true]
+    ]));
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", {willReadFrequently: true});
+    return function readFrame(video) {
+      const scale = Math.min(1, 1280 / Math.max(video.videoWidth, video.videoHeight));
+      const width = Math.max(1, Math.round(video.videoWidth * scale));
+      const height = Math.max(1, Math.round(video.videoHeight * scale));
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+      }
+      context.drawImage(video, 0, 0, width, height);
+      const source = new library.HTMLCanvasElementLuminanceSource(canvas);
+      try {
+        const result = reader.decodeWithState(new library.BinaryBitmap(new library.HybridBinarizer(source)));
+        return result.getText();
+      } catch (_) {
+        return ""; // An empty, blurred or moving frame is normal between reads.
+      }
+    };
+  }
+  function usableBarcode(value) {
+    return typeof value === "string" && value.length > 0 && value.length <= identity.maxLength
+      && value === value.trim() && !/[\u0000-\u001f\u007f-\u009f]/u.test(value)
+      && !/^(?:[a-z][\w+.-]*:|[\\/]{2}|www\.)/i.test(value);
+  }
+  async function startCamera() {
+    stopCamera();
+    status("");
+    const mine = scanGeneration;
+    const view = $("preview");
+    $("scan-box").hidden = false;
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false, video: {facingMode: {ideal: "environment"}, width: {ideal: 1280}, height: {ideal: 720}}
+      });
+      if (mine !== scanGeneration) {stream.getTracks().forEach(track => track.stop()); return;}
+      media = stream;
+      view.srcObject = stream;
+      await view.play();
+      let detector = await nativeBarcodeReader();
+      let readFrame = detector ? null : await localBarcodeReader();
+      let prior = "";
       async function tick() {
-        if (mine!==scanGeneration) return;
-        let value="";
-        if (view.readyState>=2 && view.videoWidth) {
-          if (detector) {
-            try {value=(await detector.detect(view))[0]?.rawValue || "";}
-            catch(_) {detector=null;try {decode=await decoder();} catch(_){stopCamera();status("Enter the code printed on your card.",true);return;}}
-          } else if (decode) {
-            canvas.width=Math.min(720,view.videoWidth);
-            canvas.height=Math.round(canvas.width*view.videoHeight/view.videoWidth);
-            cx.drawImage(view,0,0,canvas.width,canvas.height);
-            const pixels=cx.getImageData(0,0,canvas.width,canvas.height);
-            value=decode(pixels.data,canvas.width,canvas.height,{inversionAttempts:"dontInvert"})?.data || "";
+        if (mine !== scanGeneration) return;
+        try {
+          if (view.readyState >= 2 && view.videoWidth && view.videoHeight) {
+            let values = [];
+            if (detector) {
+              try {
+                values = [...new Set((await detector.detect(view)).map(hit => hit.rawValue))];
+              } catch (_) {
+                detector = null;
+                readFrame = await localBarcodeReader();
+              }
+            }
+            if (mine !== scanGeneration) return;
+            if (readFrame) values = [readFrame(view)];
+            const value = values.length === 1 && usableBarcode(values[0]) ? values[0] : "";
+            if (value && value === prior) {
+              stopCamera();
+              identity.value = value;
+              identity.focus();
+              status("Barcode read. Check the number, then select View my report.");
+              return;
+            }
+            if (values.length > 1) status("Hold one barcode inside the frame.");
+            else if (values[0] && !value) status("Scan your assigned barcode number.");
+            prior = value;
+          }
+          scanTimer = setTimeout(tick, 220);
+        } catch (_) {
+          if (mine === scanGeneration) {
+            stopCamera();
+            status("The scanner could not read this barcode. Enter your assigned barcode number.", true);
           }
         }
-        if (mine!==scanGeneration) return;
-        if (value && !/^https?:\/\//i.test(value) && value.length<=identity.maxLength) {
-          stopCamera();identity.value=value;form.requestSubmit();return;
-        }
-        if (value) status("Scan the barcode on your own SiteIQ card.");
-        scanTimer=setTimeout(tick,275);
       }
-      if (mine===scanGeneration) tick();
-    } catch(err) {
-      if(mine===scanGeneration){stopCamera();status("Camera unavailable. Enter the code printed on your SiteIQ card or use a handheld scanner.",true);}
+      if (mine === scanGeneration) await tick();
+    } catch (_) {
+      if (mine === scanGeneration) {
+        stopCamera();
+        status("Camera unavailable. Allow camera access or enter your assigned barcode number.", true);
+      }
     }
   }
   if (personal) {

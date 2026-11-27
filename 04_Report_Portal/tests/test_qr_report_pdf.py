@@ -87,6 +87,14 @@ class ScopedPdfTests(unittest.TestCase):
         self.assertLess(zero.index(b"You have no equipment currently on hire"), zero.index(b"This shutdown"))
 
         self.assertNotIn(b"/ 5", pdf)
+        self.assertIn(b"1 of 5 eligible completed", pdf)
+        self.assertNotIn(b"SAME-DAY RETURN SCORE", pdf)
+        qualifying = dict(r, returns={**r["returns"], "score": 3.5, "eligible": 8, "same_day": 5})
+        rated = self.output(qualifying)
+        self.assertIn(b"SAME-DAY RETURN SCORE", rated)
+        self.assertIn(b"3.5 / 5", rated)
+        self.assertRegex(rated, rb"re W\*? n")  # clip a genuine half-filled vector star
+        self.assertLess(rated.index(b"ITEM-0000"), rated.index(b"SAME-DAY RETURN SCORE"))
         self.assertIn(b"20 Nov 2026 to 22 Nov 2026", pdf)
         self.assertIn(b"26 Nov 2026 to 28 Nov 2026", pdf)
         self.assertNotIn(b"20 Nov 2026 to 28 Nov 2026", pdf)

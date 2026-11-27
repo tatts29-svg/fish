@@ -127,5 +127,15 @@ class ConsumableNames(unittest.TestCase):
             self.assertEqual(catalogue.house_cons(want), want)          # running it twice changes nothing
 
 
+class IndividualOwnerTests(unittest.TestCase):
+    def test_identically_described_assets_keep_their_own_owner(self):
+        import build_showcase
+        data = {'tools': {'RADIO': {'name':'Radio', 'own':'Coates'}},
+                'onhire': [{'desc':'Radio', 'own':o} for o in ['MMG', 'Coates', '', 'Contractor']]}
+        build_showcase._apply_tool_names(data, {'RADIO':'Radio - Motorola'})
+        self.assertEqual([r['desc'] for r in data['onhire']],
+                         ['Radio - Motorola (MMG Owned)', 'Radio - Motorola', 'Radio - Motorola', 'Radio - Motorola (Contractor Owned)'])
+
+
 if __name__ == "__main__":
     unittest.main()

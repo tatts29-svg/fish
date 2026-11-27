@@ -349,7 +349,7 @@ def _band(vals):
             {"name": "Busiest shut", "n": round(max(vals))}]
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None, approved_names=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -499,7 +499,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                             "item": kit._s(r.get("ITEM_NUMBER")), "desc": dname.get(dkey(r), ""), "dk": dkey(r),
                             "date": d_.strftime("%d %b %Y") if d_ else "", "time": t_.strftime("%H:%M") if t_ else "",
                             "days": max(0, (asat.date() - d_).days) if d_ else None,   # the packs' rule: 0 = hired today
-                            "own": "Coates" if r in coates else other_owner, "tag": tag_kind(r) if r in coates else None})
+                            "own": _asset_owner(kit, r.get("OWNER")), "tag": tag_kind(r) if r in coates else None})
     onhire_rows.sort(key=lambda x: (x["co"].lower(), x["who"].lower(), x["desc"].lower()))
     phist = json.load(open(people)) if people and os.path.isfile(people) else {"people": [], "typical": {}}
     ptyp = phist.get("typical", {})
@@ -633,7 +633,9 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         if s.customer.strip().casefold() != "mmg" or "dugald river" not in s.location.casefold():
             raise ValueError("QR reports require the MMG Dugald River job configuration.")
         qr_facts.write(qr_report_data, kit, rental, sales, p_trans, ref, sales_ref, tref, _date, _time,
-                       dname, lambda name: _cons_name(kit, name), qr_report_prior)
+                       dname, lambda name: _cons_name(kit, name), qr_report_prior,
+                       lambda name, owner: _approved_asset_name(name, owner, approved_names),
+                       lambda owner: _asset_owner(kit, owner))
     return data
 
 
@@ -794,21 +796,44 @@ def _size_mm(label):
     return float("inf")
 
 
+def _asset_owner(kit, value):
+    owner = kit._s(value)
+    return "Coates" if owner.casefold() == "coates" else kit.co_name(owner)
+
+
+def _approved_asset_name(name, owner, approved):
+    if approved is None:
+        return name
+    label = approved.get(name.strip().upper(), name)
+    if owner and owner.casefold() != "coates":
+        suffix = " ({} Owned)".format(owner)
+        if not label.casefold().endswith(suffix.casefold()):
+            label += suffix
+    return label
+
+
+def _read_tool_names(path):
+    import csv
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        return {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
+
+
 def plain_tool_names(data, path):
     """Swap SiteIQ tool descriptions for the names in a checked list (a CSV with
     'SiteIQ description' and 'Plain name'). Every place a tool is named uses the
     clean name, and the SiteIQ wording is not shown anywhere; the product variant
     is what ties a tool back to SiteIQ. A description that is not on the list is
     left as SiteIQ has it and counted, so the build can say so."""
-    import csv
-    with open(path, encoding="utf-8-sig", newline="") as f:
-        look = {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
+    return _apply_tool_names(data, _read_tool_names(path))
+
+
+def _apply_tool_names(data, look):
     for group in (data.get("utilisation") or {}).get("variants", []):
         raw = group["aliases"]
         group["aliases"] = sorted(set(raw) | {look[n.upper()] for n in raw if n.upper() in look})
         group["name"] = look.get(group["name"].upper(), group["name"])
     owned = {k: t.get("own") for k, t in data["tools"].items() if t.get("own") and t.get("own") != "Coates"}
-    name = lambda n: look.get(str(n).strip().upper(), n) + (" ({} Owned)".format(owned[str(n).strip().upper()]) if str(n).strip().upper() in owned else "")
+    name = lambda n: _approved_asset_name(n, owned.get(n.strip().upper()), look)
     missed = [t["name"] for t in data["tools"].values() if t["name"].strip().upper() not in look]
     for t in data["tools"].values():
         t["raw_name"] = t["name"]
@@ -818,7 +843,7 @@ def plain_tool_names(data, path):
         for t in data.get(key) or []:
             t["dk"], t["name"] = t["name"].upper(), name(t["name"])
     for r in data.get("onhire") or []:
-        r["desc"] = name(r["desc"])
+        r["desc"] = _approved_asset_name(r["desc"], r.get("own", owned.get(r["desc"].upper())), look)
     for g in (data.get("tagged") or {}).get("groups", []):
         for k in g.get("kinds", []):
             k["name"] = name(k["name"])
@@ -952,7 +977,8 @@ def main(argv=None):
     ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
     a = ap.parse_args(argv)
     kit = _kit()
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline, a.qr_report_data, a.qr_report_prior)
+    approved_names = _read_tool_names(a.tool_names) if a.tool_names else None
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline, a.qr_report_data, a.qr_report_prior, approved_names)
     data["variant_history"] = []
     if a.variant_history:
         with open(a.variant_history, encoding="utf-8") as f:
@@ -967,8 +993,8 @@ def main(argv=None):
     if os.path.isfile(contacts_path):
         with open(contacts_path, encoding="utf-8") as contacts_file:
             data["contacts"] = json.load(contacts_file)
-    if a.tool_names:
-        missed = plain_tool_names(data, a.tool_names)
+    if approved_names is not None:
+        missed = _apply_tool_names(data, approved_names)
         if missed:
             print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
     got = named_pictures(data)

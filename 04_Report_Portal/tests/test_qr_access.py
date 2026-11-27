@@ -74,6 +74,22 @@ class QrViews(PortalHTTPCase):
             self.assertEqual(self.request("GET", url, "store")[0], 404)
             self.assertEqual(self.request("GET", "/qr/personal/enter")[0], 404)
 
+    def test_bundled_live_barcode_reader_is_only_available_in_personal_scope(self):
+        personal = self.activate("personal")
+        company = self.activate("company")
+        self.assertEqual(self.request("GET", "/qr/personal/badge_zxing.js")[0], 403)
+        self.assertEqual(self.request("GET", "/qr/company/badge_zxing.js", headers={"Cookie": company})[0], 404)
+        code, headers, library = self.request("GET", "/qr/personal/badge_zxing.js", headers={"Cookie": personal})
+        self.assertEqual(code, 200)
+        self.assertIn("javascript", headers["Content-Type"])
+        self.assertIn(b"@zxing/library 0.23.0", library[:100])
+        with patch.object(qr_roster, "status", return_value={"linked": 1}):
+            status, _, shell = self.request("GET", "/qr/personal/", headers={"Cookie": personal})
+            self.assertEqual(status, 200)
+            self.assertIn(b"Scan or enter your assigned barcode number", shell)
+            self.assertIn(b">Scan barcode</button>", shell)
+            self.assertNotIn(b'type="file"', shell)
+
     def test_personal_setup_has_no_worker_lookup_until_a_roster_is_linked(self):
         cookie = self.activate("personal")
         text = b"Worker barcode access is being set up. Please ask the tool store."

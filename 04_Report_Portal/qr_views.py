@@ -15,20 +15,22 @@ def page(scope, *, barcode_ready=True):
     fonts = job / "kit" / "_fonts"
     font_class = "job-font" if all((fonts / f"Inter-{w}.ttf").is_file() for w in ("Regular", "Bold")) else ""
     title = "Your time at MMG Dugald River" if personal else "Company on-hire report"
-    intro = ("Follow the gear on your card, your returns and your visits recorded by the tool store."
+    intro = ("See your current gear, returns and visits recorded by the tool store."
              if personal else "Choose your company to see its current gear and recorded tool-store history.")
-    form = ('''<label for="identity">Your SiteIQ barcode</label>
+    form = ('''<label for="identity">Scan or enter your assigned barcode number</label>
         <input id="identity" type="text" required maxlength="256" autocomplete="off"
-               autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter the code on your card">
+               autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter your barcode number">
         <div class="form-actions"><button class="primary" type="submit">View my report</button>
-        <button id="camera" type="button" hidden>Scan my card</button></div>
+        <button id="camera" type="button" hidden>Scan barcode</button></div>
         <div id="scan-box" hidden><video id="preview" playsinline muted></video>
-        <p>Hold the code on your card inside the frame.</p>
+        <p>Hold your barcode inside the frame.</p>
         <button id="stop-scan" type="button">Close camera</button></div>'''
             if personal else '''<label for="identity">Company</label>
         <select id="identity" required disabled><option value="">Loading companies…</option></select>
         <div class="form-actions"><button class="primary" type="submit" disabled>View on-hire report</button>
         <button id="retry-companies" type="button" hidden>Retry company list</button></div>''')
+    return_jump = ('<a class="return-jump screen-only" href="#return-rating"><span aria-hidden="true">★</span> Your return record</a>'
+                   if personal else "")
     setup = personal and not barcode_ready
     if setup:
         intro = "Worker barcode access is being set up. Please ask the tool store."
@@ -47,7 +49,7 @@ def page(scope, *, barcode_ready=True):
 <p id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></p>
 <article id="report" hidden><header class="report-head"><div class="hero-copy">
 <p class="eyebrow">{'Your time at MMG Dugald River' if personal else 'Company record · MMG Dugald River'}</p>
-<h1 id="report-heading" tabindex="-1"></h1><p id="report-subtitle"></p></div>
+<h1 id="report-heading" tabindex="-1"></h1><p id="report-subtitle"></p>{return_jump}</div>
 <a href="#current-gear" class="hero-holding" aria-label="Jump to the current on-hire list"><span id="hero-count"></span>
 <span><span id="hero-label">{'Assets on hire to you' if personal else 'Assets on hire now'}</span> <b aria-hidden="true">↘</b></span></a>
 </header>

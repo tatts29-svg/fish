@@ -34,3 +34,23 @@ class Archive(unittest.TestCase):
         self.assertEqual(len(new['transaction_periods']),2)
         old['schedule']='other';fresh=snapshot('2026-11-26','2026-11-27',[],[]);qr_facts.reconcile(fresh,old,set())
         self.assertEqual(len(fresh['transaction_periods']),1)
+
+    def test_approved_display_names_use_exact_asset_or_explicit_transaction_ownership(self):
+        from build_showcase import _approved_asset_name
+        raw = 'Old cordless wrench description'
+        label = 'Impact Wrench - Cordless - 3/4 Inch Drive (19mm) - 18V - Milwaukee'
+        label_for = lambda source, owner: _approved_asset_name(source, owner, {raw.upper(): label})
+        owners = {('A', raw.upper()): {'MMG'}, ('B', raw.upper()): {'Coates'},
+                  ('C', raw.upper()): {'MMG', 'Coates'}}
+        facts = {'hires': [dict(item=i, name=raw) for i in ('A', 'B', 'C')],
+                 'movements': [dict(item='A', name=raw, event_key='tx-A'),
+                               dict(item='B', name=raw, event_key='tx-B'),
+                               dict(item='A', name='Different item text', event_key='tx-unknown'),
+                               dict(item='A', name=raw, event_key='legacy')]}
+        qr_facts.apply_asset_labels(facts, owners, {'tx-A': {'Coates'}, 'tx-B': {'Coates','MMG'}}, label_for)
+        self.assertEqual([r['name'] for r in facts['hires']], [label+' (MMG Owned)', label, label])
+        self.assertEqual([r['name'] for r in facts['movements']], [label, label, 'Different item text', label+' (MMG Owned)'])
+        first = copy.deepcopy(facts)
+        qr_facts.apply_asset_labels(facts, {}, {}, label_for)
+        self.assertEqual(facts, first)
+        self.assertEqual([r['event_key'] for r in facts['movements']], ['tx-A','tx-B','tx-unknown','legacy'])

@@ -206,7 +206,7 @@ def serve(request, data_dir, job_dir):
         if scope == "company":
             allowed.update(("companies", "work-note"))
         else:
-            allowed.add("badge_decoder.js")
+            allowed.update(("badge_decoder.js", "badge_zxing.js"))
         if action not in allowed or (path.query and not (scope == "company" and action in ("report", "report.pdf"))):
             return error(404, "Not found.")
         if read and action in ("enter", "enter.js"):
@@ -228,7 +228,7 @@ def serve(request, data_dir, job_dir):
             from qr_views import page
             shell = page(scope, barcode_ready=qr_roster.status(data_dir).get("linked", 0) > 0) if scope == "personal" else page(scope)
             return reply(200, shell.encode(), "text/html; charset=utf-8")
-        if read and action in ("qr_report.css", "qr_report.js", "badge_decoder.js"):
+        if read and action in ("qr_report.css", "qr_report.js", "badge_decoder.js", "badge_zxing.js"):
             return reply(200, (HERE / action).read_bytes(),
                          "text/css; charset=utf-8" if action.endswith(".css") else "text/javascript; charset=utf-8")
         if read and action in BRANDING:

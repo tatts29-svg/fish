@@ -3,6 +3,7 @@ import datetime as dt
 import hashlib
 import json
 import math
+from collections import defaultdict
 from pathlib import Path
 
 import openpyxl
@@ -76,7 +77,7 @@ def event_key(transaction, item):
     return hashlib.sha256(json.dumps([transaction, item], separators=(',', ':')).encode()).hexdigest()
 
 
-def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_date, parse_time, tool_names, cons_name, prior_path=None):
+def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_date, parse_time, tool_names, cons_name, prior_path, approved_name, owner_name):
     schedule = ref.get('schedule')
     if not schedule or sales_ref.get('schedule') != schedule or transactions and tx_ref.get('schedule') != schedule:
         raise ValueError('QR report exports must all identify the same project schedule.')
@@ -95,13 +96,16 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
 
     hires = {}
     disputed = set()
+    asset_owners = defaultdict(set)
     for row in rental:
         who = subject(row, 'COMPANY_NAME', 'HIRER_NAME')
         item = text(row.get('ITEM_NUMBER'))
+        raw_name = ' '.join(text(row.get('ITEM_DESCRIPTION')).split())
+        if item and raw_name:
+            asset_owners[item, raw_name.upper()].add(owner_name(row.get('OWNER')))
         if text(row.get('ITEM_STATUS')).casefold() != 'on hire' or not item or not who['employer']:
             continue
         date, time = dates(row.get('ON_HIRE_DATE'), row.get('ON_HIRE_TIME'))
-        raw_name = ' '.join(text(row.get('ITEM_DESCRIPTION')).split())
         fact = dict(who, item=item, name=tool_names.get(raw_name.upper(), raw_name) or 'Unnamed equipment', date=date, time=time[:5])
         if item in hires and hires[item] != fact:
             disputed.add(item)
@@ -117,6 +121,7 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
         draws.append(dict(who, name=cons_name(row.get('SKU_DESCRIPTION')) or 'Unnamed consumable', date=date,
                           quantity=issued, returned=returned, return_date=return_date))
     moves = {}
+    transaction_owners = defaultdict(set)
     conflicts = set()
     if transactions:
         for row in rental_transactions(transactions):
@@ -134,6 +139,9 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
                         start=start, start_time=start_time, end=end, end_time=end_time, due=due)
             key = event_key(tx_id, item)
             fact['event_key'] = key
+            if row.get('ITEM_OWNER'):
+                kit._fold_owner(row)
+                transaction_owners[key].add(owner_name(row['ITEM_OWNER']))
             if key in moves and moves[key] != fact:
                 # Conflicting snapshots cannot support a private identity or return score.
                 conflicts.add(key)
@@ -145,7 +153,24 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
                  movements=[r for k,r in moves.items() if k not in conflicts], draws=draws)
     prior = json.loads(Path(prior_path).read_text(encoding='utf-8')) if prior_path else None
     reconcile(facts, prior, conflicts)
+    apply_asset_labels(facts, asset_owners, transaction_owners, approved_name)
     workers = {(r['hirer'], r['employer'], r['hirer_id'])
                for rows in (facts['hires'], facts['movements'], facts['draws']) for r in rows if r['hirer']}
     facts['workers'] = [dict(hirer=n, employer=c, hirer_id=i) for n, c, i in sorted(workers)]
     Path(path).write_text(json.dumps(facts, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+
+
+def apply_asset_labels(facts, asset_owners, transaction_owners, approved_name):
+    """Resolve ownership using the exact asset/description or the historical record itself."""
+    for row in facts['hires'] + facts['movements']:
+        # Older private snapshots stored the SiteIQ display name only. For a
+        # retained event, resolve a checked label on that exact source text.
+        source = row.get('source_name') or row['name']
+        row['source_name'] = source
+        if 'source_owner' in row:
+            owner = row['source_owner']
+        else:
+            owners = transaction_owners.get(row.get('event_key')) or asset_owners.get((row['item'], source.upper()), set())
+            owner = next(iter(owners)) if len(owners) == 1 else ''
+            row['source_owner'] = owner
+        row['name'] = approved_name(source, owner)

@@ -1,6 +1,7 @@
 """Printable A4 reports from a single company or worker's scoped QR projection."""
 from datetime import date, datetime, timedelta, timezone
 from io import BytesIO
+from math import cos, pi, sin
 from pathlib import Path
 from threading import Lock
 from xml.sax.saxutils import escape
@@ -105,6 +106,51 @@ class DailyMovements(Flowable):
                 c.setFillColor(INK)
                 c.setFont(self.bold, 8.7)
                 c.drawString(x + 112, y, number(value))
+
+
+class ReturnStars(Flowable):
+    """A labelled five-star rating; vector outlines and half fills survive printing."""
+    def __init__(self, score, bold, accent, wash):
+        super().__init__()
+        self.score, self.bold, self.accent, self.wash = score, bold, accent, wash
+        self.width, self.height = CONTENT, 51
+
+    def draw(self):
+        c = self.canv
+        c.saveState()
+        c.setFillColor(self.wash)
+        c.roundRect(0, 0, self.width, self.height, 6, fill=1, stroke=0)
+        c.setFillColor(INK)
+        c.setFont(self.bold, 9)
+        c.drawString(12, 31, "SAME-DAY RETURN SCORE")
+        c.setFont(self.bold, 14)
+        c.drawString(12, 12, f"{number(self.score)} / 5")
+        radius = 12
+        for i in range(5):
+            cx, cy = self.width - 164 + i * 31, self.height / 2
+            star = c.beginPath()
+            for point in range(10):
+                angle = pi / 2 + point * pi / 5
+                distance = radius if point % 2 == 0 else radius * .44
+                x, y = cx + distance * cos(angle), cy + distance * sin(angle)
+                (star.moveTo if point == 0 else star.lineTo)(x, y)
+            star.close()
+            c.setStrokeColor(MUTED)
+            c.setLineWidth(.9)
+            c.setFillColor(white)
+            c.drawPath(star, fill=1, stroke=1)
+            fraction = min(1, max(0, self.score - i))
+            if fraction:
+                c.saveState()
+                if fraction < 1:
+                    clip = c.beginPath()
+                    clip.rect(cx - radius, cy - radius, 2 * radius * fraction, 2 * radius)
+                    c.clipPath(clip, stroke=0, fill=0)
+                c.setFillColor(self.accent)
+                c.setStrokeColor(self.accent)
+                c.drawPath(star, fill=1, stroke=1)
+                c.restoreState()
+        c.restoreState()
 
 
 def render_pdf(report, *, job_dir=None):
@@ -365,10 +411,12 @@ def render_pdf(report, *, job_dir=None):
         ret = report["returns"]
         flow.append(para(f"{number(ret['issues'])} issued · {number(ret['returned'])} returned. "
                          f"{number(ret['same_day'])} of {number(ret['eligible'])} eligible completed hires returned on the same day."))
-        if ret.get("score") is None:
-            flow.append(para("Same-day return measure unavailable. At least five eligible completed hires are required."))
+        score, eligible = ret.get("score"), ret.get("eligible", 0)
+        if score is None or eligible < 5:
+            flow.append(para(f"Same-day return measure unavailable. {number(eligible)} of 5 eligible completed "
+                             "hires recorded. A score requires at least five."))
         else:
-            flow.append(para(f"Same-day return measure  ·  {number(ret['score'])} / 5"))
+            flow.extend([Spacer(1, 5), ReturnStars(score, bold, accent, wash), Spacer(1, 5)])
         if ret.get("method"):
             flow.append(para(ret["method"], 8.8, colour=MUTED))
         if not ret.get("due_dates_available"):
