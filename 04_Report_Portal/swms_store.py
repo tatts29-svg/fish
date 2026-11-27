@@ -32,7 +32,7 @@ class SwmsError(ValueError):
         self.status = status
 
 
-def _check_pdf(data):
+def check_pdf(data):
     # Check the version and the final cross-reference offset (including PDF xref streams).
     trailer = re.search(rb"startxref\s+([0-9]{1,12})\s+%%EOF\s*\Z", data[-1024:])
     if not re.match(rb"%PDF-(?:1\.[0-7]|2\.0)\s", data) or not trailer:
@@ -95,7 +95,7 @@ def publish(data_dir, bundle):
             if any(not 0 < p.file_size <= MAX_FILE for p in parts):
                 raise SwmsError("Each document must be between 1 byte and 16 MiB.", 413)
             pdf, docx = files.read("swms.pdf"), files.read("swms.docx")
-        _check_pdf(pdf)
+        check_pdf(pdf)
         _check_docx(docx)
     except (zipfile.BadZipFile, EOFError, RuntimeError, ElementTree.ParseError, LookupError, zlib.error) as exc:
         raise SwmsError("The SWMS ZIP or Word document is damaged or unsupported.") from exc

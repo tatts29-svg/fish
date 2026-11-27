@@ -254,7 +254,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <section id="up-last" aria-labelledby="last-title" hidden><h2 id="last-title">Last successful upload</h2>
 <strong id="last-who"></strong><time id="last-when"></time><ul id="last-files"></ul></section>
 </div></div>
-<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
+<nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a><span id="staff-sds" hidden><a href="/upload/sds-label-check.zip">Supplier SDS pack for label checks</a></span>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
 </div>
 <script>
 const labels={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'};
@@ -279,6 +279,7 @@ drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){
 drop.addEventListener('drop',e=>take(e.dataTransfer.files));
 const when=t=>new Date(t*1000).toLocaleString('en-AU',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false,timeZone:names.length?'Australia/Brisbane':undefined})+(names.length?' AEST':'');
 function show(s){
+ $('#staff-sds').hidden=s.sds_label_check!==true;
  if(!loaded){
   names=s.uploaders||[];
   K=(s.accepted_kinds||Object.keys(labels).filter(k=>k!=='ON_HIRE'||!('uploaders' in s))).filter(k=>Object.hasOwn(labels,k));
@@ -331,7 +332,7 @@ def _upload_page(role):
     return _shell(UPLOAD)
 
 
-def _status():
+def _status(role=None):
     try:
         with open(os.path.join(DATA_DIR, "upload_status.json"), encoding="utf-8") as f:
             st = json.load(f)
@@ -343,6 +344,8 @@ def _status():
     st["accepted_kinds"] = list(MMG_DAILY_KINDS if is_mmg(JOB_DIR) else KINDS)
     if is_mmg(JOB_DIR):
         st["uploaders"] = uploaders(JOB_DIR)
+        if role in ("manager", "store"):
+            st["sds_label_check"] = os.path.isfile(os.path.join(DATA_DIR, sds_library.LABEL_CHECK_NAME))
         # Earlier successful uploads had no name recorded.
         if "last_upload" not in st:
             st["last_upload"] = ({"name": None, "files": st["files"], "finished": st["finished"]}
@@ -584,6 +587,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._stocktake_entries()
         if path in ("/swms/status", "/swms/current.pdf", "/swms/current.docx") and is_mmg(JOB_DIR):
             return self._swms(path)
+        if path == "/upload/sds-label-check.zip" and is_mmg(JOB_DIR):
+            return self._label_check_pack()
         if path.startswith("/sds/") and is_mmg(JOB_DIR):
             if not self._role(page=True):
                 return
@@ -618,7 +623,7 @@ class Handler(BaseHTTPRequestHandler):
             if not role:
                 return
             if path == "/upload/status":
-                return self._send(200, json.dumps(_status()).encode(), "application/json")
+                return self._send(200, json.dumps(_status(role)).encode(), "application/json")
             return self._send(200, _upload_page(role), "text/html; charset=utf-8")
         if path == "/" or path.startswith("/report-media/"):
             return self._report_page(path)
@@ -662,6 +667,35 @@ class Handler(BaseHTTPRequestHandler):
             _failed(ip)
             return self._send(401, _login_page("That username or password is not right. Have another go."), "text/html; charset=utf-8")
         self._redirect("/", cookie=_session(user))
+
+    def _label_check_pack(self):
+        write = self.command == "PUT"
+        role = self._role(page=not write)
+        if not role:
+            return
+        if role not in (("manager",) if write else ("manager", "store")):
+            return self._send(403, b"Staff access required.", "text/plain")
+        if write:
+            body = self._body(sds_library.MAX_BUNDLE)
+            if body is None:
+                return
+            try:
+                count = sds_library.install_label_check(body, DATA_DIR)
+            except ValueError as exc:
+                return self._send(400, str(exc).encode(), "text/plain")
+            return self._send(200, f"Loaded {count} PDFs for staff label checks.".encode(), "text/plain")
+        try:
+            with open(os.path.join(DATA_DIR, sds_library.LABEL_CHECK_NAME), "rb") as pack:
+                self.send_response(200)
+                self.send_header("Content-Type", "application/zip")
+                self.send_header("Content-Length", str(os.fstat(pack.fileno()).st_size))
+                self.send_header("Content-Disposition", 'attachment; filename="MMG-SDS-Supplier-Label-Checks.zip"')
+                self._common()
+                self.end_headers()
+                if self.command != "HEAD":
+                    shutil.copyfileobj(pack, self.wfile)
+        except FileNotFoundError:
+            return self._send(404, b"The supplier label-check pack is not loaded.", "text/plain")
 
     def _swms(self, path):
         write = self.command in ("PUT", "POST")
@@ -919,6 +953,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/sds-label-check.zip" and is_mmg(JOB_DIR):
+            return self._label_check_pack()
         if path == "/upload/swms.zip" and is_mmg(JOB_DIR):
             return self._swms(path)
         if path == "/upload/sds-register.zip" and is_mmg(JOB_DIR):

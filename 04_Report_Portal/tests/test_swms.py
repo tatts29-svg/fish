@@ -50,7 +50,7 @@ def documents(revision):
     return {"swms.pdf": bytes(pdf), "swms.docx": docx}
 
 
-class SwmsDelivery(unittest.TestCase):
+class PortalHTTPCase(unittest.TestCase):
     def setUp(self):
         tmp = tempfile.TemporaryDirectory()
         self.addCleanup(tmp.cleanup)
@@ -78,6 +78,9 @@ class SwmsDelivery(unittest.TestCase):
             res = conn.getresponse()
             return res.status, dict(res.getheaders()), res.read()
 
+
+
+class SwmsDelivery(PortalHTTPCase):
     def put(self, documents, user="testmanager"):
         return self.request("PUT", "/upload/swms.zip", user, archive(documents))
 

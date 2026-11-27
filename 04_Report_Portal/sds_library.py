@@ -54,3 +54,51 @@ def install(body, data_dir):
         staged_index.write_bytes(index_bytes)
         os.replace(staged_index, root / "register.json")
         return len(required) - 1
+
+
+LABEL_CHECK_NAME = "sds-label-check.zip"
+
+
+def install_label_check(body, data_dir):
+    """Publish a checked staff download separately from the verified register."""
+    import stat
+    import zlib
+    from swms_store import check_pdf
+
+    if len(body) > MAX_BUNDLE:
+        raise ValueError("The supplier pack exceeds 48 MiB.")
+    try:
+        with zipfile.ZipFile(io.BytesIO(body)) as archive:
+            entries = archive.infolist()
+            if len(entries) > 256 or sum(e.file_size for e in entries) > MAX_BUNDLE:
+                raise ValueError("The supplier pack exceeds its size limit.")
+            files, paths = 0, set()
+            for e in entries:
+                name = e.filename.removesuffix("/")
+                parts = name.split("/")
+                if (not name or len(name) > 240 or e.orig_filename != e.filename or name.casefold() in paths
+                        or any(not p or p.startswith(".") or p.endswith((".", " "))
+                               or re.search(r'[<>:"\\|?*\x00-\x1f\x7f]', p)
+                               or re.fullmatch(r"(?i)(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])(\..*)?", p)
+                               for p in parts)
+                        or e.flag_bits & 1 or e.compress_type not in (zipfile.ZIP_STORED, zipfile.ZIP_DEFLATED)
+                        or stat.S_IFMT(e.external_attr >> 16) not in (0, stat.S_IFREG, stat.S_IFDIR)):
+                    raise ValueError("Choose a PDF-only ZIP with normal relative filenames.")
+                paths.add(name.casefold())
+                if e.is_dir() and not e.file_size:
+                    continue
+                if not name.lower().endswith(".pdf") or not 0 < e.file_size <= 16 * 1024 * 1024:
+                    raise ValueError("Include only PDF files of up to 16 MiB each.")
+                check_pdf(archive.read(e))
+                files += 1
+            if not files:
+                raise ValueError("Include at least one PDF.")
+    except (zipfile.BadZipFile, EOFError, RuntimeError, zlib.error) as exc:
+        raise ValueError("The supplier pack is damaged or unsupported.") from exc
+    root = Path(data_dir)
+    root.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=root) as tmp:
+        staging = Path(tmp) / LABEL_CHECK_NAME
+        staging.write_bytes(body)
+        os.replace(staging, root / LABEL_CHECK_NAME)
+    return files
