@@ -14,7 +14,7 @@ NOVEMBER_SCHEDULE = "MMG Shutdown Novermber26-December26"
 NOVEMBER_ROUNDS = [
     {"label": "Opening stocktake", "start": "2026-11-22", "end": "2026-11-25"},
     {"label": "Closeout stocktake", "start": "2026-11-25", "end": "2026-12-03",
-     "evidence_start": "2026-12-02", "evidence_end": "2026-12-03"},
+     "evidence_start": "2026-11-25", "evidence_end": "2026-12-03"},
 ]
 COUNT_ACTIONS = {"stocktake", "stock take", "stock count", "physical count", "cycle count"}
 
@@ -113,7 +113,45 @@ def category_totals(items, checked):
             for (kind, cat), total in sorted(totals.items())]
 
 
-def build(folder, current_file, schedule, rental, stock):
+def accepted_opening(round_data, baseline_path, schedule):
+    """Display the manager's direction separately from recorded physical checks."""
+    approval = {"status": "accepted", "approved_by": "Andrew Fisher", "role": "Shutdown Manager",
+                "approved_on": "2026-11-28", "baseline_available": baseline_path is not None}
+    round_data["carry_forward"] = approval
+    round_data["physical_checks"] = {label: round_data[label]["checked"] for label in ("tools", "cons")}
+    round_data.update(categories=[], baseline_rows=[], tools={"total": None, "checked": None},
+                      cons={"total": None, "checked": None})
+    if baseline_path is None:
+        return
+    with Path(baseline_path).open(encoding="utf-8") as f:
+        snapshot = json.load(f)
+    if not isinstance(snapshot, dict) or snapshot.get("schedule") != schedule or not isinstance(snapshot.get("rows"), list):
+        raise ValueError("The opening stocktake snapshot must contain the approved MMG schedule and register rows.")
+    frozen = {}
+    for record in snapshot["rows"]:
+        if not isinstance(record, dict):
+            raise ValueError("The opening stocktake snapshot contains an invalid register row.")
+        kind, key = record.get("kind"), text(record.get("key"))
+        if kind not in ("tool", "cons") or not key or (kind, key.casefold()) in frozen:
+            raise ValueError("The opening stocktake snapshot contains an invalid or duplicate register identity.")
+        row = {field: text(record.get(field)) for field in ("name", "category", "barcode", "owner", "status", "family",
+                                                             "product", "tool_store", "storage_unit")}
+        row.update(kind=kind, key=key, expected=quantity(record.get("expected")))
+        row["category"] = row["category"] or category(kind, row["name"])
+        frozen[kind, key.casefold()] = row
+    if not frozen:
+        raise ValueError("The opening stocktake snapshot contains no register identities.")
+    for label in ("inventory_asat", "rental_asat", "sales_asat"):
+        if snapshot.get(label):
+            approval[label] = text(snapshot[label])
+    round_data["baseline_rows"] = list(frozen.values())
+    round_data["categories"] = category_totals(frozen, frozen)
+    for kind, label in (("tool", "tools"), ("cons", "cons")):
+        n = sum(row["kind"] == kind for row in frozen.values())
+        round_data[label] = {"total": n, "checked": n}
+
+
+def build(folder, current_file, schedule, rental, stock, opening_baseline=None):
     folder = Path(folder)
     config = folder / "stocktake.json"
     if config.is_file():
@@ -124,6 +162,10 @@ def build(folder, current_file, schedule, rental, stock):
         return None
     items = inventory(rental, stock)
     periods = policy["rounds"]
+    if schedule == NOVEMBER_SCHEDULE:
+        # Older copies of this job can still contain the previous one-day window.
+        periods = [dict(period) for period in periods]
+        periods[1].update(evidence_start="2026-11-25", evidence_end="2026-12-03", includes_routine_counts=True)
     arrival = policy.get("arrival") or periods[0]["start"]
     activity, windows = {}, {}
     snapshots = []
@@ -207,6 +249,8 @@ def build(folder, current_file, schedule, rental, stock):
             result[label] = {"total": sum(key[0] == kind for key in items),
                              "checked": sum(key[0] == kind for key in checked[i])}
         rounds.append(result)
+    if schedule == NOVEMBER_SCHEDULE:
+        accepted_opening(rounds[0], opening_baseline, schedule)
     return {"asat": max(windows, default=""), "schedule": schedule, "windows": [windows[k] for k in sorted(windows)],
             "arrival": arrival, "departure": policy.get("departure"), "rows": list(items.values()),
             "rounds": rounds, "categories": category_totals(items, overall), "unmatched": len(unmatched),

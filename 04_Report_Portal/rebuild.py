@@ -27,8 +27,8 @@ import zipfile
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from upload_policy import check_workbook, is_mmg
-from stocktake_store import all_entries, QUEENSLAND
+from upload_policy import check_workbook, is_mmg, MMG_SCHEDULE
+from stocktake_store import all_entries, published_report, QUEENSLAND
 from datetime import datetime
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -142,6 +142,67 @@ def copy_in(job, got, back):
 
 
 VARIANT_ARCHIVE = "variant_history.json"
+OPENING_BASELINE = "stocktake-opening-baseline.json"
+OPENING_FIELDS = ("kind", "key", "name", "category", "barcode", "owner", "expected", "status",
+                  "family", "product", "tool_store", "storage_unit")
+
+
+def capture_opening(report, destination, source):
+    """Capture register identity, never the sightings, staff details or ledger."""
+    try:
+        data = published_report(report)
+        st = data["stocktake"]
+        if st["schedule"] != MMG_SCHEDULE:
+            raise ValueError("Other schedule")
+        opening = (st.get("rounds") or [{}])[0]
+        acceptance = opening.get("carry_forward", {})
+        if acceptance.get("baseline_available"):
+            # Also recovers the exact accepted set after an interruption between
+            # publication of report.html and the create-only private sidecar.
+            rows = opening["baseline_rows"]
+            stamps = {key: acceptance.get(key, "") for key in ("inventory_asat", "rental_asat", "sales_asat")}
+            source = "published_accepted_opening"
+        else:
+            rows = st["rows"]
+            rental = datetime.strptime(data["asat"], "%d %b %Y %H:%M").isoformat(timespec="minutes") if data.get("asat") else ""
+            sales = datetime.fromisoformat(data["sales_asat"]).isoformat(timespec="minutes") if data.get("sales_asat") else ""
+            stamps = {"rental_asat": rental, "sales_asat": sales, "inventory_asat": rental if rental == sales else ""}
+        clean, seen = [], set()
+        for row in rows:
+            ident = row["kind"], row["key"].strip().casefold()
+            if ident[0] not in ("tool", "cons") or not ident[1] or ident in seen:
+                raise ValueError("Invalid or duplicate identity")
+            seen.add(ident)
+            clean.append({k: row[k] for k in OPENING_FIELDS if k in row})
+        if not clean:
+            raise ValueError("Empty inventory")
+    except (KeyError, ValueError, IndexError, TypeError, AttributeError) as exc:
+        raise Stop("The published MMG opening register could not be verified. The opening baseline was not changed.") from exc
+    destination.write_text(json.dumps({"schedule": MMG_SCHEDULE, "source": source, **stamps, "rows": clean},
+                                      separators=(",", ":")), encoding="utf-8")
+
+
+def publish_outputs(ready, volume, staged_baseline):
+    """Publish the report and pin its first opening set; restore on file errors."""
+    with tempfile.TemporaryDirectory(dir=volume) as prior:
+        changed = []
+        try:
+            for name, src in ready:
+                dest, backup = volume / name, Path(prior) / name
+                if dest.exists():
+                    os.link(dest, backup)
+                os.replace(src, dest)
+                changed.append((dest, backup))
+            # Create only. Pack refreshes and subsequent builds cannot replace it.
+            os.link(staged_baseline, volume / OPENING_BASELINE)
+        except BaseException:
+            for dest, backup in reversed(changed):
+                if backup.exists():
+                    os.replace(backup, dest)
+                else:
+                    dest.unlink(missing_ok=True)
+            raise
+
 
 
 def updated_snapshots(data_dir, snapshot, historical=False):
@@ -202,6 +263,9 @@ def build(job, out):
     ledger = Path(out) / "physical_counts.json"
     if ledger.is_file():
         cmd.extend(["--stocktake-ledger", str(ledger)])
+    baseline = Path(out) / OPENING_BASELINE
+    if is_mmg(job) and baseline.is_file():
+        cmd.extend(["--stocktake-opening-baseline", str(baseline)])
     variants = Path(out) / VARIANT_ARCHIVE
     if variants.is_file():
         cmd.extend(["--variant-history", str(variants)])
@@ -248,6 +312,9 @@ def main(job, data_dir, current=False):
     out = tempfile.mkdtemp(dir=data_dir, prefix=".build-")
     back = {}
     saved_stocktake = None
+    staged_baseline = Path(out) / OPENING_BASELINE
+    pinned_baseline = Path(data_dir) / OPENING_BASELINE
+    new_baseline = False
     try:
         got, files = ({}, {}) if current else sort_incoming(job)
         if is_mmg(job):
@@ -268,6 +335,18 @@ def main(job, data_dir, current=False):
             snapshot = {"recorded_entries": all_entries(data_dir),
                         "ledger_asat": datetime.now(QUEENSLAND).isoformat(timespec="seconds")}
             (Path(out) / "physical_counts.json").write_text(json.dumps(snapshot), encoding="utf-8")
+            if pinned_baseline.is_file():
+                shutil.copyfile(pinned_baseline, staged_baseline)
+            else:
+                new_baseline = True
+                published = Path(data_dir) / "report.html"
+                if published.is_file():
+                    capture_opening(published, staged_baseline, "previous_published_inventory")
+                else:
+                    # One-time bootstrap. Render the actual verified inventory first;
+                    # only the second, baseline-aware rendering can be published.
+                    build(job, out)
+                    capture_opening(Path(out) / "report.html", staged_baseline, "first_successful_inventory")
         build(job, out)
         made = os.environ.get("REBUILD_SKIP_PDF") != "1"
         if made:
@@ -281,10 +360,15 @@ def main(job, data_dir, current=False):
         for name, path in ready:
             if not os.path.isfile(path) or os.path.getsize(path) < 1000:
                 raise Stop("The build did not finish ({} is missing). Nothing was changed.".format(name))
-        for name, path in ready:
-            os.replace(path, os.path.join(data_dir, name))
         if (Path(out) / VARIANT_ARCHIVE).is_file():
-            os.replace(Path(out) / VARIANT_ARCHIVE, Path(data_dir) / VARIANT_ARCHIVE)
+            ready.append((VARIANT_ARCHIVE, Path(out) / VARIANT_ARCHIVE))
+        if new_baseline:
+            # report.html is the public commit point during first-time adoption.
+            ordered = [entry for entry in ready if entry[0] != "report.html"] + [ready[0]]
+            publish_outputs(ordered, Path(data_dir), staged_baseline)
+        else:
+            for name, path in ready:
+                os.replace(path, os.path.join(data_dir, name))
         print(json.dumps({"ok": True, "pull": asat, "files": files, "kept": [k for k in KINDS[:4] if k not in files]}))
         return 0
     except Exception as e:

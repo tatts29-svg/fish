@@ -27,29 +27,35 @@ def shift_for(instant):
     return local.isoformat(timespec="microseconds"), shift, shift_day.isoformat()
 
 
+def published_report(report_path):
+    html = Path(report_path).read_text(encoding="utf-8")
+    start = html.index("const D=") + len("const D=")
+    return json.JSONDecoder().raw_decode(html, start)[0]
+
+
 @lru_cache(maxsize=1)
 def _inventory(report_path, revision):
-    # Report builds publish this file by atomic replacement. Index the same
-    # inventory that users see and cache it until the file changes.
-    html = report_path.read_text(encoding="utf-8")
-    start = html.index("const D=") + len("const D=")
-    data, _ = json.JSONDecoder().raw_decode(html, start)
-    stocktake = data["stocktake"]
+    # Rebuilds publish this file by atomic replacement.
+    stocktake = published_report(report_path)["stocktake"]
     if stocktake["schedule"] != MMG_SCHEDULE:
         raise CountError("The published report belongs to a different stocktake schedule.", 409)
     rows = stocktake["rows"]
-    return {(row["kind"], row["key"]): row for row in rows}
+    rounds = stocktake.get("rounds") or []
+    opening_accepted = bool(rounds and rounds[0].get("carry_forward", {}).get("status") == "accepted")
+    return {(row["kind"], row["key"]): row for row in rows}, opening_accepted
 
 
-def current_item(data_dir, kind, item_id):
+def current_item(data_dir, kind, item_id, stage=None):
     path = Path(data_dir) / "report.html"
     try:
         stat = path.stat()
-        inventory = _inventory(path, (stat.st_ino, stat.st_size, stat.st_mtime_ns))
+        inventory, opening_accepted = _inventory(path, (stat.st_ino, stat.st_size, stat.st_mtime_ns))
     except CountError:
         raise
     except (OSError, ValueError, KeyError, TypeError, IndexError) as exc:
         raise CountError("The current stock list is unavailable. Refresh the report and try again.", 503) from exc
+    if stage == "opening" and opening_accepted:
+        raise CountError("Opening inventory has been accepted. Record a during-shutdown or closeout count.", 409)
     row = inventory.get((kind, item_id))
     if row is None:
         raise CountError("This item is absent from the current MMG stock list. Refresh the report.", 409)
@@ -100,7 +106,7 @@ def record(data_dir, payload, roster):
             if any(prior[field] != payload[field] for field in FIELDS):
                 raise CountError("This entry ID has already been used for a different count.", 409)
             return dict(prior)
-        row = current_item(data_dir, kind, payload["item_id"])
+        row = current_item(data_dir, kind, payload["item_id"], payload["round"])
         counted_at, shift, shift_date = shift_for(dt.datetime.now(dt.timezone.utc))
         entry = {field: payload[field] for field in FIELDS}
         entry.update(schedule=MMG_SCHEDULE, request_id=request_id, counted_at=counted_at, shift=shift,

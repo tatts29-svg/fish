@@ -23,6 +23,22 @@ class CountLedgerTests(unittest.TestCase):
         self.entry = {"request_id": str(uuid.uuid4()), "round": "opening", "kind": "cons",
                       "item_id": "007", "quantity": 9, "person": self.roster[0]}
 
+    def test_accepted_opening_keeps_successful_retry_and_blocks_new_opening_counts(self):
+        saved = store.record(self.folder, self.entry, self.roster)
+        published = self.folder / "report.html"
+        data = store.published_report(published)
+        data["stocktake"]["rounds"] = [{"carry_forward": {"status": "accepted"}}]
+        nxt = self.folder / "new.html"
+        nxt.write_text("const D=" + json.dumps(data) + ";")
+        nxt.replace(published)
+        self.assertEqual(store.record(self.folder, self.entry, self.roster), saved)
+        with self.assertRaises(store.CountError) as error:
+            store.record(self.folder, dict(self.entry, request_id=str(uuid.uuid4())), self.roster)
+        self.assertEqual(error.exception.status, 409)
+        for stage in ("routine", "closeout"):
+            self.assertEqual(store.record(self.folder, dict(self.entry, request_id=str(uuid.uuid4()), round=stage),
+                                          self.roster)["round"], stage)
+
     def test_routine_checks_remain_distinct_from_formal_rounds(self):
         rows = []
         for stage in ("opening", "routine", "closeout"):

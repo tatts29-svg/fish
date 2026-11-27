@@ -348,7 +348,7 @@ def _band(vals):
             {"name": "Busiest shut", "n": round(max(vals))}]
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -611,7 +611,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                   for k in kinds_fleet},
         "clines": clines,
         "utilisation": utilisation.build(rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name),
-        "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock),
+        "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock, opening_baseline),
         "people": people_rows, "ptyp": ptyp,
         "ops": _ops(kit, ops),
         "pics": None,   # filled last, once every picture in use is known
@@ -940,10 +940,11 @@ def main(argv=None):
     ap.add_argument("--sds-register", help="job-specific reviewed stock-to-SDS mapping (JSON, with local copies in adjacent pdfs/)")
     ap.add_argument("--variant-history", help="dated rental fleet and on-hire totals by variant")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
+    ap.add_argument("--stocktake-opening-baseline", help="private register snapshot for the approved MMG opening stocktake")
     ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
     a = ap.parse_args(argv)
     kit = _kit()
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people)
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline)
     data["variant_history"] = []
     if a.variant_history:
         with open(a.variant_history, encoding="utf-8") as f:
