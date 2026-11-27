@@ -50,8 +50,8 @@ def _ref_time(kit, path):
     vals = dict(zip(head, rows[1]))
     out = {}
     for k, v in vals.items():
-        if k.startswith("REQUESTED_DATE"):
-            out["requested"] = dt.datetime.strptime(str(v).strip(), "%d/%m/%Y %I:%M %p")
+        if k.startswith("REQUESTED_DATE") and v:
+            out["requested"] = v if isinstance(v, dt.datetime) else dt.datetime.strptime(str(v).strip(), "%d/%m/%Y %I:%M %p")
         if k == "REPORT_PERIOD" and v:
             a, b = [x.strip() for x in str(v).split(" - ")]
             out["period"] = (dt.datetime.strptime(a, "%d/%m/%Y %H:%M:%S"),
@@ -361,6 +361,10 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     sales = kit._rows(p_sales, "SALES_STOCK", must_have=True)
     ref = _ref_time(kit, p_rental)
     tref = _ref_time(kit, p_trans) if p_trans else {}
+    try:
+        sales_ref = _ref_time(kit, p_sales) if p_sales else {}
+    except (KeyError, IndexError, ValueError):
+        sales_ref = {}  # Older exports may have no usable requested timestamp.
     asat = ref["requested"]
     today = asat.date()
 
@@ -412,6 +416,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     still_out_today = sum(1 for t, r in issued_today if kit._s(r.get("ITEM_STATUS")) == "On Hire")
 
     stock = [r for r in sales if not kit._s(r.get("COMPANY_NAME"))]
+    for row in stock:
+        row["AVAILABLE_QUANTITY"] = sds_register.stock_quantity(row.get("AVAILABLE_QUANTITY"))
     drawn = [r for r in sales if kit._n(r.get("SALES_QUANTITY")) > 0]
     units = sum(kit._n(r.get("AVAILABLE_QUANTITY")) for r in stock)
     ctype = collections.Counter()
@@ -452,7 +458,9 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         clines.append({"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "type": catalogue.cons_category(r.get("SKU_DESCRIPTION")),
                        "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": int(kit._n(r.get("AVAILABLE_QUANTITY"))),
                        "owner": kit.co_name(r["OWNER"]) if r.get("OWNER") else "",
-                       "stock_quantity": kit._n(r["AVAILABLE_QUANTITY"]) if kit._s(r.get("AVAILABLE_QUANTITY")) else None,
+                       "storage_location": " / ".join(dict.fromkeys(kit._s(r.get(k)) for k in ("TOOLSTORE", "STORAGE_UNIT") if kit._s(r.get(k)))),
+                       "uom": kit._s(r.get("UOM") or r.get("UNIT_OF_MEASURE")),
+                       "stock_quantity": r["AVAILABLE_QUANTITY"],
                        "min": int(mm[sku][0]) if sku in mm else None, "max": int(mm[sku][1]) if sku in mm else None,
                        "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
                        "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
@@ -566,6 +574,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "job": {"title": "MMG Dugald River", "sub": "Shutdown Tool Store · November 2026 shut",
                 "schedule": ref.get("schedule", ""), "day": day_no, "days": counter_days,
                 "window": "Counter open Wed 25 Nov to Tue 01 Dec 2026"},
+        "sales_asat": sales_ref["requested"].isoformat() if sales_ref.get("requested") else "",
         "asat": asat.strftime("%d %b %Y %H:%M").lstrip("0"),
         "asat_day": asat.strftime("%A"),
         "tx_window": ("{} to {}".format(tref["period"][0].strftime("%d %b %H:%M"), tref["period"][1].strftime("%d %b %H:%M"))
@@ -953,10 +962,6 @@ def main(argv=None):
         missed = plain_tool_names(data, a.tool_names)
         if missed:
             print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
-    site = kit.the_site(a.kit_folder)
-    if site.customer.strip().casefold() == "mmg" and "dugald river" in site.location.casefold():
-        register = a.sds_register or os.path.join(a.kit_folder, "..", "sds", "register.json")
-        data["sds"] = sds_register.build(data, register)
     got = named_pictures(data)
     if got:
         print("Pictures    {} more tool(s) matched by the name on the picture file".format(got))
@@ -974,6 +979,12 @@ def main(argv=None):
                 bins.setdefault(str(row[1]).strip(), str(row[0]).strip())
         for ln in data["clines"]:
             ln["bin"] = bins.get(ln.get("code"))
+    site = kit.the_site(a.kit_folder)
+    if site.customer.strip().casefold() == "mmg" and "dugald river" in site.location.casefold():
+        register = a.sds_register or os.path.join(a.kit_folder, "..", "sds", "register.json")
+        context = {"job": site.job, "location": site.location,
+                   "SALES_STOCK": data["sales_asat"] + "+10:00" if data["sales_asat"] else ""}
+        data["sds"] = sds_register.build(data, register, context=context, encode_qr=qr_rows)
     data["cpics"] = []
     if a.cons_pictures and os.path.isfile(os.path.join(a.cons_pictures, "index.csv")):
         import csv

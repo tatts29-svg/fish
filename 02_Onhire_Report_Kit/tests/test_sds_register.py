@@ -6,7 +6,7 @@ from datetime import date
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from sds_register import build
+from sds_register import build, review_dates, stock_quantity
 
 
 class SdsRegister(unittest.TestCase):
@@ -14,65 +14,75 @@ class SdsRegister(unittest.TestCase):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         self.path = Path(temp.name) / "register.json"
-        (self.path.parent / "pdfs").mkdir()
-        self.data = {"clines": [{"name": "Adhesive", "code": "12345678", "sku": "SKU1",
-                                 "bar": "2025MMG12345678", "stock_quantity": 0, "owner": "MMG"},
-                                {"name": "Oil", "code": "", "sku": "SKU2", "stock_quantity": None}],
-                     "utilisation": {"variants": [
-                         {"name": "Battery - 18V - Milwaukee", "variant": "M18HB6", "history_key": "v:M18HB6",
-                          "owner": "Coates", "fleet": 3},
-                         {"name": "Light - LED - Battery - Milwaukee", "variant": "L", "history_key": "v:L",
-                          "owner": "MMG", "fleet": 6},
-                         {"name": "Battery - 12Ah - Milwaukee", "variant": "", "history_key": "d:MMG|12AH",
-                          "owner": "MMG", "fleet": 2}]}}
+        self.library = self.path.parent / "pdfs"
+        self.library.mkdir()
+        self.line = {"name": "Adhesive", "code": "12345678", "sku": "SKU1", "bar": "2025MMG12345678",
+                     "stock_quantity": 2, "owner": "MMG", "bin": "A1", "storage_location": "Tool store"}
+        self.data = {"clines": [self.line], "utilisation": {"variants": [{"name": "Radio - Motorola",
+                     "history_key": "v:RADIO", "assets": [{"id": "RF12", "owner": "MMG", "status": "Available for Hire"}]}]}}
         self.record = {"status": "verified", "stock_names": ["Adhesive"], "product": "Product",
                        "supplier": "Manufacturer", "issued": "2022-02-01", "url": "https://example.org/au/sds.pdf",
-                       "file": "adhesive-a98a143.pdf"}
-        (self.path.parent / "pdfs" / self.record["file"]).write_bytes(b"%PDF-1.4")
+                       "file": "adhesive-a98a143.pdf", "uom": "cartridges"}
+        (self.library / self.record["file"]).write_bytes(b"%PDF-1.4")
+        self.context = {"SALES_STOCK": "2026-11-27T14:39:00+10:00", "RENTAL_STOCK": "2026-11-26T06:54:00+10:00",
+                        "job": "MMG Shutdown", "location": "Dugald River QLD"}
+        self.encoded = []
 
-    def rows(self, entries=None):
-        if entries is not None:
-            self.path.write_text(json.dumps({"entries": entries, "checked": "2026-11-27"}))
-        return build(self.data, self.path, today=date(2026, 11, 27))
+    def rows(self, entries):
+        self.path.write_text(json.dumps({"entries": entries, "checked": "2026-11-27"}))
 
-    def test_all_holdings_without_a_register(self):
-        rows = self.rows()
-        self.assertEqual([r["quantity"] for r in rows], [0, None, 3, 6, 2])
-        self.assertTrue(all(r["status"] == "unassessed" and not r["checked"] for r in rows))
+        def encode(url):
+            self.encoded.append(url)
+            return "21:test-matrix"
 
-    def test_stale_missing_unmatched_and_unsafe_document(self):
-        for changes, expected in [({}, "verified"), ({"issued": "2021-11-27"}, "review"),
-                                  ({"issued": "2027-03-02"}, "review"), ({"issued": ""}, "review"),
-                                  ({"file": "../../outside.pdf"}, "review"), ({"url": "javascript:alert(1)"}, "review"),
-                                  ({"url": "https://trusted.org@invalid.org/sds"}, "review"),
-                                  ({"stock_names": ["Other product"]}, "label")]:
+        return build(self.data, self.path, context=self.context, encode_qr=encode, today=date(2026, 11, 27))
+
+    def test_only_actual_matched_au_sds(self):
+        for changes in [{"status": "unassessed"}, {"status": "label"}, {"status": "article"}, {"status": "review"},
+                        {"document_type": "product"}, {"jurisdiction": "US"}, {"url": "https://example.org/landing"},
+                        {"file": "../../outside.pdf"}, {"file": "missing.pdf"}, {"url": "javascript:alert(1)"},
+                        {"url": "https://trusted.org@invalid.org/sds.pdf"}, {"match_confirmed": False},
+                        {"stock_names": ["Different formulation"]}]:
             with self.subTest(changes=changes):
-                row = self.rows({"12345678": {**self.record, **changes}})[0]
-                self.assertEqual(row["status"], expected)
-                if expected == "verified":
-                    self.assertTrue(row["file"].startswith("/sds/"))
-                if expected == "label":
-                    self.assertFalse(row["file"] or row["url"])
-                if changes.get("file"):
-                    self.assertFalse(row["file"])
+                self.assertEqual(self.rows({"12345678": {**self.record, **changes}}), [])
+        (self.library / self.record["file"]).write_bytes(b"HTML error page")
+        self.assertEqual(self.rows({"12345678": self.record}), [])
 
-    def test_lookup_by_fallback_sku_and_exact_battery_model(self):
-        rows = self.rows({"sku:SKU2": {"status": "label", "product": "Brand unknown"},
-                          "__milwaukee": {**self.record, "stock_names": ["Battery - 18V - Milwaukee"],
-                                          "variants": ["M18HB6"], "source": "https://example.org/guide"}})
-        self.assertEqual(rows[1]["status"], "label")
-        self.assertEqual(rows[2]["status"], "verified")
-        self.assertEqual(rows[3]["status"], "unassessed")
-        self.assertEqual(rows[4]["status"], "label")
-        self.assertEqual(rows[4]["source"], "https://example.org/guide")
-        self.assertFalse(rows[4]["url"] or rows[4]["file"])
+    def test_complete_equipment_and_fitted_batteries_do_not_appear(self):
+        battery = {**self.record, "stock_names": ["Radio - Motorola"], "product": "Radio battery"}
+        self.assertEqual(self.rows({"asset:RF12": battery, "v:RADIO": battery}), [])
 
-    def test_product_sheet_keeps_its_status_and_printed_month(self):
-        row = self.rows({"12345678": {**self.record, "issued": "2025-05", "status": "article",
-                                      "document_type": "technical"}})[0]
-        self.assertEqual((row["status"], row["document_type"], row["issued"]), ("article", "technical", "2025-05"))
-        self.assertTrue(row["url"] and row["file"])
+    def test_balance_identity_and_export_provenance(self):
+        # A repeated balance is not additional stock; distinct SKU/location balances are.
+        self.data["clines"] += [self.line.copy(), {**self.line, "sku": "SKU2", "stock_quantity": 3},
+                               {**self.line, "storage_location": "Satellite store", "stock_quantity": 1}]
+        row, = self.rows({"12345678": self.record})
+        self.assertEqual(row["quantity"], 6)
+        self.assertEqual((row["owner"], row["uom"], row["bin"]), ("MMG", "cartridges", "A1"))
+        self.assertEqual(row["stock_asat"], self.context["SALES_STOCK"])
+        self.assertEqual(row["sku"], "SKU1, SKU2")
+        self.assertEqual(row["review_status"], "in_date")
+        self.assertEqual(row["review_due"], "2027-02-01")
+        self.assertEqual(row["file"], "/sds/" + self.record["file"])
+        self.assertEqual(self.encoded, [self.record["url"]])
+        self.assertTrue(row["qr"])
 
-    def test_no_supplier_sheet_claim_for_a_product_guide(self):
-        row = self.rows({"12345678": {**self.record, "document_type": "guide"}})[0]
-        self.assertEqual((row["status"], row["document_type"]), ("article", "guide"))
+    def test_missing_balance_and_old_sheet(self):
+        self.data["clines"] += [{**self.line, "stock_quantity": 1}]
+        row, = self.rows({"12345678": {**self.record, "issued": "2021-11-27", "status": "review", "match_confirmed": True}})
+        self.assertIsNone(row["quantity"])
+        self.assertEqual((row["status"], row["review_status"], row["review_due"]), ("verified", "review_required", "2026-11-27"))
+        self.assertEqual(review_dates("2020-02-29", date(2025, 2, 28)), ("2025-02-28", "review_required"))
+
+    def test_only_explicit_sheet_fields(self):
+        row, = self.rows({"12345678": {**self.record, "issued": "2025-05", "sds_details": {
+            "ghs_classification": ["Eye irritation"], "un_number": "UN1234", "unexpected": "x",
+            "storage": {"invalid": "shape"}}}})
+        self.assertEqual(row["sds_details"], {"ghs_classification": ["Eye irritation"], "un_number": "UN1234"})
+        self.assertEqual(row["review_due"], "2030-05")
+
+    def test_parse_recorded_quantities(self):
+        for value in (None, "", "unrecorded", "#N/A", True, "1,2", "nan", "inf"):
+            self.assertIsNone(stock_quantity(value))
+        for value, expected in [("0", 0), ("1,234", 1234), ("2.5", 2.5), (12, 12)]:
+            self.assertEqual(stock_quantity(value), expected)

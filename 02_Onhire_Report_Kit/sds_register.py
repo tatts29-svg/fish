@@ -1,15 +1,36 @@
-"""Join a job's reviewed SDS references to its current SiteIQ holdings."""
-from datetime import date, timedelta
+"""Build the register from held products with identity-confirmed Australian SDS documents."""
+from calendar import monthrange
+from datetime import date, datetime, timedelta, timezone
+from functools import lru_cache
 import json
+import math
 from pathlib import Path
 import re
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 
-STATUSES = {"verified", "review", "label", "article", "unassessed"}
-PRODUCT_WORDS = re.compile(
-    r"\b(?:adhesive|antiseize|cleaner|electrode|grease|lubricant|oil|sealant|"
-    r"silicone|solvent|paint|resin|fuel|chemical|primer|battery|aerosol)\b", re.I)
+DETAIL_FIELDS = {
+    "document_id", "version", "product_identifier", "ghs_classification", "signal_word",
+    "hazard_statements", "pictograms", "dangerous_goods", "un_number", "shipping_name",
+    "transport_class", "packing_group", "poisons_schedule", "emergency_contact",
+    "revision_history", "storage", "use",
+}
+
+
+def stock_quantity(value):
+    """A missing or unreadable physical balance is unknown, including error cells."""
+    if value is None or isinstance(value, bool):
+        return None
+    text = str(value).strip()
+    if "," in text and not re.fullmatch(r"[+-]?\d{1,3}(?:,\d{3})+(?:\.\d+)?", text):
+        return None
+    try:
+        amount = float(text.replace(",", ""))
+    except ValueError:
+        return None
+    if not math.isfinite(amount):
+        return None
+    return int(amount) if amount.is_integer() else amount
 
 
 def safe_url(value):
@@ -36,15 +57,17 @@ def date_text(value, allow_month=False):
         return ""
 
 
-def document_due(issued, today):
-    try:
-        cutoff = today.replace(year=today.year - 5)
-    except ValueError:  # A leap day has no anniversary five years earlier.
-        cutoff = (today - timedelta(days=1)).replace(year=today.year - 5)
+def review_dates(issued, today):
     if not issued:
-        return True
-    earliest = date.fromisoformat(issued + "-01" if len(issued) == 7 else issued)
-    return not cutoff < earliest <= today
+        return "", "review_required"
+    month_only = len(issued) == 7
+    # Use the first of the month for a conservative check, and preserve the
+    # manufacturer's date precision in the visible register.
+    start = date.fromisoformat(issued + "-01" if month_only else issued)
+    year = start.year + 5
+    due = date(year, start.month, min(start.day, monthrange(year, start.month)[1]))
+    status = "in_date" if start <= today < due else "review_required"
+    return due.isoformat()[:7] if month_only else due.isoformat(), status
 
 
 def matches_name(record, name):
@@ -53,99 +76,97 @@ def matches_name(record, name):
     return allowed is None or isinstance(allowed, list) and norm(name) in {norm(s) for s in allowed}
 
 
-def standalone_milwaukee(group):
-    # A light, charger or bare tool can mention a Milwaukee battery in its name.
-    # Require the inventory line itself to describe the battery pack.
-    names = [group["name"], *(group.get("aliases") or [])]
-    return any(re.match(r"^batter(?:y|ies)\b", n, re.I) and
-               re.search(r"\bMilwaukee\b", n, re.I) and
-               not re.search(r"\b(?:charger|adaptor|adapter|holder|kit)\b", n, re.I)
-               for n in names)
+def confirmed_document(record, folder, checked, today):
+    # A legacy 'review' encompasses brand guesses as well as old sheets; only an
+    # explicit match can promote a reviewed record into the operational register.
+    confirmed = record.get("status") == "verified" or (
+        record.get("status") == "review" and record.get("match_confirmed") is True)
+    if not confirmed or record.get("match_confirmed") is False or record.get("document_type", "sds") != "sds":
+        return None
+    if str(record.get("jurisdiction", "AU")).strip().casefold() not in {"au", "australia", "australian", "au/nz", "australia and new zealand"}:
+        return None
+    url = safe_url(record.get("url"))
+    direct = url and (unquote(urlsplit(url).path).lower().endswith(".pdf") or record.get("direct_pdf") is True)
+    name = record.get("file") or ""
+    if not direct or not record.get("supplier") or not record.get("product"):
+        return None
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*\.pdf", name, re.I):
+        return None
+    try:
+        with (folder / "pdfs" / name).open("rb") as stream:
+            if stream.read(5) != b"%PDF-":
+                return None
+    except OSError:
+        return None
 
-
-def describe(row, record, checked, folder, today):
-    status = record.get("status", "unassessed")
-    status = status if status in STATUSES else "unassessed"
-    note = str(record.get("note") or "")
+    details = {}
+    for key, val in (record.get("sds_details") or {}).items():
+        if key in DETAIL_FIELDS and (isinstance(val, str) or isinstance(val, list) and all(isinstance(x, str) for x in val)):
+            details[key] = val
     issued = date_text(record.get("issued"), allow_month=True)
-    document_type = str(record.get("document_type") or ("product" if status == "article" else "sds")).casefold()
-    if document_type not in {"sds", "product", "technical", "guide"}:
-        document_type = "product" if status == "article" else "sds"
-    if status == "verified" and document_type != "sds":
-        status = "article"
-    if status == "article" and document_type == "sds":
-        document_type = "product"
-    url, source = safe_url(record.get("url")), safe_url(record.get("source"))
-    filename = str(record.get("file") or "")
-    file_url = ""
-    if status in {"verified", "review", "article"} and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*\.pdf", filename, re.I):
-        if (folder / "pdfs" / filename).is_file():
-            file_url = "/sds/" + filename
-    if status == "verified":
-        problem = ""
-        if not record.get("supplier") or not record.get("product") or not url:
-            problem = "Confirm the product, supplier and Australian SDS source."
-        elif filename and not file_url:
-            problem = "The registered copy is unavailable. Check the supplier document."
-        elif document_due(issued, today):
-            problem = "Confirm the latest revision with the supplier."
-        if problem:
-            status = "review"
-            note = (note + " " + problem).strip()
-    if not note:
-        if status == "unassessed" and PRODUCT_WORDS.search(row["name"]):
-            note = "Check the product label and supplier documentation."
-        elif status == "unassessed":
-            note = "This stock line is awaiting screening."
-        elif status == "label":
-            note = "Confirm the brand and product code from the container label."
-    row.update(status=status, product=str(record.get("product") or ""),
-               supplier=str(record.get("supplier") or ""), issued=issued,
-               checked=date_text(record.get("checked") or checked) if record else "",
-               url=url if status in {"verified", "review", "article"} else "", source=source,
-               file=file_url, document_type=document_type if status in {"verified", "review", "article"} and (file_url or url) else "",
-               note=note)
-    return row
+    due, review_status = review_dates(issued, today)
+    return {
+        "status": "verified", "document_type": "sds", "product": record["product"], "supplier": record["supplier"],
+        "manufacturer": record.get("manufacturer") or "", "issued": issued, "review_due": due,
+        "review_status": review_status, "checked": date_text(record.get("checked") or checked),
+        "url": url, "source": safe_url(record.get("source")), "file": "/sds/" + name,
+        "sds_details": details, "note": str(record.get("note") or ""),
+    }
 
 
-def build(data, register_path, today=None):
+def build(data, register_path, *, encode_qr, context=None, today=None):
     path = Path(register_path)
-    config = json.loads(path.read_text(encoding="utf-8-sig")) if path.is_file() else {}
+    if not path.is_file():
+        return []
+    config = json.loads(path.read_text(encoding="utf-8-sig"))
     records = config.get("entries", config)
     checked = config.get("checked")
-    today = today or date.today()
-    result = []
+    today = today or datetime.now(timezone(timedelta(hours=10))).date()
+    context = context or {}
+    groups = {}
 
-    def append(row, key, fallback=None):
-        record = records.get(key, fallback or {})
-        if not matches_name(record, row["name"]):
-            record = {"status": "label", "note": "This stock description differs from the reviewed product. Confirm the item label."}
-        result.append(describe(row, record, checked, path.parent, today))
+    @lru_cache(maxsize=None)
+    def document(key):
+        return confirmed_document(records[key], path.parent, checked, today) if key in records else None
 
     for line in data["clines"]:
         code, sku = line.get("code") or "", line.get("sku") or ""
-        row = dict(kind="consumable", name=line["name"], code=code, sku=sku, barcode=line.get("bar") or "",
-                   quantity=line.get("stock_quantity", line.get("have")), owner=line.get("owner") or "")
-        append(row, code or "sku:" + sku)
-    for group in data["utilisation"]["variants"]:
-        variant = group.get("variant") or ""
-        row = dict(kind="rental", name=group["name"], code=variant, sku="", barcode="",
-                   quantity=group["fleet"], owner=group["owner"])
-        record = None
-        if standalone_milwaukee(group):
-            battery = records.get("__milwaukee", {})
-            models = battery.get("variants")
-            # Exact model text on the export can establish applicability.
-            # Voltage or capacity alone cannot distinguish a cell pack model.
-            model_text = " ".join([variant, group["name"], *group.get("aliases", [])]).upper()
-            if models is None or any(re.search(r"(?<![A-Z0-9])" + re.escape(model.upper()) + r"(?![A-Z0-9])",
-                                               model_text) for model in models if model):
-                record = battery
-            elif battery:
-                record = {
-                    "status": "label", "supplier": battery.get("supplier", "Milwaukee"),
-                    "source": battery.get("source", ""),
-                    "note": "Check the model number printed on the battery pack to match its supplier documentation."
-                }
-        append(row, group["history_key"], record)
-    return result
+        key = code or "sku:" + sku
+        doc = document(key)
+        if not doc or not matches_name(records[key], line["name"]):
+            continue
+        # SiteIQ sales balances represent the product itself. Rental equipment
+        # and its fitted batteries or fluids do not add stock to this register.
+        owner = line.get("owner") or ""
+        uom = line.get("uom") or records[key].get("uom") or ""
+        # A single manufacturer's sheet may cover different products or sizes.
+        identity = code or key, owner, uom, doc["product"], doc["file"], doc["url"]
+        if identity not in groups:
+            groups[identity] = dict(doc, name=line["name"], kind="consumable", code=code, owner=owner, uom=uom,
+                                    pack=str(records[key].get("pack") or ""),
+                                    source_export="SALES_STOCK", stock_asat=context.get("SALES_STOCK", ""),
+                                    job=context.get("job", ""), location=context.get("location", ""),
+                                    bins=set(), places=set(), skus=set(), bars=set(), amounts={})
+        row = groups[identity]
+        for source, target in [("sku", "skus"), ("bar", "bars"), ("bin", "bins"), ("storage_location", "places")]:
+            if line.get(source):
+                row[target].add(line[source])
+        balance = sku, line.get("bar"), line.get("storage_location"), line.get("bin")
+        amount = line.get("stock_quantity", line.get("have"))
+        if balance in row["amounts"] and row["amounts"][balance] != amount:
+            amount = None  # Conflicting balances for the same holding cannot be added.
+        row["amounts"][balance] = amount
+
+    qr_cache = {}
+    for row in groups.values():
+        quantities = row.pop("amounts").values()
+        row["quantity"] = sum(quantities) if all(q is not None for q in quantities) else None
+        row["available"] = row["quantity"]
+        for packed, label in [("bins", "bin"), ("places", "storage_location"), ("skus", "sku"), ("bars", "barcode")]:
+            row[label] = ", ".join(sorted(row.pop(packed)))
+        if row["url"] not in qr_cache:
+            qr_cache[row["url"]] = encode_qr(row["url"])
+            if not qr_cache[row["url"]]:
+                raise ValueError("The qrcode package is needed to build the SDS register.")
+        row["qr"] = qr_cache[row["url"]]
+    return sorted(groups.values(), key=lambda row: (row["name"].casefold(), row["code"], row["owner"]))

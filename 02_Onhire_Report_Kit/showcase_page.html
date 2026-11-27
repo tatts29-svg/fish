@@ -636,21 +636,61 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
 }
 .static .ut-layout{grid-template-columns:85px 1fr}.static #ut-gauge .cyl svg{width:56px}
 
-/* Safety data sheet register */
-.sds-card{margin-top:16px}
-.sds-filters{display:flex;align-items:end;flex-wrap:wrap;gap:12px}
-.sds-filters label{display:grid;gap:5px;min-width:0;font-size:.85rem;color:var(--mu)}
-.sds-filters label:first-child{flex:1 1 240px}
-.sds-filters input,.sds-filters select{max-width:none;min-height:42px;font:inherit;color:var(--tx);background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 12px}
-.sds-table{width:100%;border-collapse:collapse;text-align:left;font-size:.93rem}
-.sds-table th,.sds-table td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
-.sds-table th{color:var(--mu);font-size:.8rem}.sds-table small,.sds-table a{display:block;margin-top:3px}
-.sds-table small{color:var(--mu)}.sds-table a{width:fit-content;color:var(--tx);text-decoration:underline;text-underline-offset:.17em}
-.sds-pages[hidden]{display:none}.sds-pages{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:12px}
-@media(max-width:700px){.sds-filters label{flex:1 1 40%}.sds-filters label:first-child{flex-basis:100%}
-.sds-table,.sds-table tbody,.sds-table tr,.sds-table td{display:block}.sds-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-.sds-table tr{padding:8px 0;border-bottom:1px solid var(--line)}.sds-table td{border:0;padding:3px 0}.sds-pages{justify-content:space-between}}
-@media print{.sds-card tr{break-inside:avoid}.sds-table thead{display:table-header-group}}
+/* MMG chemical register */
+.sds-toolbar{margin:20px 0 14px;display:flex;align-items:end;flex-wrap:wrap;gap:12px}
+.sds-toolbar label{display:grid;gap:5px;min-width:0;font-size:.87rem;color:var(--mu)}
+.sds-toolbar label:first-child{flex:1 1 265px}
+.sds-toolbar input,.sds-toolbar select{max-width:none;min-height:44px;font:inherit;color:var(--tx);background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+.sds-list{display:grid;gap:14px}.sds-entry{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:10px 24px;overflow-wrap:anywhere}
+.sds-entry h3{font-size:clamp(1.1rem,1.55vw,1.65rem);margin:0}
+.sds-heading{display:flex;align-items:baseline;gap:8px 16px;flex-wrap:wrap}
+.sds-status{font-size:.85rem;color:var(--ok);font-weight:700}.sds-status.due{color:var(--warn)}
+.sds-entry dl{margin:14px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(145px,100%),1fr));gap:9px 15px}
+.sds-entry dt{color:var(--mu);font-size:.8rem}.sds-entry dd{margin:2px 0 0;font-weight:600}
+.sds-docs{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sds-docs a:not(.btn){text-decoration:underline;text-underline-offset:.16em;color:var(--tx)}
+.sds-code{align-self:start;text-align:center;font-size:.85rem;color:var(--mu)}
+.sds-code button{border:0;border-radius:6px;background:white;display:block;max-width:100%;padding:0;margin:0 auto 4px;cursor:zoom-in}
+.sds-code svg,#sds-qr-dialog svg{display:block;max-width:100%;height:auto;margin:auto}
+.sds-entry details{grid-column:1/-1;border-top:1px solid var(--line);padding-top:8px}
+.sds-entry summary{font-weight:650;cursor:pointer;min-height:32px;align-content:center}
+.sds-entry .sds-extract{grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))}
+.sds-extract dd{font-weight:400}.sds-extract ul{padding-left:1.2em;margin:.2em 0}
+#sds-qr-dialog{margin:auto;width:min(36rem,94vw);max-height:92dvh;overflow:auto;background:white;color:#13202a;border:0;border-radius:14px;padding:clamp(12px,3vw,26px);text-align:center}
+#sds-qr-dialog::backdrop{background:#0a0f16db}#sds-qr-dialog h3{overflow-wrap:anywhere}#sds-qr-dialog .btn{margin:10px auto 0}
+@media(max-width:600px){.sds-entry{grid-template-columns:minmax(0,1fr);gap:12px}.sds-code{text-align:left;justify-self:start}.sds-entry details{grid-column:auto}.sds-toolbar label{flex:1 1 100%}}
+.static .sds-code svg{width:42mm;height:42mm}.static .sds-entry{break-inside:auto}.static .sds-docs,.static .sds-heading,.static .sds-code,.static .sds-entry dl>div{break-inside:avoid}
+@media print{.sds-code svg{width:42mm;height:42mm}.sds-entry{break-inside:auto}.sds-extract>div,.sds-code{break-inside:avoid}#sds-qr-dialog{display:none!important}}
+@page sdsRegister{size:A4 portrait;margin:12mm 13mm 14mm;@bottom-right{content:"SDS register · " counter(page);font:8pt Arial;color:#444}}
+@media print{
+  html.sds-print,html.sds-print body{page:sdsRegister;background:white!important;color:#111!important}
+  html.sds-print body>*:not(main),html.sds-print main>:not(#v-sds),html.sds-print .noprint{display:none!important}
+  html.sds-print .wrap,html.sds-print #v-sds{display:block!important;max-width:none;padding:0;margin:0;break-before:auto}
+  html.sds-print #v-sds{--tx:#111;--mu:#333;--line:#ccc;--ok:#222;--warn:#222;--panel:white;--panel2:white}
+  html.sds-print #v-sds,html.sds-print #v-sds *{animation:none!important;transition:none!important;box-shadow:none!important;text-shadow:none!important}
+  html.sds-print #v-sds{opacity:1!important;transform:none!important;font:10pt/1.25 Arial,sans-serif}
+  html.sds-print .sds-list{display:block}
+  html.sds-print #v-sds h2{font-size:21pt;margin:0}
+  html.sds-print #v-sds .vh{margin:0 0 4mm}
+  html.sds-print #sds-totals{display:flex;gap:6mm;margin:0 0 5mm;background:white;padding:0}
+  html.sds-print #sds-totals>*{background:white;color:#111;padding:1mm 3mm;border:1px solid #aaa}
+  html.sds-print .sds-entry{break-inside:auto;grid-template-columns:minmax(0,1fr) 42mm;gap:1mm 7mm;background:white;border:0;border-top:1.5pt solid #444;padding:3mm 0 0;margin:0}
+  html.sds-print .sds-entry+.sds-entry{break-before:page}
+  html.sds-print .sds-entry h3{font-size:14pt}
+  html.sds-print .sds-entry dl{font-size:10pt;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm 3mm;margin:3mm 0}
+  html.sds-print .sds-entry dt,html.sds-print .sub{font-size:9pt;color:#333}
+  html.sds-print .sds-entry dl:not(.sds-extract){grid-template-columns:repeat(3,minmax(0,1fr))}
+  html.sds-print .sds-entry .sds-extract{font:9.5pt/1.25 Arial,sans-serif;gap:2mm 6mm}
+  html.sds-print .sds-extract dd{font-weight:400}
+  html.sds-print .sds-entry :is(dd,p,ul){line-height:1.25}
+  html.sds-print #sds-totals .n{font-size:13pt}
+  html.sds-print #sds-totals .l{margin:0}
+  html.sds-print .sds-entry details{grid-column:1 / -1}
+  html.sds-print .sds-entry details summary{font-size:11pt;min-height:0;list-style:none}
+  html.sds-print .sds-entry details summary::marker{content:""}
+  html.sds-print .sds-docs{display:none}
+  html.sds-print .sds-entry::before,html.sds-print .sds-entry::after{display:none}
+}
 /* Shutdown stocktake */
 .st-jump{display:flex;flex-wrap:wrap;gap:8px}#v-stocktake :is(h3,h4){scroll-margin-top:11rem}
 .st-duty{display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin:.65rem 0 1rem;color:var(--mu);font-size:.88rem}
@@ -1079,16 +1119,14 @@ __CONTACTS__
 </section>
 
 <section class="view pb" id="v-sds" data-tab="SDS register">
-<div class="vh"><h2>Safety data sheets</h2><p id="sds-coverage"></p></div>
+<div class="vh"><h2>Safety data sheet register</h2><p id="sds-location"></p><p class="sub" id="sds-date-basis"></p></div>
 <div class="stats" id="sds-totals"></div>
-<div class="card tall sds-card">
-<div class="sds-filters noprint"><label>Find an item<input type="search" class="search" id="sds-q" placeholder="Name, stock code, barcode or supplier" autocomplete="off"></label>
-<label>Register status<select id="sds-state"><option value="">All statuses</option><option value="verified">Verified SDS</option><option value="review">Document under review</option><option value="label">Product label needed</option><option value="unassessed">Awaiting screening</option><option value="article">Screened article</option><option value="outstanding">All outstanding</option></select></label>
-<label>Stock type<select id="sds-kind"><option value="">All stock</option><option value="consumable">Consumables</option><option value="rental">Rental equipment</option></select></label></div>
-<p class="sub" id="sds-count" role="status" aria-live="polite"></p>
-<div id="sds-list"></div>
-<div class="sds-pages noprint" id="sds-pages"><button type="button" class="btn ghost" id="sds-prev">Previous</button><span id="sds-page"></span><button type="button" class="btn ghost" id="sds-next">Next</button></div>
-</div></section>
+<div class="sds-toolbar noprint"><label>Find a product<input type="search" class="search" id="sds-q" placeholder="Product, supplier, stock code or barcode" autocomplete="off"></label>
+<label>Review date<select id="sds-state"><option value="">All records</option><option value="in_date">In date</option><option value="review_required">Review required</option></select></label><button class="btn ghost" id="sds-print" type="button">Print register</button></div>
+<p class="sub noprint" id="sds-count" role="status" aria-live="polite"></p>
+<div id="sds-list" class="sds-list"></div>
+<dialog id="sds-qr-dialog" aria-labelledby="sds-qr-name"><h3 id="sds-qr-name"></h3><div id="sds-qr-large"></div><form method="dialog"><button class="btn ghost">Close</button></form></dialog>
+</section>
 
 <section class="view pb" id="v-rhythm" data-tab="How the store runs">
 <div class="vh"><h2>How the store runs</h2><p id="op-lead"></p></div>
@@ -1258,7 +1296,7 @@ const TG=D.tagged.colour,TGT=`Tested by Coates · ${TG.name.toLowerCase()} tag, 
 const tgd=t=>t?`<i class="tgd" style="--tg:${TG.hex}" data-tip="${TGT}"></i>`:'';
 const tgc=t=>t?`<span class="tgc" style="--tg:${TG.hex}" data-tip="${TGT}"><i></i>${esc(TG.name)} tag · tested ${esc(TG.span)}</span>`:'';
 const days=r=>r.days==null?'':r.days==0?'Today':r.days+(r.days==1?' day':' days');
-const qrsvg=(q,px)=>{if(!q)return '';const [n,rows]=[+q.split(':')[0],q.split(':')[1].split(',')];let d='';rows.forEach((h,y)=>{const b=BigInt('0x'+h);for(let x=0;x<n;x++)if((b>>BigInt(n-1-x))&1n)d+=`M${x} ${y}h1v1h-1z`});return `<svg viewBox="-1 -1 ${n+2} ${n+2}" width="${px}" height="${px}" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect x="-1" y="-1" width="${n+2}" height="${n+2}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`};
+const qrsvg=(q,px,quiet=1)=>{if(!q)return '';const [n,rows]=[+q.split(':')[0],q.split(':')[1].split(',')];let d='';rows.forEach((h,y)=>{const b=BigInt('0x'+h);for(let x=0;x<n;x++)if((b>>BigInt(n-1-x))&1n)d+=`M${x} ${y}h1v1h-1z`});return `<svg viewBox="${-quiet} ${-quiet} ${n+quiet*2} ${n+quiet*2}" width="${px}" height="${px}" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect x="${-quiet}" y="${-quiet}" width="${n+quiet*2}" height="${n+quiet*2}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`};
 const qrb=name=>{const l=D.clines.find(x=>x.name==name);return l&&l.qr?`<button class="qrb" data-qr="${esc(name)}" data-tip="Tap to make it big">${qrsvg(l.qr,34)}</button>`:''};
 const pic=(i,name,c)=>(i!=null&&D.pics&&D.pics[i])?`<img class="tp${c?' '+c:''}" src="${D.pics[i]}" alt="" loading="lazy">`:`<span class="tp mono${c?' '+c:''}">${esc(mono(name))}</span>`;
 
@@ -1934,60 +1972,82 @@ $$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg butt
 function countUp(el){const t=parseFloat(el.dataset.n),dec=+(el.dataset.dec||0),suf=el.dataset.suf||'',pre=el.dataset.pre||'';const put=v=>el.textContent=pre+(dec?v.toLocaleString('en-AU',{minimumFractionDigits:dec,maximumFractionDigits:dec}):fmt(Math.round(v)))+suf;
 if(STATIC||matchMedia('(prefers-reduced-motion: reduce)').matches)return put(t);const t0=performance.now(),dur=1100;(function f(now){const p=Math.min(1,(now-t0)/dur);put(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}
 try{console.log('%cDesigned and built by Andrew Fisher','color:#F26222;font-weight:700;font-size:14px','\n(c) 2026 Andrew Fisher. All rights reserved. This design and code are not to be copied or reused without written permission.')}catch(e){}
-const sdsLabels={verified:'Verified SDS',review:'Document under review',label:'Product label needed',article:'Screened article',unassessed:'Awaiting screening'};
-const sdsOutstanding=r=>!['verified','article'].includes(r.status);
-function sdsSearchText(row){
-  return [row.name,row.product,row.supplier,row.code,row.barcode,row.sku,row.owner].filter(Boolean).join(' ')
-}
-function sdsDocument(row){
-  const articleDocs={technical:'Technical data sheet',product:'Product information',guide:'Product safety guide'};
-  let label;
-  if(row.status==='article')label=articleDocs[row.document_type];
-  else if(row.status==='verified')label='Open verified SDS';
-  else if(row.status==='review')label=articleDocs[row.document_type]?articleDocs[row.document_type]+' (under review)':'View SDS under review';
-  if(!label)return '';
-  const local=/^\/sds\/[^/\\?#]+\.pdf$/i.test(row.file||'')?row.file:'';
-  const href=location.protocol==='file:'||STATIC?sdsSource(row.url):(local||sdsSource(row.url));
-  if(!href)return '';
-  return `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${label}</a>`
-}
 function sdsSource(value){
-  try{const url=new URL(value);return url.protocol==='https:'?url.href:''}catch{return ''}
+  try{const url=new URL(value);return url.protocol==='https:'&&!url.username&&!url.password?url.href:''}catch{return ''}
+}
+const sdsRecords=(D.sds||[]).filter(r=>r.status==='verified'&&r.document_type==='sds'&&sdsSource(r.url)&&r.qr);
+const sdsToday=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Australia/Brisbane',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+function sdsInDate(r,today=sdsToday()){
+  const full=value=>value?.length===7?value+'-01':value;
+  return Boolean(r.issued&&r.review_due&&full(r.issued)<=today&&today<full(r.review_due))
+}
+const sdsReview=r=>sdsInDate(r)?'In date':'Review required';
+function sdsSearchText(r){
+  return [r.name,r.product,r.supplier,r.manufacturer,r.code,r.barcode,r.sku,r.storage_location,r.bin,r.sds_details?.product_identifier].filter(Boolean).join(' ')
 }
 function initSds(){
-  const rows=D.sds, query=$('#sds-q'),state=$('#sds-state'),kind=$('#sds-kind'),limit=20;
-  const verified=rows.filter(r=>r.status==='verified').length, articles=rows.filter(r=>r.status==='article').length;
-  const outstanding=rows.filter(sdsOutstanding).length, consumables=rows.filter(r=>r.kind==='consumable').length;
-  $('#sds-coverage').textContent=fmt(consumables)+' consumable lines and '+fmt(rows.length-consumables)+' rental equipment groups in the current register.';
-  stats($('#sds-totals'),[[rows.length,'Catalogue entries'],[verified,'Verified SDS'],[outstanding,'Outstanding'],[articles,'Screened articles']]);
-  const order={verified:0,review:1,label:2,unassessed:3,article:4};
-  const records=rows.map(row=>({row,text:sdsSearchText(row).toLowerCase()})).sort((a,b)=>(order[a.row.status]??3)-(order[b.row.status]??3)||a.row.name.localeCompare(b.row.name));
-  let page=0;
-  function rowHtml(r){
-    const status=sdsLabels[r.status]||sdsLabels.unassessed;
-    const source=sdsSource(r.source), doc=sdsDocument(r);
-    const codes=[r.code,r.sku,r.barcode].filter((v,i,a)=>v&&a.indexOf(v)===i).map(esc).join(' · ');
-    const dates=[r.issued?'Issued '+esc(r.issued):'',r.checked?(r.status==='verified'?'Verified ':'Checked ')+esc(r.checked):''].filter(Boolean).join(' · ');
-    return `<tr><td><b>${esc(r.name)}</b><small>${r.kind==='rental'?'Rental equipment':'Consumable'}${codes?' · '+codes:''}</small></td>
-<td><strong>${esc(status)}</strong>${r.note?'<small>'+esc(r.note)+'</small>':''}</td>
-<td>${r.product?esc(r.product):''}${r.supplier?'<small>'+esc(r.supplier)+'</small>':''}${doc}${source&&(!doc||source!==r.url)?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Supplier reference</a>':''}${dates?'<small>'+dates+'</small>':''}</td></tr>`
+  const rows=[...sdsRecords].sort((a,b)=>a.product.localeCompare(b.product)),query=$('#sds-q'),state=$('#sds-state');
+  function reviewSummary(){
+    const today=sdsToday(),current=rows.filter(r=>sdsInDate(r,today)).length;
+    const asAt=new Intl.DateTimeFormat('en-AU',{timeZone:'UTC',day:'numeric',month:'long',year:'numeric'}).format(new Date(today+'T12:00:00Z'));
+    $('#sds-date-basis').textContent='Matched stock with Australian safety data sheets. In date means within five years of the supplier’s issue or revision date, assessed '+asAt+'.';
+    const totals=$('#sds-totals');
+    stats(totals,[[rows.length,'Registered products'],[current,'SDS in date'],[rows.length-current,'Review required']]);
+    for(const number of totals.querySelectorAll('[data-n]'))number.removeAttribute('data-n')
   }
+  const places=[...new Set(rows.map(r=>r.location).filter(Boolean))];
+  $('#sds-location').textContent=[...new Set([...rows.slice(0,1).map(r=>r.job),...places].filter(Boolean))].join(' · ');
+  const meta=(label,value)=>value==null||value===''?'':`<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`;
+  const fields={use:'Recommended use',ghs_classification:'GHS classification',signal_word:'Signal word',hazard_statements:'Hazard statements',pictograms:'Pictograms',storage:'Storage precautions',dangerous_goods:'Dangerous goods',un_number:'UN number',shipping_name:'Proper shipping name',transport_class:'Transport class',packing_group:'Packing group',poisons_schedule:'Poisons schedule',emergency_contact:'Emergency contact',product_identifier:'Product identifier',document_id:'Document ID',version:'Version',revision_history:'Revision history'};
+  function extract(r){
+    const d=r.sds_details||{};
+    const items=Object.entries(fields).filter(([k])=>Array.isArray(d[k])?d[k].length:d[k]).map(([k,l])=>{
+      const v=d[k],value=Array.isArray(v)?'<ul>'+v.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>':esc(v);
+      return '<div><dt>'+l+'</dt><dd>'+value+'</dd></div>'
+    }).join('');
+    return items?`<details ${printing?'open':''}><summary>Details from the safety data sheet</summary><dl class="sds-extract">${items}</dl></details>`:''
+  }
+  const list=$('#sds-list'),dialog=$('#sds-qr-dialog');
+  function productCard(r){
+    const dims=Number(r.qr.split(':',1)[0])+8,qr=qrsvg(r.qr,dims*3,4);
+    const units=r.quantity==null?'Quantity not recorded':fmt(r.quantity)+(r.uom?' '+r.uom:'');
+    const productCodes=[...new Set([r.code,r.sku].filter(Boolean))].join(' · ');
+    const local=/^\/sds\/[A-Za-z0-9._-]+\.pdf$/i.test(r.file||'')?r.file:'';
+    const stockTime=String(r.stock_asat||'').replace('T',' ').slice(0,16);
+    const identity=r.name!==r.product?`<p class="sub">${esc(r.name)}</p>`:'';
+    const doc=sdsSource(r.url);
+    return `<article class="card sds-entry"><div><div class="sds-heading"><h3>${esc(r.product)}</h3><span class="sds-status ${sdsInDate(r)?'':'due'}">${sdsReview(r)}</span></div>${identity}
+<dl>${meta('On hand in SiteIQ',units)}${meta('Pack',r.pack)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)+(r.uom?' '+r.uom:'')):''}${meta('Stock code / SKU',productCodes)}${meta('Storage location',r.storage_location)}${meta('Bin',r.bin)}${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl>
+<div class="sds-docs"><a class="btn" href="${esc(doc)}" target="_blank" rel="noopener noreferrer">Open full Australian SDS</a>${local&&location.protocol.startsWith('http')&&!STATIC?'<a href="'+esc(local)+'" target="_blank" rel="noopener noreferrer">Portal PDF copy</a>':''}</div>
+<p class="sub">${esc([r.source_export,stockTime?stockTime+' AEST':''].filter(Boolean).join(' · '))}</p></div>
+<div class="sds-code"><button type="button" data-sds-qr="${rows.indexOf(r)}" aria-haspopup="dialog" aria-label="Enlarge SDS QR code for ${esc(r.product)}">${qr}</button>Scan for the full SDS</div>${extract(r)}</article>`
+  }
+  let printing=STATIC;
   function draw(){
-    const words=query.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    const matches=records.filter(({row:r,text})=>{
-      if(STATIC)return ['verified','review','label'].includes(r.status)||(r.status==='article'&&sdsDocument(r));
-      return (!kind.value||r.kind===kind.value)&&(!state.value||(state.value==='outstanding'?sdsOutstanding(r):state.value===r.status))&&words.every(w=>text.includes(w))
-    });
-    const total=matches.length;
-    const shown=STATIC?matches:matches.slice(page*limit,(page+1)*limit);
-    $('#sds-count').textContent=STATIC?'Document and product-identification records. Search the live register for the full catalogue.':total?`Showing ${fmt(page*limit+1)}–${fmt(page*limit+shown.length)} of ${fmt(total)} matching entries.`:'No matching entries.';
-    $('#sds-list').innerHTML=shown.length?`<table class="sds-table"><thead><tr><th scope="col">Stock item</th><th scope="col">Register status</th><th scope="col">Document and source</th></tr></thead><tbody>${shown.map(x=>rowHtml(x.row)).join('')}</tbody></table>`:'';
-    $('#sds-pages').hidden=STATIC||total<=limit;
-    $('#sds-prev').disabled=page===0;$('#sds-next').disabled=(page+1)*limit>=total;
-    $('#sds-page').textContent=`Page ${page+1} of ${Math.max(1,Math.ceil(total/limit))}`
+    reviewSummary();
+    const words=query.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    const matches=rows.filter(r=>printing||((!state.value||(sdsInDate(r)?'in_date':'review_required')===state.value)&&words.every(w=>sdsSearchText(r).toLowerCase().includes(w))));
+    $('#sds-count').textContent=words.length||state.value?(matches.length?fmt(matches.length)+' matching '+(matches.length===1?'product':'products'):'No matching products.'):'';
+    list.innerHTML=matches.map(productCard).join('')
   }
-  query.oninput=state.onchange=kind.onchange=()=>{page=0;draw()};
-  $('#sds-prev').onclick=()=>{page--;draw()};$('#sds-next').onclick=()=>{page++;draw()};
+  list.onclick=e=>{const b=e.target.closest('[data-sds-qr]');if(!b)return;
+    const r=rows[Number(b.dataset.sdsQr)],dim=Number(r.qr.split(':',1)[0])+8;
+    $('#sds-qr-name').textContent=r.product;$('#sds-qr-large').innerHTML=qrsvg(r.qr,dim*Math.max(4,Math.floor(480/dim)),4);dialog.showModal()
+  };
+  dialog.onclick=e=>{if(e.target===dialog)dialog.close()};
+  query.oninput=state.onchange=draw;
+  $('#sds-print').onclick=()=>window.print();
+  if(!STATIC){
+    let expanded=[];
+    addEventListener('beforeprint',()=>{if(!$('#v-sds').classList.contains('on')||document.documentElement.classList.contains('ohprint'))return;
+      document.documentElement.classList.add('sds-print');
+      expanded=[...list.querySelectorAll('details[open]')].map(d=>d.closest('article').querySelector('h3').textContent);
+      printing=true;draw()
+    });
+    addEventListener('afterprint',()=>{if(!printing)return;document.documentElement.classList.remove('sds-print');printing=false;draw();
+      for(const d of list.querySelectorAll('details'))d.open=expanded.includes(d.closest('article').querySelector('h3').textContent)
+    })
+  }
   draw()
 }
 /* ---------- search anything ---------- */
@@ -2002,7 +2062,7 @@ Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.available)}
 D.clines.forEach((l,i)=>add('Consumables',l.name,`${fmt(l.have)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
 const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
-(D.sds||[]).forEach((r,i)=>add('Safety data sheets',r.name,[sdsLabels[r.status],r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r)));
+sdsRecords.forEach((r,i)=>add('Safety data sheets',r.product,[sdsReview(r),r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r)));
 X.sort((a,b)=>a.n.localeCompare(b.n));indexed=true;
 }
 const ORD=['Tools','Consumables','Safety data sheets','Item numbers','People','Companies','On hire now'];let sel=-1;
@@ -2028,8 +2088,8 @@ box.addEventListener('click',e=>{
  const result=e.target.closest('.gsi');if(!result)return;
  box.hidden=true;
  if(result.dataset.open.startsWith('sds:')){
-   e.stopPropagation();const row=D.sds[Number(result.dataset.open.slice(4))];
-   show('sds');$('#sds-state').value='';$('#sds-kind').value=row.kind;
+   e.stopPropagation();const row=sdsRecords[Number(result.dataset.open.slice(4))];
+   show('sds');$('#sds-state').value='';
    const search=$('#sds-q');search.value=row.code||row.name;search.dispatchEvent(new Event('input'));search.focus()
  }
 });
