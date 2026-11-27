@@ -431,20 +431,11 @@ html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
 .cyl .scale{fill:none;stroke:var(--tx);stroke-width:1;opacity:.32}
 .cyl .lip{fill:var(--panel2);fill-opacity:.15;stroke:var(--neu);stroke-opacity:.78}
 .cyl .footlight{opacity:.54}
-.cyl .surface{stroke:#fff;stroke-opacity:.48;stroke-width:.8}
 .view.go .liquid{transform-origin:37px 158px;animation:fill-cylinder 1.35s cubic-bezier(.22,.75,.25,1) backwards}
 @keyframes fill-cylinder{from{transform:scaleY(0)}}
-.cyl .bub{fill:#fff;fill-opacity:.68;stroke:#fff;stroke-opacity:.85;stroke-width:.32;opacity:0}
-.view.go .bub{animation:bubble-rise var(--duration) linear infinite;animation-delay:var(--phase)}
-@keyframes bubble-rise{0%{opacity:0;transform:translate(0,0)}16%{opacity:.78}38%{transform:translate(var(--drift),calc(var(--rise)*.35))}72%{opacity:.55;transform:translate(calc(var(--drift)*-.45),calc(var(--rise)*.69))}100%{opacity:0;transform:translate(var(--drift),var(--rise))}}
-.cyl .ripple{fill:none;stroke:white;stroke-opacity:.6;stroke-width:.85;transform-box:fill-box;transform-origin:center;opacity:0}
-.view.go .ripple{animation:surface-ripple 3.6s ease-out infinite;animation-delay:var(--phase)}
-@keyframes surface-ripple{0%{transform:scale(.35);opacity:0}20%{opacity:.62}90%,100%{transform:scale(1);opacity:0}}
 @media (hover:hover){.cyl[data-open]:hover{background:var(--hover)}.cyl[data-open]:hover .footlight{opacity:.9}}
 @container (max-width:495px){.cyls:has(>:nth-child(6)){grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-flow:row;row-gap:14px}}
 @container (max-width:360px){.cyls:has(>:nth-child(4)):not(:has(>:nth-child(5))){grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:row}}
-@media (prefers-reduced-motion:reduce){.cyl .bub,.cyl .ripple{display:none}}
-.static .cyl .bub,.static .cyl .ripple{display:none}
 .rt{font-size:13.5px;font-weight:600;text-align:center;margin-bottom:8px}
 .dials{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .dial{text-align:center}
@@ -839,7 +830,6 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
   }
 }
 
-:root{--bubble-tile:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2276%22%20height%3D%2224%22%20viewBox%3D%220%200%2076%2024%22%3E%3Ccircle%20cx%3D%223%22%20cy%3D%224%22%20r%3D%221.6%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%222.50%22%20cy%3D%223.42%22%20r%3D%220.45%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2211%22%20cy%3D%2217%22%20r%3D%222.05%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2210.36%22%20cy%3D%2216.26%22%20r%3D%220.57%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%228%22%20r%3D%222.55%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2220.21%22%20cy%3D%227.08%22%20r%3D%220.71%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2227%22%20cy%3D%2221%22%20r%3D%221.15%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2226.64%22%20cy%3D%2220.59%22%20r%3D%220.40%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2236%22%20cy%3D%224%22%20r%3D%221.25%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2235.61%22%20cy%3D%223.55%22%20r%3D%220.40%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2215%22%20r%3D%222.85%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2241.12%22%20cy%3D%2213.97%22%20r%3D%220.80%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%229%22%20r%3D%221.05%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2248.67%22%20cy%3D%228.62%22%20r%3D%220.40%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2256%22%20cy%3D%2221%22%20r%3D%221.7%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2255.47%22%20cy%3D%2220.39%22%20r%3D%220.48%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2262%22%20cy%3D%226%22%20r%3D%222.1%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2261.35%22%20cy%3D%225.24%22%20r%3D%220.59%22%20fill%3D%22white%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2212%22%20r%3D%221.6%22%20fill%3D%22%23643c24%22%20fill-opacity%3D%22.26%22%20stroke%3D%22%23fff5e4%22%20stroke-opacity%3D%22.81%22%20stroke-width%3D%22.76%22%2F%3E%3Ccircle%20cx%3D%2269.50%22%20cy%3D%2211.42%22%20r%3D%220.45%22%20fill%3D%22white%22%2F%3E%3C%2Fsvg%3E")}
 /* Vessel readings use the same scale and series colours in every theme. */
 html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none;animation:none}
 .liquid-chart .col.pk .liquid-reflection{stroke-width:1.3;opacity:.55}
@@ -848,58 +838,122 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 .liquid-reflection{stroke-width:.9px;opacity:.29}
 .liquid-meniscus{stroke-width:.75px;opacity:.72}
 .liquid-bubble{fill:url(#liquid-pearl);stroke:rgba(72,48,43,.54);stroke-width:.52;pointer-events:none;opacity:0}
+.liquid-film{fill:#fff;fill-opacity:.2;pointer-events:none}
+.liquid-volume .liquid-cap{stroke:rgba(255,255,255,.6);stroke-width:.68px}
+.cyl .liquid-volume :is(.liquid-base,.liquid-cap){fill:var(--tank-ink)}
+.surface-pop{pointer-events:none;transform-origin:0 0;opacity:0}
+.pop-edge{stroke:#443c3b;stroke-opacity:.7;stroke-width:1.5;fill:none}
+.pop-pearl{stroke:#fff;stroke-opacity:.97;stroke-width:.72;fill:url(#liquid-pearl)}
+/* The bead reaches the meniscus and the dome opens into a spreading ring. */
 @keyframes tank-rise{
   0%{opacity:0;transform:translate(0,0)}
-  12%{opacity:.97}
-  40%{transform:translate(var(--sway),calc(var(--rise)*.39))}
-  76%{opacity:.88;transform:translate(calc(var(--sway)*-.55),calc(var(--rise)*.76))}
-  100%{opacity:0;transform:translate(0,var(--rise))}
+  10%{opacity:.96}
+  36%{opacity:.96;transform:translate(var(--sway),calc(var(--rise)*.48))}
+  59%{opacity:.92;transform:translate(calc(var(--sway)*-.5),calc(var(--rise)*.89))}
+  68%{opacity:.88;transform:translate(0,var(--rise))}
+  72%,100%{opacity:0;transform:translate(0,var(--rise))}
 }
-@keyframes bar-effervescence{
-  0%{transform:translate(0,0)}
-  32%{transform:translate(2px,-8px)}
-  68%{transform:translate(-1px,-16px)}
-  100%{transform:translate(0,-24px)}
+@keyframes tank-surface-pop{
+  0%,60%{opacity:0;fill-opacity:1;transform:scale(.4,.47)}
+  68%{opacity:.94;fill-opacity:1;transform:scale(.66,.86)}
+  75%{opacity:1;fill-opacity:.97;transform:scale(.88,1.16)}
+  81%{opacity:.97;fill-opacity:.17;transform:scale(1.05,.48)}
+  91%{opacity:.75;fill-opacity:.02;transform:scale(1.5,.65)}
+  100%{opacity:0;fill-opacity:0;transform:scale(1.76,.74)}
 }
+/* A horizontal reading stops at the right face of the fluid. The remaining length is clear glass. */
 @media screen{
-  html:not(.static){
-    & .liquid-range .band{opacity:.51}
-    & :is(.fl,.fb,.meter>i,.cbi .m>i,.upbar .tr>i){overflow:hidden;isolation:isolate}
-    & :is(.meter>i,.cbi .m>i,.upbar .tr>i){position:relative}
-    & :is(.fl,.fb,.meter>i,.cbi .m>i,.upbar .tr>i)::before{
-      content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-      background:linear-gradient(180deg,rgba(255,255,255,.51),rgba(255,255,255,.12) 23%,transparent 47%,rgba(45,15,11,.24) 80%,rgba(255,255,255,.22))
-    }
-    & :is(.tr,.meter,.cbi .m){--phase:-.85s}
-    & :is(.row,tr,.cbi):nth-child(3n+1){--bar-offset:26px;--bar-phase:-.24s}
-    & :is(.row,tr,.cbi):nth-child(3n+2){--bar-offset:53px;--bar-phase:-1.48s}
-    & :is(.row,tr,.cbi):nth-child(3n){--bar-offset:9px;--bar-phase:-2.77s}
-    & .tr{height:clamp(12px,.66vw,20px);border-radius:999px}
-    & .fl,& .fb{border-radius:999px}
-    & .cbi .m,& .meter{height:clamp(8px,.46vw,14px)}
-    & .st-native-progress{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
-    & .st-liquid-track{display:block;margin:.25rem 0}
+ html:not(.static){
+  & :is(.tr,.meter,.cbi .m){
+    --tube-h:clamp(16px,.84vw,28px);
+    --tube-fill:var(--or);--tube-rim:color-mix(in srgb,var(--tx) 30%,transparent);
+    height:var(--tube-h);position:relative;border-radius:999px;isolation:isolate;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--track) 82%,#9baebd),var(--track) 37%,var(--panel) 68%,var(--track));
+    box-shadow:inset 0 0 0 1px var(--tube-rim),inset 0 2px 1px #ffffff1f
   }
+  & :is(.cbi .m,.meter){--tube-h:clamp(12px,.64vw,20px)}
+  & .cbi:not(.on) .m,& .neu .tr,& .tr.neu{--tube-fill:var(--neu)}
+  & .warnb .tr,& .tr.warnb{--tube-fill:var(--warn)}
+  & .row .tr:has(>.fb){--tube-h:clamp(25px,1.23vw,36px)}
+  & .row .tr:has(>.fb)>.fl{height:57%;bottom:auto;--water-depth:calc(var(--tube-h)*.57)}
+  & .row .tr>.fb{top:auto;height:40%;bottom:0;--tube-fill:var(--neu);--water-depth:calc(var(--tube-h)*.4)}
+  & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i){
+    --water-depth:var(--tube-h);--surface:color-mix(in srgb,var(--tube-fill) 71%,white);
+    max-width:100%;border-radius:999px;overflow:hidden;isolation:isolate;opacity:1;
+    background:linear-gradient(to bottom,var(--surface),var(--tube-fill) 22%,color-mix(in srgb,var(--tube-fill) 83%,#30180c) 69%,color-mix(in srgb,var(--tube-fill) 74%,#241916) 86%,var(--surface));
+    box-shadow:inset 0 1px 0 #ffffff5c,inset 0 -1px 0 #29160c5c
+  }
+  & :is(.meter>i,.cbi .m>i,.upbar .tr>i){position:relative}
+  & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i)::before{
+    content:"";position:absolute;left:0;right:0;top:11%;height:12%;pointer-events:none;
+    background:linear-gradient(90deg,transparent 1%,#ffffff68 12%,#ffffff35 75%,transparent 100%)
+  }
+  & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i)::after{
+    content:"";position:absolute;right:0;top:2%;height:96%;width:min(32%,calc(.54*var(--water-depth)));
+    border-radius:50%;border:1px solid color-mix(in srgb,var(--tube-fill) 47%,#fff);
+    background:linear-gradient(110deg,#ffffff58,#ffffff15 38%,#2415095e 88%);pointer-events:none
+  }
+  & .tube-stream{position:absolute;inset:0;pointer-events:none;--emit:24%;--tempo:2.8s;--offset:-1.7s}
+  & .tube-stream:nth-child(2){--emit:59%;--tempo:3.3s;--offset:-.15s}
+  & .tube-stream:nth-child(3){--emit:81%;--tempo:2.65s;--offset:-2.26s}
+  & :is(.row,tr,.cbi):nth-child(3n+1){--stagger:-.64s}
+  & :is(.row,tr,.cbi):nth-child(3n+2){--stagger:-1.21s}
+  & .st-native-progress{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+  & .st-liquid-track{display:block;margin:.25rem 0}
+  & .liquid-range .band{fill:url(#tube-fluid);opacity:1;transform:none}
+  & .liquid-range .rtrack{fill:var(--track);stroke:var(--dim);stroke-opacity:.5;stroke-width:.75}
+  & .tube-pearl,& .tube-pop{opacity:0;pointer-events:none}
+ }
 }
-@media screen and (max-width:620px){html:not(.static) .row:has(.tp) .tr{height:9px}}
+@keyframes side-pearl-rise{
+ 0%{opacity:0;transform:translate(-50%,var(--travel)) scale(.61)}
+ 14%{opacity:.96}
+ 40%{transform:translate(calc(-50% + 1.2px),calc(var(--travel)*.46)) scale(.94)}
+ 64%{opacity:1;transform:translate(-50%,0) scale(1)}
+ 69%{opacity:.95;transform:translate(-50%,0) scale(1.19,.63)}
+ 73%,100%{opacity:0;transform:translate(-50%,0) scale(1.32,.32)}
+}
+@keyframes side-surface-pop{
+ 0%,61%{opacity:0;transform:translateX(-50%) scale(.2,.3)}
+ 68%{opacity:1;transform:translateX(-50%) scale(.54,1.35)}
+ 77%{opacity:.98;transform:translateX(-50%) scale(1,.78)}
+ 93%,100%{opacity:0;transform:translateX(-50%) scale(1.42,.38)}
+}
+@media screen and (prefers-reduced-motion:no-preference){
+ html:not(.static) :is(.view.on,.drawer.on) .liquid-inview{
+   & .tube-stream::before,& .tube-stream::after{
+     content:"";position:absolute;top:1px;left:var(--emit);opacity:0;border-radius:50%;pointer-events:none;
+     --travel:calc(var(--water-depth) - 6px);animation-duration:var(--tempo);animation-delay:calc(var(--offset) + var(--stagger,0s));animation-iteration-count:infinite;animation-timing-function:linear
+   }
+   & .tube-stream::before{width:clamp(3px,.21vw,6px);aspect-ratio:1;animation-name:side-pearl-rise;
+     border:.65px solid #fffae4cf;background:radial-gradient(circle at 30% 24%,#fff 0 17%,#ffffff42 30%,#97583855 67%,#fff6cb 92%)}
+   & .tube-stream::after{width:clamp(8px,.54vw,18px);height:clamp(2px,.18vw,4px);animation-name:side-surface-pop;border:1px solid #fff1da;border-top-color:#fffcf3;background:#fff3cf28}
+   & .tube-range-stream :is(.tube-pearl,.tube-pop){animation-duration:var(--tempo);animation-delay:var(--offset);animation-iteration-count:infinite;animation-timing-function:linear;transform-box:fill-box;transform-origin:center}
+   & .tube-range-stream .tube-pearl{animation-name:side-pearl-rise;fill:url(#liquid-pearl);stroke:#fff7e5;stroke-width:.55px}
+   & .tube-range-stream .tube-pop{animation-name:side-surface-pop;stroke:#fff3dc;stroke-width:1;fill:none}
+ }
+}
+@media screen and (min-width:2400px),screen and (min-width:1500px) and (min-resolution:2dppx){
+ .tube-stream:nth-child(2),.tube-range-stream:nth-of-type(even){display:none}
+}
+@media (prefers-reduced-motion:reduce),print{
+ .tube-stream,.tube-range-stream{display:none!important}
+}
+
 @media screen and (prefers-reduced-motion:no-preference){
   html:not(.static) :is(.view.on,.drawer.on) .liquid-inview .liquid-bubble{
     animation:tank-rise var(--duration) linear var(--phase) infinite
   }
-  html:not(.static) :is(.view.on,.drawer.on) .liquid-inview:is(.tr,.meter,.m)>:is(.fl,.fb,i:not(.tick))::after{
-    content:"";position:absolute;inset:0 0 -24px;border-radius:0;pointer-events:none;
-    background-image:radial-gradient(circle at 50% 4px,rgba(255,255,255,.84) .42px,rgba(64,42,32,.32) .8px,rgba(255,255,255,.8) 1.25px,transparent 1.6px),var(--bubble-tile);
-    background-size:100% 12px,76px 24px;background-position:0 0,var(--bar-offset,0px) 0;
-    animation:bar-effervescence 3.7s linear var(--bar-phase,-.85s) infinite
+  html:not(.static) :is(.view.on,.drawer.on) .liquid-inview .surface-pop{
+    animation:tank-surface-pop var(--duration) linear var(--phase) infinite
   }
-  html:not(.static) :is(.view.on,.drawer.on) .liquid-inview.tr>.fb::after{animation-duration:4.6s;background-position:0 0,19px 0}
 }
 /* Half-density retains a moving stream in each volume on large displays. */
 @media screen and (min-width:2400px),screen and (min-width:1500px) and (min-resolution:2dppx){
-  html .liquid-chart .liquid-bubble:nth-child(even),html .liquid-range .liquid-bubble:nth-child(even){display:none;animation:none!important}
+  html :is(.liquid-chart,.liquid-gauge,.liquid-range) .liquid-bubble:nth-child(even){display:none;animation:none!important}
 }
 .st-liquid-track{display:none}
-@media print{.liquid-particles,.liquid-bubble,.st-liquid-track{display:none!important}}
+@media print{.liquid-particles,.liquid-bubble,.surface-pop,.st-liquid-track{display:none!important}}
 
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
@@ -914,7 +968,7 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 </style></head>
 <body>
 <div class="amb"><i></i><i></i><i></i></div><div id="fx" aria-hidden="true"></div><div class="prog"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffd1a5"/><stop offset=".24" stop-color="#ff9654"/><stop offset=".63" stop-color="#e66b2b"/><stop offset=".86" stop-color="#b94c1e"/><stop offset="1" stop-color="#ffb474"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -1110,7 +1164,7 @@ __CONTACTS__
 <div id="up-person-field" hidden><label for="up-person">Who is uploading?</label>
 <select id="up-person" required><option value="">Choose your first and last name</option></select></div>
 <button class="upgo" id="up-go" disabled>Update the report</button>
-<div class="upbar" id="up-bar" hidden><div class="tr"><i id="up-fill"></i></div><div class="upst"><b id="up-pct">0%</b><span id="up-stage"></span></div></div>
+<div class="upbar" id="up-bar" hidden><div class="tr"><i id="up-fill"><span class="tube-stream" aria-hidden="true"></span><span class="tube-stream" aria-hidden="true"></span></i></div><div class="upst"><b id="up-pct">0%</b><span id="up-stage"></span></div></div>
 <div class="upmsg" id="up-msg" role="status" hidden></div>
 <div class="sub" style="margin-top:16px" id="up-last"></div></div>
 </div>
@@ -1205,8 +1259,11 @@ $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions 
 const asatT=D.asat.split(' ').slice(-1)[0], asatH=+asatT.slice(0,2);
 
 /* ---------- small builders ---------- */
+function horizontalStreams(){
+  return STATIC?'':'<span class="tube-stream" aria-hidden="true"></span>'.repeat(3);
+}
 function bars(el,items,o){o=o||{};const max=o.max||Math.max(1,...items.map(i=>i.n));
-el.innerHTML=items.map((i,x)=>`<div class="row"${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr">${i.b!=null?`<div class="fb" style="--w:${(Math.min(i.b,max)/max*100).toFixed(1)}%"></div>`:''}<div class="fl" style="--w:${(Math.min(i.n,max)/max*100).toFixed(1)}%"></div></div><div class="v">${i.v!=null?i.v:`<span data-n="${i.n}"${o.dec?' data-dec="1"':''}>${o.dec?f1(i.n):fmt(i.n)}</span>`}</div></div>`).join('')||'<div class="empty">Nothing to show in this pull.</div>'}
+el.innerHTML=items.map((i,x)=>`<div class="row"${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr">${i.b!=null?`<div class="fb" style="--w:${(Math.min(i.b,max)/max*100).toFixed(1)}%">${horizontalStreams()}</div>`:''}<div class="fl" style="--w:${(Math.min(i.n,max)/max*100).toFixed(1)}%">${horizontalStreams()}</div></div><div class="v">${i.v!=null?i.v:`<span data-n="${i.n}"${o.dec?' data-dec="1"':''}>${o.dec?f1(i.n):fmt(i.n)}</span>`}</div></div>`).join('')||'<div class="empty">Nothing to show in this pull.</div>'}
 const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>`<div${x[3]?` data-tip="${esc(x[3])}"`:''}><div class="n${x[2]?' '+x[2]:''}"><span data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>${x[0]}</span></div><div class="l">${x[1]}</div></div>`).join('')};
 function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v))),m=v/p;return ([1,2,2.5,4,5,8,10].find(x=>m<=x))*p}
 
@@ -1223,33 +1280,49 @@ function chartLayout(el, defaultWidth, render) {
   if(!STATIC && window.ResizeObserver)new ResizeObserver(resize).observe(el);
 }
 
-// Each stream stays inside its own measured volume. Small segments use smaller bubbles.
-function liquidBubbles(width,height,seed){
-  if(STATIC||width<=0||height<=0)return '';
-  const wide=width>height*2, count=wide?Math.min(18,Math.max(2,Math.ceil(width/16))):Math.min(12,Math.max(2,Math.ceil(height/11)));
-  const phase=seed*.314;
-  let result='';
+// The immersed bubble and its surface response use the same landing point and clock.
+function liquidStreams(width,height,seed,surfaceRadius=0){
+  if(STATIC||width<=0||height<=0)return {inside:'',surface:''};
+  const wide=width>height*2;
+  const count=wide?Math.min(18,Math.max(2,Math.ceil(width/16))):Math.min(12,Math.max(2,Math.ceil(height/11)));
+  let inside='',surface='';
   for(let j=0;j<count;j++){
+    const exposes=surfaceRadius>0&&(j===0||j===2&&width>=28);
     const size=Math.min(width*.14,height*.24,1.4+((j*5+seed)%7)*.24);
-    const x=size+(width-2*size)*((.19+(j+1)*.618+phase)%1);
-    const travel=Math.max(.15,height-2*size);
-    const duration=1.8+Math.min(2.4,height/46)+((j+seed)%4)*.31;
-    const delay=-duration*((.31+j*.382+phase)%1);
-    result+=`<circle class="liquid-bubble" cx="${x.toFixed(2)}" cy="${(height-size).toFixed(2)}" r="${size.toFixed(2)}" style="--rise:${(-travel).toFixed(2)}px;--sway:${(Math.min(2.8,width*.055)*(j%2?1:-1)).toFixed(2)}px;--duration:${duration.toFixed(2)}s;--phase:${delay.toFixed(2)}s"/>`;
+    const popWidth=Math.min(width*.205,Math.max(3.3,size*2.08));
+    const inset=exposes?Math.min(width*.32,popWidth*1.8):size+Math.min(2,width*.04);
+    const x=inset+(width-2*inset)*((.19+(j+1)*.618+seed*.314)%1);
+    const landing=surfaceRadius*.08, y=height-size;
+    const duration=2+Math.min(1.35,height/72)+((j+seed)%4)*.27;
+    const phase=-duration*((.31+j*.382+seed*.168)%1);
+    const clock=`--duration:${duration.toFixed(3)}s;--phase:${phase.toFixed(3)}s`;
+    inside+=`<circle class="liquid-bubble" cx="${x}" cy="${y}" r="${size}" style="${clock};--rise:${landing-y}px;--sway:${Math.min(2.8,width*.055)*(j%2?1:-1)}px"/>`;
+    if(exposes){
+      const popHeight=Math.min(popWidth*.82,Math.max(1.05,surfaceRadius*.92));
+      surface+=`<g transform="translate(${x} ${landing})"><g class="surface-pop" style="${clock}">
+<ellipse class="pop-edge" cy="0" rx="${popWidth}" ry="${popHeight}"/>
+<ellipse class="pop-pearl" cy="0" rx="${popWidth}" ry="${popHeight}"/></g></g>`;
+    }
   }
-  return result;
+  return {inside,surface};
 }
 
-function liquidColumn(x,top,bottom,width,cap,colour,seed){
-  const h=bottom-top, mid=width/2, ry=Math.min(cap,width*.22,h*.38);
-  const id='lc'+(++uid), shell=`M0 0a${mid} ${ry} 0 0 1 ${width} 0v${h}a${mid} ${ry} 0 0 1 -${width} 0Z`;
-  const fluid=liquidBubbles(width,h,seed);
-  return `<g transform="translate(${x} ${top})"><defs><clipPath id="${id}"><path d="${shell}"/></clipPath></defs>
+// All upright vessels use this body, curved glass reflection and meniscus.
+function liquidVolume(width,height,cap,colour,seed,exposed=true){
+  if(!(height>0&&width>0))return '';
+  const mid=width/2, ry=Math.min(cap,width*.22,height*.38), id='lv'+(++uid);
+  const shell=`M0 0a${mid} ${ry} 0 0 1 ${width} 0v${height}a${mid} ${ry} 0 0 1 -${width} 0Z`;
+  const streams=liquidStreams(width,height,seed,exposed?ry:0);
+  return `<g class="liquid-volume" data-surface="${exposed?'open':'sealed'}" aria-hidden="true">
+<defs><clipPath id="${id}"><path d="${shell}"/></clipPath></defs>
 <path class="${colour} liquid-base" d="${shell}"/>
-<g clip-path="url(#${id})" aria-hidden="true"><g class="liquid-particles">${fluid}</g>
-<path class="liquid-reflection" d="M${width*.11} ${ry}v${Math.max(0,h-ry*1.4)}"/>
+<g clip-path="url(#${id})">
+<path d="${shell}" fill="url(#liquid-glass)"/>
+<path class="liquid-reflection" d="M${width*.125} ${ry}v${Math.max(0,height-ry*1.4)}"/>
 <ellipse class="${colour} liquid-cap" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
-<path class="liquid-meniscus" d="M${width*.055} ${ry*.07}Q${mid} ${ry*1.65} ${width*.945} ${ry*.07}"/></g></g>`;
+<ellipse class="liquid-film" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
+<path class="liquid-meniscus" d="M${width*.055} ${ry*.07}Q${mid} ${ry*1.65} ${width*.945} ${ry*.07}"/>
+<g class="liquid-particles">${streams.inside}</g></g>${streams.surface}</g>`;
 }
 
 // columns: 3D blocks, one or more series stacked per slot
@@ -1259,7 +1332,7 @@ let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2
 const pk=tot.indexOf(Math.max(...tot));let s='';
 labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2-dp/2,segs=series.map(se=>({v:se.v[i],c:typeof se.cls=='function'?se.cls(i):se.cls})).filter(z=>z.v>0),fut=o.fade&&o.fade(i)?' fut':'';let base=0;
 segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base);base+=z.v;
-s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}">${liquidColumn(x,y1,y0,bw,ry,z.c,i*3+k)}</g>`});
+s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><g transform="translate(${x} ${y1})">${liquidVolume(bw,y0-y1,ry,z.c,i*3+k,k===segs.length-1)}</g></g>`});
 const yt=y(tot[i]);
 if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-ry-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
 if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2}" y="${yt-ry-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
@@ -1283,9 +1356,15 @@ $$('.draw',el).forEach(p=>p.style.setProperty('--len',p.getTotalLength()))})}
 function rangeRow(title,unit,r){const W=560,H=112,L=24,R=24,max=Math.max(1,r[2].n*1.12),x=v=>L+(W-L-R)*v/max,cy=58;
 const span=x(r[2].n)-x(r[0].n), id='lr'+(++uid);
 return `<div style="margin-top:6px"><div style="font-size:13.5px;font-weight:600">${title}</div>
-<svg class="liquid-range" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><rect class="rtrack" x="${L}" y="${cy-4}" width="${W-L-R}" height="8" rx="4"/>
+<svg class="liquid-range" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><rect class="rtrack" x="${L}" y="${cy-9}" width="${W-L-R}" height="18" rx="9"/>
 <g transform="translate(${x(r[0].n)} ${cy-9})"><defs><clipPath id="${id}"><rect width="${span}" height="18" rx="9"/></clipPath></defs>
-<rect class="band" width="${span}" height="18" rx="9"/><g class="liquid-particles" clip-path="url(#${id})" aria-hidden="true">${liquidBubbles(span,18,uid)}</g></g>
+<g clip-path="url(#${id})" aria-hidden="true"><rect class="band" width="${span}" height="18" rx="9"/>
+<path d="M2 2.3H${Math.max(2,span-6)}" stroke="white" stroke-opacity=".43"/>
+${!STATIC&&span>3?Array.from({length:Math.min(7,Math.ceil(span/43))},(_,j)=>{
+  const count=Math.min(7,Math.ceil(span/43)),px=(j+.5)*span/count;
+  return `<g class="tube-range-stream" transform="translate(${px} 0)" style="--tempo:${2.55+j%3*.42}s;--offset:-${.31+j*.87}s;--travel:12px"><circle class="tube-pearl" cx="1.65" cy="3.3" r="1.65"/><ellipse class="tube-pop" cx="4.8" cy="2" rx="4.8" ry="1.25"/></g>`;
+}).join(''):''}
+${span>0?`<ellipse cx="${span-Math.min(span*.16,3.5)}" cy="9" rx="${Math.min(span*.16,3.5)}" ry="8.5" fill="#a9562a" stroke="#ffdab1" stroke-width=".8"/>`:''}</g></g>
 ${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle class="rdot${i==1?'':' e'}" cx="${x(p.n)}" cy="${cy}" r="${i==1?9:7}"/><text class="rv" x="${x(p.n)}" y="${i==1?cy-18:cy+32}" text-anchor="middle">${fmt(p.n)}</text><text class="rl" x="${x(p.n)}" y="${i==1?cy-38:cy+48}" text-anchor="middle">${['Quietest','Typical','Busiest'][i]}</text></g>`).join('')}
 </svg></div>`}
 
@@ -1297,22 +1376,15 @@ const value=o.share?it.on:it.n, total=o.share?it.fleet:o.max;
 const share=total>0?Math.max(0,Math.min(1,value/total)):0;
 const height=140*share, surface=158-height, id='c'+(++uid);
 const color=o.col||['#AE3F13','#FF894E','#B74819','#FFA276'];
-const bubbleCount=height<9?0:Math.min(10,Math.ceil(height/12)+2);
-const bubbles=STATIC?'':Array.from({length:bubbleCount},(_,i)=>{
-  const x=14+((i*19+uid*3)%45), radius=1+((i*7+uid)%5)*.24;
-  const seconds=2.7+((i+uid)%5)*.38, phase=-seconds*((i*.618+uid*.173)%1);
-  return `<circle class="bub" cx="${x}" cy="157" r="${radius}" style="--duration:${seconds.toFixed(2)}s;--phase:${phase.toFixed(2)}s;--rise:${-(height-3)}px;--drift:${i%2?2:-2}px"/>`;
-}).join('');
+const volume=height>0?liquidVolume(63,height,7.5,'',uid):'';
 const tag=it.open?'button':'div';
-return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
+return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg class="liquid-gauge" viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
 <defs><linearGradient id="${id}"><stop stop-color="${color[0]}"/><stop offset=".20" stop-color="${color[1]}"/><stop offset=".48" stop-color="${color[1]}"/><stop offset="1" stop-color="${color[2]}"/></linearGradient>
 <linearGradient id="${id}g"><stop stop-color="#fff" stop-opacity=".05"/><stop offset=".12" stop-color="#fff" stop-opacity=".17"/><stop offset=".26" stop-color="#fff" stop-opacity=".015"/><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".14"/></linearGradient>
 <radialGradient id="${id}h"><stop stop-color="${color[1]}" stop-opacity=".82"/><stop offset="1" stop-color="${color[1]}" stop-opacity="0"/></radialGradient></defs>
 <ellipse class="footlight" cx="37" cy="169" rx="36" ry="9" fill="url(#${id}h)"/>
 <path class="shell" d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z"/>
-${height>0?`<g class="liquid"><ellipse cx="37" cy="158" rx="31.5" ry="7.5" fill="url(#${id})"/><rect x="5.5" y="${surface}" width="63" height="${height}" fill="url(#${id})"/>
-${bubbles}<ellipse class="surface" cx="37" cy="${surface}" rx="31.5" ry="7.5" fill="${color[3]}"/>
-${bubbleCount?`<ellipse class="ripple" cx="35" cy="${surface}" rx="21" ry="4" style="--phase:-${uid%4}s"/>`:''}</g>`:''}
+${volume?`<g class="liquid" style="--tank-ink:url(#${o.col?id:'gcylO'})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:''}
 <path d="M5 18a32 8 0 0 1 64 0v140a32 8 0 0 1-64 0Z" fill="url(#${id}g)"/>
 <path d="M11 27v116m0 4v5" fill="none" stroke="#fff" stroke-opacity=".27" stroke-width=".8" stroke-linecap="round"/>
 <path class="scale" d="M60 53h8m-5 17.5h5M58 88h10m-5 17.5h5M60 123h8"/>
@@ -1499,7 +1571,7 @@ function initTooling(){
 initUtilisation(D.utilisation,D.variant_history);
 browser($('#cb-tools'),'tools');
 $('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
-const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.min(100,Math.max(0,p)).toFixed(1)}%"></i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
+const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.min(100,Math.max(0,p)).toFixed(1)}%">${horizontalStreams()}</i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
 $('#tl-util').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(D.comm.on,D.comm.fleet,'Radios and radio batteries out','the busiest gear today');
 bars($('#tl-tools'),D.tools_util.map(t=>{const k=t.dk||t.name.toUpperCase();return {name:t.name,pic:t.pic,n:t.on,b:t.best,open:D.tools[k]?'t:'+k:'',v:`${t.on} <small>of ${fmt(t.site)} out${t.best?' · busiest '+t.best:''}</small>`,_m:Math.max(t.site,t.best,1)}}),{pic:1});
 // each row is scaled to its own store count, so a full bar always means "all out"
@@ -1527,7 +1599,7 @@ $('#cn-lead').textContent=`${K.cons_lines} ${CLIENT} consumable lines are on the
 stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[K.cons_units,'Units on the shelf'],[dr.units,'Units drawn this shut'],[B.length,B.length==1?'Line to top up':'Lines to top up',B.length?'w':'']]);
 if(B.length){$('#below-h').textContent=`Top up first: ${plural(B.length,'line')} below minimum`;
 $('#below-sub').textContent=`The bar shows the shelf against the maximum; the mark is the minimum. ${fmt(D.to_max)} units would bring every line to its maximum.`;
-$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th>Scan</th><th>${CLIENT} code</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th style="width:22%">Shelf against maximum</th><th class="n">To reach maximum</th></tr>${B.map(b=>`<tr data-open="cl:${esc(b.line)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(b.line)}<span>${esc(b.line)}</span></span></td><td>${qrb(b.line)}</td><td style="color:var(--mu);white-space:nowrap">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td class="n">${b.have}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.min}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.max}</td><td><div class="tr warnb" style="overflow:visible"><div class="fl" style="--w:${(b.have/Math.max(1,b.max)*100).toFixed(1)}%"></div><i class="tick" style="left:calc(${(b.min/Math.max(1,b.max)*100).toFixed(1)}% - 1px)"></i></div></td><td class="n"><span class="pill w">+${fmt(b.max-b.have)}</span></td></tr>`).join('')}</table></div><div class="foot">Minimum and maximum come from what ${CLIENT}'s recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days.</div>`}
+$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th>Scan</th><th>${CLIENT} code</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th style="width:22%">Shelf against maximum</th><th class="n">To reach maximum</th></tr>${B.map(b=>`<tr data-open="cl:${esc(b.line)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(b.line)}<span>${esc(b.line)}</span></span></td><td>${qrb(b.line)}</td><td style="color:var(--mu);white-space:nowrap">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td class="n">${b.have}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.min}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.max}</td><td><div class="tr warnb" style="overflow:visible"><div class="fl" style="--w:${(b.have/Math.max(1,b.max)*100).toFixed(1)}%">${horizontalStreams()}</div><i class="tick" style="left:calc(${(b.min/Math.max(1,b.max)*100).toFixed(1)}% - 1px)"></i></div></td><td class="n"><span class="pill w">+${fmt(b.max-b.have)}</span></td></tr>`).join('')}</table></div><div class="foot">Minimum and maximum come from what ${CLIENT}'s recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days.</div>`}
 else{$('#below-h').textContent='Every line is at or above its minimum';$('#below-sub').textContent='Nothing needs topping up right now.';$('#below').remove()}
 {const cs=D.cat.cons.slice().sort((a,b)=>b.n-a.n),mx=cs[0].n;$('#cn-types').innerHTML=`<div class="cyls">${cs.slice(0,6).map(c=>cyl({name:c.name,n:c.n,open:'ct:'+c.name},{max:mx})).join('')}</div><div id="cn-rest" class="neu" style="margin-top:14px"></div>`;
 if(cs.length>6)bars($('#cn-rest'),cs.slice(6).map(c=>({name:c.name,n:c.n,open:'ct:'+c.name})),{max:mx})}
@@ -1541,14 +1613,14 @@ else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHT
 {const P=D.clines.filter(l=>l.peak).sort((a,b)=>b.avgpeak-a.avgpeak||b.peak-a.peak);
 if(P.length){const mx=Math.max(...P.map(l=>l.peak));let all=STATIC?0:0;
 $('#peak-sub').textContent=`For each line: what a normal day uses, what its busiest day usually reaches, the single busiest day on record and the most drawn in one shut. The bar is the usual busiest day; the mark is the busiest day on record.`;
-const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td><div class="tr" style="overflow:visible"><div class="fl" style="--w:${(l.avgpeak/mx*100).toFixed(1)}%"></div><i class="tick" style="left:calc(${(l.peak/mx*100).toFixed(1)}% - 1px)"></i></div></td><td class="n">${fmt(l.most)}</td><td class="n">${l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${fmt(l.have)}</span>`:fmt(l.have)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
+const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td><div class="tr" style="overflow:visible"><div class="fl" style="--w:${(l.avgpeak/mx*100).toFixed(1)}%">${horizontalStreams()}</div><i class="tick" style="left:calc(${(l.peak/mx*100).toFixed(1)}% - 1px)"></i></div></td><td class="n">${fmt(l.most)}</td><td class="n">${l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${fmt(l.have)}</span>`:fmt(l.have)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
 const m=$('#peaks .more');if(m)m.onclick=()=>{all=!all;draw();$('#peaks').classList.add('now')}};draw()}
 else $('#peakcard').remove()}
 }
 
 /* ---------- category browser, used for tooling and for consumables ---------- */
 function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units',mx=Math.max(...L.map(c=>c.n));let open=0;
-el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${fmt(c.n)}</span></div><div class="m"><i style="--w:${(c.n/mx*100).toFixed(1)}%"></i></div></button>`).join('')}</div><div class="cbp"></div>`;
+el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${fmt(c.n)}</span></div><div class="m"><i style="--w:${(c.n/mx*100).toFixed(1)}%">${horizontalStreams()}</i></div></button>`).join('')}</div><div class="cbp"></div>`;
 const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${fmt(c.n)} ${unit} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
 c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}${tgd(mode=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}<small>${fmt(k.n)} ${unit}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
 $$('.cbi',el).forEach(b=>b.onclick=()=>{open=+b.dataset.i;$$('.cbi',el).forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
@@ -1631,7 +1703,7 @@ columns($('#cs-chart'),C.days.map(d=>d.date),C.cats.map(c=>({v:C.days.map(d=>d[c
 fade:i=>!C.days[i].done,mark:i=>C.days[i].today,val:(i,t)=>'$'+fmt(Math.round(t)),short:l=>l.split(' ').slice(0,2).join(' '),
 tip:i=>{const d=C.days[i];return `<b>${d.date}</b>${d.type?' · '+d.type:''}${d.done?'':' · still to come'}<br>`+C.cats.filter(c=>d[c.key]).map(c=>`${c.name}: ${money(d[c.key])}`).join('<br>')+`<br><b>Day total: ${money(d.total)}</b><br>Running total: ${money(d.running)}`}});
 $('#cs-people').innerHTML=C.people.map(p=>`<div class="card pcard"><h4>${esc(p.name)}${C.role?` <span class="pill n">${esc(C.role)}</span>`:''}</h4>
-<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter"><i style="--w:${(p.cost?p.cost_done/p.cost*100:0).toFixed(1)}%"></i></div>
+<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter"><i style="--w:${(p.cost?p.cost_done/p.cost*100:0).toFixed(1)}%">${horizontalStreams()}</i></div>
 <div class="kv"><div><span>Hours so far</span><b>${fmt(p.hours_done)} of ${fmt(p.hours)}</b></div><div><span>Day shifts rostered</span><b>${p.day}</b></div><div><span>Night shifts rostered</span><b>${p.night}</b></div></div></div>`).join('');
 $('#cs-rsub').textContent=`${C.rates.map(r=>`${r.shift} shift ${money(r.rate)} an hour`).join(' · ')}. Each row is hours times the rate for its shift.`;
 const pill=r=>r.iso==C.days.find(d=>d.today)?.iso?'<span class="pill o">Today</span>':r.done?'<span class="pill g">Done</span>':'<span class="pill n">To come</span>';
@@ -1699,7 +1771,7 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  stat([[fmt(p.iss),'Tools issued'],[fmt(p.ret),'Tools returned'],[pct(p.w12),'Back same shift'],[p.hold==null?'–':p.hold+' h','Typical time out']])+
  (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,0))):'')+
  (D.draws.by[k]?`<h5>Consumables drawn this shut</h5><div class="chips">${D.draws.by[k].map(l=>`<span class="chip" data-open="cl:${esc(l.name)}"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
- (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="now">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr"><div class="fl" style="--w:${(c.units/cmax*100).toFixed(1)}%"></div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
+ (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="now">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr"><div class="fl" style="--w:${(c.units/cmax*100).toFixed(1)}%">${horizontalStreams()}</div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
 t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
@@ -1960,7 +2032,7 @@ function initStocktake(st) {
       const meters=['tool','cons'].map(kind=>{
         const all=rows.filter(row=>row.kind===kind), n=all.filter(row=>seen.has(key(kind,row.key))).length;
         const percent=all.length?(100*n/all.length).toLocaleString('en-AU',{maximumFractionDigits:1})+'%':'—';
-        return `<div><div class="st-meter-label"><b>${kind==='cons'?'Consumable lines':'Tool assets'}</b><strong>${percent}</strong></div><progress class="st-native-progress" aria-label="${noun(kind)} coverage" max="${all.length||1}" value="${n}"></progress><span class="meter st-liquid-track" aria-hidden="true"><i style="--w:${all.length?100*n/all.length:0}%"></i></span><small>${fmt(n)} of ${fmt(all.length)} checked</small></div>`;
+        return `<div><div class="st-meter-label"><b>${kind==='cons'?'Consumable lines':'Tool assets'}</b><strong>${percent}</strong></div><progress class="st-native-progress" aria-label="${noun(kind)} coverage" max="${all.length||1}" value="${n}"></progress><span class="meter st-liquid-track" aria-hidden="true"><i style="--w:${all.length?100*n/all.length:0}%">${horizontalStreams()}</i></span><small>${fmt(n)} of ${fmt(all.length)} checked</small></div>`;
       }).join('');
       const note=!seen.size?'No verified counts recorded for this round.':i===0?`${fmt(ontime.size)} checked by the opening deadline · ${fmt(seen.size-ontime.size)} first checked late`:
          `${fmt(beforeDeparture.size)} checked before departure day · ${fmt([...onDeparture].filter(k=>!beforeDeparture.has(k)).length)} first checked on departure day (time to confirm) · ${fmt([...seen].filter(k=>!beforeDeparture.has(k)&&!onDeparture.has(k)).length)} first checked after deadline.`;
@@ -2224,7 +2296,7 @@ if(!STATIC){
   }
   // Tables and drawers can replace their rows after any search or filter.
   // Mount animation only for metrics actually in view, including scrollable panels.
-  const metricSelector='.tr,.meter,.cbi .m,.liquid-chart,.liquid-range';
+  const metricSelector='.tr,.meter,.cbi .m,.liquid-chart,.liquid-gauge,.liquid-range';
   const watchMetric=window.IntersectionObserver?new IntersectionObserver(entries=>{
     for(const entry of entries)entry.target.classList.toggle('liquid-inview',entry.isIntersecting);
   }):null;
