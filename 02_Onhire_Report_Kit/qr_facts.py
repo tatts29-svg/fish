@@ -84,7 +84,8 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
 
     def dates(value, clock):
         date, time = parse_date(value), parse_time(clock)
-        return (date.isoformat() if date else '', time.isoformat(timespec='seconds') if time else '')
+        precision = 'minutes' if text(clock).count(':') == 1 else 'seconds'
+        return (date.isoformat() if date else '', time.isoformat(timespec=precision) if time else '')
 
     def subject(row, employer, name):
         company = text(row.get(employer))
@@ -116,10 +117,10 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
         issued, returned = units(row.get('SALES_QUANTITY')), units(row.get('RETURN_QUANTITY'))
         if not who['employer'] or not who['hirer'] or not (issued or returned):
             continue
-        date, _ = dates(row.get('SALES_DATE'), row.get('SALES_TIME'))
-        return_date, _ = dates(row.get('RETURN_DATE'), row.get('RETURN_TIME'))
+        date, time = dates(row.get('SALES_DATE'), row.get('SALES_TIME'))
+        return_date, return_time = dates(row.get('RETURN_DATE'), row.get('RETURN_TIME'))
         draws.append(dict(who, name=cons_name(row.get('SKU_DESCRIPTION')) or 'Unnamed consumable', date=date,
-                          quantity=issued, returned=returned, return_date=return_date))
+                          time=time, quantity=issued, returned=returned, return_date=return_date, return_time=return_time))
     moves = {}
     transaction_owners = defaultdict(set)
     conflicts = set()

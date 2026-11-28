@@ -135,7 +135,7 @@
     $("report-body").replaceChildren();
     $("section-nav").replaceChildren();
     $("trail-current").textContent = "Lookup";
-    $("report-heading").textContent = "";
+    clearIdentity();
     $("hero-count").textContent = "";
     $("hero-label").textContent = personal ? "Assets on hire to you" : "Assets on hire now";
     $("report-subtitle").textContent = "";
@@ -242,6 +242,7 @@
       for (const [i,val] of row.entries()) tr.append(el("td",numeric.includes(i) ? "num" : "",val));
     }
     wrap.append(tbl); parent.append(wrap);
+    return tbl;
   }
   function group(name, count) {
     const d = el("details","tool-group readout-group");
@@ -254,11 +255,44 @@
     const stamp = r.asat || r.coverage?.rental_asat;
     return stamp ? "Rental stock snapshot · " + when(stamp) + " AEST" : "Rental stock snapshot time unavailable";
   }
-  function gearRows(tool) {
-    return tool.items.map(asset => [
-      asset.item || "Number unavailable",
-      asset.date ? when(asset.date,asset.time) + (asset.time ? "" : " · time unavailable") : "Issue date unavailable"
-    ]);
+  function issueKey(asset) {
+    return asset.date ? asset.date + " " + (asset.time || "24:00") : "~";
+  }
+  function orderedHoldings(r) {
+    const hires = r.hires.map(tool => ({...tool, items:[...tool.items].sort((a,b) =>
+      issueKey(a).localeCompare(issueKey(b)) || String(a.item).localeCompare(String(b.item)))}));
+    hires.sort((a,b) => issueKey(a.items[0] || {}).localeCompare(issueKey(b.items[0] || {})) || a.name.localeCompare(b.name));
+    return {...r, hires};
+  }
+  function gearTable(parent,tool,r) {
+    // A description may span several variants. A single group reference is safe only
+    // when every asset in the group maps to the very same published image.
+    const media=tool.items.map(asset=>r.product_art?.[asset.item]);
+    if (media[0] && media.every(url=>url===media[0])) {
+      const ref=window.QRHandover.artwork(r,{item:tool.items[0].item,name:tool.name});
+      if (ref) parent.append(ref);
+    }
+    const headings=["Asset number","Issued (AEST)"];
+    if (!personal) headings.push("Held by");
+    headings.push("Item query");
+    const rows=tool.items.map(asset => {
+      const stamp=asset.date ? when(asset.date,asset.time) + (asset.time ? "" : " · time unavailable") : "Issue date unavailable";
+      const row=[asset.item || "Number unavailable",stamp];
+      if (!personal) row.push(asset.holder || "Individual holder unconfirmed");
+      return [...row,""];
+    });
+    const tbl=table(parent,headings,rows);
+    tbl.classList.add("holding-assets");
+    tbl.tHead.rows[0].lastElementChild.classList.add("screen-only");
+    for (const [index,asset] of tool.items.entries()) {
+      const row=tbl.tBodies[0].rows[index];
+      Array.from(row.cells).forEach((td,i)=>td.dataset.label=headings[i]);
+      const cell=row.lastElementChild;
+      cell.classList.add("screen-only");
+      cell.append(window.QRItemQuery.button({scope:personal ? "personal" : "company", subject:r.name,
+        company:personal ? r.company : "", assetName:tool.name,assetId:asset.item,
+        snapshot:r.asat ? when(r.asat)+" AEST" : ""}));
+    }
   }
   function gearList(panel,r) {
     const list=el("div","gear-list");
@@ -276,8 +310,8 @@
       form.id="gear-find";form.hidden=true;
       const field=el("input");
       field.id="gear-query";field.type="search";field.autocomplete="off";field.spellcheck=false;
-      field.setAttribute("aria-label","Filter current gear by equipment or asset number");
-      field.placeholder="Equipment or asset number";
+      field.placeholder=personal ? "Equipment or asset number" : "Equipment, asset number or holder";
+      field.setAttribute("aria-label","Filter by "+field.placeholder.toLowerCase());
       const result=el("span","gear-find-result");
       result.setAttribute("role","status");
       form.append(field,result);
@@ -294,7 +328,7 @@
           const tool=groups[i];
           let visible=0;
           entry.querySelectorAll("tbody tr").forEach((tr,j)=>{
-            const terms=(tool.name+" "+(tool.items[j].item || "")).toLocaleLowerCase();
+            const terms=([tool.name,tool.items[j].item,tool.items[j].holder].filter(Boolean).join(" ")).toLocaleLowerCase();
             const match=words.every(word=>terms.includes(word));
             tr.classList.toggle("gear-omit",!match);
             if (match) visible++;
@@ -339,7 +373,7 @@
       const title=el("h3","",tool.name);
       title.append(el("span","badge",units(tool.count,"asset")));
       group.append(title);
-      table(group,["Asset number","Issued (AEST)"],gearRows(tool));
+      gearTable(group,tool,r);
       list.append(group);
     }
   }
@@ -356,13 +390,19 @@
       const d=group(tool.name,null);
       d.classList.add("gear-entry");
       d.querySelector("summary").append(el("span","badge",units(tool.count,"asset")));
-      table(d,["Asset number","Issued (AEST)"],gearRows(tool));
+      gearTable(d,tool,r);
       (more && index>=5 ? more : list).append(d);
     }
     if (more) {more.classList.add("more-tools");list.append(more);}
   }
-  function handoverPanel(parent) {
-    const panel=section(parent,"Equipment returns",null,true);
+  function handoverPanel(parent,r) {
+    const label=personal ? "Before you leave" : "Before your crew leaves";
+    const panel=section(parent,label,null,true);
+    if (r.asat || r.coverage?.rental_asat) {
+      const link=el("a","handover-current",r.hire_count ? "Review "+units(r.hire_count,"asset")+" still on hire" : "View the clear on-hire list");
+      link.href="#current-gear";
+      panel.append(link);
+    }
     panel.id="handover";
     const list=el("ul","handover-actions");
     const instructions=personal ? [
@@ -379,14 +419,14 @@
     }
     panel.append(list,el("p","handover-updates note","The tool store updates reports throughout the day and night. Gear returned after the stock snapshot can still appear on this list. Speak to the tool store controller at any time for a fresh copy or if anything looks wrong."));
   }
-  function stars(value) {
+  function stars(value, prefix="rating") {
     const chart=svgNode("svg",{viewBox:"0 0 278 54",class:"rating-stars","aria-hidden":"true",focusable:"false"});
     const defs=svgNode("defs"),path="M24 3.1 30.3 16.3 45.1 18.4 34.4 28.9 37 43.7 24 36.7 11 43.7 13.6 28.9 2.9 18.4 17.7 16.3Z";
-    const clip=svgNode("clipPath",{id:"rating-star-cut"});
+    const clip=svgNode("clipPath",{id:prefix+"-star-cut"});
     clip.append(svgNode("path",{d:path}));defs.append(clip);
     for(const [id,colours] of [
-      ["rating-copper",["#ffe6b0","#ff9953","#fe7635","#bf491c"]],
-      ["rating-steel",["#586474","#354150","#27313b","#1b232d"]]
+      [prefix+"-copper",["#ffe6b0","#ff9953","#fe7635","#bf491c"]],
+      [prefix+"-steel",["#586474","#354150","#27313b","#1b232d"]]
     ]) {
       const grad=svgNode("linearGradient",{id,x1:"0",x2:".4",y1:"0",y2:"1"});
       colours.forEach((c,i)=>grad.append(svgNode("stop",{offset:[0,.32,.56,1][i],"stop-color":c})));
@@ -397,12 +437,12 @@
       const amount=Math.max(0,Math.min(1,value-i));
       const anchor=svgNode("g",{transform:"translate("+(i*56+2)+" 3)"});
       const face=svgNode("g",{class:"rating-face"});
-      face.append(svgNode("path",{d:path,fill:"url(#rating-steel)",stroke:"#8b99a9","stroke-width":"1.35","stroke-linejoin":"round"}));
+      face.append(svgNode("path",{d:path,fill:"url(#"+prefix+"-steel)",stroke:"#8b99a9","stroke-width":"1.35","stroke-linejoin":"round"}));
       if(amount>0){
-        const cut=svgNode("g",{"clip-path":"url(#rating-star-cut)"});
+        const cut=svgNode("g",{"clip-path":"url(#"+prefix+"-star-cut)"});
         // The symmetric star spans x=2.9..45.1. A half rating ends at the centre point.
         const w=2.9+(45.1-2.9)*amount;
-        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"url(#rating-copper)",class:"rating-fill"}));
+        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"url(#"+prefix+"-copper)",class:"rating-fill"}));
         const clippedGlint=svgNode("svg",{x:0,y:0,width:w,height:48,overflow:"hidden"});
         clippedGlint.append(svgNode("path",{d:"M-13 0H-6L-23 48H-30Z",fill:"white",class:"rating-reflection"}));
         cut.append(clippedGlint);face.append(cut);
@@ -435,8 +475,8 @@
       .filter(d=>dailyWords(d));
   }
   function returnsPanel(parent,r) {
-    const ret=r.returns;
-    const panel=section(parent,"Your return record",null,true);
+    const ret=personal ? r.returns : (r.return_rating || {});
+    const panel=section(parent,personal ? "Your return record" : "Crew return record",null,true);
     panel.id="return-rating";panel.tabIndex=-1;panel.classList.add("return-panel");
     if (!coveredTransactions(r.coverage)) {
       panel.append(el("p","empty","A tool transaction export with a dated reporting period is needed to show your return record."));return;
@@ -450,7 +490,7 @@
       score.append(el("span",""," / 5"));
       art.append(el("p","rating-label","Same-day return rating"),score,stars(ret.score));
     } else {
-      art.append(el("p","rating-label","Same-day return rating"),el("strong","qualifying-label","Building your rating"));
+      art.append(el("p","rating-label","Same-day return rating"),el("strong","qualifying-label",personal ? "Building your rating" : "Building the crew rating"));
       const progress=el("div","qualifying-track");progress.setAttribute("aria-hidden","true");
       for(let i=0;i<5;i++)progress.append(el("span",i<ret.eligible?"qualified":""));
       art.append(progress);
@@ -464,6 +504,11 @@
     }
     stage.append(evidence);panel.append(stage);
     panel.append(el("p","note","Same-day means the issue and return share a calendar date in Queensland. Gear issued before midnight and returned after midnight counts as a next-day return, even on the same night shift. The rating measures timing, and due dates are assessed separately when recorded."));
+    if (!personal) {
+      panel.append(el("p","explain","The crew score combines eligible completed hires for this company. It uses one plus four times the share returned on their issue date, rounded to the nearest half star."));
+      revealRating(panel);
+      return;
+    }
     const details=group("How your return record is calculated",null);
     details.append(factList([["Tool issues in the records",fmt(ret.issues)],["Tool returns in the records",fmt(ret.returned)]]));
     if(ret.method)details.append(el("p","explain",ret.method));
@@ -612,10 +657,11 @@
     panel.classList.add("record-panel");panel.id="shutdown-story";
     const head=panel.querySelector("h2");
     const dates=days.map(day=>day.date).sort();
-    const span=spanOf(dates[0],dates.at(-1));
+    const span=spanOf(r.store_activity?.first_at?.slice(0,10) || dates[0],r.store_activity?.last_at?.slice(0,10) || dates.at(-1));
     if (span) head.before(el("p","section-date",span));
+    window.MMGStoreStory.append(panel,r);
     if ((!coveredTransactions(coverage) && !coverage.sales_asat) || (!chapter && !days.length)) {
-      panel.append(el("p","empty","Dated activity for this shutdown is unavailable in these exports."));
+      if (!r.store_activity?.has_coverage) panel.append(el("p","empty","Dated activity for this shutdown is unavailable in these exports."));
       return;
     }
     const spread=el("div","story-spread");panel.append(spread);
@@ -631,10 +677,24 @@
       const latest=days.reduce((a,b)=>a.date>b.date?a:b);
       copy.append(el("p","latest","Latest recorded date · "+when(latest.date)),el("p","latest-events",dailyWords(latest)||"Recorded tool-store transaction"));
       movementChart(spread,days);
-    } else {
+    } else if (!r.store_activity?.active_days) {
       copy.append(el("p","empty",personal?"No dated transactions are linked to your card for this shutdown.":"No dated transactions are linked to this company for this shutdown."));
     }
     panel.append(el("p","note",personal?"Dates reflect recorded tool-store activity. Attendance and hours worked are not supplied.":"Tool and consumable transactions describe the store activity recorded for this company."));
+    const favourites=[];
+    for (const [label,lines,key,unit] of [
+      ["Most-issued tool", coveredTransactions(coverage) ? (chapter?.equipment || r.equipment || []) : [], "issued","issue"],
+      ["Most-issued consumable", coverage.sales_asat ? (chapter?.consumables || r.consumables || []) : [], "quantity","unit"]
+    ]) {
+      const high=lines.reduce((n,row)=>Math.max(n,Number(row[key]) || 0),0);
+      if (!high) continue;
+      const leaders=lines.filter(row=>row[key]===high).map(row=>row.name).filter(Boolean);
+      if (leaders.length) favourites.push([label+(leaders.length>1 ? " (tied)" : ""),leaders.join(" · ")+" — "+units(high,unit)+(leaders.length>1 ? " each" : "")]);
+    }
+    if (favourites.length) {
+      const mix=group("Equipment and supplies used most",null);
+      mix.append(factList(favourites));panel.append(mix);
+    }
     activityTable(panel,days);
     if (!personal && chapter) itemMix(panel,{equipment:coveredTransactions(coverage) ? chapter.equipment : [],consumables:coverage.sales_asat ? chapter.consumables : []});
     recordedPeriod(panel,coverage);
@@ -656,7 +716,7 @@
       const tools=coveredTransactions(cov);
       const days=coveredActivity(ch.activity || [],cov);
       const dates=days.map(day=>day.date).sort();
-      const span=spanOf(dates[0],dates.at(-1));
+      const span=spanOf(r.store_activity?.first_at?.slice(0,10) || dates[0],r.store_activity?.last_at?.slice(0,10) || dates.at(-1));
       if(span)chapter.append(el("p","section-date",span));
       const sameDay=tools && finite(ch.same_day) && finite(ch.eligible)
         ? fmt(ch.same_day)+" of "+fmt(ch.eligible)+" eligible completed hires" : "Unavailable";
@@ -726,38 +786,69 @@
       finally{if(mine===transaction)submit.disabled=false;}
     });
   }
+  function clearIdentity() {
+    window.QRItemQuery?.reset();
+    $("report-heading").textContent="";
+    $("name-rating").replaceChildren();
+    $("direction-strap").replaceChildren();
+    $("direction-instrument").replaceChildren();
+  }
   function render(r) {
     if (r.kind !== (personal ? "person" : "company") || !Array.isArray(r.hires)) throw new Error("The selected report is unavailable.");
+    clearIdentity();
     const body=$("report-body");body.replaceChildren();
     const chapter=(r.story||[]).find(c=>c.current);
     $("report-heading").textContent=r.name;
     const who=personal && r.company ? r.company+" · " : "";
     $("report-subtitle").textContent=who+rentalSnapshot(r);
-    $("hero-count").textContent=fmt(r.asat || r.coverage?.rental_asat || r.hires.length ? r.hire_count : null);
-    $("hero-label").textContent=(r.hire_count===1 ? "Asset" : "Assets")+(personal ? " on your card at snapshot" : " on hire at snapshot");
-    if(personal) {
-      personalHires(body,r);returnsPanel(body,r);
-    } else {
-      hires(body,r);
-    }
-    handoverPanel(body);
     const cov=chapter?.coverage || r.coverage || {};
     const tools=coveredTransactions(cov);
+    const holdingsAvailable=Boolean(r.asat || cov.rental_asat || r.hires.length);
+    $("hero-count").textContent=fmt(holdingsAvailable ? r.hire_count : null);
+    const handover=r.handover || {};
+    const shift=handover.shift;
+    $("hero-label").textContent=!holdingsAvailable ? "Rental snapshot needed" : !r.hire_count ? "Nothing outstanding at this snapshot" :
+      (!personal && finite(handover.current_holders) ? units(handover.current_holders,"identified holder") : units(r.hires.length,"equipment type"));
+    const eligible=personal ? r.returns?.eligible : r.return_rating?.eligible;
+    const score=personal ? r.returns?.score : r.return_rating?.score;
+    const earned=tools && finite(score) && eligible>=5;
+    const ratingStatus=earned ? fmt(score)+" / 5 · same-day returns" :
+      tools && finite(eligible) ? "Building rating · "+fmt(eligible)+" of 5 hires" : "Rating awaiting records";
+    $("name-rating").append(stars(earned ? score : 0,"identity"),el("span","rating-status",ratingStatus));
+    $("direction-strap").textContent=personal ?
+      (cov.sales_asat ? units(r.consumable_summary.units,"consumable unit")+" issued this shutdown" : "Consumables · sales data unavailable") :
+      (finite(handover.unassigned_assets) && handover.unassigned_assets>0 ? units(handover.unassigned_assets,"asset")+" without a confirmed individual holder" :
+      "Crew holdings at the rental stock snapshot");
+    window.MMGReportInstruments.mount($("direction-instrument"),{
+      issued:personal ? (tools ? r.returns.issues : null) : shift?.issued,
+      returned:personal ? (tools ? r.returns.returned : null) : shift?.returned,
+      company:!personal,caption:personal ? "This shutdown" : shift ? "Last completed "+shift.name.toLowerCase()+" shift" : "Shift figures unavailable"
+    });
+    const ordered=orderedHoldings(r);
+    if (personal) {
+      personalHires(body,ordered);
+    } else {
+      window.QRHandover.shift(body,r);
+      window.QRHandover.oldest(body,r);
+      hires(body,ordered);
+    }
+    window.QRHandover.receipt(body,r);
+    currentStory(body,r,chapter);
+    returnsPanel(body,r);
+    handoverPanel(body,r);
     const days=coveredActivity(chapter?.activity || r.activity || [],cov);
     const pairs=[
-      ["Recorded activity dates",tools || cov.sales_asat ? fmt(days.length) : "Unavailable"],
+      ["Recorded activity dates",r.store_activity?.has_coverage ? fmt(r.store_activity.active_days) : tools || cov.sales_asat ? fmt(days.length) : "Unavailable"],
       ["Tool issues",tools ? fmt(chapter?.issues ?? r.returns?.issues) : "Unavailable"],
       ["Consumable units issued",cov.sales_asat ? fmt(chapter?.consumable_units ?? r.consumable_summary?.units) : "Unavailable"]
     ];
     stats(body,pairs);
-    currentStory(body,r,chapter);
     if(personal){consumablesPanel(body,r);historyPanel(body,r);}
     if(!personal)companyMilestones(body,r);
     earlierChapters(body,r);
-    const links = [["current-gear","Current gear"]];
-    if (personal) links.push(["return-rating","Return record"]);
+    const links = personal ? [] : [["shift-review","Crew shift"],["oldest-held","Longest held"]];
+    links.push(["current-gear","Current gear"],["return-receipt","Last return"],["shutdown-story","Store activity"],["return-rating","Return record"]);
     links.push(["handover","Shift handover"]);
-    links.push(["shutdown-story","This shutdown"]);
     if (!personal) links.push(["work-milestones","Work milestones"]);
     links.push(["past-chapters","Earlier shutdowns"]);
     const sectionNav = $("section-nav");
@@ -802,6 +893,7 @@
     if (transaction) transaction.abort();
     stopCamera();
     transaction = new AbortController();
+    clearIdentity();
     const mine = transaction; selection=value; pdf=null; pdfRequest=null;
     form.setAttribute("aria-busy","true"); form.querySelector("[type=submit]").disabled=true;
     status("Opening report…");
@@ -812,7 +904,7 @@
       render(data); identity.value=""; status();
     } catch (err) {
       if (mine !== transaction || err.name === "AbortError") return;
-      selection=""; $("report-body").replaceChildren(); $("report-heading").textContent=""; $("report-subtitle").textContent="";
+      selection=""; clearIdentity(); $("hero-count").textContent=""; $("hero-label").textContent=""; $("report-body").replaceChildren(); $("report-subtitle").textContent="";
       status(err.message,true);
     } finally {
       if (mine === transaction) {form.removeAttribute("aria-busy");form.querySelector("[type=submit]").disabled=false;}

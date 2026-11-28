@@ -54,3 +54,24 @@ class Archive(unittest.TestCase):
         qr_facts.apply_asset_labels(facts, {}, {}, label_for)
         self.assertEqual(facts, first)
         self.assertEqual([r['event_key'] for r in facts['movements']], ['tx-A','tx-B','tx-unknown','legacy'])
+
+    def test_native_sale_and_return_clocks_preserve_source_precision(self):
+        import datetime as dt
+        import json
+        import tempfile
+        from types import SimpleNamespace
+        from build_showcase import _date, _time
+        kit=SimpleNamespace(co_name=lambda raw: raw)
+        info={'schedule':'synthetic','requested':dt.datetime(2026,9,5,12)}
+        row=dict(COMPANY_NAME='Synthetic',HIRER='Worker Example',SKU_DESCRIPTION='Part',SALES_QUANTITY=1,
+                 SALES_DATE='05/09/2026',SALES_TIME='07:12 AM',RETURN_QUANTITY=1,
+                 RETURN_DATE='05/09/2026',RETURN_TIME='09:16:24')
+        with tempfile.TemporaryDirectory() as tmp:
+            out=Path(tmp)/'snapshot.json'
+            qr_facts.write(out,kit,[],[row,dict(row,SALES_TIME=None,RETURN_DATE=None,RETURN_TIME=None)],None,
+                           info,info,{},_date,_time,{},str,None,lambda a,b:a,str)
+            data=json.loads(out.read_text())
+        one,two=data['draws']
+        self.assertEqual((one['date'],one['time'],one['return_date'],one['return_time']),
+                         ('2026-09-05','07:12','2026-09-05','09:16:24'))
+        self.assertEqual((two['time'],two['return_date'],two['return_time']),('','',''))

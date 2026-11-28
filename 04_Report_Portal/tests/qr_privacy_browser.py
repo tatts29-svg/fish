@@ -45,7 +45,7 @@ def exercise(browser, scope, fixture):
         if not name:
             return r.fulfill(body=qr_views.page(scope,job_dir=fixture.dir),content_type="text/html",
                              headers={"Content-Security-Policy":qr_access.CSP})
-        if name in ("qr_report.js","qr_report.css","qr_motion.js"):
+        if name in ("qr_report.js","qr_report.css","qr_motion.js","qr_direction.css","qr_item_query.css","qr_item_query.js","qr_handover.css","qr_handover.js","qr_store_story.js"):
             return r.fulfill(path=APP/name,content_type="text/javascript" if name.endswith(".js") else "text/css")
         if name == "companies":
             return r.fulfill(json=choices)
@@ -73,7 +73,7 @@ def exercise(browser, scope, fixture):
     def cleansed():
         expect(page.locator("#report")).to_be_hidden()
         expect(field).to_have_value("")
-        for selector in ("#report-heading","#hero-count","#report-body","#section-nav","#report-subtitle","#send-status"):
+        for selector in ("#report-heading","#hero-count","#report-body","#section-nav","#report-subtitle","#send-status","#name-rating","#direction-instrument","#direction-strap"):
             assert not page.locator(selector).inner_html(), selector
         assert not page.locator("dialog[open]").count() and not urlsplit(page.url).fragment
         assert page.evaluate("localStorage.length + sessionStorage.length") == 0

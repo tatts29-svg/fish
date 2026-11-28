@@ -44,7 +44,9 @@ class ScopedReports(unittest.TestCase):
         self.assertEqual(a['hire_count'],2)
         self.assertEqual(a['hires'][0]['count'],2)
         serialized=json.dumps(a)
-        for secret in ('Alex Smith','Other Worker','B-CONFIDENTIAL','barcode','movements'):
+        self.assertEqual({item['holder'] for group in a['hires'] for item in group['items']},
+                         {'Alex Smith', 'Other Worker'})
+        for secret in ('B-CONFIDENTIAL','B-MOVEMENT','B-CONSUMABLE','barcode','hirer_id','movements'):
             self.assertNotIn(secret,serialized)
         self.assertIsNone(qr.company(self.dir,'A Ltd'))
 

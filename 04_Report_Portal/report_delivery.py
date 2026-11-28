@@ -6,10 +6,12 @@ import hashlib
 import os
 import re
 from datetime import datetime
+from functools import cached_property
 from html import escape
 from threading import Lock
 
 import upload_receipt
+import qr_product_art
 from stocktake_store import QUEENSLAND, report_version
 from mobile_brand import web_report_html
 from qr_brand import PORTAL_MASTHEAD_CSS, portal_masthead, public_mmg_logo
@@ -100,6 +102,10 @@ class WebReport:
 
         self.html = _IMAGE.sub(image_url, html)
         self.gzip = gzip.compress(self.html, compresslevel=4, mtime=0)
+
+    @cached_property
+    def product_references(self):
+        return qr_product_art.catalogue(self)
 
 
 class ReportCache:

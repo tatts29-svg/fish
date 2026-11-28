@@ -607,12 +607,15 @@ class Handler(BaseHTTPRequestHandler):
         if self.command != "HEAD":
             self.wfile.write(body)
 
+    def _published_report(self):
+        return _web_report.load(os.path.join(DATA_DIR, "report.html"),
+                                mmg_job=JOB_DIR if is_mmg(JOB_DIR) else None)
+
     def _report_page(self, path):
         if not self._role(page=True):
             return
         try:
-            report = _web_report.load(os.path.join(DATA_DIR, "report.html"),
-                                      mmg_job=JOB_DIR if is_mmg(JOB_DIR) else None)
+            report = self._published_report()
         except FileNotFoundError:
             if path == "/":
                 return self._send(200, _shell(EMPTY), FILES["report.html"])

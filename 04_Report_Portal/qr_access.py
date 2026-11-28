@@ -18,6 +18,7 @@ from urllib.parse import parse_qs, urlsplit
 
 from mobile_brand import ICON_LINKS
 from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
+import qr_product_art
 import qr_roster
 import qr_work_notes
 
@@ -238,14 +239,17 @@ def serve(request, data_dir, job_dir):
         if not route:
             return error(404, "Not found.")
         scope, action = route.groups()
-        report_assets = ("qr_report.css", "qr_report.js", "qr_motion.js")
+        picture = qr_product_art.ROUTE.fullmatch(action) if read else None
+        report_assets = ("qr_report.css", "qr_report.js", "qr_motion.js", "qr_direction.css",
+                         "qr_handover.css", "qr_handover.js", "qr_store_story.js",
+                         "qr_item_query.css", "qr_item_query.js")
         allowed = {"", "enter", "enter.js", "report", "report.pdf", *report_assets}
         allowed.update(BRANDING)
         if scope == "company":
             allowed.update(("companies", "work-note"))
         else:
             allowed.update(("badge_decoder.js", "badge_zxing.js"))
-        if action not in allowed or (path.query and not (scope == "company" and action in ("report", "report.pdf"))):
+        if (action not in allowed and not picture) or (path.query and not (scope == "company" and action in ("report", "report.pdf"))):
             return error(404, "Not found.")
         if read and action in ("enter", "enter.js"):
             return reply(200, invitation(scope, job_dir) if action == "enter" else ENTER_JS,
@@ -262,6 +266,9 @@ def serve(request, data_dir, job_dir):
         session = _session(data_dir, scope, request.headers.get("Cookie"))
         if not session:
             return error(403, "Scan the QR code on the MMG report poster to open this view.")
+        if picture:
+            image = qr_product_art.fetch(picture, request._published_report, _key(data_dir), scope, session)
+            return reply(200, image[1], image[0]) if image else error(404, "Picture unavailable.")
         if read and not action:
             from qr_views import page
             ready = scope != "personal" or qr_roster.status(data_dir).get("linked", 0) > 0
@@ -337,6 +344,9 @@ def serve(request, data_dir, job_dir):
             from qr_report_pdf import render_pdf
             return reply(200, render_pdf(result, job_dir=job_dir), "application/pdf",
                          [("Content-Disposition", f'attachment; filename="mmg-{scope}-on-hire-report.pdf"')])
+        photos = qr_product_art.links(result, request._published_report, _key(data_dir), scope, session)
+        if photos:
+            result = {**result, "product_art": photos}
         return reply(200, result)
     except qr_work_notes.NoteError as exc:
         return error(exc.status, str(exc))

@@ -57,7 +57,7 @@ def number(value):
     return f"{value:,}" if isinstance(value, int) else f"{value:,.2f}".rstrip("0").rstrip(".")
 
 
-def when(value):
+def when(value, precision=None):
     raw = text(value)
     if not raw:
         return "Not supplied"
@@ -67,7 +67,10 @@ def when(value):
         stamp = datetime.fromisoformat(raw)
         if stamp.tzinfo is not None:
             stamp = stamp.astimezone(timezone(timedelta(hours=10)))
-        return stamp.strftime("%d %b %Y %H:%M").lstrip("0") + " AEST"
+        if precision == "date":
+            return stamp.strftime("%d %b %Y").lstrip("0")
+        pattern = "%d %b %Y %H:%M:%S" if precision == "second" else "%d %b %Y %H:%M"
+        return stamp.strftime(pattern).lstrip("0") + " AEST"
     except ValueError:
         return raw
 
@@ -122,24 +125,23 @@ class DailyMovements(Flowable):
 
 class ReturnStars(Flowable):
     """A labelled five-star rating; vector outlines and half fills survive printing."""
-    def __init__(self, score, bold, accent, wash):
+    def __init__(self, score, label, caption, bold):
         super().__init__()
-        self.score, self.bold, self.accent, self.wash = score, bold, accent, wash
-        self.width, self.height = CONTENT, 51
+        self.score, self.label, self.caption, self.bold = score, label, caption, bold
+        self.width, self.height = 145, 46
 
     def draw(self):
         c = self.canv
         c.saveState()
-        c.setFillColor(self.wash)
-        c.roundRect(0, 0, self.width, self.height, 6, fill=1, stroke=0)
-        c.setFillColor(INK)
+        c.setFont(self.bold, 7.2)
+        c.setFillColor(MUTED)
+        c.drawString(2, 37, self.label)
         c.setFont(self.bold, 9)
-        c.drawString(12, 31, "SAME-DAY RETURN SCORE")
-        c.setFont(self.bold, 14)
-        c.drawString(12, 12, f"{number(self.score)} / 5")
-        radius = 12
+        c.setFillColor(INK)
+        c.drawString(2, 3, self.caption)
+        radius = 7.3
         for i in range(5):
-            cx, cy = self.width - 164 + i * 31, self.height / 2
+            cx, cy = 9 + i * 19, 23
             star = c.beginPath()
             for point in range(10):
                 angle = pi / 2 + point * pi / 5
@@ -151,15 +153,15 @@ class ReturnStars(Flowable):
             c.setLineWidth(.9)
             c.setFillColor(white)
             c.drawPath(star, fill=1, stroke=1)
-            fraction = min(1, max(0, self.score - i))
+            fraction = min(1, max(0, (self.score or 0) - i))
             if fraction:
                 c.saveState()
                 if fraction < 1:
                     clip = c.beginPath()
                     clip.rect(cx - radius, cy - radius, 2 * radius * fraction, 2 * radius)
                     c.clipPath(clip, stroke=0, fill=0)
-                c.setFillColor(self.accent)
-                c.setStrokeColor(self.accent)
+                c.setFillColor(ORANGE_INK)
+                c.setStrokeColor(ORANGE_INK)
                 c.drawPath(star, fill=1, stroke=1)
                 c.restoreState()
         c.restoreState()
@@ -245,11 +247,35 @@ def render_pdf(report, *, job_dir=None):
         canvas.drawString(MARGIN, 20, COPYRIGHT)
         canvas.restoreState()
 
-    flow = [para(title.upper(), 9, bold, ink_accent, spaceAfter=4),
-            para(name, 23, bold, spaceAfter=3)]
-    company = text(report.get("company"))
-    if not company_report and company:
-        flow.append(para(company, 11, colour=MUTED, spaceAfter=3))
+    flow = [para(title.upper(), 9, bold, ink_accent, spaceAfter=4)]
+    tools_covered = bool(transaction_periods(coverage))
+    ret = report.get("returns") or {}
+    rating = report.get("return_rating") if company_report else ret
+    if rating is None:
+        flow.append(para(name, 23, bold, spaceAfter=3))
+    else:
+        eligible = rating.get("eligible") or 0
+        score = rating.get("score")
+        qualified_score = score if tools_covered and eligible >= 5 and score is not None and 1 <= score <= 5 else None
+        if qualified_score is not None:
+            caption = f"{number(score)} / 5"
+            if rating.get("same_day") is not None:
+                caption += f" · {number(rating['same_day'])} of {number(eligible)} same day"
+        elif tools_covered:
+            caption = f"Pending · {number(eligible)} of 5 eligible"
+        else:
+            caption = "Awaiting dated records"
+        label = "CREW SAME-DAY RETURNS" if company_report else (
+            "SAME-DAY RETURN SCORE" if qualified_score is not None else "SAME-DAY RETURNS")
+        identity = [para(name, 23, bold)]
+        if not company_report and report.get("company"):
+            identity.append(para(report["company"], 10, colour=MUTED))
+        banner = Table([[identity, ReturnStars(qualified_score, label, caption, bold)]],
+                       colWidths=[CONTENT - 155, 155], splitInRow=1, hAlign="LEFT")
+        banner.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                                    ("LEFTPADDING", (0, 0), (0, 0), 0),
+                                    ("LINEBEFORE", (1, 0), (1, 0), .6, RULE)]))
+        flow.extend([banner, Spacer(1, 3)])
     flow.extend([para("Latest SiteIQ rental stock snapshot  ·  " + issue_time, 9, colour=MUTED), Spacer(1, 10)])
 
     def heading(label):
@@ -294,6 +320,65 @@ def render_pdf(report, *, job_dir=None):
                     observed(a.get("consumable_units"), sales), observed(a.get("consumable_returns"), sales))
         table(("Date", "Tools issued", "Tools returned", "Units drawn", "Units returned"),
               [values(a) for a in activity], (.24, .19, .19, .19, .19))
+
+    def store_activity(activity):
+        heading("Crew store activity" if company_report else "Your store activity")
+        if not activity.get("has_coverage"):
+            flow.append(para("Store activity records are unavailable for this shutdown."))
+            return
+        days = activity.get("active_days") or 0
+        interactions = activity.get("interactions") or 0
+        dated_only = activity.get("date_only_events") or 0
+        undated = activity.get("undated_events") or 0
+        unattributed = activity.get("unattributed_timed_events") or 0
+        if days:
+            dates = "recorded activity date" if days == 1 else "recorded activity dates"
+            if interactions:
+                counted = "timed interaction" if interactions == 1 else "timed interactions"
+                flow.append(para(f"{number(interactions)} {counted} across {number(days)} {dates}. "
+                                 f"Average {number(interactions / days)} per recorded activity date.",
+                                 10, bold, spaceAfter=4))
+            else:
+                flow.append(para(f"Activity was recorded on {number(days)} " +
+                                 ("date." if days == 1 else "dates."), 10, bold, spaceAfter=4))
+            table(("First recorded activity", "Latest recorded activity"),
+                  [(when(activity.get("first_at")), when(activity.get("last_at")))], (.5, .5))
+            for endpoint, label in (("first", "Earliest"), ("last", "Latest")):
+                known = activity.get(endpoint + "_timed_at")
+                if known and len(activity.get(endpoint + "_at") or "") == 10:
+                    flow.append(para(label + " activity with a recorded time · " + when(known), 8.6, colour=MUTED))
+            hours = activity.get("busiest_hours") or []
+            periods = {row["hour"]: row["interactions"] for row in activity.get("hourly", [])}
+            peak = periods.get(hours[0]) if hours else None
+            if peak:
+                slots = ", ".join(f"{hour:02}:00–{(hour + 1) % 24:02}:00" for hour in hours)
+                if len(hours) == 24:
+                    slots = "All 24 hourly windows"
+                per_slot = " timed interaction" if peak == 1 else " timed interactions"
+                title = "Busiest hourly window" if len(hours) == 1 else "Tied busiest hourly windows"
+                flow.append(para(f"{title} (AEST) · {slots}", 9.2, bold, spaceBefore=4))
+                flow.append(para(number(peak) + per_slot +
+                                 (" in each window" if len(hours) > 1 else " in this window") +
+                                 " across the recorded dates.", 8.8, colour=MUTED))
+            else:
+                flow.append(para("There are no attributed clock times for an hourly comparison.", 8.8, colour=MUTED))
+            if interactions:
+                flow.append(para("Each timed interaction counts one hirer with recorded activity in one Queensland "
+                                 "calendar minute. Multiple items in that minute count once. These figures describe bookings to the hirer. "
+                                 "Attendance is recorded separately.", 8.7, colour=MUTED))
+        else:
+            flow.append(para("No dated store activity is recorded in the available sources."))
+        if dated_only:
+            flow.append(para(f"Date-only activity · {number(dated_only)} source " +
+                             ("entry." if dated_only == 1 else "entries.") +
+                             " These entries contribute to activity dates only.", 8.7, colour=MUTED))
+        if undated:
+            flow.append(para(f"Undated activity · {number(undated)} source " +
+                             ("entry omitted" if undated == 1 else "entries omitted") +
+                             " from dates, frequency and hourly totals.", 8.7, colour=MUTED))
+        if unattributed:
+            flow.append(para(f"Timed entries without a verified hirer · {number(unattributed)}. "
+                             "The interaction totals include only identified hirers.", 8.7, colour=MUTED))
 
     def chapter(period):
         # SiteIQ retains this misspelling as its immutable import key.
@@ -353,16 +438,29 @@ def render_pdf(report, *, job_dir=None):
     now = next((period for period in stories if period["current"]), None)
     previous = [period for period in stories if not period["current"]]
     assets = []
+    show_holders = company_report and any("holder" in item for group in groups for item in group["items"])
     for group in groups:
         inventory = group["items"]
         for i, item in enumerate(inventory):
             issued = when(item["date"]) if item.get("date") else "Date not recorded"
             issued += " · " + (text(item.get("time")) or "Time not recorded")
-            assets.append((group["name"], number(group["count"]) if i == 0 else "",
-                           text(item.get("item")) or "Asset ID not recorded", issued))
-    stats = [(observed(report["hire_count"], rental_asat), "Assets on hire"),
-             (observed(len(groups), rental_asat), "Equipment types")]
-    strip = Table([[[para(value, 21, bold), para(label, 8, normal, MUTED)] for value, label in stats]],
+            row = [group["name"], number(group["count"]) if i == 0 else "",
+                   text(item.get("item")) or "Asset ID not recorded"]
+            if show_holders:
+                row.append(text(item.get("holder")) or "Unconfirmed")
+            assets.append([*row, issued])
+    handover = report.get("handover") or {}
+    stats = [(observed(report["hire_count"], rental_asat), "Assets on hire")]
+    if company_report:
+        stats.append((observed(len(groups), rental_asat), "Equipment types"))
+        if "current_holders" in handover:
+            stats.append((observed(handover["current_holders"], rental_asat), "Current holders"))
+    else:
+        stats.extend([(observed(ret.get("issues"), tools_covered), "Tools issued"),
+                      (observed(ret.get("returned"), tools_covered), "Tools returned"),
+                      (observed(report["consumable_summary"].get("units"), coverage.get("sales_asat")),
+                       "Consumable units issued")])
+    strip = Table([[[para(value, 14 if value == "Unavailable" else 21, bold), para(label, 8, normal, MUTED)] for value, label in stats]],
                   colWidths=[CONTENT / len(stats)] * len(stats), hAlign="LEFT")
     strip.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), wash),
                                ("VALIGN", (0, 0), (-1, -1), "TOP"),
@@ -371,11 +469,74 @@ def render_pdf(report, *, job_dir=None):
                                ("TOPPADDING", (0, 0), (-1, -1), 8),
                                ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
     flow.append(strip)
+    if company_report:
+        unknown = handover.get("unassigned_assets")
+        if unknown:
+            flow.append(para(f"{number(unknown)} on-hire " + ("asset has" if unknown == 1 else "assets have") +
+                             " no verified holder.", 8.5, colour=MUTED, spaceBefore=4))
+        shift = handover.get("shift")
+        if shift and shift.get("start") and shift.get("end"):
+            heading("Last fully covered shift")
+            flow.append(para(f"{text(shift.get('name'))} shift · {when(shift['start'])} to {when(shift['end'])}",
+                             9.2, bold, spaceAfter=3))
+            flow.append(para("Tools issued: " + observed(shift.get("issued"), True) +
+                             "    ·    Tools returned: " + observed(shift.get("returned"), True)))
+            hourly = {hour["start"]: hour for hour in shift.get("hourly", [])}
+            for label, key, events in [("Peak issue hour", "peak_issue_hours", "issued"),
+                                       ("Peak return hour", "peak_return_hours", "returned")]:
+                peaks = shift.get(key) or []
+                if peaks and hourly.get(peaks[0], {}).get(events):
+                    tied = f" · {len(peaks)} hours tied" if len(peaks) > 1 else ""
+                    flow.append(para(f"{label} began {when(peaks[0])} · {number(hourly[peaks[0]][events])} "
+                                     + ("issues" if events == "issued" else "returns") + tied, 8.5, colour=MUTED))
+        elif "shift" in handover:
+            flow.append(para("Complete shift totals are unavailable for the supplied transaction period.",
+                             8.5, colour=MUTED, spaceBefore=4))
+        oldest = handover.get("oldest")
+        if oldest and oldest.get("issued_at"):
+            heading("Longest-held equipment")
+            flow.append(para(text(oldest.get("name")) + "  ·  " + (text(oldest.get("item")) or "Asset ID not recorded"),
+                             9.4, bold))
+            if oldest.get("holder"):
+                flow.append(para("Current holder · " + text(oldest["holder"]), 9))
+            detail = "Issued " + when(oldest["issued_at"])
+            minutes = oldest.get("elapsed_minutes")
+            if minutes is not None and minutes >= 0:
+                days, remainder = divmod(int(minutes), 1440)
+                hours, mins = divmod(remainder, 60)
+                duration = f"{days}d {hours}h" if days else f"{hours}h {mins}m"
+                detail += "  ·  " + duration + " held at the snapshot"
+            tied = oldest.get("tied_count") or 0
+            if tied > 1:
+                detail += f"  ·  {number(tied)} assets share this issue time"
+            flow.append(para(detail, 8.8, colour=MUTED))
+    if handover.get("latest_return") and (company_report or not assets):
+        receipt = handover["latest_return"]
+        count = receipt.get("count")
+        if count and receipt.get("returned_at"):
+            heading("Latest crew return" if company_report else "Latest recorded return")
+            precision = receipt.get("precision")
+            stamp = when(receipt["returned_at"], precision)
+            if precision == "date":
+                description = ("hire record closed" if count == 1 else "hire records closed") + " on "
+            else:
+                description = ("hire record closed" if count == 1 else "hire records closed") + " at "
+            flow.append(para(f"{number(count)} {description}{stamp}", 10, bold, spaceAfter=3))
+            if not company_report:
+                for item in (receipt.get("items") or [])[:3]:
+                    flow.append(para("  ·  ".join(filter(None, (text(item.get("name")), text(item.get("item"))))),
+                                     8.8, colour=MUTED))
+                if count > 3:
+                    flow.append(para(f"{number(count - 3)} more in Rental transactions.", 8.6, colour=MUTED))
     heading("Equipment currently on hire" if company_report else "Currently on hire to you")
     if company_report:
         flow.append(para("Company holding these assets: " + name, 9.4, bold, spaceAfter=5))
     if assets:
-        table(("Equipment", "Type qty", "Asset ID", "Date hired (AEST)"), assets, (.37, .095, .27, .265))
+        if show_holders:
+            table(("Equipment", "Qty", "Asset ID", "Current holder", "Date hired (AEST)"),
+                  assets, (.285, .08, .205, .215, .215))
+        else:
+            table(("Equipment", "Type qty", "Asset ID", "Date hired (AEST)"), assets, (.37, .095, .27, .265))
     elif rental_asat:
         message = ("No equipment is currently on hire in this rental stock pull." if company_report else
                    "You have no equipment currently on hire in this rental stock pull.")
@@ -388,6 +549,8 @@ def render_pdf(report, *, job_dir=None):
     flow.append(para(guidance, 9.0, spaceBefore=8, spaceAfter=3))
     flow.append(para("For a correction or a fresh copy, give the tool store controller the asset ID and the snapshot time above. "
                      "The tool store updates reports throughout the day and night.", 8.8, colour=MUTED))
+    if report.get("store_activity") is not None:
+        store_activity(report["store_activity"])
     if now:
         chapter(now)
     if company_report and report.get("work_notes"):
@@ -447,8 +610,6 @@ def render_pdf(report, *, job_dir=None):
             if benchmark.get("method"):
                 flow.append(para(benchmark["method"], 8.8, colour=MUTED))
         heading("Return activity")
-        ret = report["returns"]
-        tools_covered = bool(transaction_periods(coverage))
         if tools_covered or ret.get("issues") or ret.get("returned"):
             flow.append(para(f"Recorded issues: {observed(ret.get('issues'), tools_covered)}. "
                              f"Recorded returns: {observed(ret.get('returned'), tools_covered)}. "
@@ -462,8 +623,6 @@ def render_pdf(report, *, job_dir=None):
             reason = (f"{number(eligible)} of 5 eligible completed hires recorded." if tools_covered or eligible else
                       "Completed hire records are unavailable for assessment.")
             flow.append(para("Same-day return measure unavailable. " + reason + " A score requires at least five."))
-        else:
-            flow.extend([Spacer(1, 5), ReturnStars(score, bold, accent, wash), Spacer(1, 5)])
         flow.append(para("Same day means the same Queensland calendar date. During a night shift, a tool issued before midnight "
                          "and returned after midnight counts as a next-day return, even if the crew is still on shift.", 8.8, colour=MUTED))
         if ret.get("method"):

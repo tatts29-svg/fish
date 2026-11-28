@@ -34,10 +34,10 @@ class ScopedPdfTests(unittest.TestCase):
         r = projection(2)
         r["another_company"] = "PRIVATE OTHER COMPANY"
         r["hires"][0]["items"][0]["hirer"] = "PRIVATE WORKER"
-        r["hires"][0]["items"][0]["holder"] = "PRIVATE PERSONAL HOLDER"
+        r["hires"][0]["items"][0]["holder"] = "Scoped Holder"
         pdf = self.output(r)
         for field in [b"Company on-hire report", b"Creek & Valley", b"Impact socket", b"ITEM-0000", b"ITEM-0001",
-                      b"26 Nov 2026", b"08:45", b"28 Nov 2026 05:39 AEST", b"Page 1", b"POWERED BY SITEIQ"]:
+                      b"Scoped Holder", b"Unconfirmed", b"26 Nov 2026", b"08:45", b"28 Nov 2026 05:39 AEST", b"Page 1", b"POWERED BY SITEIQ"]:
             self.assertIn(field, pdf)
         self.assertNotIn(b"PRIVATE", pdf)
         self.assertNotIn(b"Return activity", pdf)
@@ -84,6 +84,7 @@ class ScopedPdfTests(unittest.TestCase):
                                                    {"start": "2026-11-26", "end": "2026-11-28"}]},
                  history=[], unselected_people=["DO NOT EXPORT"],
                  work_notes=[{"date":"2026-11-25","title":"PRIVATE COMPANY NOTE","description":"PRIVATE"}])
+        r["hires"][0]["items"][0]["holder"] = "DO NOT EXPORT"
         pdf = self.output(r)
         for part in [b"Pat Example", b"Creek & Valley", b"Disposable gloves", b"3 units per draw day",
                      b"measure unavailable", b"Due dates were unavailable", b"Daily activity"]:
@@ -112,7 +113,7 @@ class ScopedPdfTests(unittest.TestCase):
         self.assertIn(b"SAME-DAY RETURN SCORE", rated)
         self.assertIn(b"3.5 / 5", rated)
         self.assertRegex(rated, rb"re W\*? n")  # clip a genuine half-filled vector star
-        self.assertLess(rated.index(b"ITEM-0000"), rated.index(b"SAME-DAY RETURN SCORE"))
+        self.assertLess(rated.index(b"SAME-DAY RETURN SCORE"), rated.index(b"ITEM-0000"))
         self.assertIn(b"20 Nov 2026 to 22 Nov 2026", pdf)
         self.assertIn(b"26 Nov 2026 to 28 Nov 2026", pdf)
         self.assertNotIn(b"20 Nov 2026 to 28 Nov 2026", pdf)
@@ -171,6 +172,76 @@ class ScopedPdfTests(unittest.TestCase):
         measured = self.output(r)
         self.assertIn(b"Recorded issues: 0. Recorded returns: 0.", measured)
         self.assertIn(b"Units drawn: 0. Units returned: 0.", measured)
+
+    def test_first_page_receipts_ratings_and_crew_handover_remain_scoped(self):
+        coverage = {"period_start": "2026-10-03T06:00", "period_end": "2026-10-04T06:00",
+                    "sales_asat": "2026-10-04T06:30", "rental_asat": "2026-10-04T06:29"}
+        stamp = "2026-10-03T17:10:07"
+        receipt = {"returned_at": stamp, "precision": "second", "count": 2,
+                   "items": [{"name": "Ratchet", "item": "RET-A", "worker": "PRIVATE"}]}
+        worker = dict(projection(0), name="Alex Example", kind="person", coverage=coverage,
+                      handover={"latest_return": receipt}, returns={"eligible": 2, "score": None,
+                      "same_day": 2, "issues": 2, "returned": 2}, activity=[], consumables=[],
+                      consumable_summary={"units": 3}, history=[])
+        pdf = self.output(worker)
+        for fragment in (b"Pending", b"Latest recorded return", b"2 hire records closed at",
+                         b"3 Oct 2026 17:10:07 AEST", b"RET-A", b"Consumable units issued"):
+            self.assertIn(fragment, pdf)
+        self.assertNotIn(b"PRIVATE", pdf)
+        by_date = self.output(dict(worker, handover={"latest_return": dict(receipt, precision="date")}))
+        self.assertIn(b"2 hire records closed on 3 Oct 2026", by_date)
+        self.assertNotIn(b"17:10:07", by_date)
+        start = "2026-10-03T18:00"
+        company = dict(projection(1), coverage=coverage,
+                       return_rating={"score": 4, "eligible": 8, "same_day": 6, "worker": "PRIVATE"},
+                       handover={"current_holders": 1, "unassigned_assets": 0, "latest_return": receipt, "oldest":
+                                 {"name": "Impact socket", "item": "ITEM-0000", "issued_at": stamp,
+                                  "elapsed_minutes": 768, "tied_count": 1, "holder": "Example Crew Holder"},
+                                 "shift": {"name": "Night", "start": start, "end": "2026-10-04T06:00",
+                                           "issued": 3, "returned": 2, "hourly": [
+                                               {"start": start, "issued": 3, "returned": 2}],
+                                           "peak_issue_hours": [start], "peak_return_hours": [start]}})
+        crew = self.output(company)
+        for fragment in (b"CREW SAME-DAY RETURNS", b"4 / 5", b"6 of 8 same day", b"Current holders",
+                         b"Last fully covered shift", b"Tools issued: 3", b"Tools returned: 2",
+                         b"Peak issue hour", b"Peak return hour", b"Longest-held equipment",
+                         b"12h 48m held", b"Latest crew return", b"Example Crew Holder"):
+            self.assertIn(fragment, crew)
+        self.assertNotIn(b"PRIVATE", crew)
+        self.assertNotIn(b"RET-A", crew)
+        self.assertLess(crew.index(b"Last fully covered shift"), crew.index(b"Date hired".upper()))
+        no_period = self.output(dict(company, coverage={}, handover={"shift": None}))
+        self.assertIn(b"Awaiting dated records", no_period)
+        self.assertNotIn(b"4 / 5", no_period)
+        self.assertIn(b"Complete shift totals are unavailable", no_period)
+
+    def test_store_activity_timing_frequency_ties_and_missing_clock_coverage(self):
+        source = {"has_coverage": True, "active_days": 3, "interactions": 5, "first_at": "2026-10-02",
+                  "last_at": "2026-10-04T23:40:03", "first_timed_at": "2026-10-03T08:10",
+                  "last_timed_at": "2026-10-04T23:40:03", "date_only_events": 2, "undated_events": 1,
+                  "unattributed_timed_events": 1, "busiest_hours": [8, 23],
+                  "hourly": [{"hour": 8, "interactions": 2}, {"hour": 23, "interactions": 2}],
+                  "daily": [{"private_worker": "PRIVATE COMPARISON WORKER"}]}
+        subjects = [projection(1), dict(projection(0), kind="person", name="Example", returns={},
+                                        consumables=[], consumable_summary={}, activity=[])]
+        for subject in subjects:
+            with self.subTest(kind=subject["kind"]):
+                pdf = self.output(dict(subject, store_activity=source))
+                for expected in (b"5 timed interactions across 3", b"Average 1.67", b"First recorded activity".upper(),
+                                 b"Latest recorded activity".upper(), b"2 Oct 2026", b"3 Oct 2026 08:10 AEST",
+                                 b"4 Oct 2026 23:40 AEST", b"Tied busiest hourly windows",
+                                 b"08:00", b"23:00", b"00:00", b"2 timed interactions in each window",
+                                 b"Date-only activity", b"Undated activity", b"Timed entries without a verified hirer"):
+                    self.assertIn(expected, pdf)
+                self.assertNotIn(b"PRIVATE COMPARISON WORKER", pdf)
+                date_only = self.output(dict(subject, store_activity={"has_coverage": True, "active_days": 1,
+                    "first_at": "2026-10-01", "last_at": "2026-10-01", "date_only_events": 2}))
+                self.assertIn(b"no attributed clock times", date_only)
+                self.assertNotIn(b"Average 0 per recorded", date_only)
+                missing = self.output(dict(subject, store_activity={"has_coverage": False}))
+                self.assertIn(b"Store activity records are unavailable", missing)
+                empty = self.output(dict(subject, store_activity={"has_coverage": True, "active_days": 0}))
+                self.assertIn(b"No dated store activity", empty)
 
     def test_generic_or_unscoped_inputs_are_rejected(self):
         for r in ({}, {"kind": "company", "name": ""}, {"kind": "inventory", "name": "full"}):

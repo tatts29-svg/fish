@@ -35,8 +35,6 @@ def page(scope, *, barcode_ready=True, job_dir=None):
         fields += ('<p class="privacy-note">Choose Finish and clear when you’re done. '
                    'This screen clears after 5 minutes without activity.</p>'
                    '<button type="button" id="clear-entry" hidden>Finish and clear</button>')
-    return_jump = ('<a class="return-jump screen-only" href="#return-rating">Your return record</a>'
-                   if personal else "")
     setup = personal and not barcode_ready
     form_title = "Your worker barcode" if personal else "Company selection"
     if setup:
@@ -49,8 +47,10 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 {ICON_LINKS}
 <meta name="theme-color" content="#101419"><meta name="referrer" content="no-referrer">
 <meta name="robots" content="noindex,nofollow"><title>{title} · MyGear HQ</title>
-<link rel="stylesheet" href="qr_report.css"><script defer src="qr_report.js"></script>
-<script defer src="qr_motion.js"></script></head>
+<link rel="stylesheet" href="qr_report.css"><link rel="stylesheet" href="qr_direction.css">
+<link rel="stylesheet" href="qr_item_query.css"><link rel="stylesheet" href="qr_handover.css">
+<script defer src="qr_motion.js"></script><script defer src="qr_item_query.js"></script>
+<script defer src="qr_handover.js"></script><script defer src="qr_store_story.js"></script><script defer src="qr_report.js"></script></head>
 <body class="hq-shell {font_class}" data-scope="{scope}" data-setup="{int(setup)}">
 <a class="skip screen-only" href="#main">Skip to content</a>
 <header class="brandbar hq-topbar"><div class="frame top in">
@@ -68,16 +68,19 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <p id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></p>
 <article id="report" hidden><header class="ch report-head"><div class="hero-copy">
 <p class="eyebrow">{'Your time at MMG Dugald River' if personal else 'Company record · MMG Dugald River'}</p>
-<h1 id="report-heading" tabindex="-1"></h1><p class="lede" id="report-subtitle"></p>{return_jump}</div>
-<a href="#current-gear" class="side hero-holding" aria-label="Jump to the current on-hire list"><span id="hero-count"></span>
-<span><span id="hero-label">{'Assets on hire to you' if personal else 'Assets on hire now'}</span> <b aria-hidden="true">↘</b></span></a>
+<div class="report-identity-row"><h1 id="report-heading" tabindex="-1"></h1><a id="name-rating" class="name-rating" href="#return-rating"></a></div>
+<p class="lede" id="report-subtitle"></p></div>
+<div class="direction-summary"><a href="#current-gear" class="direction-primary" aria-label="Jump to the current on-hire list">
+<span class="direction-eyebrow">{'On hire to you' if personal else 'On hire to the crew'}</span><strong id="hero-count" class="direction-count"></strong>
+<span id="hero-label" class="direction-note"></span></a><div class="direction-instrument" id="direction-instrument"></div>
+<div class="direction-strap" id="direction-strap"></div></div>
 </header>
-<div class="report-tools"><button type="button" id="reset">Finish and clear</button>
+<div class="report-tools direction-tools"><button type="button" id="reset">Finish and clear</button>
 <nav class="actions" aria-label="Report actions">
-<button id="print" type="button">Print</button><button id="save" type="button">Save PDF</button>
-<button id="share" type="button">Share PDF</button><button id="email" type="button">Email PDF</button>
+<button id="print" type="button">Print</button><button id="save" type="button">Save to phone</button>
+<button id="email" type="button">Send by email</button>
 </nav></div><nav id="section-nav" class="record-links screen-only" aria-label="Report sections"></nav>
-<div id="report-body"></div><div class="finish-actions screen-only"><button id="finish-report" type="button">Finish and clear</button></div></article>
+<div id="report-body"></div><div class="finish-actions screen-only"><button id="share" type="button">Share PDF</button><button id="finish-report" type="button">Finish and clear</button></div></article>
 </main><footer class="frame foot hq-footer"><p id="pull">SiteIQ pull time available with the report.</p>
 <p>Author: Andrew Fisher <span aria-hidden="true">·</span> <strong>Powered by SiteIQ</strong></p>
 <small>Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. Not to be copied or reproduced without permission.</small></footer>
