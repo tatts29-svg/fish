@@ -746,7 +746,9 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
     & main.wrap{padding-block:clamp(18px,1.65vw,56px) 1rem}
     & .grid,& .defs{gap:var(--space)}
     & .card:not(.cb2){padding:clamp(14px,1.45vw,2rem)}
-    & .card a[href^="mailto:"]{overflow-wrap:anywhere}
+    & :where(a:any-link:not(.btn)){color:var(--ortx);text-underline-offset:.16em}
+    & :where(a:any-link:not(.btn)):is(:hover,:focus-visible){text-decoration-thickness:2px}
+    & .card a:is([href^="mailto:"],[href^="tel:"]){overflow-wrap:anywhere}
     & .card>h3,& .know b,& .def b,& .cbi .a,& .krow .kn{font-size:1rem}
     & .card>.sub,& .foot,& .know span,& .def span,& .kpi .s,& .stats .l,& .tab,& .cbi .m,& .cbp .tot,& .cyl .cap,& .gsi small{font-size:.835rem}
     & .vh p,& .row .nm,& .row .v,& .kv div,& .li,& .prow,& .gsi b,& .sstats span,& .tl li,& .chip,& .search,& table.t{font-size:.9rem}
