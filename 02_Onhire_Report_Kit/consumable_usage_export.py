@@ -32,6 +32,10 @@ HISTORY_NOTE = (
     "Average issued is the mean gross quantity per comparable, complete prior shutdown for that "
     "product and recorded unit. The number of qualifying shutdowns is shown beside each average."
 )
+MATCH_NOTE = (
+    "A changed stock code can match through a unique exact product description or a verified barcode "
+    "when product specifications and units are compatible."
+)
 DARK, ORANGE, INK, DIM = "202D38", "F26222", "192732", "425563"
 
 
@@ -63,8 +67,20 @@ def recorded_unit(row):
 
 def history_basis(rows):
     if any(r.get("average_shuts") for r in rows):
-        return HISTORY_NOTE
-    return "No verified complete prior shutdown qualifies for a product average in this snapshot."
+        return HISTORY_NOTE + " " + MATCH_NOTE
+    return "No verified complete prior shutdown qualifies for a product average in this snapshot. " + MATCH_NOTE
+
+
+def match_details(current, record):
+    if record.get("issued") is None:
+        return None, None, None
+    method = record.get("match_method")
+    if method in ("description", "barcode"):
+        label = "Exact product description" if method == "description" else "Verified barcode"
+        return record.get("source_sku"), record.get("source_name"), label
+    if record.get("source_sku") and record["source_sku"] != current.get("sku"):
+        return record["source_sku"], record.get("source_name"), None
+    return current.get("sku"), record.get("source_name"), "Same stock code"
 
 
 def period_note(period):
@@ -194,8 +210,8 @@ def write_excel(path, data):
         ws.print_area = "A1:I8"
 
     hist = wb.create_sheet("Historical issues")
-    banner(hist, 7, "Historical issues by product", label)
-    line(hist, 3, history_basis(rows) + " Partial periods are excluded from the average.", 7)
+    banner(hist, 10, "Historical issues by product", label)
+    line(hist, 3, history_basis(rows) + " Partial periods are excluded from the average.", 10)
     listings = (
         (
             r["name"],
@@ -205,6 +221,7 @@ def write_excel(path, data):
             by_period.get(h["id"], {}).get("status", "unverified").capitalize(),
             h.get("issued"),
             "Yes" if h.get("qualified") else "No",
+            *match_details(r, h),
         )
         for r in rows
         for h in (r.get("history") or [])
@@ -220,14 +237,39 @@ def write_excel(path, data):
             "Coverage",
             "Gross issued",
             "In average",
+            "Original stock code",
+            "Original product description",
+            "Product match",
         ],
-        [39, 22, 18, 33, 18, 16, 15],
+        [39, 22, 18, 33, 18, 16, 15, 22, 39, 26],
         listings,
     )
     hist.freeze_panes = "D5"
     if hist.max_row == 4:
-        line(hist, 5, "No product-level historical quantities are available.", 7)
-        hist.print_area = "A1:G5"
+        line(hist, 5, "No product-level historical quantities are available.", 10)
+        hist.print_area = "A1:J5"
+
+    product_sources = [s for s in data.get("product_sources", []) if s.get("rows")]
+    if product_sources:
+        original = wb.create_sheet("Original stock codes")
+        banner(original, 11, "Historical issues by original stock code", label)
+        line(original, 3, "Filter by shutdown and source before comparing quantities. Sales Stock and Transactions can cover the same issues. Blank fields indicate unavailable evidence.", 11)
+        grid(
+            original,
+            4,
+            ["Prior shutdown", "Original stock code", "Product", "Source unit", "Gross issued",
+             "Credited / issued back", "Net issued", "Issue entries", "Source", "Reporting period",
+             "Source snapshot (AEST)"],
+            [20, 22, 38, 13, 15, 18, 15, 13, 36, 30, 25],
+            (
+                (source["label"], str(row["sku"]), row.get("name"), row.get("unit") or None,
+                 row.get("issued"), row.get("credited"), row.get("net"), row.get("issue_entries"),
+                 source["source"], period_note(source), snapshot(source["as_at"]) if source.get("as_at") else None)
+                for source in product_sources
+                for row in source["rows"]
+            ),
+        )
+        original.freeze_panes = "D5"
 
     cov = wb.create_sheet("Source coverage")
     banner(cov, 5, "Sources and coverage", label)
@@ -273,6 +315,7 @@ def write_excel(path, data):
             period_note(extra),
             snapshot(extra["as_at"]) if extra.get("as_at") else None,
             extra.get("issued"),
+            *match_details(row, extra),
         )
         for row in rows
         for period in row.get("history", [])
@@ -280,12 +323,12 @@ def write_excel(path, data):
     ]
     if observations:
         sheet = wb.create_sheet("Additional observations")
-        banner(sheet, 8, "Additional historical observations", label)
+        banner(sheet, 11, "Additional historical observations", label)
         line(
             sheet,
             3,
             "These additional sources overlap the primary history. Their observations are excluded from totals and averages.",
-            8,
+            11,
         )
         grid(
             sheet,
@@ -299,8 +342,11 @@ def write_excel(path, data):
                 "Observation date range",
                 "Source snapshot",
                 "Gross issued observed",
+                "Original stock code",
+                "Original product description",
+                "Product match",
             ],
-            [39, 22, 18, 33, 37, 34, 26, 17],
+            [39, 22, 18, 33, 37, 34, 26, 17, 22, 39, 26],
             observations,
         )
         sheet.freeze_panes = "D5"

@@ -47,7 +47,7 @@ class ShutdownHistory(unittest.TestCase):
         archive=json.loads(store.read_text());entry=archive["shuts"][0]
         self.assertEqual(archive["current_closeout"],{"sales_as_at":"known"})
         self.assertEqual(entry["status"],"partial")
-        self.assertEqual(entry["rows"],[dict(sku="stock-sku",unit="each",issued=4,credited=1,net=3)])
+        self.assertEqual(entry["rows"],[dict(sku="stock-sku",name="Duct tape",unit="each",issued=4,credited=1,net=3,issue_entries=2,product_barcode="")])
         self.assertNotIn("person",store.read_text().lower())
         self.assertEqual(self.run_import(complete="1")["status"],"complete")
         previous=store.read_bytes()
@@ -64,6 +64,24 @@ class ShutdownHistory(unittest.TestCase):
         self.assertNotIn("asset-serial",saved);self.assertNotIn("Private worker",saved)
         self.assertFalse((self.root/history.SALES_FILE).exists())
         with self.assertRaisesRegex(ValueError,"sales|SALES"):self.run_import(complete="1")
+
+    def test_original_sales_pull_enriches_legacy_rows_only_if_quantities_agree(self):
+        self.make()
+        self.run_import()
+        path = self.root / history.SALES_FILE
+        saved = json.loads(path.read_text())
+        row = saved["shuts"][0]["rows"][0]
+        del row["name"], row["issue_entries"], row["product_barcode"]
+        row["credited"] = 8
+        path.write_text(json.dumps(saved))
+        with self.assertRaisesRegex(ValueError, "disagrees"):
+            self.run_import()
+        row["credited"] = 1
+        path.write_text(json.dumps(saved))
+        self.assertTrue(self.run_import(complete="1")["changed"])
+        self.assertFalse(self.run_import(complete="1")["changed"])
+        result = json.loads(path.read_text())["shuts"][0]
+        self.assertEqual((result["status"], result["rows"][0]["issue_entries"]), ("complete", 2))
 
     def test_other_job_ambiguous_generic_current_and_mixed_sheets(self):
         for schedule,site in (("Another Mining","Another site"),("September Shutdown 2025",None),

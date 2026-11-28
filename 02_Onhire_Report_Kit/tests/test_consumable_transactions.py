@@ -102,7 +102,10 @@ class ConsumableTransactions(unittest.TestCase):
             closeout = {"id": "jul-2026", "label": "July 2026", "schedule": SCHEDULE,
                         "start": "2026-07-09", "end": "2026-07-20", "as_at": "2026-07-22T09:00",
                         "source": usage.SOURCE, "status": "complete",
-                        "rows": [{"sku": "0001", "issued": 3.5, "unit": ""}]}
+                        "rows": [{"sku": "0001", "issued": 3.5, "unit": ""},
+                                 {"sku": "old", "name": "Former catalogue product", "unit": "ea",
+                                  "issued": 0, "credited": 2, "net": -2, "issue_entries": 0,
+                                  "hirer": "Private worker", "total_price": 100}]}
             sales.write_text(json.dumps({"job": usage.JOB, "shuts": [closeout]}))
             combined = report()
             self.assertEqual(len(combined["history"]), 1)
@@ -111,3 +114,15 @@ class ConsumableTransactions(unittest.TestCase):
             self.assertEqual(row["average_issued"], 3.5)
             self.assertEqual([p["issued"] for p in row["history"][0]["observations"]], [2.5, 2])
             self.assertEqual(len(combined["history"][0]["additional_sources"]), 2)
+            sales_view, tx_view = combined["product_sources"]
+            self.assertEqual([sales_view["kind"], tx_view["kind"]], ["sales", "transactions"])
+            self.assertEqual(sales_view["id"], tx_view["id"])
+            legacy, retired = sales_view["rows"]
+            self.assertIsNone(legacy["credited"])
+            self.assertIsNone(legacy["issue_entries"])
+            self.assertEqual((retired["name"], retired["issued"], retired["credited"], retired["net"], retired["issue_entries"]),
+                             ("Former catalogue product", 0, 2, -2, 0))
+            self.assertNotIn("hirer", retired)
+            self.assertNotIn("total_price", retired)
+            self.assertEqual(tx_view["rows"], snapshot["rows"])
+            self.assertNotIn("_products", json.dumps(combined))

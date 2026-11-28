@@ -1,4 +1,5 @@
 """Import past MMG Dugald River SiteIQ exports as anonymous shutdown aggregates."""
+from collections import Counter
 from datetime import date, datetime, time, timedelta
 import hashlib
 import json
@@ -10,7 +11,7 @@ import tempfile
 from openpyxl import load_workbook
 
 from build_onhire_workbook import read_aliases
-from consumable_usage import JOB, shut_key, summarise_rows, transaction_observations
+from consumable_usage import JOB, quantity, shut_key, summarise_rows, transaction_observations
 from stocktake_store import QUEENSLAND, published_report
 from upload_policy import MMG_SCHEDULE
 from utilisation import archived_average, stamp
@@ -18,14 +19,25 @@ from variant_history import requested_time
 
 HIRE_FILE = "hire-interval-history.json"
 SALES_FILE = "consumable_usage_history.json"
-# These original exports lack a PROJECT field. Their schedules, MMG-owned stock,
-# shift names and operating dates were checked against the Dugald River archive.
+OCTOBER_2025_EARLY_PULLS = {
+    "f1be9f8e90a7704cf7ef133780f7238906dc1b1f4269eb3a2ebeb5dd50930f34",
+    "a0d0f7d315a2bb6efe2844dc8b448f742c59bb068ef1360a47286157ed83d2ff",
+}
+# These original exports lack a PROJECT field. Schedules, tool-store locations,
+# hirers, employers and operating dates were checked against the Dugald River archive.
 # Matching a generic schedule name alone does not establish a site identity.
 VERIFIED_FILES = {
+    "80c5b68d791906123de0fa09f02466ecb7134a5a633309ecb05820ef09a44cea": "april - shutdown 2024",
+    "ae63af07136bfbfb65a1d79a77f55e6ada684d5ec751c949b9566b08b845f3e8": "outm2402 december shutdown 2024",
     "f807d602958fa2b0250c7e3226dd300e129fb91905e4e5bf6e8fab8c742dc26a": "may shutdown 2025",
     "ff9ad11d3616bcbdc27b07fcbd9784a53527e6d3c2967a0b757c87f74a88dd32": "mmg shutdown 2026 february-march",
-    "f1be9f8e90a7704cf7ef133780f7238906dc1b1f4269eb3a2ebeb5dd50930f34": "september shutdown 2025",
-    "a0d0f7d315a2bb6efe2844dc8b448f742c59bb068ef1360a47286157ed83d2ff": "september shutdown 2025",
+    **dict.fromkeys(OCTOBER_2025_EARLY_PULLS, "september shutdown 2025"),
+    "e7e965a5b8432a27b3e13c207c77b8de9014dfe4281201cb5a2e8ea762d4b420": "outm2103 april 2022 shutdown",
+    "424da9540ee62eb14ddd296a15589d1aed9b3593baf23e29ca81644e88ba53ef": "outm2103 - october 2022 shutdown",
+    "419edd314565e9a7400e166f3254336e90b2b2283d22dfe5abe2f75642af8aea": "outm2303 - june shutdown 2023",
+    "c42a120346363166891c638f6df533370713f284ea889a7dd2fd8e565cd2e0ef": "outm2402 december shutdown 2024",
+    "7bb3a831834e52e8babd6bb6ba451f276135b760da7dbfe6a1674912568b02f9": "may shutdown 2025",
+    "9fbd4826b728cd52dba7ae65e62a427946ce102aa9b35d8a4d196f53d94f1feb": "september shutdown 2025",
 }
 # This project-less schedule was independently reconciled to MMG equipment and
 # the job's archive. A fresh export with the same genuine schedule is supported.
@@ -33,6 +45,8 @@ KNOWN_SCHEDULES = {"mmg shutdown july 2026": (date(2026, 7, 1), date(2026, 7, 31
 # Scope the denominator to verified operating dates. May includes mobilisation
 # on the roster; July includes a further dated hire on the 20th in the later pull.
 OPERATING_WINDOWS = {
+    "april - shutdown 2024": ("Apr 2024", date(2024, 4, 8), date(2024, 4, 14)),
+    "outm2402 december shutdown 2024": ("Dec 2024", date(2024, 12, 11), date(2024, 12, 15)),
     "may shutdown 2025": ("May 2025", date(2025, 4, 27), date(2025, 5, 7)),
     "september shutdown 2025": ("Oct 2025", date(2025, 10, 15), date(2025, 10, 17)),
     "mmg shutdown 2026 february-march": ("Feb 2026", date(2026, 2, 25), date(2026, 3, 3)),
@@ -99,7 +113,7 @@ def identify(book, digest, first, last):
         if project and project not in SITE_NAMES:
             raise ValueError("This workbook identifies another site.")
         known = KNOWN_SCHEDULES.get(key)
-        if VERIFIED_FILES.get(digest) == "september shutdown 2025":
+        if digest in OCTOBER_2025_EARLY_PULLS:
             known = date(2025, 10, 15), date(2025, 10, 18)
         if known and not (known[0] <= first <= last <= known[1]):
             raise ValueError("Choose dates within the shutdown named in the workbook.")
@@ -121,6 +135,7 @@ def sales_snapshot(book, label, schedule, first, last, start, end, pulled, compl
     if not {"SKU_NUMBER", "SALES_QUANTITY", "RETURN_QUANTITY", "SALES_DATE", "SALES_TIME"} <= set(headers):
         raise ValueError("The sales export needs dated movements and issued and credited quantities.")
     selected = []
+    issue_entries = Counter()
     seen_movements = included_movements = 0
     for values in rows:
         row = dict(zip(headers, values))
@@ -142,6 +157,8 @@ def sales_snapshot(book, label, schedule, first, last, start, end, pulled, compl
                     raise ValueError("The export includes sales outside the selected dates. Check the shutdown window.")
                 continue
             included_movements += 1
+            if (quantity(row.get("SALES_QUANTITY")) or 0) > 0:
+                issue_entries[str(row.get("SKU_NUMBER") or "").strip()] += 1
         selected.append(row)
     if seen_movements and not included_movements:
         raise ValueError("The selected dates contain none of this workbook's sales movements.")
@@ -151,7 +168,8 @@ def sales_snapshot(book, label, schedule, first, last, start, end, pulled, compl
     return {"id": shut_key(label), "label": label, "schedule": schedule, "source": "SiteIQ SALES_STOCK",
             "start": first.isoformat(), "end": last.isoformat(), "as_at": pulled.isoformat(),
             "status": "complete" if complete else "partial",
-            "rows": [{k: r[k] for k in ("sku", "unit", "issued", "credited", "net")} for r in summaries]}
+            "rows": [{**{k: r[k] for k in ("sku", "name", "unit", "issued", "credited", "net", "product_barcode")},
+                      "issue_entries": issue_entries[r["sku"]]} for r in summaries]}
 
 
 def store(path, kind, entry):
@@ -178,6 +196,11 @@ def store(path, kind, entry):
         if (entry["as_at"] < old["as_at"] or (old.get("status") == "complete" and entry.get("status") != "complete")
                 or (old.get("quality") == "recorded" and entry.get("quality") == "partial")):
             raise ValueError("A newer or more complete record is already stored.")
+        if kind == "SALES_STOCK" and all("name" not in row and "issue_entries" not in row for row in old["rows"]):
+            legacy_rows = [{k: v for k, v in row.items() if k not in ("name", "issue_entries", "product_barcode")} for row in entry["rows"]]
+            if old["rows"] == legacy_rows and {**old, "rows": entry["rows"], "status": entry["status"]} == entry:
+                archive[key][i] = entry
+                break
         previous_facts = {k: v for k, v in entry.items() if k != "consumable_observations"}
         adds_issues = kind == "TRANSACTIONS" and "consumable_observations" in entry and previous_facts == old
         if (entry["as_at"] == old["as_at"] and entry["start"] == old["start"] and entry["end"] == old["end"]

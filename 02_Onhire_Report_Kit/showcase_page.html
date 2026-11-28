@@ -1546,8 +1546,12 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #cu-data td{font-variant-numeric:tabular-nums}
  #cu-data td small{display:block;color:var(--mu)}
  #cu-data td.cu-balance{font-weight:700}
+ #cu-data .cu-links summary{min-height:38px;border:0;margin:0;font-size:.82rem}
+ #cu-data .cu-links ul{margin:.15rem 0 .6rem;padding-left:1rem;white-space:normal;min-width:14rem}
+ #cu-data .cu-links li+li{margin-top:.4rem}
  #cu-report h4{margin-top:.9rem}
  #cu-past .tscroll table{min-width:33rem}
+ #cu-past .tools{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
  #cu-past-summary{margin-top:.65rem;font-weight:650}
  #cu-coverage ul{padding-inline-start:1.2rem}
  #v-sds .work-heading>div:first-child{display:flex;align-items:center;gap:.2rem 1.2rem;flex-wrap:wrap}
@@ -1836,6 +1840,7 @@ __CONTACTS__
   </details>
   <details id="cu-past" hidden><summary>Historical issues by product</summary>
     <div class="tools"><label>Shutdown <select id="cu-past-shut"></select></label>
+      <label id="cu-past-source-control" hidden>Source <select id="cu-past-kind"></select></label>
       <input class="search" id="cu-past-q" type="search" aria-label="Find a historical product or stock code" placeholder="Find a historical product or stock code"></div>
     <p id="cu-past-summary"></p><p class="sub" id="cu-past-source"></p><div class="tscroll" id="cu-past-rows"></div>
   </details>
@@ -2841,33 +2846,68 @@ function initConsumableUsage(report){
   $('#cu-email').href='mailto:?subject='+encodeURIComponent('MMG Dugald River · '+status+' consumables usage and handback')+'&body='+encodeURIComponent(emailBody);
   $('#cu-email').title='Opens an email draft. Download the PDF or Excel file to attach it.';
   const basis=rows.some(r=>r.average_shuts>0)?'Each average uses gross issues from comparable, complete prior shutdowns.':'No verified complete prior shutdown qualifies for a product average in this snapshot.';
-  $('#cu-reading').textContent='Gross issued less recorded credits gives net usage. '+basis+' A dash means unavailable.';
+  $('#cu-reading').textContent='Gross issued less recorded credits gives net usage. '+basis+' Changed stock codes use a unique exact description or a verified product barcode with compatible specifications and units. A dash means unavailable.';
+  const periodLabels=new Map(history.map(h=>[h.id,h.label]));
+  const matchLabel={description:'Exact description',barcode:'Verified product barcode'};
+  const hasEarlierCode=h=>h.source_sku && Object.hasOwn(matchLabel,h.match_method);
+  function earlierCodes(row){
+    const matches=(row.history||[]).filter(hasEarlierCode);
+    if(!matches.length)return '';
+    const lines=matches.map(h=>'<li><b>'+esc(periodLabels.get(h.id)||h.id)+'</b> · '+esc(h.source_sku)+
+      '<small>'+esc(h.source_name||'')+' · '+matchLabel[h.match_method]+'</small></li>');
+    return '<details class="cu-links"><summary>Earlier stock codes</summary><ul>'+lines.join('')+'</ul></details>';
+  }
   const n=v=>Number.isFinite(v)?v.toLocaleString('en-AU',{maximumFractionDigits:8}):'—';
   function showRows(){
     const query=$('#cu-q').value.trim().toLowerCase();
-    const filtered=rows.filter(r=>[r.name,r.sku].join(' ').toLowerCase().includes(query));
-    $('#cu-data').innerHTML=filtered.length?`<table class="t"><thead><tr><th scope="col">Product / stock code</th><th scope="col">Source unit</th><th scope="col">Available to hand back to MMG</th><th scope="col">Gross issued</th><th scope="col">Credited / issued back</th><th scope="col">Net usage</th><th scope="col">Average issued per prior shut</th><th scope="col">Qualifying prior shuts</th></tr></thead><tbody>${filtered.map(r=>`<tr><td><strong>${esc(r.name)}</strong><small>${esc(r.sku||'')}</small></td><td>${esc(r.unit||'Not recorded')}</td><td class="cu-balance">${n(r.available_for_mmg)}</td><td>${n(r.issued)}</td><td>${n(r.credited)}</td><td>${n(r.net)}</td><td>${Number.isFinite(r.average_issued)?r.average_issued.toLocaleString('en-AU',{maximumFractionDigits:2}):'—'}</td><td>${n(r.average_shuts)}</td></tr>`).join('')}</tbody></table>`:'<p class="empty">'+(query?'No matching products.':'No product records available in this snapshot.')+'</p>';
+    const filtered=rows.filter(r=>[r.name,r.sku,...(r.history||[]).filter(hasEarlierCode).flatMap(h=>[h.source_sku,h.source_name])].join(' ').toLowerCase().includes(query));
+    $('#cu-data').innerHTML=filtered.length?`<table class="t"><thead><tr><th scope="col">Product / stock code</th><th scope="col">Source unit</th><th scope="col">Available to hand back to MMG</th><th scope="col">Gross issued</th><th scope="col">Credited / issued back</th><th scope="col">Net usage</th><th scope="col">Average issued per prior shut</th><th scope="col">Qualifying prior shuts</th></tr></thead><tbody>${filtered.map(r=>`<tr><td><strong>${esc(r.name)}</strong><small>${esc(r.sku||'')}</small>${earlierCodes(r)}</td><td>${esc(r.unit||'Not recorded')}</td><td class="cu-balance">${n(r.available_for_mmg)}</td><td>${n(r.issued)}</td><td>${n(r.credited)}</td><td>${n(r.net)}</td><td>${Number.isFinite(r.average_issued)?r.average_issued.toLocaleString('en-AU',{maximumFractionDigits:2}):'—'}</td><td>${n(r.average_shuts)}</td></tr>`).join('')}</tbody></table>`:'<p class="empty">'+(query?'No matching products.':'No product records available in this snapshot.')+'</p>';
   }
-  const pastIssues=(D.utilisation?.average_on_hire?.previous||[]).map(shut=>shut.consumable_observations)
-    .filter(shut=>shut?.rows?.length).sort((a,b)=>b.end.localeCompare(a.end));
+  const pastIssues=report.product_sources||[];
   if(pastIssues.length){
-    const panel=$('#cu-past'),picker=$('#cu-past-shut'),query=$('#cu-past-q');
+    const panel=$('#cu-past'),picker=$('#cu-past-shut'),sourcePicker=$('#cu-past-kind'),query=$('#cu-past-q');
     const day=new Intl.DateTimeFormat('en-AU',{day:'numeric',month:'short',year:'numeric',timeZone:'Australia/Brisbane'});
     const dateLabel=iso=>day.format(new Date(iso+'T12:00:00+10:00'));
-    picker.replaceChildren(...pastIssues.map(shut=>new Option(shut.label,shut.id)));
+    const periods=new Map();
+    for(const evidence of pastIssues){
+      if(!periods.has(evidence.id))periods.set(evidence.id,[]);
+      periods.get(evidence.id).push(evidence);
+    }
+    const labelFor=s=>s.kind==='sales'?'Sales Stock':'Transactions';
+    picker.replaceChildren(...Array.from(periods,([id,group])=>new Option(group[0].label,id)));
     function showHistoricalIssues(){
-      const shut=pastIssues.find(s=>s.id===picker.value);
+      const sources=periods.get(picker.value)||[];
+      const shut=sources.find(s=>s.kind===sourcePicker.value);
       if(!shut)return;
       const term=query.value.trim().toLowerCase();
       const products=shut.rows.filter(row=>(row.name+' '+row.sku).toLowerCase().includes(term))
         .sort((a,b)=>a.name.localeCompare(b.name)||a.sku.localeCompare(b.sku));
-      $('#cu-past-summary').textContent=dateLabel(shut.start)+' to '+dateLabel(shut.end)+' · '+plural(shut.issue_entries,'recorded issue')+' across '+plural(shut.rows.length,'product');
-      $('#cu-past-source').textContent='SiteIQ Transactions records gross issues under the original stock codes. Credits and the balance available to hand back to MMG come from Sales Stock.';
-      $('#cu-past-rows').innerHTML=products.length?'<table class="t"><thead><tr><th scope="col">Product</th><th scope="col">Original stock code</th><th scope="col">Gross issued</th><th scope="col">Source unit</th><th scope="col">Issue entries</th></tr></thead><tbody>'+products.map(row=>'<tr><th scope="row">'+esc(row.name)+'</th><td>'+esc(row.sku)+'</td><td>'+n(row.issued)+'</td><td>'+esc(row.unit||'Not recorded')+'</td><td>'+n(row.issue_entries)+'</td></tr>').join('')+'</tbody></table>':'<p class="empty">No matching products.</p>';
+      const isSales=shut.kind==='sales';
+      const span=shut.start&&shut.end?dateLabel(shut.start)+' to '+dateLabel(shut.end):'Snapshot '+displayDate(shut.as_at);
+      const counts=shut.rows.every(row=>Number.isInteger(row.issue_entries))?
+        ' · '+plural(shut.rows.reduce((sum,row)=>sum+row.issue_entries,0),'recorded issue'):'';
+      $('#cu-past-summary').textContent=span+counts+' · '+plural(shut.rows.length,'product');
+      $('#cu-past-source').textContent='SiteIQ '+labelFor(shut)+' · '+(shut.status==='complete'?'Complete shutdown':'Partial coverage')+'. '+
+        (isSales?'Net issued is gross issued less recorded credits.':'Transactions show gross issues by original stock code.')+
+        (sources.length>1?' The two sources overlap. Select one to view its figures.':'');
+      const headings=['Product','Original stock code','Gross issued',...(isSales?['Recorded credits','Net issued']:[]),'Source unit','Issue entries'];
+      const tableRows=products.map(row=>'<tr><th scope="row">'+esc(row.name)+'</th><td>'+esc(row.sku)+'</td><td>'+n(row.issued)+'</td>'+
+        (isSales?'<td>'+n(row.credited)+'</td><td>'+n(row.net)+'</td>':'')+
+        '<td>'+esc(row.unit||'Not recorded')+'</td><td>'+n(row.issue_entries)+'</td></tr>');
+      $('#cu-past-rows').innerHTML=products.length?'<table class="t"><thead><tr>'+headings.map(h=>'<th scope="col">'+h+'</th>').join('')+
+        '</tr></thead><tbody>'+tableRows.join('')+'</tbody></table>':'<p class="empty">No matching products.</p>';
+    }
+    function chooseHistoricalSource(){
+      const sources=periods.get(picker.value)||[];
+      sourcePicker.replaceChildren(...sources.map(s=>new Option(labelFor(s),s.kind)));
+      $('#cu-past-source-control').hidden=sources.length<2;
+      if(panel.open)showHistoricalIssues();
     }
     panel.hidden=false;
+    chooseHistoricalSource();
     panel.addEventListener('toggle',()=>{if(panel.open)showHistoricalIssues()});
-    picker.addEventListener('change',showHistoricalIssues);
+    picker.addEventListener('change',chooseHistoricalSource);
+    sourcePicker.addEventListener('change',showHistoricalIssues);
     query.addEventListener('input',showHistoricalIssues);
   }
   const coverage=history.length?'<ul>'+history.map(h=>{

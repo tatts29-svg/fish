@@ -1,5 +1,5 @@
 """MMG consumables. SiteIQ sales, explicit credits, stock and qualified prior shutdowns."""
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation
 import json
@@ -42,6 +42,7 @@ def total(values):
 
 def line(sku, rows):
     units = {text(row.get("UOM") or row.get("UNIT_OF_MEASURE")).casefold() for row in rows} - {""}
+    barcodes = {text(row.get("SKU_BARCODE")) for row in rows} - {""}
     quantities = defaultdict(list)
     bins = defaultdict(set)
     stock = []
@@ -75,7 +76,7 @@ def line(sku, rows):
         issued = credited = stock_total = None
     title = next((text(r.get("SKU_DESCRIPTION")) for r in stock + rows if text(r.get("SKU_DESCRIPTION"))), sku)
     unit = next(iter(units), "") if len(units) < 2 else None
-    return {"sku": sku, "name": title, "unit": unit,
+    return {"sku": sku, "name": title, "unit": unit, "product_barcode": next(iter(barcodes)) if len(barcodes) == 1 else "",
             "available_for_mmg": number(stock_total), "issued": number(issued), "credited": number(credited),
             "net": number(issued - credited) if issued is not None and credited is not None else None,
             "history": [], "average_issued": None, "average_shuts": 0}
@@ -96,6 +97,49 @@ def local_time(value):
     return when.astimezone(AEST).replace(tzinfo=None) if when.tzinfo else when
 
 
+def product_description(name):
+    """Remove MMG catalogue tags while keeping dimensions, quantities and model numbers."""
+    name = " ".join(text(name).casefold().split())
+    name = re.sub(r"^mmg[\s,.]+", "", name)
+    name = re.sub(r"(?:[\s,.]+2mmg20\d{2}|20\d{2}mmg|mmg20\d{2}|[\s,.]+mmg)$", "", name)
+    name = re.sub(r"\bclr\b", "clear", name.strip().rstrip(","))
+    return re.sub(r"\s*([,/])\s*", r"\1", name)
+
+
+def material_number(barcode):
+    """A job/year prefix may change. Require the full eight-digit material number."""
+    match = re.fullmatch(r"(?:20\d{2}MMG|MMG)?(1\d{7})(?:MMG)?", text(barcode).upper())
+    return match[1] if match else ""
+
+
+def description_matches(current, archived, existing_codes):
+    """One historical product can supply at most one current product per source."""
+    current_codes = {item["sku"] for item in current}
+    by_name = defaultdict(list)
+    for old in archived:
+        if old["name"] != old["sku"]:
+            by_name[product_description(old["name"])].append(old)
+    counts = Counter(product_description(item["name"]) for item in current)
+    new_bars = Counter(material_number(item.get("product_barcode")) for item in current)
+    old_bars = Counter(material_number(old.get("product_barcode")) for old in archived)
+    matches = {}
+    for item in current:
+        name = product_description(item["name"])
+        candidates = by_name.get(name, ())
+        if not name or item["sku"] in existing_codes or counts[name] != 1 or len(candidates) != 1:
+            continue
+        old = candidates[0]
+        if old["sku"] in current_codes or old["unit"] != item["unit"] or item["unit"] is None:
+            continue
+        old_bar = material_number(old.get("product_barcode"))
+        new_bar = material_number(item.get("product_barcode"))
+        if old_bar and new_bar and old_bar != new_bar:
+            continue
+        method = "barcode" if new_bar and old_bar == new_bar and new_bars[new_bar] == old_bars[old_bar] == 1 else "description"
+        matches[item["sku"]] = {"match_method": method, "source_sku": old["sku"], "source_name": old["name"]}
+    return matches
+
+
 def shut_key(value):
     key = re.sub(r"[^a-z0-9]+", "-", text(value).casefold()).strip("-")
     return re.sub(r"\bjul\b", "july", key) if re.fullmatch(r"jul-\d{4}", key) else key
@@ -113,7 +157,8 @@ TRANSACTION_SHEETS = ("TRANSACTION_CHARGES", "TRANSACTION_WITHOUT_CHARGES", "CUS
 # The source labels differ between SiteIQ's schedule and the job's Min Max workbook.
 USAGE_PERIOD_LABELS = {"may shutdown 2025": "May 2025",
                        "mmg shutdown 2026 february-march": "Feb-Mar 2026",
-                       "mmg shutdown july 2026": "July 2026"}
+                       "mmg shutdown july 2026": "July 2026",
+                       "outm2303 - june shutdown 2023": "Jun-Jul 2023"}
 
 
 def transaction_observations(book, label, schedule, start, end, pulled):
@@ -208,6 +253,8 @@ def include_transaction_history(periods, interval_history, cutoff):
             continue
         values = {row["sku"]: (row["unit"], quantity(row["issued"])) for row in snapshot["rows"]}
         meta = {k: v for k, v in snapshot.items() if k != "rows"}
+        meta["_products"] = [{k: row.get(k) for k in ("sku", "name", "unit", "issued", "issue_entries")}
+                             for row in snapshot["rows"]]
         add_source(periods, snapshot["id"], meta, values)
 
 
@@ -268,7 +315,8 @@ def archive_history(path, current_schedule, cutoff, periods, warnings):
     for entry in archive.get("shuts", []):
         try:
             label, schedule, source = (text(entry[k]) for k in ("label", "schedule", "source"))
-            key = shut_key(USAGE_PERIOD_LABELS.get(schedule.casefold(), entry["id"]))
+            canonical = USAGE_PERIOD_LABELS.get(schedule.casefold())
+            key = shut_key(canonical or entry["id"])
             if not key or not schedule or not source or not label or not isinstance(entry["rows"], list):
                 raise ValueError
             if entry.get("job", JOB) != JOB or schedule.casefold() == current_schedule.casefold():
@@ -285,14 +333,27 @@ def archive_history(path, current_schedule, cutoff, periods, warnings):
             if status == "partial" and pulled.date() >= cutoff and not (end and end < cutoff):
                 continue
             values = {}
+            catalogue = {}
             for row in entry["rows"]:
                 sku = text(row["sku"])
                 if not sku or sku in values:
                     raise ValueError
-                values[sku] = (text(row.get("unit")).casefold(), quantity(row.get("issued")))
-            period = {"id": key, "label": label, "status": status, "source": source,
+                unit = text(row.get("unit")).casefold() if row.get("unit") is not None else None
+                issued = quantity(row.get("issued"))
+                values[sku] = (unit, issued)
+                if source.startswith(SOURCE):
+                    credited = quantity(row.get("credited"))
+                    count = quantity(row.get("issue_entries"))
+                    catalogue[sku] = {"sku": sku, "name": text(row.get("name")) or sku,
+                                      "product_barcode": text(row.get("product_barcode")),
+                                      "unit": unit, "issued": number(issued), "credited": number(credited),
+                                      "net": number(issued - credited) if issued is not None and credited is not None else None,
+                                      "issue_entries": int(count) if count is not None and count == int(count) else None}
+            period = {"id": key, "label": canonical or label, "status": status, "source": source,
                       "start": start.isoformat() if start else "", "end": end.isoformat() if end else "", "as_at": pulled.isoformat(),
                       "days_observed": None, "first_observed": "", "last_observed": ""}
+            if catalogue:
+                period["_products"] = [catalogue[sku] for sku in sorted(catalogue)]
             candidates[key].append((schedule.casefold(), period, values))
         except (KeyError, AttributeError, TypeError, ValueError):
             warnings.append("A historical shutdown record lacks consistent scope, dates or SKU evidence.")
@@ -311,7 +372,7 @@ def archive_history(path, current_schedule, cutoff, periods, warnings):
         pulls = [record for record in pulls if record[1]["status"] == "complete"] or pulls
         latest = max(p["as_at"] for _, p, _ in pulls)
         matches = [(p, vals) for _, p, vals in pulls if p["as_at"] == latest]
-        if any(vals != matches[0][1] for _, vals in matches):
+        if any(vals != matches[0][1] or p.get("_products") != matches[0][0].get("_products") for p, vals in matches):
             warnings.append("Two historical snapshots disagree at the same time and were excluded from the average.")
             continue
         meta, values = matches[0]
@@ -343,15 +404,18 @@ def build(rows, sales_ref, expected_schedule, current_start, minmax=None, archiv
                 status = "final"
         except (KeyError, TypeError, ValueError):
             warnings.append("The closeout confirmation has no valid sales snapshot time.")
+    matches_by_period = {key: description_matches(items, meta.get("_products", ()), values)
+                         for key, (meta, values) in periods.items()}
     for item in items:
         qualified = []
-        for meta, values in periods.values():
-            matched = values.get(item["sku"])
-            amount = matched[1] if matched and matched[0] == item["unit"] else None
+        for key, (meta, values) in periods.items():
+            match = matches_by_period[key].get(item["sku"], {})
+            matched = values.get(match.get("source_sku", item["sku"]))
+            amount = matched[1] if matched and item["unit"] is not None and matched[0] == item["unit"] else None
             use = amount is not None and meta["status"] == "complete"
             if use:
                 qualified.append(amount)
-            reading = {"id": meta["id"], "issued": number(amount), "qualified": use}
+            reading = {"id": meta["id"], "issued": number(amount), "qualified": use, **match}
             for older, older_values in meta.get("_additional_values", []):
                 prior = older_values.get(item["sku"])
                 if prior and prior[0] == item["unit"]:
@@ -362,8 +426,17 @@ def build(rows, sales_ref, expected_schedule, current_start, minmax=None, archiv
         if qualified:
             item["average_shuts"] = len(qualified)
             item["average_issued"] = number(round(sum(qualified) / len(qualified), 2))
+    product_sources = []
     for meta, _ in periods.values():
         meta.pop("_additional_values", None)
+        for evidence in [meta, *meta.get("additional_sources", [])]:
+            product_rows = evidence.pop("_products", None)
+            if product_rows:
+                details = {k: evidence[k] for k in ("id", "label", "source", "status", "start", "end", "as_at")}
+                kind = "transactions" if evidence["source"] == TRANSACTION_SOURCE else "sales"
+                product_sources.append({**details, "kind": kind, "rows": product_rows})
+    product_sources.sort(key=lambda evidence: (evidence["end"] or evidence["as_at"][:10],
+                                               evidence["kind"] == "sales"), reverse=True)
     return {"project": JOB, "source": SOURCE, "as_at": pulled.isoformat() if pulled else "",
             "status": status, "comparison_measure": "issued", "history": [p for p, _ in periods.values()],
-            "rows": items, "warnings": list(dict.fromkeys(warnings))}
+            "rows": items, "product_sources": product_sources, "warnings": list(dict.fromkeys(warnings))}
