@@ -6,7 +6,15 @@
 .handover-asset-copy span { font-size: .86rem; color: var(--on-2); }
 .handover-asset-copy .handover-asset-id { color: var(--on); font-variant-numeric: tabular-nums; }
 .handover-reference { margin: 0; width: 5.6rem; flex: none; }
-.handover-reference img { display: block; width: 100%; height: 4.4rem; object-fit: scale-down; padding: .15rem; background: #edf0e9; border-radius: .44rem; }
+.handover-reference img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--well);
+  border-radius: .44rem;
+}
 .handover-reference figcaption { margin-top: .2rem; color: var(--on-2); font-size: .69rem; line-height: 1.2; }
 .handover-peak-time { min-width: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
 .handover-peak-count { font-weight: 650; font-variant-numeric: tabular-nums; }
