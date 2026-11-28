@@ -95,11 +95,23 @@ class SdsRegister(unittest.TestCase):
         except ImportError:
             self.skipTest("Pillow is needed for embedded photographs")
         photo = io.BytesIO()
-        Image.new("RGB", (2, 2), "#888888").save(photo, format="WEBP")
+        from PIL import ImageDraw
+        from style_pictures import has_catalogue_frame
+        image = Image.new("RGB", (130, 200), "white")
+        ImageDraw.Draw(image).rectangle((35, 20, 95, 180), fill=(15, 100, 170))
+        image.save(photo, format="WEBP", lossless=True)
         metadata = {"photo_caption": "Supplier catalogue image", "photo_source": "https://example.org/p/adhesive",
                     "photo_data": "data:image/webp;base64," + base64.b64encode(photo.getvalue()).decode()}
         row, = self.rows({"12345678": {**self.record, **metadata}})
         self.assertEqual(row["photo"], metadata["photo_data"])
+        self.assertNotEqual(row["photo_tile"], row["photo"])
+        tile = Image.open(io.BytesIO(base64.b64decode(row["photo_tile"].split(",", 1)[1])))
+        self.assertEqual(tile.size, (512, 512))
+        self.assertTrue(has_catalogue_frame(tile))
+        red, green, blue = tile.getpixel((256, 256))
+        self.assertTrue(blue > green > red)   # the actual blue package survives the studio mount
+        staged, = self.rows({"12345678": {**self.record, **metadata, "photo_data": row["photo_tile"]}})
+        self.assertEqual(staged["photo_tile"], row["photo_tile"])  # no second frame or re-encoding
         for bad in [{"photo_caption": ""}, {"photo_source": "javascript:bad"}, {"photo_data": "data:image/webp;base64,AAAA"}]:
             row, = self.rows({"12345678": {**self.record, **metadata, **bad}})
             self.assertNotIn("photo", row)

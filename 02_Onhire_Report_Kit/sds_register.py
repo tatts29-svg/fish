@@ -4,6 +4,7 @@ import binascii
 from calendar import monthrange
 from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
+import hashlib
 import io
 import json
 import math
@@ -89,16 +90,30 @@ def approved_photo(record):
         return {}
     try:
         from PIL import Image
+        from style_pictures import has_catalogue_frame, styled
     except ImportError:
         return {}
     try:
-        with Image.open(io.BytesIO(base64.b64decode(uri[len(prefix):], validate=True))) as image:
+        raw = base64.b64decode(uri[len(prefix):], validate=True)
+        with Image.open(io.BytesIO(raw)) as image:
             if image.format != "WEBP" or not 0 < max(image.size) <= 3840:
                 return {}
-            image.verify()
+            image.load()
+            tile = uri
+            if not has_catalogue_frame(image):
+                # A supplier group photo may have a reviewed mask for this exact
+                # source only. It isolates the registered pack without repainting it.
+                mask_path = Path(__file__).with_name("sds_photo_masks") / (hashlib.sha256(raw).hexdigest() + ".png")
+                if mask_path.is_file():
+                    with Image.open(mask_path) as mask:
+                        if mask.size == image.size:
+                            image.putalpha(mask.convert("L"))
+                preview = io.BytesIO()
+                styled(image).save(preview, "WEBP", quality=90, method=4)
+                tile = prefix + base64.b64encode(preview.getvalue()).decode("ascii")
     except (ValueError, OSError, binascii.Error, Image.DecompressionBombError):
         return {}
-    return {"photo": uri, "photo_caption": caption, "photo_source": source}
+    return {"photo": uri, "photo_tile": tile, "photo_caption": caption, "photo_source": source}
 
 
 def confirmed_document(record, folder, checked, today):

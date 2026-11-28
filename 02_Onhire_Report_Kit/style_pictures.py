@@ -20,9 +20,34 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 SIDE, ORANGE = 512, (242, 98, 34)
 
 
+def has_catalogue_frame(photo):
+    """Recognise the orange border on all four sides of a square studio tile."""
+    if min(photo.size) < 96 or abs(photo.width - photo.height) > min(photo.size) * .015:
+        return False
+    image = photo.convert("RGB")
+    def orange_at(x, y):
+        red, green, blue = image.getpixel((x, y))
+        return red > 155 and red - green > 45 and red - blue > 80
+
+    # Catalogue packs use several slight variations in frame inset and thickness.
+    for fraction in (.25, .5, .75):
+        x, y = int(fraction * image.width), int(fraction * image.height)
+        inset = range(1, max(3, round(image.width * .04)))
+        if not all((any(orange_at(i, y) for i in inset),
+                    any(orange_at(image.width - 1 - i, y) for i in inset),
+                    any(orange_at(x, i) for i in inset),
+                    any(orange_at(x, image.height - 1 - i) for i in inset))):
+            return False
+    return True
+
+
 def cut_out(im):
     """The product with the white around it made see-through. Only white that
     touches the edge of the photo is removed, so white parts of the product stay."""
+    if "A" in im.getbands() and im.getchannel("A").getextrema()[0] < 255:
+        product = im.convert("RGBA")
+        bounds = product.getchannel("A").getbbox()
+        return product.crop(bounds) if bounds else product
     im = im.convert("RGB")
     if max(im.size) > 1400:
         im.thumbnail((1400, 1400), Image.LANCZOS)
@@ -90,7 +115,8 @@ def styled(photo):
     canvas = Image.alpha_composite(canvas, layer)
     # a contact shadow, then the product itself, untouched
     shadow = Image.new("L", (SIDE, SIDE), 0)
-    ImageDraw.Draw(shadow).ellipse((x + 6, floor - 7, x + prod.width - 6, floor + 9), fill=150)
+    inset = min(6, prod.width // 2)
+    ImageDraw.Draw(shadow).ellipse((x + inset, floor - 7, x + prod.width - inset, floor + 9), fill=150)
     dark = Image.new("RGBA", (SIDE, SIDE), (0, 0, 0, 255))
     dark.putalpha(shadow.filter(ImageFilter.GaussianBlur(7)))
     canvas = Image.alpha_composite(canvas, dark)
