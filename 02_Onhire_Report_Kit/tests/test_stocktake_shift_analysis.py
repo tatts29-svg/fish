@@ -205,6 +205,35 @@ class ShiftAnalysisTests(unittest.TestCase):
         self.assertEqual(person["activity_timeline"]["windows"][-1]["sources"], ["Portal"])
         self.assertTrue(all(g["end"] <= at("07:17:00") for g in person["activity_timeline"]["gaps"]))
 
+    def test_private_minute_chart_matches_dated_operators_sources_and_coverage(self):
+        cut = at("13:00")
+        st = model([stock(k) for k in "ABCDEFGH"], [
+            scan("A", "07:15:00", who="A"), scan("B", "07:15:59", who="A"),
+            scan("C", "07:15:12", who="B"), scan("D", "07:15:32", who=""),
+            scan("E", "08:00:00", who="B"),  # included at source boundary
+            scan("F", "09:00:00", who="A"),  # record outside requested export windows
+            scan("G", "10:05:01", who="A", action="Sale"),
+            scan("H", "13:01:00", who="A")], cut, [
+            window(at("07:00:13"), at("08:00:00")), window(at("09:50:10"), at("10:44:11"))])
+        manual_rows = [manual("C", "11:17", "A", "portal")]
+        plans = [plan("A", start="07:10", finish="12:00"), plan("B", start="07:00", finish="08:30")]
+        shift = stocktake.shift_analysis(st, plans, manual_rows, at("14:00"))["shifts"][0]
+        a, b = operator(shift, "A"), operator(shift, "B")
+        self.assertEqual(shift["minute_counts"], [
+            {"at": at("07:15"), "count_events": 3}, {"at": at("08:00"), "count_events": 1},
+            {"at": at("11:17"), "count_events": 1}])
+        self.assertEqual(a["minute_counts"], [
+            {"at": at("07:15"), "count_events": 2}, {"at": at("11:17"), "count_events": 1}])
+        self.assertEqual(a["minute_counts"], a["activity_timeline"]["minute_counts"])
+        self.assertEqual(b["minute_counts"], [
+            {"at": at("07:15"), "count_events": 1}, {"at": at("08:00"), "count_events": 1}])
+        self.assertEqual(shift["covered_intervals"], [
+            {"start": at("07:00:13"), "end": at("08:00:00")},
+            {"start": at("09:50:10"), "end": at("10:44:11")}])
+        self.assertEqual(a["covered_intervals"][0]["start"], at("07:10:00"))
+        self.assertEqual(b["covered_intervals"], shift["covered_intervals"][:1])
+        self.assertNotIn("minute_counts", st)  # shared report input remains free of manager series
+
 
 if __name__ == "__main__":
     unittest.main()

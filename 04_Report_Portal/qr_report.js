@@ -253,7 +253,9 @@
     const group = el("div","stats kpis");
     for (const [title,value] of pairs) {
       const card = el("div","stat kpi ro");
-      card.append(el("strong","stat-value kv",value),el("span","stat-label kl",title));
+      const total=el("strong","stat-value kv",value==="Unavailable" ? value : fmt(value));
+      if (finite(value) && value>=0 && value<=Number.MAX_SAFE_INTEGER) total.dataset.countTo=String(value);
+      card.append(total,el("span","stat-label kl",title));
       group.append(card);
     }
     parent.append(group);
@@ -720,19 +722,8 @@
     const reading=n=>observed(n) ? fmt(n) : "unavailable";
     const chart=svgNode("svg",{viewBox:"0 0 434 140",role:"img","aria-label":(toolDays?"Tool":"Consumable")+" issues and returns by date. "+days.map(d=>shortDay(d.date)+", issued "+reading(d[series[0]])+", returned "+reading(d[series[1]])).join(". ")});
     const defs=svgNode("defs");
-    for (const [index, role] of ["issued","returned"].entries()) {
-      const body = svgNode("linearGradient", {id:"movement-"+index});
-      const top = svgNode("linearGradient", {id:"movement-surface-"+index});
-      for (const [gradient, stops] of [
-        [body, [[0,"-deep"],[14,"-mid"],[26,""],[48,""],[76,"-mid"],[91,"-shade"],[100,"-mid"]]],
-        [top, [[0,"-mid"],[36,"-rim"],[68,""],[100,"-shade"]]]
-      ]) {
-        for (const [position, tone] of stops) {
-          gradient.append(svgNode("stop", {offset:position+"%", "stop-color":"var(--"+role+tone+")"}));
-        }
-      }
-      defs.append(body, top);
-    }
+    for (const [index, role] of ["issued","returned"].entries())
+      window.MMGReportInstruments.movementPaint(defs,index,role);
     chart.append(defs);
     for (const tick of [0, ...(step%2===0?[step/2]:[]), step]) {
       const y=bottom-(bottom-top)*tick/step;
@@ -749,21 +740,8 @@
           chart.append(svgNode("line",{class:"chart-unavailable",x1:x+w*.25,x2:x+w*.75,y1:bottom-2,y2:bottom-2,stroke:"currentColor"}));
           return;
         }
-        if (!n) return;
-        const height=(bottom-top)*(n/step), y=bottom-height, bounds="movement-cut-"+i+"-"+j;
-        const cut=svgNode("clipPath",{id:bounds});
-        cut.append(svgNode("rect",{x,y,width:w,height}));defs.append(cut);
-        const bar=svgNode("g",{class:j ? "movement-return" : "movement-issue","clip-path":"url(#"+bounds+")"});
-        const cap=Math.min(2,height*.17);
-        bar.append(svgNode("rect",{x,y:y+cap,width:w,height:Math.max(0,height-cap*2),fill:"url(#movement-"+j+")"}));
-        bar.append(svgNode("ellipse",{cx:x+w/2,cy:bottom-cap,rx:w/2,ry:cap,fill:"url(#movement-"+j+")"}));
-        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:"url(#movement-surface-"+j+")"}));
-        if(height>=13 && w>=7){
-          bar.append(svgNode("line",{x1:x+w*.24,y1:y+cap*2,x2:x+w*.24,y2:bottom-cap*2,stroke:"white","stroke-opacity":".32","stroke-width":".65"}));
-          const bubble=svgNode("circle",{cx:x+w*.62,cy:y+7,r:Math.min(1.5,w*.1),class:"chart-bubble"});
-          bar.append(bubble);
-        }
-        chart.append(bar);
+        const height=(bottom-top)*(n/step);
+        chart.append(window.MMGReportInstruments.movementVessel(defs,j,x,w,top,bottom,height,i));
       });
       const l=svgNode("text",{x:mid,y:131,"text-anchor":"middle",class:"axis-date"});
       l.textContent=shortDay(day.date);chart.append(l);
@@ -965,7 +943,9 @@
     const tools=coveredTransactions(cov);
     const holdingsAvailable=validCount(r.hire_count) && Boolean(r.asat || cov.rental_asat || r.hires.length);
     const count=$("hero-count");
-    count.textContent=fmt(holdingsAvailable ? r.hire_count : null);
+    const balance=el("span","",fmt(holdingsAvailable ? r.hire_count : null));
+    if (holdingsAvailable) balance.dataset.countTo=String(r.hire_count);
+    count.replaceChildren(balance);
     count.parentElement.dataset.balance=!holdingsAvailable ? "unknown" : r.hire_count===0 ? "clear" : "out";
     const handover=r.handover || {};
     const shift=handover.shift;
@@ -1012,9 +992,9 @@
     handoverPanel(body,r);
     const days=coveredActivity(chapter?.activity || r.activity || [],cov);
     const pairs=[
-      ["Recorded activity dates",r.store_activity?.has_coverage ? fmt(r.store_activity.active_days) : tools || cov.sales_asat ? fmt(days.length) : "Unavailable"],
-      ["Tool issues",tools ? fmt(chapter?.issues ?? r.returns?.issues) : "Unavailable"],
-      ["Consumable units issued",cov.sales_asat ? fmt(chapter?.consumable_units ?? r.consumable_summary?.units) : "Unavailable"]
+      ["Recorded activity dates",r.store_activity?.has_coverage ? r.store_activity.active_days : tools || cov.sales_asat ? days.length : "Unavailable"],
+      ["Tool issues",tools ? (chapter?.issues ?? r.returns?.issues) : "Unavailable"],
+      ["Consumable units issued",cov.sales_asat ? (chapter?.consumable_units ?? r.consumable_summary?.units) : "Unavailable"]
     ];
     stats(body,pairs);
     if(personal){consumablesPanel(body,r);historyPanel(body,r);}

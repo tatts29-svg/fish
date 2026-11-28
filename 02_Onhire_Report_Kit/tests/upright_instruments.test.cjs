@@ -76,3 +76,20 @@ test('static exports omit particle markup but preserve the measurement',()=>{
   assert.match(result,/height="35"/);
   assert.doesNotMatch(result,/liquid-bubble|surface-pop/);
 });
+
+test('a chart shares optics per series and each exposed cap uses its top band’s colour',()=>{
+  const ctx=fixture(), el={};
+  ctx.columns(el,['05','06'],[{v:[5,7],cls:'ca'},{v:[2,0],cls:'cb'}],{glass:true,tip:String});
+  const chart=el.innerHTML;
+  assert.equal((chart.match(/class="up-wall"/g)||[]).length,2);
+  const [first,second]=chart.split('class="column-reading').slice(1);
+  assert.match(first,/<ellipse class="cb liquid-cap"[^>]+#chart-ink\d+-cb-cap/);
+  assert.match(second,/<ellipse class="ca liquid-cap"[^>]+#chart-ink\d+-ca-cap/);
+  assert.match(first,/data-motion-gauge style="--reading-delay:150ms"/);
+  assert.match(second,/data-motion-gauge style="--reading-delay:230ms"/);
+  for(const [,ink] of chart.matchAll(/url\(#(chart-ink[^)]+)\)/g))assert.ok(chart.includes(`id="${ink}"`),ink);
+  const tank=ctx.cyl({name:'Test',on:65,fleet:100},{share:true,index:2});
+  assert.match(tank,/data-motion-gauge style="--reading-delay:310ms"/);
+  assert.match(tank,/class="upright-rise"[\s\S]+class="liquid-base"|class="upright-rise"[\s\S]+ liquid-base"/);
+  assert.match(tank,/data-n="65"/);
+});

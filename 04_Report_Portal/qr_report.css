@@ -117,7 +117,7 @@ summary::-webkit-details-marker{display:none}summary::after{content:"+";flex:non
 .movement-figure{width:100%;min-width:0;padding:12px 14px;border-radius:var(--r);border:1px solid var(--hair);background:var(--well)}
 .movement-figure figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:6px}.movement-figure figcaption strong{font-size:14px}.movement-figure figcaption span{font-size:12px;color:var(--on-3);text-align:right}
 .movement-figure svg{display:block;width:100%;height:auto;margin:4px auto 0;max-height:200px;shape-rendering:geometricPrecision}
-.chart-rule{stroke:var(--edge);stroke-width:.85}.axis-value,.axis-date{fill:var(--on-3);font-size:13px}.axis-date{font-weight:600}.chart-bubble{fill:none;stroke:#ffffffa0;stroke-width:.65}
+.chart-rule{stroke:var(--edge);stroke-width:.85}.axis-value,.axis-date{fill:var(--on-3);font-size:13px}.axis-date{font-weight:600}
 .movement-legend{display:flex;justify-content:flex-end;gap:16px}.movement-legend span{display:inline-flex;align-items:center;gap:5px;color:var(--on-3);font-size:12px}
 .movement-legend span:before{content:"";width:10px;height:10px;border-radius:50%;background:linear-gradient(100deg,var(--issued-shade),var(--issued) 45%,var(--issued-mid))}.movement-legend .key-return:before{background:linear-gradient(100deg,var(--returned-shade),var(--returned) 45%,var(--returned-mid))}
 .timeline,.milestone-list{list-style:none;padding:0;margin:0}.tool-group>.timeline{padding:8px 13px}
@@ -169,19 +169,8 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
 }
 
 .movement-legend .key-unknown:before{height:1px;background:currentColor}
-.wet-column>.chart-bubble{display:none}
-.column-bubble{fill:var(--issued-rim);stroke:var(--issued-shade);stroke-width:.7}.movement-return.wet-column .column-bubble{fill:var(--returned-rim);stroke:var(--returned-shade)}.column-pop{opacity:0;fill:none;stroke:white;stroke-width:.8}
 @media screen and (prefers-reduced-motion:no-preference){
   .tool-group[open]>summary:after{animation:hqReadoutMark .22s var(--eo) both}
-  .column-stream{--pace:2.7s;--phase:-1.1s}.column-stream:last-child{--pace:3.35s;--phase:-2.3s}
-  .wet-column:nth-of-type(even) .column-stream{--phase:-.45s}.wet-column:nth-of-type(even) .column-stream:last-child{--phase:-1.6s}
-  .column-bubble,.column-pop{transform-box:fill-box;transform-origin:center;animation:hqColumnLift var(--pace) ease-in-out var(--phase) infinite paused}
-  .column-pop{animation-name:hqSurfacePop}
-  .movement-figure.motion-near :is(.column-bubble,.column-pop){animation-play-state:running}
-  @keyframes hqColumnLift{0%{opacity:0;transform:scale(.65)}18%{opacity:.9}
-    76%{opacity:1;transform:translate(.35px,var(--float)) scale(1)}84%,100%{opacity:0;transform:translate(.35px,var(--float)) scale(.7)}}
-  @keyframes hqSurfacePop{0%,71%{opacity:0;transform:scale(.3,.5)}80%{opacity:.8;transform:scale(1,.92)}
-    95%,100%{opacity:0;transform:scale(2.3,.6)}}
   @keyframes hqReadoutMark{from{opacity:.5;transform:scaleY(.42)}to{opacity:1;transform:scaleY(1)}}
 }
 

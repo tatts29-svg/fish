@@ -44,6 +44,9 @@ test('semicircles and rings end at the exact measured angle, with no angular cap
       near(+arcs[3][3], (r-width/2)*Math.sin(start));
       assert.match(html,/clip-path="url\(#curved\d+-glow\)"/);
       assert.match(html,/clip-path="url\(#curved\d+-fill\)"/);
+      assert.match(html,/class="curve-reveal"[^>]+pathLength="1"[^>]+stroke-linecap="butt"/);
+      assert.match(html,/mask="url\(#curved\d+-reveal\)"/);
+      assert.ok(Math.abs(Number(html.match(/--curve-rewind:(-?[\d.]+)deg/)[1])+sweep*f*180/Math.PI)<.00001);
       if (f===1) {
         assert.equal(shape, html.match(/<path class="curve-shell" d="([^"]+)"/)[1]);
         if (sweep===2*Math.PI) assert.doesNotMatch(html,/curve-meniscus/);
@@ -57,7 +60,10 @@ test('readings distinguish exact zero, near endpoints, full, and unavailable', (
   const dial = (n,d) => run(`dial(${n},${d},'Tooling','Fleet at pull')`);
   for (const [n,d,text] of [[0,10,'0%'],[1,10000,'&lt;0.1%'],[1,2,'50%'],[9999,10000,'&gt;99.9%'],[10,10,'100%']]) {
     const html = dial(n,d);
-    assert.ok(html.includes('<div class="big">'+text+'</div>'));
+    const reading = html.match(/<div class="big">(.*?)<\/div>/)[1];
+    assert.equal(reading.replace(/<[^>]+>/g,''),text);
+    if (text.startsWith('&')) assert.doesNotMatch(reading,/data-motion-value/);
+    else assert.match(reading,/data-motion-value/);
     assert.ok(html.includes('data-fraction="'+n/d+'"'));
     assert.doesNotMatch(html,/data-n=/);
     if (!n) assert.doesNotMatch(html,/curve-fill|curve-aura|curve-bubble|curve-pop/);
@@ -76,7 +82,7 @@ test('scheduled cost ring handles partial, zero-charge and missing totals', () =
     const {run,els}=instruments({D:{costs}});
     run('initCosts()');
     const html=els.get('#cs-ring').innerHTML;
-    assert.ok(html.includes(reading));
+    assert.ok(html.replace(/<[^>]+>/g,'').includes(reading));
     assert.match(els.get('#cs-roster').innerHTML,/Total labour.*?\$0\.00/);
     assert.match(els.get('#cs-lead').textContent,/scheduled through the end of Fri 1 Jan/);
     if (!sofar || !total) assert.doesNotMatch(html,/curve-fill|curve-bubble|data-fraction=|NaN|Infinity/);

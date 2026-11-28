@@ -709,6 +709,39 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 #st-scan-review{scroll-margin-top:10rem}#st-scan-review h4{font-size:1rem;margin:1.2rem 0 .38rem}
 .st-rev-head,.st-rev-pick,.st-rev-people header,.st-follow li{display:flex;align-items:center;gap:.55rem 1rem;justify-content:space-between;flex-wrap:wrap}
 
+#st-count-line{margin:.9rem 0;padding:.8rem 1rem;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+#st-count-line[hidden]{display:none}
+#st-count-line h4{margin:0 0 .8rem}
+.st-line-field{display:grid;grid-template-columns:2.4rem minmax(0,1fr);gap:.4rem;padding-top:.35rem}
+.st-line-y,.st-line-plot{position:relative;height:clamp(8rem,13vw,15rem)}
+.st-line-plot{touch-action:pan-y}
+.st-line-plot svg{width:100%;height:100%;display:block;overflow:visible}
+.st-line-rule,.st-hatch-rule,.st-line-cutoff,.st-scan-line{fill:none;vector-effect:non-scaling-stroke}
+.st-line-rule{stroke:var(--line);stroke-width:1}
+.st-hatch-rule,.st-line-cutoff{stroke:var(--mu);stroke-width:1;opacity:.6}
+.st-line-cutoff{stroke-dasharray:4 4}
+.st-future-band{fill:var(--panel);opacity:.8}
+.st-scan-line{stroke:var(--issued);stroke-width:2.5;stroke-linejoin:round}
+.st-liquid-area{fill:var(--issued);opacity:.065}
+.st-line-dot{position:absolute;width:8px;height:8px;border:2px solid var(--issued);border-radius:50%;background:var(--panel);transform:translate(-50%,-50%);pointer-events:none}
+.st-time-cursor{position:absolute;top:0;bottom:0;border-left:1px dashed var(--mu);opacity:.85;pointer-events:none}
+.st-line-y span,.st-line-x span{position:absolute;font:inherit;font-size:.73rem;font-variant-numeric:tabular-nums;color:var(--mu)}
+.st-line-y span{right:0;transform:translateY(-50%)}
+.st-line-x{position:relative;min-height:1.65rem}
+.st-line-x span{top:.24rem;transform:translateX(-50%)}
+.st-line-x span:first-child{transform:none}.st-line-x span:last-child{transform:translateX(-100%)}
+.st-line-read,.st-line-scrub,.st-line-read>div{display:flex;align-items:center;gap:.45rem .8rem}
+.st-line-read{justify-content:space-between;flex-wrap:wrap;padding-top:.35rem;border-top:1px solid var(--line)}
+.st-line-read output,.st-line-scrub{font-size:.82rem;color:var(--mu)}.st-line-read output strong{color:var(--tx)}
+.st-line-read button{font-size:.8rem;padding:.35rem .65rem;min-height:2.6rem}
+.st-line-scrub{margin:.25rem 0}.st-line-scrub input{min-width:0;flex:1;height:2rem;accent-color:var(--issued)}
+#st-hour-detail>summary{font-weight:600;color:var(--tx);cursor:pointer;min-height:2.7rem;align-content:center}
+@media(max-width:620px){
+ #st-count-line{padding:.7rem .6rem}.st-line-field{grid-template-columns:1.75rem minmax(0,1fr)}
+ .st-line-x span:nth-child(even):not(:last-child){display:none}.st-line-read button,.st-line-scrub input{min-height:44px}
+}
+@media screen and (prefers-reduced-motion:no-preference){.st-line-plot.enter .st-scan-line{stroke-dasharray:1;animation:st-count-draw .85s cubic-bezier(.2,.65,.3,1) both}@keyframes st-count-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}}
+
 .st-recorded-times{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:.75rem;margin:.8rem 0}
 .st-recorded-times>div{min-width:0;border-inline-start:3px solid var(--issued);background:var(--panel2);padding:.75rem 1rem;border-radius:.35rem}
 .st-recorded-times>div+div{border-color:var(--line)}
@@ -1061,12 +1094,16 @@ html[data-theme=dark] .kpi.hot .n,.ut-number{color:var(--tx)}
 }
 
 /* Curved and straight instruments share glass edges and a labelled colour series. */
-.curved-gauge{--fluid:var(--neutral-series);--fluid-dark:color-mix(in srgb,var(--fluid) 44%,#191c22);--fluid-mid:color-mix(in srgb,var(--fluid) 78%,#292731);--fluid-face:color-mix(in srgb,var(--fluid) 60%,white);--curve-rim:#768694;--curve-shadow:#0D151D;--curve-core:#232F3B;--curve-glass:#354553;--curve-shine:#647888}
+.curved-gauge{--fluid:var(--neutral-series);--fluid-dark:color-mix(in srgb,var(--fluid) 34%,#15212b);--fluid-mid:color-mix(in srgb,var(--fluid) 62%,#242a32);--fluid-face:color-mix(in srgb,var(--fluid) 66%,white);--curve-rim:#768694;--curve-shadow:#0D151D;--curve-core:#232F3B;--curve-glass:#354553;--curve-shine:#647888}
 html[data-theme=light] .curved-gauge,.static .curved-gauge{--curve-rim:#a1aeb9;--curve-shadow:#bdc7ce;--curve-core:#dfe5e9;--curve-glass:#e6ebed;--curve-shine:#fff}
 .ringw svg.curved-gauge{transform:none}
 .curve-aura{display:none}
 @media screen{html[data-theme=dark]:not(.static) .curve-aura{display:inline;fill:var(--fluid);stroke:var(--fluid);stroke-width:2.5;opacity:.34;filter:blur(3px)}}
-.curve-face{fill:var(--fluid-face);stroke:#e6eae7;stroke-width:.58}
+.curve-reveal{stroke-dasharray:1 1;stroke-dashoffset:calc(1 - var(--motion-progress,1))}
+.curve-front-track{transform-origin:0 0;transform:rotate(calc((1 - var(--motion-progress,1)) * var(--curve-rewind)))}
+.curve-face{fill:var(--fluid-face);stroke:color-mix(in srgb,var(--fluid) 40%,white);stroke-width:.65}
+@media (prefers-reduced-motion:reduce),print{.curve-reveal{stroke-dashoffset:0}.curve-front-track{transform:none}}
+.static .curve-reveal{stroke-dashoffset:0}.static .curve-front-track{transform:none}
 .curve-meniscus{fill:none;stroke:#fff2db;stroke-opacity:.88;stroke-width:.7;stroke-linecap:round}
 .curve-bubble{transform-origin:0 0;opacity:0;pointer-events:none}
 .curve-bubble circle{fill:url(#liquid-pearl);stroke:#38404a;stroke-width:.45}
@@ -1115,9 +1152,19 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
 
 
 .hourly-chart .lbl{paint-order:stroke;stroke:var(--panel);stroke-width:3;stroke-linejoin:round}
-.liquid-film{fill:#fff;fill-opacity:.2;pointer-events:none}
-.liquid-volume .liquid-cap{stroke:rgba(255,255,255,.6);stroke-width:.68px}
-.cyl .liquid-volume :is(.liquid-base,.liquid-cap){fill:var(--tank-ink)}
+/* The upright shell is a clear vessel. The body, suspended core and top face
+   share the same semantic ink, including the separate bands of a stacked bill. */
+.upright-ink{--up-ink:var(--vessel-colour,var(--neutral-series));--up-edge:color-mix(in srgb,var(--up-ink) 86%,white);--up-pale:color-mix(in srgb,var(--up-ink) 48%,white);--up-cap:color-mix(in srgb,var(--up-ink) 10%,white);--up-rim:color-mix(in srgb,var(--up-ink) 28%,white)}
+.upright-ink.ca,.upright-ink.kl,#oh-kinds .upright-ink,#cs-cyls .upright-ink,#ut-gauge:not([data-period=past]) .upright-ink{--up-ink:#f26222;--up-edge:#ff7a3d;--up-pale:#ffc3a0;--up-cap:#fff4ec;--up-rim:#ffd9c2}
+.upright-ink.cb{--up-ink:var(--returned)}.upright-ink.day-glass{--up-ink:var(--past)}.upright-ink.night-glass{--up-ink:var(--night-series)}
+.upright-ink.kt{--up-ink:var(--spend-tooling)}.upright-ink.ks{--up-ink:var(--spend-services)}.upright-ink.kf{--up-ink:var(--spend-flights)}
+html[data-theme=light] :is(.upright-ink.ca,.upright-ink.kl,#oh-kinds .upright-ink,#cs-cyls .upright-ink,#ut-gauge:not([data-period=past]) .upright-ink){--up-ink:var(--issued);--up-edge:#ba5423;--up-pale:#ebad88}
+.upright-ink .up-wall{--side-edge:.7;--side-mid:.3;--side-core:.12}.upright-ink .up-rim{stop-color:var(--up-rim)}
+html[data-theme=light] .up-wall{--side-edge:.87;--side-mid:.52;--side-core:.28}
+html[data-theme=light] .upright-ink .up-rim{stop-color:var(--up-ink)}
+.liquid-volume .liquid-cap{stroke-width:.8;pointer-events:none}.upright-core,.upright-wire{pointer-events:none}
+.vessel-chart .glass-vessel .footlight,.cyl .glass-vessel .footlight{opacity:.36}
+@media screen and (prefers-reduced-motion:no-preference){html:not(.static) .upright-rise{transform-box:fill-box;transform-origin:center bottom;transform:scaleY(var(--motion-progress,1))}}
 .surface-pop{pointer-events:none;transform-origin:0 0;opacity:0}
 .pop-edge{stroke:#443c3b;stroke-opacity:.7;stroke-width:1.5;fill:none}
 .pop-pearl{stroke:#fff;stroke-opacity:.97;stroke-width:.72;fill:url(#liquid-pearl)}
@@ -1160,9 +1207,11 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
     --tube-h:clamp(16px,.84vw,28px);
     --tube-fill:var(--series, var(--neutral-series));--tube-rim:color-mix(in srgb,var(--tx) 30%,transparent);
     height:var(--tube-h);position:relative;border-radius:999px;isolation:isolate;
-    background:linear-gradient(180deg,color-mix(in srgb,var(--track) 55%,#acbac4),var(--track) 23%,var(--panel) 64%,var(--track) 88%,color-mix(in srgb,var(--track) 69%,#8d9da7));
-    box-shadow:inset 0 0 0 1px var(--tube-rim),inset 0 2px 1px #ffffff24
+    background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 72%,#d7e9ed),color-mix(in srgb,var(--panel) 92%,#d2e7ec) 16%,var(--panel) 32% 62%,color-mix(in srgb,var(--panel) 87%,#9fb5be) 84%,var(--panel) 95%);
+    box-shadow:inset 0 0 0 1px var(--tube-rim)
   }
+  & :is(.tr,.meter,.cbi .m)::after{content:"";position:absolute;z-index:1;inset:0;pointer-events:none;border-radius:inherit;
+    box-shadow:inset 0 0 0 1px var(--tube-rim);background:linear-gradient(180deg,transparent 10%,#e9f8ff48 13%,transparent 20% 81%,#deefff20 88%,transparent 94%)}
   & :is(.cbi .m,.meter){--tube-h:clamp(12px,.64vw,20px)}
   & .neu .tr,& .tr.neu{--tube-fill:var(--neutral-series)}
   & .warnb .tr,& .tr.warnb{--tube-fill:var(--warn)}
@@ -1171,21 +1220,22 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
   & .row .tr>.fb{top:auto;height:40%;bottom:0;--tube-fill:var(--past);--water-depth:calc(var(--tube-h)*.4)}
   & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i){
     --water-depth:var(--tube-h);--surface:color-mix(in srgb,var(--tube-fill) 71%,white);
-    max-width:100%;border-radius:999px;overflow:hidden;isolation:isolate;opacity:1;
-    background:linear-gradient(to bottom,var(--surface),var(--tube-fill) 22%,var(--tube-fill) 42%,color-mix(in srgb,var(--tube-fill) 77%,#20242c) 70%,color-mix(in srgb,var(--tube-fill) 49%,#1b2026) 87%,var(--surface));
-    box-shadow:inset 0 1px 0 #ffffff5c,inset 0 -1px 0 #29160c5c
+    max-width:100%;border-radius:var(--water-depth) min(32%,calc(var(--water-depth)*.25)) min(32%,calc(var(--water-depth)*.25)) var(--water-depth) / 50%;
+    overflow:hidden;isolation:isolate;opacity:1;
+    background:linear-gradient(180deg,var(--surface),var(--tube-fill) 12%,color-mix(in srgb,var(--tube-fill) 67%,var(--panel)) 25%,color-mix(in srgb,var(--tube-fill) 42%,var(--panel)) 52%,var(--tube-fill) 82%,var(--surface) 91%,var(--tube-fill));
+    box-shadow:inset 0 1px 0 #ffffff73,inset 0 -1px 0 #17140f55
   }
+  & [data-motion-gauge] :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i){width:calc(var(--w) * var(--motion-progress,1))}
   & :is(.meter>i,.cbi .m>i,.upbar .tr>i){position:relative}
   & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i)::before{
-    content:"";position:absolute;left:0;right:0;top:11%;height:12%;pointer-events:none;
-    background:linear-gradient(90deg,transparent 1%,#ffffff68 12%,#ffffff35 75%,transparent 100%)
+    content:"";position:absolute;inset:25% 0 26%;pointer-events:none;
+    background:linear-gradient(180deg,#ffede239,transparent 42%,color-mix(in srgb,var(--tube-fill) 36%,transparent) 80%,#fff1de3b)
   }
   & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i)::after{
-    content:"";position:absolute;right:0;top:2%;height:96%;width:min(32%,calc(.54*var(--water-depth)));
-    border-radius:50%;border:1px solid color-mix(in srgb,var(--tube-fill) 47%,#fff);
-    background:linear-gradient(110deg,#ffffff58,#ffffff15 38%,#2415095e 88%);pointer-events:none
+    content:"";position:absolute;right:0;top:3%;height:94%;width:min(34%,calc(.5*var(--water-depth)));box-sizing:border-box;
+    border-radius:50%;border:1px solid var(--surface);background:radial-gradient(ellipse at 30% 38%,var(--surface),var(--tube-fill) 54%,var(--surface) 94%);pointer-events:none
   }
-  & .tr.no-reading,& .cbi .m:empty{background:repeating-linear-gradient(135deg,var(--track) 0 4px,color-mix(in srgb,var(--neutral-series) 50%,var(--track)) 4px 5px)}
+  & .tr.no-reading,& .meter.no-reading,& .st-coverage-meter:empty,& .cbi .m:empty{background:repeating-linear-gradient(135deg,var(--track) 0 4px,color-mix(in srgb,var(--neutral-series) 50%,var(--track)) 4px 5px)}
   & .tube-stream{position:absolute;inset:0;pointer-events:none;--emit:24%;--tempo:2.8s;--offset:-1.7s}
   & .tube-stream:nth-child(2){--emit:59%;--tempo:3.3s;--offset:-.15s}
   & .tube-stream:nth-child(3){--emit:81%;--tempo:2.65s;--offset:-2.26s}
@@ -1618,6 +1668,23 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #st-categories{grid-template-columns:1fr}
  #v-swms #swms-documents{display:grid}
 }
+
+[data-motion-gauge]{--motion-progress:1}
+@media screen and (prefers-reduced-motion:no-preference){
+ html:not(.static) .column-annotation{transform:translateY(calc((1 - var(--motion-progress,1)) * var(--column-travel)))}
+}
+.reading-in-motion{display:inline-grid;align-items:baseline;font-variant-numeric:tabular-nums}
+.reading-in-motion>.reading-final,.reading-in-motion>.reading-frame{grid-area:1/1}
+.reading-in-motion>.reading-final{opacity:0}
+.reading-in-motion>.reading-frame{pointer-events:none}
+.reading-frame:before{content:attr(data-frame)}
+.reading-svg-final{opacity:0!important}.reading-svg-frame{pointer-events:none}
+@media print,(prefers-reduced-motion:reduce){
+ [data-motion-gauge]{--motion-progress:1!important}
+ .reading-svg-final,.reading-in-motion>.reading-final{opacity:1!important}
+ .reading-svg-frame{display:none!important}
+ .reading-in-motion>.reading-frame{display:none!important}
+}
 </style><style>
 /* Keep the return search and the filtered handover together on every screen. */
 #hire-records{margin-top:12px}
@@ -1848,7 +1915,7 @@ __CONTACTS__
 <section class="view pb" id="v-costs" data-tab="Labour and costs">
 <div class="vh"><h2>Labour and shut costs</h2><p id="cs-lead"></p></div>
 <div class="grid c2" style="margin-top:0">
-<div class="card costhero"><div class="ringw" id="cs-ring"></div><div class="cost-dates"><h3>Scheduled charge dates</h3><ul class="tl" id="cs-starts"></ul></div></div>
+<div class="card costhero"><div class="ringw" id="cs-ring" data-motion-gauge></div><div class="cost-dates"><h3>Scheduled charge dates</h3><ul class="tl" id="cs-starts"></ul></div></div>
 <div class="card"><h3>Cost by category</h3><div class="sub">Each cylinder shows scheduled cost through the pull date as a share of that category’s full shutdown cost.</div><div class="cyls" id="cs-cyls"></div></div>
 </div>
 <div class="stats" id="cs-stats" style="margin-top:16px"></div>
@@ -1990,6 +2057,12 @@ function formatMeasuredPercent(value,total){
   if(value>total && reading<100.05)return '>100%';
   return reading.toLocaleString('en-AU',{maximumFractionDigits:1})+'%';
 }
+function gaugeDigits(value,label){
+  const text=String(label),match=/^(\$)?[\d,]+(?:\.(\d+))?(%)?$/.exec(text);
+  if(!Number.isFinite(value)||value<0||!match)return esc(text);
+  const decimals=match[2]?.length||0;
+  return `<span data-motion-value="${value}" data-motion-decimals="${decimals}"${match[1]?' data-motion-prefix="$"':''}${match[3]?' data-motion-suffix="%"':''}>${esc(text)}</span>`;
+}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const QS=location.search, STATIC=/[?&]static/.test(QS);
 const root=document.documentElement;
@@ -2119,8 +2192,11 @@ function bars(el,items,o={}){
   const scale=o.rankUnit?`<div class="bar-scale">${max>0?`Full scale is ${fmt(max)} ${esc(o.rankUnit)}.`:'No positive quantities in these records.'}</div>`:'';
   el.innerHTML=scale+items.map(i=>{
     const total='total' in i?i.total:max;
-    const value=i.v??(Number.isFinite(i.n)?(o.dec?f1(i.n):fmt(i.n)):'–');
-    return `<div class="row"${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr${horizontalPercent(i.n,total)==null?' no-reading':''}" aria-hidden="true">${horizontalFill('fb',i.b,total)}${horizontalFill('fl',i.n,total)}</div><div class="v">${value}</div></div>`;
+    const label=i.v??(Number.isFinite(i.n)?(o.dec?f1(i.n):fmt(i.n)):'–');
+    const leading=String(label).match(/^(\d[\d,]*(?:\.\d+)?)(?=\s|$)/);
+    const valid=horizontalPercent(i.n,total)!==null;
+    const value=valid&&leading?(gaugeDigits(i.n,leading[1])+String(label).slice(leading[1].length)):label;
+    return `<div class="row"${valid?' data-motion-gauge':''}${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr${horizontalPercent(i.n,total)==null?' no-reading':''}" aria-hidden="true">${horizontalFill('fb',i.b,total)}${horizontalFill('fl',i.n,total)}</div><div class="v">${value}</div></div>`;
   }).join('');
 }
 function companyBars(el,companies,total){
@@ -2131,7 +2207,7 @@ function toolHoldingRow(t,k,showPeak=false){
   const exceedsFleet=Number.isFinite(t.site)&&t.on>t.site;
   const peak=showPeak&&Number.isFinite(t.best);
   const fleet=measured?`of ${fmt(t.site)}`:t.site===0?'· no current fleet':'· fleet size unavailable';
-  const history=showPeak?(peak?` · peak ${fmt(t.best)}${measured&&t.best>t.site?' (above current fleet)':''}`:' · peak unavailable'):'';
+  const history=showPeak?(peak?` · peak ${measured&&t.best<=t.site?gaugeDigits(t.best,fmt(t.best)):fmt(t.best)}${measured&&t.best>t.site?' (above current fleet)':''}`:' · peak unavailable'):'';
   return {name:t.name,pic:t.pic,n:exceedsFleet?null:t.on,total:t.site,b:peak?t.best:null,open:k?'t:'+k:'',v:`${fmt(t.on)} <small>${fleet}${exceedsFleet?' · verify fleet count':''}${history}</small>`};
 }
 const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>`<div${x[3]?` data-tip="${esc(x[3])}"`:''}><div class="n${x[2]?' '+x[2]:''}">${x[0]==null?'—':`<span data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>${x[0]}</span>`}</div><div class="l">${x[1]}</div></div>`).join('')};
@@ -2199,41 +2275,53 @@ ${contents?`<ellipse class="footlight" cx="${mid}" cy="${bottom+cap*.36}" rx="${
 <path class="scale" d="${ticks}"/><ellipse class="lip" cx="${mid}" cy="${y+cap}" rx="${w/2}" ry="${cap}"/></g>`;
 }
 
-// One continuous vessel has one exposed liquid surface. A coloured band occupies
-// its measured interval, including when it is thinner than the top ellipse.
-function liquidVolume(width,height,cap,layers,seed){
+// Each chart shares a set of paints per series. Standalone tanks resolve their
+// own semantic ink from the active tool, stock or historical view.
+function uprightPaints(prefix,classes,clock=false){
+  return Array.from(new Set(classes)).map(c=>{
+    const id=prefix+(c||'tank'), tone=clock?(c==='ca'?'day-glass':'night-glass'):c;
+    return `<g class="upright-ink ${tone}">
+<linearGradient id="${id}-wall" class="up-wall"><stop stop-color="var(--up-edge)" stop-opacity="var(--side-edge)"/><stop offset=".16" stop-color="var(--up-ink)" stop-opacity="var(--side-mid)"/><stop offset=".5" stop-color="var(--up-ink)" stop-opacity="var(--side-core)"/><stop offset=".84" stop-color="var(--up-ink)" stop-opacity="var(--side-mid)"/><stop offset="1" stop-color="var(--up-edge)" stop-opacity="var(--side-edge)"/></linearGradient>
+<linearGradient id="${id}-core" x2="0" y2="1"><stop stop-color="var(--up-ink)" stop-opacity=".04"/><stop offset=".7" stop-color="var(--up-edge)" stop-opacity=".34"/><stop offset="1" stop-color="var(--up-pale)" stop-opacity=".75"/></linearGradient>
+<radialGradient id="${id}-cap"><stop stop-color="var(--up-cap)"/><stop offset=".55" stop-color="var(--up-pale)" stop-opacity=".9"/><stop offset="1" stop-color="var(--up-edge)" stop-opacity=".8"/></radialGradient>
+<linearGradient id="${id}-rim"><stop class="up-rim"/></linearGradient>
+<radialGradient id="${id}-glow"><stop stop-color="var(--up-edge)" stop-opacity=".63"/><stop offset="1" stop-color="var(--up-ink)" stop-opacity="0"/></radialGradient></g>`;
+  }).join('');
+}
+
+// The chart has one exposed surface. Its meniscus and bubbles stay within the
+// measured outline even when a coloured band is thinner than the cap.
+function liquidVolume(width,height,cap,layers,seed,prefix){
   if(!(width>0&&height>0&&layers.length))return '';
-  const mid=width/2, top=layers[layers.length-1], id='lv'+(++uid);
-  const ry=Math.min(cap,width*.18,height*.24,top.height*.35);
-  const bottomCap=Math.min(cap,width*.18,height*.24);
-  const shell=vesselOutline(0,0,width,height,ry,bottomCap);
-  const streams=liquidStreams(width,height,seed,ry);
+  const mid=width/2, top=layers[layers.length-1], id='lv'+(++uid),paint=prefix+(top.c||'tank');
+  const ry=Math.min(cap,width*.16,height*.22,top.height*.35),bottomCap=Math.min(cap,width*.16,height*.22);
+  const shell=vesselOutline(0,0,width,height,ry,bottomCap),streams=liquidStreams(width,height,seed,ry);
   let start=height;
   const bands=layers.map(layer=>{
     start=Math.max(0,start-layer.height);
-    return `<rect class="${layer.c} liquid-base" x="0" y="${start}" width="${width}" height="${layer.height}"/>`;
+    const ink=prefix+(layer.c||'tank');
+    return `<rect class="${layer.c} liquid-base" x="0" y="${start}" width="${width}" height="${layer.height}" style="fill:url(#${ink}-wall)"/>
+<rect class="upright-core" x="${width*.29}" y="${start}" width="${width*.42}" height="${layer.height}" fill="url(#${ink}-core)"/>
+<path class="upright-wire" d="M.5 ${start}v${layer.height}M${width-.5} ${start}v${layer.height}" fill="none" stroke="url(#${ink}-rim)" stroke-opacity=".62" stroke-width="1"/>`;
   }).join('');
   return `<g class="liquid-volume" data-surface="open" aria-hidden="true">
 <defs><clipPath id="${id}"><path d="${shell}"/></clipPath></defs>
-<g clip-path="url(#${id})">${bands}
-<path d="${shell}" fill="url(#liquid-glass)"/>
-<path class="liquid-reflection" d="M${width*.125} ${ry}v${Math.max(0,height-ry-bottomCap)}"/>
-<ellipse class="${top.c} liquid-cap" cx="${mid}" cy="${ry}" rx="${mid}" ry="${ry}"/>
-<ellipse class="liquid-film" cx="${mid}" cy="${ry}" rx="${mid}" ry="${ry}"/>
-<path class="liquid-meniscus" d="M${width*.055} ${ry*1.07}Q${mid} ${ry*2.65} ${width*.945} ${ry*1.07}"/>
-<g class="liquid-particles">${streams.inside}</g></g>${streams.surface}</g>`;
+<g clip-path="url(#${id})">${bands}<g class="liquid-particles">${streams.inside}</g>
+<ellipse class="${top.c} liquid-cap" cx="${mid}" cy="${ry}" rx="${mid}" ry="${ry}" style="fill:url(#${paint}-cap);stroke:url(#${paint}-rim)"/>
+${streams.surface}</g></g>`;
 }
 
-function columnVessel(x,width,top,bottom,scaleY,segments,seed,glass){
-  const cap=Math.min(width*.125,8), total=segments.reduce((n,s)=>n+s.v,0);
+function columnVessel(x,width,top,bottom,scaleY,segments,seed,glass,prefix='upright'){
+  const cap=Math.min(width*.16,8.64), total=segments.reduce((n,s)=>n+s.v,0);
   let contents='';
   if(total>0){
     const height=bottom-scaleY(total), inner=glass?width-1:width;
     const layers=segments.map(s=>({c:s.c,height:bottom-scaleY(s.v)}));
-    const fluid=liquidVolume(inner,height,cap*.94,layers,seed);
-    contents=`<g transform="translate(${x+(glass ? .5 : 0)} ${bottom})"><g class="hourly-fill"><g transform="translate(0 ${-height})">${fluid}</g></g></g>`;
+    const fluid=liquidVolume(inner,height,cap*.98,layers,seed,prefix);
+    contents=`<g transform="translate(${x+(glass ? .5 : 0)} ${bottom})"><g transform="translate(0 ${-height})"><g class="upright-rise">${fluid}</g></g></g>`;
   }
-  return glass?glassVessel(x,top,width,bottom-top,cap,contents,'liquid-glass','column-glow'):contents;
+  const glow=segments.length?prefix+(segments[0].c||'tank')+'-glow':'column-glow';
+  return glass?glassVessel(x,top,width,bottom-top,cap,contents,'liquid-glass',glow):contents;
 }
 
 // Only elapsed hours or dates supplied by the caller belong on the axis.
@@ -2262,20 +2350,30 @@ function columns(el,labels,series,o){
       const v=max*i/steps;
       grid+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`;
     }
-    const peak=totals.indexOf(highest);
+    const peak=totals.indexOf(highest),prefix='chart-ink'+(++uid)+'-';
+    const paints=uprightPaints(prefix,bins.flatMap(bin=>(bin||[]).map(s=>s.c)),el.id==='clock');
     labels.forEach((label,i)=>{
       const x=L+sw*i+(sw-bw)/2,mid=x+bw/2,total=totals[i],fut=o.fade?.(i)?' fut':'';
-      marks+=`<g class="column-reading${fut}${bins[i]?'':' unknown-reading'}">${columnVessel(x,bw,T,bottom,y,bins[i]||[],i*3,glass)}</g>`;
+      const stroke=columnVessel(x,bw,T,bottom,y,bins[i]||[],i*3,glass,prefix);
+      function annotation(label,css,offset){
+        const measured=typeof label==='object'&&label!==null&&Number.isFinite(label.number);
+        const pre=measured?label.prefix||'':'',suffix=measured?label.suffix||'':'';
+        const attributes=measured?` data-motion-value="${label.number}" data-motion-prefix="${esc(pre)}" data-motion-suffix="${esc(suffix)}"`:'';
+        return `<text class="${css}" x="${mid}" y="${y(total)-offset}" text-anchor="middle"${attributes}>${esc(measured?pre+fmt(label.number)+suffix:label)}</text>`;
+      }
+      let annotations='';
+      if(i===peak&&total>0&&o.peak)annotations+=annotation(o.peak(i,total),'lbl',8);
+      if(o.val&&total>0)annotations+=annotation(o.val(i,total),'lbl vl'+fut,7);
+      const ridingLabel=annotations?`<g class="column-annotation" style="--column-travel:${bottom-y(total)}px">${annotations}</g>`:'';
+      marks+=`<g class="column-reading${fut}${bins[i]?'':' unknown-reading'}" data-motion-gauge style="--reading-delay:${150+Math.min(i,7)*80}ms">${stroke}${ridingLabel}</g>`;
       if(total===null)marks+=`<text class="ax" x="${mid}" y="${bottom-5}" text-anchor="middle">—</text>`;
-      if(i===peak&&total>0&&o.peak)marks+=`<text class="lbl" x="${mid}" y="${y(total)-8}" text-anchor="middle">${esc(o.peak(i,total))}</text>`;
-      if(o.val&&total>0)marks+=`<text class="lbl vl${fut}" x="${mid}" y="${y(total)-7}" text-anchor="middle">${esc(o.val(i,total))}</text>`;
       if(i%Math.max(o.every||1,STATIC?1:Math.ceil(30/sw))===0)marks+=`<text class="ax${o.mark?.(i)?' axb':''}" x="${mid}" y="${bottom+18}" text-anchor="middle">${esc(o.short?o.short(label):label)}</text>`;
       const tip=total===null?label+' · Reading unavailable':o.tip(i);
       readings.push(tip.replace(/<br\s*\/?>/gi,', ').replace(/<\/?b>/gi,''));
       marks+=`<g class="hit" data-tip="${esc(tip)}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${bottom-T}"/><rect class="hl" x="${x}" y="${H-3}" width="${bw}" height="2"/></g>`;
     });
     const description='column-readings'+(++uid);
-    el.innerHTML=`<svg class="liquid-chart${glass?' vessel-chart':''}${o.glass?' hourly-chart':''}" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'Chart')}" aria-describedby="${description}"><desc id="${description}">${esc(readings.join('. '))}</desc>${grid}${marks}</svg>`;
+    el.innerHTML=`<svg class="liquid-chart${glass?' vessel-chart':''}${o.glass?' hourly-chart':''}" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'Chart')}" aria-describedby="${description}"><desc id="${description}">${esc(readings.join('. '))}</desc><defs>${paints}</defs>${grid}${marks}</svg>`;
   });
 }
 
@@ -2295,7 +2393,7 @@ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="$
 function rangeRow(title,unit,r){const W=560,H=112,L=24,R=24,max=Math.max(1,r[2].n*1.12),x=v=>L+(W-L-R)*v/max,cy=58;
 const span=x(r[2].n)-x(r[0].n), id='lr'+(++uid);
 return `<div style="margin-top:6px"><div style="font-size:13.5px;font-weight:600">${title}</div>
-<svg class="liquid-range" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><rect class="rtrack" x="${L}" y="${cy-9}" width="${W-L-R}" height="18" rx="9"/>
+<svg class="liquid-range" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(title)}"><defs><linearGradient id="${id}-wall" x2="0" y2="1"><stop stop-color="var(--dim)"/><stop offset=".13" stop-color="var(--track)"/><stop offset=".36" stop-color="var(--panel)"/><stop offset=".7" stop-color="var(--panel)"/><stop offset=".88" stop-color="var(--track)"/><stop offset="1" stop-color="var(--dim)"/></linearGradient></defs><rect class="rtrack" style="fill:url(#${id}-wall)" x="${L}" y="${cy-9}" width="${W-L-R}" height="18" rx="9"/>
 <g transform="translate(${x(r[0].n)} ${cy-9})"><defs><clipPath id="${id}"><rect width="${span}" height="18" rx="9"/></clipPath></defs>
 <g clip-path="url(#${id})" aria-hidden="true"><rect class="band" width="${span}" height="18" rx="9"/>
 <path d="M2 2.3H${Math.max(2,span-6)}" stroke="white" stroke-opacity=".43"/>
@@ -2317,13 +2415,11 @@ const valid=Number.isFinite(total)&&total>0&&Number.isFinite(value)&&value>=0&&!
 const share=valid?Math.min(1,value/total):0;
 const height=140*share, surface=158-height, id='c'+(++uid);
 const readout=Number.isFinite(value)&&value>=0?`<span data-n="${value}">${fmt(value)}</span>`:'—';
-const volume=height>0?liquidVolume(63,height,7.5,[{c:'',height}],uid):'';
+const volume=height>0?liquidVolume(63,height,8.64,[{c:'',height}],uid,id):'';
 const tag=it.open?'button':'div';
-return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg class="liquid-gauge${valid?'':' unknown-reading'}" viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
-<defs><linearGradient id="${id}" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
-<linearGradient id="${id}g"><stop stop-color="#fff" stop-opacity=".05"/><stop offset=".12" stop-color="#fff" stop-opacity=".17"/><stop offset=".26" stop-color="#fff" stop-opacity=".015"/><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".14"/></linearGradient>
-<radialGradient id="${id}h"><stop stop-color="var(--vessel-colour,var(--neutral-series))" stop-opacity=".82"/><stop offset="1" stop-color="var(--vessel-colour,var(--neutral-series))" stop-opacity="0"/></radialGradient></defs>
-${glassVessel(5,18,64,140,8,volume?`<g class="liquid" style="--tank-ink:url(#${id})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:'',id+'g',id+'h')}</svg>${o.pic?pic(it.pic,it.name,'lg'):''}
+return `<${tag} class="cyl" data-motion-gauge style="--reading-delay:${150+Math.min(o.index||0,7)*80}ms"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg class="liquid-gauge${valid?'':' unknown-reading'}" viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
+<defs>${volume?uprightPaints(id,['']):''}</defs>
+${glassVessel(5,18,64,140,8.64,volume?`<g transform="translate(5.5 ${surface})"><g class="upright-rise">${volume}</g></g>`:'','liquid-glass',id+'tank-glow')}</svg>${o.pic?pic(it.pic,it.name,'lg'):''}
 <span class="val">${it.val||readout}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${Number.isFinite(it.fleet)?fmt(it.fleet):'—'} on site${overFleet?' · verify fleet count':''}</small>`:''))}</span></${tag}>`}
 // The filled sector ends exactly at the measured angle. Its meniscus and
 // bubbles sit inside that angle, including when only a sliver is filled.
@@ -2349,8 +2445,10 @@ function curvedGlass(radius, thickness, start, sweep, value) {
   // Explicit stop positions place the glint and dark far wall within the
   // thickness of the tube, irrespective of the arc's direction or length.
   const shade=(key,colours)=>`<radialGradient id="${id}-${key}" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${outer}">${colours.map(([pos,colour])=>`<stop offset="${round((inner+pos*thickness)/outer)}" stop-color="${colour}"/>`).join('')}</radialGradient>`;
-  const shell=shade('shell',[[0,'var(--curve-rim)'],[.08,'var(--curve-shadow)'],[.26,'var(--curve-core)'],[.51,'var(--track)'],[.77,'var(--curve-glass)'],[.83,'var(--curve-shine)'],[.92,'var(--curve-glass)'],[1,'var(--curve-rim)']]);
-  const fluid=shade('liquid',[[0,'var(--fluid-dark)'],[.16,'var(--fluid-mid)'],[.38,'var(--fluid)'],[.62,'var(--fluid)'],[.77,'var(--fluid-face)'],[.84,'var(--fluid)'],[1,'var(--fluid-dark)']]);
+  const shell=shade('shell',[[0,'var(--curve-rim)'],[.05,'var(--curve-shadow)'],[.17,'var(--curve-glass)'],[.34,'var(--panel)'],[.65,'var(--panel)'],[.82,'var(--curve-glass)'],[.87,'var(--curve-shine)'],[.93,'var(--curve-core)'],[1,'var(--curve-rim)']]);
+  const fluid=shade('liquid',[[0,'var(--curve-rim)'],[.06,'var(--fluid-dark)'],[.12,'var(--fluid)'],[.2,'var(--fluid-mid)'],[.38,'var(--fluid-dark)'],[.52,'var(--fluid-mid)'],[.71,'var(--fluid)'],[.83,'var(--fluid-face)'],[.9,'var(--fluid)'],[1,'var(--curve-rim)']]);
+  const margin=outer+8, centerline='M'+coords(radius,start)+arc(radius,start,finish);
+  const reveal=`<mask id="${id}-reveal" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="-${margin}" y="-${margin}" width="${2*margin}" height="${2*margin}"><path class="curve-reveal" d="${centerline}" pathLength="1" fill="none" stroke="white" stroke-width="${thickness+14}" stroke-linecap="butt"/></mask>`;
   const facePosition=`translate(${coords(radius,finish)}) rotate(${round(finish*180/Math.PI)}) translate(0 ${-round(depth)})`;
   const meniscus=hasSurface&&fraction>0?`<g transform="${facePosition}"><ellipse class="curve-face" rx="${half*.96}" ry="${round(depth)}"/><path class="curve-meniscus" d="M${-half*.71} 0Q0 ${round(depth*1.62)} ${half*.7} 0"/></g>`:'';
   let bubbles='',pop='';
@@ -2368,9 +2466,9 @@ function curvedGlass(radius, thickness, start, sweep, value) {
       if(terminal)pop=`<g transform="${facePosition}"><g class="surface-pop curve-pop" style="${clock}"><ellipse class="pop-edge" rx="${round(half*.42)}" ry="${round(depth*.46)}"/><ellipse class="pop-pearl" rx="${round(half*.42)}" ry="${round(depth*.46)}"/></g></g>`;
     }
   }
-  return `<g class="curved-glass"${measured?` data-fraction="${fraction}"`:' data-unavailable="true"'}><defs>${shell}${fraction>0?fluid+`<clipPath id="${id}-fill"><path d="${liquid}" clip-rule="evenodd"/></clipPath><clipPath id="${id}-glow"><path d="${sector(outer+5,inner-5,finish)}" clip-rule="evenodd"/></clipPath>`:''}</defs>
-${fraction>0?`<g clip-path="url(#${id}-glow)"><path class="curve-aura" d="${liquid}" fill-rule="evenodd"/></g>`:''}<path class="curve-shell" d="${track}" fill="url(#${id}-shell)" fill-rule="evenodd"/>
-${fraction>0?`<g clip-path="url(#${id}-fill)"><path class="curve-fill" d="${liquid}" fill="url(#${id}-liquid)" fill-rule="evenodd"/>${bubbles}${meniscus}${pop}</g>`:''}</g>`;
+  return `<g class="curved-glass" style="--curve-rewind:${round(-sweep*fraction*180/Math.PI)}deg"${measured?` data-fraction="${fraction}"`:' data-unavailable="true"'}><defs>${shell}${fraction>0?fluid+reveal+`<clipPath id="${id}-fill"><path d="${liquid}" clip-rule="evenodd"/></clipPath><clipPath id="${id}-glow"><path d="${sector(outer+5,inner-5,finish)}" clip-rule="evenodd"/></clipPath>`:''}</defs>
+${fraction>0?`<g clip-path="url(#${id}-glow)"><path class="curve-aura" d="${liquid}" fill-rule="evenodd" mask="url(#${id}-reveal)"/></g>`:''}<path class="curve-shell" d="${track}" fill="url(#${id}-shell)" fill-rule="evenodd"/>
+${fraction>0?`<g clip-path="url(#${id}-fill)" mask="url(#${id}-reveal)"><path class="curve-fill" d="${liquid}" fill="url(#${id}-liquid)" fill-rule="evenodd"/>${bubbles}<g class="curve-front-track">${meniscus}${pop}</g></g>`:''}</g>`;
 }
 
 function measuredFraction(value,total){
@@ -2379,9 +2477,9 @@ function measuredFraction(value,total){
 function dial(v,of,cap,sub){const exceedsFleet=Number.isFinite(v)&&Number.isFinite(of)&&v>of;
 const sh=exceedsFleet?null:measuredFraction(v,of);
 const detail=sh!==null?fmt(v)+' of '+fmt(of):exceedsFleet?'Check counts: '+fmt(v)+' of '+fmt(of):of===0?'No assets in scope':'Count unavailable';
-return `<div class="dial"><div class="plot"><svg class="liquid-gauge curved-gauge" viewBox="-4 -2 188 106" width="230" aria-hidden="true" focusable="false">
+return `<div class="dial"${sh===null?'':' data-motion-gauge'}><div class="plot"><svg class="liquid-gauge curved-gauge" viewBox="-4 -2 188 106" width="230" aria-hidden="true" focusable="false">
 ${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<g transform="translate(90 95)">${curvedGlass(70,14,Math.PI,Math.PI,sh)}</g></svg>
-<div class="reading"><div class="big">${sh===null?'—':esc(formatMeasuredPercent(v,of))}</div><div class="of">${esc(detail)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
+<div class="reading"><div class="big">${sh===null?'—':gaugeDigits(100*sh,formatMeasuredPercent(v,of))}</div><div class="of">${sh===null?esc(detail):gaugeDigits(v,fmt(v))+' of '+fmt(of)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
 
 /* ---------- overview ---------- */
 const returnPlan=D.return_instruction;
@@ -2468,7 +2566,7 @@ const nh=D.hours.filter(h=>Number(h.slice(0,2))<=asatH).length;
 const out=D.hour_out.slice(0,nh),back=D.hour_back.slice(0,nh),still=out.map((v,i)=>v-back[i]);
 const untimed=D.issue_hour_unknown??Math.max(0,K.issued_today-out.reduce((a,b)=>a+b,0));
 $('#hoursub').textContent=`${fmt(K.issued_today)} assets have a latest issue dated ${D.asat_day} at the ${asatT} stock pull. Bars group those assets by issue hour and show their status at the pull.${untimed?' '+fmt(untimed)+' outside the displayed hour bins.':''}`;
-columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Assets by latest issue hour and current status',glass:mmgDugaldRiver,bw:mmgDugaldRiver?42:34,short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
+columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Assets by latest issue hour and current status',glass:mmgDugaldRiver,bw:mmgDugaldRiver?42:34,short:l=>l.slice(0,2),peak:(i,m)=>({number:m,suffix:' at '+D.hours[i]}),
 tip:i=>`<b>${D.hours[i]}</b><br>Latest issues: ${out[i]}<br>Still on hire: ${still[i]}<br>No longer on hire: ${back[i]}`});
 $('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}. Each gauge shows one company’s share.`;
 companyBars($('#cos'),C,K.on);
@@ -2498,7 +2596,7 @@ if(returnPlan){
   $('#dl2').hidden=true;
 }
 const kinds=Object.entries(D.tools).filter(([k,t])=>t.on>0).sort((a,b)=>b[1].on-a[1].on||a[1].name.localeCompare(b[1].name));
-$('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl({name:t.name,on:t.on,fleet:t.site,pic:t.pic,open:'t:'+k},{share:1,pic:1,checkFleet:true})).join('')}</div>${kinds.length>6?`<details class="hire-rest"${STATIC?' open':''}><summary>View ${kinds.length-6} more tool types</summary><div id="oh-rest"></div></details>`:''}`;
+$('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t],index)=>cyl({name:t.name,on:t.on,fleet:t.site,pic:t.pic,open:'t:'+k},{share:1,pic:1,checkFleet:true,index})).join('')}</div>${kinds.length>6?`<details class="hire-rest"${STATIC?' open':''}><summary>View ${kinds.length-6} more tool types</summary><div id="oh-rest"></div></details>`:''}`;
 if(kinds.length>6)bars($('#oh-rest'),kinds.slice(6).map(([k,t])=>toolHoldingRow(t,k)),{pic:1});
 const R=D.onhire.slice().sort((a,b)=>a.co.localeCompare(b.co)||a.who.localeCompare(b.who)||a.desc.localeCompare(b.desc));
 let expanded=false;
@@ -2758,9 +2856,9 @@ stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[measuredShelf,shelfMi
 if(B.length){$('#below-h').textContent=`Top up first · ${plural(B.length,'line')} below minimum`;
 $('#below-sub').textContent=minCoverageText;
 const thresholds=`Across ${fmt(maxCoverage)} lines with a usable maximum, ${fmt(D.to_max)} additional units would reach those maximums. Bars compare the shelf quantity with the maximum. The mark shows the minimum.`;
-const rows=B.map(b=>`<tr data-open="cl:${esc(b.line)}">
+const rows=B.map(b=>`<tr ${horizontalPercent(b.have,b.max)===null?'':'data-motion-gauge '}data-open="cl:${esc(b.line)}">
   <td><span class="below-line">${cpic(b.line)}<span>${esc(b.line)}</span></span></td>
-  <td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max??'—'}</td>
+  <td class="n">${horizontalPercent(b.have,b.max)===null?b.have:gaugeDigits(b.have,fmt(b.have))}</td><td class="n">${b.min}</td><td class="n">${b.max??'—'}</td>
   <td class="n">${b.max==null?'—':`<span class="pill w">+${fmt(b.max-b.have)}</span>`}</td>
   <td>${markedGauge(b.have,b.min,b.max,'warnb')}</td>
   <td class="below-code">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td>${qrb(b.line)}</td></tr>`).join('');
@@ -2770,7 +2868,7 @@ else{$('#below-h').textContent=minCoverage?'No assessed stock line is below mini
 const partial=cs.some(c=>c.unknown),max=partial?null:(cs[0]?.n??0);
 const scale=partial?'Some stock lines are missing a balance. Gauges will show the comparison once quantities are complete.':
   max>0?`All gauges run from 0 to ${fmt(max)} units, the largest category in this pull.`:'No positive shelf quantities in these categories.';
-$('#cn-types').innerHTML=cs.length?`<p class="bar-scale">${scale}</p><div class="cyls">${cs.slice(0,6).map(c=>cyl({name:c.name,n:c.n,val:catalogueQuantity(c),open:'ct:'+c.name},{max})).join('')}</div><div id="cn-rest" class="neu" style="margin-top:14px"></div>`:'<div class="empty">No consumable categories are recorded in this pull.</div>';
+$('#cn-types').innerHTML=cs.length?`<p class="bar-scale">${scale}</p><div class="cyls">${cs.slice(0,6).map((c,index)=>cyl({name:c.name,n:c.n,val:catalogueQuantity(c),open:'ct:'+c.name},{max,index})).join('')}</div><div id="cn-rest" class="neu" style="margin-top:14px"></div>`:'<div class="empty">No consumable categories are recorded in this pull.</div>';
 if(cs.length>6)bars($('#cn-rest'),cs.slice(6).map(c=>({name:c.name,n:c.n,v:catalogueQuantity(c),open:'ct:'+c.name})),{max})}
 if(dr.n){$('#draw-sub').textContent=`${fmt(dr.units)} units in ${dr.n} issues to ${dr.people} people. Each gauge shows the share of all units drawn.`;
 const src={types:()=>dr.types.map(t=>({name:t.name,n:t.n,open:'ct:'+t.name})),lines:()=>dr.lines.map(t=>({name:t.name,n:t.n,open:'cl:'+t.name})),cos:()=>dr.cos.map(t=>({name:t.name,n:t.n}))};
@@ -2782,7 +2880,7 @@ else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHT
 {const P=D.clines.filter(l=>l.peak).sort((a,b)=>b.avgpeak-a.avgpeak||b.peak-a.peak);
 if(P.length){const mx=Math.max(...P.map(l=>l.peak));let all=STATIC?0:0;
 $('#peak-sub').textContent=`For each line: what a normal day uses, what its busiest day usually reaches, the single busiest day on record and the most drawn in one shut. The fill shows the usual busiest day. The mark shows the record. Every gauge runs from 0 to ${fmt(mx)} units.`;
-const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td>${markedGauge(l.avgpeak,l.peak,mx)}</td><td class="n">${fmt(l.most)}</td><td class="n">${l.have!=null&&l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${shelfLabel(l)}</span>`:shelfLabel(l)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
+const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-motion-gauge data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${gaugeDigits(l.avgpeak,fmt(l.avgpeak))}</td><td class="n">${l.peak}</td><td>${markedGauge(l.avgpeak,l.peak,mx)}</td><td class="n">${fmt(l.most)}</td><td class="n">${l.have!=null&&l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${shelfLabel(l)}</span>`:shelfLabel(l)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
 const m=$('#peaks .more');if(m)m.onclick=()=>{all=!all;draw();$('#peaks').classList.add('now')}};draw()}
 else $('#peakcard').remove()}
 }
@@ -2797,7 +2895,7 @@ function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units'
 if(!L.length){el.innerHTML='<div class="empty">No categories are recorded in this pull.</div>';return}
 const partial=L.some(c=>c.unknown),total=partial?null:L.reduce((sum,c)=>sum+c.n,0);let open=0;
 const scale=partial?'Catalogue shares are available when all stock balances are known.':`Share of ${fmt(total)} ${unit} in this catalogue.`;
-el.innerHTML=`<div class="cbl"><p class="bar-scale">${scale}</p>${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${catalogueQuantity(c)}</span></div><div class="m" aria-hidden="true">${total>0?`<i style="--w:${horizontalPercent(c.n,total)}%">${c.n>0?horizontalStreams():''}</i>`:''}</div></button>`).join('')}</div><div class="cbp"></div>`;
+el.innerHTML=`<div class="cbl"><p class="bar-scale">${scale}</p>${L.map((c,i)=>`<button class="cbi${i?'':' on'}"${total>0?' data-motion-gauge':''} data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${total>0&&!c.unknown?gaugeDigits(c.n,catalogueQuantity(c)):catalogueQuantity(c)}</span></div><div class="m" aria-hidden="true">${total>0?`<i style="--w:${horizontalPercent(c.n,total)}%">${c.n>0?horizontalStreams():''}</i>`:''}</div></button>`).join('')}</div><div class="cbp"></div>`;
 const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${catalogueQuantity(c,unit)} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
 c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}${tgd(mode=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}<small>${catalogueQuantity(k,unit)}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n&&!s.unknown?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>${s.unknown?catalogueQuantity(s):'×'+fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
 $$('.cbi',el).forEach(b=>b.onclick=()=>{open=+b.dataset.i;$$('.cbi',el).forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
@@ -2904,7 +3002,7 @@ stats($('#op-stats'),[[Math.round(P.tx),'Transactions a day','','One tool out, o
 const order=[...Array(24).keys()].map(i=>(i+5)%24),tot=h=>O.hours.issue[h]+O.hours.return[h]+O.hours.sale[h];
 $('#clock-sub').textContent=`Average transactions in each hour of the day. Busiest around ${hh(O.busiest)}, quietest around ${hh(O.quietest)}.`;
 columns($('#clock'),order.map(hh),[{v:order.map(tot),cls:i=>{const h=order[i];return h>=6&&h<18?'ca':'cb'}}],{w:1100,h:260,label:'Average transactions by hour',short:l=>l.slice(0,2),
-peak:(i,m)=>`${whole(m)} at ${hh(order[i])}`,tip:i=>{const h=order[i];return `<b>${hh(h)}</b> · ${h>=6&&h<18?'day':'night'} shift<br>About ${whole(tot(h))} transactions<br>Tools out: ${f1(O.hours.issue[h])}<br>Tools back: ${f1(O.hours.return[h])}<br>Consumable issues: ${f1(O.hours.sale[h])}`}});
+peak:(i,m)=>({number:Math.round(m),suffix:' at '+hh(order[i])}),tip:i=>{const h=order[i];return `<b>${hh(h)}</b> · ${h>=6&&h<18?'day':'night'} shift<br>About ${whole(tot(h))} transactions<br>Tools out: ${f1(O.hours.issue[h])}<br>Tools back: ${f1(O.hours.return[h])}<br>Consumable issues: ${f1(O.hours.sale[h])}`}});
 const sun='<svg viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="2" stroke-linecap="round"><g class="spin"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g><circle cx="12" cy="12" r="4" fill="var(--or)"/></svg>';
 const moon='<svg viewBox="0 0 24 24" fill="var(--neu)" stroke="var(--neu)" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>';
 const card=(k,icn)=>{const S=O.shift[k],M=D.shifts[k];return `<h4>${icn}${M.name}${M.who?` <span class="pill n">Usual controller · ${esc(M.who)}</span>`:''}</h4><div class="hrs">${M.hours}</div>
@@ -2918,7 +3016,7 @@ const H=D.history||[];
 if(H.length>1)lineChart($('#trend'),H.map(h=>+h.asat.slice(8,10)+' '+MON[+h.asat.slice(5,7)-1]+' '+h.asat.slice(11)),[{name:'On hire',v:H.map(h=>h.on_hire)},{name:'Issued that day',v:H.map(h=>h.issued_today)}],{label:'On hire by pull'});
 else $('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${fmt(K.on)} on hire, ${fmt(K.issued_today)} issued today. The line starts from the next pull.</div>`;
 if(D.shuts){const S=D.shuts;$('#range-sub').textContent=`The quietest, typical and busiest shut, each as an average per whole shift day. This shut joins once it has ${S.min_days} whole days.`;
-const trio=(t,r)=>`<div><div class="rt">${t}</div><div class="cyls">${r.map(x=>cyl(x,{max:r[2].n})).join('')}</div></div>`;
+const trio=(t,r)=>`<div><div class="rt">${t}</div><div class="cyls">${r.map((x,index)=>cyl(x,{max:r[2].n,index})).join('')}</div></div>`;
 $('#range').innerHTML=`<div class="grid c2" style="margin-top:0">${trio('Consumable units drawn a day',S.cons)}${trio('Tools issued a day',S.tools)}</div>`}
 else{$('#range-sub').textContent='';$('#range').innerHTML='<div class="empty">No shut history loaded.</div>'}}
 
@@ -2982,24 +3080,24 @@ const sh=measuredFraction(C.sofar,C.total);
 $('#cs-lead').textContent=C.days.length?`${money(C.sofar)} of the ${money(C.total)} shutdown cost is scheduled through the end of ${C.upto}. This includes ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours and all charges assigned to those dates.`:'No dated cost schedule is available for this shutdown.';
 $('#cs-ring').innerHTML=`<svg class="liquid-gauge curved-gauge" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
 <circle class="rg2" cx="120" cy="120" r="116"/><path class="ring-ticks" d="M120 2v8M238 120h-8M120 238v-8M2 120h8"/><g transform="translate(120 120)">${curvedGlass(100,18,-Math.PI/2,2*Math.PI,sh)}</g></svg>
-<div class="ringt"><div class="a">Scheduled to date</div><div class="b">${money(C.sofar)}</div><div class="c">${sh===null?(C.total===0?'No scheduled cost':'Share unavailable'):esc(formatMeasuredPercent(C.sofar,C.total))+' of '+money(C.total)}</div></div>`;
+<div class="ringt"><div class="a">Scheduled to date</div><div class="b">${sh===null?money(C.sofar):gaugeDigits(C.sofar,money(C.sofar))}</div><div class="c">${sh===null?(C.total===0?'No scheduled cost':'Share unavailable'):gaugeDigits(100*sh,formatMeasuredPercent(C.sofar,C.total))+' of '+money(C.total)}</div></div>`;
 const chargeDates=(days)=>days.length && days[0].iso!==days[days.length-1].iso?`First ${days[0].date} · Last ${days[days.length-1].date}`:days[0]?.date;
 const st=[['Day shift labour',chargeDates(C.roster.filter(r=>r.shift==='Day'))],
   ['Night shift labour',chargeDates(C.roster.filter(r=>r.shift==='Night'))],
   ['Tooling charge',chargeDates(C.days.filter(d=>d.tooling>0))],['Site services charge',chargeDates(C.days.filter(d=>d.services>0))]];
 $('#cs-starts').innerHTML=st.filter(x=>x[1]).map(x=>`<li><b>${esc(x[0])}</b>${esc(x[1])}</li>`).join('');
 initChargeCheck(C.days);
-$('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1})).join('');
+$('#cs-cyls').innerHTML=C.cats.map((c,index)=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1,index})).join('');
 stats($('#cs-stats'),[[C.days_done,`Scheduled days through pull date, of ${C.days.length}`],[C.hours_done,`Rostered hours through pull date, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
 const remaining=Number.isFinite(C.total)&&Number.isFinite(C.sofar)?C.total-C.sofar:null;
 $('#cs-stats').insertAdjacentHTML('afterbegin',`<div><div class="n">${money(C.total)}</div><div class="l">Whole shut</div></div><div><div class="n">${money(remaining)}</div><div class="l">Scheduled after pull date</div></div>`);$('#cs-stats').style.setProperty('--n',5);
 $('#cs-daysub').textContent=C.days.length?`Solid columns include each full scheduled day through ${C.upto}. Faded columns show costs scheduled for later days.`:'No dated charges are available.';
 $('#cs-leg').innerHTML=C.cats.map(c=>`<span><i class="${KC[c.key][1]}"></i>${esc(c.name)}</span>`).join('')+'<span style="color:var(--dim)">Faded = still to come</span>';
 if(C.days.length&&C.cats.length)columns($('#cs-chart'),C.days.map(d=>d.date),C.cats.map(c=>({v:C.days.map(d=>d[c.key]),cls:KC[c.key][0]})),{w:1100,h:300,l:46,bw:52,label:'Scheduled shut cost by day',axis:v=>'$'+(v/1000).toLocaleString('en-AU')+'k',
-fade:i=>!C.days[i].done,mark:i=>C.days[i].today,val:(i,t)=>'$'+fmt(Math.round(t)),short:l=>l.split(' ').slice(0,2).join(' '),
+fade:i=>!C.days[i].done,mark:i=>C.days[i].today,val:(i,t)=>({number:Math.round(t),prefix:'$'}),short:l=>l.split(' ').slice(0,2).join(' '),
 tip:i=>{const d=C.days[i];return `<b>${d.date}</b>${d.type?' · '+d.type:''}${d.done?'':' · still to come'}<br>`+C.cats.filter(c=>d[c.key]).map(c=>`${c.name}: ${money(d[c.key])}`).join('<br>')+`<br><b>Day total: ${money(d.total)}</b><br>Running total: ${money(d.running)}`}});
-$('#cs-people').innerHTML=C.people.map(p=>`<div class="card pcard"><h4>${esc(p.name)}${C.role?` <span class="pill n">${esc(C.role)}</span>`:''}</h4>
-<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter" aria-hidden="true"><i style="--w:${horizontalPercent(p.cost_done,p.cost)??0}%">${p.cost_done>0&&p.cost>0?horizontalStreams():''}</i></div>
+$('#cs-people').innerHTML=C.people.map(p=>`<div class="card pcard" data-motion-gauge><h4>${esc(p.name)}${C.role?` <span class="pill n">${esc(C.role)}</span>`:''}</h4>
+<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter${horizontalPercent(p.cost_done,p.cost)===null?' no-reading':''}" aria-hidden="true"><i style="--w:${horizontalPercent(p.cost_done,p.cost)??0}%">${p.cost_done>0&&p.cost>0?horizontalStreams():''}</i></div>
 <div class="kv"><div><span>Hours rostered through pull date</span><b>${fmt(p.hours_done)} of ${fmt(p.hours)}</b></div><div><span>Day shifts rostered</span><b>${p.day}</b></div><div><span>Night shifts rostered</span><b>${p.night}</b></div></div></div>`).join('');
 $('#cs-rsub').textContent=`${C.rates.map(r=>`${r.shift} shift ${money(r.rate)} an hour`).join(' · ')}. Each row is hours times the rate for its shift.`;
 const pill=r=>r.iso==C.days.find(d=>d.today)?.iso?'<span class="pill o">Pull date</span>':r.done?'<span class="pill history">Before pull date</span>':'<span class="pill n">Scheduled later</span>';
@@ -3380,14 +3478,14 @@ document.addEventListener('keydown',e=>{if(e.key=='/'&&!drModalOpen()&&!e.ctrlKe
 // Manager-only review is fetched on demand. Shared HTML and print never contain this ledger.
 function stocktakeShiftReview({when, day, number, openEntries, openPending, refreshLedger}) {
   const panel=$('#st-scan-review'),jump=$('#st-review-jump');
-  let permitted=false,model=null,selected='',person='',areaMode='areas',request=null;
+  let permitted=false,model=null,selected='',person='',areaMode='areas',request=null,lastLineKey='';
   const local=t=>t?String(t).slice(11,16):'—';
   const shiftKey=s=>s.date+'|'+s.shift;
   const label=s=>(s.date?day(s.date):'Date unavailable')+' · '+(s.shift||'Unrecorded')+' shift';
   const agoSpan=n=>{const h=Math.floor(n/60),m=n%60;return h?(h+'h'+(m?' '+m+'m':'')):(m+'m')};
   const counts=(n,one,many)=>number(n)+' '+(n===1?one:many);
   function reset(){
-    permitted=false;request?.abort();request=null;model=null;selected=person='';areaMode='areas';
+    permitted=false;request?.abort();request=null;model=null;selected=person=lastLineKey='';areaMode='areas';
     panel.replaceChildren();panel.hidden=jump.hidden=true;
   }
   function goToReview(){
@@ -3439,10 +3537,12 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
     body.innerHTML='<p class="st-rev-source"><strong>'+esc(label(s))+'</strong> · '+esc(shiftSpan)+'<br>'+esc(coverageFor(s))+
       (s.ongoing?' · Partial shift at snapshot':'')+'. '+(roster?'Rostered: '+roster+'.':'No dated roster entry for this shift.')+'</p><p class="st-rev-source"><b>'+attribution+'</b>'+(actor?' · '+esc(coverageFor(actor)):'')+'</p>'+
       '<div class="st-rev-stats">'+[['Count entries',series.count_events],['Distinct tool assets',series.tools],['Distinct consumable lines',series.cons]].map(([l,v])=>'<div><b>'+(measured?number(v||0):'—')+'</b><span>'+l+'</span></div>').join('')+'</div>'+
+      '<section id="st-count-line" hidden></section>'+
       (actor&&actor.activity_timeline?'<div class="st-recorded-times" id="st-recorded-times"></div>':'')+
-      '<h4>Count entries by hour</h4><p class="sub">Bar heights compare hours within this shift. Choose a bar to see the entries. Times are AEST.</p><div id="st-shift-trend"></div>'+
+      '<details id="st-hour-detail" open><summary>Count entries by hour</summary><p class="sub">Choose an hour to see its entries. Times are AEST.</p><div id="st-shift-trend"></div></details>'+
       (actor?'<div id="st-operator-review"></div>':'<h4>Operators on this shift</h4><div id="st-operator-review"></div>')+(!actor?.activity_timeline?'<h4>Gaps in the count record</h4>':'')+'<div id="st-gap-review"></div>'+
       '<h4>'+(s.ongoing?'Outstanding at snapshot · shift in progress':'Outstanding at shift handover · all operators')+'</h4><div id="st-handover-review"></div>';
+    if(drawShiftLine(series,actor?.name||'All operators'))$('#st-hour-detail').open=false;
     if(actor?.activity_timeline)showTimeline(actor,s);
     const peak=Math.max(1,...hours.map(h=>h.count_events||0));
     $('#st-shift-trend').innerHTML=hours.length?'<div class="st-hour-grid">'+hours.map((h,i)=>{
@@ -3475,6 +3575,94 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
       ' using today’s register. Groups listed had recorded checks during this shift and outstanding lines at the cutoff.</p>'+handoverDetails:
       '<p class="empty">No partially counted groups with recorded checks in this shift were identified by the cutoff.</p>';
 
+  }
+  function drawShiftLine(series,who){
+    const host=$('#st-count-line'),points=series.activity_timeline?.minute_counts||series.minute_counts;
+    if(!host||!Array.isArray(points)||!Array.isArray(series.covered_intervals))return false;
+    const time=t=>t?Date.parse(t+'Z'):NaN;
+    const start=time(series.start),end=time(series.end),endEvidence=time(series.elapsed_end);
+    if(!Number.isFinite(start)||!Number.isFinite(end)||end<=start||!Number.isFinite(endEvidence))return false;
+    const limit=Math.max(start,Math.min(end,endEvidence)),span=end-start,firstMinute=Math.floor(start/60000)*60000;
+    const fmtTime=t=>new Date(t).toISOString().slice(11,16),mins=(a,b)=>Math.floor((b-a)/60000);
+    const timestamp=t=>day(new Date(t).toISOString().slice(0,10))+' '+fmtTime(t)+' AEST';
+    const readings=[];
+    let total=0,peak=null;
+    for(const v of points){
+      const at=time(v.at),count=v.count_events;
+      if(!Number.isFinite(at)||!Number.isInteger(count)||count<1)return false;
+      if(at<firstMinute||at>limit)continue;
+      total+=count;const point={at:Math.max(start,at),count,total};readings.push(point);
+      if(!peak||count>peak.count)peak=point;
+    }
+    const outside=series.count_events-total;
+    if(outside<0)return false;
+    const bands=series.covered_intervals.map(r=>[Math.max(start,time(r.start)),Math.min(limit,time(r.end))]).filter(([a,b])=>b>a);
+    const x=t=>1000*(t-start)/span;
+    const unit=total?10**Math.floor(Math.log10(total)):1;
+    const step=total?Math.ceil(total/unit/4*2)/2*unit:1,high=total?Math.ceil(total/step)*step:1;
+    const y=n=>200*(1-n/high);
+    function measured(t){
+      let lo=0,hi=readings.length;
+      while(lo<hi){const mid=(lo+hi)>>>1;if(readings[mid].at<=t)lo=mid+1;else hi=mid}
+      return lo?readings[lo-1]:null;
+    }
+    const hasWindow=t=>bands.some(([a,b])=>a<=t&&t<=b);
+    const rect=(a,b,attr)=>'<rect x="'+x(a)+'" y="0" width="'+(x(b)-x(a))+'" height="200" '+attr+'/>';
+    let shapes='',cursor=start;
+    for(const [a,b] of bands){
+      if(a>cursor)shapes+=rect(cursor,a,'fill="url(#st-scan-hatch)"');
+      cursor=b;
+    }
+    if(cursor<limit)shapes+=rect(cursor,limit,'fill="url(#st-scan-hatch)"');
+    if(limit<end)shapes+=rect(limit,end,'class="st-future-band"')+'<path class="st-line-cutoff" d="M'+x(limit)+' 0V200"/>';
+    const ticks=[];
+    for(let n=0;n<=high;n+=step){
+      ticks.push('<span style="top:'+y(n)/2+'%">'+number(n)+'</span>');
+      shapes+='<path class="st-line-rule" d="M0 '+y(n)+'H1000"/>';
+    }
+    for(const [a,b] of bands){
+      let path='M'+x(a)+' '+y(measured(a-1)?.total||0);
+      for(const p of readings)if(p.at>=a&&p.at<=b)path+='H'+x(p.at)+'V'+y(p.total);
+      path+='H'+x(b);
+      shapes+='<path class="st-liquid-area" d="'+path+'V200H'+x(a)+'Z"/><path class="st-scan-line" pathLength="1" d="'+path+'"/>';
+    }
+    const mark=p=>'<i class="st-line-dot" style="left:'+x(p.at)/10+'%;top:'+y(p.total)/2+'%" aria-hidden="true"></i>';
+    const pointsOutside=readings.filter(p=>!hasWindow(p.at));
+    const dots=[...new Set([peak,...pointsOutside].filter(Boolean))].map(mark).join('');
+    const axisTimes=[start];
+    const axisStep=[15,30,60,120,240,480,1440].find(n=>span/(60000*n)<=6)||1440;
+    const firstTick=(Math.floor(start/(axisStep*60000))+1)*axisStep*60000;
+    for(let t=firstTick;t<end;t+=axisStep*60000)if(Math.min(t-start,end-t)>=axisStep*60000*.45)axisTimes.push(t);
+    axisTimes.push(end);
+    const axis=axisTimes.map((t,i)=>'<span style="left:'+x(t)/10+'%">'+esc(fmtTime(t))+'</span>').join('');
+    const key=who+'|'+series.start+'|'+series.end;
+    const motion=key!==lastLineKey;lastLineKey=key;
+    const note=['A flat line means the recorded total stayed the same.'];
+    if(bands.reduce((sum,[a,b])=>sum+b-a,0)<limit-start)note.push('Hatching marks time without export coverage.');
+    if(limit<end)note.push('The shaded period starts at the '+fmtTime(limit)+' AEST data cutoff.');
+    if(outside)note.push(counts(outside,'entry falls','entries fall')+' outside this shift or its available source coverage.');
+    const latest=readings.at(-1);
+    host.hidden=false;
+    host.innerHTML='<h4>Cumulative count entries</h4><div class="st-line-field"><div class="st-line-y" aria-hidden="true">'+ticks.join('')+'</div><div>'+
+      '<div class="st-line-plot'+(motion?' enter':'')+'"><svg viewBox="0 0 1000 200" preserveAspectRatio="none" role="img" aria-labelledby="st-line-desc"><title id="st-line-desc">'+esc(who)+' · '+esc(timestamp(start))+' to '+esc(timestamp(end))+'. '+(total||bands.length?counts(total,'count entry','count entries'):'No covered counts available')+'.</title><defs><pattern id="st-scan-hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path class="st-hatch-rule" d="M-2 2l4 -4M0 8l8 -8M6 10l4 -4"/></pattern></defs>'+shapes+'</svg>'+dots+'<i class="st-time-cursor" hidden></i></div><div class="st-line-x" aria-hidden="true">'+axis+'</div></div></div>'+
+      '<div class="st-line-read"><output for="st-shift-minute" aria-live="polite"></output>'+(peak?'<div><button type="button" class="btn ghost" data-line-peak>Busiest minute</button><button type="button" class="btn ghost" data-line-last>Last count</button></div>':'')+'</div>'+
+      '<label class="st-line-scrub">Explore a minute<input id="st-shift-minute" type="range" min="0" max="'+mins(firstMinute,end)+'" step="1"></label>'+
+      '<p class="foot">'+esc(note.join(' '))+'</p>';
+    const plot=host.querySelector('.st-line-plot'),indicator=host.querySelector('.st-time-cursor'),input=host.querySelector('input'),output=host.querySelector('output');
+    function show(t){
+      const offset=Math.max(0,Math.min(mins(firstMinute,end),Math.floor((t-firstMinute)/60000)));
+      t=Math.max(start,firstMinute+offset*60000);
+      const read=measured(t),n=read?.at===t?read.count:0;
+      const desc=t>limit?'After data cutoff':!hasWindow(t)&&!n?'No export coverage':counts(n,'entry','entries')+' this minute · '+number(read?.total||0)+' cumulative';
+      input.value=offset;input.setAttribute('aria-valuetext',timestamp(t)+'. '+desc);
+      output.innerHTML='<strong>'+esc(timestamp(t))+'</strong> · '+esc(desc);
+      indicator.hidden=false;indicator.style.left=x(t)/10+'%';
+    }
+    input.oninput=()=>show(firstMinute+Number(input.value)*60000);
+    plot.onpointerdown=e=>{const box=plot.getBoundingClientRect();if(box.width)show(start+span*(e.clientX-box.left)/box.width)};
+    if(peak){host.querySelector('[data-line-peak]').onclick=()=>show(peak.at);host.querySelector('[data-line-last]').onclick=()=>show(latest.at)}
+    show(latest?.at??limit);
+    return true;
   }
   function showTimeline(actor,shift){
     const t=actor.activity_timeline,windows=t.windows||[],gaps=t.gaps||[];
@@ -3699,7 +3887,7 @@ function initStocktake(st) {
   }
   function gauge(kind,title,checked,total,verb){
     const rate=coverageRatio(checked,total);
-    return `<div class="st-measure" data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${esc(pct(checked,total))}</strong></div><b>${title}</b><small>${coverageNote(checked,total,verb)}</small></div>`;
+    return `<div class="st-measure"${rate===null?'':' data-motion-gauge'} data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${rate===null?'—':gaugeDigits(100*rate,pct(checked,total))}</strong></div><b>${title}</b><small>${coverageNote(checked,total,verb)}</small></div>`;
   }
   function showShiftHandover(total,done){
     const basis=openingView();
@@ -3807,7 +3995,7 @@ function initStocktake(st) {
       const recent=handover?`<span class="st-cat-last">${n?'Last count · ':''}${esc(latestCloseCount(c.key))}</span>`:'';
       const resume=handover?`<span class="st-cat-resume">${remaining?'View '+fmt(remaining)+' still to check':'View counted items'} &#8250;</span>`:`<small class="st-cat-label">${rate===null?'':fmt(remaining)+' remaining'}</small>`;
       const fill=rate===null?'':`<i style="--w:${100*rate}%">${rate>0?horizontalStreams():''}</i>`;
-      return `<button type="button" class="st-category-tile" data-st-category="${esc(c.key)}" data-progress="${remaining===0?'complete':n?'partial':'pending'}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${progressText}</span><strong>${esc(pct(n,c.total))}</strong></span><span class="meter st-coverage-meter" aria-hidden="true">${fill}</span>${recent}${resume}</button>`;
+      return `<button type="button" class="st-category-tile"${rate===null?'':' data-motion-gauge'} data-st-category="${esc(c.key)}" data-progress="${remaining===0?'complete':n?'partial':'pending'}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${progressText}</span><strong>${rate===null?'—':gaugeDigits(100*rate,pct(n,c.total))}</strong></span><span class="meter st-coverage-meter" aria-hidden="true">${fill}</span>${recent}${resume}</button>`;
     }).join('')||(openingView()&&!baselineAvailable?'<p class="empty">The opening category snapshot is unavailable.</p>':pendingOnly&&!q&&!type&&directory.length?'<p class="empty">Every category has a recorded count for each register line.</p>':'<p class="empty">No categories match.</p>');
     pager($('#st-category-pages'),list.length,categoryPage,n=>{categoryPage=n;categories()},size);
   }
@@ -4198,6 +4386,135 @@ else{show((location.hash||'#overview').slice(1),1);addEventListener('resize',()=
 addEventListener('hashchange',()=>show(location.hash.slice(1),1));
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>dispatchEvent(new Event('resize')))}
 
+/* The original number remains selectable, printable and available to assistive
+   technology. The visual counter and its vessel share one eased position. */
+function createReadingMotion(){
+  if(!window.IntersectionObserver)return null;
+  const hosts='[data-motion-gauge]', numbers='[data-n],[data-motion-value]';
+  const selector=hosts+','+numbers, preference=matchMedia('(prefers-reduced-motion:reduce)');
+  const printing=matchMedia('print'), played=new WeakSet(), staged=new Set(), running=new Map();
+  const formatters=new Map();
+  let frame=0;
+  function eased(t){
+    // Invert the x coordinate of cubic-bezier(.2,.75,.2,1).
+    let low=0, high=1;
+    for(let i=0;i<14;i++){
+      const u=(low+high)/2,v=1-u;
+      const x=3*v*u*.2+u*u*u;
+      if(x<t)low=u;else high=u;
+    }
+    const u=(low+high)/2,v=1-u;
+    return 3*v*v*u*.75+3*v*u*u+u*u*u;
+  }
+  function leaf(el){
+    const svg=el.namespaceURI==='http://www.w3.org/2000/svg'&&el.localName==='text';
+    if((!svg&&!(el instanceof HTMLElement))||el.children.length)return null;
+    if(el.hasAttribute('data-n'))formatReading(el);
+    const d=el.dataset, raw=d.motionValue??d.n, value=Number(raw);
+    if(raw===''||!Number.isFinite(value)||value===0||/[<>≤≥—]/.test(el.textContent))return null;
+    const precision=Number(d.motionDecimals??d.dec??0);
+    if(!Number.isInteger(precision)||precision<0||precision>8)return null;
+    if(!formatters.has(precision))formatters.set(precision,new Intl.NumberFormat('en-AU',{
+      minimumFractionDigits:precision,maximumFractionDigits:precision
+    }));
+    const reading={el,svg,value,factor:10**precision,format:formatters.get(precision),
+      prefix:d.motionPrefix??d.pre??'',suffix:d.motionSuffix??d.suf??''};
+    if(svg){
+      const visual=el.cloneNode(false);
+      for(const name of ['data-motion-value','data-motion-prefix','data-motion-suffix','id'])visual.removeAttribute(name);
+      visual.classList.add('reading-svg-frame');
+      visual.setAttribute('aria-hidden','true');
+      el.classList.add('reading-svg-final');
+      el.after(visual);
+      return {...reading,visual};
+    }
+    const final=document.createElement('span'), visual=document.createElement('span');
+    final.className='reading-final';visual.className='reading-frame';
+    final.textContent=el.textContent;visual.setAttribute('aria-hidden','true');
+    el.classList.add('reading-in-motion');el.replaceChildren(final,visual);
+    return {...reading,visual,final};
+  }
+  function paint(host,job,position){
+    if(job.gauge)host.style.setProperty('--motion-progress',position.toFixed(5));
+    for(const r of job.readings){
+      let reading=Math.round(r.value*position*r.factor)/r.factor;
+      // Reserve the final displayed digit for the moment the fill arrives.
+      if(position<1&&reading===r.value)reading=Math.trunc(r.value*position*r.factor)/r.factor;
+      const text=r.prefix+r.format.format(reading||0)+r.suffix;
+      if(r.svg){
+        if(r.visual.textContent!==text)r.visual.textContent=text;
+      }else if(r.visual.dataset.frame!==text)r.visual.dataset.frame=text;
+    }
+  }
+  function finish(host){
+    const job=running.get(host);
+    if(job){
+      for(const r of job.readings){
+        if(r.svg){
+          r.visual.remove();
+          r.el.classList.remove('reading-svg-final');
+          continue;
+        }
+        if(r.final.parentNode===r.el)r.el.replaceChildren(r.final.textContent);
+        r.el.classList.remove('reading-in-motion');
+      }
+      running.delete(host);
+    }
+    if(staged.delete(host))host.style.removeProperty('--motion-progress');
+    observer.unobserve(host);
+  }
+  function tick(now){
+    frame=0;
+    for(const [host,job] of running){
+      if(now>=job.start+1000||!host.isConnected){finish(host);continue}
+      if(now>=job.start)paint(host,job,eased((now-job.start)/1000));
+    }
+    if(running.size)frame=requestAnimationFrame(tick);
+  }
+  function start(host){
+    if(played.has(host)||!staged.has(host))return;
+    played.add(host);
+    if(document.hidden||preference.matches||printing.matches){finish(host);return}
+    const gauge=host.matches(hosts);
+    const leaves=gauge?[...(host.matches(numbers)?[host]:[]),...host.querySelectorAll(numbers)]
+      .filter(el=>el.closest(hosts)===host):[host];
+    const readings=leaves.map(leaf).filter(Boolean);
+    if(!gauge&&!readings.length){finish(host);return}
+    const delay=getComputedStyle(host).getPropertyValue('--reading-delay').trim();
+    const ms=/^[\d.]+ms$/.test(delay)?parseFloat(delay):150;
+    const job={gauge,readings,start:performance.now()+Math.min(ms,900)};
+    running.set(host,job);paint(host,job,0);
+    if(!frame)frame=requestAnimationFrame(tick);
+  }
+  const observer=new IntersectionObserver(entries=>{
+    for(const e of entries){
+      if(e.isIntersecting)start(e.target);
+      else if(running.has(e.target))finish(e.target);
+    }
+  });
+  function register(node,add){
+    if(node.nodeType!==1)return;
+    const elements=node.matches(selector)?[node,...node.querySelectorAll(selector)]:node.querySelectorAll(selector);
+    for(const el of elements){
+      if(!el.matches(hosts)&&el.closest(hosts))continue;
+      if(!add){finish(el);continue}
+      if(!el.isConnected||played.has(el)||staged.has(el)||preference.matches||printing.matches)continue;
+      staged.add(el);
+      if(el.matches(hosts))el.style.setProperty('--motion-progress','0');
+      observer.observe(el);
+    }
+  }
+  function endAll(){
+    if(frame)cancelAnimationFrame(frame);
+    frame=0;
+    for(const host of staged){played.add(host);finish(host)}
+  }
+  preference.addEventListener('change',()=>{if(preference.matches)endAll()});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)for(const host of running.keys())finish(host)});
+  window.addEventListener('beforeprint',endAll);
+  return {register};
+}
+
 /* Run continuous glass motion only while its instrument is in view. */
 if(!STATIC){
   const pr=$('.prog');
@@ -4217,8 +4534,10 @@ if(!STATIC){
   const watchMetric=window.IntersectionObserver?new IntersectionObserver(entries=>{
     for(const entry of entries)entry.target.classList.toggle('liquid-inview',entry.isIntersecting);
   }):null;
+  const readingMotion=createReadingMotion();
   function registerMetrics(node,add){
     if(node.nodeType!==1)return;
+    readingMotion?.register(node,add);
     const update=el=>{
       if(watchMetric){if(add)watchMetric.observe(el);else watchMetric.unobserve(el)}
       else el.classList.toggle('liquid-inview',add);

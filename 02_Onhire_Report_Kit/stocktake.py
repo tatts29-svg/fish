@@ -541,10 +541,21 @@ def _time_series(records, planned, windows, unknown_windows, begin, limit, defau
                 if minutes >= 60:
                     gaps.append(dict(start=_iso(left), end=_iso(right), minutes=minutes,
                                      other_sightings=sum(left < r['time'] < right for r in other)))
+    # SiteIQ's export windows and the portal's dated ledger provide separate
+    # evidence. A named portal count is still recorded beyond the last SiteIQ pull.
+    minute_counts = Counter()
+    for entry in counts:
+        when = entry['time']
+        in_shift = any(a <= when < b for a, b, _ in planned) if planned else start <= when <= end
+        if in_shift and (entry['source'] == 'Portal' or any(a <= when <= b for a, b in windows)):
+            minute_counts[when.replace(second=0, microsecond=0)] += 1
+    minute_series = [{'at': at.isoformat(timespec='minutes'), 'count_events': number}
+                     for at, number in sorted(minute_counts.items())]
     result = dict(start=_iso(start), end=_iso(end), elapsed_end=_iso(cutoff) if cutoff >= first else '',
                 upcoming=limit < start, interval_basis='roster' if planned else ('observed' if person else 'standard_shift'),
                 ongoing=start <= limit < end, coverage=coverage, window_minutes=int(covered.total_seconds() // 60),
                 elapsed_minutes=int(elapsed.total_seconds() // 60), hours=hours, gaps=gaps,
+                minute_counts=minute_series, covered_intervals=[{'start': _iso(a), 'end': _iso(b)} for a, b in overlaps],
                 planned=[{'person': n, 'start': _iso(a), 'end': _iso(b)} for a, b, n in sorted(planned)],
                 other_sightings=len(other),
                 unattributed_counts=sum(r['evidence'] == 'unattributed_count' for r in records),
@@ -553,6 +564,7 @@ def _time_series(records, planned, windows, unknown_windows, begin, limit, defau
                 **_counts(counts))
     if person:
         result['activity_timeline'] = _activity_timeline(counts, overlaps, review)
+        result['activity_timeline']['minute_counts'] = minute_series
     return result
 
 

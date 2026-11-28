@@ -17,7 +17,8 @@ class HorizontalGaugeTests(unittest.TestCase):
         start = cls.page.index('function horizontalStreams(')
         end = cls.page.index('const stats=', start)
         fraction = cls.page.split('function measuredFraction(', 1)[1].split('\n}', 1)[0]
-        cls.builders = 'function measuredFraction(' + fraction + '\n}\n' + cls.page[start:end]
+        digits = cls.page[cls.page.index("function gaugeDigits("):cls.page.index("const esc=")]
+        cls.builders = digits + 'function measuredFraction(' + fraction + '\n}\n' + cls.page[start:end]
         cls.env = """
 const assert=require('node:assert/strict');
 const fmt=n=>n.toLocaleString('en-AU'), f1=fmt, esc=String, STATIC=false;
@@ -43,7 +44,7 @@ function row(on,site,best){return toolHoldingRow({name:'Pump',on,site,best},'pum
 bars(target,[row(1,4,8),row(2,10,null),row(0,20,0),row(4,2,1)]);
 assert.deepEqual(fills(target.innerHTML),[['fb',100],['fl',25],['fl',20],['fb',0],['fl',0],['fb',50]]);
 for(const label of ['peak 8 (above current fleet)','peak unavailable','peak 0','verify fleet count','data-open="t:pump"']){
-  assert.ok(target.innerHTML.includes(label),label)
+  assert.ok(target.innerHTML.includes(label)||target.innerHTML.replace(/<[^>]+>/g,'').includes(label),label)
 }
 bars(target,[row(0,0,null),row(0,null,null)]);
 assert.deepEqual(fills(target.innerHTML),[]);

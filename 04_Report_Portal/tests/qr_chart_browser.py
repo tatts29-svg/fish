@@ -104,7 +104,7 @@ def check(browser, fixture):
             MMGReportInstruments.pill(pill, 2, 3, role);
             colours[role] = {
                 liquid:getComputedStyle(liquid.children[3]).stopColor,
-                pill:getComputedStyle(pill.querySelector(".direction-pill-fill")).backgroundImage,
+                pill:getComputedStyle(pill.querySelector(".direction-pill-liquid")).backgroundImage,
             };
         }
         host.remove();
@@ -118,6 +118,35 @@ def check(browser, fixture):
     assert paper["issued"]["liquid"] == "rgb(185, 79, 29)", paper
     assert paper["returned"]["liquid"] == "rgb(52, 117, 78)", paper
     page.emulate_media(media="screen")
+    page.emulate_media(reduced_motion="no-preference")
+    page.evaluate("""() => {
+      const host=document.createElement('section');
+      host.id='motion-probe';host.style.cssText='position:fixed;top:0;left:0;width:200px;z-index:10';
+      document.body.append(host);
+      const pair=document.createElement('div'),pill=document.createElement('span');
+      host.append(pair,pill);pill.style.cssText='display:block;width:200px;height:14px';
+      MMGReportInstruments.mount(pair,{issued:9,returned:12});MMGReportInstruments.pill(pill,3,4);
+    }""")
+    probe=page.locator("#motion-probe")
+    expect(probe.locator(".direction-pill")).to_have_class(re.compile("glass-seen"))
+    expect(probe.locator(".direction-dials")).to_have_class(re.compile("glass-seen"))
+    aligned=probe.evaluate("""p=>{
+      const liquid=p.querySelector('.glass-rise'),cap=p.querySelector('.glass-cap-lift'),
+        fill=p.querySelector('.direction-pill-liquid'),lens=p.querySelector('.direction-pill-lens');
+      const runs=[liquid,cap,fill,lens].map(n=>n.getAnimations()[0]);
+      runs.forEach(a=>a.pause());
+      const span=parseFloat(getComputedStyle(cap).getPropertyValue('--glass-travel'));
+      const matrix=node=>new DOMMatrixReadOnly(getComputedStyle(node).transform);
+      return [150,325,650,950,1149].map(t=>{
+        runs.forEach(a=>a.currentTime=t);
+        return [matrix(liquid).d,1-matrix(cap).f/span,matrix(fill).a,1+matrix(lens).e/fill.parentElement.getBoundingClientRect().width];
+      });
+    }""")
+    for row in aligned:
+        assert max(row)-min(row)<.0001, row
+    assert aligned[0][0]==0 and aligned[-1][0]>.9999
+    probe.evaluate("e=>e.remove()")
+    page.emulate_media(reduced_motion="reduce")
     # Exercise the complete report renderer and its actual daily series and star graphics.
     page.locator("#finish-report").click()
     report["returns"].update(score=2.5, eligible=8, same_day=3)
@@ -153,6 +182,72 @@ def check(browser, fixture):
         link.click()
         expect(link).to_have_attribute("aria-current", "location")
         expect(page.locator("#"+target)).to_be_focused()
+    # Only a measured aggregate counts. The final grouped value stays available
+    # to assistive technology, and the temporary drawing lives inside the report.
+    page.locator("#finish-report").click()
+    page.emulate_media(reduced_motion="no-preference")
+    page.set_viewport_size({"width":390,"height":844})
+    report["hire_count"]=1234
+    report["returns"].update(issues=65,returned=42)
+    lookup()
+    balance=page.locator("#hero-count")
+    drawing=balance.locator(".measured-count-drawing")
+    expect(drawing).to_have_attribute("aria-hidden","true")
+    expect(balance).to_have_text("1,234")
+    page.wait_for_function("""() => {
+        const d=document.querySelector('#hero-count .measured-count-drawing');
+        const v=Number((d?.dataset.reading || '').replaceAll(',',''));
+        return v>0 && v<1234;
+    }""")
+    checks=page.evaluate("""() => new Promise(resolve => {
+        const dials=[...document.querySelectorAll('.direction-dial')];
+        const samples=[[],[]];
+        const ends=performance.now()+1500;
+        function compare() {
+            dials.forEach((dial,i)=>{
+                const n=dial.querySelector('[data-count-to]');
+                const drawing=n?.querySelector('.measured-count-drawing');
+                const liquid=dial.querySelector('.glass-rise');
+                if (!drawing || !liquid) return;
+                const fraction=new DOMMatrix(getComputedStyle(liquid).transform).d;
+                if (fraction>.03 && fraction<.9999) samples[i].push([
+                    Number(drawing.dataset.reading),fraction*Number(n.dataset.countTo)
+                ]);
+            });
+            if(performance.now()>=ends) resolve(samples);
+            else requestAnimationFrame(compare);
+        }
+        requestAnimationFrame(compare);
+    })""")
+    for i, samples in enumerate(checks):
+        assert len(samples)>2, checks
+        assert all(0<=value<[65,42][i] and abs(value-liquid)<=1.00001 for value,liquid in samples), samples
+    expect(drawing).to_have_count(0)
+    expect(balance).to_have_text("1,234")
+    assert not page.locator("#report-heading [data-count-to], #current-gear [data-count-to]").count()
+    page.locator('#section-nav a[href="#handover"]').click()
+    balance.scroll_into_view_if_needed()
+    expect(drawing).to_have_count(0)
+    page.locator("#reset").click()
+    lookup()
+    expect(drawing).to_have_count(1)
+    page.evaluate("window.dispatchEvent(new Event('beforeprint'))")
+    expect(drawing).to_have_count(0)
+    expect(balance).to_have_text("1,234")
+    page.evaluate("window.dispatchEvent(new Event('afterprint'))")
+    page.locator("#reset").click()
+    lookup()
+    expect(drawing).to_have_count(1)
+    page.emulate_media(reduced_motion="reduce")
+    expect(drawing).to_have_count(0)
+    expect(balance).to_have_text("1,234")
+    page.locator("#reset").click()
+    page.emulate_media(reduced_motion="no-preference")
+    lookup()
+    expect(drawing).to_have_count(1)
+    page.evaluate("document.getElementById('reset').click()")
+    expect(balance).to_be_empty()
+    expect(page.locator("#report [data-count-to]")).to_have_count(0)
     assert not errors, errors
     bp.close()
 
