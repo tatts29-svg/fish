@@ -76,19 +76,33 @@ def invitation(scope, job_dir):
 <script src="enter.js"></script></body></html>""".encode("utf-8")
 
 
-ENTER_JS = b"""(async()=>{
-  const token=location.hash.slice(1);
-  history.replaceState(null,'',location.pathname);
-  try {
-    if(!/^[A-Za-z0-9_-]{43}$/.test(token))throw Error();
-    const res=await fetch('enter',{method:'POST',credentials:'same-origin',cache:'no-store',
-      headers:{'Content-Type':'application/json','X-Portal':'1'},body:JSON.stringify({token})});
-    if(!res.ok)throw Error();
-    location.replace('./');
-  }catch(e){
-    document.getElementById('status').textContent='Scan the QR code on the MMG report poster to open this report.';
-    document.querySelector('.entry').setAttribute('aria-busy','false');
+ENTER_JS = b"""(()=>{
+  const entry = document.querySelector('.entry');
+  const status = document.getElementById('status');
+  const opening = status.textContent;
+  let pending;
+  async function openPoster() {
+    const token = location.hash.slice(1);
+    history.replaceState(null, '', location.pathname);
+    if (pending) pending.abort();
+    const request = new AbortController();
+    pending = request;
+    try {
+      if (!/^[A-Za-z0-9_-]{43}$/.test(token)) throw Error();
+      entry.setAttribute('aria-busy','true');
+      status.textContent = opening;
+      const res = await fetch('enter',{method:'POST',credentials:'same-origin',cache:'no-store',signal:request.signal,
+        headers:{'Content-Type':'application/json','X-Portal':'1'},body:JSON.stringify({token})});
+      if (!res.ok) throw Error();
+      if (!request.signal.aborted) location.replace('./');
+    } catch (_) {
+      if (request.signal.aborted) return;
+      status.textContent = 'Scan the QR code on the MMG report poster to open this report.';
+      entry.setAttribute('aria-busy','false');
+    }
   }
+  window.addEventListener('hashchange', () => { if (location.hash) openPoster(); });
+  openPoster();
 })();"""
 
 

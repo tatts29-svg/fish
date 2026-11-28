@@ -175,6 +175,17 @@ table.t td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:m
 table.t tr:last-child td{border-bottom:0}
 table.t td.n,table.t th.n{text-align:right}
 table.t td.n{font-weight:600}
+.stock-holders .holder-link{font:inherit;font-weight:650;color:inherit;background:none;border:0;text-align:left;padding:0;cursor:pointer}
+.stock-holders .holder-age{display:block;color:var(--mu);font-size:.85em}
+.tscroll:has(>.stock-holders){container-type:inline-size}
+@container (max-width:480px){
+ #dbody .stock-holders{display:block}
+ #dbody .stock-holders tbody{display:grid;gap:.65rem}
+ #dbody .stock-holders tr:first-child{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ #dbody .stock-holders tr:not(:first-child){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem 1rem;padding:.8rem;background:var(--panel2);border:1px solid var(--line);border-radius:.7rem}
+ #dbody .stock-holders td{padding:0;border:0;min-width:0;overflow-wrap:anywhere;white-space:normal;text-align:left}
+ #dbody .stock-holders td:before{display:block;content:attr(data-label);color:var(--mu);font-size:.78rem;margin-bottom:.15rem}
+}
 .tgd{display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--tg);box-shadow:0 0 8px var(--tg);margin-left:8px;vertical-align:1px;flex:none}
 .tgc{display:inline-flex;align-items:center;gap:7px;margin-top:9px;padding:3px 11px;border-radius:999px;border:1px solid color-mix(in srgb,var(--tg) 55%,transparent);background:color-mix(in srgb,var(--tg) 13%,transparent);font-size:12.5px;font-weight:600;color:var(--tx);white-space:nowrap}
 .tgc i{width:9px;height:9px;border-radius:2px;background:var(--tg);box-shadow:0 0 8px var(--tg)}
@@ -624,8 +635,6 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 .sds-code button:focus-visible{outline:3px solid var(--or);outline-offset:3px}
 .sds-photo figcaption{margin-top:5px;text-align:center}
 .sds-photo figcaption a{color:inherit;text-decoration:underline;text-underline-offset:.16em}
-.sds-entry .sds-photo-facts{display:grid;grid-template-columns:minmax(0,1fr);gap:.45rem;margin:.6rem 0 .4rem;text-align:left}
-.sds-photo-facts dd{line-height:1.35;color:var(--tx)}
 #sds-photo-dialog{width:fit-content;max-width:94vw;max-height:92dvh;margin:auto;padding:0;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--tx);overflow:auto}
 #sds-photo-dialog::backdrop{background:#090b10d9}
 #sds-photo-dialog .sds-photo-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:12px 16px}
@@ -670,11 +679,19 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
   html.sds-print .sds-photo-button::after,html.sds-print #sds-photo-dialog{display:none}
   html.sds-print .sds-photo figcaption{margin-top:1mm}
   html.sds-print .sds-photo-button{width:25mm;margin-inline:auto}
-  html.sds-print .sds-photo .sds-photo-facts{grid-template-columns:1fr;gap:1mm;margin:1mm 0;font-size:8pt}
   html.sds-print .sds-entry h3{font-size:14pt}
   html.sds-print .sds-entry dl{font-size:10pt;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm 3mm;margin:3mm 0}
   html.sds-print .sds-entry dt,html.sds-print .sub{font-size:9pt;color:#333}
   html.sds-print .sds-entry>div:first-child>dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html.sds-print .sds-body{display:contents}
+  html.sds-print .sds-identity{grid-column:1;grid-row:1}
+  html.sds-print .sds-entry .sds-stock-facts{grid-column:1;grid-row:2;margin:1mm 0}
+  html.sds-print .sds-stock-facts>div:last-child{grid-column:1/-1}
+  html.sds-print .sds-media{grid-column:2;grid-row:1/3}
+  html.sds-print .sds-entry>div:first-child>.sds-document-facts{
+    grid-column:1/-1;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));
+    padding-block:1.5mm;border-block:1px solid #aaa;margin:0
+  }
   html.sds-print .sds-entry .sds-extract{font:9.5pt/1.25 Arial,sans-serif;gap:1mm 6mm}
   html.sds-print .sds-extract dd{font-weight:400}
   html.sds-print .sds-entry :is(dd,p,ul){line-height:1.25}
@@ -725,6 +742,23 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 #st-rounds.st-formal-rounds{grid-template-columns:repeat(2,minmax(0,1fr))}
 .st-baseline-attribution{padding:.65rem .85rem;border-left:3px solid var(--or);background:var(--panel2);color:var(--tx);font-size:.88rem;line-height:1.45;margin:.65rem 0}
 .st-baseline-attribution strong{font-weight:650}
+.st-handover-top{padding:.8rem 1rem;background:var(--panel)}
+.st-handover-heading{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem 1rem;flex-wrap:wrap}
+.st-handover-heading h3,.st-handover-heading p{margin:0}
+.st-handover-heading p{font-size:.88rem;color:var(--mu);font-variant-numeric:tabular-nums}
+.st-handover-heading strong{color:var(--tx)}
+.st-shift-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:.55rem;margin:.65rem 0}
+.st-shift-count{display:grid;gap:.2rem;padding:.65rem .8rem;border:1px solid var(--line);border-radius:9px;background:var(--panel2);text-align:left;color:var(--tx);cursor:pointer}
+.st-shift-count:hover,.st-shift-count:focus-visible{border-color:var(--or)}
+.st-shift-count:focus-visible{outline:2px solid var(--ortx);outline-offset:2px}
+.st-shift-name{display:flex;align-items:baseline;justify-content:space-between;gap:.55rem;flex-wrap:wrap}
+.st-shift-name strong{font-size:1rem}.st-shift-name b{color:var(--ortx);font-size:.88rem}
+@media screen{.st-shift-name b::after{content:"";display:inline-block;width:.36rem;height:.36rem;margin-inline-start:.45rem;border-block-start:1.5px solid;border-inline-end:1.5px solid;transform:rotate(45deg) translateY(-.08rem)}}
+.st-shift-meta,.st-shift-category{font-size:.82rem;line-height:1.38;color:var(--mu)}
+.st-shift-category{color:var(--tx)}
+#st-handover .work-actions{justify-content:flex-start;max-width:none;gap:.45rem}
+#st-handover .work-actions .btn{min-height:44px}
+@media print{.st-shift-count{break-inside:avoid}.st-handover-top{padding:0}.st-shift-count{color:inherit}}
 .st-recent-shifts{display:flex;align-items:center;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
 .st-recent-shifts>span{color:var(--mu);font-size:.8rem}
 .st-recent-shifts button{padding:.35rem .65rem;font-size:.82rem;white-space:normal;text-align:left}
@@ -760,6 +794,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 .st-duty{display:flex;flex-wrap:wrap;gap:.45rem 1.2rem;margin:.65rem 0 1rem;color:var(--mu);font-size:.88rem}
 .st-duty strong{color:var(--tx)}#st-detail-title{margin:1rem 0 .5rem}
 #st-reset-group:not([hidden]){margin:0 0 .5rem}
+#st-reset-group[hidden]{display:none}
 
 .st-rounds{margin-bottom:var(--space,16px)}
 .st-round,.st-card{min-width:0}
@@ -1332,7 +1367,13 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #pp-list .pp-entry:focus-visible{outline:2px solid var(--ortx);outline-offset:-2px}
  #pp-list .prow.h{margin:0;padding:.45rem .55rem .55rem}
  #pp-list .pp-status:empty:before{content:"—";color:var(--mu)}
- #sds-list .sds-body>dl{padding-block:.65rem;border-block:1px solid var(--line)}
+ #sds-list .sds-identity{display:flex;align-items:center;gap:.35rem 1rem;flex-wrap:wrap}
+ #sds-list .sds-identity .sub{flex-basis:100%}
+ #sds-list .sds-stock-facts{padding:.7rem .85rem;border:1px solid var(--line);border-inline-start:3px solid var(--neutral-series);border-radius:8px;background:var(--panel2)}
+ #sds-list .sds-stock-facts>div:first-child dd{font-size:1.35rem;line-height:1.1;font-variant-numeric:tabular-nums}
+ #sds-list .sds-document-facts{padding-top:.15rem}
+ .gs-sds-result{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.2rem;padding-inline-end:.25rem}
+ .gs-sds-result>.gs-sds-file{display:inline-flex;align-items:center;gap:.28rem;min-height:44px;padding:0 .6rem;color:var(--ortx);font-size:.82rem;font-weight:700;text-decoration:underline;text-underline-offset:.16em;white-space:nowrap}
  #sds-list .sds-heading{align-items:center;gap:.45rem .85rem}
  #sds-list .sds-status{display:inline-flex;gap:.4em;align-items:center}
  #sds-list .sds-status:before{content:"";width:.48em;height:.48em;border-radius:50%;background:currentColor}
@@ -1389,7 +1430,9 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #sds-list .sds-entry{grid-template-columns:minmax(0,1fr);gap:.65rem}
  #sds-list .sds-body{display:contents}
  #sds-list .sds-identity{grid-row:1}
- #sds-list .sds-media{grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:.5rem 1rem;width:100%}
+ #sds-list .sds-stock-facts{grid-row:2;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem .75rem}
+ #sds-list .sds-stock-facts>div:last-child{grid-column:1/-1}
+ #sds-list .sds-media{grid-row:3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:.5rem 1rem;width:100%}
  #sds-list .sds-photo{display:contents}
  #sds-list .sds-photo-button{grid-row:1;grid-column:1;justify-self:start;width:min(100%,215px)}
  #sds-list .sds-code{grid-row:1;grid-column:2;min-width:0;width:100%}
@@ -1397,7 +1440,6 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #sds-list .sds-code button{width:min(100%,180px)}
  #sds-list .sds-code svg{width:100%;height:auto}
  #sds-list .sds-photo figcaption{grid-row:2;grid-column:1/-1;margin:0;min-width:0;text-align:left}
- #sds-list .sds-photo-facts{grid-template-columns:repeat(auto-fit,minmax(min(8rem,100%),1fr));gap:.6rem .8rem;margin:.15rem 0 .35rem}
  #sds-list .sds-body>dl{margin:0}
  #sds-list .sds-docs{gap:.3rem .8rem}
  #sds-list .sds-entry details{grid-column:1}
@@ -1613,10 +1655,15 @@ __CONTACTS__
 <section class="view pb" id="v-stocktake" data-tab="Stocktake">
 <div class="vh"><h2>Stocktake</h2><p><span id="st-intro">Physical counts for the MMG shutdown. Each tool asset and consumable stock line needs a separate check in each round.</span></p></div>
 
+<div id="st-handover" class="st-handover-top">
+<div class="st-handover-heading"><h3 id="st-handover-title">Shift handover</h3><p id="st-handover-balance"></p></div>
+<div id="st-handover-people" class="st-shift-list"></div>
+<div class="work-actions noprint"><button type="button" class="btn" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button></div>
+</div>
 <div class="st-duty" id="st-duty"></div><p id="st-live-status" class="foot" role="status"></p>
 <div class="st-rounds" id="st-rounds" aria-label="Stocktake period"></div>
 <div id="st-overview" class="card st-card"></div>
-<div class="st-jump noprint"><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
+<div class="st-jump noprint"><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
 <div class="card st-card"><h3 id="st-cat-title">Coverage by category</h3><p class="sub" id="st-cat-sub"></p>
 <div class="st-filters noprint"><label>Find a category<input class="search" id="st-cat-q" type="search" placeholder="Category name"></label><label>Show categories<select id="st-cat-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label><label id="st-cat-progress-label" hidden>Coverage<select id="st-cat-progress"><option value="pending">Still to check</option><option value="all">All categories</option></select></label></div>
 <div class="st-category-grid" id="st-categories"></div><div id="st-print-categories"></div><div class="st-pages" id="st-category-pages"></div></div>
@@ -2645,7 +2692,7 @@ function stars(r, size) {
   const label = score + ' out of 5';
   return `<svg class="stars${size === 'lg' ? ' lg' : ''}" width="100" height="20" viewBox="0 0 100 20" role="img" aria-label="${label}"><title>${label}</title><use class="star-shell" href="#rating-strip"/>${score > 0 ? `<svg width="${score * 20}" height="20" overflow="hidden"><use class="star-earned" href="#rating-strip"/></svg>` : ''}</svg>`;
 }
-const tbl=(h,rows)=>`<div class="tscroll"><table class="t"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
+const tbl=(h,rows,klass='')=>`<div class="tscroll"><table class="t${klass?' '+klass:''}"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
 const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`;
 const stat=a=>`<div class="sstats">${a.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
 const pct=v=>v==null?'–':Math.round(v*100)+'%';
@@ -2667,10 +2714,10 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  (p.cons.length?`<h5>Consumables a shut, by type</h5><p class="bar-scale">Full scale is ${fmt(cmax)} units per shutdown.</p><div class="now bar-series">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr" aria-hidden="true">${horizontalFill('fl',c.units,cmax)}</div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
-t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
+t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k),issuedLabel=CLIENT==='MMG'?'Issued (AEST)':'Issued';
  return `<div class="dh">${detailPhoto('tools',t.pic,t.name)}<div><h3>${esc(t.name)}</h3><div class="ssub">${fmt(t.site)} total on site${t.var?` · product variant ${esc(t.var)}`:''}</div>${tgc(t.tag)}</div></div>`+
  stat([[t.available,'Available for hire'],[t.on,'Out on hire'],[t.site,'Total on site'],t.site>t.available+t.on?[t.site-t.available-t.on,'Other status']:[t.best||'–','Busiest seen']])+
- (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Item number','Hired · days on hire'],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td><b>${esc(r.who)}</b></td><td>${esc(r.co)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`)):'')},
+ (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Company','Asset number',issuedLabel],rs.map(r=>`<tr data-open="p:${esc(r.pk)}"><td data-label="Person"><button type="button" class="holder-link" data-open="p:${esc(r.pk)}">${esc(r.who)}</button></td><td data-label="Company">${esc(r.co)}</td><td data-label="Asset number">${esc(r.item||'—')}</td><td data-label="${issuedLabel}">${esc([r.date,r.time].filter(Boolean).join(' ')||'—')}<small class="holder-age">${esc(days(r))}</small></td></tr>`),'stock-holders'):'')},
 k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(r=>k.d&&k.d.includes(r.dk));
  return `<div class="dh">${m==='tools'?detailPhoto('tools',k.pic,k.name):''}<div><h3>${esc(k.name)}</h3><div class="ssub">${esc(D.cat[m][+ci].name)} · ${fmt(k.n)} ${m=='tools'?'items':'units'}</div>${tgc(m=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}</div></div>`+
  `<h5>Sizes, smallest to largest</h5>`+tbl(['Size',m=='tools'?'<span style="float:right">Total on site</span>':'<span style="float:right">On the shelf</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
@@ -2826,23 +2873,22 @@ function initSds(){
     if(!r.photo)return '';
     const caption=r.photo_caption||r.product;
     const source=sdsSource(r.photo_source);
-    const facts=(!r.pack?meta('Product identifier',r.sds_details?.product_identifier||r.product):'')
-      +meta('Pack size',r.pack||'Not recorded')+meta('Storage location',r.storage_location||'Not recorded')+meta('Bin',r.bin);
-    return `<figure class="sds-photo"><button type="button" class="stock-photo sds-photo-button" data-sds-photo="${index}" aria-haspopup="dialog" aria-label="Enlarge product photo of ${esc(r.product)}"><img src="${esc(r.photo_tile||r.photo)}" width="512" height="512" alt="${esc(caption)}"></button><figcaption><dl class="sds-photo-facts">${facts}</dl>${source?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Photo source</a>':'Product photo'}</figcaption></figure>`
+    return `<figure class="sds-photo"><button type="button" class="stock-photo sds-photo-button" data-sds-photo="${index}" aria-haspopup="dialog" aria-label="Enlarge product photo of ${esc(r.product)}"><img src="${esc(r.photo_tile||r.photo)}" width="512" height="512" alt="${esc(caption)}"></button><figcaption>${source?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Photo source</a>':'Product photo'}</figcaption></figure>`
   }
   function productCard(r){
     const index=rows.indexOf(r);
     const dims=Number(r.qr.split(':',1)[0])+8,qr=qrsvg(r.qr,dims*3,4);
-    const units=r.quantity==null?'Quantity not recorded':fmt(r.quantity)+(r.uom?' '+r.uom:'');
+    const units=r.quantity==null?'Quantity not recorded':fmt(r.quantity);
     const productCodes=[...new Set([r.code,r.sku].filter(Boolean))].join(' · ');
     const local=/^\/sds\/[A-Za-z0-9._-]+\.pdf$/i.test(r.file||'')?r.file:'';
     const stockTime=String(r.stock_asat||'').replace('T',' ').slice(0,16);
-    const identity=r.name!==r.product?`<p class="sub">${esc(r.name)}</p>`:'';
+    const identity=r.name&&r.name!==r.product?`<p class="sub">${esc(r.name)}</p>`:'';
     const doc=sdsSource(r.url);
-    return `<article class="card sds-entry"><div class="sds-body"><header class="sds-identity"><div class="sds-heading"><h3>${esc(r.product)}</h3><span class="sds-status ${sdsInDate(r)?'':'due'}">${sdsReview(r)}</span></div>${identity}</header>
-<dl>${meta('On hand in SiteIQ',units)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)+(r.uom?' '+r.uom:'')):''}${meta('Stock code / SKU',productCodes)}${r.photo?'':meta('Pack size',r.pack||'Not recorded')+meta('Storage location',r.storage_location||'Not recorded')+meta('Bin',r.bin)}${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl>
-<div class="sds-docs"><a class="btn" href="${esc(doc)}" target="_blank" rel="noopener noreferrer">Open full Australian SDS</a>${local&&location.protocol.startsWith('http')&&!STATIC?'<a href="'+esc(local)+'" target="_blank" rel="noopener noreferrer">Portal PDF copy</a>':''}</div>
-<p class="sub">${esc([r.source_export,stockTime?stockTime+' AEST':''].filter(Boolean).join(' · '))}</p></div>
+    const stockSource=[r.source_export,stockTime?stockTime+' AEST':''].filter(Boolean).join(' · ');
+    return `<article class="card sds-entry"><div class="sds-body"><header class="sds-identity"><div class="sds-heading"><h3>${esc(r.product)}</h3><span class="sds-status ${sdsInDate(r)?'':'due'}">${sdsReview(r)}</span></div>
+<div class="sds-docs"><a class="btn" href="${esc(doc)}" target="_blank" rel="noopener noreferrer" aria-label="Open full Australian SDS for ${esc(r.product)}">Open SDS <span aria-hidden="true">↗</span></a>${local&&location.protocol.startsWith('http')&&!STATIC?'<a href="'+esc(local)+'" target="_blank" rel="noopener noreferrer">Portal PDF copy</a>':''}</div>${identity}</header>
+<dl class="sds-stock-facts" aria-label="Stock details">${meta('On hand in SiteIQ',units)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)):''}${meta('Unit of measure',r.uom||'Not recorded')}${meta('Pack size',r.pack||'Not recorded')}${meta('Storage location',r.storage_location||'Not recorded')}${meta('Bin',r.bin)}${meta('Stock code / SKU',productCodes)}${meta('Stock snapshot',stockSource||'Not recorded')}</dl>
+<dl class="sds-document-facts" aria-label="Document details">${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl></div>
 <div class="sds-media">${stockPhoto(r,index)}<div class="sds-code"><button type="button" data-sds-qr="${index}" aria-haspopup="dialog" aria-label="Enlarge SDS QR code for ${esc(r.product)}">${qr}</button><span class="sds-screen-label">Scan for the full SDS</span><a class="sds-print-link" href="${esc(doc)}">Scan or open full SDS</a></div></div>${extract(r)}</article>`
   }
   let printing=STATIC;
@@ -2890,16 +2936,19 @@ function initSds(){
 if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),box=$('#gs-r'),X=[];let indexed=false;
 function prepareSearch(){
 if(indexed)return;
-const add=(g,n,sub,open,text,pc,balance)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc,balance});
+const add=(g,n,sub,open,text,pc,balance,sds)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc,balance,sds});
 const cos=new Map();D.people.forEach(p=>{if(p.co)cos.set(p.co,(cos.get(p.co)||0)+1)});D.companies.forEach(c=>cos.has(c.name)||cos.set(c.name,0));
 const outC={};D.companies.forEach(c=>outC[c.name]=c.n);[...cos.keys()].sort().forEach(c=>add('Companies',c,`${outC[c]||0} on hire now · ${cos.get(c)} ${cos.get(c)==1?'person':'people'}`,'co:'+c,''));
 D.people.forEach(p=>add('People',p.name,`${p.co||''}${p.now?' · '+p.now+' out now':''}`,'p:'+p.key,p.co||''));
 const quantity=v=>Number.isFinite(v)?fmt(v):'—';
 Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${quantity(t.on)} on hire · ${quantity(t.site)} on site`,'t:'+k,[k,t.var,t.own,t.tag?'test tag':''].join(' '),()=>pic(t.pic,t.name),{value:t.available,label:'available'}));
-D.clines.forEach((l,i)=>add('Consumables',l.name,l.code?CLIENT+' code '+l.code:l.type||'Consumable','stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l),{value:l.have,label:'on shelf'}));
+D.clines.forEach((l,i)=>{
+ const sds=sdsRecords.find(r=>r.name===l.name && (r.owner||'')===(l.owner||'') && (r.code?r.code===l.code:l.sku&&r.sku===l.sku));
+ add('Consumables',l.name,l.code?CLIENT+' code '+l.code:l.type||'Consumable','stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l),{value:l.have,label:'on shelf'},sds)
+});
 const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
-sdsRecords.forEach((r,i)=>add('Safety data sheets',r.product,[sdsReview(r),r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r)));
+sdsRecords.forEach((r,i)=>add('Safety data sheets',r.product,[sdsReview(r),r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r),null,null,r));
 X.sort((a,b)=>a.n.localeCompare(b.n));indexed=true;
 }
 const ORD=['Tools','Consumables','Safety data sheets','Item numbers','People','Companies','On hire now'];let sel=-1;
@@ -2921,7 +2970,9 @@ box.innerHTML=matches.size?ORD.map(g=>{
  const rows=hit.best.flat().slice(0,7).map(x=>{
    const balance=x.balance;
    const amount=balance?`<span class="gs-stock"><b>${Number.isFinite(balance.value)?fmt(balance.value):'—'}</b><small>${esc(balance.label)}</small></span>`:'';
-   return `<button type="button" class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span class="gs-name"><b>${highlight(x.n,re)}</b><small>${highlight(x.sub,re)}</small></span>${amount}</button>`;
+   const record=`<button type="button" class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span class="gs-name"><b>${highlight(x.n,re)}</b><small>${highlight(x.sub,re)}</small></span>${amount}</button>`;
+   if(!x.sds)return record;
+   return `<div class="gs-sds-result">${record}<a class="gs-sds-file" href="${esc(sdsSource(x.sds.url))}" aria-label="Open SDS for ${esc(x.sds.product)}" target="_blank" rel="noopener noreferrer">Open SDS <span aria-hidden="true">↗</span></a></div>`;
  }).join('');
  return `<h6><span>${g}</span><span>${hit.total>7?'7 of '+fmt(hit.total):hit.total}</span></h6>`+rows;
 }).join(''):`<div class="none">Nothing matches "${esc(q.value.trim())}". Try a name, a company, a tool, an item number or a code.</div>`;box.hidden=false};
@@ -3121,7 +3172,7 @@ function initStocktake(st) {
   const scope=r=>r<0?'Since arrival':r===0?'Opening':'Close-out';
   $('#st-mode').add(new Option('Physical counts since arrival','since-arrival'),1);
   if(carry){
-    $('#st-intro').textContent='The opening baseline is complete. Close-out tracks the physical check of each tool asset and consumable line before departure.';
+    $('#st-intro').textContent='Opening baseline complete. Each stock line counts once toward close-out, even when two shifts check it.';
     $('#st-rounds').classList.add('st-formal-rounds');
     $('#st-entry-round').replaceChildren(new Option('Close-out count','closeout'));
   }
@@ -3139,6 +3190,7 @@ function initStocktake(st) {
     if(e.shift!=='Night'||Number(e.time.slice(11,13))>=6)return day;
     const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()-1);return d.toISOString().slice(0,10);
   };
+  const countSessionKey=e=>JSON.stringify([shiftDate(e),e.shift,e.who||'']);
   const words=(str,q)=>q.trim().toLowerCase().split(/\s+/).every(w=>str.toLowerCase().includes(w));
   const sinceArrival=e=>!arrival||e.time.slice(0,10)>=arrival;
   const closeEvidence=e=>{
@@ -3212,6 +3264,46 @@ function initStocktake(st) {
     const rate=coverageRatio(checked,total);
     return `<div class="st-measure" data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${esc(pct(checked,total))}</strong></div><b>${title}</b><small>${coverageNote(checked,total,verb)}</small></div>`;
   }
+  function showShiftHandover(total,done){
+    const basis=openingView();
+    $('#st-handover-title').textContent=basis?'Opening baseline':round===1?'Latest close-out shifts':round===0?'Latest opening shifts':'Latest stocktake shifts';
+    const balance=$('#st-handover-balance'), people=$('#st-handover-people');
+    if(basis&&!baselineAvailable)balance.textContent='Opening accepted by carry-forward. Item totals unavailable.';
+    else{
+      const percentage=coverageRatio(done,total)===null?'':'<strong>'+esc(pct(done,total))+' '+(basis?'covered':'complete')+'</strong> · ';
+      balance.innerHTML=percentage+fmt(done)+' of '+fmt(total)+(basis?' lines in the accepted baseline':' checked · '+fmt(total-done)+' outstanding across the store');
+    }
+    // The log groups by shift start date, shift and operator. Use that same key for drill-through.
+    const latestShift=new Map(),sessions=new Map();
+    for(const e of events){
+      if(!selectedPeriod(e)||!e.who?.trim()||!e.time||!e.shift)continue;
+      const day=shiftDate(e);
+      if(!latestShift.has(e.shift))latestShift.set(e.shift,day);
+      if(latestShift.get(e.shift)!==day)continue;
+      const id=countSessionKey(e);
+      if(!sessions.has(id))sessions.set(id,{latest:e,items:new Set(),categories:new Map()});
+      const session=sessions.get(id),item=key(e.row.kind,e.row.key);
+      if(session.items.has(item))continue;
+      session.items.add(item);
+      const cat=catKey(e.row);
+      session.categories.set(cat,(session.categories.get(cat)||0)+1);
+    }
+    people.innerHTML=[...sessions].map(([id,session])=>{
+      const e=session.latest,n=session.items.size,stamp=e.time.slice(11,16);
+      const day=e.time.slice(0,10),start=shiftDate(e);
+      const shiftLabel=e.shift+' shift · '+dateText(start);
+      const lastLabel=(day===start?'':dateText(day)+' ')+stamp+' AEST';
+      const [topKey,count]=[...session.categories].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'en-AU'))[0];
+      const cat=(basis?baselineCats:cats).get(topKey),name=cat?.name||JSON.parse(topKey)[1];
+      const outstanding=cat&&!basis?' · '+fmt(cat.total-coverage.get(topKey))+' outstanding in category':'';
+      return `<button class="st-shift-count" type="button" data-st-crew="${esc(id)}" aria-label="View ${esc(e.who)}, ${esc(shiftLabel)}, ${n} distinct items counted"><span class="st-shift-name"><strong>${esc(e.who)}</strong><b>${fmt(n)} ${n===1?'item':'items'} counted</b></span><span class="st-shift-meta">${esc(shiftLabel)} · Last count ${esc(lastLabel)}</span><span class="st-shift-category">${fmt(count)} in ${esc(name)}${esc(outstanding)}</span></button>`;
+    }).join('');
+    if(!sessions.size){
+      const empty=document.createElement('p');empty.className='sub';
+      empty.textContent=basis?'No named physical counts are recorded for the opening period.':'No named physical counts are recorded for this period.';
+      people.append(empty);
+    }
+  }
   function progress(){
     const r=st.rounds[0],openingEnd=r.end?new Date(r.end+'T12:00:00Z'):null;if(openingEnd)openingEnd.setUTCDate(openingEnd.getUTCDate()-1);
     const closeCount=[...closeByCategory.values()].reduce((n,group)=>n+group.items.size,0);
@@ -3241,19 +3333,11 @@ function initStocktake(st) {
       const earliest=new Map();for(const e of eligible)earliest.set(key(e.row.kind,e.row.key),e.time.slice(0,10));
       const dates=[...earliest.values()];note=`${fmt(dates.filter(d=>d<st.departure).length)} first checked before departure day · ${fmt(dates.filter(d=>d===st.departure).length)} on departure day (time to confirm) · ${fmt(dates.filter(d=>d>st.departure).length)} after the deadline.`;
     }else note='Each current tool asset or consumable stock line counts once, including lines with zero physically counted.';
-    const recentGroups=new Map();
-    for(const e of events.filter(selectedPeriod)){
-      const group=JSON.stringify([shiftDate(e),e.shift,e.who||'']);
-      if(!recentGroups.has(group)&&recentGroups.size===2)continue;
-      if(!recentGroups.has(group))recentGroups.set(group,{e,items:new Set()});
-      recentGroups.get(group).items.add(key(e.row.kind,e.row.key));
-    }
-    const crew=[...recentGroups].map(([group,{e,items}])=>`<button type="button" class="btn ghost" data-st-crew="${esc(group)}" aria-label="View ${esc(personName(e))}, ${esc(e.shift||'unrecorded')} shift ${esc(shiftDate(e))}, ${items.size} items"><b>${esc(personName(e))}</b> · ${esc(e.shift||'Shift not recorded')} · ${fmt(items.size)} ${items.size===1?'item':'items'}</button>`).join('');
+    showShiftHandover(total,done);
     const recent=eligible[0];
     const measures=basis&&!baselineAvailable?'':`<div class="st-measures">${gauge('all','Whole register',done,total,verb)}${gauge('tool','Tool assets',kinds.tool.checked,kinds.tool.total,verb)}${gauge('cons','Consumable lines',kinds.cons.checked,kinds.cons.total,verb)}</div>`;
-    $('#st-overview').innerHTML=`<h3>${scope(round)} · ${basis?'baseline coverage':'stocktake coverage'}</h3>${measures}${details}<p class="st-period-note">${basis?'':fmt(total-done)+' still to check. '}${esc(note)}</p>${recent?`<p class="st-latest"><strong>Latest physical count</strong> · ${esc(personName(recent))} · ${esc(timeText(recent.time))} · ${esc(recent.row.name||recent.row.key)}</p>`:''}${crew?`<div class="st-recent-shifts"><span>Recent count sessions</span>${crew}</div>`:''}`;
-    $('#st-cat-title').textContent=round===1?'Close-out shift handover':'Coverage by category';
-    $('[data-stock-focus="st-cat-title"]').textContent=round===1?'Close-out shift handover':'Coverage by category';
+    $('#st-overview').innerHTML=`<h3>${scope(round)} · ${basis?'baseline coverage':'stocktake coverage'}</h3>${measures}${details}<p class="st-period-note">${basis?'':fmt(total-done)+' still to check. '}${esc(note)}</p>${recent?`<p class="st-latest"><strong>Latest physical count</strong> · ${esc(personName(recent))} · ${esc(timeText(recent.time))} · ${esc(recent.row.name||recent.row.key)}</p>`:''}`;
+    $('#st-cat-title').textContent=round===1?'Close-out by category':'Coverage by category';
     $('#st-cat-progress-label').hidden=round!==1;
     $('#st-cat-sub').textContent=round===1?'Pick up where we left off. Each tool asset or consumable stock line counts once. Categories with recent counts appear first.':basis?'Opening inventory accepted by carry-forward. Select a category to see its covered lines.':scope(round)+' · Select a category to see its stock lines and shift activity.';
     if(carry){
@@ -3344,10 +3428,9 @@ function initStocktake(st) {
     $('#st-source').textContent=(sightings?'This lists all SiteIQ activity. An issue, return or blank action does not establish a physical count.':openingView()&&!history?'Opening carry-forward applies to coverage only. This history lists actual physical counts recorded for the opening period.':'Each row groups one person’s entries for one shift. Open View items to see each stock line, quantity and time.')+' Night shifts use their starting date.'+(sightings?windowInfo:'')+(sightings&&st.unmatched?' '+fmt(st.unmatched)+' historic IDs fall outside current coverage.':'');
     const filterInfo=$('#st-activity-cat');filterInfo.hidden=!picked;
     if(picked){filterInfo.innerHTML='Category · '+esc((baselineCats.get(picked)||cats.get(picked))?.name||'Uncategorised')+' <button type="button" class="btn ghost">Clear category</button>';filterInfo.querySelector('button').onclick=()=>selectCategory('',false)}
-    const groupKey=e=>JSON.stringify([shiftDate(e),e.shift,e.who||'']);
     const groups=new Map();
     for(const e of filtered){
-      const k=groupKey(e);
+      const k=countSessionKey(e);
       if(!groups.has(k))groups.set(k,{first:e.time,last:e.time,shift:e.shift,day:shiftDate(e),who:e.who,tools:new Set(),cons:new Set(),categories:new Set(),entries:0});
       const g=groups.get(k);g.first=g.first<e.time?g.first:e.time;g.last=g.last>e.time?g.last:e.time;
       (e.row.kind==='cons'?g.cons:g.tools).add(e.row.key);g.categories.add(category(e.row));g.entries++;
@@ -3360,7 +3443,7 @@ function initStocktake(st) {
     $('#st-shift-summary').innerHTML=groupRows?table(['Person and shift','First to last','Tool assets','Consumable lines','Categories','Entries','Details'],groupRows):'';
     pager($('#st-shift-pages'),grouped.length,groupPage,n=>{groupPage=n;log()});$('#st-shift-pages').hidden=!grouped.length;
     if(!groups.has(groupFilter))groupFilter='';
-    const records=groupFilter?filtered.filter(e=>groupKey(e)===groupFilter):filtered;
+    const records=groupFilter?filtered.filter(e=>countSessionKey(e)===groupFilter):filtered;
     $('#st-reset-group').hidden=!groupFilter;
     const group=groups.get(groupFilter);
     $('#st-detail-title').textContent=group?`Item activity · ${personName(group)} · ${group.shift||'Unrecorded'} shift · ${group.day||'Date not recorded'}`:'Item activity';
@@ -3407,12 +3490,16 @@ function initStocktake(st) {
       $('#st-live-status').textContent=(st.asat?'SiteIQ stocktake imported through '+timeText(st.asat)+'. ':'')+'Additional count entries saved in the portal: '+fmt(manual.length)+'.';update();
     }catch(err){if(serial===sequence){scanReview.permission(false);reviewInventory=reviewLog=null;inventory();log();$('#st-live-status').textContent='Live portal counts could not be refreshed. '+baseline}}
   }
-  $('#st-overview').onclick=e=>{
-    const b=e.target.closest('[data-st-crew]');if(!b)return;reviewInventory=reviewLog=null;
+  function showCountSession(group){
+    reviewInventory=reviewLog=null;
     const categoryChanged=!!$('#st-cat-filter').value;$('#st-cat-filter').value='';
     $('#st-mode').value='counts';$('#st-person').value='';$('#st-shift').value='';$('#st-log-q').value='';
-    groupFilter=b.dataset.stCrew;groupPage=logPage=0;
+    groupFilter=group;groupPage=logPage=0;
     if(categoryChanged){page=0;categories();inventory()}log();
+  }
+  $('#st-handover').onclick=e=>{
+    const b=e.target.closest('[data-st-crew]');if(!b)return;
+    showCountSession(b.dataset.stCrew);
     $('#st-detail-title').scrollIntoView({block:'start'});$('#st-reset-group').focus({preventScroll:true});
   };
   $('#st-rounds').onclick=e=>{const b=e.target.closest('[data-round]');if(b){reviewInventory=reviewLog=null;round=Number(b.dataset.round);groupFilter='';groupPage=page=logPage=categoryPage=0;$('#st-mode').value='counts';$('#st-progress').value='';update()}};
@@ -3460,7 +3547,12 @@ function initStocktake(st) {
     }catch(err){$('#st-submit-status').textContent=err.message||'Could not save. Try again.'}
     finally{busy=false;$('#st-save').disabled=$('#st-cancel').disabled=false}
   };
-  for(const b of $$('[data-stock-focus]',view))b.onclick=()=>{const el=document.getElementById(b.dataset.stockFocus);el.scrollIntoView();const field=b.dataset.stockFocus==='st-inventory-title'?$('#st-q'):b.dataset.stockFocus==='st-cat-title'?$('#st-cat-q'):$('#st-mode');field.focus({preventScroll:true})};
+  for(const b of $$('[data-stock-focus]',view))b.onclick=()=>{
+    const id=b.dataset.stockFocus;if(id==='st-log-title')showCountSession('');
+    document.getElementById(id).scrollIntoView();
+    const field=id==='st-inventory-title'?$('#st-q'):id==='st-cat-title'?$('#st-cat-q'):$('#st-mode');
+    field.focus({preventScroll:true});
+  };
   update();
   $('#st-live-status').textContent=baseline+(STATIC||!location.protocol.startsWith('http')?' Open the live report for subsequent counts.':' Checking for newer portal counts…');
   if(!STATIC){
@@ -3486,7 +3578,7 @@ const workPages={
   swms:{},
   rhythm:{stats:'#op-stats',jumps:[['View counter checks','#hire-checks-title']]},
   costs:{stats:'#cs-stats',jumps:[['Check an invoice charge','#cs-check-date'],['View shift roster','#cs-roster']]},
-  stocktake:{rail:'#st-duty',moves:['[data-stock-focus="st-cat-title"]','[data-stock-focus="st-inventory-title"]']},
+  stocktake:{rail:'#st-handover'},
   people:{stats:'#pp-stats',rail:'#pp-seg'},
   upload:{},
   guide:{moves:['#mobile-install']}

@@ -139,7 +139,10 @@ class ReturnStars(Flowable):
         c.drawString(2, 37, self.label)
         c.setFont(self.bold, 9)
         c.setFillColor(INK)
-        c.drawString(2, 3, self.caption)
+        c.drawString(2, 18 if self.score is None else 3, self.caption)
+        if self.score is None:
+            c.restoreState()
+            return
         radius = 7.3
         for i in range(5):
             cx, cy = 9 + i * 19, 23
@@ -264,10 +267,10 @@ def render_pdf(report, *, job_dir=None, returns_only=False):
             caption = f"{number(score)} / 5"
             if rating.get("same_day") is not None:
                 caption += f" · {number(rating['same_day'])} of {number(eligible)} same day"
-        elif tools_covered:
+        elif tools_covered and rating.get("eligible") is not None and 0 <= eligible < 5:
             caption = f"Pending · {number(eligible)} of 5 eligible"
         else:
-            caption = "Awaiting dated records"
+            caption = "Rating unavailable" if tools_covered else "Awaiting dated records"
         label = "CREW SAME-DAY RETURNS" if company_report else (
             "SAME-DAY RETURN SCORE" if qualified_score is not None else "SAME-DAY RETURNS")
         identity = [para(name, 23, bold)]

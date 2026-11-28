@@ -19,6 +19,7 @@ def check(browser, fixture):
     page = bp.new_page()
     badge = fixture.person["barcode"]
     report = qr_reports.personal(fixture.dir, badge)
+    report["returns"].update(score=None, eligible=3, same_day=2)
     errors = []
     page.on("pageerror", lambda err: errors.append(str(err)))
     def route(req):
@@ -39,6 +40,14 @@ def check(browser, fixture):
         page.locator("#lookup-form button[type=submit]").click()
         expect(page.locator("#report-heading")).to_have_text(report["name"])
     lookup()
+    preview = page.locator("#return-preview")
+    item = report["hires"][0]["items"][0]
+    expect(preview).to_contain_text(item["item"])
+    expect(preview).to_contain_text(item["time"])
+    expect(preview.locator("a")).to_have_attribute("href", "#current-gear")
+    assert preview.evaluate("element=>element.getBoundingClientRect().bottom<=innerHeight")
+    expect(page.locator("#name-rating")).to_contain_text("3 of 5 qualifying hires")
+    assert not page.locator("#name-rating .rating-stars").count()
     # Inspect rendered CSS geometry and the final SVG wet-layer clip, including subpixel values.
     result = page.evaluate("""() => {
         const d=document.createElement("div"), p=document.createElement("span");

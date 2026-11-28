@@ -42,7 +42,16 @@ def exercise(browser, scope, fixture):
             return r.fulfill(path=APP/"mobile"/name,content_type="image/png")
         if parsed.path == "/before":
             return r.fulfill(body="<p>Previous page</p>", content_type="text/html")
+        if name == "enter.js":
+            return r.fulfill(body=qr_access.ENTER_JS, content_type="text/javascript")
+        if name == "enter":
+            if r.request.method == "GET":
+                return r.fulfill(body=qr_access.invitation(scope, fixture.dir), content_type="text/html",
+                                 headers={"Content-Security-Policy":qr_access.CSP})
+            cookie = qr_access._exchange(fixture.dir, scope, r.request.post_data_json["token"])
+            return r.fulfill(status=200 if cookie else 403, headers={"Set-Cookie":cookie} if cookie else {}, body="")
         if not name:
+            assert qr_access._session(fixture.dir, scope, r.request.all_headers().get("cookie", ""))
             return r.fulfill(body=qr_views.page(scope,job_dir=fixture.dir),content_type="text/html",
                              headers={"Content-Security-Policy":qr_access.CSP})
         if name in ("qr_report.js","qr_report.css","qr_motion.js","qr_direction.css","qr_item_query.css","qr_item_query.js","qr_handover.css","qr_handover.js","qr_store_story.js"):
@@ -58,6 +67,24 @@ def exercise(browser, scope, fixture):
             return r.fulfill(body=b"%PDF-1.7\nTest file\n%%EOF",content_type="application/pdf")
         raise AssertionError(parsed.path)
     ctx.route("**/*",route)
+    # Reopening the poster in an existing invitation tab is a fragment-only navigation.
+    entry = ctx.new_page()
+    entrance = base + "enter"
+    entry.goto(entrance)
+    expect(entry.locator("main.entry")).to_have_attribute("aria-busy", "false")
+    other_scope = "company" if scope == "personal" else "personal"
+    for poster_scope, expected_status in ((other_scope, 403), (scope, 200)):
+        fragment = urlsplit(qr_access.entry_url(fixture.dir, poster_scope)).fragment
+        with entry.expect_response(lambda res: res.url == entrance and res.request.method == "POST", timeout=4000) as exchange:
+            entry.goto(entrance + "#" + fragment)
+        assert exchange.value.status == expected_status
+        if expected_status == 403:
+            expect(entry.locator("main.entry")).to_have_attribute("aria-busy", "false")
+            assert entry.url == entrance
+    expect(entry).to_have_url(base)
+    expect(entry.locator("#identity")).to_be_visible()
+    assert entry.evaluate("localStorage.length + sessionStorage.length") == 0
+    entry.close()
     page.goto("https://example.test/before")
     page.goto(base)
     field = page.locator("#identity")
@@ -73,7 +100,7 @@ def exercise(browser, scope, fixture):
     def cleansed():
         expect(page.locator("#report")).to_be_hidden()
         expect(field).to_have_value("")
-        for selector in ("#report-heading","#hero-count","#report-body","#section-nav","#report-subtitle","#send-status","#name-rating","#direction-instrument","#direction-strap"):
+        for selector in ("#report-heading","#hero-count","#return-preview","#report-body","#section-nav","#report-subtitle","#send-status","#name-rating","#direction-instrument","#direction-strap"):
             assert not page.locator(selector).inner_html(), selector
         assert not page.locator("dialog[open]").count() and not urlsplit(page.url).fragment
         assert page.evaluate("localStorage.length + sessionStorage.length") == 0
@@ -161,6 +188,18 @@ def exercise(browser, scope, fixture):
     cleansed()
     assert not downloads
     if scope == "personal":
+        page.evaluate("""() => {navigator.mediaDevices.getUserMedia = async () => {
+            throw new DOMException("Camera unavailable", "NotAllowedError");
+        }}""")
+        page.locator("#camera").focus()
+        page.keyboard.press("Enter")
+        expect(page.locator("#message")).to_contain_text("Camera unavailable")
+        expect(field).to_be_focused()
+        expect(page.locator("#scan-box")).to_be_hidden()
+        page.keyboard.type(badge)
+        expect(field).to_have_value(badge)
+        page.locator("#clear-entry").click()
+        cleansed()
         # Close while permission is pending: when the media device becomes
         # available its tracks must stop without restoring the retired preview.
         page.evaluate("""() => {

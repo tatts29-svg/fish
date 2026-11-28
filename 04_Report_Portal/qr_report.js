@@ -288,6 +288,9 @@
   function issueKey(asset) {
     return asset.date ? "0 " + asset.date + " " + (asset.time || "24:00") : "1";
   }
+  function issueStamp(asset) {
+    return asset.date ? when(asset.date,asset.time)+(asset.time ? "" : " · time unavailable") : "Issue date unavailable";
+  }
   function orderedHoldings(r) {
     const hires = r.hires.map(tool => ({...tool, items:[...tool.items].sort((a,b) =>
       issueKey(a).localeCompare(issueKey(b)) || String(a.item).localeCompare(String(b.item)))}));
@@ -308,8 +311,7 @@
     else if (!personal) headings.push("Held by");
     headings.push("Item query");
     const rows=tool.items.map(asset => {
-      const stamp=asset.date ? when(asset.date,asset.time) + (asset.time ? "" : " · time unavailable") : "Issue date unavailable";
-      const row=[asset.item || "Number unavailable",stamp];
+      const row=[asset.item || "Number unavailable",issueStamp(asset)];
       if (byHolder) row.unshift(asset.name || "Equipment");
       else if (!personal) row.push(asset.holder || "Individual holder unconfirmed");
       return [...row,""];
@@ -398,10 +400,29 @@
     panel.append(list);
     return list;
   }
+  function showFirstHolding(item,description,holder) {
+    const preview=$("return-preview");
+    if (item) {
+      preview.append(el("span","preview-label","First item on the return list"),el("strong","preview-name",description || "Equipment description unavailable"));
+      const facts=el("dl","preview-facts");
+      for (const [label,value] of [["Asset number",item.item || "Number unavailable"],["Issued (AEST)",issueStamp(item)]]) {
+        const field=el("div");field.append(el("dt","",label),el("dd","",value));facts.append(field);
+      }
+      if (holder) {
+        const field=el("div");field.append(el("dt","","Holder"),el("dd","",holder));facts.append(field);
+      }
+      preview.append(facts);
+    }
+    const link=el("a","preview-list-link",item ? "View full return list" : "View return balance");
+    link.href="#current-gear";link.append(el("span","preview-arrow","→"));
+    link.lastElementChild.setAttribute("aria-hidden","true");
+    preview.append(link);
+  }
   function personalHires(parent,r) {
     const panel=section(parent,"Still to return",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;panel.classList.add("personal-hires");
     if (!r.hires.length) {
+      showFirstHolding();
       const stamp = r.asat || r.coverage?.rental_asat;
       panel.append(el("p","no-holdings",stamp && r.hire_count === 0 ?
         "Nothing still to return as of " + when(stamp) + " AEST. Your card has no outstanding equipment in this snapshot." :
@@ -409,6 +430,8 @@
       return;
     }
     const list=gearList(panel,r);
+    const first=r.hires[0];
+    showFirstHolding(first.items[0],first.name);
     for (const tool of r.hires) {
       const group=el("section","holding-group readout gear-entry");
       const title=el("h3","",tool.name);
@@ -432,6 +455,7 @@
     }
     panel.append(controls);
     if (!r.hires.length) {
+      showFirstHolding();
       panel.append(el("p","empty",(r.asat || r.coverage?.rental_asat) && r.hire_count===0 ?
         "No equipment is listed against this company at the dated stock snapshot." :
         "The current balance needs a dated rental stock export."));
@@ -449,6 +473,8 @@
     }
     const groups=r.return_groups.map(g=>({name:g.holder || "Individual holder unconfirmed",unconfirmed:!g.holder,
       count:g.items.length,items:g.items}));
+    const first=groups.find(g=>g.count);
+    showFirstHolding(first?.items[0],first?.items[0]?.name,first?.name);
     const list=gearList(panel,{...r,hires:groups});
     list.id="current-holders";
     if (groups.length>1) {
@@ -468,11 +494,11 @@
       });
       list.addEventListener("toggle",sync,true);
     }
-    for (const [i,g] of groups.entries()) {
+    for (const g of groups) {
       const d=group(g.name,null);
       d.classList.add("gear-entry");
       if (g.unconfirmed) d.classList.add("holder-unconfirmed");
-      d.open=i===0;
+      d.open=groups.length===1;
       d.querySelector("summary").append(el("span","badge",units(g.count,"asset")));
       gearTable(d,g,r,true);list.append(d);
     }
@@ -877,6 +903,7 @@
     window.QRItemQuery?.reset();
     $("report-heading").textContent="";
     $("name-rating").replaceChildren();
+    $("return-preview").replaceChildren();
     $("direction-strap").replaceChildren();
     $("direction-instrument").replaceChildren();
   }
@@ -902,9 +929,15 @@
     const eligible=personal ? r.returns?.eligible : r.return_rating?.eligible;
     const score=personal ? r.returns?.score : r.return_rating?.score;
     const earned=tools && earnedRating(personal ? r.returns : r.return_rating);
-    const ratingStatus=earned ? fmt(score)+" / 5 · same-day returns" :
-      tools && validCount(eligible) && eligible<5 ? "Building rating · "+fmt(eligible)+" of 5 hires" : "Rating awaiting records";
-    $("name-rating").append(stars(earned ? score : 0,"identity"),el("span","rating-status",ratingStatus));
+    const rating=$("name-rating");
+    if (earned) {
+      rating.append(stars(score,"identity"),el("span","rating-status",fmt(score)+" / 5 · same-day returns"));
+    } else if (tools && validCount(eligible) && eligible<5) {
+      rating.append(el("strong","rating-progress",fmt(eligible)+" of 5 qualifying hires"),
+        el("span","rating-status","Return rating pending"));
+    } else {
+      rating.append(el("span","rating-status","Return rating awaiting records"));
+    }
     $("direction-strap").classList.toggle("follow-up",!personal && handover.unassigned_assets>0);
     $("direction-strap").textContent=personal ?
       (cov.sales_asat ? units(r.consumable_summary.units,"consumable unit")+" issued this shutdown" : "Consumables · sales data unavailable") :
@@ -1213,6 +1246,11 @@
         || /^(?:[a-z][\w+.-]*:|[\\/]{2}|www\.)/i.test(value)) return "";
     return value;
   }
+  function useManualEntry(message) {
+    stopCamera();
+    status(message, true);
+    identity.focus();
+  }
   async function startCamera() {
     renewDeadline();
     stopCamera();
@@ -1266,16 +1304,14 @@
           scanTimer = setTimeout(tick, 220);
         } catch (_) {
           if (mine === scanGeneration) {
-            stopCamera();
-            status("The scanner could not read this barcode. Enter your assigned barcode number.", true);
+            useManualEntry("The scanner could not read this barcode. Enter your assigned barcode number.");
           }
         }
       }
       if (mine === scanGeneration) await tick();
     } catch (_) {
       if (mine === scanGeneration) {
-        stopCamera();
-        status("Camera unavailable. Allow camera access or enter your assigned barcode number.", true);
+        useManualEntry("Camera unavailable. Allow camera access or enter your assigned barcode number.");
       }
     }
   }

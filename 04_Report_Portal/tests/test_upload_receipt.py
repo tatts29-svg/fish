@@ -98,7 +98,8 @@ class UploadReceipt(unittest.TestCase):
         with patch.object(rebuild.os,"replace",side_effect=fail_report):
             code, failure = self.build(uploader="Example Operator",batch="failed")
         self.assertEqual(code,1)
-        server._finish_build(failure,self.timestamp)
+        server._finish_build(failure,self.timestamp,batch="failed")
+        self.assertEqual(server._status()["batch"],"failed")
         self.assertEqual(self.path.read_bytes(),current)
         self.assertIn(b"Another Operator",self.dashboard())
         self.assertEqual(server._status()["last_upload"],result["last_upload"])

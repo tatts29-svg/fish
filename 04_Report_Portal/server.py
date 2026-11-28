@@ -350,12 +350,14 @@ const kind=n=>K.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
 const say=(c,h)=>{st.hidden=false;st.className='st '+c;st.innerHTML=h};
 const esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const person=$('#up-person');let names=[],busy=false,loaded=false;
+let submitted=false,submittedBatch='';
 const buttons=()=>{person.disabled=busy;go.disabled=!loaded||busy||!K.some(k=>files[k])||(names.length>0&&!person.value)};
+const renderFiles=()=>document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?'Selected · '+f.name:''});
 person.onchange=buttons;
 function take(list){if(busy)return;
  if(!loaded){say('','Loading the accepted export types. Please choose your files in a moment.');return}
  const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
- document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?'Selected · '+f.name:''});
+ renderFiles();
  buttons();
  if(odd.length)say('follow-up','<b>Files skipped</b>'+esc(odd.join(', '))+'\\nChoose an .xlsx file beginning with '+K.join(', ')+'.');
  else if(!go.disabled)say('','<b>Ready.</b>Press "Update the report".');else st.hidden=true}
@@ -379,8 +381,8 @@ function show(s){
   }
  }
  const audit=s.last_upload;
+ $('#up-last').hidden=!(names.length&&audit);
  if(names.length&&audit){
-  const last=$('#up-last');last.hidden=false;
   $('#last-who').textContent=audit.name||'Uploader not recorded';
   const stamp=$('#last-when');
   stamp.dateTime=new Date(audit.finished*1000).toISOString();stamp.textContent=when(audit.finished);
@@ -388,19 +390,35 @@ function show(s){
    const li=document.createElement('li');li.textContent=file;return li;
   }));
  }
+ const ownBuild=submitted&&(!submittedBatch||s.batch===submittedBatch);
+ const ownReceipt=submitted&&(submittedBatch?audit?.batch===submittedBatch:s.state==='ok');
  busy=s.state==='running';buttons();
- if(s.state=='running'){say('run','<b>Rebuilding the report…</b>This takes about a minute. You can leave this page open.<div class="bar"></div>');go.disabled=true;return true}
- if(s.state=='ok')say('ok','<b>Done. The report is updated.</b>SiteIQ pull '+esc(s.pull||'')+' · finished '+when(s.finished)+(s.took?' · took '+s.took+' seconds':''));
- else if(s.state=='failed')say('bad','<b>Not updated.</b>'+esc(s.message||''));
+ if(ownReceipt){
+   person.value='';for(const k in files)delete files[k];renderFiles();buttons();
+   const who=submittedBatch&&audit?.name?esc(audit.name)+' · ':'';
+   say('ok','<b>Your upload is published.</b>'+who+when(submittedBatch?audit.finished:s.finished));
+   submitted=false;submittedBatch='';
+   if(busy)st.insertAdjacentHTML('beforeend','<br>Another report rebuild is in progress.');
+   return busy;
+ }
+ if(busy){say('run',ownBuild?'<b>Your report is rebuilding…</b>':'<b>A report rebuild is in progress.</b>');
+  st.insertAdjacentHTML('beforeend',(s.uploader?esc(s.uploader)+' · ':'')+(s.started?'Started '+when(s.started):'Please wait for it to finish.')+'<div class="bar"></div>');return true}
+ if(s.state==='ok'){
+  if(submitted){
+   say('','<b>The published report shows a different upload.</b>Check the last successful upload before trying again.');
+  }else{
+   say('','<b>Previous report rebuild</b>'+(s.finished?'Finished '+when(s.finished):'')+(s.pull?' · SiteIQ pull '+esc(s.pull):''));
+  }
+ }
+ else if(s.state==='failed')say(ownBuild?'bad':'follow-up','<b>'+(ownBuild?'Your report update failed.':'Previous report rebuild failed.')+'</b>'+(s.finished?when(s.finished)+' · ':'')+esc(s.message||''));
  else if(!s.pack)say('follow-up','<b>Not ready yet.</b>The job pack has not been loaded. Ask the Manager.');
+ submitted=false;submittedBatch='';
  return false}
-let submitted=false,submittedBatch='';
 async function poll(){try{
  const response=await fetch('/upload/status',{headers:{'X-Portal':'1'}});
  if(response.redirected||response.status===401){location.assign('/login');return}
  if(!response.ok)throw new Error('Status unavailable');
- const s=await response.json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'&&submitted){submitted=false;if(submittedBatch&&s.last_upload?.batch!==submittedBatch){say('','<b>A later upload has completed.</b>See the last successful upload below.');return}
- person.value='';for(const k in files)delete files[k];take([]);show(s)}}catch{say('','<b>Checking upload status…</b>Retrying the connection.');setTimeout(poll,4000)}}
+ const s=await response.json();if(show(s))setTimeout(poll,3000)}catch{say('','<b>Checking upload status…</b>Retrying the connection.');setTimeout(poll,4000)}}
 go.onclick=async()=>{if(go.disabled)return;busy=true;buttons();try{let first=1;
  const headers={'X-Portal':'1'};
  if(names.length){headers['X-Upload-By']=person.value;headers['X-Upload-Batch']=crypto.randomUUID()}
@@ -474,18 +492,18 @@ def _rebuild(name=None, batch=None, current=False):
     finally:
         shutil.rmtree(os.path.join(JOB_DIR, "incoming"), ignore_errors=True)
     try:
-        _finish_build(res, started)
+        _finish_build(res, started, batch=batch)
     finally:
         _build_lock.release()
 
 
-def _finish_build(res, started):
+def _finish_build(res, started, *, batch=None):
     if res.get("ok"):
         finished = time.time()
         audit = {"last_upload": res["last_upload"]} if "last_upload" in res else {}
         _set_status(state="ok", message="The report is updated.", pull=res.get("pull", ""), files=res.get("files", {}), kept=res.get("kept", []), finished=finished, took=round(finished - started), **audit)
     else:
-        _set_status(state="failed", message=res.get("message", "Something went wrong. Nothing was changed."), finished=time.time())
+        _set_status(state="failed", message=res.get("message", "Something went wrong. Nothing was changed."), finished=time.time(), batch=batch)
 
 
 def _load_pack(zip_path):
@@ -1162,7 +1180,7 @@ class Handler(BaseHTTPRequestHandler):
                 incoming = os.path.join(JOB_DIR, "incoming")
                 shutil.rmtree(incoming, ignore_errors=True)
                 os.replace(folder, incoming)
-            _set_status(state="running", message="Building the report…", started=time.time(), by=role)
+            _set_status(state="running", message="Building the report…", started=time.time(), by=role, uploader=name, batch=batch)
             threading.Thread(target=_rebuild, args=(name, batch, current), daemon=True).start()
         except Exception:
             _build_lock.release()

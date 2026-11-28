@@ -74,8 +74,6 @@
     color: var(--on);
     text-decoration: none;
   }
-  .direction-primary:focus-visible { outline-offset: -3px; }
-  .direction-primary:hover .direction-note { text-decoration: underline; text-underline-offset: .22em; }
   .direction-eyebrow {
     color: var(--on-2);
     font-size: clamp(.63rem, .73vw, .83rem);
