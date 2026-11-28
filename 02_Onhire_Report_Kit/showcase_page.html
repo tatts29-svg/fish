@@ -1547,6 +1547,8 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #cu-data td small{display:block;color:var(--mu)}
  #cu-data td.cu-balance{font-weight:700}
  #cu-report h4{margin-top:.9rem}
+ #cu-past .tscroll table{min-width:33rem}
+ #cu-past-summary{margin-top:.65rem;font-weight:650}
  #cu-coverage ul{padding-inline-start:1.2rem}
  #v-sds .work-heading>div:first-child{display:flex;align-items:center;gap:.2rem 1.2rem;flex-wrap:wrap}
  #v-sds #sds-register-details{margin-inline-start:auto}
@@ -1831,6 +1833,11 @@ __CONTACTS__
     <div class="tools"><input class="search" id="cu-q" type="search" aria-label="Find a product in the usage report" placeholder="Find a product or stock code"></div>
     <p class="sub" id="cu-reading"></p><div class="tscroll" id="cu-data"></div>
     <h4>Historical coverage</h4><div id="cu-coverage"></div>
+  </details>
+  <details id="cu-past" hidden><summary>Historical issues by product</summary>
+    <div class="tools"><label>Shutdown <select id="cu-past-shut"></select></label>
+      <input class="search" id="cu-past-q" type="search" aria-label="Find a historical product or stock code" placeholder="Find a historical product or stock code"></div>
+    <p id="cu-past-summary"></p><p class="sub" id="cu-past-source"></p><div class="tscroll" id="cu-past-rows"></div>
   </details>
 </article>
 <div class="grid c2">
@@ -2841,7 +2848,35 @@ function initConsumableUsage(report){
     const filtered=rows.filter(r=>[r.name,r.sku].join(' ').toLowerCase().includes(query));
     $('#cu-data').innerHTML=filtered.length?`<table class="t"><thead><tr><th scope="col">Product / stock code</th><th scope="col">Source unit</th><th scope="col">Available to hand back to MMG</th><th scope="col">Gross issued</th><th scope="col">Credited / issued back</th><th scope="col">Net usage</th><th scope="col">Average issued per prior shut</th><th scope="col">Qualifying prior shuts</th></tr></thead><tbody>${filtered.map(r=>`<tr><td><strong>${esc(r.name)}</strong><small>${esc(r.sku||'')}</small></td><td>${esc(r.unit||'Not recorded')}</td><td class="cu-balance">${n(r.available_for_mmg)}</td><td>${n(r.issued)}</td><td>${n(r.credited)}</td><td>${n(r.net)}</td><td>${Number.isFinite(r.average_issued)?r.average_issued.toLocaleString('en-AU',{maximumFractionDigits:2}):'—'}</td><td>${n(r.average_shuts)}</td></tr>`).join('')}</tbody></table>`:'<p class="empty">'+(query?'No matching products.':'No product records available in this snapshot.')+'</p>';
   }
-  const coverage=history.length?'<ul>'+history.map(h=>'<li><b>'+esc(h.label)+'</b> · '+esc(h.status||'unverified')+(h.source?' · '+esc(h.source):'')+'</li>').join('')+'</ul>':'<p>No prior shutdown sources available for comparison.</p>';
+  const pastIssues=(D.utilisation?.average_on_hire?.previous||[]).map(shut=>shut.consumable_observations)
+    .filter(shut=>shut?.rows?.length).sort((a,b)=>b.end.localeCompare(a.end));
+  if(pastIssues.length){
+    const panel=$('#cu-past'),picker=$('#cu-past-shut'),query=$('#cu-past-q');
+    const day=new Intl.DateTimeFormat('en-AU',{day:'numeric',month:'short',year:'numeric',timeZone:'Australia/Brisbane'});
+    const dateLabel=iso=>day.format(new Date(iso+'T12:00:00+10:00'));
+    picker.replaceChildren(...pastIssues.map(shut=>new Option(shut.label,shut.id)));
+    function showHistoricalIssues(){
+      const shut=pastIssues.find(s=>s.id===picker.value);
+      if(!shut)return;
+      const term=query.value.trim().toLowerCase();
+      const products=shut.rows.filter(row=>(row.name+' '+row.sku).toLowerCase().includes(term))
+        .sort((a,b)=>a.name.localeCompare(b.name)||a.sku.localeCompare(b.sku));
+      $('#cu-past-summary').textContent=dateLabel(shut.start)+' to '+dateLabel(shut.end)+' · '+plural(shut.issue_entries,'recorded issue')+' across '+plural(shut.rows.length,'product');
+      $('#cu-past-source').textContent='SiteIQ Transactions records gross issues under the original stock codes. Credits and the balance available to hand back to MMG come from Sales Stock.';
+      $('#cu-past-rows').innerHTML=products.length?'<table class="t"><thead><tr><th scope="col">Product</th><th scope="col">Original stock code</th><th scope="col">Gross issued</th><th scope="col">Source unit</th><th scope="col">Issue entries</th></tr></thead><tbody>'+products.map(row=>'<tr><th scope="row">'+esc(row.name)+'</th><td>'+esc(row.sku)+'</td><td>'+n(row.issued)+'</td><td>'+esc(row.unit||'Not recorded')+'</td><td>'+n(row.issue_entries)+'</td></tr>').join('')+'</tbody></table>':'<p class="empty">No matching products.</p>';
+    }
+    panel.hidden=false;
+    panel.addEventListener('toggle',()=>{if(panel.open)showHistoricalIssues()});
+    picker.addEventListener('change',showHistoricalIssues);
+    query.addEventListener('input',showHistoricalIssues);
+  }
+  const coverage=history.length?'<ul>'+history.map(h=>{
+    const sources=[h,...(h.additional_sources||[])].map((s,i)=>{
+      const span=s.first_observed&&s.last_observed?' · observed '+esc(s.first_observed)+' to '+esc(s.last_observed):s.as_at?' · snapshot '+esc(displayDate(s.as_at)):'';
+      return '<li>'+esc(s.source||'Source unavailable')+' · '+esc(s.status||'unverified')+span+(i?' · additional evidence':'')+'</li>';
+    }).join('');
+    return '<li><b>'+esc(h.label)+'</b><ul>'+sources+'</ul></li>';
+  }).join('')+'</ul>':'<p>No prior shutdown sources available for comparison.</p>';
   $('#cu-coverage').innerHTML=coverage+(report.warnings||[]).map(w=>'<p>'+esc(w)+'</p>').join('');
   $('#cu-details').addEventListener('toggle',()=>{if($('#cu-details').open)showRows()});
   $('#cu-q').addEventListener('input',showRows);

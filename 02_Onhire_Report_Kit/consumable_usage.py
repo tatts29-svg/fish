@@ -108,6 +108,109 @@ def dated_day(header, year):
         return ""
 
 
+TRANSACTION_SOURCE = "SiteIQ TRANSACTIONS · recorded consumable issues"
+TRANSACTION_SHEETS = ("TRANSACTION_CHARGES", "TRANSACTION_WITHOUT_CHARGES", "CUSTOMER_CONTRACTOR_EQUIP")
+# The source labels differ between SiteIQ's schedule and the job's Min Max workbook.
+USAGE_PERIOD_LABELS = {"may shutdown 2025": "May 2025",
+                       "mmg shutdown 2026 february-march": "Feb-Mar 2026",
+                       "mmg shutdown july 2026": "July 2026"}
+
+
+def transaction_observations(book, label, schedule, start, end, pulled):
+    """Return only anonymous, identifiable positive issues from one verified MMG export.
+
+    A movement can appear in both zero-charge and customer-equipment sheets.
+    A contradictory or unidentifiable consumable line cannot establish SKU
+    quantities for that window. The separate rental analysis can still proceed.
+    """
+    from utilisation import stamp
+    references = iter(book["REFERENCE_INFO"].values)
+    header, ref = next(references, ()), next(references, ())
+    meta = dict(zip(header, ref))
+    if text(meta.get("PROJECT SCHEDULE")) != schedule:
+        return None
+    bounds = text(meta.get("REPORT_PERIOD")).split(" - ")
+    if len(bounds) != 2:
+        return None
+    try:
+        lo, hi = [datetime.strptime(v.strip(), "%d/%m/%Y %H:%M:%S") for v in bounds]
+    except ValueError:
+        return None
+    first, last = max(start, lo), min(end, hi, pulled)
+    if first >= last:
+        return None
+    movements = {}
+    descriptions = {}
+    units = defaultdict(set)
+    for sheet in TRANSACTION_SHEETS:
+        if sheet not in book:
+            continue
+        rows = iter(book[sheet].values)
+        fields = next(rows, ())
+        for values in rows:
+            row = dict(zip(fields, values))
+            if text(row.get("PRODUCT_CATEGORY")).casefold() != "consumable":
+                continue
+            when = stamp(row.get("TRAN_START_DATE"), row.get("TRAN_START_TIME"))
+            if when is not None and not first <= when <= last:
+                continue
+            tx = text(row.get("TRANSACTION_ID"))
+            sku = text(row.get("SKU/ITEM_NUMBER"))
+            qty = quantity(row.get("QUANTITY"))
+            if not tx or not sku or when is None or qty is None:
+                return None
+            item = (sku, qty, when)
+            if tx in movements and movements[tx] != item:
+                return None
+            movements[tx] = item
+            description = text(row.get("SKU/ITEM DESCRIPTION"))
+            if description:
+                descriptions.setdefault(sku, description)
+            unit = text(row.get("UOM") or row.get("UNIT_OF_MEASURE")).casefold()
+            if unit:
+                units[sku].add(unit)
+    issued = defaultdict(Decimal)
+    events = defaultdict(int)
+    shift_days = set()
+    for sku, qty, when in movements.values():
+        if qty > 0:
+            issued[sku] += qty
+            events[sku] += 1
+            shift_days.add((when - timedelta(hours=5)).date())
+    if not issued or any(len(group) > 1 for group in units.values()):
+        return None
+    label = USAGE_PERIOD_LABELS.get(schedule.casefold(), label)
+    return {"id": shut_key(label), "label": label, "source": TRANSACTION_SOURCE, "status": "partial",
+            "start": (first - timedelta(hours=5)).date().isoformat(),
+            "end": (last - timedelta(hours=5)).date().isoformat(), "as_at": pulled.isoformat(),
+            "first_observed": min(shift_days).isoformat(), "last_observed": max(shift_days).isoformat(),
+            "days_observed": len(shift_days), "issue_entries": sum(events.values()),
+            "rows": [{"sku": sku, "name": descriptions.get(sku, sku), "unit": next(iter(units[sku]), ""),
+                      "issued": number(issued[sku]), "issue_entries": events[sku]} for sku in sorted(issued)]}
+
+
+def add_source(periods, key, meta, values):
+    if key in periods:
+        prior, prior_values = periods[key]
+        older = prior.pop("_additional_values", [])
+        prior.pop("additional_sources", None)
+        meta["_additional_values"] = [(prior, prior_values), *older]
+        meta["additional_sources"] = [period for period, _ in meta["_additional_values"]]
+    periods[key] = (meta, values)
+
+
+def include_transaction_history(periods, interval_history, cutoff):
+    for entry in interval_history:
+        snapshot = entry.get("consumable_observations")
+        if not snapshot or snapshot.get("source") != TRANSACTION_SOURCE or snapshot.get("status") != "partial":
+            continue
+        if not snapshot.get("end") or date.fromisoformat(snapshot["end"]) >= cutoff:
+            continue
+        values = {row["sku"]: (row["unit"], quantity(row["issued"])) for row in snapshot["rows"]}
+        meta = {k: v for k, v in snapshot.items() if k != "rows"}
+        add_source(periods, snapshot["id"], meta, values)
+
+
 def observed_history(path, cutoff):
     """The workbook represents draws for observed shifts, with zero-filled rows for today's catalogue."""
     if not path or not Path(path).is_file():
@@ -165,7 +268,7 @@ def archive_history(path, current_schedule, cutoff, periods, warnings):
     for entry in archive.get("shuts", []):
         try:
             label, schedule, source = (text(entry[k]) for k in ("label", "schedule", "source"))
-            key = shut_key(entry["id"])
+            key = shut_key(USAGE_PERIOD_LABELS.get(schedule.casefold(), entry["id"]))
             if not key or not schedule or not source or not label or not isinstance(entry["rows"], list):
                 raise ValueError
             if entry.get("job", JOB) != JOB or schedule.casefold() == current_schedule.casefold():
@@ -212,15 +315,11 @@ def archive_history(path, current_schedule, cutoff, periods, warnings):
             warnings.append("Two historical snapshots disagree at the same time and were excluded from the average.")
             continue
         meta, values = matches[0]
-        if key in periods:
-            prior, prior_values = periods[key]
-            meta["additional_sources"] = [prior]
-            meta["_prior_values"] = prior_values
-        periods[key] = (meta, values)
+        add_source(periods, key, meta, values)
     return archive.get("current_closeout") or {}
 
 
-def build(rows, sales_ref, expected_schedule, current_start, minmax=None, archive=None, closeout_after=None):
+def build(rows, sales_ref, expected_schedule, current_start, minmax=None, archive=None, closeout_after=None, *, interval_history=()):
     warnings = []
     schedule = text(sales_ref.get("schedule"))
     pulled = sales_ref.get("requested")
@@ -234,6 +333,7 @@ def build(rows, sales_ref, expected_schedule, current_start, minmax=None, archiv
     if not archive and minmax:
         archive = Path(minmax).with_name("consumable_usage_history.json")
     periods = observed_history(minmax, current_start)
+    include_transaction_history(periods, interval_history, current_start)
     approval = archive_history(archive, expected_schedule, current_start, periods, warnings)
     status = "provisional"
     if isinstance(approval, dict) and items and pulled and closeout_after and approval.get("schedule") == schedule and approval.get("confirmed_by") == "Andrew Fisher":
@@ -252,17 +352,18 @@ def build(rows, sales_ref, expected_schedule, current_start, minmax=None, archiv
             if use:
                 qualified.append(amount)
             reading = {"id": meta["id"], "issued": number(amount), "qualified": use}
-            prior = meta.get("_prior_values", {}).get(item["sku"])
-            if prior and prior[0] == item["unit"]:
-                older = meta["additional_sources"][0]
-                reading["observations"] = [{"source": older["source"], "issued": number(prior[1]),
-                                            "first_observed": older["first_observed"], "last_observed": older["last_observed"], "as_at": older["as_at"]}]
+            for older, older_values in meta.get("_additional_values", []):
+                prior = older_values.get(item["sku"])
+                if prior and prior[0] == item["unit"]:
+                    reading.setdefault("observations", []).append({
+                        "source": older["source"], "issued": number(prior[1]),
+                        "first_observed": older["first_observed"], "last_observed": older["last_observed"], "as_at": older["as_at"]})
             item["history"].append(reading)
         if qualified:
             item["average_shuts"] = len(qualified)
             item["average_issued"] = number(round(sum(qualified) / len(qualified), 2))
     for meta, _ in periods.values():
-        meta.pop("_prior_values", None)
+        meta.pop("_additional_values", None)
     return {"project": JOB, "source": SOURCE, "as_at": pulled.isoformat() if pulled else "",
             "status": status, "comparison_measure": "issued", "history": [p for p, _ in periods.values()],
             "rows": items, "warnings": list(dict.fromkeys(warnings))}

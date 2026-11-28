@@ -77,6 +77,13 @@ def period_note(period):
     return "Dates not recorded"
 
 
+def coverage_sources(periods):
+    for period in periods:
+        yield period
+        for extra in period.get("additional_sources", []):
+            yield {**extra, "label": period["label"], "source": extra["source"] + " (additional evidence)"}
+
+
 def write_excel(path, data):
     wb = Workbook()
     wb.properties.title = TITLE
@@ -243,7 +250,7 @@ def write_excel(path, data):
                 p.get("days_observed"),
                 p.get("source") or "Not recorded",
             )
-            for p in periods
+            for p in coverage_sources(periods)
         ),
     )
     cov.freeze_panes = "A5"
@@ -480,7 +487,7 @@ def write_pdf(path, data, logo=None):
                 p(period_note(h), cell),
                 p(h.get("source") or "Not recorded", cell),
             ]
-            for h in periods
+            for h in coverage_sources(periods)
         ]
         coverage.append(
             table(
@@ -491,7 +498,7 @@ def write_pdf(path, data, logo=None):
         )
     else:
         coverage.append(p("No historical shutdown sources available."))
-    if len(periods) <= 10:
+    if not periods or len(history_rows) <= 10:
         flow.append(KeepTogether(coverage))
     else:
         flow.extend(coverage)

@@ -705,7 +705,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     }
     if ref.get("schedule") == shut_costs.MMG_SCHEDULE and s.customer.strip().casefold() == "mmg" and "dugald river" in s.location.casefold():
         data["consumable_usage"] = consumable_usage.build(sales, sales_ref, shut_costs.MMG_SCHEDULE, counter_start,
-                                                         minmax, usage_history, MMG_FINAL_SHIFT_END)
+                                                         minmax, usage_history, MMG_FINAL_SHIFT_END,
+                                                         interval_history=interval_history)
     if qr_report_data:
         if s.customer.strip().casefold() != "mmg" or "dugald river" not in s.location.casefold():
             raise ValueError("QR reports require the MMG Dugald River job configuration.")

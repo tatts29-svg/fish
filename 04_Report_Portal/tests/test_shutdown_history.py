@@ -84,6 +84,44 @@ class ShutdownHistory(unittest.TestCase):
         with self.assertRaises(ValueError):self.run_import()
         self.assertEqual(previous,(self.root/history.SALES_FILE).read_bytes())
 
+    def test_cross_month_job_label_and_verified_file_only(self):
+        self.make("TRANSACTION_WITHOUT_CHARGES", schedule="May Shutdown 2025", pulled="28/11/2026 08:21 PM")
+        from openpyxl import load_workbook
+        from hashlib import sha256
+        book = load_workbook(self.file)
+        book["REFERENCE_INFO"]["C2"] = "01/04/2025 05:00:00 - 30/06/2026 04:59:59"
+        row = book["TRANSACTION_WITHOUT_CHARGES"]
+        row["G2"], row["I2"] = "30/04/2025", "01/05/2025"
+        book.save(self.file)
+        book.close()
+        options = dict(start="2025-04-27",end="2025-05-07",label="May 2025")
+        with self.assertRaisesRegex(ValueError, "verified MMG"):
+            self.run_import(**options)
+        digest = sha256(self.file.read_bytes()).hexdigest()
+        with patch.dict(history.VERIFIED_FILES, {digest: "may shutdown 2025"}):
+            result = self.run_import(**options)
+            self.assertEqual((result["label"], result["status"]), ("May 2025", "recorded"))
+            self.assertFalse(self.run_import(**{**options, "label": "Apr 2025"})["changed"])
+            with self.assertRaisesRegex(ValueError, "Use May 2025"):
+                self.run_import(**{**options, "label": "Jul 2025"})
+            with self.assertRaisesRegex(ValueError, "outside this shutdown"):
+                self.run_import(start="2025-06-05", end="2025-06-06", label="May 2025")
+
+    def test_same_rental_pull_can_gain_verified_issue_evidence_once(self):
+        self.make("TRANSACTION_WITHOUT_CHARGES")
+        self.run_import()
+        path = self.root / history.HIRE_FILE
+        before = json.loads(path.read_text())["periods"][0]
+        entry = dict(before, consumable_observations={"status": "partial", "rows": []})
+        self.assertTrue(history.store(path, "TRANSACTIONS", entry))
+        self.assertFalse(history.store(path, "TRANSACTIONS", entry))
+        with self.assertRaisesRegex(ValueError, "disagrees"):
+            history.store(path, "TRANSACTIONS", dict(entry, total={"average": 9, "peak": 99}))
+        newer = dict(before, as_at="2026-07-18T22:09:00")
+        self.assertTrue(history.store(path, "TRANSACTIONS", newer))
+        self.assertFalse(history.store(path, "TRANSACTIONS", newer))
+        self.assertEqual(json.loads(path.read_text())["periods"][0]["consumable_observations"], entry["consumable_observations"])
+
     def test_manager_role_portal_header_and_build_lock(self):
         self.make();payload=self.file.read_bytes()
         for role,header,busy,want in [("store","1",False,403),("client","1",False,403),("manager","",False,403),
