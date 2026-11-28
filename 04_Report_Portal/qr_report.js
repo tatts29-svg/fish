@@ -819,10 +819,14 @@
       (cov.sales_asat ? units(r.consumable_summary.units,"consumable unit")+" issued this shutdown" : "Consumables · sales data unavailable") :
       (finite(handover.unassigned_assets) && handover.unassigned_assets>0 ? units(handover.unassigned_assets,"asset")+" without a confirmed individual holder" :
       "Crew holdings at the rental stock snapshot");
+    const periods=cov.transaction_periods ?? [{start:cov.period_start,end:cov.period_end}];
+    const lastPeriod=periods.filter(p=>p.start && p.end).map(p=>p.end).sort().at(-1);
+    const cutoff=lastPeriod && cov.transactions_asat ? [lastPeriod,cov.transactions_asat].sort()[0] : null;
+    const workerCaption=cutoff ? "Transactions to "+when(cutoff)+" AEST" : "Tool transactions";
     window.MMGReportInstruments.mount($("direction-instrument"),{
       issued:personal ? (tools ? r.returns.issues : null) : shift?.issued,
       returned:personal ? (tools ? r.returns.returned : null) : shift?.returned,
-      company:!personal,caption:personal ? "This shutdown" : shift ? "Last completed "+shift.name.toLowerCase()+" shift" : "Shift figures unavailable"
+      company:!personal,caption:personal ? workerCaption : shift ? "Last completed "+shift.name.toLowerCase()+" shift" : "Shift figures unavailable"
     });
     const ordered=orderedHoldings(r);
     if (personal) {

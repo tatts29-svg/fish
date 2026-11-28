@@ -469,6 +469,10 @@ def render_pdf(report, *, job_dir=None):
                                ("TOPPADDING", (0, 0), (-1, -1), 8),
                                ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
     flow.append(strip)
+    if not company_report and tools_covered and coverage.get("transactions_asat"):
+        last_period = max(period["end"] for period in transaction_periods(coverage))
+        cutoff = min(last_period, coverage["transactions_asat"])
+        flow.append(para("Tool issue and return totals use transaction records through " + when(cutoff) + ".", 8, normal, MUTED))
     if company_report:
         unknown = handover.get("unassigned_assets")
         if unknown:
