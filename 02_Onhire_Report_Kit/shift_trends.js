@@ -59,14 +59,14 @@
       const observed = pieces.some(b=>names.some(f=>numeric(b[f])));
       const start = day.date+'T06:00:00', end = local(millis(start)+86400000);
       const bucket={day:day.date,start,end,coverage: full?'full':observed?'partial':future?'future':'unknown',
-        first:p?.first,last:p?.last,tools:p?.tools,cons:p?.cons,unattributed_counts:p?.unattributed_counts || 0};
+        first:p?.first,last:p?.last,tools:p?.tools,cons:p?.cons,unattributed_counts:p?.unattributed_counts || 0,unconfirmed_counts:p?.unconfirmed_counts || 0};
       for(const f of names) bucket[f]=observed && numeric(p?.[f]) ? p[f] : null;
       return bucket;
     });
     const at = k=>bins.map(b=>b[k]).filter(Boolean).sort();
     return {daily:true,bins,start:bins[0].start,end:bins.at(-1).end,first:at('first')[0],last:at('last').at(-1),
       daysWithActivity:bins.filter(b=>names.some(f=>b[f]>0)).length,
-      unattributed_counts:total(bins.map(b=>b.unattributed_counts)),...Object.fromEntries(names.map(f=>[f,total(bins.map(b=>b[f]))]))};
+      unattributed_counts:total(bins.map(b=>b.unattributed_counts)),unconfirmed_counts:total(bins.map(b=>b.unconfirmed_counts)),...Object.fromEntries(names.map(f=>[f,total(bins.map(b=>b[f]))]))};
   }
 
   function limitAndTicks(maximum) {
@@ -106,7 +106,7 @@
   function quietPeriod(bins, fields) {
     let running, best;
     for (const b of bins) {
-      if (b.coverage !== 'full' || b.unattributed_counts > 0 || fields.some(f => b[f] !== 0)) { running = null; continue; }
+      if (b.coverage !== 'full' || b.unattributed_counts > 0 || b.unconfirmed_counts > 0 || fields.some(f => b[f] !== 0)) { running = null; continue; }
       if (running && running.end === b.start) running.end = b.end;
       else running = {start:b.start, end:b.end};
       if (!best || millis(running.end)-millis(running.start) > millis(best.end)-millis(best.start)) best = {...running};
@@ -200,6 +200,9 @@
       const notes = [];
       if(!isCount) notes.push('SiteIQ selects hires by issue date. Their returns appear at the recorded return time.');
       if (isCount && profile.unattributed_counts) notes.push(fmt(profile.unattributed_counts)+' additional '+(profile.unattributed_counts===1?'check has':'checks have')+' no recorded operator.');
+      if(isCount && profile.unconfirmed_counts) notes.push(fmt(profile.unconfirmed_counts)+' additional records have an unconfirmed quantity.');
+      if(!isCount && data.reason) notes.push(data.reason);
+      if(!isCount && data.excluded) notes.push(fmt(data.excluded)+' rental records excluded due to incomplete or conflicting evidence.');
       if (bins.some(b=>b.coverage==='unknown' || b.coverage==='partial')) notes.push(daily?'Hatched days have partial or unavailable source coverage.':'Hatching marks gaps in source coverage.');
       if (bins.some(b=>b.coverage==='future')) notes.push('Shading marks time after the data cutoff.');
       const quiet = quietPeriod(bins,names);
@@ -283,8 +286,11 @@
       const slider=find('.stx-slider input'),bucket=find('[data-bucket]'),pick=find('.stx-picker'),detail=find('[data-detail]');
       const lastEvent = bins.reduce((last,b,i)=>names.some(f=>b[f]>0)?i:last,-1);
       const lastMeasured = bins.reduce((last,b,i)=>names.some(f=>numeric(b[f]))?i:last,-1);
+      let displayed = -1;
       const select = i => {
         i=Math.max(0,Math.min(bins.length-1,i));
+        if(displayed===i)return;
+        displayed=i;
         const b=bins[i];
         const period=daily?date(b.day):interval(b)+' AEST', afterMidnight=!daily && b.start.slice(0,10)!==state.day;
         const dateStamp=(afterMidnight?date(b.start)+' · ':'')+period;
@@ -303,7 +309,8 @@
         if(isCount){
           const lineCount=numeric(b.tools)&&numeric(b.cons)?fmt(b.tools+b.cons):'—';
           detailTotals='<p>'+lineCount+' distinct items · '+fmt(b.tools)+' tool assets · '+fmt(b.cons)+' consumable lines'+
-            (b.unattributed_counts?' · '+fmt(b.unattributed_counts)+' checks with no recorded operator':'')+'</p>';
+            (b.unattributed_counts?' · '+fmt(b.unattributed_counts)+' checks with no recorded operator':'')+
+            (b.unconfirmed_counts?' · '+fmt(b.unconfirmed_counts)+' unconfirmed quantities':'')+'</p>';
           entries=(b.minutes||[]).map(([at,qty])=>row(at,fmt(qty)+' count '+(qty===1?'entry':'entries'))).join('');
           if(b.count_events>0 && b.first && !entries) entries=row(time(b.first),'First count')+(b.last && b.last!==b.first ? row(time(b.last),'Last count'):'');
         }else{
