@@ -80,12 +80,13 @@ def stage():
     return ImageChops.screen(base, top.filter(ImageFilter.GaussianBlur(70)))
 
 
-def styled(photo):
+def styled(photo, *, large_subject=False):
     prod = cut_out(photo)
-    box_w, box_h = 380, 290                                                   # where the product sits
+    box_w, box_h = (424, 384) if large_subject else (380, 290)
     scale = min(box_w / prod.width, box_h / prod.height)
     prod = prod.resize((max(1, round(prod.width * scale)), max(1, round(prod.height * scale))), Image.LANCZOS)
-    x, floor = (SIDE - prod.width) // 2, 372
+    x = (SIDE - prod.width) // 2
+    floor = min(425, SIDE // 2 + prod.height // 2 + 28) if large_subject else 372
     y = floor - prod.height
     canvas = stage().convert("RGBA")
     alpha = prod.getchannel("A")
@@ -105,7 +106,7 @@ def styled(photo):
     refl = prod.transpose(Image.FLIP_TOP_BOTTOM)
     fade = Image.new("L", refl.size, 0)
     fd = ImageDraw.Draw(fade)
-    depth = min(refl.height, 110)
+    depth = min(refl.height, 110, SIDE - floor - 18)
     for i in range(depth):
         fd.line((0, i, refl.width, i), fill=int(88 * (1 - i / depth) ** 1.6))
     refl.putalpha(ImageChops.multiply(refl.getchannel("A"), fade))

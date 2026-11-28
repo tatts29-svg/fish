@@ -109,7 +109,7 @@ def approved_photo(record):
                         if mask.size == image.size:
                             image.putalpha(mask.convert("L"))
                 preview = io.BytesIO()
-                styled(image).save(preview, "WEBP", quality=90, method=4)
+                styled(image, large_subject=True).save(preview, "WEBP", quality=90, method=4)
                 tile = prefix + base64.b64encode(preview.getvalue()).decode("ascii")
     except (ValueError, OSError, binascii.Error, Image.DecompressionBombError):
         return {}
