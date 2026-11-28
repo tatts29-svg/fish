@@ -2,7 +2,9 @@ Coates on-hire report kit - the code, as it ships, for every job.
 
 One kit runs every tool store (Weipa for Rio Tinto, MMG at Dugald River,
 the next one). The job is set in JOB.txt (names and settings) and, where
-SiteIQ spells one outfit several ways, COMPANY_ALIASES.txt. The per-job
+SiteIQ spells one outfit several ways, COMPANY_ALIASES.txt. Where
+SiteIQ lists gear under the wrong owner, OWNER_ALIASES.txt renames that
+owner (OWNER / ITEM_OWNER columns only) as the exports are read. The per-job
 files Andrew uses are kept under jobs\<Job>\ for reference; the kit folder
 itself carries the Weipa JOB.txt.
 

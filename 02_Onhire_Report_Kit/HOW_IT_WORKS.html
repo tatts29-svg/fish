@@ -82,7 +82,7 @@ folder, so there is nothing to install on a laptop that has never seen it.</p>
 to the same job, dates every on-hire item from its issue transaction, and builds the lot. About ten seconds.</div></div>
 <div class="arrow">&#9660;<span>your typed Labour and Cost tabs are lifted out of the old workbook and put straight back</span></div>
 <div class="three">
-<div class="fbox go"><div class="t">&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</div><div class="sub">Fifteen tabs while a shut is ahead or under way (Forecast sits after the Dashboard), fourteen once it is done - ready to open or print. A dated copy is filed under <code>Reports\&lt;today&gt;\</code>.</div></div>
+<div class="fbox go"><div class="t">&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</div><div class="sub">Sixteen tabs while a shut is ahead or under way (Forecast sits after the Dashboard), fifteen once it is done - ready to open or print. A dated copy is filed under <code>Reports\&lt;today&gt;\</code>.</div></div>
 <div class="fbox go"><div class="t">&lt;Job&gt; On-Hire Report by Company.pdf</div><div class="sub">The company pack: the cover with the asks, the story, looking ahead, at a glance, then a section per company. One PDF per company in <code>By_Company\</code> too, each with a ready-to-send chase email (.eml) beside it; <code>5_MAKE_COMPANY_DRAFTS.bat</code> puts them all in Outlook &gt; Drafts.</div></div>
 </div>
 <div class="arrow">&#9660;<span>and the same report laid out as an email, with the workbook and the pack attached</span></div>
@@ -111,7 +111,7 @@ company by company &mdash; and finishes with <b>what I need from you</b>, each a
 <div class="tile"><div class="v">$0</div><div class="l">Costs shown</div><div class="s">deliberately none, it can go to anyone</div></div>
 </div>
 <div class="note"><b>No costs in the email or the pack. None.</b> Not the labour, not the cost breakdown, not a rate and not a dollar sign.
-The email is the operational picture and it can go to anyone on site. The money stays in the workbook &mdash; on the Cover headlines and the two hand-typed tabs.</div>
+The email body is the operational picture and it can go to anyone on site. The money stays in the workbook &mdash; on the Cover headlines, the two hand-typed tabs and the Forecast tab &mdash; and the workbook is attached to the email draft. So: the email with the workbook is for Coates people; for a customer, send the pack alone or take the workbook off the draft before it goes.</div>
 
 <h2><span class="n">4</span><span>How things are dated<small>The transaction wins, every time</small></span></h2>
 <p>Every on-hire item is dated from the <b>start of its issue transaction</b> in SiteIQ &mdash; the day it actually went over the counter.
@@ -135,7 +135,7 @@ each item was issued, and the consumables they have drawn this period. It opens 
 list &mdash; click a company and it jumps to their section; every company is also a bookmark down the side of Acrobat.</p>
 <table>
 <tr><th style="width:34%">Page</th><th>What's on it</th></tr>
-<tr><td class="k">Cover</td><td>A charcoal hero band: the title, the shut-progress strip (a cell per day, today in orange), and the one number that matters &mdash; items on hire now, set large in white &mdash; with the company count, the oldest item and what moved since the last report in the Reports folder beside it (a zero reads green as nothing on hire when it is zero); then the position in words, the six headline numbers with their change since last time, and the contents: every company, their people, items, lines, longest out, and the page they start on &mdash; then the asks, the same list as the email. Item descriptions across the pack and the email are tidied for reading (site tag dropped, capitals made readable, measurements and codes left alone); the workbook's transaction tabs keep SiteIQ's raw text, and <code>tidy_items: no</code> in JOB.txt turns the tidying off</td></tr>
+<tr><td class="k">Cover</td><td>The front page on one calm grid: nine key facts, the headline numbers as tiles, a clickable list of every tab, which export files fed it and when they were pulled, the two rating scales side by side, and which tabs are typed by hand. Prints on two portrait pages</td></tr>
 <tr><td class="k">The story (page 2)</td><td>What the store did this period in plain words: the brief, the team at the counter and their hours to date, how gear is moving (same-day returns, kept longer, still out), stocktake discipline (items sighted in the last three days), customer-owned gear logged through the counter, and the standards behind the numbers &mdash; double scan, dated from the transaction, Life Saving Rule 5, the fixed rate where it applies</td></tr>
 <tr><td class="k">Looking ahead (page 3, while a shut is ahead or under way)</td><td>The shut from the roster: the brief, five milestones (fly in, counter opens, last shift, fly out, rostered hours), the roster as a day-by-day strip (travel, mobilisation, day shift, night shift; worked days outlined, today tinted), when the counter is busiest by hour of day, a day at the counter last time (movements a day, busiest day, same-day returns, companies and people), the tooling asked for most and the consumables that go fastest. Dates, people and movements only &mdash; never a dollar</td></tr>
 <tr><td class="k">At a glance (page 4, or 3 when nothing is ahead)</td><td>The store as pictures, in the light Coates palette: four dials (fleet on hire, dated from transactions, consumable lines past 80%, items out over 21 days), who is holding gear, tooling and consumable lines by rating, movements by day inside the export window, working hardest, and consumables running down against the 80% line</td></tr>
@@ -150,11 +150,11 @@ the kit's <code>_fonts</code> folder; only the characters a pack uses are embedd
 as sharp on a wall screen as on a phone. The dark bands &mdash; the cover hero, the dials card, each company&rsquo;s section header and the footer on every page &mdash; are Coates charcoal and near-black with white type, so the numbers land first; small orange text on white uses a deeper orange that stays readable, while the wordmark, rules and bars keep the brand orange. Without the folder the pack still builds, in Helvetica. If the pack ever fails to build, the window says so
 in a band and the workbook and email still go out without it.</p>
 
-<h2><span class="n">6</span><span>The fifteen tabs<small>What each one tells you</small></span></h2>
+<h2><span class="n">6</span><span>The sixteen tabs<small>What each one tells you</small></span></h2>
 <table>
 <tr><th style="width:30%">Tab</th><th>What it tells you</th></tr>
 <tr><td class="k">Cover</td><td>What this workbook is, the headline numbers as tiles, which export files fed it and when they were pulled, how many pages the pack ran to, and how the ratings are worked out</td></tr>
-<tr><td class="k">Dashboard</td><td>The position as <b>live Excel charts</b> drawn from small tables at the foot of the tab: six tiles, four gauges, who is holding gear, tooling lines by rating, movements by day, consumables running down. Click, recolour or copy any of them into a deck</td></tr>
+<tr><td class="k">Dashboard</td><td>The position on one page: six tiles, four dials (Coates fleet on hire, dated from transactions, consumable lines past 80%, items out over 21 days) and six <b>live Excel charts</b> in a grid &mdash; who is holding gear, tooling lines by rating, movements by day, consumables running down, gear out day by day, age of what is out. Click, recolour or copy any chart into a deck; it is drawn from the Chart Data tab</td></tr>
 <tr><td class="k">Forecast</td><td>The shut ahead, <b>internal</b>: six tiles (fly in, counter opens, last shift, fly out, labour off the roster, all up off the Cost Breakdown), <b>live Excel charts</b> of cost by day with the running total over it and where the money goes, then the day-by-day table &mdash; hours per person, each money column, day total, running total &mdash; and the split. Read off the Coates Labour and Cost Breakdown tabs when the report is built, so a re-run after editing either refreshes it. Only there while the roster has days to come</td></tr>
 <tr><td class="k">Company Summary</td><td>Per company: transactions, quantity, item types, what they still have out, what hasn't come back &mdash; split tooling / consumables / total, totals highlighted. A company still holding gear with no movement inside the export window is listed too, with zero movements &mdash; that is the one to chase</td></tr>
 <tr><td class="k">Detailed Onhire</td><td>Every item out right now, the company and person holding it, the day it was issued, days on hire, the issue transaction behind the date, and the SiteIQ stock date beside it for checking</td></tr>
@@ -168,6 +168,7 @@ in a band and the workbook and email still go out without it.</p>
 <tr><td class="k">Consumable Utilisation</td><td>Per line: sold against position as a bar, and a colour-coded rating and recommendation</td></tr>
 <tr><td class="k">Coates Labour</td><td><b class="o">Typed by hand.</b> The shift roster and what it costs</td></tr>
 <tr><td class="k">Cost Breakdown</td><td><b class="o">Typed by hand.</b> Day by day: shutdown, labour, site services</td></tr>
+<tr><td class="k">Chart Data</td><td>The small tables the Dashboard charts are drawn from, in full width at the back of the workbook. Nothing to type; a rebuild writes it fresh</td></tr>
 </table>
 <p>Every tab carries the Coates title band, a filter, frozen headings, and prints landscape on A4 with the headings repeated,
 the job and as-at time in the page header, and the page number down the bottom. Ratings, statuses and day counts are coloured by
@@ -177,9 +178,7 @@ Excel's own conditional formatting, so the colour follows the value if anybody s
 <p><b>Coates Labour</b> and <b>Cost Breakdown</b> are not built from the exports. Somebody sits down and types them, and there is no way
 to rebuild that from SiteIQ. So the refresh <span class="hl">never touches them</span>. It reads them out of the previous workbook &mdash;
 values, formulas, dates, times, exactly as they were &mdash; and writes them back. Your original <code>.xlsm</code> is never written to.</p>
-<div class="note"><b>Keep your working .xlsm in this folder.</b> That's where those two tabs are read from. If there isn't one, they come
-through empty with a note on them, ready to type into. If their totals can't be read (a workbook saved without cached results), the Cover
-says <b>TBC</b> rather than printing $0.</div>
+<div class="note"><b>Type into <code>&lt;Job&gt;_Onhire_Workbook_LATEST.xlsx</code>.</b> That is where the two hand-typed tabs are read from on every refresh and written straight back; the dated copy in <code>Reports\&lt;date&gt;\</code> works too, and whichever was saved last wins. Change a date, a shift or the hours on Coates Labour, fix the money per day on Cost Breakdown, <b>save and close</b>, and press 2 &mdash; fly in, last shift, demob, the roster grid, hours, labour and the all-up cost all follow, and the black window prints a Roster line so you can see the change landed. Left open in Excel, the report stops and says so. An old .xlsm in the folder is read on the very first run and after that only if it was saved after the last report; a roster from a previous shut is replaced once, with a note, by the job&rsquo;s seed. Weipa and MMG start seeded; any other job starts the two tabs empty, headed and ready to type into.</div>
 
 <h2><span class="n">7</span><span>How the usage ratings are worked out<small>Printed on the Cover of every workbook, so nothing is taken on trust</small></span></h2>
 <p><b>Tooling is rated on TURNS</b> &mdash; transactions divided by how many of that item are on site. One item that went out five times
@@ -234,6 +233,12 @@ It will not quietly build a report off two jobs mixed together.</div>
 <tr><td class="k">check_this_laptop.py</td><td>What button 1 runs</td></tr>
 <tr><td class="k">LAPTOP_CHECK.txt / LAST_RUN_LOG.txt</td><td>Appear after button 1 and button 2 &mdash; the health check and the last run, in writing. Email these to Andrew if you are stuck</td></tr>
 <tr><td class="k">Reports\</td><td>Appears on the first run &mdash; a dated folder per day with the workbook, the pack, <code>By_Company\</code> and the email draft</td></tr>
+<tr><td class="k">6_PULL_EXPORTS_AND_MAKE_REPORT.bat</td><td>Optional. Pulls the newest SiteIQ exports for this job out of Downloads (it opens each file and checks the project; another job&rsquo;s file is left alone), files them into <code>Data_SiteIQ\</code> with the right names, keeps the old ones in <code>Data_SiteIQ\previous\</code>, then makes the report. Drag a different Downloads folder onto it if yours lives elsewhere</td></tr>
+<tr><td class="k">5_MAKE_COMPANY_DRAFTS.bat</td><td>Optional. Puts every company&rsquo;s chase email into Outlook &gt; Drafts in one go (classic Outlook)</td></tr>
+<tr><td class="k">MAKE_OUTLOOK_DRAFT.ps1 / pull_siteiq_exports.py</td><td>What buttons 4, 5 and 6 run</td></tr>
+<tr><td class="k">_fonts\</td><td>The Inter typeface the pack is set in (SIL Open Font Licence). Without it the pack still builds, in Helvetica</td></tr>
+<tr><td class="k">READ_ME_FIRST.txt / WHATS_NEW.txt / REVIEW_BRIEF.txt</td><td>What this delivery is, what changed (newest first), and a one-page brief for anyone checking the kit independently</td></tr>
+<tr><td class="k">Reports\history.csv / DATA_SOURCES.txt</td><td>One line of headline counts per report day (what &ldquo;since the last report&rdquo; reads), and which exports a day&rsquo;s report was built from and when SiteIQ produced them</td></tr>
 </table>
 
 </div>

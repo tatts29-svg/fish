@@ -1,0 +1,135 @@
+.shift-trend {
+  --stx-ice:var(--returned,#8bd8a7);
+  position:relative; isolation:isolate; min-width:0; width:100%; margin:.8rem 0 1.15rem;
+  background:linear-gradient(114deg,color-mix(in srgb,var(--or) 3%,var(--panel)),var(--panel) 35%,color-mix(in srgb,var(--past) 3%,var(--panel)));
+  border:1px solid var(--line); border-radius:16px; padding:clamp(.85rem,1.55vw,1.85rem); color:var(--tx);
+}
+.shift-trend[hidden] {display:none!important}
+.shift-trend .tone-count,.shift-trend .tone-issue {--signal:var(--issued);color:var(--signal)}
+.shift-trend .tone-return {--signal:var(--stx-ice);color:var(--signal)}
+.shift-trend .tone-neutral {--signal:var(--past);color:var(--signal)}
+.shift-trend .sth,.shift-trend .sth-title,.shift-trend .stx-charthead,.shift-trend .stx-legend,.shift-trend .stx-bucket-values {display:flex; align-items:center;gap:.65rem}
+.shift-trend .sth {justify-content:space-between}
+.shift-trend .sth-icon {flex:none; display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:11px; background:var(--orbg);border:1px solid color-mix(in srgb,var(--or) 35%,transparent);color:var(--ortx)}
+.shift-trend .sth-icon svg {width:1.28rem;height:1.28rem}
+.shift-trend .sth h3 {margin:0;color:var(--tx);font-size:clamp(1.1rem,1.15vw,1.65rem);font-weight:720;line-height:1.2;letter-spacing:-.025em}
+.shift-trend .sth p,.shift-trend .stx-charthead p {margin:.18rem 0 0;color:var(--mu);font-size:.8rem;line-height:1.4}
+.shift-trend .stx-filters {margin:1.05rem 0 .9rem;display:flex;gap:.65rem 1.15rem;align-items:end;flex-wrap:wrap}
+.shift-trend .stx-field,.shift-trend .stx-shift {margin:0;padding:0;border:0;min-width:0;display:grid;gap:.22rem}
+.shift-trend .stx-field>span,.shift-trend .stx-shift legend {font-size:.74rem;color:var(--mu);font-weight:650}
+.shift-trend .stx-shift legend {margin-bottom:.22rem}
+.shift-trend .stx-field select {border:1px solid var(--line);border-radius:.65rem;background:var(--panel2);color:var(--tx);padding:.42rem 1.7rem .42rem .65rem;min-height:36px;font:inherit;font-size:.84rem;max-width:100%}
+.shift-trend .stx-shift>div {display:flex;align-items:stretch;gap:2px;padding:2px;background:var(--bg);border:1px solid var(--line);border-radius:.7rem}
+.shift-trend .stx-shift button {border:0;background:transparent;border-radius:.5rem;padding:.3rem .72rem;cursor:pointer;color:var(--mu);font:inherit;font-size:.82rem;line-height:1.5}
+.shift-trend .stx-shift button[aria-pressed=true] {background:var(--orbg);color:var(--ortx);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--or) 32%,transparent);font-weight:700}
+.shift-trend .stx-shift button:disabled {opacity:.4;cursor:default}
+.shift-trend :is(select,button,summary,input):focus-visible {outline:2px solid var(--ortx);outline-offset:3px}
+.shift-trend .stx-metrics {display:flex;gap:0;align-items:stretch;flex-wrap:wrap;margin:1.15rem 0 1rem}
+.shift-trend .stx-metric {min-width:7.6rem;padding:0 clamp(.85rem,2.2vw,2rem);border-left:1px solid var(--line);display:grid;align-content:start}
+.shift-trend .stx-metric:first-child {padding-left:0;border:0}
+.shift-trend .stx-metric span,.shift-trend .stx-metric small {color:var(--mu);line-height:1.4;font-size:.77rem}
+.shift-trend .stx-metric span {font-weight:650}
+.shift-trend .stx-metric strong {font-size:clamp(1.8rem,2.5vw,3.25rem);color:var(--signal);font-weight:700;line-height:1.16;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.shift-trend .stx-metric small {font-size:.72rem}
+.shift-trend .stx-timing {margin-left:auto;display:grid;align-content:center;gap:.28rem;color:var(--mu);font-size:.78rem;font-variant-numeric:tabular-nums}
+.shift-trend .stx-timing span {display:flex;align-items:center;gap:.42rem}
+.shift-trend .stx-timing b {color:var(--tx);font-weight:640}
+.shift-trend .stx-signal {width:.47rem;height:.47rem;border-radius:100%;border:1px solid var(--past)}
+.shift-trend .stx-timing span:last-child .stx-signal {background:var(--past)}
+.shift-trend .stx-chart {background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 48%,transparent),color-mix(in srgb,var(--panel2) 62%,transparent));border:1px solid var(--line);border-radius:13px;padding:clamp(.72rem,1.15vw,1.25rem)}
+.shift-trend .stx-charthead {justify-content:space-between;align-items:start}
+.shift-trend .stx-chart h4 {margin:0;font-size:clamp(.97rem,1.04vw,1.42rem);color:var(--tx);line-height:1.25}
+.shift-trend .stx-motion {border:1px solid var(--line);border-radius:.55rem;background:var(--panel2);color:var(--mu);flex:none;width:2.1rem;height:2.1rem;display:grid;place-items:center;cursor:pointer}
+.shift-trend .stx-motion:hover {color:var(--tx)}
+.shift-trend .stx-motion svg {width:.9rem;height:.9rem}
+.shift-trend .stx-legend {gap:.95rem;margin:.75rem 0 .5rem}
+.shift-trend .stx-legend span,.shift-trend .stx-bucket-values span {display:inline-flex;align-items:center;gap:.36rem;font-size:.78rem;color:var(--tx)}
+.shift-trend .stx-legend i,.shift-trend .stx-bucket-values i {width:14px;height:3px;border-radius:100px;background:var(--signal);box-shadow:0 0 5px color-mix(in srgb,var(--signal) 30%,transparent)}
+.shift-trend .stx-legend .tone-return i,.shift-trend .stx-bucket-values .tone-return i {background:repeating-linear-gradient(90deg,var(--signal) 0 5px,transparent 5px 7px)}
+.shift-trend .stx-coordinate {display:grid;grid-template-columns:2.35rem minmax(0,1fr);gap:.45rem;padding:.1rem .25rem 0 0}
+.shift-trend .stx-plot,.shift-trend .stx-y {height:clamp(10.2rem,14vw,19rem);position:relative}
+.shift-trend .stx-plot {cursor:crosshair;touch-action:pan-y;isolation:isolate}
+.shift-trend .stx-plot svg {display:block;width:100%;height:100%;color:var(--dim);overflow:visible}
+.shift-trend .stx-plot path {vector-effect:non-scaling-stroke}
+.shift-trend .stx-guide {stroke:var(--line);stroke-width:1}
+.shift-trend .stx-handover {stroke:var(--past);stroke-width:1;stroke-dasharray:2 5;opacity:.5}
+.shift-trend .stx-future {fill:var(--dim);opacity:.10}
+.shift-trend .stx-aura,.shift-trend .stx-line,.shift-trend .stx-flow {stroke:var(--signal);fill:none;stroke-linejoin:round;stroke-linecap:round}
+.shift-trend .stx-aura {opacity:.14;stroke-width:7}
+.shift-trend .stx-line {stroke-width:2.5}
+.shift-trend .stx-line.tone-return {stroke-width:2.3}
+.shift-trend .stx-flow {display:none}
+.shift-trend .stx-marks {position:absolute;inset:0;pointer-events:none}
+.shift-trend .stx-dot {position:absolute;width:5px;height:5px;border-radius:50%;background:var(--signal);transform:translate(-50%,-50%)}
+.shift-trend .stx-dot.tone-return {width:6px;height:6px;background:var(--panel);border:1.5px solid var(--signal);border-radius:2px}
+.shift-trend .stx-x {position:relative;height:1.9rem}
+.shift-trend .stx-x span,.shift-trend .stx-y span {position:absolute;white-space:nowrap;font-size:.69rem;font-variant-numeric:tabular-nums;color:var(--mu)}
+.shift-trend .stx-y span {right:0;transform:translateY(-50%)}
+.shift-trend .stx-x span {top:.36rem;transform:translateX(-50%)}
+.shift-trend .stx-x span:first-child {transform:none}
+.shift-trend .stx-x span:last-child {transform:translateX(-100%)}
+.shift-trend .stx-picker {position:absolute;top:0;bottom:0;pointer-events:none;background:color-mix(in srgb,var(--ortx) 5%,transparent);border-inline:1px solid color-mix(in srgb,var(--ortx) 25%,transparent)}
+.shift-trend .stx-picker i {position:absolute;left:50%;top:0;height:100%;border-left:1px dashed var(--mu);opacity:.7}
+.shift-trend .stx-inspector {display:flex;flex-wrap:wrap;align-items:center;padding:.68rem .25rem .28rem;gap:.5rem 1rem;border-top:1px solid var(--line)}
+.shift-trend .stx-selected {display:flex;gap:.4rem 1.1rem;align-items:center;flex:1 1 23rem;flex-wrap:wrap}
+.shift-trend .stx-bucket-time {display:grid;gap:.06rem}
+.shift-trend .stx-bucket-time strong {font-size:.9rem;color:var(--tx);font-weight:680}
+.shift-trend .stx-bucket-time small,.shift-trend .stx-slider span {font-size:.73rem;color:var(--mu)}
+.shift-trend .stx-bucket-values {gap:.6rem;flex-wrap:wrap}
+.shift-trend .stx-slider {min-width:0;display:flex;gap:.5rem;align-items:center;flex:1 1 12rem;max-width:23rem}
+.shift-trend .stx-slider input {min-width:0;flex:1;accent-color:var(--ortx);cursor:pointer;height:1.7rem}
+.shift-trend .stx-slider span {white-space:nowrap}
+.shift-trend .stx-evidence,.shift-trend .stx-detail p,.shift-trend .stx-unavailable {font-size:.77rem;line-height:1.5;color:var(--mu);margin:.42rem .23rem}
+.shift-trend .stx-evidence:empty {display:none}
+.shift-trend .stx-detail {border-top:1px solid var(--line);margin-top:.55rem;padding:.55rem .25rem 0}
+.shift-trend .stx-detail summary {cursor:pointer;font-weight:640;font-size:.8rem;color:var(--ortx);width:fit-content}
+.shift-trend .stx-detail table {width:100%;max-width:42rem;border-collapse:collapse;line-height:1.5;font-size:.8rem;margin:.4rem 0}
+.shift-trend .stx-detail td,.shift-trend .stx-detail th {text-align:left;padding:.3rem .35rem;border-bottom:1px solid var(--line);color:var(--tx)}
+.shift-trend .stx-detail thead th {font-size:.75rem;color:var(--mu)}
+@media screen and (prefers-reduced-motion:no-preference) {
+  .shift-trend.stx-visible:not(.is-paused) .stx-line {animation:stx-enter .85s cubic-bezier(.18,.64,.28,1)}
+  .shift-trend.stx-visible:not(.is-paused) .stx-flow {display:block;stroke:color-mix(in srgb,var(--signal) 53%,white);opacity:0;stroke-width:2.65;stroke-dasharray:.046 1.25;animation:stx-breathe 6s ease-in-out 1.25s infinite}
+  .shift-trend.stx-visible:not(.is-paused) .stx-flow.tone-return {animation-delay:2s}
+  @keyframes stx-enter {from{clip-path:inset(-2% 100% -2% -2%)}to{clip-path:inset(-2% -2% -2% -2%)}}
+  @keyframes stx-breathe {0%{stroke-dashoffset:.08;opacity:0}10%{opacity:.85}62%{stroke-dashoffset:-1;opacity:.65}66%,100%{stroke-dashoffset:-1;opacity:0}}
+}
+@media (prefers-reduced-motion:reduce),(forced-colors:active) {
+  .shift-trend .stx-motion,.shift-trend .stx-flow {display:none}
+}
+@media(max-width:680px) {
+  .shift-trend {padding:.85rem .7rem}
+  .shift-trend .stx-filters {gap:.55rem;margin:.82rem 0}
+  .shift-trend .stx-field select {min-height:40px}
+  .shift-trend .stx-shift button {min-height:34px}
+  .shift-trend .stx-metrics {gap:.6rem .1rem;margin:.85rem 0}
+  .shift-trend .stx-timing {width:100%;display:flex;gap:.35rem .85rem;flex-wrap:wrap}
+  .shift-trend .stx-metric {padding:0 .9rem;min-width:6.25rem}
+  .shift-trend .stx-coordinate {grid-template-columns:1.4rem minmax(0,1fr);gap:.34rem}
+  .shift-trend .stx-x span:nth-child(even):not(:last-child){visibility:hidden}
+  .shift-trend .stx-chart {padding:.7rem .55rem}
+  .shift-trend .stx-slider {max-width:none;flex-basis:100%}
+  .shift-trend .stx-slider input {height:2rem}
+}
+@media print {
+  .shift-trend {break-inside:avoid;color:#111;background:white;border-color:#bbb;padding:.3cm}
+  .shift-trend .stx-motion,.shift-trend .stx-filters,.shift-trend .stx-slider,.shift-trend .stx-detail,.shift-trend .stx-flow,.shift-trend .stx-picker {display:none!important}
+  .shift-trend .stx-plot,.shift-trend .stx-y {height:3.2cm}
+  .shift-trend .stx-line {stroke-dasharray:none;stroke-dashoffset:0}
+}
+.shift-trend .stx-x .stx-day-label {transform:translateX(-50%)}
+.shift-trend .stx-open-day {display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:.5rem;color:var(--ortx);background:var(--panel2);font:inherit;font-size:.8rem;font-weight:650;min-height:36px;padding:.3rem .65rem;cursor:pointer}
+.shift-trend .stx-peak-jump {display:inline-flex;align-items:center;gap:.36rem;padding:.23rem .4rem .23rem 0;border:0;background:none;color:var(--tx);font-size:.78rem;cursor:pointer;border-radius:.35rem}
+.shift-trend .stx-peak-jump:hover small {color:var(--tx);border-color:var(--signal)}
+.shift-trend .stx-peak-jump small {white-space:nowrap;border:1px solid var(--line);color:var(--mu);border-radius:5px;padding:0 .32rem;font-size:.67rem}
+.shift-trend .stx-legend .tone-return i,.shift-trend .stx-bucket-values .tone-return i {width:7px;height:7px;border-radius:2px;border:1.5px solid var(--signal);background:transparent}
+.shift-trend .stx-peak {position:absolute;width:11px;height:11px;transform:translate(-50%,-50%);border:1px solid var(--signal);border-radius:50%;opacity:.65}
+.shift-trend .stx-peak.tone-return {border-radius:3px}
+@media screen and (prefers-reduced-motion:no-preference) {
+  .shift-trend.stx-visible:not(.is-paused) .stx-peak {animation:stx-peak-light 3.8s ease-out 1s infinite}
+  @keyframes stx-peak-light {0%,15%{transform:translate(-50%,-50%) scale(.75);opacity:.75}56%,100%{transform:translate(-50%,-50%) scale(1.6);opacity:0}}
+}
+@media(max-width:680px) {
+  .shift-trend.is-count .stx-filters {display:grid;grid-template-columns:minmax(0,1.13fr) minmax(0,1fr)}
+  .shift-trend.is-count .stx-field:last-child {grid-column:2;grid-row:1}
+  .shift-trend.is-count .stx-shift {grid-column:1/-1;justify-self:start}
+}

@@ -37,7 +37,7 @@ echo.
 
 if exist "%KIT%_python\python.exe" (
     echo  There is already a private copy of Python in this kit:
-    echo     %KIT%_python\python.exe
+    echo     "%KIT%_python\python.exe"
     echo.
     echo  Nothing to do. Press 2_MAKE_THE_REPORT.bat.
     echo.
@@ -76,7 +76,10 @@ for %%F in ("%KIT%_python\python*._pth") do (
     )
 )
 
-for /f "usebackq delims=" %%V in (`"%KIT%_python\python.exe" -c "import sys;print(sys.version.split()[0])" 2^>nul`) do set "GOT=%%V"
+"%KIT%_python\python.exe" -c "import sys;print(sys.version.split()[0])" > "%TEMP%\coates_pyver.txt" 2>nul
+set "GOT="
+if exist "%TEMP%\coates_pyver.txt" set /p GOT=<"%TEMP%\coates_pyver.txt"
+del "%TEMP%\coates_pyver.txt" >nul 2>nul
 if not defined GOT goto :failed
 
 "%KIT%_python\python.exe" -c "import os,sys;sys.path.insert(0,os.path.join(os.environ['KIT'],'_lib'));import openpyxl" >nul 2>nul

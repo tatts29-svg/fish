@@ -276,7 +276,7 @@ class ReportRegressions(unittest.TestCase):
             self.assertEqual(forecast['ref']['busy_share'], 1.0)
             self.assertIn('busiest at 08:00', forecast['ref_line'])
             self.assertNotIn('00:00', forecast['ref_line'])
-            self.assertIn('1 movement in 1 day', forecast['ref_line'])
+            self.assertIn('1 scan (issues, returns and draws) in 1 day', forecast['ref_line'])
             self.assertIn('1 day on site', forecast['brief'])
 
     def test_single_item_email_uses_singular_counts(self):
@@ -412,6 +412,114 @@ class ReportRegressions(unittest.TestCase):
             self.assertIn('returned on a later date', html)
             self.assertNotIn('before the shift ended', html)
             self.assertNotIn('more than a day', html)
+
+
+    def test_asset_numbers_sit_beside_descriptions(self):
+        with temporary_site() as base:
+            fixture(base, company_names=('Example Engineering', 'Second Crew'))
+            day = run(base)
+            page = next(day.glob('*.html')).read_text(encoding='utf-8')
+            # each person's gear line carries the asset number after the description
+            self.assertRegex(page, r'(?is)Torque wrench.{0,200}?T0')
+            self.assertRegex(page, r'(?is)Torque wrench.{0,200}?T1')
+            book = openpyxl.load_workbook(next(day.glob('*.xlsx')), read_only=True)
+            rows = [r for r in book['Tooling Utilisation'].iter_rows(values_only=True) if r]
+            head = next(r for r in rows if 'Item numbers' in r)
+            col = head.index('Item numbers')
+            values = [r[col] for r in rows[rows.index(head) + 1:] if len(r) > col and r[col]]
+            self.assertIn('T0, T1', values)
+            book.close()
+
+    def test_asset_numbers_are_cut_back_whole_never_halved(self):
+        class Doc:
+            def text_width(self, text, size):
+                return len(text) * size * 0.5
+        doc = Doc()
+        tag = 'HMRSLEDGE4LB-0003, HMRSLEDGE4LB-0005, HMRSLEDGE4LB-0011'
+        self.assertEqual(report._fit_nums(doc, tag, 6, 1000), tag)
+        self.assertEqual(report._fit_nums(doc, tag, 6, 80), 'HMRSLEDGE4LB-0003 +2 more')
+        self.assertEqual(report._fit_nums(doc, 'A-0001, A-0002, A-0003 +30 more', 6, 70),
+                         'A-0001, A-0002 +31 more')
+        self.assertEqual(report._fit_nums(doc, 'SKU X-1, X-2 +4', 6, 30), 'SKU X-1 +5 more')
+        self.assertEqual(report._fit_nums(doc, '72 assets', 6, 10), '72 assets')
+
+    def test_back_dated_run_is_as_at_the_exports_not_todays_clock(self):
+        if DAY >= dt.date.today():
+            self.skipTest('needs a day earlier than today')
+        with temporary_site() as base:
+            fixture(base)
+            run(base)
+            # REQUESTED_DATE/TIME on the invented exports is 06/11/2026 05:05
+            self.assertEqual(report._PRINT['asat'], '06 Nov 2026 05:05')
+            # ...while "Built" still says when it was really built
+            self.assertEqual(report._PRINT['built'].date(), dt.date.today())
+
+
+    def test_roster_typed_into_the_dated_copy_is_read(self):
+        # Andrew types the roster into whichever workbook is open - often the
+        # dated copy on the email. The newest save after a report wins.
+        import os
+        with temporary_site() as base:
+            fixture(base)
+            day = run(base)
+            latest = Path(base) / report.latest_workbook_name('QA')
+            dated = next(day.glob('* On-Hire Workbook - *.xlsx'))
+            self.assertTrue(latest.is_file())
+            book = openpyxl.load_workbook(dated)
+            sheet = book['Coates Labour']
+            for row in sheet.iter_rows(min_row=2):
+                for cell in row:
+                    if not isinstance(cell, openpyxl.cell.cell.MergedCell):
+                        cell.value = None
+            sheet.append(['Date', 'Shift', 'Role', 'Name', 'Start Time', 'Finish Time',
+                          'Total Hours', 'Cost', 'Total'])
+            sheet.append([dt.datetime(2026, 11, 5), 'Dayshift', 'Tool Store Controller',
+                          'Pat Example', dt.time(6), dt.time(18), 12, 960, '=H4'])
+            book.save(dated)
+            book.close()
+            later = os.path.getmtime(latest) + 60
+            os.utime(dated, (later, later))
+            run(base)
+            self.assertEqual(Path(report._PRINT['typed_src']).name, dated.name)
+            names = [c.value for row in openpyxl.load_workbook(latest)['Coates Labour'].iter_rows()
+                     for c in row]
+            self.assertIn('Pat Example', names)
+            # pressed again with nothing new typed: the LATEST is the source
+            run(base)
+            self.assertEqual(Path(report._PRINT['typed_src']).name, latest.name)
+
+    def test_open_workbook_stops_before_building(self):
+        with temporary_site() as base:
+            fixture(base)
+            run(base)
+            latest = str(Path(base) / report.latest_workbook_name('QA'))
+            out = io.StringIO()
+            with mock.patch.object(report, '_open_in_excel', side_effect=lambda p: p == latest), \
+                    contextlib.redirect_stdout(out):
+                self.assertEqual(report.build(base, DAY), 1)
+            self.assertIn('open in Excel', out.getvalue())
+
+    @unittest.skipIf(__import__('os').name == 'nt', "Windows checks Excel's lock, not the ~$ file")
+    def test_excel_owner_file_means_open(self):
+        with tempfile.TemporaryDirectory() as base:
+            book = Path(base) / 'QA_Onhire_Workbook_LATEST.xlsx'
+            book.write_bytes(b'x')
+            self.assertFalse(report._open_in_excel(str(book)))
+            (Path(base) / ('~$' + book.name)).write_bytes(b'x')
+            self.assertTrue(report._open_in_excel(str(book)))
+
+    def test_hours_typed_as_a_formula_come_off_the_times(self):
+        self.assertEqual(report._span_hours(dt.time(6), dt.time(18)), 12.0)
+        self.assertEqual(report._span_hours(dt.time(18), dt.time(6)), 12.0)
+        self.assertEqual(report._span_hours(dt.time(6), dt.time(15)), 9.0)
+        self.assertEqual(report._span_hours(None, dt.time(6)), 0.0)
+        book = openpyxl.Workbook()
+        sheet = book.active
+        sheet.append(['Date', 'Shift', 'Role', 'Name', 'Start Time', 'Finish Time', 'Total Hours'])
+        sheet.append([dt.datetime(2026, 11, 9), 'NightShift', 'Tool Store Controller', 'Pat',
+                      dt.time(18), dt.time(6), '=MOD(F2-E2,1)*24'])
+        got = report.roster_hours(sheet, dt.date(2026, 11, 10))
+        self.assertEqual(got['rostered'], 12.0)
 
 
 if __name__ == '__main__':

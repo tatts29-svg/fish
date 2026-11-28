@@ -1,0 +1,1183 @@
+#!/usr/bin/env python3
+"""MMG tool store showcase - one self-contained, animated web page built
+from the same SiteIQ exports (and the same naming rules) as the on-hire
+kit. Author: Andrew Fisher | POWERED BY SITEIQ.
+
+    python build_showcase.py KIT_FOLDER OUT.html [--reference REF.json]
+                             [--minmax MINMAX.xlsx] [--history HISTORY.json]
+
+KIT_FOLDER is a kit folder (JOB.txt, COMPANY_ALIASES.txt, OWNER_ALIASES.txt,
+Data_SiteIQ with the exports, _fonts). Nothing here carries a cost or a
+rate: client pages never do. Figures are only what the exports say; a
+trend appears once there are pulls to draw it from.
+"""
+import argparse
+import base64
+import collections
+import datetime as dt
+import html
+import importlib.util
+import io
+import json
+import os
+import re
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+import catalogue  # noqa: E402
+import consumable_usage  # noqa: E402
+import shut_costs  # noqa: E402
+import qr_facts
+import shift_movements
+import stocktake  # noqa: E402
+import sds_register  # noqa: E402
+import utilisation  # noqa: E402
+from variant_history import unique_assets
+
+
+def _kit():
+    spec = importlib.util.spec_from_file_location("onhire_kit", os.path.join(HERE, "build_onhire_workbook.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _ref_time(kit, path):
+    """REQUESTED_DATE/TIME off an export's REFERENCE_INFO sheet."""
+    wb = kit._open_ro(path)
+    try:
+        rows = list(wb["REFERENCE_INFO"].iter_rows(min_row=1, max_row=2, values_only=True))
+    finally:
+        wb.close()
+    head = [str(c or "").strip().upper() for c in rows[0]]
+    vals = dict(zip(head, rows[1]))
+    out = {}
+    for k, v in vals.items():
+        if k.startswith("REQUESTED_DATE") and v:
+            out["requested"] = v if isinstance(v, dt.datetime) else dt.datetime.strptime(str(v).strip(), "%d/%m/%Y %I:%M %p")
+        if k == "REPORT_PERIOD" and v:
+            a, b = [x.strip() for x in str(v).split(" - ")]
+            out["period"] = (dt.datetime.strptime(a, "%d/%m/%Y %H:%M:%S"),
+                             dt.datetime.strptime(b, "%d/%m/%Y %H:%M:%S"))
+        if k == "PROJECT SCHEDULE":
+            out["schedule"] = str(v).strip()
+        if k in {"INVOICED_CUSTOMER", "CONTRACTOR", "HIRER", "TOOL_STORE"} and str(v or "").strip().casefold() not in ("", "all"):
+            out["scoped"] = True
+    return out
+
+
+MMG_FINAL_SHIFT_END = dt.datetime(2026, 12, 1, 6)
+
+
+def final_return_instruction(schedule, asat):
+    """The site manager's final worker shifts, compared with the rental pull in local time."""
+    if schedule != shut_costs.MMG_SCHEDULE:
+        return None
+    night_finish = MMG_FINAL_SHIFT_END
+    shift_day = night_finish.date() - dt.timedelta(days=1)
+    day_start = dt.datetime.combine(shift_day, dt.time(6))
+    day_finish = dt.datetime.combine(shift_day, dt.time(18))
+    if asat < day_start:
+        stage = "before_final_shifts"
+    elif asat < day_finish:
+        stage = "final_day_shift"
+    elif asat < night_finish:
+        stage = "final_night_shift"
+    else:
+        stage = "after_final_shifts"
+    return {
+        "day_shift_date": shift_day.isoformat(), "night_shift_date": shift_day.isoformat(),
+        "night_finish_date": night_finish.date().isoformat(),
+        "day_store_finish": day_finish.strftime("%H:%M"), "night_store_finish": night_finish.strftime("%H:%M"),
+        "timezone": "AEST", "snapshot_stage": stage,
+    }
+
+
+def _date(v):
+    if isinstance(v, dt.datetime):
+        return v.date()
+    s = str(v or "").strip()
+    for f in ("%d/%m/%Y", "%Y-%m-%d"):
+        try:
+            return dt.datetime.strptime(s[:10], f).date()
+        except ValueError:
+            pass
+    return None
+
+
+def _time(v):
+    s = str(v or "").strip()
+    for f in ("%I:%M %p", "%H:%M:%S", "%H:%M"):
+        try:
+            return dt.datetime.strptime(s, f).time()
+        except ValueError:
+            pass
+    return None
+
+
+_KIND_FIX = {"CORDLESS LIGHTS": "Cordless Light", "RADIO BATTERY": "Radio Battery"}
+
+
+def _kind(product):
+    p = " ".join(str(product or "").split())
+    if not p:
+        return "Other"
+    return _KIND_FIX.get(p.upper(), p if not p.isupper() else p.title().replace("&", "&"))
+
+
+def _family(fam):
+    f = " ".join(str(fam or "").split()).upper()
+    if f.startswith("INDUSTRIAL TOOLS"):
+        return "Industrial Tools & Equipment"
+    return f.title().replace(" & ", " & ") if f else "Other"
+
+
+def _cons_type(desc):
+    w = str(desc or "").split(",")[0].strip().upper()
+    w = {"GLOVER": "GLOVES"}.get(w, w)
+    return w.title() if w else "Other"
+
+
+def _cons_name(kit, desc):
+    d = re.sub(r"\s*2?MMG2025\s*$", "", str(desc or "")).strip()
+    try:
+        d = kit.item_name(d) if hasattr(kit, "item_name") else d
+    except Exception:
+        pass
+    return catalogue.house_cons(d)
+
+
+def _fonts(kit_folder):
+    """Inter, subset to Latin, as base64 WOFF. Empty when the fonts or
+    fontTools are not to hand: the page then falls back to the system face."""
+    out = {}
+    try:
+        from fontTools import subset
+        from fontTools.ttLib import TTFont
+    except ImportError:
+        return out
+    for weight, fname in ((400, "Inter-Regular.ttf"), (600, "Inter-SemiBold.ttf"), (700, "Inter-Bold.ttf")):
+        p = os.path.join(kit_folder, "_fonts", fname)
+        if not os.path.isfile(p):
+            continue
+        font = TTFont(p)
+        opts = subset.Options()
+        opts.flavor = "woff"
+        opts.layout_features = ["kern", "liga", "tnum", "lnum"]
+        sub = subset.Subsetter(opts)
+        sub.populate(unicodes=list(range(0x20, 0x7F)) + [0xA0, 0xB7, 0xD7, 0x2013, 0x2014, 0x2018, 0x2019,
+                                                         0x201C, 0x201D, 0x2026, 0x2022, 0x2192, 0x2191, 0x2193, 0x25CF])
+        sub.subset(font)
+        buf = io.BytesIO()
+        font.flavor = "woff"
+        font.save(buf)
+        out[weight] = base64.b64encode(buf.getvalue()).decode("ascii")
+    return out
+
+
+#  Test-and-tag / inspection colour, the standard three-monthly scheme
+#  (Andrew, 26 Nov 2026): Dec-Feb red, Mar-May green, Jun-Aug blue, Sep-Nov yellow.
+_TAG = [((12, 1, 2), "Red", "#E5322D", "Dec to Feb"), ((3, 4, 5), "Green", "#2FA84F", "Mar to May"),
+        ((6, 7, 8), "Blue", "#2F6FE0", "Jun to Aug"), ((9, 10, 11), "Yellow", "#F5C518", "Sep to Nov")]
+
+
+def qr_rows(text):
+    """The QR code for a SiteIQ barcode, as one hex number per row (bit set = dark
+    module, no quiet zone), led by the width: "25:1fc...,...". None when there is
+    no code or the qrcode package is not installed."""
+    if not text:
+        return None
+    try:
+        import qrcode
+    except ImportError:
+        return None
+    q = qrcode.QRCode(border=0, error_correction=qrcode.constants.ERROR_CORRECT_M)
+    q.add_data(text)
+    q.make(fit=True)
+    m = q.get_matrix()
+    return "{}:{}".format(len(m), ",".join(format(int("".join("1" if c else "0" for c in row), 2), "x") for row in m))
+
+
+def tag_colour(day):
+    for months, name, hexv, span in _TAG:
+        if day.month in months:
+            return {"name": name, "hex": hexv, "span": span}
+
+
+_ELEC = re.compile(r"240V|415V|ELECTRIC|EXTENSION LEAD|EARTH LEAKAGE|POWER PACK|DISTRIBUTION BOARD|WELDER|"
+                   r"WELDING EARTH LEAD|GENERATOR|CHARGER|TRANSFORMER|\b(10|15|20|32) ?A\b|\b32 AMP\b", re.I)
+_NOT_ELEC = re.compile(r"CABLE HOOK|SOCKET ADAPTOR|AIR HOSE|IMPERIAL ADAPTOR|LEAD STAND|BATTERY|CORDLESS|\b18V\b|\bM18\b", re.I)
+_RIG = re.compile(r"SLING|SHACKLE|CHAIN BLOCK|LEVER HOIST|\bHOIST|BEAM CLAMP|PLATE CLAMP|LIFTING|RIGGING|TIRFOR|EYE BOLT|"
+                  r"SWIVEL|SPREADER|SNATCH|PULL ?LIFT|COME ?ALONG|HARNESS|INERTIA REEL|FALL ARREST|RESCUE|TRIPOD|"
+                  r"ROPE LANYARD|RETRACTABLE LANYARD|LANYARD - RETRACTABLE|SHOCK ABSORB|ANCHOR STRAP|DAVIT", re.I)
+
+
+def tag_kind(r):
+    """'elec', 'rig' or None for one RENTAL_STOCK row (Coates gear only)."""
+    desc = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
+    prod = " ".join(str(r.get("PRODUCT") or "").split()).upper()
+    fam = " ".join(str(r.get("PRODUCT_FAMILY") or "").split()).upper()
+    if "TOOL LANYARD" in prod or "TOOL LANYARD" in desc.upper():
+        return None
+    if _RIG.search(desc) or "SLINGS, SHACKLES" in prod or "RESCUE KIT" in prod:
+        return "rig"
+    if _NOT_ELEC.search(desc):
+        return None
+    if _ELEC.search(desc) or prod in ("ELECTRICAL LEADS & ACCESSORIES", "WELDERS - ELECTRIC") or fam.startswith("GENERATORS"):
+        return "elec"
+    return None
+
+
+def _safe_name(name):
+    """A tool name as it is spelt in a picture file name."""
+    return " ".join(re.sub(r'[\\/:*?"<>|]', "-", str(name)).split()).lower()
+
+
+def named_pictures(data):
+    """Give tools that still have no picture one saved under their clean name."""
+    pix = data.get("_pix")
+    if not pix or not pix.named:
+        return 0
+    n = 0
+    for t in data["tools"].values():
+        if t.get("pic") is None:
+            bare = re.sub(r"\s*\([^)]*Owned\)$", "", t["name"])
+            tags = [v for v in str(t.get("var") or "").split(", ") if v] + ["COATES"] if t.get("own") == "Coates" else [t.get("own") or ""]
+            t["pic"] = pix.by_name(bare, tags)
+            n += t["pic"] is not None
+    tools = data["tools"]
+    for t in data.get("tools_util") or []:
+        if t.get("pic") is None and tools.get(t.get("dk")):
+            t["pic"] = tools[t["dk"]].get("pic")
+    for cat in (data.get("cat") or {}).get("tools", []):
+        for k in cat.get("kinds", []):
+            if k.get("pic") is None:
+                k["pic"] = next((tools[d]["pic"] for d in k.get("d") or [] if tools.get(d) and tools[d].get("pic") is not None), None)
+    return n
+
+
+# Preserve the native job-pack resolution for the enlarged inspection view.
+PICTURE_SIDE = 512
+DETAIL_SIDE = 3840
+
+
+def picture_uri(image, side=PICTURE_SIDE, quality=84):
+    from PIL import Image
+    image.thumbnail((side, side), Image.Resampling.LANCZOS)
+    buf = io.BytesIO()
+    from PIL import features
+    if features.check("webp"):
+        image.save(buf, "WEBP", quality=quality, method=3)
+        mime = "image/webp"
+    else:
+        image.save(buf, "JPEG", quality=quality, optimize=True)
+        mime = "image/jpeg"
+    return f"data:{mime};base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+
+
+class Pictures(object):
+    """Job-pack tool pictures, matched by indexed variant or by their stocked name and owner."""
+
+    def __init__(self, folder, side=PICTURE_SIDE):
+        self.files, self.used, self.order, self.side, self.folder, self.named = {}, {}, [], side, folder, {}
+        if not folder or not os.path.isdir(folder):
+            return
+        import csv
+        for name in os.listdir(folder):
+            if name.lower().endswith(".csv"):
+                with open(os.path.join(folder, name), encoding="utf-8-sig", newline="") as f:
+                    for row in csv.DictReader(f):
+                        v, p = (row.get("Product variant") or "").strip().upper(), (row.get("File in this package") or "").strip()
+                        if v and p and os.path.isfile(os.path.join(folder, p)):
+                            self.files.setdefault(v, p)
+        # pictures saved as "<clean name> [<tag>].jpg" anywhere in the folder: the tag is the
+        # product variant, COATES, or the owner's name for client-owned gear
+        indexed = {os.path.normpath(p) for p in self.files.values()}
+        for root, _, names in os.walk(folder):
+            for name in sorted(names):
+                m = re.match(r"^(.+?)\s*\[([^\]]*)\]\.(jpe?g|png)$", name, re.I)
+                rel = os.path.normpath(os.path.relpath(os.path.join(root, name), folder))
+                if m and rel not in indexed:
+                    self.named.setdefault((_safe_name(m.group(1)), _safe_name(m.group(2))), rel)
+
+    def _index(self, relative_path):
+        if not relative_path:
+            return None
+        path = os.path.normpath(relative_path)
+        if path not in self.used:
+            self.used[path] = len(self.order)
+            self.order.append(path)
+        return self.used[path]
+
+    def by_name(self, name, tags):
+        """An index for a picture saved under a tool's clean name and one of these tags, or None."""
+        for tag in tags:
+            rel = self.named.get((_safe_name(name), _safe_name(tag)))
+            if rel:
+                return self._index(rel)
+        return None
+
+    def of(self, row):
+        """An index into the page's picture list for this stock row, or None."""
+        if "RADIO" in str(row.get("ITEM_DESCRIPTION") or "").upper():
+            return None
+        variant = str(row.get("PRODUCT_VARIANT") or "").strip().upper()
+        return self._index(self.files.get(variant))
+
+    def data(self, detail_images=None):
+        from PIL import Image, ImageOps
+        out = []
+        for path in self.order:
+            with Image.open(os.path.join(self.folder, path)) as image:
+                source = ImageOps.exif_transpose(image).convert("RGB")
+                if detail_images is not None and max(source.size) > self.side:
+                    detail_images[len(out)] = picture_uri(source.copy(), DETAIL_SIDE, quality=91)
+                out.append(picture_uri(source, self.side))
+        return out
+
+
+def _ops(kit, path):
+    """The average-day figures from build_store_ops.py, with consumable names tidied."""
+    if not path or not os.path.isfile(path):
+        return None
+    d = json.load(open(path))
+    for c in d.get("cons_lines", []):
+        c["name"] = _cons_name(kit, c["name"])
+    return d
+
+
+def _cons_peaks(path):
+    """Per consumable line, from the Min/Max workbook's own daily sheets (one
+    per past shut): the busiest single day in any shut, the average of each
+    shut's busiest day, and the most drawn in one shut. Counted, not estimated."""
+    import openpyxl
+    wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
+    per = collections.defaultdict(list)                 # sku -> one list of daily units per shut
+    for name in wb.sheetnames:
+        if not name.endswith(" Daily"):
+            continue
+        rows = wb[name].iter_rows(min_row=5, values_only=True)
+        head = [str(c or "").strip().upper() for c in next(rows)]
+        last = head.index("TOTAL") if "TOTAL" in head else len(head)
+        for row in rows:
+            if row[0]:
+                per[str(row[0])].append([float(v) if isinstance(v, (int, float)) else 0.0 for v in row[2:last]])
+    out = {}
+    for sku, shuts in per.items():
+        used = [d for d in shuts if sum(d) > 0]
+        if used:
+            peaks = [max(d) for d in used]
+            out[sku] = {"peak": int(max(peaks)), "avgpeak": round(sum(peaks) / len(peaks), 1),
+                        "most": int(max(sum(d) for d in used)), "nshut": len(used)}
+    return out
+
+
+def _band(vals):
+    if not vals:
+        return []
+    return [{"name": "Quietest shut", "n": round(min(vals))},
+            {"name": "Typical shut", "n": round(sum(vals) / len(vals))},
+            {"name": "Busiest shut", "n": round(max(vals))}]
+
+
+def _issue_hours(rental, asat):
+    hours = list(range(asat.hour + 1))
+    counts, back = [0] * len(hours), [0] * len(hours)
+    issued = out = unknown = 0
+    for row in rental:
+        if _date(row.get("ON_HIRE_DATE")) != asat.date():
+            continue
+        clock = _time(row.get("ON_HIRE_TIME"))
+        # Stock exports give their pull time to the minute, not the second.
+        if clock and (clock.hour, clock.minute) > (asat.hour, asat.minute):
+            continue
+        is_out = str(row.get("ITEM_STATUS") or "").strip().casefold() == "on hire"
+        issued += 1
+        out += is_out
+        if clock:
+            counts[clock.hour] += 1
+            back[clock.hour] += int(not is_out)
+        else:
+            unknown += 1
+    return dict(hours=[f"{hour:02}:00" for hour in hours], counts=counts, back=back,
+                issued=issued, out=out, unknown=unknown)
+
+
+def _replenishment(stock, targets):
+    below = []
+    minimum_lines = maximum_lines = 0
+    to_max = 0
+    for row in stock:
+        target = targets.get(str(row.get("SKU_NUMBER") or "").strip())
+        have = row["AVAILABLE_QUANTITY"]
+        if not target or have is None or have < 0:
+            continue
+        minimum, maximum = target
+        if maximum is not None:
+            maximum_lines += 1
+            to_max += max(0, maximum - have)
+        if minimum is not None:
+            minimum_lines += 1
+            if have < minimum:
+                below.append((row, have, minimum, maximum))
+    below.sort(key=lambda item: item[1] - item[2])
+    return below, to_max, minimum_lines, maximum_lines
+
+
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None, approved_names=None, usage_history=None, interval_history=()):
+    s = kit.the_site(folder)
+    kit._NAMES["aliases"] = kit.read_aliases(folder)
+    kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
+    kit._NAMES["statuses"] = kit.read_aliases(folder, "STATUS_ALIASES.txt")
+    kit._NAMES["tidy"] = s.tidy_names
+    kit._NAMES["acronyms"] = s.acronyms
+    find = lambda stem: kit.find_export(folder, stem + "*.xlsx", s)
+    p_rental, p_sales, p_trans = find("RENTAL_STOCK"), find("SALES_STOCK"), find("TRANSACTIONS")
+    raw_rental = kit._rows(p_rental, "RENTAL_STOCK", must_have=True)
+    rental, missing_assets, conflicting_assets = unique_assets(raw_rental)
+    sales = kit._rows(p_sales, "SALES_STOCK", must_have=True)
+    ref = _ref_time(kit, p_rental)
+    tref = _ref_time(kit, p_trans) if p_trans else {}
+    try:
+        sales_ref = _ref_time(kit, p_sales) if p_sales else {}
+    except (KeyError, IndexError, ValueError):
+        sales_ref = {}  # Older exports may have no usable requested timestamp.
+    asat = ref["requested"]
+    today = asat.date()
+
+    coates = [r for r in rental if kit._s(r.get("OWNER")).casefold() == "coates"]
+    others = [r for r in rental if kit._s(r.get("OWNER")).casefold() != "coates"]
+    other_owner = collections.Counter(kit.co_name(r.get("OWNER")) for r in others).most_common(1)
+    other_owner = (other_owner[0][0] or "Other") if len({kit.co_name(r.get("OWNER")) for r in others}) == 1 else "Other"
+    on = [r for r in rental if kit._s(r.get("ITEM_STATUS")) == "On Hire"]
+    held = [r for r in coates if kit._s(r.get("ITEM_STATUS")) == "Failed Baseplan"]
+
+    by_co = collections.Counter(kit.co_name(r.get("COMPANY_NAME")) for r in on)
+    by_hirer = collections.Counter((kit.person_name(r.get("HIRER_NAME")), kit.co_name(r.get("COMPANY_NAME"))) for r in on)
+
+    dkey = lambda r: " ".join(str(r.get("ITEM_DESCRIPTION") or "").split()).upper()
+    dname, dvar, down = {}, {}, {}
+    for r in rental:
+        down.setdefault(dkey(r), set()).add("COATES" in kit._s(r.get("OWNER")).upper())
+        raw = " ".join(str(r.get("ITEM_DESCRIPTION") or "").split())
+        dname.setdefault(dkey(r), raw.title() if raw.isupper() else raw)
+        if str(r.get("PRODUCT_VARIANT") or "").strip():
+            dvar.setdefault(dkey(r), str(r.get("PRODUCT_VARIANT")).strip())
+    pix = Pictures(pictures)
+    dpic = {}
+    for r in rental:
+        if dkey(r) not in dpic:
+            p_ = pix.of(r)
+            if p_ is not None:
+                dpic[dkey(r)] = p_
+    kinds_fleet = collections.Counter(dkey(r) for r in rental)
+    kinds_on = collections.Counter(dkey(r) for r in on)
+    available = collections.Counter(dkey(r) for r in rental if kit._s(r.get("ITEM_STATUS")).casefold() == "available for hire")
+    fam_fleet = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in coates)
+    fam_on = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in on if r in coates)
+
+    # RENTAL_STOCK is one latest issue per asset, including items that
+    # have since come off hire. It is not a transaction ledger.
+    hourly = _issue_hours(rental, asat)
+    issued_today, still_out_today = hourly["issued"], hourly["out"]
+    stock = [r for r in sales if not kit._s(r.get("COMPANY_NAME"))]
+    for row in stock:
+        row["AVAILABLE_QUANTITY"] = sds_register.stock_quantity(row.get("AVAILABLE_QUANTITY"))
+    drawn = [r for r in sales if kit._n(r.get("SALES_QUANTITY")) > 0]
+    def shelf_balance(row):
+        quantity = row["AVAILABLE_QUANTITY"]
+        return quantity if quantity is not None and quantity >= 0 else None
+
+    balances = [shelf_balance(r) for r in stock]
+    unknown_balances = balances.count(None)
+    units = sum(balance for balance in balances if balance is not None)
+    ctype = collections.Counter()
+    for r in stock:
+        ctype[_cons_type(r.get("SKU_DESCRIPTION"))] += kit._n(r.get("AVAILABLE_QUANTITY"))
+    top_lines = sorted(stock, key=lambda r: -kit._n(r.get("AVAILABLE_QUANTITY")))[:8]
+
+    if minmax and os.path.isfile(minmax):
+        import openpyxl
+        book = openpyxl.load_workbook(minmax, data_only=True, read_only=True)
+        ws = book["Min Max"]
+        mm = {}
+        hdr = [str(c or "").strip().upper() for c in next(ws.iter_rows(min_row=5, max_row=5, values_only=True))]
+        i_mn, i_mx = hdr.index("MIN"), hdr.index("MAX")
+        i_pd = next((i for i, v in enumerate(hdr) if v.startswith("PER DAY")), None)
+        mm_pd = {}
+        for row in ws.iter_rows(min_row=6, values_only=True):
+            if row[0]:
+                minimum = sds_register.stock_quantity(row[i_mn])
+                maximum = sds_register.stock_quantity(row[i_mx])
+                minimum = minimum if minimum is not None and minimum >= 0 else None
+                maximum = maximum if maximum is not None and maximum >= (minimum or 0) else None
+                mm[str(row[0])] = (minimum, maximum)
+                if i_pd is not None and isinstance(row[i_pd], (int, float)):
+                    mm_pd[str(row[0])] = row[i_pd]
+        book.close()
+        peaks = _cons_peaks(minmax)
+    else:
+        mm, mm_pd, peaks = {}, {}, {}
+    low_rows, to_max, mm_lines, max_lines = _replenishment(stock, mm)
+    below = [{"line": _cons_name(kit, row.get("SKU_DESCRIPTION")), "have": have, "min": minimum, "max": maximum}
+             for row, have, minimum, maximum in low_rows]
+    clines = []
+    for r in stock:
+        sku = kit._s(r.get("SKU_NUMBER"))
+        clines.append({"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "type": catalogue.cons_category(r.get("SKU_DESCRIPTION")),
+                       "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": shelf_balance(r),
+                       "owner": kit.co_name(r["OWNER"]) if r.get("OWNER") else "",
+                       "storage_location": " / ".join(dict.fromkeys(kit._s(r.get(k)) for k in ("TOOLSTORE", "STORAGE_UNIT") if kit._s(r.get(k)))),
+                       "uom": kit._s(r.get("UOM") or r.get("UNIT_OF_MEASURE")),
+                       "stock_quantity": r["AVAILABLE_QUANTITY"],
+                       "min": mm[sku][0] if sku in mm else None, "max": mm[sku][1] if sku in mm else None,
+                       "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
+                       "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
+                       "most": peaks.get(sku, {}).get("most"),
+                       "code": (re.findall(r"(\d{6,})\s*$", str(r.get("SKU_BARCODE") or "")) or [""])[0],
+                       "sku": sku, "bar": kit._s(r.get("SKU_BARCODE")), "qr": qr_rows(kit._s(r.get("SKU_BARCODE")))})
+    clines.sort(key=lambda c: c["name"].lower())
+
+    counter_start = dt.date(2026, 11, 25)
+    counter_days = 7
+    day_no = (today - counter_start).days + 1
+
+    snap = {"asat": asat.strftime("%Y-%m-%d %H:%M"), "on_hire": len(on), "issued_today": issued_today,
+            "coates_out": sum(1 for r in on if r in coates), "other_out": sum(1 for r in on if r not in coates),
+            "cons_units": units}
+    hist = []
+    if history:
+        try:
+            hist = json.load(open(history))
+        except (OSError, ValueError):
+            hist = []
+        hist = [h for h in hist if h.get("asat") != snap["asat"]] + [snap]
+        hist.sort(key=lambda h: h["asat"])
+        json.dump(hist, open(history, "w"), indent=1)
+    else:
+        hist = [snap]
+
+    # every item on hire, for the detail sheets and the on-hire downloads
+    pkey = lambda r: " ".join(str(r.get("HIRER_NAME") or "").replace("-", " ").split()).upper()
+    onhire_rows = []
+    for r in on:
+        t_ = _time(r.get("ON_HIRE_TIME"))
+        d_ = _date(r.get("ON_HIRE_DATE"))
+        onhire_rows.append({"co": kit.co_name(r.get("COMPANY_NAME")), "who": kit.person_name(r.get("HIRER_NAME")), "pk": pkey(r),
+                            "item": kit._s(r.get("ITEM_NUMBER")), "desc": dname.get(dkey(r), ""), "dk": dkey(r),
+                            "date": d_.strftime("%d %b %Y") if d_ else "", "time": t_.strftime("%H:%M") if t_ else "",
+                            "days": max(0, (asat.date() - d_).days) if d_ else None,   # the packs' rule: 0 = hired today
+                            "own": _asset_owner(kit, r.get("OWNER")), "tag": tag_kind(r) if r in coates else None})
+    onhire_rows.sort(key=lambda x: (x["co"].lower(), x["who"].lower(), x["desc"].lower()))
+    phist = json.load(open(people)) if people and os.path.isfile(people) else {"people": [], "typical": {}}
+    ptyp = phist.get("typical", {})
+    now_n = collections.Counter(x["pk"] for x in onhire_rows)
+    people_rows, seen_p = [], set()
+    for p_ in phist["people"]:
+        seen_p.add(p_["key"])
+        q_ = dict(p_)
+        q_["now"] = now_n.get(p_["key"], 0)
+        q_["co"] = kit.co_name(q_.get("co"))
+        for ln in q_.get("lines", []):
+            ln["name"] = _cons_name(kit, ln["name"])
+        people_rows.append(q_)
+    for x in onhire_rows:
+        if x["pk"] not in seen_p:
+            seen_p.add(x["pk"])
+            people_rows.append({"key": x["pk"], "name": x["who"], "co": x["co"], "iss": 0, "ret": 0, "left": 0, "w12": None, "hold": None,
+                                "rating": None, "cons": [], "lines": [], "tools": [], "flags": [], "now": now_n[x["pk"]]})
+    for r in drawn:
+        k_ = " ".join(str(r.get("HIRER") or "").replace("-", " ").split()).upper()
+        if k_ and k_ not in seen_p:
+            seen_p.add(k_)
+            people_rows.append({"key": k_, "name": kit.person_name(r.get("HIRER")), "co": kit.co_name(r.get("COMPANY_NAME")), "iss": 0, "ret": 0, "left": 0,
+                                "w12": None, "hold": None, "rating": None, "cons": [], "lines": [], "tools": [], "flags": [], "now": 0})
+    people_rows.sort(key=lambda p_: (-p_["now"], -(p_["iss"] + sum(c["units"] for c in p_["cons"])), p_["name"]))
+    # consumable draws recorded so far this shut
+    dl, dt_, dp, dco = collections.Counter(), collections.Counter(), collections.defaultdict(collections.Counter), collections.Counter()
+    for r in drawn:
+        q_ = kit._n(r.get("SALES_QUANTITY"))
+        nm_ = _cons_name(kit, r.get("SKU_DESCRIPTION"))
+        dl[nm_] += q_
+        dt_[catalogue.cons_category(r.get("SKU_DESCRIPTION"))] += q_
+        dco[kit.co_name(r.get("COMPANY_NAME"))] += q_
+        dp[" ".join(str(r.get("HIRER") or "").replace("-", " ").split()).upper()][nm_] += q_
+    draws = {"n": len(drawn), "units": int(sum(dl.values())), "people": len(dp),
+             "lines": [{"name": k, "n": int(v)} for k, v in dl.most_common(10)],
+             "types": [{"name": k, "n": int(v)} for k, v in dt_.most_common()],
+             "cos": [{"name": k, "n": int(v)} for k, v in dco.most_common()],
+             "by": {k: [{"name": n_, "n": int(v)} for n_, v in c.most_common()] for k, c in dp.items()}}
+    tagc = tag_colour(dt.date(2026, 11, 25))   # tagged before the shut: the colour of the quarter the counter opened in
+    tg = {"elec": collections.Counter(), "rig": collections.Counter()}
+    tgo = {"elec": 0, "rig": 0}
+    for r in coates:
+        k = tag_kind(r) if r not in held else None   # held back = not cleared, so no tested tag
+        if k:
+            tg[k][" ".join(str(r.get("ITEM_DESCRIPTION")).split())] += 1
+            tgo[k] += 1 if r in on else 0
+    tagged = {"colour": tagc,
+              "groups": [{"key": k, "title": t, "n": sum(tg[k].values()), "out": tgo[k],
+                          "kinds": [{"name": n, "n": v} for n, v in tg[k].most_common()]}
+                         for k, t in (("elec", "Electrical"), ("rig", "Rigging, lifting and fall arrest"))]}
+    tag_of = {}
+    for r in coates:
+        k = tag_kind(r)
+        if k:
+            tag_of[dkey(r)] = k
+
+    def held_groups():
+        g = collections.Counter(kit._s(r.get("ITEM_DESCRIPTION")) for r in held)
+        return [{"name": k, "n": v} for k, v in g.most_common()]
+
+    top_kinds = [k for k, _ in kinds_on.most_common(6)]
+    sh = json.load(open(shuts)) if shuts and os.path.isfile(shuts) else None
+    best = {}
+    if sh:
+        for t in sh["tools"]:
+            for k, v in t["peaks"].items():
+                best[k] = max(best.get(k, 0), v)
+    cand = [k for k in kinds_fleet if kinds_on[k] or best.get(k)]
+    cand.sort(key=lambda k: (-max(kinds_on[k], best.get(k, 0)), -kinds_on[k], k))
+    tools_util = [{"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best.get(k), "pic": dpic.get(k)} for k in cand[:12]]
+    data = {
+        "job": {"title": "MMG Dugald River", "sub": "Shutdown Tool Store · November 2026 shut",
+                "schedule": ref.get("schedule", ""), "day": day_no, "days": counter_days,
+                "window": "Counter open Wed 25 Nov to Tue 01 Dec 2026"},
+        "return_instruction": final_return_instruction(ref.get("schedule"), asat),
+        "sales_asat": sales_ref["requested"].isoformat() if sales_ref.get("requested") else "",
+        "asat": asat.strftime("%d %b %Y %H:%M").lstrip("0"),
+        "asat_day": asat.strftime("%A"),
+        "tx_window": ("{} to {}".format(tref["period"][0].strftime("%d %b %H:%M"), tref["period"][1].strftime("%d %b %H:%M"))
+                      if tref.get("period") else ""),
+        "k": {"on": len(on), "issued_today": issued_today, "still_out_today": still_out_today,
+              "back_today": issued_today - still_out_today, "companies": len(by_co), "people": len(by_hirer),
+              "store": len(rental), "excluded_missing_id": missing_assets, "excluded_conflicting_id": conflicting_assets,
+              "coates": len(coates), "coates_out": snap["coates_out"],
+              "coates_ready": len(coates) - len(held),
+              "coates_available": sum(kit._s(r.get("ITEM_STATUS")).casefold() == "available for hire" for r in coates), "held": len(held), "other": len(others),
+              "other_out": snap["other_out"], "other_owner": other_owner,
+              "cons_lines": len(stock), "cons_unknown_lines": unknown_balances, "cons_units": units, "cons_drawn": len(drawn)},
+        "hours": hourly["hours"], "hour_out": hourly["counts"], "hour_back": hourly["back"],
+        "issue_hour_unknown": hourly["unknown"],
+        "companies": [{"name": k, "n": v} for k, v in by_co.most_common()],
+        "hirers": [{"name": k[0], "co": k[1], "n": v, "pk": " ".join(k[0].split()).upper()} for k, v in by_hirer.most_common()],
+        "kinds": [{"name": dname.get(k, k), "on": kinds_on[k], "fleet": kinds_fleet[k], "pic": dpic.get(k)} for k in top_kinds],
+        "comm": {"on": sum(v for k, v in kinds_on.items() if "RADIO" in k),
+                 "fleet": sum(v for k, v in kinds_fleet.items() if "RADIO" in k)},
+        "tools_util": tools_util,
+        #  Past shuts go to the page as a range only - quietest, typical and
+        #  busiest per day - with no shut names or dates, so the page never
+        #  shows which shuts are on record.
+        "shuts": ({"cons": _band([c["per_day"] for c in sh["cons"]]),
+                   "tools": _band([t["per_day"] for t in sh["tools"]]), "min_days": sh["min_days"]}
+                  if sh else None),
+        "families": [{"name": k, "on": fam_on.get(k, 0), "fleet": v} for k, v in fam_fleet.most_common(8)],
+        "held": held_groups(),
+        "tagged": tagged,
+        "onhire": onhire_rows,
+        # every item in the store, so any item number or barcode can be searched
+        "assets": [{"i": kit._s(r.get("ITEM_NUMBER")), "b": kit._s(r.get("ITEM_BARCODE")), "dk": dkey(r),
+                    "status": kit._s(r.get("ITEM_STATUS"))} for r in rental],
+        "draws": draws,
+        "tools": {k: {"name": dname.get(k, k), "available": available[k], "site": kinds_fleet[k], "on": kinds_on[k], "best": best.get(k), "pic": dpic.get(k), "var": dvar.get(k),
+                      "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
+                  for k in kinds_fleet},
+        "clines": clines,
+        "utilisation": utilisation.build(raw_rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name,
+                                         history=sh, interval_history=interval_history,
+                                         shutdown_start=dt.datetime.combine(counter_start, dt.time(5))
+                                         if ref.get("schedule") == shut_costs.MMG_SCHEDULE else None),
+        "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock, opening_baseline),
+        "people": people_rows, "ptyp": ptyp,
+        "ops": _ops(kit, ops),
+        "pics": None,   # filled last, once every picture in use is known
+        "_pix": pix,
+        "shifts": {"day": {"name": "Day shift", "hours": "06:00 to 18:00", "who": keepers[0]},
+                   "night": {"name": "Night shift", "hours": "18:00 to 06:00", "who": keepers[1]}},
+        "cat": {"tools": catalogue.tool_catalogue(rental, lambda r: kit._s(r.get("ITEM_STATUS")) == "On Hire", pix.of),
+                "cons": catalogue.cons_catalogue(stock, shelf_balance,
+                                                 lambda k: _cons_name(kit, k))},
+        "cons_types": [{"name": k, "n": int(v)} for k, v in ctype.most_common(8)],
+        "cons_top": [{"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "n": shelf_balance(r)}
+                     for r in top_lines if shelf_balance(r) is not None],
+        "below": below, "to_max": to_max, "mm_lines": mm_lines, "max_lines": max_lines,
+        "history": hist,
+        "ref": ({k: v for k, v in json.load(open(reference)).items() if k in ("label", "source", "days", "tool_issued", "cons_units")}
+                if reference and os.path.isfile(reference) else None),
+    }
+    movement_archive = None
+    if ref.get("schedule") == shut_costs.MMG_SCHEDULE and s.customer.strip().casefold() == "mmg" and "dugald river" in s.location.casefold():
+        prior_movements = {}
+        if qr_report_prior:
+            with open(qr_report_prior, encoding="utf-8") as archive:
+                previous = json.load(archive)
+            if previous.get("project") == "MMG Dugald River Mine" and previous.get("schedule") == ref["schedule"]:
+                prior_movements = previous.get("shift_movement_archive")
+        movement_archive, reason = shift_movements.snapshot(p_trans, tref, ref["schedule"], prior_movements)
+        planning = data.get("stocktake") or {}
+        data["shift_movements"] = shift_movements.report(movement_archive, planning.get("arrival") or counter_start.isoformat(),
+                                                        planning.get("departure"), max(asat, tref.get("requested") or asat), reason)
+        data["consumable_usage"] = consumable_usage.build(sales, sales_ref, shut_costs.MMG_SCHEDULE, counter_start,
+                                                         minmax, usage_history, MMG_FINAL_SHIFT_END,
+                                                         interval_history=interval_history)
+    if qr_report_data:
+        if s.customer.strip().casefold() != "mmg" or "dugald river" not in s.location.casefold():
+            raise ValueError("QR reports require the MMG Dugald River job configuration.")
+        qr_facts.write(qr_report_data, kit, raw_rental, sales, p_trans, ref, sales_ref, tref, _date, _time,
+                       dname, lambda name: _cons_name(kit, name), qr_report_prior,
+                       lambda name, owner: _approved_asset_name(name, owner, approved_names),
+                       lambda owner: _asset_owner(kit, owner),
+                       return_instruction=data["return_instruction"], movement_archive=movement_archive)
+    return data
+
+
+# The page itself lives beside this script, so it can be read and edited as a page.
+PAGE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "showcase_page.html")
+
+
+def _logo(path):
+    """A client logo as a data URI, or None. The file stays outside git."""
+    if not path or not os.path.isfile(path):
+        return None
+    with open(path, "rb") as f:
+        return "data:image/png;base64," + base64.b64encode(f.read()).decode("ascii")
+
+
+def write_onhire(data, folder):
+    """The on-hire report as an Excel file and a printable page. No costs."""
+    import openpyxl
+    from openpyxl.styles import Alignment, Font, PatternFill
+    os.makedirs(folder, exist_ok=True)
+    rows = data["onhire"]
+    head = "Author: Andrew Fisher | POWERED BY SITEIQ   ·   SiteIQ pull " + data["asat"] + "   ·   © 2026 Andrew Fisher. All rights reserved."
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "On hire"
+    F = lambda **k: Font(name="Inter", size=k.pop("size", 10), **k)
+    slate, orange = PatternFill("solid", fgColor="2A313C"), PatternFill("solid", fgColor="F26222")
+    tc = (data.get("tagged") or {}).get("colour") or {}
+    tagword = lambda r: "{} ({})".format(tc.get("name", ""), tc.get("span", "")) if r.get("tag") and tc else ""
+    dayword = lambda r: "" if r.get("days") is None else "Today" if r["days"] == 0 else r["days"]
+    cols = ["Company", "Person", "Item number", "Description", "Owner", "Date of hire", "Time of hire", "Days on hire", "Test tag"]
+    for c in range(1, len(cols) + 1):
+        ws.cell(1, c).fill = slate
+        ws.cell(2, c).fill = orange
+    ws["A1"] = "{} - ON-HIRE REPORT".format(data["job"]["title"].upper())
+    ws["A1"].font = F(size=14, bold=True, color="FFFFFF")
+    ws["A2"] = "{} items on hire to {} companies".format(len(rows), len({r["co"] for r in rows}))
+    ws["A2"].font = F(size=9, bold=True, color="FFFFFF")
+    ws["A3"] = head
+    ws["A3"].font = F(size=8, italic=True, color="5A6270")
+    ws["A4"] = "Not using it? Return it to the Coates tool store, please.   ·   Check your gear each day before use."
+    ws["A4"].font = F(size=9, bold=True, color="F26222")
+    for j, v in enumerate(cols, 1):
+        c = ws.cell(5, j, v)
+        c.font = F(bold=True, color="FFFFFF")
+        c.fill = slate
+    for i, r in enumerate(rows, 6):
+        for j, v in enumerate((r["co"], r["who"], r["item"], r["desc"], r["own"], r["date"], r["time"], dayword(r), tagword(r)), 1):
+            ws.cell(i, j, v).font = F()
+    for col, w in zip("ABCDEFGHI", (22, 24, 24, 48, 12, 14, 13, 13, 20)):
+        ws.column_dimensions[col].width = w
+    ws.freeze_panes = "A6"
+    ws.auto_filter.ref = "A5:I{}".format(max(6, 5 + len(rows)))
+    w2 = wb.create_sheet("By company")
+    for c in range(1, 4):
+        w2.cell(1, c).fill = slate
+    w2["A1"] = "ON HIRE BY COMPANY"
+    w2["A1"].font = F(size=14, bold=True, color="FFFFFF")
+    w2["A2"] = head
+    w2["A2"].font = F(size=8, italic=True, color="5A6270")
+    for j, v in enumerate(("Company", "Items on hire", "People"), 1):
+        c = w2.cell(4, j, v)
+        c.font = F(bold=True, color="FFFFFF")
+        c.fill = slate
+    by = collections.OrderedDict()
+    for r in rows:
+        by.setdefault(r["co"], []).append(r)
+    for i, (co, rs) in enumerate(sorted(by.items(), key=lambda kv: -len(kv[1])), 5):
+        w2.cell(i, 1, co).font = F()
+        w2.cell(i, 2, len(rs)).font = F()
+        w2.cell(i, 3, len({r["who"] for r in rs})).font = F()
+    w2.cell(5 + len(by), 1, "Total").font = F(bold=True)
+    w2.cell(5 + len(by), 2, "=SUM(B5:B{})".format(4 + len(by))).font = F(bold=True)
+    for col, w in zip("ABC", (28, 16, 12)):
+        w2.column_dimensions[col].width = w
+    wb.properties.creator = "Andrew Fisher"
+    wb.properties.description = "Designed and built by Andrew Fisher. (c) 2026 Andrew Fisher. All rights reserved."
+    wb.save(os.path.join(folder, "onhire.xlsx"))
+    esc = lambda t: str(t).replace("&", "&amp;").replace("<", "&lt;")
+    body = ""
+    for co, rs in sorted(by.items(), key=lambda kv: -len(kv[1])):
+        body += "<h2>{} <span>{} on hire</span></h2><table><tr><th>Person</th><th>Description</th><th>Item number</th><th>Owner</th><th>Date of hire</th><th>Time</th><th>Days on hire</th><th>Test tag</th></tr>".format(esc(co), len(rs))
+        body += "".join("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(esc(r["who"]), esc(r["desc"]), esc(r["item"]), esc(r["own"]), r["date"], r["time"], dayword(r), esc(tagword(r))) for r in rs) + "</table>"
+    page = ("<!doctype html><html lang=\"en-AU\"><meta charset=\"utf-8\"><title>On-hire report</title><style>"
+            "@page{size:A4;margin:14mm}body{font-family:Inter,Arial,sans-serif;color:#1B2028;font-size:10.5px}"
+            ".top{background:#2A313C;color:#fff;padding:14px 18px;border-bottom:4px solid #F26222}.top b{color:#F26222;letter-spacing:.18em}"
+            "h1{font-size:20px;margin:6px 0 2px}.sub{color:#cfd6df;font-size:11px}h2{font-size:14px;margin:18px 0 6px;border-bottom:2px solid #F26222;padding-bottom:3px}"
+            "h2 span{font-weight:400;color:#5A6270;font-size:11px;margin-left:8px}table{width:100%;border-collapse:collapse;break-inside:auto}"
+            "th{text-align:left;background:#F4F5F7;padding:5px 6px;font-size:9.5px;text-transform:uppercase;letter-spacing:.05em}td{padding:5px 6px;border-bottom:1px solid #E3E6EA}"
+            "tr{break-inside:avoid}.ft{margin-top:18px;color:#5A6270;font-size:9.5px}</style>"
+            "<div class=\"top\"><b>COATES</b><h1>@T · On-hire report</h1><div class=\"sub\">@N items on hire to @C companies · SiteIQ pull @A</div></div>@B"
+            "<div class=\"ft\">Author: Andrew Fisher | POWERED BY SITEIQ · SiteIQ pull @A · © 2026 Andrew Fisher. All rights reserved.</div></html>")
+    for k_, v_ in (("@T", esc(data["job"]["title"])), ("@N", str(len(rows))), ("@C", str(len(by))), ("@A", data["asat"]), ("@B", body)):
+        page = page.replace(k_, v_)
+    with open(os.path.join(folder, "onhire.html"), "w", encoding="utf-8") as f:
+        f.write(page)
+
+
+def contact_cards(contacts):
+    cards = []
+    for contact in contacts:
+        role = html.escape(contact["role"])
+        name = html.escape(contact["name"])
+        email = html.escape(contact["email"], quote=True)
+        phone = contact.get("phone")
+        links = [f'<a href="mailto:{email}">{email}</a>']
+        if phone:
+            number = re.sub(r"[^+0-9]", "", phone)
+            links.append(f'<a href="tel:{number}">{html.escape(phone)}</a>')
+        cards.append(f'<div class="card"><div class="sub">{role}</div><h3>{name}</h3>'
+                     + "<br>".join(links) + "</div>")
+    if not cards:
+        return ""
+    return '<div class="sect">Shutdown contacts</div><div class="grid c3">' + "".join(cards) + "</div>"
+
+
+def render(data, fonts, logo=None, client="MMG"):
+    face = "".join("@font-face{{font-family:Inter;font-weight:{w};font-style:normal;src:url(data:font/woff;base64,{b}) format('woff')}}\n"
+                   .format(w=w, b=b) for w, b in sorted(fonts.items()))
+    pix = data.pop("_pix", None)
+    detail_images = {}
+    data["pics"] = pix.data(detail_images) if pix else []
+    if detail_images:
+        data["detail_pics"] = detail_images
+    blob = json.dumps(data, ensure_ascii=False, default=str).replace("</", "<\\/")
+    with open(PAGE_FILE, encoding="utf-8") as f:
+        page = f.read()
+    if data.get("shift_movements") or (data.get("stocktake") or {}).get("schedule") == shut_costs.MMG_SCHEDULE:
+        for extension in ("js", "css"):
+            with open(os.path.join(HERE, f"shift_trends.{extension}"), encoding="utf-8") as asset:
+                page = page.replace(f"/*__SHIFT_TRENDS_{extension.upper()}__*/", asset.read())
+    return (page.replace("__CONTACTS__", contact_cards(data.get("contacts", []))).replace("__FONTS__", face).replace("__CLIENT__", client)
+            .replace("__LOGO__", logo or "").replace("__DATA__", blob))
+
+
+def _shared_name(names):
+    """One label for a group of tools that differ only in size: the parts their
+    names share. "Socket - Impact - Long - 30mm - 3/4 Inch Drive" and its 32mm
+    twin give "Socket - Impact - Long - 3/4 Inch Drive"."""
+    parts = [n.split(" - ") for n in names]
+    if len(parts) == 1:
+        return names[0]
+    head = 0
+    while all(len(x) > head for x in parts) and len({x[head] for x in parts}) == 1:
+        head += 1
+    tail = 0
+    while all(len(x) - head > tail for x in parts) and len({x[-1 - tail] for x in parts}) == 1:
+        tail += 1
+    out = parts[0][:head] + (parts[0][len(parts[0]) - tail:] if tail else [])
+    return " - ".join(out) if out else names[0]
+
+
+def _size_mm(label):
+    """A size label as millimetres, for putting sizes in order. Unknown labels go last."""
+    m = re.fullmatch(r"(\d+(?:\.\d+)?)mm", label or "")
+    if m:
+        return float(m.group(1))
+    m = re.fullmatch(r"(?:(\d+) )?(?:(\d+)/(\d+) )?Inch", (label or "").replace(" Inch", " Inch").replace("  ", " ")) if "Inch" in (label or "") else None
+    m = re.fullmatch(r"(\d+)?\s?(?:(\d+)/(\d+))?\s?Inch", label or "")
+    if m and (m.group(1) or m.group(2)):
+        return (float(m.group(1) or 0) + (float(m.group(2)) / float(m.group(3)) if m.group(2) else 0)) * 25.4
+    return float("inf")
+
+
+def _asset_owner(kit, value):
+    owner = kit._s(value)
+    return "Coates" if owner.casefold() == "coates" else kit.co_name(owner)
+
+
+def _approved_asset_name(name, owner, approved):
+    if approved is None:
+        return name
+    label = approved.get(name.strip().upper(), name)
+    if owner and owner.casefold() != "coates":
+        suffix = " ({} Owned)".format(owner)
+        if not label.casefold().endswith(suffix.casefold()):
+            label += suffix
+    return label
+
+
+def _read_tool_names(path):
+    import csv
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        return {r["SiteIQ description"].strip().upper(): r["Plain name"].strip() for r in csv.DictReader(f) if r.get("Plain name", "").strip()}
+
+
+def plain_tool_names(data, path):
+    """Swap SiteIQ tool descriptions for the names in a checked list (a CSV with
+    'SiteIQ description' and 'Plain name'). Every place a tool is named uses the
+    clean name, and the SiteIQ wording is not shown anywhere; the product variant
+    is what ties a tool back to SiteIQ. A description that is not on the list is
+    left as SiteIQ has it and counted, so the build can say so."""
+    return _apply_tool_names(data, _read_tool_names(path))
+
+
+def _apply_tool_names(data, look):
+    for group in (data.get("utilisation") or {}).get("variants", []):
+        raw = group["aliases"]
+        group["aliases"] = sorted(set(raw) | {look[n.upper()] for n in raw if n.upper() in look})
+        group["name"] = look.get(group["name"].upper(), group["name"])
+    owned = {k: t.get("own") for k, t in data["tools"].items() if t.get("own") and t.get("own") != "Coates"}
+    name = lambda n: _approved_asset_name(n, owned.get(n.strip().upper()), look)
+    missed = [t["name"] for t in data["tools"].values() if t["name"].strip().upper() not in look]
+    for t in data["tools"].values():
+        t["raw_name"] = t["name"]
+    for t in data["tools"].values():
+        t["name"] = name(t["name"])
+    for key in ("kinds", "tools_util"):
+        for t in data.get(key) or []:
+            t["dk"], t["name"] = t["name"].upper(), name(t["name"])
+    for r in data.get("onhire") or []:
+        r["desc"] = _approved_asset_name(r["desc"], r.get("own", owned.get(r["desc"].upper())), look)
+    for g in (data.get("tagged") or {}).get("groups", []):
+        for k in g.get("kinds", []):
+            k["name"] = name(k["name"])
+    for person in data.get("people") or []:
+        for t in person.get("tools") or []:
+            t["name"] = name(t["name"])
+    for cat in (data.get("cat") or {}).get("tools", []):       # the browser: each group takes the name its tools share
+        for k in cat.get("kinds", []):
+            if k.get("d"):
+                mine = all(d in owned for d in k["d"])
+                bare = lambda d: look.get(d, data["tools"].get(d, {}).get("raw_name", d))
+                k["name"] = _shared_name(sorted({bare(d) for d in k["d"]})) + (" ({} Owned)".format(owned[k["d"][0]]) if mine else "")
+            for z in k.get("sizes", []):
+                z["s"] = re.sub(r"(\d)in\b", r"\1 Inch", z.get("s") or "")
+        merged = collections.OrderedDict()                     # groups that now share a name become one
+        for k in cat.get("kinds", []):
+            m = merged.get(k["name"])
+            if m is None:
+                merged[k["name"]] = k
+                continue
+            m["n"], m["o"] = m["n"] + k["n"], m.get("o", 0) + k.get("o", 0)
+            m["d"] = sorted(set(m.get("d") or []) | set(k.get("d") or []))
+            if m.get("pic") is None:
+                m["pic"] = k.get("pic")
+            sizes = collections.OrderedDict((z["s"], z) for z in m["sizes"])
+            for z in k["sizes"]:
+                if z["s"] in sizes:
+                    sizes[z["s"]]["n"] += z["n"]
+                    sizes[z["s"]]["o"] = sizes[z["s"]].get("o", 0) + z.get("o", 0)
+                else:
+                    sizes[z["s"]] = z
+            m["sizes"] = sorted(sizes.values(), key=lambda z: _size_mm(z["s"]))
+        cat["kinds"] = sorted(merged.values(), key=lambda k: k["name"].lower())
+    for t in data["tools"].values():
+        t.pop("raw_name", None)
+    for person in data.get("people") or []:                 # a tool from a past shut that is not on this job's list
+        for t in person.get("tools") or []:
+            if " - " not in t["name"] or re.search(r"\d(in|Mm|MM)\b| Dr$", t["name"]):
+                import draft_tool_names
+                t["name"] = draft_tool_names.draft(t["name"])
+    _merge_same_names(data)
+    return missed
+
+
+def _merge_same_names(data):
+    """Tools that now share a name are one tool. Their counts add, the busiest
+    seen is the higher of the two (the two were never counted together, so it
+    is not added), and every list points at the one entry."""
+    tools, canon, groups = data["tools"], {}, collections.OrderedDict()
+    for k, t in tools.items():
+        groups.setdefault(t["name"], []).append(k)
+    for keys in groups.values():
+        keys.sort(key=lambda k: -tools[k].get("site", 0))
+        keep = tools[keys[0]]
+        for k in keys[1:]:
+            t = tools.pop(k)
+            keep["site"], keep["on"] = keep.get("site", 0) + t.get("site", 0), keep.get("on", 0) + t.get("on", 0)
+            if "available" in keep and "available" in t:
+                keep["available"] += t["available"]
+            else:
+                keep.pop("available", None)
+            keep["best"] = max((v for v in (keep.get("best"), t.get("best")) if v is not None), default=None)
+            if keep.get("pic") is None:
+                keep["pic"] = t.get("pic")
+            if t.get("tag") and not keep.get("tag"):
+                keep["tag"] = t["tag"]
+            variants = sorted({v for x in (keep.get("var"), t.get("var")) if x for v in str(x).split(", ")})
+            keep["var"] = ", ".join(variants) if variants else None
+            canon[k] = keys[0]
+    fix = lambda k: canon.get(k, k)
+    for r in (data.get("onhire") or []) + (data.get("assets") or []):
+        if r.get("dk"):
+            r["dk"] = fix(r["dk"])
+
+    def join(rows, adds, tops=()):
+        out = collections.OrderedDict()
+        for t in rows:
+            if "dk" in t:
+                t["dk"] = fix(t["dk"])
+            m = out.get(t["name"])
+            if m is None:
+                out[t["name"]] = t
+                continue
+            for f in adds:
+                m[f] = (m.get(f) or 0) + (t.get(f) or 0)
+            for f in tops:
+                m[f] = max((v for v in (m.get(f), t.get(f)) if v is not None), default=None)
+            if "pic" in m and m.get("pic") is None:
+                m["pic"] = t.get("pic")
+        return list(out.values())
+
+    if data.get("kinds"):
+        data["kinds"] = sorted(join(data["kinds"], ("on", "fleet")), key=lambda t: -(t.get("on") or 0))
+    if data.get("tools_util"):
+        data["tools_util"] = join(data["tools_util"], ("on", "site"), ("best",))
+        # The shortlist was selected before approved-name aliases merged.
+        # Even an alias outside the shortlist belongs in that kind's denominator.
+        for row in data["tools_util"]:
+            group = tools.get(row.get("dk"))
+            if group:
+                row.update(on=group["on"], site=group["site"], best=group.get("best"))
+    for g in (data.get("tagged") or {}).get("groups", []):
+        g["kinds"] = sorted(join(g.get("kinds", []), ("n",)), key=lambda t: -(t.get("n") or 0))
+    for person in data.get("people") or []:
+        if person.get("tools"):
+            person["tools"] = sorted(join(person["tools"], ("n",)), key=lambda t: -(t.get("n") or 0))
+    for cat in (data.get("cat") or {}).get("tools", []):
+        for k in cat.get("kinds", []):
+            if k.get("d"):
+                k["d"] = sorted({fix(d) for d in k["d"]})
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("kit_folder")
+    ap.add_argument("out_html")
+    ap.add_argument("--reference")
+    ap.add_argument("--shuts")
+    ap.add_argument("--ops", help="average-day figures from build_store_ops.py")
+    ap.add_argument("--pictures", help="folder of a tool pictures pack (kept outside git)")
+    ap.add_argument("--people", help="people profiles from build_people.py (kept outside git)")
+    ap.add_argument("--onhire-out", help="folder to write onhire.xlsx and onhire.html (the downloadable on-hire report)")
+    ap.add_argument("--day-keeper", default="")
+    ap.add_argument("--night-keeper", default="")
+    ap.add_argument("--minmax")
+    ap.add_argument("--consumable-usage-history", help="verified MMG aggregate consumable issues by completed shutdown and SKU")
+    ap.add_argument("--cons-pictures", help="folder of consumable pictures with an index.csv (Code, File, Use on the page), kept outside git")
+    ap.add_argument("--materials", help="the client's material list (xlsx: bin, material code, description), kept outside git")
+    ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
+    ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
+    ap.add_argument("--history")
+    ap.add_argument("--sds-register", help="job-specific reviewed stock-to-SDS mapping (JSON, with local copies in adjacent pdfs/)")
+    ap.add_argument("--hire-interval-history", help="validated aggregate periods from historical rental transactions")
+    ap.add_argument("--variant-history", help="dated rental fleet and on-hire totals by variant")
+    ap.add_argument("--logo", help="client logo PNG with a transparent background")
+    ap.add_argument("--qr-report-prior", help="previous private QR report snapshot for this job")
+    ap.add_argument("--qr-report-data", help="write the private data snapshot used by scoped QR reports")
+    ap.add_argument("--stocktake-opening-baseline", help="private register snapshot for the approved MMG opening stocktake")
+    ap.add_argument("--stocktake-ledger", help="snapshot of physical counts for the printable MMG report")
+    a = ap.parse_args(argv)
+    kit = _kit()
+    approved_names = _read_tool_names(a.tool_names) if a.tool_names else None
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline, a.qr_report_data, a.qr_report_prior, approved_names, a.consumable_usage_history,
+                      utilisation.load_interval_history(a.hire_interval_history) if a.hire_interval_history else ())
+    data["variant_history"] = []
+    if a.variant_history:
+        with open(a.variant_history, encoding="utf-8") as f:
+            asat = dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").isoformat(timespec="seconds")
+            data["variant_history"] = [pull for pull in json.load(f) if pull["asat"] < asat]
+    if a.stocktake_ledger and data.get("stocktake"):
+        with open(a.stocktake_ledger, encoding="utf-8") as f:
+            snapshot = json.load(f)
+        data["stocktake"]["recorded_entries"] = snapshot["recorded_entries"]
+        data["stocktake"]["ledger_asat"] = snapshot["ledger_asat"]
+    contacts_path = os.path.join(a.kit_folder, "contacts.json")
+    if os.path.isfile(contacts_path):
+        with open(contacts_path, encoding="utf-8") as contacts_file:
+            data["contacts"] = json.load(contacts_file)
+    if approved_names is not None:
+        missed = _apply_tool_names(data, approved_names)
+        if missed:
+            print("Tool names  {} description(s) are not on the list and show as SiteIQ has them: {}".format(len(missed), "; ".join(missed[:6])))
+    got = named_pictures(data)
+    if got:
+        print("Pictures    {} more tool(s) matched by the name on the picture file".format(got))
+    for cat in (data.get("cat") or {}).get("cons", []):          # the consumables browser and past draws, same style
+        for k in cat.get("kinds", []):
+            k["name"] = catalogue.house_cons(k["name"])
+    for person in data.get("people") or []:
+        for ln in person.get("lines") or []:
+            ln["name"] = catalogue.house_cons(ln["name"])
+    if a.materials:                                               # the client's own material list: where each code is binned
+        import openpyxl
+        bins = {}
+        for row in openpyxl.load_workbook(a.materials, read_only=True, data_only=True).worksheets[0].iter_rows(min_row=2, values_only=True):
+            if row[1] and str(row[0] or "").strip() not in ("", "NEW"):
+                bins.setdefault(str(row[1]).strip(), str(row[0]).strip())
+        for ln in data["clines"]:
+            ln["bin"] = bins.get(ln.get("code"))
+    site = kit.the_site(a.kit_folder)
+    if site.customer.strip().casefold() == "mmg" and "dugald river" in site.location.casefold():
+        register = a.sds_register or os.path.join(a.kit_folder, "..", "sds", "register.json")
+        context = {"job": site.job, "location": site.location,
+                   "SALES_STOCK": data["sales_asat"] + "+10:00" if data["sales_asat"] else ""}
+        data["sds"] = sds_register.build(data, register, context=context, encode_qr=qr_rows)
+    data["cpics"] = []
+    if a.cons_pictures and os.path.isfile(os.path.join(a.cons_pictures, "index.csv")):
+        import csv
+        from PIL import Image, ImageOps
+        with open(os.path.join(a.cons_pictures, "index.csv"), encoding="utf-8-sig", newline="") as f:
+            use = {r["Code"].strip(): r["File"].strip() for r in csv.DictReader(f) if r.get("Use on the page", "").strip().lower() == "yes"}
+        raw = set()                                   # extra photos saved as "<name> [<code>].jpg": set on the stage here
+        for name in sorted(os.listdir(a.cons_pictures)):
+            m_ = re.match(r"^.+\[(\d{6,})\]\.(jpe?g|png)$", name, re.I)
+            if m_ and m_.group(1) not in use and name not in use.values():
+                use[m_.group(1)] = name
+                raw.add(name)
+        # Different sizes and stock codes can legitimately share the same catalogue photograph.
+        index_by_path, index_by_pair, detail_images = {}, {}, {}
+        for ln in data["clines"]:
+            path = os.path.join(a.cons_pictures, use.get(ln.get("code") or "", "-"))
+            if not os.path.isfile(path):
+                continue
+            if path not in index_by_path:
+                with Image.open(path) as image:
+                    im = ImageOps.exif_transpose(image).convert("RGB")
+                detail_uri = picture_uri(im.copy(), DETAIL_SIDE, quality=91) if max(im.size) > PICTURE_SIDE else None
+                if os.path.basename(path) in raw and min(im.size) > 2 and min(im.getpixel((2, 2))) > 200:
+                    import style_pictures
+                    im = style_pictures.styled(im).convert("RGB")
+                uri = picture_uri(im)
+                pair = (uri, detail_uri)
+                if pair not in index_by_pair:
+                    index = len(data["cpics"])
+                    index_by_pair[pair] = index
+                    data["cpics"].append(uri)
+                    if detail_uri:
+                        detail_images[index] = detail_uri
+                index_by_path[path] = index_by_pair[pair]
+            ln["cp"] = index_by_path[path]
+        if detail_images:
+            data["detail_cpics"] = detail_images
+    data["costs"] = None
+    if a.costs:
+        pull_day = dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date()
+        data["costs"] = shut_costs.load(a.costs, pull_day, data["job"]["schedule"])
+    if a.onhire_out:
+        write_onhire(data, a.onhire_out)
+    if data.get("consumable_usage") is not None:
+        from consumable_usage_export import write_exports
+        write_exports(data["consumable_usage"], os.path.dirname(os.path.abspath(a.out_html)), logo=a.logo)
+    html = render(data, _fonts(a.kit_folder), _logo(a.logo))
+    with open(a.out_html, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("Showcase  {}  ({:,} KB)  pull {}".format(a.out_html, len(html.encode()) // 1024, data["asat"]))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

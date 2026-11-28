@@ -410,17 +410,16 @@ def main():
             for _st, title, _d, _f in warns:
                 out("   - {}".format(title))
     out()
-    out(" A copy of all of this has been saved as LAPTOP_CHECK.txt.")
-    out(" Still stuck? Email Andrew that file - it answers everything.")
     out("=" * 68)
-
     try:
         with open(os.path.join(HERE, "LAPTOP_CHECK.txt"), "w",
                   encoding="utf-8") as f:
             f.write("\n".join(lines) + "\n")
+        print(" A copy of all of this has been saved as LAPTOP_CHECK.txt.")
+        print(" Still stuck? Email Andrew that file - it answers everything.")
     except OSError:
-        #  If we can't write the file we've already said why, above.
-        pass
+        print(" (This folder would not take LAPTOP_CHECK.txt - copy this screen")
+        print("  to Andrew instead. The reason is in the list above.)")
 
     return 1 if stops else 0
 

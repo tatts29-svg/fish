@@ -103,7 +103,17 @@
             for forwarding a company just their own page.
 
 
-   That's the whole job. There is no step 5.
+   That's the whole job. Buttons 4 to 6 below are optional extras.
+
+   OPTIONAL      6_PULL_EXPORTS_AND_MAKE_REPORT.bat
+   --------
+            Saves the drag-and-drop. It looks in your Downloads folder
+            for the newest SiteIQ exports, OPENS each one and checks it
+            is this job's (another job's file is left where it is and
+            named on screen), files them into Data_SiteIQ with the right
+            names - the old ones go to Data_SiteIQ\previous - and then
+            makes the report, exactly as button 2 does. Downloads lives
+            somewhere else? Drag that folder onto the button.
 
    OPTIONAL      4_MAKE_OUTLOOK_DRAFT.bat
    --------
@@ -215,14 +225,15 @@
    check the draft in your Outlook version before sending it.
 
 
- WHAT COMES OUT - fifteen tabs
- ============================
+ WHAT COMES OUT - sixteen tabs (fifteen after demob)
+ ===================================================
 
    Cover                    what this is, what fed it, the headlines
                             as tiles, how many pages the pack ran to
-   Dashboard                the position as LIVE Excel charts: four
-                            gauges, who holds gear, ratings, movements
-                            by day, consumables running down
+   Dashboard                six tiles, four dials and six LIVE Excel
+                            charts: who holds gear, ratings, movements
+                            by day, consumables running down, gear out
+                            day by day, age of what is out
    Forecast                 the shut ahead, INTERNAL: fly in to fly
                             out, hours per person, cost by day with
                             the running total, where the money goes -
@@ -244,12 +255,16 @@
    Consumable Utilisation   per line: usage, rating, what to do
    Coates Labour            the shift roster       - TYPED BY HAND
    Cost Breakdown           the day-by-day cost    - TYPED BY HAND
+   Chart Data               the small tables the Dashboard charts are
+                            drawn from (nothing to type)
 
    Every tab carries the Coates title band, a filter, frozen
    headings, colour on the ratings, statuses and day counts, and
    prints landscape on A4 with the headings repeated on every page.
-   The two hand-typed tabs come loaded with the Weipa roster and cost
-   breakdown, and they keep their own layout through every refresh.
+   The two hand-typed tabs come loaded with the job's roster and cost
+   breakdown on the first run (Weipa and MMG are seeded; any other job
+   starts them empty), and they keep their own layout through every
+   refresh.
 
 
  THE COMPANY PACK - one PDF, a section for every company
@@ -308,19 +323,45 @@
    without touching anything else on the machine.
 
 
- THE TWO TABS THAT ARE TYPED BY HAND
- ===================================
+ THE TWO TABS THAT ARE TYPED BY HAND - the roster and the costs
+ ==============================================================
 
-   Coates Labour and Cost Breakdown are not built from the exports -
-   somebody types them. The refresh NEVER touches them, and neither
-   of them appears in the email.
+   Coates Labour (the roster: dates, shifts, start and finish, hours)
+   and Cost Breakdown (the money per day) are not in the exports - you
+   type them, and every report reads them fresh. Change a date, a shift
+   or the hours and the pack, the email and the workbook all follow:
+   fly in, last shift, demob, the roster grid, rostered hours, labour
+   and the all-up cost. The refresh never overwrites what you type.
 
-   Keep your working .xlsm in this folder and every refresh reads
-   those two tabs out of it and writes them straight back, formulas
-   and all. Your .xlsm is never written to.
+   TO CHANGE THE ROSTER OR THE COSTS
+     1. Open <Job>_Onhire_Workbook_LATEST.xlsx. (The dated workbook in
+        Reports\<date>\ works too - whichever you saved last wins.)
+     2. Coates Labour: one line per person per day. Shift is Travel,
+        Dayshift, NightShift or No Shift; Total Hours is the hours paid
+        (a No Shift line with hours, like a short handover day, counts).
+        A new day: right-click the row number of the LAST roster line >
+        Insert, and type into the empty line that appears - inserting
+        inside the table keeps the totals covering it (order does not
+        matter). A day that is not happening: delete its lines.
+     3. Cost Breakdown: the Labour column adds itself up from the
+        roster. Shutdown and Site Services are typed per day - blank
+        the cells on a day with no charge, delete the row of a day that
+        is not happening.
+     4. Save (Ctrl+S) and CLOSE the workbook.
+     5. Press 2_MAKE_THE_REPORT.bat (or 6). The black window prints a
+        Roster line - first day to last day, people, hours, labour and
+        all up, and which file it read - so you can see your change
+        landed before you open anything.
 
-   No .xlsm in the folder? Those two tabs come out empty with a note,
-   ready to type into. Nothing breaks.
+   Left the workbook open? The report stops and says so: it reads the
+   last save, and anything typed since would be left out.
+
+   An old .xlsm in the folder is read on the very first run, before a
+   LATEST exists, and after that only if it was saved after the last
+   report. A roster from a previous shut is replaced once, with a note,
+   by the job's seed. No LATEST yet and no .xlsm? Weipa and MMG start
+   seeded; any other job's tabs come out empty with a note, ready to
+   type into.
 
 
  THE JOB'S SETTINGS - JOB.txt and COMPANY_ALIASES.txt
@@ -348,8 +389,8 @@
 
    Open JOB.txt only if you want to tidy up the names it uses.
 
-   ONE JOB'S EXPORTS AT A TIME. If a Gladstone export ends up in a
-   Weipa folder it stops and names the odd one out, instead of
+   ONE JOB'S EXPORTS AT A TIME. If another job's export ends up in
+   this folder it stops and names the odd one out, instead of
    quietly building a report off two jobs mixed together.
 
 

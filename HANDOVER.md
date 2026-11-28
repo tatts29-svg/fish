@@ -97,6 +97,19 @@ and waits. `26_`/`27_` turn draft creation off and on.
 
 ## Recently done
 
+- **07 Nov 2026 - every suite checked on any laptop.** Ampol (v2.3), the
+  K2 suite and the Rio/MMG on-hire kit were each built end to end on bare
+  Python 3.8/3.9 to 3.13. Rio/MMG needed nothing (it carries its own
+  libraries); Ampol needed the v2.3 fixes; K2 needed two: a held daily-pack
+  draft was re-filed on every re-run because MIME boundaries are random
+  (`BUILD_DAILY_EMAIL_PACKS.hold_or_release` now compares the pack stamp,
+  as the ready path always did - TEST_DAILY_PACKS 177/177 on 3.9 and 3.12),
+  and 51 K2 buttons had Unix line endings (`44_ALLOW_PHONES_IN` uses labels,
+  which LF can break). Sent as `K2_UPDATE_07Nov2026_any_laptop.zip`
+  (button 46); `SUITE_VERSION_MASTER.txt` refreshed. The K2 company report
+  takes ~28 minutes in the cloud container - expected, not a hang.
+
+- **Ampol suite v2.0 (06 Nov 2026):** one look across every report, an Excel twin beside every PDF, the client copy (`REPORT_OPTIONS.txt`), the non-return trend pages (gas first, then radios and tooling). Truth table identical to the pristine v1.14 run. See the Ampol section below.
 - **Elite improvements pass (28 Jul 2026, this repo's branch):**
   - **46_APPLY_UPDATE.bat** — the improvement loop. Ask Claude → download
     the `K2_UPDATE_*.zip` → double-click 46. Finds the zip itself, backs
@@ -203,6 +216,45 @@ Settled rules, 04–05 Nov 2026:
   `Reports\<day>\` workbook; sections carry a company mark and an
   age-of-what-is-out bar; At a glance and the Dashboard carry the on-hire
   line (gear out at each day's end) and the age bar.
+- Workbook tidy (06 Nov, Andrew: "the excel looks very messy"): `cover()`
+  rebuilt on a 12-column grid with uniform row heights and a lighter
+  section heading (orange rule under the first two columns); nine primary
+  facts, secondary facts as notes under the sources table; two rating
+  legends side by side; page break after the directory. `dashboard()` now
+  tiles + four cell-built dials (big figure, "a of b", data-bar row with
+  `;;;` number format) + six charts in a 2x3 grid via `chart_finish()`
+  (12pt title, `axis.delete = False` - without it Excel 365 hides axes on
+  openpyxl 3.1 charts - hairline border); the chart tables moved to a new
+  grey `Chart Data` tab at the back, and the Dashboard is built before the
+  Cover so the Cover can list it. Data tabs byte-identical before/after on
+  Rio and MMG (checked with openpyxl). `showRowColHeaders = False` on the
+  three front tabs.
+- Once-over round (06 Nov, five parallel reviewers: customer eye, workbook
+  auditor, MMG first-time user, Windows/robustness tester, figure auditor;
+  reports under scratchpad/qa2/ at the time): customer-owned gear is split
+  out of every Coates figure (`_coates_gear()` on each transaction row via
+  CUSTOMER_CONTRACTOR_EQUIP ids / ITEM_OWNER / RENTAL_STOCK OWNER; `tooling_tx`
+  Coates-only, `cust_tx` the rest; Tooling Utilisation from `coates_owned`;
+  Weipa regression vs the original builder now differs by exactly the 9
+  customer-owned transactions and 5 Rio-owned lines, deliberately); undated
+  items with old stock dates are called long out; items whose stock date is
+  on or after the TRANSACTIONS window end are "late" (evening pull) with a
+  WARN, an advisory check and a reworded ask; one basis per figure (scans vs
+  movements, consumables since project start, honest "another N" captions,
+  "not moving" excludes anything on hire and says it counts lines of two or
+  more); `person_name()` for display; `_greeting()`, `_short_co()`; item
+  numbers shrink before wrapping; alias targets typed in mixed case are kept
+  as typed, caps targets are tidied; `_phase()` tests mobilisation before
+  travel words; one NOTE per typed tab; "exports current", "transactions
+  window reaches the stock pull" and "LATEST workbook refreshed" are
+  advisory checks; a fatal STOP removes the main email draft; launchers:
+  `3_GET` version probe via a temp file, `_RUN.bat` apostrophe-safe,
+  buttons 4/5 explain a failure, `check_this_laptop` only claims the file it
+  wrote, PS1 names Constrained Language Mode. New: `pull_siteiq_exports.py`
+  + `6_PULL_EXPORTS_AND_MAKE_REPORT.bat` (Downloads -> Data_SiteIQ by data
+  sheet and PROJECT SCHEDULE, newest by REQUESTED_DATE/TIME, old files to
+  Data_SiteIQ\previous, then builds). The main email attaches the workbook,
+  which carries costs: for a customer send the pack alone (documented).
 - Third-opinion round (06 Nov): OpenAI Codex pushed four commits on the
   same branch (tests under `02_Onhire_Report_Kit/tests`, CI workflow
   `.github/workflows/onhire-kit.yml`, draws windowed to the exact minute,
@@ -272,6 +324,130 @@ Settled rules, 04–05 Nov 2026:
 - MMG is a fixed-rate engagement: client packs never carry per-item
   charges; the internal cost breakdown stays in the workbook.
 - `_lib` (vendored openpyxl) and all site data stay out of git.
+
+## The Ampol reporting suite — `03_Ampol_Reporting_Suite/` (Lytton Refinery, permanent tool store)
+
+The **permanent** tool-store suite, separate from K2 and from the on-hire
+kit. Andrew runs it from his OneDrive folder `Ampol Report 2026\
+02_Ampol_Reporting_Suite` (pin it "Always keep on this device"). Eighteen
+numbered buttons; `00_RUN_EVERYTHING` is the morning. Six report
+families — gas monitors (PDF + email + the executive dashboard email),
+radios, tooling (`--everything` = executive summary, on-hire register,
+quarterlies, utilisation, compliance), stocktake, calibration, rigging —
+plus the one-page daily position. Every figure is counted from the three
+SiteIQ exports in `Data\SiteIQ` (`RENTAL_STOCK`, `TRANSACTIONS`,
+`STOCKTAKE`) and the editable lookups in `Data\Editable`; button 13 recounts
+the key figures from scratch and fails red on a mismatch.
+
+**v2.0 (06 Nov 2026)** — the makeover Andrew asked for after the Rio/MMG
+packs, plus the client's three asks:
+
+- **One look.** `k2style.css` is the one stylesheet: white page, dark
+  COATES masthead and footer on every page, orange rule, dark hero cover,
+  Inter embedded from `assets\fonts`. `k2shell.py` draws the fixed pages
+  and the PNG/SVG charts, `k2flow.py` the flowing documents (tooling,
+  radios) with `position:fixed` bars and `@page` margin boxes for the
+  page number. The gas dashboard email (`generate_v18_...`) and the radio
+  email frame moved to the same masthead.
+- **The Excel twin.** `coates_xlsx.py` (the same writer the on-hire kit
+  uses) + `ampol_xlsx_reports.py`: one `.xlsx` beside every PDF, attached
+  to the draft — Cover, Dashboard with native charts, every table a tab.
+  Built from the builder's own model, never from the PDF text.
+- **The client copy.** `Data\Editable\REPORT_OPTIONS.txt` (`hide_company:`
+  lines, `client_copy: yes`). `client_pass.py` runs each builder twice —
+  the second time with `AMPOL_CLIENT_VIEW=1`; every loader asks
+  `ampol_options.is_hidden()` as it reads rows, `ampol_names.report_stem()`
+  adds ` - Client` to every file name, the data page carries
+  `ampol_options.disclosure()`, `report_history.record()` is a no-op in
+  client view and `VERIFY_NUMBERS` reads one set at a time. Every button
+  and `PICK_REPORT.py` call the wrapper. `Docs\CLIENT_COPY.md` is the guide.
+- **The non-return trend.** `gas_trends.py` (daily out / overdue / 30+,
+  weekly return speed, ageing bands, companies by month with a
+  worse/better/level word, repeat people) feeds a PDF page, an email
+  section and five Trend tabs. `txn_insights.open_series()` gives the
+  radio report "still out at each week's end"; `nonreturn_trend()` in
+  the tooling builder does the same for tooling (hires open, past 30,
+  past 90, by company, week by week) in the executive summary and the
+  on-hire report.
+- **Worst offenders (07 Nov 2026).** `gas_trends` ranks the ten people with the
+  most non-returns this year with a month-by-month line each (a heat grid on
+  its own PDF page, a table in the email, a Trend tab); the tooling trend
+  page names the ten holders with the most items past 90 days and their
+  open items at every month's end. Reports land in the folder of the day the
+  button is pressed, so a build after midnight is in the next day's folder.
+- **Accuracy.** A pristine v1.14 copy and the v2.0 copy were both run on
+  the same 06 Sep 2026 exports; the truth table passes on both with every
+  checked figure identical.
+- **The 10/10 pass (v2.2, 07 Nov 2026).** Eight independent reviewers read
+  every page, email band and workbook sheet; their findings are fixed in the
+  builders and the shared modules. Durable gates came out of it: button 09
+  (`CHECK_REPORTS.py`) now fails a page or workbook cell carrying a long dash,
+  a tag glued to a surname, a doubled Dräger label, a build note, "1 items",
+  a sender's note or a build time before the data; button 13 checks every
+  counted figure on its page as a whole number. One price per printed
+  description (`ampol_master.unify_prices`) - a spelling SiteIQ left unpriced
+  takes the master's price for the same item, two prices are listed for
+  Andrew. Name rules for people, places and Dräger lines are in
+  `Docs/NAMES_AS_SHOWN.md`.
+
+**Not in git:** `Data\` (site exports and registers), `Reports\`,
+`History\`, `assets\fonts` (the Inter TTFs — they travel in the update
+zip), `_lib\` (pypdf 5.9.0 and typing_extensions 4.13.2, both pure Python,
+also in the update zip), the Coates Way deck and the SOP PDFs under `Docs\`.
+- **Any laptop (v2.3, 07 Nov 2026).** Checked end to end on Python 3.8 to
+  3.13 with only openpyxl and Pillow installed: same figures, same words.
+  Never write an f-string that only Python 3.12+ parses (nested same-type
+  quotes, a backslash inside `{}`); `ampol_paths` puts `_lib` on the path
+  for every script; button 10 states the Python version and the one install
+  command (`py -m pip install --user openpyxl pillow`). The update zip
+Andrew drops over his folder is the complete code; the repo copy is for
+history.
+
+Traps met on 06 Nov 2026:
+
+- In the cloud container, Chromium's command-line `--print-to-pdf` hangs
+  (the `google-chrome` on PATH is a wrapper for the same Playwright
+  Chromium). Printing through Playwright's `page.pdf()` works in under a
+  second, so builds there use a stand-in named `msedge` on PATH
+  (`pwchrome.js`, not shipped). On Andrew's laptop Edge prints as before;
+  `AMPOL_BROWSER` names one browser when a machine misbehaves.
+- The client view must change the **file names**, not just the figures —
+  the first test overwrote the internal set. `report_stem()` is the one
+  place names are made; keep it that way.
+- The fixed-page layout check finds the footer by its text; the position
+  page's author line also says POWERED BY SITEIQ, so the footer must be
+  picked from the bottom 15% of the page.
+- SiteIQ caps one TRANSACTIONS export's period, so the year arrives in halves.
+  `siteiq_tx.py` reads every `TRANSACTIONS*.xlsx` in `Data\SiteIQ` as one log
+  (one row per TRANSACTION_ID, later period wins); button 12 files each half
+  by period and retires a file once newer ones cover it. A SiteIQ period
+  ends at 03:59:59 on its last day, so the next pull must START on that day:
+  Andrew's 07 Nov pair (to 30 Jun, from 01 Jul) left 30 Jun out, and the old
+  September file stayed in the log to cover it until that day is pulled.
+- The image viewer in the session showed two PDF covers "wrong" that were
+  right when measured pixel by pixel. Measure before you fix.
+
+Traps met on 07 Nov 2026 (the 10/10 pass):
+
+- The cloud container's clock is UTC; the SiteIQ pulls are Brisbane time.
+  Build there with `TZ=Australia/Brisbane` or every page says it was built
+  before its data ("0 h old at build", "-4 h old"). Andrew's laptop is local.
+- The TRANSACTIONS export ends at 03:59 on the day it is pulled, so it holds
+  nothing for that day yet. "0 out today" was a gap in the export, not a
+  quiet day - pages now say the export ends at 03:59.
+- The one-price rule moved the tooling replacement value (07 Nov: up by
+  about half for the 1,420 on hire): two 440 CFM compressors, two
+  185 CFM compressors, a 60 kVA generator, a lighting tower and 20 tablets
+  were unpriced under one SiteIQ spelling and priced under another. Say so
+  when the headline jumps.
+- Parallel fix agents each owned one builder; shared modules stayed with
+  one lead. Two agents editing one 300 KB builder would have lost edits.
+- The build container had PyMuPDF installed and a laptop does not, so every
+  cover carried its contents list here and none did on a plain laptop. Test
+  portability on a bare interpreter (`uv venv -p 3.9` plus openpyxl and
+  Pillow only), not on the machine you built on.
+
+---
 
 ## Traps — real mistakes made on this job, don't repeat them
 

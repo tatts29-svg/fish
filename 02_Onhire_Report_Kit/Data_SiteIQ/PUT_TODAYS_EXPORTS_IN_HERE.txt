@@ -24,5 +24,6 @@
  would put wrong numbers in front of a customer, so the refresh stops
  and names the odd file out rather than letting it through.
 
- Then go back up a folder and double-click REFRESH_THE_REPORT.bat
+ Then go back up a folder and double-click 2_MAKE_THE_REPORT.bat -
+ or skip the drag-and-drop next time and press 6_PULL_EXPORTS_AND_MAKE_REPORT.bat
 ======================================================================
