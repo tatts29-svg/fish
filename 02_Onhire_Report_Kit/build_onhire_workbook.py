@@ -65,6 +65,7 @@
 
 import datetime as dt
 import glob
+import json
 import os
 import shutil
 import sys
@@ -3119,7 +3120,43 @@ _MMG_COSTS = [
     ("2026-12-02", "Drive Off Site & Flight Out", None, None, None, 1500),
 ]
 
-def job_seed(s, when=None):
+def _packed_mmg_seed(base, schedule, when, previous):
+    # This desktop workbook may run inside the same private job pack used
+    # by the portal. Only use its configured ledger for the amended shut.
+    import shut_costs
+    if not when or not base or not shut_costs.mmg_closeout_applies(schedule or "", when):
+        return previous
+    job = os.path.dirname(os.path.realpath(base))
+    manifest = os.path.join(job, "job.json")
+    if not os.path.isfile(manifest):
+        return previous
+    with open(manifest, encoding="utf-8") as f:
+        rel = json.load(f).get("paths", {}).get("costs")
+    if not rel:
+        return previous
+    ledger = os.path.realpath(os.path.join(job, rel))
+    if os.path.isabs(rel) or os.path.commonpath((job, ledger)) != job:
+        raise ValueError("The MMG costs file must be inside its job pack.")
+    costs = shut_costs.load(ledger, when, schedule)
+    rates = {r["shift"]: r["rate"] for r in costs["rates"]}
+    if any(r["shift"] not in ("Day", "Night") for r in costs["roster"]):
+        return previous  # This Excel layout prices its two shift roles only.
+    roster = []
+    for r in costs["roster"]:
+        duty = "NightShift" if r["shift"] == "Night" else (r["type"] or "DayShift")
+        if r["shift"] == "Day" and r.get("note"):
+            duty += " ({})".format(r["note"])
+        roster.append((r["iso"], duty, costs["role"], r["name"], r["start"], r["finish"], r["hours"]))
+    return {"roster": roster, "rates": [("Storeman Day", rates.get("Day"), "DayShift"),
+                                        ("Storeman Night", rates.get("Night"), "NightShift")],
+            "costs": [(d["iso"], d["type"], d["tooling"], None, d["services"], d["flights"])
+                      for d in costs["days"]],
+            "flights": True, "stamp": "the current job pack",
+            "previous": [dict(previous, what="use the job pack's dated roster and charges"),
+                         *previous.get("previous", [])]}
+
+
+def job_seed(s, when=None, base=None):
     """The typed roster and cost breakdown for this job, or None. A seed
     is tied to the shut it was typed for: if the job's demob date (or,
     failing that, the report date) is more than 45 days outside the
@@ -3140,7 +3177,7 @@ def job_seed(s, when=None):
             slack = dt.timedelta(days=45)
             if anchor < min(days) - slack or anchor > max(days) + slack:
                 return None
-        return seed
+        return _packed_mmg_seed(base, s.project_schedule, when, seed) if key == "mmg" else seed
     return None
 _WEIPA_COSTS = [
     # (date, type, shutdown, labour, site services)  None = blank cell
@@ -4537,7 +4574,7 @@ def carry_over(wb, s, base, title, when=None):
         except Exception:
             vals = None
 
-    seed = job_seed(s, when)
+    seed = job_seed(s, when, base)
     weipa = seed is not None
     stale_roster = False
     use_latest = False

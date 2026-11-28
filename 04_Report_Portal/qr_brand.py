@@ -96,11 +96,23 @@ ACCESS_SURFACE_CSS = """
 .hq-access-title{position:relative;padding-block-start:1rem}
 .hq-access-title::before{content:"";position:absolute;inset:0 auto auto 0;width:2.4rem;height:3px;
  border-radius:3px;background:linear-gradient(90deg,#f26222 65%,#ffc8a6)}
+@media screen and (forced-colors:none){
+ .hq-surface::after{
+   content:"";position:absolute;inset:-1px;pointer-events:none;border-radius:inherit;
+   border:1px solid var(--access-glow,var(--access-orange));
+   box-shadow:inset 0 0 7px color-mix(in srgb,var(--access-glow,var(--access-orange)) 21%,transparent),
+              0 0 10px color-mix(in srgb,var(--access-glow,var(--access-orange)) 23%,transparent);
+   opacity:var(--access-glow-strength,0);
+ }
+ .hq-surface:focus-within{--access-glow-strength:.36}
+}
 @media screen and (prefers-reduced-motion:no-preference){
  .hq-surface{animation:hqSurfaceIn .32s cubic-bezier(.21,.8,.24,1) both}
  .hq-surface::before{transform-origin:left;animation:hqRimIn .48s cubic-bezier(.21,.8,.24,1) both}
+ .hq-surface::after{transition:opacity .18s ease-out;animation:var(--access-glow-signal,none) .56s ease-out}
  @keyframes hqSurfaceIn{from{transform:translateY(5px)}to{transform:translateY(0)}}
  @keyframes hqRimIn{from{transform:scaleX(.28);opacity:.24}to{transform:scaleX(1);opacity:1}}
+ @keyframes hqRimSignal{0%{opacity:.12}32%{opacity:.90}100%{opacity:var(--access-glow-strength,.52)}}
 }
 @media (forced-colors:active){.hq-surface{border:1px solid CanvasText}.hq-surface::before,.hq-access-title::before{display:none}}
 """

@@ -191,6 +191,9 @@ body{background:radial-gradient(ellipse at 12% 18%,#d3815020,transparent 38rem),
 .card #up-last{padding:.85rem 1rem;background:#17251f;border:1px solid #40564c;border-inline-start:3px solid var(--hq-confirmed);border-radius:.55rem}
 .card .st.follow-up{border-inline-start:3px solid #f2c16d;background:#32291d;color:#f9dfac}
 .card .st.run{border-inline-start:3px solid var(--hq-active);background:#2a211d}
+.fields.hq-surface:has(.err),.wrap>.card:has(#st.bad:not([hidden])){--access-glow:var(--hq-coral);--access-glow-strength:.58;--access-glow-signal:hqRimSignal}
+.wrap>.card:has(#st.follow-up:not([hidden])){--access-glow:#f2c16d;--access-glow-strength:.56;--access-glow-signal:hqRimSignal}
+.wrap>.card:has(#st.ok:not([hidden])){--access-glow:var(--hq-confirmed);--access-glow-strength:.52;--access-glow-signal:hqRimSignal}
 @media screen and (prefers-reduced-motion:no-preference){.wrap>.card.hq-surface{animation:hqSurfaceIn .32s ease-out both}}
 
 .wrap>form.card{display:grid;align-items:center;gap:clamp(1.25rem,5vw,4rem);

@@ -18,6 +18,10 @@ import collections
 import datetime as dt
 import json
 
+MMG_SCHEDULE = "MMG Shutdown Novermber26-December26"
+MMG_AMENDMENT_DATE = dt.date(2026, 11, 28)
+MMG_ORIGINAL_CONFIRMATION = "Andrew Fisher, 26 Nov 2026"
+
 CATS = ("labour", "tooling", "services", "flights")
 NAMES = {"labour": "Labour", "tooling": "Tooling", "services": "Site services", "flights": "Flights"}
 
@@ -28,6 +32,35 @@ def _day(text):
 
 def _label(d):
     return "{} {} {}".format(d.strftime("%a"), d.day, d.strftime("%b"))
+
+
+def mmg_closeout_applies(schedule, today):
+    return " ".join(schedule.split()).casefold() == MMG_SCHEDULE.casefold() and today >= MMG_AMENDMENT_DATE
+
+
+def read_spec(path, today, schedule):
+    with open(path, encoding="utf-8") as f:
+        spec = json.load(f)
+    # The retained 26 Nov job pack predates the 28 Nov instructions. Reapply
+    # the amendment on every new export, preserving other jobs, historical
+    # forecasts and any subsequently confirmed replacement ledger.
+    if spec.get("confirmed") != MMG_ORIGINAL_CONFIRMATION or not mmg_closeout_applies(schedule, today):
+        return spec
+    for row in spec.get("roster", []):
+        if row["name"] == "Cody Mitchel":
+            row["name"] = "Cody Mitchell"
+        if row["name"] not in ("Thomas Maher", "Cody Mitchell"):
+            continue
+        if row["date"] == "2026-12-01":
+            if row.get("type") == "Fatigue day":
+                row["note"] = row.get("note") or "Fatigue day"
+            row["type"] = "Demobilisation"
+        elif row["date"] == "2026-12-02":
+            row.update(type="Fly out", shift="Day", start="07:00", finish="11:00", hours=4)
+    for charge in spec.get("charges", []):
+        if charge["date"] == "2026-12-01":
+            charge["tooling"] = charge["services"] = 0
+    return spec
 
 
 def build(spec, today):
@@ -45,6 +78,8 @@ def build(spec, today):
         done = d <= today
         rows.append({"date": _label(d), "iso": r["date"], "type": r.get("type", ""), "name": r["name"], "shift": r["shift"],
                      "start": r.get("start", ""), "finish": r.get("finish", ""), "hours": r["hours"], "rate": rate, "cost": cost, "done": done})
+        if r.get("note"):
+            rows[-1]["note"] = r["note"]
         day = days.setdefault(d, dict.fromkeys(CATS, 0.0))
         day["labour"] += cost
         day.setdefault("types", set()).add(r.get("type", ""))
@@ -90,6 +125,5 @@ def build(spec, today):
     }
 
 
-def load(path, today):
-    with open(path, encoding="utf-8") as f:
-        return build(json.load(f), today)
+def load(path, today, schedule=""):
+    return build(read_spec(path, today, schedule), today)

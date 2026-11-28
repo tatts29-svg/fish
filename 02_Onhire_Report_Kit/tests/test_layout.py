@@ -124,6 +124,43 @@ class LayoutTests(unittest.TestCase):
 @unittest.skipUnless(os.environ.get('COATES_BROWSER_TESTS') == '1',
                      'Set COATES_BROWSER_TESTS=1 to check Chromium mobile rendering')
 class BrowserLayoutTests(unittest.TestCase):
+    def test_invoice_check_uses_selected_day_and_clears_stale_amounts(self):
+        from playwright.sync_api import sync_playwright
+        import shutil
+
+        template = (Path(__file__).resolve().parents[1] / 'showcase_page.html').read_text(encoding='utf-8')
+        card = template[template.index('<div class="card cost-check'):template.index('</output></div>') + len('</output></div>')]
+        script = template[template.index('const money='):template.index('function initCosts()')]
+        days = [
+            dict(date='Tue 1 Dec', iso='2026-12-01', type='Demobilisation', tooling=0, labour=1800),
+            dict(date='Wed 2 Dec', iso='2026-12-02', type='Fly out', tooling=0, labour=720),
+        ]
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(executable_path=shutil.which('chromium'))
+            try:
+                page = browser.new_page()
+                page.set_content(card)
+                page.add_script_tag(content="const STATIC=false, $=s=>document.querySelector(s);\n" + script)
+                page.evaluate('days => initChargeCheck(days)', days)
+                amount = page.get_by_label('Invoice subtotal')
+                compare = page.get_by_role('button', name='Compare charge')
+                result = page.locator('#cs-check-result')
+                amount.fill('0.01')
+                compare.click()
+                self.assertIn('$0.01 to review', result.inner_text())
+                page.get_by_label('Date', exact=True).select_option('2026-12-02')
+                page.get_by_label('Cost category').select_option('labour')
+                self.assertEqual((amount.input_value(), result.inner_text()), ('', ''))
+                for value, expected in [('719.99', '$0.01 below'), ('720', 'Matches'), ('721.25', '$1.25 above')]:
+                    amount.fill(value)
+                    compare.click()
+                    self.assertIn(expected, result.inner_text())
+                page.get_by_label('Cost category').select_option('flights')
+                self.assertTrue(compare.is_disabled())
+                self.assertIn('unavailable', page.locator('#cs-check-plan').inner_text())
+            finally:
+                browser.close()
+
     def test_enter_on_search_result_keeps_newly_focused_drawer_open(self):
         from playwright.sync_api import sync_playwright
         import shutil

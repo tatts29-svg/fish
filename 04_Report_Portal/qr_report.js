@@ -187,10 +187,6 @@
       target.scrollIntoView({block:"start",behavior:"instant"});
       const selected=sectionLinks.find(entry=>entry.section===target);
       pinnedSection=selected ? {entry:selected,scrollY:window.scrollY} : null;
-      if (selected && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        target.querySelector("h2")?.animate?.([{transform:"translateX(5px)",opacity:.68},{transform:"none",opacity:1}],
-          {duration:230,easing:"cubic-bezier(.2,.65,.25,1)"});
-      }
       if (!sectionFrame && !$("report").hidden) sectionFrame=requestAnimationFrame(syncSection);
     }
   });

@@ -1107,7 +1107,8 @@ def main(argv=None):
             data["detail_cpics"] = detail_images
     data["costs"] = None
     if a.costs:
-        data["costs"] = shut_costs.load(a.costs, dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date())
+        pull_day = dt.datetime.strptime(data["asat"], "%d %b %Y %H:%M").date()
+        data["costs"] = shut_costs.load(a.costs, pull_day, data["job"]["schedule"])
     if a.onhire_out:
         write_onhire(data, a.onhire_out)
     html = render(data, _fonts(a.kit_folder), _logo(a.logo))

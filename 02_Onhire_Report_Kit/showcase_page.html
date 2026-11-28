@@ -484,6 +484,15 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .c5{grid-template-columns:repeat(5,1fr)}
 .c5 .kpi .n{font-size:32px}
 .costhero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+.cost-check{margin-top:16px}
+.cost-check form{display:flex;flex-wrap:wrap;align-items:end;gap:.75rem 1rem;margin-top:1rem}
+.cost-check label{display:grid;flex:1 1 10rem;gap:.3rem;color:var(--mu);font-weight:600;font-size:.86rem}
+.cost-check :is(input,select){width:100%;min-width:0;min-height:44px;padding:.55rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--tx);font:inherit;font-size:1rem}
+.cost-check .btn{min-height:44px}
+.cost-check .scheduled-charge{margin-top:.9rem;font-variant-numeric:tabular-nums}
+.cost-check output{display:block;margin-top:.4rem;color:var(--tx);font-weight:650;font-variant-numeric:tabular-nums}
+.cost-check output[data-state="over"]{color:var(--warn)}
+.cost-check output[data-state="match"]{color:var(--ok)}
 .ringw{position:relative;width:240px;height:240px}
 .ringw svg{width:240px;height:240px;transform:rotate(-90deg)}
 .ringt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
@@ -1255,6 +1264,41 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  @keyframes work-rail-in{from{transform:scaleX(.25)}to{transform:scaleX(1)}}
  @keyframes work-heading-in{from{transform:translateY(3px)}to{transform:translateY(0)}}
 }
+/* Short edge cues identify the pane, control group or result just opened. */
+@media screen{
+ html:not(.static) .work-view:not(#v-costs)>.vh::before{
+  background:linear-gradient(90deg,var(--or) 65%,var(--issued) 92%,transparent)
+ }
+ html:not(.static) :is(.drawer .dhead,.view:not(#v-costs) .work-rail,#up-msg,.view:not(#v-costs) details>summary){position:relative}
+ html:not(.static) :is(.drawer.on .dhead,.view.on:not(#v-costs) details[open]>summary)::after{
+  content:"";position:absolute;inset-inline-start:0;bottom:0;width:clamp(34px,5vw,76px);height:2px;
+  background:linear-gradient(90deg,var(--or),var(--issued) 78%,transparent);
+  pointer-events:none;transform-origin:left
+ }
+ html:not(.static) .view.on:not(#v-costs) .work-rail:focus-within::before,
+ html:not(.static) #up-msg:is(.ok,.bad):not([hidden])::before{
+  content:"";position:absolute;inset-inline-start:0;top:9px;bottom:9px;width:3px;border-radius:3px;
+  background:var(--edge-feedback,var(--or));pointer-events:none;transform-origin:top
+ }
+ #up-msg.ok{--edge-feedback:var(--returned)}#up-msg.bad{--edge-feedback:var(--exception)}
+}
+@media screen and (prefers-reduced-motion:no-preference){
+ html:not(.static) .view.on.site-overview #overview-hero::before{
+  content:"";position:absolute;left:1.3rem;top:0;width:clamp(54px,8vw,140px);height:2px;
+  background:linear-gradient(90deg,transparent,var(--or) 34%,#ffd0aa 74%,transparent);
+  opacity:0;pointer-events:none;animation:edge-glint .44s var(--settle)
+ }
+ html:not(.static) :is(.drawer.on .dhead,.view.on:not(#v-costs) details[open]>summary)::after{
+  animation:edge-open .3s var(--settle)
+ }
+ html:not(.static) .work-view.on:not(#v-costs)>.vh::before{animation:edge-open .36s var(--settle)}
+ html:not(.static) :is(.view.on:not(#v-costs) .work-rail:focus-within,#up-msg:is(.ok,.bad):not([hidden]))::before{
+  animation:edge-focus .24s var(--settle)
+ }
+ @keyframes edge-glint{0%{opacity:0;transform:translateX(-18%)}28%{opacity:.92}100%{opacity:0;transform:translateX(85%)}}
+ @keyframes edge-open{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+ @keyframes edge-focus{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+}
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
@@ -1539,10 +1583,17 @@ __CONTACTS__
 <section class="view pb" id="v-costs" data-tab="Labour and costs">
 <div class="vh"><h2>Labour and shut costs</h2><p id="cs-lead"></p></div>
 <div class="grid c2" style="margin-top:0">
-<div class="card costhero"><div class="ringw" id="cs-ring"></div><div><h3 style="font-size:15.5px;font-weight:600">When each charge starts</h3><ul class="tl" id="cs-starts"></ul></div></div>
+<div class="card costhero"><div class="ringw" id="cs-ring"></div><div><h3 style="font-size:15.5px;font-weight:600">Scheduled charge dates</h3><ul class="tl" id="cs-starts"></ul></div></div>
 <div class="card"><h3>Cost by category</h3><div class="sub">Each cylinder shows scheduled cost through the pull date as a share of that category’s full shutdown cost.</div><div class="cyls" id="cs-cyls"></div></div>
 </div>
 <div class="stats" id="cs-stats" style="margin-top:16px"></div>
+<div class="card cost-check noprint" id="cs-check" hidden><h3 id="cs-check-title">Check an invoice charge</h3>
+<p class="sub">Compare the invoice subtotal for one day and category with the rostered cost plan. Use the same GST basis for both amounts. This check is private to this screen.</p>
+<form id="cs-check-form"><label><span id="cs-check-date-label">Date</span><select id="cs-check-date" aria-labelledby="cs-check-date-label" required></select></label>
+<label><span id="cs-check-category-label">Cost category</span><select id="cs-check-category" aria-labelledby="cs-check-category-label"><option value="labour">Labour</option><option value="tooling">Tooling</option><option value="services">Site services</option><option value="flights">Flights</option></select></label>
+<label>Invoice subtotal (AUD)<input id="cs-check-amount" type="number" step="0.01" inputmode="decimal" required placeholder="0.00" autocomplete="off"></label>
+<button type="submit" class="btn">Compare charge</button></form>
+<p class="scheduled-charge" id="cs-check-plan"></p><output id="cs-check-result" for="cs-check-date cs-check-category cs-check-amount" aria-live="polite"></output></div>
 <div class="card" style="margin-top:16px"><h3>Cost day by day</h3><div class="sub" id="cs-daysub"></div>
 <div class="legend" id="cs-leg"></div><div id="cs-chart"></div></div>
 <div class="grid c2" id="cs-people"></div>
@@ -1722,9 +1773,33 @@ const pic=(i,name,c)=>(i!=null&&D.pics&&D.pics[i])?`<img class="tp${c?' '+c:''}"
 $('#asat').textContent=D.asat;
 $('#what').textContent=D.job.title.replace(CLIENT,'').trim()+' · Shutdown Tool Store';
 if(LOGO){$('#toplogo').src=LOGO;$('#clientlogo').src=LOGO;$('#clientname').textContent=D.job.title}else{$('#toplogo').remove();$('#lsep').remove();$('#client').remove();$('#what').textContent=D.job.title+' · Shutdown Tool Store'}
-$('#ftjob').textContent=`Built from SiteIQ exports for ${D.job.title}, November 2026 shut. No figure in this report is estimated.`;
+$('#ftjob').textContent=`Stock and transaction records come from SiteIQ exports for ${D.job.title}.`+(D.costs?' Labour and shutdown charges are scheduled amounts from the job cost plan.':'');
 $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
 const asatT=D.asat.split(' ').slice(-1)[0], asatH=+asatT.slice(0,2);
+const withinCounterDays=D.job.day>=1&&D.job.day<=D.job.days;
+// Use dated duty intervals at close-out. The standard day/night bands still describe recorded activity.
+function closingDutyAtPull(stamp,costs){
+  const [day,month,year,clock]=stamp.split(' '),monthIndex=MON.indexOf(month);
+  if(!costs?.days||monthIndex<0)return null;
+  const midnight=Date.UTC(+year,monthIndex,+day);
+  if(!Number.isFinite(midnight))return null;
+  const iso=new Date(midnight).toISOString().slice(0,10);
+  const plan=costs.days.find(d=>d.iso===iso);
+  if(!plan||!['Demobilisation','Fly out'].includes(plan.type))return null;
+  const previous=new Date(midnight-86400000).toISOString().slice(0,10);
+  const validTime=t=>/^([01]\d|2[0-3]):[0-5]\d$/.test(t);
+  const rows=(costs.roster||[]).filter(r=>r.name&&validTime(r.start)&&validTime(r.finish)&&
+    (r.iso===iso||r.iso===previous&&r.start>r.finish&&r.finish>'00:00'))
+    .sort((a,b)=>a.iso.localeCompare(b.iso)||a.start.localeCompare(b.start)||a.name.localeCompare(b.name));
+  let status='Dated duty times unavailable';
+  if(validTime(clock)&&rows.some(r=>r.iso===iso)){
+    const active=rows.filter(r=>r.iso===previous?clock<r.finish:r.start<=clock&&(r.finish<r.start||clock<r.finish));
+    const names=[...new Set(active.map(r=>r.name))];
+    status=names.length?'Rostered at pull · '+names.join(' and '):'Outside rostered hours at pull';
+  }
+  return {phase:plan.type==='Fly out'?'Fly-out duty':'Demobilisation',date:plan.date,iso,rows,status};
+}
+const closingDuty=mmgDugaldRiver?closingDutyAtPull(D.asat,D.costs):null;
 const readyCoates=K.coates_available??(D.utilisation?.variants?D.utilisation.variants.flatMap(g=>g.assets||[]).filter(a=>String(a.owner||'').toLowerCase()==='coates'&&String(a.status||'').toLowerCase()==='available for hire').length:null);
 const shelfLabel=l=>Number.isFinite(l.have)?fmt(l.have):'—';
 const shelfMissing=K.cons_unknown_lines||0;
@@ -2032,10 +2107,12 @@ const minuteOfDay=clock ? Number(clock[1])*60+Number(clock[2]) : null;
 if(mmgDugaldRiver){
   const overview=$('#v-overview');
   overview.classList.add('site-overview');
-  const shift=minuteOfDay===null?'':minuteOfDay>=360&&minuteOfDay<1080?'Day shift':'Night shift';
+  const shift=closingDuty?closingDuty.status:minuteOfDay===null||!withinCounterDays?'':minuteOfDay>=360&&minuteOfDay<1080?'Day shift':'Night shift';
+  const scheduledPhase=day<1?'Before scheduled counter days':day>days?'After scheduled counter days':`Day ${fmt(day)} of ${fmt(days)}`;
+  const phase=closingDuty?.phase||scheduledPhase;
   $('#eyebrow').textContent=['Shutdown tool store',shift].filter(Boolean).join('  /  ');
   $('#h1').textContent=D.job.title.replace(/^MMG\s+/i,'').trim()||D.job.title;
-  $('#lead').innerHTML=`<b>Day ${fmt(day)} of ${fmt(days)}</b> · ${esc(DOW[today.getDay()])} ${today.getDate()} ${esc(MON[today.getMonth()])}<br>${fmt(K.on)} assets on hire across ${plural(K.companies,'company','companies')} at the ${esc(asatT)} AEST pull.`;
+  $('#lead').innerHTML=`<b>${esc(phase)}</b> · ${esc(DOW[today.getDay()])} ${today.getDate()} ${esc(MON[today.getMonth()])}<br>${fmt(K.on)} assets on hire across ${plural(K.companies,'company','companies')} at the ${esc(asatT)} AEST pull.`;
   const actions=$('#overview-actions'); actions.hidden=false;
   actions.querySelector('[data-go="stocktake"]').hidden=!D.stocktake;
   const ranked=Object.entries(D.tools||{}).filter(([,t])=>t?.name&&Number.isFinite(t.on)&&t.on>0).sort((a,b)=>b[1].on-a[1].on);
@@ -2072,7 +2149,7 @@ ppl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>',
 ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'};
 const kn=[];const mh=Math.max(...D.hour_out),hi=D.hour_out.indexOf(mh);
-if(mh>0)kn.push({c:'',i:ic.clock,t:`Busiest at ${D.hours[hi]}`,d:`${plural(mh,'item')} went out in that hour${hi<=1?', at the start of day shift':''}.`,go:'rhythm'});
+if(mh>0)kn.push({c:'',i:ic.clock,t:`Busiest at ${D.hours[hi]}`,d:`${plural(mh,'item')} went out in that hour.`,go:'rhythm'});
 const C=D.companies;if(C.length>1)kn.push({c:'',i:ic.ppl,t:`${C[0].name} and ${C[1].name} hold ${fmt(C[0].n+C[1].n)} of the ${fmt(K.on)} items out`,d:`View the items currently listed against each company.`,go:'onhire'});
 else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} items out`,d:'View the items currently listed against this company.',go:'onhire'});
 if(D.below.length){const z=D.below.filter(b=>b.have==0).length;kn.push({c:'w',i:ic.box,t:`${plural(D.below.length,'consumable line')} to top up`,d:z?`${plural(z,'line')} at zero. The list is on the Consumables tab.`:'Each is below its minimum. The list is on the Consumables tab.',go:'consumables'})}
@@ -2413,7 +2490,7 @@ columns($('#clock'),order.map(hh),[{v:order.map(tot),cls:i=>{const h=order[i];re
 peak:(i,m)=>`${whole(m)} at ${hh(order[i])}`,tip:i=>{const h=order[i];return `<b>${hh(h)}</b> · ${h>=6&&h<18?'day':'night'} shift<br>About ${whole(tot(h))} transactions<br>Tools out: ${f1(O.hours.issue[h])}<br>Tools back: ${f1(O.hours.return[h])}<br>Consumable issues: ${f1(O.hours.sale[h])}`}});
 const sun='<svg viewBox="0 0 24 24" fill="none" stroke="var(--or)" stroke-width="2" stroke-linecap="round"><g class="spin"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g><circle cx="12" cy="12" r="4" fill="var(--or)"/></svg>';
 const moon='<svg viewBox="0 0 24 24" fill="var(--neu)" stroke="var(--neu)" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>';
-const card=(k,icn)=>{const S=O.shift[k],M=D.shifts[k];return `<h4>${icn}${M.name}${M.who?` <span class="pill n">${esc(M.who)}</span>`:''}</h4><div class="hrs">${M.hours}</div>
+const card=(k,icn)=>{const S=O.shift[k],M=D.shifts[k];return `<h4>${icn}${M.name}${M.who?` <span class="pill n">Usual controller · ${esc(M.who)}</span>`:''}</h4><div class="hrs">${M.hours}</div>
 <div class="big"><span data-n="${Math.round(S.tx)}">${whole(S.tx)}</span><small>transactions a shift, on average</small></div>
 <div class="kv"><div><span>Tools issued</span><b>${whole(S.issues)}</b></div><div><span>Tools returned</span><b>${whole(S.returns)}</b></div><div><span>Consumable issues</span><b>${whole(S.sales)}</b></div><div><span>Consumable units</span><b>${whole(S.units)}</b></div><div><span>People served</span><b>${whole(S.people)}</b></div></div>`};
 $('#shday').innerHTML=card('day',sun);$('#shnight').innerHTML=card('night',moon);
@@ -2449,14 +2526,52 @@ $('#defs').innerHTML=[
 
 /* ---------- labour and costs ---------- */
 const money=v=>Number.isFinite(v)?'$'+v.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
+function initChargeCheck(schedule){
+  const days=schedule.filter(day=>/^\d{4}-\d{2}-\d{2}$/.test(day.iso));
+  if(STATIC||!days.length)return;
+  const form=$('#cs-check-form'),date=$('#cs-check-date'),category=$('#cs-check-category');
+  const amount=$('#cs-check-amount'),plan=$('#cs-check-plan'),result=$('#cs-check-result');
+  for(const day of days)date.add(new Option(day.date+(day.type?' · '+day.type:''),day.iso));
+  const next=days.find(day=>day.type==='Demobilisation')||days.find(day=>!day.done)||days[days.length-1];
+  date.value=next.iso;
+  category.value='tooling';
+  function planned(){return days[date.selectedIndex]?.[category.value]}
+  function clearComparison(){result.textContent='';delete result.dataset.state}
+  function selectCharge(){
+    const value=planned();
+    amount.value='';clearComparison();
+    plan.textContent=Number.isFinite(value)?'Scheduled for this charge: '+money(value):'Schedule unavailable for this charge.';
+    form.querySelector('button').disabled=!Number.isFinite(value);
+  }
+  date.addEventListener('change',selectCharge);
+  category.addEventListener('change',selectCharge);
+  amount.addEventListener('input',clearComparison);
+  form.addEventListener('submit',event=>{
+    event.preventDefault();
+    const billed=Math.round(amount.valueAsNumber*100),scheduled=Math.round(planned()*100);
+    if(!Number.isSafeInteger(billed)||!Number.isSafeInteger(scheduled)){
+      result.textContent='Enter a valid subtotal to the nearest cent.';return;
+    }
+    const difference=billed-scheduled;
+    result.dataset.state=difference>0?'over':difference<0?'under':'match';
+    if(difference===0)result.textContent='Matches the scheduled charge.';
+    else if(difference>0&&scheduled===0)result.textContent=money(difference/100)+' to review. No charge is scheduled for this category on this day.';
+    else result.textContent=money(Math.abs(difference)/100)+(difference>0?' above schedule. Check the invoice line and any approved variation.':' below schedule.');
+  });
+  selectCharge();$('#cs-check').hidden=false;
+}
 function initCosts(){const C=D.costs,KC={labour:['kl','lk1'],tooling:['kt','lk2'],services:['ks','lk3'],flights:['kf','lk4']};
 const sh=measuredFraction(C.sofar,C.total);
 $('#cs-lead').textContent=C.days.length?`${money(C.sofar)} of the ${money(C.total)} shutdown cost is scheduled through the end of ${C.upto}. This includes ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours and all charges assigned to those dates.`:'No dated cost schedule is available for this shutdown.';
 $('#cs-ring').innerHTML=`<svg class="liquid-gauge curved-gauge" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
 <circle class="rg2" cx="120" cy="120" r="116"/><path class="ring-ticks" d="M120 2v8M238 120h-8M120 238v-8M2 120h8"/><g transform="translate(120 120)">${curvedGlass(100,18,-Math.PI/2,2*Math.PI,sh)}</g></svg>
 <div class="ringt"><div class="a">Scheduled to date</div><div class="b">${money(C.sofar)}</div><div class="c">${sh===null?(C.total===0?'No scheduled cost':'Share unavailable'):esc(formatMeasuredPercent(C.sofar,C.total))+' of '+money(C.total)}</div></div>`;
-const S=C.starts,st=[];if(S.labour)st.push(['Labour, day shift',`From ${S.labour}`]);if(S.nights)st.push(['Night shift',`From ${S.nights}, 18:00`]);if(S.tooling)st.push(['Tooling charge',`From ${S.tooling}`]);if(S.services)st.push(['Site services charge',`From ${S.services}`]);
-$('#cs-starts').innerHTML=st.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('');
+const chargeDates=(days)=>days.length && days[0].iso!==days[days.length-1].iso?`First ${days[0].date} · Last ${days[days.length-1].date}`:days[0]?.date;
+const st=[['Day shift labour',chargeDates(C.roster.filter(r=>r.shift==='Day'))],
+  ['Night shift labour',chargeDates(C.roster.filter(r=>r.shift==='Night'))],
+  ['Tooling charge',chargeDates(C.days.filter(d=>d.tooling>0))],['Site services charge',chargeDates(C.days.filter(d=>d.services>0))]];
+$('#cs-starts').innerHTML=st.filter(x=>x[1]).map(x=>`<li><b>${esc(x[0])}</b>${esc(x[1])}</li>`).join('');
+initChargeCheck(C.days);
 $('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1})).join('');
 stats($('#cs-stats'),[[C.days_done,`Scheduled days through pull date, of ${C.days.length}`],[C.hours_done,`Rostered hours through pull date, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
 const remaining=Number.isFinite(C.total)&&Number.isFinite(C.sofar)?C.total-C.sofar:null;
@@ -2471,9 +2586,9 @@ $('#cs-people').innerHTML=C.people.map(p=>`<div class="card pcard"><h4>${esc(p.n
 <div class="kv"><div><span>Hours rostered through pull date</span><b>${fmt(p.hours_done)} of ${fmt(p.hours)}</b></div><div><span>Day shifts rostered</span><b>${p.day}</b></div><div><span>Night shifts rostered</span><b>${p.night}</b></div></div></div>`).join('');
 $('#cs-rsub').textContent=`${C.rates.map(r=>`${r.shift} shift ${money(r.rate)} an hour`).join(' · ')}. Each row is hours times the rate for its shift.`;
 const pill=r=>r.iso==C.days.find(d=>d.today)?.iso?'<span class="pill o">Pull date</span>':r.done?'<span class="pill history">Before pull date</span>':'<span class="pill n">Scheduled later</span>';
-$('#cs-roster').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Date</th><th>Day type</th><th>Person</th><th>Shift</th><th>Times</th><th class="n">Hours</th><th class="n">Rate</th><th class="n">Cost</th><th></th></tr>${C.roster.map(r=>`<tr class="${r.done?'':'tocome'}"><td style="white-space:nowrap">${r.date}</td><td>${esc(r.type)}</td><td><b>${esc(r.name)}</b></td><td>${r.shift}</td><td style="white-space:nowrap">${r.start} to ${r.finish}</td><td class="n">${r.hours}</td><td class="n" style="font-weight:400">${money(r.rate)}</td><td class="n">${money(r.cost)}</td><td>${pill(r)}</td></tr>`).join('')}
+$('#cs-roster').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Date</th><th>Day type</th><th>Person</th><th>Shift</th><th>Times</th><th class="n">Hours</th><th class="n">Rate</th><th class="n">Cost</th><th></th></tr>${C.roster.map(r=>`<tr class="${r.done?'':'tocome'}"><td style="white-space:nowrap">${r.date}</td><td>${esc(r.type)}</td><td><b>${esc(r.name)}</b>${r.note?`<small style="display:block;color:var(--mu)">${esc(r.note)}</small>`:''}</td><td>${esc(r.shift)}</td><td style="white-space:nowrap">${r.start} to ${r.finish}</td><td class="n">${r.hours}</td><td class="n" style="font-weight:400">${money(r.rate)}</td><td class="n">${money(r.cost)}</td><td>${pill(r)}</td></tr>`).join('')}
 <tr class="tot"><td colspan="5">Total labour</td><td class="n">${fmt(C.hours)}</td><td></td><td class="n">${money(C.cats.find(c=>c.key=='labour')?.total??0)}</td><td></td></tr></table></div>`;
-const cell=v=>v?money(v):'<span style="color:var(--dim)">–</span>';
+const cell=v=>Number.isFinite(v)?money(v):'—';
 $('#cs-table').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Day</th><th>Day type</th>${C.cats.map(c=>`<th class="n">${esc(c.name)}</th>`).join('')}<th class="n">Day total</th><th class="n">Running total</th></tr>${C.days.map(d=>`<tr class="${d.today?'tdy':d.done?'':'tocome'}"><td style="white-space:nowrap">${d.date}${d.today?' <span class="pill o">Today</span>':''}</td><td>${esc(d.type)}</td>${C.cats.map(c=>`<td class="n" style="font-weight:400">${cell(d[c.key])}</td>`).join('')}<td class="n">${money(d.total)}</td><td class="n">${money(d.running)}</td></tr>`).join('')}
 <tr class="tot"><td colspan="2">Whole shut</td>${C.cats.map(c=>`<td class="n">${money(c.total)}</td>`).join('')}<td class="n">${money(C.total)}</td><td></td></tr>
 <tr class="tot"><td colspan="2">To the end of ${C.upto}</td>${C.cats.map(c=>`<td class="n">${money(c.sofar)}</td>`).join('')}<td class="n">${money(C.sofar)}</td><td></td></tr></table></div>`;
@@ -3035,7 +3150,17 @@ function initStocktake(st) {
     select.replaceChildren(new Option('All categories',''),...directory.map(c=>new Option(noun(c.kind)+' · '+c.name,c.key)));
     if(directory.some(c=>c.key===picked))select.value=picked;
   }
-  $('#st-duty').innerHTML=['day','night'].map(k=>{const s=D.shifts&&D.shifts[k];return s?`<span>${esc(s.name)} controller · <strong>${esc(s.who||'Unassigned')}</strong> · ${esc(s.hours)}</span>`:''}).join('');
+  const dutyRibbon=$('#st-duty');
+  if(closingDuty){
+    const d=closingDuty;
+    dutyRibbon.innerHTML=`<span><strong>${esc(d.phase)}</strong> · ${esc(d.date)} AEST</span>`+
+      d.rows.map(r=>`<span><strong>${esc(r.name)}</strong> · ${r.iso===d.iso?esc(r.start)+'–'+esc(r.finish):'previous night to '+esc(r.finish)}</span>`).join('')+
+      `<span>${esc(d.status)} · ${esc(asatT)}</span>`;
+  }else if(mmgDugaldRiver&&!withinCounterDays){
+    dutyRibbon.textContent='No scheduled counter day at this pull. See the dated labour roster for duty times.';
+  }else{
+    dutyRibbon.innerHTML=['day','night'].map(k=>{const s=D.shifts&&D.shifts[k];return s?`<span>Standard ${esc(s.name.toLowerCase())} · <strong>${esc(s.who||'Unassigned')}</strong> · ${esc(s.hours)}</span>`:''}).join('');
+  }
   function imported(r){
     return {row:byKey.get(key(r.kind,r.key))||r,round:r.who&&Number.isInteger(r.round)?r.round:null,time:r.sighted||'',who:r.who||'',quantity:r.quantity,shift:readShift(r.shift,r.sighted),shift_date:r.shift_date,shift_source:r.shift_source,source:r.action||'SiteIQ physical count',expected:null,origin:'SiteIQ'};
   }
@@ -3351,7 +3476,7 @@ const workPages={
   sds:{stats:'#sds-totals',rail:'.sds-toolbar'},
   swms:{},
   rhythm:{stats:'#op-stats',jumps:[['View counter checks','#hire-checks-title']]},
-  costs:{stats:'#cs-stats',jumps:[['View shift roster','#cs-roster']]},
+  costs:{stats:'#cs-stats',jumps:[['Check an invoice charge','#cs-check-date'],['View shift roster','#cs-roster']]},
   stocktake:{rail:'#st-duty',moves:['[data-stock-focus="st-cat-title"]','[data-stock-focus="st-inventory-title"]']},
   people:{stats:'#pp-stats',rail:'#pp-seg'},
   upload:{},
