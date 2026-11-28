@@ -77,7 +77,7 @@ def event_key(transaction, item):
     return hashlib.sha256(json.dumps([transaction, item], separators=(',', ':')).encode()).hexdigest()
 
 
-def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_date, parse_time, tool_names, cons_name, prior_path, approved_name, owner_name):
+def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_date, parse_time, tool_names, cons_name, prior_path, approved_name, owner_name, *, return_instruction=None):
     schedule = ref.get('schedule')
     if not schedule or sales_ref.get('schedule') != schedule or transactions and tx_ref.get('schedule') != schedule:
         raise ValueError('QR report exports must all identify the same project schedule.')
@@ -152,6 +152,8 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
                  transactions_asat=source_stamp(tx_ref), period_start=period[0] if period else '',
                  period_end=period[-1] if period else '', hires=[r for k,r in hires.items() if k not in disputed],
                  movements=[r for k,r in moves.items() if k not in conflicts], draws=draws)
+    if return_instruction:
+        facts["return_instruction"] = return_instruction
     prior = json.loads(Path(prior_path).read_text(encoding='utf-8')) if prior_path else None
     reconcile(facts, prior, conflicts)
     apply_asset_labels(facts, asset_owners, transaction_owners, approved_name)

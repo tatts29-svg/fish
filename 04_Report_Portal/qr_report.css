@@ -326,13 +326,19 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
   #lookup #identity{border-color:var(--entry-line);min-height:48px;font-size:1rem}
   #lookup select{appearance:none;padding-right:2.4rem;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23e1e8ec' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:16px;background-position:right .8rem center}
   #lookup .privacy-note{max-width:54ch;border-top:1px solid var(--hair-2);margin-top:1rem;padding-top:.75rem}
-  @media(min-width:821px){.hq-main:has(#lookup:not([hidden])){padding-top:clamp(1rem,4vh,4rem)}
+  @media(min-width:821px){.hq-main.frame:has(>#lookup:not([hidden])){max-width:78rem;padding:clamp(1rem,6vh,7rem) clamp(1.5rem,2.5vw,2.5rem) 2.5rem}
     #lookup{grid-template-columns:minmax(0,1fr) minmax(23rem,.82fr);min-height:clamp(310px,37vh,430px);
       padding:clamp(1.8rem,3.2vw,4.5rem);gap:clamp(2rem,4vw,6rem)}
     #lookup .intro h1{font-size:clamp(2.5rem,3.5vw,3.8rem);max-width:14ch;letter-spacing:-.047em}
     #lookup .intro .lede{margin-top:.8rem}
   }
-  @media(max-width:640px){#lookup .intro .lede{font-size:.96rem;line-height:1.45}
+  @media(min-width:720px) and (max-width:820px){
+    #lookup{grid-template-columns:minmax(0,.9fr) minmax(19rem,1.1fr);gap:1.25rem;padding:1.25rem}
+  }
+  @media(max-width:640px){
+    #lookup{padding:1rem .6rem .6rem;gap:.8rem}
+    #lookup .intro{padding-inline:.4rem}
+    #lookup .intro .lede{font-size:.96rem;line-height:1.45}
     #lookup .form-actions{gap:6px}#lookup .form-actions button{padding-inline:8px;font-size:.9rem}
     #lookup .readout-head{margin-bottom:.7rem}
   }

@@ -265,6 +265,11 @@ def build(job, out):
         cmd += ["--" + flag, str(value)]
     if is_mmg(job):
         cmd.extend(["--qr-report-data", str(Path(out) / "qr-report-data.json")])
+        for flag, filename in (("hire-interval-history", "hire-interval-history.json"),
+                               ("consumable-usage-history", "consumable_usage_history.json")):
+            saved_history = Path(out).parent / filename
+            if saved_history.is_file():
+                cmd.extend(["--" + flag, str(saved_history)])
         previous_qr_data = Path(out).parent / "qr-report-data.json"
         if previous_qr_data.is_file():
             cmd.extend(["--qr-report-prior", str(previous_qr_data)])
@@ -368,6 +373,8 @@ def main(job, data_dir, current=False, *, uploader=None, batch=None):
         ready = [("report.html", os.path.join(out, "report.html")), ("onhire.xlsx", os.path.join(out, "onhire", "onhire.xlsx"))]
         if made:
             ready += [("report.pdf", os.path.join(out, "report.pdf")), ("onhire.pdf", os.path.join(out, "onhire.pdf"))]
+        if is_mmg(job):
+            ready.extend((name, Path(out) / name) for name in ("consumables-usage.pdf", "consumables-usage.xlsx"))
         for name, path in ready:
             if not os.path.isfile(path) or os.path.getsize(path) < 1000:
                 raise Stop("The build did not finish ({} is missing). Nothing was changed.".format(name))

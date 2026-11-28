@@ -13,6 +13,19 @@ import variant_history
 
 
 class DashboardMeasures(unittest.TestCase):
+    def test_final_shifts_follow_rental_pull_through_tuesday_morning(self):
+        schedule = data.shut_costs.MMG_SCHEDULE
+        for stamp, phase in [
+            ("2026-11-30T05:59", "before_final_shifts"), ("2026-11-30T06:00", "final_day_shift"),
+            ("2026-11-30T18:00", "final_night_shift"), ("2026-12-01T05:59", "final_night_shift"),
+            ("2026-12-01T06:00", "after_final_shifts"),
+        ]:
+            with self.subTest(stamp=stamp):
+                policy = data.final_return_instruction(schedule, dt.datetime.fromisoformat(stamp))
+                self.assertEqual(policy["snapshot_stage"], phase)
+                self.assertEqual(policy["night_finish_date"], "2026-12-01")
+        self.assertIsNone(data.final_return_instruction("another shutdown", dt.datetime(2026, 11, 30)))
+
     def test_last_issue_hours_keep_midnight_and_stop_at_dated_pull(self):
         def issue(t, status='On Hire', day='28/11/2026'):
             return dict(ON_HIRE_DATE=day,ON_HIRE_TIME=t,ITEM_STATUS=status)

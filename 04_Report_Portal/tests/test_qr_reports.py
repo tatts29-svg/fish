@@ -50,6 +50,22 @@ class ScopedReports(unittest.TestCase):
             self.assertNotIn(secret,serialized)
         self.assertIsNone(qr.company(self.dir,'A Ltd'))
 
+    def test_crew_return_list_revision_tracks_published_shift_instructions(self):
+        company_id = qr.companies(self.dir)['companies'][0]['id']
+        before = qr.company(self.dir, company_id)
+        self.facts['return_instruction'] = dict(day_shift_date='2026-11-30', night_shift_date='2026-11-30',
+            night_finish_date='2026-12-01', day_store_finish='18:00', night_store_finish='06:00',
+            timezone='AEST', snapshot_stage='before_final_shifts')
+        self.save()
+        revised = qr.company(self.dir, company_id)
+        self.assertEqual(before['return_groups'], revised['return_groups'])
+        self.assertNotEqual(before['return_list_revision'], revised['return_list_revision'])
+        self.facts['return_instruction']['private_note'] = 'Excluded from scoped reports'
+        self.save()
+        same = qr.company(self.dir, company_id)
+        self.assertNotIn('private_note', same['return_instruction'])
+        self.assertEqual(same['return_list_revision'], revised['return_list_revision'])
+
     def test_exact_person_only_and_score_discloses_denominator(self):
         a=qr.personal(self.dir,'00-aA'); raw=json.dumps(a)
         for secret in ('B-CONFIDENTIAL','B-MOVEMENT','B-CONSUMABLE','OTHER-PRIVATE','Other Worker','00-aA','stable-A'):

@@ -76,6 +76,22 @@ class ScopedPdfTests(unittest.TestCase):
         self.assertIn(b"28 Nov 2026 05:39 AEST", pdf)
         self.assertNotIn(b"ITEM-0000", pdf)
 
+    def test_final_shift_deadline_in_worker_crew_and_return_list_documents(self):
+        policy = dict(day_shift_date="2026-11-30", night_shift_date="2026-11-30",
+                      night_finish_date="2026-12-01", day_store_finish="18:00", night_store_finish="06:00",
+                      timezone="AEST", snapshot_stage="before_final_shifts")
+        with patch.object(rl_config, "pageCompression", 0):
+            for kind, list_only in (("company", True), ("company", False), ("person", False)):
+                with self.subTest(kind=kind, list_only=list_only):
+                    r = {**projection(0), "kind": kind, "return_groups": [], "return_instruction": policy,
+                         "consumable_summary": {}, "consumables": [], "activity": [], "history": []}
+                    doc = render_pdf(r, returns_only=list_only)
+                    for text in (b"own final shift ends", b"Monday 30 Nov", b"Tuesday 1 Dec",
+                                 b"18:00", b"06:00", b"rental snapshot shows no outstanding gear"):
+                        self.assertIn(text, doc)
+                    r["return_instruction"] = None
+                    self.assertNotIn(b"Final shift returns", render_pdf(r, returns_only=list_only))
+
     def test_company_return_sheet_scopes_to_groups_and_handles_missing_date(self):
         r = projection(2)
         r['return_groups'] = [dict(holder="First holder", items=[

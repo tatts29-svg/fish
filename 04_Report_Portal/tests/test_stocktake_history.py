@@ -57,6 +57,8 @@ class StocktakeHistory(unittest.TestCase):
             (out / "qr-report-data.json").write_text('{"source": "fixture"}')
             (out / "onhire").mkdir(exist_ok=True)
             (out / "onhire/onhire.xlsx").write_bytes(b"x" * 1200)
+            for name in ("consumables-usage.xlsx", "consumables-usage.pdf"):
+                (out / name).write_bytes(b"x" * 1200)
         with patch.object(rebuild, "sort_incoming", return_value=({"STOCKTAKE": incoming}, {})), \
              patch.object(rebuild, "build", side_effect=build), \
              patch.dict(rebuild.os.environ, REBUILD_SKIP_PDF="1"):

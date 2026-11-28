@@ -163,5 +163,48 @@ class ShiftAnalysisTests(unittest.TestCase):
         self.assertEqual((operator(s, "A")["start"], operator(s, "A")["end"]), (at("09:00:00"), at("11:00:00")))
 
 
+    def test_named_clock_minutes_do_not_merge_stores_or_cross_midnight(self):
+        scans = [dict(scan("A", "23:57:30"), tool_store="Store A", storage_unit="Bin 1"),
+                 dict(scan("B", "23:59:05"), tool_store="Store A", storage_unit="Bin 2"),
+                 dict(scan("C", "23:59:35"), tool_store="Store B"),
+                 dict(scan("D", "00:00:01", day=NEXT), tool_store="Store A"),
+                 dict(scan("E", "00:01:59", day=NEXT), tool_store="Store A"),
+                 scan("F", "00:03", who="", day=NEXT)]
+        st = model([stock(key) for key in "ABCDEF"], scans, at("00:15", NEXT),
+                   [window(at("23:55:00"), at("00:04:00", NEXT)), window(at("00:10:00", NEXT), at("00:15:00", NEXT))])
+        s = stocktake.shift_analysis(st, [plan("A", "Night")])["shifts"][0]
+        t = operator(s, "A")["activity_timeline"]
+        self.assertEqual(t["minutes_with_counts"], 4)
+        self.assertEqual(t["first_to_last_minutes"], 4)
+        self.assertEqual([(w["store"], w["count_events"], w["minutes_with_counts"]) for w in t["windows"]],
+                         [("Store A", 1, 1), ("Store A", 1, 1), ("Store B", 1, 1), ("Store A", 2, 2)])
+        self.assertEqual(t["windows"][0]["areas"], [{"name": "Bin 1", "count_events": 1}])
+        self.assertEqual(t["windows"][0]["sources"], ["SiteIQ"])
+        self.assertEqual(t["windows"][-1]["start"], at("00:00:01", NEXT))
+        self.assertEqual(t["windows"][-1]["end"], at("00:01:59", NEXT))
+        self.assertEqual([(g["start"], g["end"]) for g in t["gaps"]],
+                         [(at("23:55:00"), at("23:57:00")), (at("23:58:00"), at("23:59:00")),
+                          (at("00:02:00", NEXT), at("00:04:00", NEXT)),
+                          (at("00:10:00", NEXT), at("00:15:00", NEXT))])
+        self.assertEqual(s["unattributed_counts"], 1)
+        self.assertEqual(operator(s, "A")["count_events"], 5)
+
+    def test_nonstandard_roster_source_cutoffs_and_date_only(self):
+        roster = [plan("A", "Day", start="05:00", finish="17:00")]
+        events = [scan("a", "05:30", who="A"), dict(scan("b", "05:35"), sighted=DAY),
+                  scan("c", "08:00", who="A")]
+        st = model([stock(k) for k in "abc"], events, at("07:17"))
+        result = stocktake.shift_analysis(st, roster,
+            [manual("c", "09:00", "A", "late"), manual("c", "07:40", "A", "valid")], at("08:30"))
+        self.assertEqual(result["siteiq_asat"], at("07:17:00"))
+        self.assertEqual(result["asat"], at("07:40:00"))
+        self.assertEqual(len(result["shifts"]), 1)
+        person = operator(result["shifts"][0], "A")
+        self.assertEqual(person["count_events"], 2)
+        self.assertEqual(person["activity_timeline"]["minutes_with_counts"], 2)
+        self.assertEqual(person["activity_timeline"]["windows"][-1]["sources"], ["Portal"])
+        self.assertTrue(all(g["end"] <= at("07:17:00") for g in person["activity_timeline"]["gaps"]))
+
+
 if __name__ == "__main__":
     unittest.main()

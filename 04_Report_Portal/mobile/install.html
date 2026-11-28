@@ -10,18 +10,23 @@
 .install-guide section h2::before{display:inline-block;content:"";width:.36rem;height:.36rem;border-radius:50%;margin:0 .48rem .17rem 0;background:#f97840}
 .install-guide p{font-size:1rem;line-height:1.6}
 .install-guide strong{color:#E6EBF2}
+.install-help{color:var(--hq-muted);font-size:.94rem}
+.install-help summary{width:fit-content;min-height:44px;align-content:center;padding:.55rem 0;cursor:pointer;color:var(--hq-ink)}
+.install-help summary:focus-visible{outline:2px solid var(--hq-orange);outline-offset:3px}
+.install-help p{max-width:56ch}
+@media(max-width:540px){.install-guide{gap:.7rem;margin:1.15rem 0 .55rem}.install-guide section{padding:.75rem 1rem}.install-head{gap:.75rem}}
 .install[hidden]{display:none}
 .install{width:auto;height:auto;min-height:2.9rem;padding:.55rem 1.3rem}
 </style>
 <main class="card hq-surface">
 <div class="install-head"><img src="/mobile/mygear-mmg-192.png?v=hq-mmg-1" srcset="/mobile/mygear-mmg-192.png?v=hq-mmg-1 192w, /mobile/mygear-mmg-512.png?v=hq-mmg-1 512w" sizes="4.5rem" width="192" height="192" alt="">
-<div><h1>Add MyGear HQ and MMG to your home screen</h1><p>Open the Dugald River portal from your phone.</p></div></div>
+<div><h1>Add to your home screen</h1><p>MyGear HQ for MMG Dugald River</p></div></div>
 <button type="button" class="install" id="install-app" hidden>Install MyGear HQ · MMG</button>
 <div class="install-guide">
 <section><h2>iPhone or iPad</h2><p>Open this page in Safari. Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>. If asked, enable <strong>Open as Web App</strong>, then tap <strong>Add</strong>.</p></section>
 <section><h2>Android</h2><p>Open this page in Chrome. Tap the <strong>⋮ menu</strong>, then <strong>Add to home screen</strong> or <strong>Install app</strong>. Confirm when prompted.</p></section>
 </div>
-<p>If your phone still shows the old MMG icon, remove the old home-screen shortcut and add this one again.</p>
+<details class="install-help"><summary>Still seeing the old MMG icon?</summary><p>Remove the old home-screen shortcut and follow the steps above to add MyGear HQ again.</p></details>
 <nav class="portal-links" aria-label="Portal"><a href="/">Open the portal</a></nav>
 </main>
 <script>

@@ -37,6 +37,19 @@
       .filter(Boolean).join(" ");
   }
 
+  const photoDialog=document.getElementById("product-photo-dialog");
+  function clearPhoto() {
+    if (!photoDialog || photoDialog.open) return;
+    photoDialog.querySelector(".product-photo-stage").replaceChildren();
+    photoDialog.querySelector("h2").textContent="";
+  }
+  function closePhoto() {
+    if (photoDialog?.open) photoDialog.close();
+    clearPhoto();
+  }
+  photoDialog?.querySelector("button").addEventListener("click",closePhoto);
+  photoDialog?.addEventListener("close",clearPhoto);
+
   function artwork(r, item) {
     if (!r.product_art || !Object.hasOwn(r.product_art, item.item)) return null;
     const url = r.product_art[item.item];
@@ -51,7 +64,22 @@
     img.width = 80; img.height = 80; img.loading = "lazy"; img.decoding = "async";
     img.addEventListener("error", () => figure.remove(), {once:true});
     img.src = prefix + filename;
-    figure.append(img,node("figcaption","","Product reference"));
+    const button=node("button","photo-opener");
+    button.type="button";button.dataset.openProduct="";
+    button.setAttribute("aria-label","Enlarge product photo of "+item.name);
+    button.setAttribute("aria-haspopup","dialog");
+    const magnify=node("span","photo-expand","⤢");magnify.setAttribute("aria-hidden","true");
+    button.append(img,magnify);
+    button.addEventListener("click",()=>{
+      if (!photoDialog) return;
+      const large=node("img");
+      large.src=prefix + filename;large.alt=img.alt;
+      if (img.naturalWidth) {large.width=img.naturalWidth;large.height=img.naturalHeight;}
+      photoDialog.querySelector("h2").textContent=item.name;
+      photoDialog.querySelector(".product-photo-stage").replaceChildren(large);
+      photoDialog.showModal();
+    });
+    figure.append(button,node("figcaption","","Product reference"));
     return figure;
   }
 
@@ -184,5 +212,5 @@
     if (asat) section.append(node("p","note","Rental stock snapshot · " + stamp(asat)));
   }
 
-  window.QRHandover = Object.freeze({receipt, shift, oldest, artwork});
+  window.QRHandover = Object.freeze({receipt, shift, oldest, artwork, closePhoto});
 })();

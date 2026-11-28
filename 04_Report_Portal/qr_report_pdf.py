@@ -284,6 +284,30 @@ def render_pdf(report, *, job_dir=None, returns_only=False):
         flow.extend([banner, Spacer(1, 3)])
     flow.extend([para("Latest SiteIQ rental stock snapshot  ·  " + issue_time, 9, colour=MUTED), Spacer(1, 10)])
 
+    policy = report.get("return_instruction") or {}
+    def shift_label(key):
+        try:
+            value = date.fromisoformat(policy[key])
+        except (ValueError, TypeError, KeyError):
+            return ""
+        return f"{value:%A} {value.day} {value:%b}"
+
+    day, night, finish = (shift_label(key) for key in ("day_shift_date", "night_shift_date", "night_finish_date"))
+    final_shifts = bool(day and night and finish)
+    if final_shifts:
+        rule = ("Each worker must return all hire gear before their own final shift ends." if company_report
+                else "Return all hire gear before your own final shift ends.")
+        dates = (f"Final day and night shifts start {day}." if day == night
+                 else f"The final day shift starts {day}. The final night shift starts {night}.")
+        flow.extend([para("Final shift returns", 10, bold, ORANGE_INK), para(rule, 10, bold),
+                     para(f"{dates} The night shift finishes {finish}.", 9)])
+        if all(policy.get(k) for k in ("day_store_finish", "night_store_finish", "timezone")):
+            flow.append(para(f"Store handovers ({policy['timezone']}): day {policy['day_store_finish']} · "
+                             f"night {policy['night_store_finish']}.", 9, colour=MUTED))
+        if rental_asat and report.get("hire_count") == 0:
+            flow.append(para("The rental snapshot shows no outstanding gear. Check any gear issued since that snapshot.", 9))
+        flow.append(Spacer(1, 4))
+
     def heading(label):
         flow.extend([CondPageBreak(82), para(label, 13, bold, spaceBefore=14, spaceAfter=5)])
 
@@ -312,8 +336,9 @@ def render_pdf(report, *, job_dir=None, returns_only=False):
         total = sum(len(group["items"]) for group in groups)
         if total:
             heading(f"{number(total)} " + ("asset" if total == 1 else "assets") + " still to return")
-            flow.append(para("Return unneeded equipment at shift end. Return all gear before leaving site.",
-                             9, spaceAfter=8))
+            if not final_shifts:
+                flow.append(para("Return unneeded equipment at shift end. Return all gear before leaving site.",
+                                 9, spaceAfter=8))
             for group in groups:
                 holder = group["holder"] or "Individual holder unconfirmed"
                 rows = []
@@ -585,9 +610,12 @@ def render_pdf(report, *, job_dir=None, returns_only=False):
         flow.append(para(message))
     else:
         flow.append(para("Current holdings are unavailable because the rental stock snapshot is undated."))
-    guidance = ("At shift end, ask your crew to return unneeded gear to the tool store. Before anyone leaves site, "
-                "check that all gear on their card has been returned." if company_report else
-                "At shift end, return gear you no longer need to the tool store. Before you leave site, return all gear on your card.")
+    if final_shifts:
+        guidance = ("During earlier shifts, return gear that is no longer needed. " + rule)
+    else:
+        guidance = ("At shift end, ask your crew to return unneeded gear to the tool store. Before anyone leaves site, "
+                    "check that all gear on their card has been returned." if company_report else
+                    "At shift end, return gear you no longer need to the tool store. Before you leave site, return all gear on your card.")
     flow.append(para(guidance, 9.0, spaceBefore=8, spaceAfter=3))
     flow.append(para("For a correction or a fresh copy, give the tool store controller the asset ID and the snapshot time above. "
                      "The tool store updates reports throughout the day and night.", 8.8, colour=MUTED))

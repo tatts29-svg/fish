@@ -124,6 +124,15 @@ def _return_groups(hires, assigned):
     return groups
 
 
+def _return_instruction(data):
+    instruction = data.get('return_instruction')
+    fields = ('day_shift_date', 'night_shift_date', 'night_finish_date', 'day_store_finish',
+              'night_store_finish', 'timezone', 'snapshot_stage')
+    if isinstance(instruction, dict) and all(isinstance(instruction.get(k), str) for k in fields):
+        return {k: instruction[k] for k in fields}
+    return None
+
+
 def company(data_dir, company_id):
     data = _facts(data_dir)
     archives = _archives(data_dir, data)
@@ -137,7 +146,8 @@ def company(data_dir, company_id):
     assigned = _assigned_holders(records['hires'], profiles)
     hires = _hires(records['hires'], assigned)
     return_groups = _return_groups(hires, assigned)
-    revision = hashlib.sha256(json.dumps([name, data['asat'], return_groups], ensure_ascii=False,
+    instruction = _return_instruction(data)
+    revision = hashlib.sha256(json.dumps([name, data['asat'], return_groups, instruction], ensure_ascii=False,
                                          separators=(',', ':')).encode()).hexdigest()
     metrics = _metrics(data, records)
     story = [_story(data, records, metrics, current=True)]
@@ -150,7 +160,7 @@ def company(data_dir, company_id):
             story.append(_story(archive, prior, _metrics(archive, prior), current=False))
     return {'kind': 'company', 'name': name, 'company': name, 'asat': data['asat'], 'hires': hires,
             'hire_count': sum(g['count'] for g in hires), 'coverage': story[0]['coverage'], 'story': story,
-            'return_groups': return_groups, 'return_list_revision': revision,
+            'return_groups': return_groups, 'return_list_revision': revision, 'return_instruction': instruction,
             'return_rating': {k: metrics['returns'][k] for k in ('score', 'eligible', 'same_day')},
             'store_activity': _store_activity(data, records, profiles),
             'handover': _company_handover(data, records, metrics, assigned)}
@@ -654,5 +664,5 @@ def personal(data_dir, exact_barcode):
     store = _store_activity(data, records)
     handover = dict(latest_return=_latest_return(data, metrics), last_activity_date=(store['last_at'] or '')[:10] or None)
     return dict(kind='person', name=who['name'], company=who['company'], asat=data['asat'], hires=hires,
-                hire_count=sum(g['count'] for g in hires), coverage=first['coverage'],
+                hire_count=sum(g['count'] for g in hires), coverage=first['coverage'], return_instruction=_return_instruction(data),
                 history=history, story=[first, *history], handover=handover, store_activity=store, **metrics)

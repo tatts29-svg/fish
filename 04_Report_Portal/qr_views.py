@@ -96,4 +96,7 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <button id="native-share" class="primary" type="button" hidden>Choose an app</button>
 <button id="dialog-save" type="button" disabled>Save PDF</button>
 <a id="email-draft" class="button" hidden>Open email draft</a>
-</div></dialog></body></html>'''
+</div></dialog>
+<dialog id="product-photo-dialog" class="screen-only" aria-labelledby="product-photo-title">
+<div class="dialog-head"><h2 id="product-photo-title"></h2><button type="button" id="close-product-photo" autofocus>Close</button></div>
+<div class="product-photo-stage"></div></dialog></body></html>'''

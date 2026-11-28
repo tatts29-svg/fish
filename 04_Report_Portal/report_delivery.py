@@ -37,17 +37,26 @@ flex-wrap:wrap;line-height:1.45;color:#d1dae5;font-size:inherit}
  .bar:has(.portal-masthead) .what{display:none}
  .bar:has(.portal-masthead) .gs{min-width:0;margin-inline:6px}
 }
+@media screen and (max-width:900px){
+ html:not(.static) .bar:has(.portal-masthead){display:grid;grid-template-columns:max-content minmax(0,1fr) auto auto;
+ gap:.25rem .45rem;height:auto;min-height:0;padding-block:.35rem}
+ .bar:has(.portal-masthead) .portal-masthead{grid-column:1;grid-row:1;justify-self:start}
+ .bar:has(.portal-masthead) .what{display:none}
+ .bar:has(.portal-masthead) .asat{grid-column:2/-1;grid-row:1;margin:0;text-align:right;min-width:0;line-height:1.3}
+ .bar:has(.portal-masthead) .portal-upload{justify-content:flex-end}
+ .bar:has(.portal-masthead) .gs{grid-column:1/3;grid-row:2;order:initial;margin:0;min-width:0}
+ .bar:has(.portal-masthead) .gs input{min-height:44px}
+ .bar:has(.portal-masthead) #full-screen{grid-column:3;grid-row:2}
+ .bar:has(.portal-masthead) #theme{grid-column:4;grid-row:2}
+ .bar:has(.portal-masthead) .theme{width:44px;height:44px}
+ .top:has(.portal-masthead){top:calc(0px - var(--staff-header-intro,0px))}
+}
 @media(max-width:620px){
- .bar:has(.portal-masthead){display:grid;grid-template-columns:minmax(0,1fr) auto auto;
- gap:.2rem .4rem;padding-block:.3rem}
- .bar:has(.portal-masthead) .asat{grid-column:1/-1;grid-row:2;margin:0;text-align:left}
- .bar:has(.portal-masthead) .gs{grid-column:1/-1;grid-row:3}
- .bar:has(.portal-masthead) #full-screen{grid-column:2;grid-row:1}
- .bar:has(.portal-masthead) #theme{grid-column:3;grid-row:1}
  .bar .portal-masthead{flex-direction:column;align-items:flex-start;gap:2px}
  .bar .portal-site{flex-direction:row;align-items:baseline;gap:.45rem;font-size:.66rem}
  .bar .portal-site b{font-size:.61rem}
 }
+@media screen and (max-height:520px) and (orientation:landscape){.top:has(.portal-masthead){top:auto}}
 @media(min-width:2400px){
  .bar .brand-lockup{gap:.65rem}.bar .brand-lockup .logo{font-size:1rem;gap:.45rem}
  .bar .brand-lockup .wm i{font-size:.75rem}.bar .brand-lockup .mk svg{width:1.7rem;height:1.7rem}

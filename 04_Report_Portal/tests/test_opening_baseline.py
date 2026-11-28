@@ -46,6 +46,8 @@ class OpeningBaseline(unittest.TestCase):
         (dest / "qr-report-data.json").write_text('{"source": "fixture"}')
         (dest / "onhire").mkdir(exist_ok=True)
         (dest / "onhire/onhire.xlsx").write_bytes(b"r" * 1500)
+        for name in ("consumables-usage.xlsx", "consumables-usage.pdf"):
+            (dest / name).write_bytes(b"x" * 1200)
 
     def rebuild(self):
         return rebuild.main(str(self.job), str(self.volume), current=True)

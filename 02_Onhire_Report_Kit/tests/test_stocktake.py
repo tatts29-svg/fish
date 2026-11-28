@@ -153,3 +153,17 @@ class StocktakeEvidenceTests(unittest.TestCase):
                 baseline.write_text(json.dumps({'schedule': schedule, 'rows': rows}))
                 with self.assertRaises(ValueError):
                     stocktake.build(self.folder, None, stocktake.NOVEMBER_SCHEDULE, self.rental, self.stock, baseline)
+
+    def test_count_rows_without_a_clock_are_not_assigned_to_a_shift(self):
+        import datetime as dt
+        p = self.snapshot('current.xlsx', '27/11/2026 12:00 PM', [
+            ('Rental', 'Tool-A', '', dt.datetime(2026, 11, 27), 'Stocktake', 'Thomas', 1),
+            ('Consumable', '', 'SKU-1', '27/11/2026', 'Stocktake', '', 2),
+            ('Consumable', '', 'SKU-2', '27/11/2026', 'Sale', '', 1)])
+        w = openpyxl.load_workbook(p)
+        w['STOCKTAKE']['D2'].number_format = 'dd/mm/yyyy'
+        w.save(p)
+        w.close()
+        result = self.build(p)
+        self.assertEqual(result['untimed_counts'], 2)
+        self.assertFalse(result['physical_counts'])

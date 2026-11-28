@@ -1,7 +1,7 @@
 """Reconcile dated SiteIQ sightings with the current MMG asset and SKU registers."""
 import datetime as dt
 import json
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 import openpyxl
@@ -90,10 +90,16 @@ def shift_info(rec, sighted):
 def sightings(path):
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     try:
-        sheet = wb["STOCKTAKE"].values
-        headers = [text(c).upper() for c in next(sheet)]
-        for row in sheet:
-            yield dict(zip(headers, row))
+        sheet = wb["STOCKTAKE"].iter_rows()
+        headers = [text(c.value).upper() for c in next(sheet)]
+        clock = headers.index("LAST_SIGHTED_DATE_TIME") if "LAST_SIGHTED_DATE_TIME" in headers else None
+        for cells in sheet:
+            row = dict(zip(headers, (cell.value for cell in cells)))
+            if clock is not None and clock < len(cells):
+                cell = cells[clock]
+                if isinstance(cell.value, dt.datetime) and openpyxl.styles.numbers.is_datetime(cell.number_format) == "date":
+                    row["LAST_SIGHTED_DATE_TIME"] = cell.value.date()
+            yield row
     finally:
         wb.close()
 
@@ -168,6 +174,7 @@ def build(folder, current_file, schedule, rental, stock, opening_baseline=None):
         periods[1].update(evidence_start="2026-11-25", evidence_end="2026-12-03", includes_routine_counts=True)
     arrival = policy.get("arrival") or periods[0]["start"]
     activity, windows = {}, {}
+    untimed_counts = None
     snapshots = []
     current_path = Path(current_file) if current_file else None
     paths = set((folder / "stocktake_history").glob("*.xlsx"))
@@ -193,11 +200,20 @@ def build(folder, current_file, schedule, rental, stock, opening_baseline=None):
         # A newer pull supersedes earlier versions of the same item/time.
         # Preserve distinct evidence inside one pull, including same-minute recounts.
         snapshot = {}
+        untimed_counts = 0
         for rec in sightings(path):
             kind = {"rental": "tool", "consumable": "cons"}.get(text(rec.get("PRODUCT_CATEGORY")).casefold())
             key = text(rec.get("ITEM_OR_CONSUMABLE") if kind == "tool" else rec.get("SKU_NUMBER"))
             sighted = timestamp(rec.get("LAST_SIGHTED_DATE_TIME"))
-            if not key or not kind or not sighted or sighted[:len(pulled)] > pulled:
+            if not key or not kind:
+                continue
+            if not sighted:
+                evidence = event_type(kind, text(rec.get("LAST_SIGHTED_ACTION")), quantity(rec.get("SIGHTED_QUANTITY")),
+                                      text(rec.get("LAST_SIGHTED_BY")))
+                if evidence in ("physical_count", "unattributed_count"):
+                    untimed_counts += 1
+                continue
+            if sighted[:len(pulled)] > pulled:
                 continue
             identity = kind, key.casefold()
             item = items.get(identity)
@@ -210,7 +226,7 @@ def build(folder, current_file, schedule, rental, stock, opening_baseline=None):
                                if r.get("evidence_start", r["start"]) <= sighted[:10]
                                < r.get("evidence_end", r["end"])), None)
             name = text(rec.get("DESCRIPTION")) or (item["name"] if item else "")
-            key_at_time = snapshot.setdefault((identity, sighted), {})
+            key_at_time = snapshot.setdefault((identity, sighted, text(rec.get("TOOL_STORE")).casefold()), {})
             key_at_time[who.casefold(), action.casefold(), count] = {
                 "kind": kind, "key": item["key"] if item else key, "name": name, "current": item is not None,
                 "category": item["category"] if item else category(kind, name),
@@ -251,7 +267,7 @@ def build(folder, current_file, schedule, rental, stock, opening_baseline=None):
         rounds.append(result)
     if schedule == NOVEMBER_SCHEDULE:
         accepted_opening(rounds[0], opening_baseline, schedule)
-    return {"asat": max(windows, default=""), "schedule": schedule, "windows": [windows[k] for k in sorted(windows)],
+    return {"asat": max(windows, default=""), "untimed_counts": untimed_counts, "schedule": schedule, "windows": [windows[k] for k in sorted(windows)],
             "arrival": arrival, "departure": policy.get("departure"), "rows": list(items.values()),
             "rounds": rounds, "categories": category_totals(items, overall), "unmatched": len(unmatched),
             "physical_counts": physical, "sightings": events}
@@ -311,7 +327,7 @@ def _frequency(events, field):
     return [{'name': k, 'count_events': n} for k, n in sorted(tallies.items(), key=lambda p: (-p[1], p[0]))]
 
 
-def _review_evidence(st, manual, register, begin, finish):
+def _review_evidence(st, manual, register, begin, finish, plans, ledger_asat):
     periods = st.get('rounds', [])
     close = periods[1] if len(periods) > 1 else None
     carry = bool(periods and (periods[0].get('carry_forward') or {}).get('status') == 'accepted')
@@ -322,7 +338,11 @@ def _review_evidence(st, manual, register, begin, finish):
         sources = st.get('physical_counts', [])
     # A portal entry is identified by its request ID. There is no shared event
     # ID across SiteIQ and the ledger, so do not silently merge real recounts.
+    site_asat = _local(st.get('asat'))
+    if site_asat and len(text(st.get('asat'))) == 16:
+        site_asat = site_asat.replace(second=59, microsecond=999999)
     for is_manual, entries in ((False, sources), (True, manual or ())):
+        cutoff = _local(ledger_asat) if is_manual else site_asat
         for r in entries:
             if is_manual:
                 if r.get('schedule') and r['schedule'] != st.get('schedule'):
@@ -334,8 +354,9 @@ def _review_evidence(st, manual, register, begin, finish):
                     unique_requests.add(request)
             raw_id = text(r.get('item_id') if is_manual else r.get('key'))
             kind = r.get('kind')
-            when = _local(r.get('counted_at') if is_manual else r.get('sighted'))
-            if kind not in ('tool', 'cons') or not raw_id or not when or not begin <= when < finish:
+            raw_time = text(r.get('counted_at') if is_manual else r.get('sighted'))
+            when = _local(raw_time) if ':' in raw_time else None
+            if kind not in ('tool', 'cons') or not raw_id or not when or not begin <= when < finish or (cutoff and when > cutoff):
                 continue
             who = _counter_name(st.get('schedule'), r.get('person') if is_manual else r.get('who'))
             action = 'Physical count' if is_manual else text(r.get('action'))
@@ -345,6 +366,13 @@ def _review_evidence(st, manual, register, begin, finish):
             if not is_manual and not action and r.get('evidence') in ('physical_count', 'unattributed_count'):
                 evidence = event_type(kind, 'Physical count', quantity(r.get('quantity')), who)
             shift = shift_info({'SHIFT': r.get('shift')}, _iso(when))
+            shift_key = (shift['shift_date'], shift['shift'])
+            if is_manual or not r.get('shift') or r.get('shift_source') == 'Time of sighting':
+                # A named operator may have a dated shift with nonstandard handover hours.
+                matches = [key for key, entries in plans.items() if any(
+                    name.casefold() == who.casefold() and start <= when < end for start, end, name in entries)]
+                if len(matches) == 1:
+                    shift_key = matches[0]
             key = kind, raw_id.casefold()
             row = register.get(key, {})
             period = r.get('round')
@@ -356,7 +384,9 @@ def _review_evidence(st, manual, register, begin, finish):
                                 evidence=evidence, close=close_eligible and evidence == 'physical_count',
                                 category=_dimension(row or r, 'category'),
                                 area=_dimension({'storage_unit':r.get('storage_unit') or row.get('storage_unit')}, 'storage_unit'),
-                                shift=(shift['shift_date'], shift['shift']), source='Portal' if is_manual else 'SiteIQ'))
+                                observed_area=_dimension(r, 'storage_unit'),
+                                store=text(r.get('tool_store')) or 'Store not recorded',
+                                shift=shift_key, source='Portal' if is_manual else 'SiteIQ'))
     return sorted(records, key=lambda r: r['time'])
 
 
@@ -405,6 +435,52 @@ def _rostered_shifts(roster, schedule):
             end += dt.timedelta(days=1)
         shifts.setdefault((day, shift), set()).add((start, end, name))
     return shifts
+
+
+def _timed_count_windows(counts):
+    """Group adjacent recorded clock minutes by store and local date."""
+    by_store = defaultdict(lambda: defaultdict(list))
+    observed = set()
+    for event in counts:
+        moment = event['time'].replace(second=0, microsecond=0)
+        observed.add(moment)
+        by_store[(event['store'], moment.date())][moment].append(event)
+    windows = []
+    for (store, _), minutes in by_store.items():
+        consecutive = []
+        previous = None
+        for moment, records in sorted(minutes.items()):
+            if previous is None or moment != previous + dt.timedelta(minutes=1):
+                consecutive.append([])
+            consecutive[-1].extend(records)
+            previous = moment
+        for records in consecutive:
+            windows.append(dict(start=_iso(records[0]['time']), end=_iso(records[-1]['time']), store=store,
+                                minutes_with_counts=1+_minutes(records[0]['time'].replace(second=0, microsecond=0),
+                                                              records[-1]['time'].replace(second=0, microsecond=0)),
+                                categories=_frequency(records, 'category'), areas=_frequency(records, 'observed_area'),
+                                sources=sorted({r['source'] for r in records}), **_counts(records)))
+    return observed, sorted(windows, key=lambda w: (w['start'], w['end'], w['store']))
+
+
+def _activity_timeline(counts, covered, review):
+    observed, windows = _timed_count_windows(counts)
+    occupied = _segments((moment, moment+dt.timedelta(minutes=1)) for moment in observed)
+    gaps = []
+    for begin, finish in covered:
+        for start, end in _within(review, begin, finish):
+            cursor = start
+            for left, right in [*_within(occupied, start, end), (end, end)]:
+                while cursor < left:
+                    midnight = dt.datetime.combine(cursor.date()+dt.timedelta(days=1), dt.time())
+                    through = min(left, midnight)
+                    minutes = _minutes(cursor, through)
+                    if minutes:
+                        gaps.append(dict(start=_iso(cursor), end=_iso(through), minutes=minutes))
+                    cursor = through
+                cursor = right
+    return dict(windows=windows, gaps=gaps, minutes_with_counts=len(observed),
+                first_to_last_minutes=_minutes(counts[0]['time'], counts[-1]['time']) if counts else None)
 
 
 def _time_series(records, planned, windows, unknown_windows, begin, limit, default_start, *, person=False):
@@ -465,7 +541,7 @@ def _time_series(records, planned, windows, unknown_windows, begin, limit, defau
                 if minutes >= 60:
                     gaps.append(dict(start=_iso(left), end=_iso(right), minutes=minutes,
                                      other_sightings=sum(left < r['time'] < right for r in other)))
-    return dict(start=_iso(start), end=_iso(end), elapsed_end=_iso(cutoff) if cutoff >= first else '',
+    result = dict(start=_iso(start), end=_iso(end), elapsed_end=_iso(cutoff) if cutoff >= first else '',
                 upcoming=limit < start, interval_basis='roster' if planned else ('observed' if person else 'standard_shift'),
                 ongoing=start <= limit < end, coverage=coverage, window_minutes=int(covered.total_seconds() // 60),
                 elapsed_minutes=int(elapsed.total_seconds() // 60), hours=hours, gaps=gaps,
@@ -475,6 +551,9 @@ def _time_series(records, planned, windows, unknown_windows, begin, limit, defau
                 unconfirmed_counts=sum(r['evidence'] == 'quantity_unconfirmed' for r in records),
                 first=_iso(counts[0]['time']) if counts else '', last=_iso(counts[-1]['time']) if counts else '',
                 **_counts(counts))
+    if person:
+        result['activity_timeline'] = _activity_timeline(counts, overlaps, review)
+    return result
 
 
 def _review_shift(key, planned, records, windows, unknown_windows, begin, limit):
@@ -513,8 +592,10 @@ def shift_analysis(st, roster=None, recorded_entries=None, ledger_asat=None):
     departure = _local(st.get('departure'))
     finish = departure + dt.timedelta(days=1) if departure else dt.datetime.max
     register = {(r['kind'],str(r['key']).casefold()): r for r in st.get('rows',[]) if r.get('key')}
+    plans = _rostered_shifts(roster, st.get("schedule"))
+    ledger_asat = ledger_asat or st.get('ledger_asat')
     events = _review_evidence(st, recorded_entries if recorded_entries is not None else st.get('recorded_entries'),
-                              register,begin,finish)
+                              register, begin, finish, plans, ledger_asat)
     site_asat = _local(st.get('asat'))
     limit = min(max([d for d in [site_asat, *(r['time'] for r in events)] if d],default=begin), finish)
     windows = []
@@ -527,7 +608,6 @@ def shift_analysis(st, roster=None, recorded_entries=None, ledger_asat=None):
             unknown = True
     windows = _segments(windows)
     counts = [r for r in events if r['evidence']=='physical_count']
-    plans = _rostered_shifts(roster, st.get("schedule"))
     by_shift = {}
     for event in events:
         by_shift.setdefault(event['shift'],[]).append(event)
@@ -566,6 +646,7 @@ def shift_analysis(st, roster=None, recorded_entries=None, ledger_asat=None):
                   unlocated={label:sum(r['kind']==kind and not text(r.get('storage_unit')) for r in register.values())
                              for kind,label in [('tool','tools'),('cons','cons')]})
     return dict(asat=_iso(limit) if limit!=dt.datetime.min else '', siteiq_asat=_iso(site_asat),
+                untimed_counts=st.get('untimed_counts'),
                 ledger_asat=text(ledger_asat or st.get('ledger_asat')), shifts=shifts, follow_up=follow,
                 first_count=_iso(counts[0]['time']) if counts else '', last_count=_iso(counts[-1]['time']) if counts else '',
                 unattributed_counts=sum(r['evidence']=='unattributed_count' for r in events),

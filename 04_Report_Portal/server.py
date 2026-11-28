@@ -56,12 +56,16 @@ from report_delivery import ReportCache, accepts_gzip
 from mobile_brand import MOBILE_HEAD, MOBILE_FILES, public_asset
 from upload_policy import uploaders, check_workbook, is_mmg, is_mmg_pack
 from rebuild import Stop, import_history, archive_stocktake, mmg_daily_kind, MMG_DAILY_KINDS, KINDS
+import shutdown_history
+import shutdown_closeout
+from shutdown_admin import MANAGER_PANEL
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 DATA_DIR = os.environ.get("DATA_DIR", "/data")
 MAX_UPLOAD = 25 * 1024 * 1024
 FILES = {"report.html": "text/html; charset=utf-8", "report.pdf": "application/pdf", "onhire.pdf": "application/pdf",
          "onhire.xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}
+MMG_EXPORTS = {"consumables-usage.pdf": FILES["onhire.pdf"], "consumables-usage.xlsx": FILES["onhire.xlsx"]}
 MAGIC = {".html": b"<!doctype html", ".pdf": b"%PDF", ".xlsx": b"PK"}
 MAX_PACK = 120 * 1024 * 1024
 JOB_DIR = os.path.join(DATA_DIR, "job")
@@ -70,6 +74,14 @@ _build_lock = threading.Lock()
 _web_report = ReportCache()
 FAIL_LIMIT, FAIL_WINDOW = 10, 600
 _fails, _lock = {}, threading.Lock()
+
+
+def _manager_same_origin(headers):
+    scheme = headers.get("X-Forwarded-Proto", "http").split(",")[0].strip().lower()
+    expected = scheme + "://" + headers.get("Host", "").lower()
+    return (headers.get("X-Portal") == "1" and scheme in ("http", "https")
+            and headers.get("Origin", "").lower() == expected
+            and headers.get("Sec-Fetch-Site", "same-origin") == "same-origin")
 
 EMPTY = """<main class="card"><h1>The report is being prepared</h1>
 <p>The first SiteIQ upload will appear here when the report is ready.</p>
@@ -188,6 +200,18 @@ body{background:radial-gradient(ellipse at 12% 18%,#d3815020,transparent 38rem),
 .wrap>.card .drop{background:var(--access-field);border-color:#677983}
 .wrap>.card .drop:is(:focus-visible,.over){background:linear-gradient(145deg,#38271f,#231d1b);border-color:var(--hq-orange)}
 .card #list>li{border-bottom-color:var(--hq-rule)}.card #list .got small{color:#ffd2b6}
+.card .file-column{container-type:inline-size}
+@container (min-width:15rem){
+ .card #list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 .8rem;margin-top:.75rem}
+ .card #list>li{display:grid;grid-template-columns:1.1rem minmax(0,1fr);gap:.25rem .5rem;padding:.62rem 0}
+ .card #list>li i{width:1.1rem;height:1.1rem;font-size:.7rem}
+ .card #list small:empty{display:none}
+ .card #list .got{grid-column:1/-1}
+ .card #list .got small{grid-column:2;max-width:100%;margin:0;text-align:left}
+}
+@media(min-width:760px) and (max-width:899px){
+ .card .upload-columns{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:1.5rem}
+}
 .card #up-last{padding:.85rem 1rem;background:#17251f;border:1px solid #40564c;border-inline-start:3px solid var(--hq-confirmed);border-radius:.55rem}
 .card .st.follow-up{border-inline-start:3px solid #f2c16d;background:#32291d;color:#f9dfac}
 .card .st.run{border-inline-start:3px solid var(--hq-active);background:#2a211d}
@@ -226,6 +250,15 @@ button:focus-visible,.portal-links a:focus-visible,.note a:focus-visible,.drop:f
  .wrap>form.card{grid-template-columns:minmax(0,1fr);max-width:34rem;min-height:0;gap:1.5rem}
  .portal-heading .portal-site{display:grid;gap:.1rem;text-align:right}
  .portal-heading .portal-site span{border:0;padding:0}
+}
+@media(max-width:540px){
+ .wrap>.card{margin-block:clamp(.9rem,2.6svh,1.5rem)}
+ .wrap>form.card{gap:1rem}
+ .intro h1{margin:.45rem 0 .6rem}
+ .card .upload-columns{margin-top:1.1rem}
+ .card .drop{display:grid;grid-template-columns:1.65rem minmax(0,1fr);gap:.25rem .75rem;align-items:center;text-align:left;padding:1rem}
+ .card .drop svg{grid-row:span 2;width:1.65rem;height:1.65rem;margin:0}
+ .card .drop span{margin:0;line-height:1.4}
 }
 @media(prefers-reduced-motion:reduce){button,input{transition:none}}
 """
@@ -340,6 +373,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 <section id="up-last" aria-labelledby="last-title" hidden><h2 id="last-title">Last successful upload</h2>
 <strong id="last-who"></strong><time id="last-when"></time><ul id="last-files"></ul></section>
 </div></div>
+__MANAGER_PANEL__
 <nav class="portal-links" aria-label="Portal"><a href="/">Open the report</a><span id="staff-qr" hidden><a href="/upload/qr-reports">QR reports and posters</a></span><span id="staff-sds" hidden><a href="/upload/sds-label-check.zip">Supplier SDS pack for label checks</a></span>__INSTALL_LINK__<a href="/logout">Sign out</a></nav>
 </div>
 <script>
@@ -439,7 +473,8 @@ def _shell(inner):
 
 
 def _upload_page(role):
-    return _shell(UPLOAD)
+    panel = MANAGER_PANEL if role == "manager" and is_mmg(JOB_DIR) else ""
+    return _shell(UPLOAD.replace("__MANAGER_PANEL__", panel))
 
 
 def _status(role=None):
@@ -702,6 +737,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/consumables-closeout" and is_mmg(JOB_DIR):
+            return self._consumables_closeout()
         if path.startswith(("/qr/", "/upload/report-qr/")) and is_mmg(JOB_DIR):
             return qr_access.serve(self, DATA_DIR, JOB_DIR)
         if path == "/upload/qr-reports" and is_mmg(JOB_DIR):
@@ -763,7 +800,10 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/" or path.startswith("/report-media/"):
             return self._report_page(path)
         name = path[1:]
-        if name not in FILES or name == "report.html":
+        mime = FILES.get(name)
+        if name in MMG_EXPORTS and is_mmg(JOB_DIR):
+            mime = MMG_EXPORTS[name]
+        if not mime or name == "report.html":
             return self._send(404, b"Not found", "text/plain")
         if not self._role(page=True):
             return
@@ -772,11 +812,13 @@ class Handler(BaseHTTPRequestHandler):
                 body = f.read()
         except FileNotFoundError:
             return self._send(404, b"That file is not loaded yet.", "text/plain")
-        self._send(200, body, FILES[name])
+        self._send(200, body, mime)
 
     do_HEAD = do_GET
 
     def do_POST(self):
+        if self.path.split("?", 1)[0] == "/upload/consumables-closeout" and is_mmg(JOB_DIR):
+            return self._consumables_closeout(write=True)
         if self.path.startswith("/qr/") and is_mmg(JOB_DIR):
             return qr_access.serve(self, DATA_DIR, JOB_DIR)
         if self.path == "/upload/qr-work-review" and is_mmg(JOB_DIR):
@@ -1211,8 +1253,76 @@ class Handler(BaseHTTPRequestHandler):
             _build_lock.release()
         return self._send(200, ("Recorded {} history for {}.".format(kind, stamp)).encode(), "text/plain")
 
+    def _consumables_closeout(self, write=False):
+        role = self._role(cookie=True)
+        if not role:
+            return
+
+        def reply(code, data):
+            return self._send(code, json.dumps(data).encode(), "application/json")
+
+        if role != "manager":
+            return reply(403, {"error": "The shutdown manager login is needed for consumables closeout."})
+        if not write:
+            return reply(200, shutdown_closeout.status(DATA_DIR))
+        # Browser POSTs send Origin. Basic-auth clients may use the same endpoint
+        # by providing the matching origin and the portal's explicit request header.
+        if not _manager_same_origin(self.headers):
+            return reply(403, {"error": "Use the manager portal on this site to confirm the final sales pull."})
+        if self.headers.get_content_type() != "application/json":
+            return reply(415, {"error": "Send the closeout confirmation as JSON."})
+        body = self._body(2048)
+        if body is None:
+            return
+        try:
+            payload = json.loads(body)
+        except (ValueError, UnicodeDecodeError):
+            return reply(400, {"error": "The closeout confirmation must be valid JSON."})
+        if not _build_lock.acquire(blocking=False):
+            return reply(409, {"error": "Another update is running. Refresh and try again shortly."})
+        try:
+            result = shutdown_closeout.confirm(DATA_DIR, payload)
+        except shutdown_closeout.CloseoutError as exc:
+            return reply(exc.status, {"error": str(exc)})
+        except OSError:
+            return reply(503, {"error": "The closeout could not be saved. Refresh and try again."})
+        finally:
+            _build_lock.release()
+        return reply(200, result)
+
+    def _put_shutdown_history(self):
+        role = self._role(cookie=True)
+        if not role:
+            return
+        def reply(code, value):
+            return self._send(code, json.dumps(value).encode(), "application/json")
+        if role != "manager" or not _manager_same_origin(self.headers):
+            return reply(403, {"error": "The manager login is required to import a previous shutdown."})
+        body = self._body(MAX_UPLOAD)
+        if body is None:
+            return
+        if not _build_lock.acquire(blocking=False):
+            return reply(409, {"error": "Another update is running. Try again shortly."})
+        try:
+            query = urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query, keep_blank_values=True)
+            with tempfile.TemporaryDirectory(dir=DATA_DIR) as folder:
+                path = os.path.join(folder, "historical.xlsx")
+                with open(path, "wb") as workbook:
+                    workbook.write(body)
+                try:
+                    result = shutdown_history.import_workbook(JOB_DIR, DATA_DIR, path, query)
+                except ValueError as exc:
+                    return reply(400, {"error": str(exc)})
+                except (zipfile.BadZipFile, KeyError, StopIteration, IndexError, TypeError, SyntaxError, OverflowError):
+                    return reply(400, {"error": "Choose a valid dated SiteIQ sales or transaction workbook."})
+            return reply(200, result)
+        finally:
+            _build_lock.release()
+
     def do_PUT(self):
         path = self.path.split("?", 1)[0]
+        if path == "/upload/shutdown-history" and is_mmg(JOB_DIR):
+            return self._put_shutdown_history()
         if path == "/upload/qr-roster-corrections" and is_mmg(JOB_DIR):
             return self._correct_worker_barcodes()
         if path in ("/upload/qr-roster.xlsx", "/upload/qr-roster-add.xlsx") and is_mmg(JOB_DIR):

@@ -26,6 +26,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import catalogue  # noqa: E402
+import consumable_usage  # noqa: E402
 import shut_costs  # noqa: E402
 import qr_facts
 import stocktake  # noqa: E402
@@ -61,6 +62,33 @@ def _ref_time(kit, path):
         if k == "PROJECT SCHEDULE":
             out["schedule"] = str(v).strip()
     return out
+
+
+MMG_FINAL_SHIFT_END = dt.datetime(2026, 12, 1, 6)
+
+
+def final_return_instruction(schedule, asat):
+    """The site manager's final worker shifts, compared with the rental pull in local time."""
+    if schedule != shut_costs.MMG_SCHEDULE:
+        return None
+    night_finish = MMG_FINAL_SHIFT_END
+    shift_day = night_finish.date() - dt.timedelta(days=1)
+    day_start = dt.datetime.combine(shift_day, dt.time(6))
+    day_finish = dt.datetime.combine(shift_day, dt.time(18))
+    if asat < day_start:
+        stage = "before_final_shifts"
+    elif asat < day_finish:
+        stage = "final_day_shift"
+    elif asat < night_finish:
+        stage = "final_night_shift"
+    else:
+        stage = "after_final_shifts"
+    return {
+        "day_shift_date": shift_day.isoformat(), "night_shift_date": shift_day.isoformat(),
+        "night_finish_date": night_finish.date().isoformat(),
+        "day_store_finish": day_finish.strftime("%H:%M"), "night_store_finish": night_finish.strftime("%H:%M"),
+        "timezone": "AEST", "snapshot_stage": stage,
+    }
 
 
 def _date(v):
@@ -394,7 +422,7 @@ def _replenishment(stock, targets):
     return below, to_max, minimum_lines, maximum_lines
 
 
-def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None, approved_names=None):
+def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None, approved_names=None, usage_history=None, interval_history=()):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
     kit._NAMES["owners"] = kit.read_aliases(folder, "OWNER_ALIASES.txt")
@@ -613,6 +641,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "job": {"title": "MMG Dugald River", "sub": "Shutdown Tool Store · November 2026 shut",
                 "schedule": ref.get("schedule", ""), "day": day_no, "days": counter_days,
                 "window": "Counter open Wed 25 Nov to Tue 01 Dec 2026"},
+        "return_instruction": final_return_instruction(ref.get("schedule"), asat),
         "sales_asat": sales_ref["requested"].isoformat() if sales_ref.get("requested") else "",
         "asat": asat.strftime("%d %b %Y %H:%M").lstrip("0"),
         "asat_day": asat.strftime("%A"),
@@ -652,7 +681,10 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                       "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
-        "utilisation": utilisation.build(raw_rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name),
+        "utilisation": utilisation.build(raw_rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name,
+                                         history=sh, interval_history=interval_history,
+                                         shutdown_start=dt.datetime.combine(counter_start, dt.time(5))
+                                         if ref.get("schedule") == shut_costs.MMG_SCHEDULE else None),
         "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock, opening_baseline),
         "people": people_rows, "ptyp": ptyp,
         "ops": _ops(kit, ops),
@@ -671,13 +703,17 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "ref": ({k: v for k, v in json.load(open(reference)).items() if k in ("label", "source", "days", "tool_issued", "cons_units")}
                 if reference and os.path.isfile(reference) else None),
     }
+    if ref.get("schedule") == shut_costs.MMG_SCHEDULE and s.customer.strip().casefold() == "mmg" and "dugald river" in s.location.casefold():
+        data["consumable_usage"] = consumable_usage.build(sales, sales_ref, shut_costs.MMG_SCHEDULE, counter_start,
+                                                         minmax, usage_history, MMG_FINAL_SHIFT_END)
     if qr_report_data:
         if s.customer.strip().casefold() != "mmg" or "dugald river" not in s.location.casefold():
             raise ValueError("QR reports require the MMG Dugald River job configuration.")
         qr_facts.write(qr_report_data, kit, raw_rental, sales, p_trans, ref, sales_ref, tref, _date, _time,
                        dname, lambda name: _cons_name(kit, name), qr_report_prior,
                        lambda name, owner: _approved_asset_name(name, owner, approved_names),
-                       lambda owner: _asset_owner(kit, owner))
+                       lambda owner: _asset_owner(kit, owner),
+                       return_instruction=data["return_instruction"])
     return data
 
 
@@ -1011,12 +1047,14 @@ def main(argv=None):
     ap.add_argument("--day-keeper", default="")
     ap.add_argument("--night-keeper", default="")
     ap.add_argument("--minmax")
+    ap.add_argument("--consumable-usage-history", help="verified MMG aggregate consumable issues by completed shutdown and SKU")
     ap.add_argument("--cons-pictures", help="folder of consumable pictures with an index.csv (Code, File, Use on the page), kept outside git")
     ap.add_argument("--materials", help="the client's material list (xlsx: bin, material code, description), kept outside git")
     ap.add_argument("--tool-names", help="checked list of plain tool names (CSV, kept outside git), from draft_tool_names.py")
     ap.add_argument("--costs", help="typed roster and charges for the shut (kept outside git); adds the Labour and costs tab")
     ap.add_argument("--history")
     ap.add_argument("--sds-register", help="job-specific reviewed stock-to-SDS mapping (JSON, with local copies in adjacent pdfs/)")
+    ap.add_argument("--hire-interval-history", help="validated aggregate periods from historical rental transactions")
     ap.add_argument("--variant-history", help="dated rental fleet and on-hire totals by variant")
     ap.add_argument("--logo", help="client logo PNG with a transparent background")
     ap.add_argument("--qr-report-prior", help="previous private QR report snapshot for this job")
@@ -1026,7 +1064,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     kit = _kit()
     approved_names = _read_tool_names(a.tool_names) if a.tool_names else None
-    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline, a.qr_report_data, a.qr_report_prior, approved_names)
+    data = build_data(kit, a.kit_folder, a.reference, a.minmax, a.history, a.shuts, a.ops, (a.day_keeper, a.night_keeper), a.pictures, a.people, a.stocktake_opening_baseline, a.qr_report_data, a.qr_report_prior, approved_names, a.consumable_usage_history,
+                      utilisation.load_interval_history(a.hire_interval_history) if a.hire_interval_history else ())
     data["variant_history"] = []
     if a.variant_history:
         with open(a.variant_history, encoding="utf-8") as f:
@@ -1111,6 +1150,9 @@ def main(argv=None):
         data["costs"] = shut_costs.load(a.costs, pull_day, data["job"]["schedule"])
     if a.onhire_out:
         write_onhire(data, a.onhire_out)
+    if data.get("consumable_usage") is not None:
+        from consumable_usage_export import write_exports
+        write_exports(data["consumable_usage"], os.path.dirname(os.path.abspath(a.out_html)), logo=a.logo)
     html = render(data, _fonts(a.kit_folder), _logo(a.logo))
     with open(a.out_html, "w", encoding="utf-8") as f:
         f.write(html)

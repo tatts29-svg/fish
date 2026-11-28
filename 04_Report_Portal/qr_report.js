@@ -285,6 +285,37 @@
     const stamp = r.asat || r.coverage?.rental_asat;
     return stamp ? "Rental stock snapshot · " + when(stamp) + " AEST" : "Rental stock snapshot time unavailable";
   }
+  function finalReturnMessage(r) {
+    const policy=r?.return_instruction;
+    if (!policy) return [];
+    const day=value=>{
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return "";
+      const date=new Date(value+"T12:00:00Z");
+      return Number.isNaN(date.getTime()) ? "" : date.toLocaleDateString("en-AU",
+        {weekday:"long",month:"short",day:"numeric",timeZone:"UTC"}).replace(",","");
+    };
+    const start=day(policy.day_shift_date),night=day(policy.night_shift_date),finish=day(policy.night_finish_date);
+    if (!start || !night || !finish) return [];
+    const clear=r.hire_count===0 && !!(r.asat || r.coverage?.rental_asat);
+    const timing=start===night ? "Final day and night shifts start "+start+"."
+      : "The final day shift starts "+start+". The final night shift starts "+night+".";
+    const lines=[personal ? "Return all hire gear before your own final shift ends."
+      : "Each worker must return all hire gear before their own final shift ends.",
+      timing+" The night shift finishes "+finish+"."];
+    if (policy.day_store_finish && policy.night_store_finish && policy.timezone)
+      lines.push("Store handovers ("+policy.timezone+"): day "+policy.day_store_finish+" · night "+policy.night_store_finish+".");
+    if (clear) lines.push("The rental snapshot shows no outstanding gear. Check any gear issued since that snapshot.");
+    return lines;
+  }
+  function finalReturnNotice(panel,r) {
+    const lines=finalReturnMessage(r);
+    if (!lines.length) return;
+    const note=el("aside","final-return-note");
+    note.setAttribute("aria-label","Final shift returns");
+    note.append(el("strong","","Final shift returns"),el("p","final-return-rule",lines[0]));
+    for (const line of lines.slice(1)) note.append(el("p","",line));
+    panel.append(note);
+  }
   function issueKey(asset) {
     return asset.date ? "0 " + asset.date + " " + (asset.time || "24:00") : "1";
   }
@@ -324,7 +355,12 @@
       if (!asset.date) row.cells[byHolder ? 2 : 1].classList.add("issue-undated");
       if (byHolder && !sharedPhoto && media[index]) {
         const ref=window.QRHandover.artwork(r,asset);
-        if (ref) {ref.classList.add("holder-item-photo");row.cells[0].append(ref);}
+        if (ref) {
+          ref.classList.add("holder-item-photo");
+          const equipment=el("div","equipment-with-photo");
+          equipment.append(ref,el("span","",row.cells[0].textContent));
+          row.cells[0].replaceChildren(equipment);
+        }
       }
       Array.from(row.cells).forEach((td,i)=>td.dataset.label=headings[i]);
       const cell=row.lastElementChild;
@@ -421,6 +457,7 @@
   function personalHires(parent,r) {
     const panel=section(parent,"Still to return",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;panel.classList.add("personal-hires");
+    finalReturnNotice(panel,r);
     if (!r.hires.length) {
       showFirstHolding();
       const stamp = r.asat || r.coverage?.rental_asat;
@@ -444,6 +481,7 @@
   function hires(parent,r) {
     const panel=section(parent,"End-of-shift return list",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;
+    finalReturnNotice(panel,r);
     const controls=el("div","return-list-actions screen-only");
     for (const [id,title,action] of [
       ["print-returns","Print list",()=>{document.body.classList.add("print-returns");window.print();}],
@@ -513,7 +551,12 @@
     }
     panel.id="handover";
     const list=el("ul","handover-actions");
-    const instructions=personal ? [
+    const instructions=r.return_instruction ? [
+      ["During earlier shifts",personal ? "Return gear you no longer need to the tool store." :
+        "Ask the crew to return gear they no longer need."],
+      ["On the final shift",personal ? "Return every hire item before your own shift ends." :
+        "Check each worker’s gear is back before their own shift ends."]
+    ] : personal ? [
       ["At shift end","Return any gear you no longer need to the tool store."],
       ["Before you leave site","Return all gear on your card."]
     ] : [
@@ -613,6 +656,7 @@
   function consumablesPanel(parent, r) {
     const c = r.consumable_summary;
     const panel = section(parent,"Your consumable use","Quantities issued to your card in the sales records.");
+    panel.id="personal-consumables";
     if (!r.coverage?.sales_asat) {panel.append(el("p","empty","A dated sales export is unavailable."));return;}
     panel.append(factList([["Units issued",fmt(c.units)],["Units returned",fmt(c.returned_units)],["Dates with a recorded draw",fmt(c.active_days)],["Units per recorded draw date",fmt(c.units_per_draw_day)]]));
     if (finite(c.previous_units_per_draw_day) && finite(c.recent_units_per_draw_day)) {
@@ -851,6 +895,7 @@
   function historyPanel(parent,r) {
     if (!r.rental_history?.length) return;
     const panel=section(parent,"Individual hire records","Issue and return times recorded against the assets on your card.",true);
+    panel.id="personal-history";
     if(r.coverage?.transactions_asat) panel.append(el("p","note","Tool transaction export · "+when(r.coverage.transactions_asat)+" AEST. Check the current gear list for the rental stock position."));
     const d=group("View individual hires",r.rental_history.length);
     table(d,["Tool / asset","Issued (AEST)","Returned (AEST)"],r.rental_history.map(t=>[
@@ -901,6 +946,7 @@
   }
   function clearIdentity() {
     window.QRItemQuery?.reset();
+    window.QRHandover?.closePhoto?.();
     $("report-heading").textContent="";
     $("name-rating").replaceChildren();
     $("return-preview").replaceChildren();
@@ -1077,6 +1123,7 @@
   });
   window.addEventListener("beforeprint",() => {
     syncDeadline();
+    window.QRHandover?.closePhoto?.();
     if (!snapshot || printing) return;
     if (idleDialog.open) idleDialog.close();
     printing = true;
@@ -1148,7 +1195,9 @@
       $("native-share").textContent=email ? "Choose email app" : "Share PDF";
       $("dialog-save").disabled=false;
       $("email-draft").hidden=!email;
-      $("email-draft").href="mailto:?subject="+encodeURIComponent(fileInfo(documentType).title);
+      const message=finalReturnMessage(snapshot);
+      $("email-draft").href="mailto:?subject="+encodeURIComponent(fileInfo(documentType).title)+
+        (message.length ? "&body="+encodeURIComponent([rentalSnapshot(snapshot),...message].join("\n\n")) : "");
       $("send-status").textContent=email
         ? (native ? "Choose your email app to attach the PDF, or save the file and attach it to an email draft." : "Save the PDF, open an email draft, then attach the saved file before sending.")
         : (native ? "Choose an app to share the PDF, or save a copy." : "Save the PDF, then share the file from your downloads.");
@@ -1162,7 +1211,9 @@
   $("native-share").addEventListener("click",async () => {
     const pdf=pdfFiles.get(dialogDocument);if (!pdf) return;
     const mine = dialogGeneration;
-    try {await navigator.share({files:[pdfFile(pdf,dialogDocument)],title:fileInfo(dialogDocument).title});}
+    const message=finalReturnMessage(snapshot);
+    try {await navigator.share({files:[pdfFile(pdf,dialogDocument)],title:fileInfo(dialogDocument).title,
+      ...(message.length ? {text:[rentalSnapshot(snapshot),...message].join("\n\n")} : {})});}
     catch(err){if(mine === dialogGeneration && err.name!=="AbortError")$("send-status").textContent="Your device could not share the PDF. Save it and attach the file in your preferred app.";}
   });
   function stopCamera() {

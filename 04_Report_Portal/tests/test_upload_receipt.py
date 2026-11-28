@@ -53,6 +53,8 @@ class UploadReceipt(unittest.TestCase):
         (dest/"report.html").write_bytes(SHELL.replace(b"GENERATION",str(self.next_version).encode()))
         (dest/"onhire").mkdir()
         (dest/"onhire/onhire.xlsx").write_bytes(b"x"*1400)
+        for suffix in ("pdf", "xlsx"):
+            (dest/f"consumables-usage.{suffix}").write_bytes(b"x" * 1400)
         (dest/"qr-report-data.json").write_text("{}")
 
     def build(self, **kwargs):

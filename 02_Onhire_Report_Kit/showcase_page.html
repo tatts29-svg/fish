@@ -697,6 +697,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
   html.sds-print .sds-entry :is(dd,p,ul){line-height:1.25}
   html.sds-print #sds-totals .n{font-size:13pt}
   html.sds-print #sds-totals .l{margin:0}
+  html.sds-print #sds-register-details>summary{display:none}
   html.sds-print .sds-entry details{grid-column:1 / -1}
   html.sds-print .sds-entry details summary{font-size:11pt;min-height:0;list-style:none}
   html.sds-print .sds-entry details summary::marker{content:""}
@@ -707,6 +708,18 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 #st-scan-review[hidden],#st-review-jump[hidden],#st-review-inventory[hidden],#st-review-log[hidden]{display:none}
 #st-scan-review{scroll-margin-top:10rem}#st-scan-review h4{font-size:1rem;margin:1.2rem 0 .38rem}
 .st-rev-head,.st-rev-pick,.st-rev-people header,.st-follow li{display:flex;align-items:center;gap:.55rem 1rem;justify-content:space-between;flex-wrap:wrap}
+
+.st-recorded-times{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:.75rem;margin:.8rem 0}
+.st-recorded-times>div{min-width:0;border-inline-start:3px solid var(--issued);background:var(--panel2);padding:.75rem 1rem;border-radius:.35rem}
+.st-recorded-times>div+div{border-color:var(--line)}
+.st-recorded-times ul{list-style:none;margin:0;padding:0}
+.st-recorded-times li{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:.55rem;align-items:baseline;font-size:.86rem;line-height:1.38;padding:.36rem 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.st-recorded-times li :is(small,details){grid-column:1/-1}
+.st-recorded-times small,.st-recorded-times li span,.st-quiet-empty{color:var(--mu)}
+.st-recorded-times summary{font-size:.84rem;min-height:2rem;align-content:center;cursor:pointer}
+.st-recorded-times details p,.st-quiet-empty{font-size:.84rem;margin:.25rem 0}
+@media(max-width:760px){.st-recorded-times summary,#st-review-person,#st-review-shift{min-height:44px}.st-recorded-times>div{padding:.65rem .75rem}}
+
 .st-rev-pick{justify-content:flex-start;margin:.85rem 0}.st-rev-pick label{display:grid;grid-template-columns:minmax(0,1fr);gap:.3rem;font-size:.79rem;color:var(--mu);min-width:0;max-width:100%}
 .st-rev-pick select{width:100%;min-width:0;text-overflow:ellipsis;border:1px solid var(--line);border-radius:.55rem;background:var(--panel2);color:var(--tx);padding:.5rem;max-width:100%;min-height:2.6rem;font:inherit;font-size:.9rem}
 .st-rev-source{font-size:.84rem;color:var(--mu);line-height:1.55}.st-rev-source strong{color:var(--tx)}
@@ -826,6 +839,56 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
  table.st-table td{border:0;padding:.15rem 0}.st-table td[data-label]::before{content:attr(data-label) ' · ';color:var(--mu);font-size:.8rem}
 }
 .static :is(.st-filters,.st-pages,#st-dialog){display:none}.static .st-card:has(#st-inventory){display:none}
+
+/* Pair each operational control with its related reading on a wide display. */
+@media screen {
+ #v-stocktake .st-round-layout{display:grid;gap:var(--space,16px);margin-block:var(--space,16px)}
+ #v-stocktake .st-round-layout>.card{margin:0;min-width:0}
+ .st-round-control #st-rounds{margin:.7rem 0}
+ .st-round-control .st-duty{margin:.65rem 0 .35rem;gap:.25rem 1rem}
+ .st-round-control #st-live-status{margin:.3rem 0 .75rem}
+ #v-stocktake :is(.st-jump,.st-pages,.st-table,.st-filters,.st-recent-shifts,#st-dialog) :is(button,input,select){min-height:44px}
+ #v-costs .cost-dates{min-width:0}
+ #v-costs .cost-dates h3{font-size:1rem;line-height:1.25}
+ #v-costs #cs-ring{width:clamp(180px,16vw,17rem);height:auto;aspect-ratio:1}
+ #v-costs #cs-ring svg{display:block;width:100%;height:100%}
+ #v-costs #cs-ring .ringt .a{font-size:clamp(10px,.82vw,.8rem)}
+ #v-costs #cs-ring .ringt .b{font-size:clamp(24px,2.05vw,2rem)}
+ #v-costs #cs-ring .ringt .c{font-size:clamp(11px,.87vw,.84rem)}
+}
+@media screen and (min-width:1050px){
+ #v-stocktake .st-round-layout{grid-template-columns:minmax(0, .95fr) minmax(0,1.6fr)}
+ #v-costs .costhero{grid-template-columns:auto minmax(0,max-content);justify-content:center;column-gap:clamp(1rem,2vw,3rem)}
+ #v-costs .cost-review-grid:has(#cs-check:not([hidden])){display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.45fr);gap:var(--space,16px);align-items:start}
+ #v-costs .cost-review-grid #cs-check-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+ #v-costs .cost-review-grid #cs-check-form button{align-self:end}
+}
+@media screen and (min-width:2200px){
+ #v-costs #cs-starts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.2rem}
+ #v-costs #cs-starts li{padding-block-end:0}
+ #v-costs #cs-starts li:after{display:none}
+}
+@media screen and (max-width:1049px){
+ #v-stocktake .st-round-layout{gap:.65rem}
+ #v-stocktake .st-round-control{display:contents}
+ #v-stocktake .st-round-control h3{margin:0}
+ #v-stocktake .st-round-control #st-rounds{margin:0}
+ #v-stocktake #st-overview{grid-row:3}
+ #v-stocktake .st-round-control .st-duty,#v-stocktake .st-round-control #st-live-status{margin:0}
+}
+@media screen and (max-width:750px){
+ #v-costs.work-view>.vh>#cs-stats{grid-template-columns:repeat(6,minmax(0,1fr))}
+ #v-costs #cs-stats>div{grid-column:span 2;border-inline-start:1px solid var(--line)}
+ #v-costs #cs-stats>div:nth-child(-n+2){grid-column:span 3}
+ #v-costs #cs-stats>div:is(:first-child,:nth-child(3)){border-inline-start:none}
+ #v-costs #cs-stats>div:nth-child(n+3){border-block-start:1px solid var(--line)}
+ #v-costs .costhero{gap:1rem}
+ #v-costs .cost-dates{width:100%}
+ #v-costs #cs-starts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem .85rem}
+ #v-costs #cs-starts li{padding:0 0 0 .8rem}
+ #v-costs #cs-starts li:before{width:.4rem;height:.4rem}
+ #v-costs #cs-starts li:after{display:none}
+}
 
 /* Responsive screen layout. Paper reports have their own physical page sizes. */
 @media screen {
@@ -1308,6 +1371,55 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  @keyframes work-rail-in{from{transform:scaleX(.25)}to{transform:scaleX(1)}}
  @keyframes work-heading-in{from{transform:translateY(3px)}to{transform:translateY(0)}}
 }
+.ut-averages{margin:.9rem 0;border-top:1px solid var(--line);padding-top:.85rem}
+.ut-averages h4{font-size:1rem}
+#ut-average-periods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.5rem}
+.ut-archive-note{margin:.5rem 0 0;color:var(--mu);font-size:.82rem;line-height:1.45}
+.ut-period{padding:.7rem .85rem;border:1px solid var(--line);border-radius:9px;background:var(--panel2);min-width:0}
+.ut-period-name{display:block;color:var(--tx);font-size:.9rem}
+.ut-period-figures{display:flex;gap:.35rem 1rem;flex-wrap:wrap;align-items:baseline;margin:.22rem 0}
+.ut-period-figures span,.ut-period small{color:var(--mu);font-size:.82rem}
+.ut-period-figures b{color:var(--tx);font-size:1.18rem;font-variant-numeric:tabular-nums}
+.ut-period[data-period=current] .ut-period-figures span:first-child b{color:var(--ortx)}
+.ut-period small{display:block;line-height:1.4}
+@media screen and (max-width:620px){
+ #ut-average-periods{grid-template-columns:minmax(0,1fr);gap:.3rem}
+ .ut-period{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:.18rem .55rem;align-items:baseline;padding:.5rem .65rem}
+ .ut-period-figures{justify-content:flex-end;gap:.15rem .6rem;margin:0}
+ .ut-period small{grid-column:1/-1}
+}
+@media screen and (min-width:621px) and (max-width:980px){
+ html:not(.static) .work-heading{grid-template-columns:minmax(0,1fr) auto;gap:1rem}
+ .work-heading .work-actions{justify-content:flex-end;max-width:15rem}
+ html:not(.static) .site-overview.has-feature #overview-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:1.15rem}
+ html:not(.static) .site-overview .feat-stock{border-top:0;border-left:1px solid var(--line);padding:0 0 0 1rem;grid-template-columns:minmax(4rem,32%) minmax(0,1fr);gap:.75rem}
+ html:not(.static) .site-overview .feat-name{font-size:1.07rem}
+ html:not(.static) .site-overview #know,html:not(.static) .site-overview .grid:has(a[href^="mailto:"]){grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr))}
+}
+@media screen and (min-width:1200px){
+ html:not(.static) #util-card:has(#ut-averages:not([hidden])){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:0 var(--space)}
+ #util-card>.ut-heading,#util-card>details{grid-column:1/-1}
+ #util-card:has(#ut-averages:not([hidden]))>.ut-layout{grid-column:1;grid-row:2;grid-template-columns:minmax(4.5rem,.32fr) minmax(0,1fr);gap:1rem}
+ #util-card:has(#ut-averages:not([hidden])) .ut-picker{grid-column:1/-1}
+ #util-card>#ut-note{grid-column:1;grid-row:3}
+ #util-card>#ut-averages{grid-column:2;grid-row:2/span 2;border-top:0;border-left:1px solid var(--line);margin:1rem 0;padding:0 0 0 var(--space)}
+ html:not(.static) #tl-tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(20px,2.5vw,96px)}
+ html:not(.static) #tl-tools :is(.bar-scale,.empty){grid-column:1/-1}
+ html:not(.static) #tl-tools .row{grid-template-columns:minmax(0,42%) minmax(2rem,1fr) auto}
+}
+@media screen and (min-width:1800px){
+ html:not(.static) .site-overview .overview-opening{display:grid;grid-template-columns:minmax(0,1.07fr) minmax(0,1fr);align-items:start;gap:var(--space)}
+ html:not(.static) .site-overview #h1{font-size:clamp(2.8rem,3.1vw,4.8rem)}
+ html:not(.static) .site-overview .feat-name{font-size:clamp(1.15rem,1.18vw,1.8rem)}
+ .overview-snapshot{min-width:0}
+ html:not(.static) .site-overview .overview-snapshot .days{margin:0}
+ html:not(.static) .site-overview .overview-snapshot #kpis{margin-top:var(--space)!important;grid-template-columns:repeat(2,minmax(0,1fr))}
+ html:not(.static) .site-overview .overview-snapshot #kpis.c5{grid-template-columns:repeat(6,minmax(0,1fr))}
+ .overview-snapshot #kpis.c5>.kpi{grid-column:span 2}
+ .overview-snapshot #kpis.c5>.kpi:nth-last-child(-n+2){grid-column:span 3}
+ html:not(.static) .site-overview .feat-stock:not(.text-only){grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:1rem}
+ html:not(.static) .site-overview #overview-hero{padding:clamp(28px,1.6vw,60px);gap:var(--space)}
+}
 /* Short edge cues identify the pane, control group or result just opened. */
 @media screen{
  html:not(.static) .work-view:not(#v-costs)>.vh::before{
@@ -1367,6 +1479,29 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #pp-list .pp-entry:focus-visible{outline:2px solid var(--ortx);outline-offset:-2px}
  #pp-list .prow.h{margin:0;padding:.45rem .55rem .55rem}
  #pp-list .pp-status:empty:before{content:"—";color:var(--mu)}
+ #below .below-line{display:flex;align-items:center;gap:.55rem}
+ #below .below-code{white-space:nowrap;color:var(--mu)}
+ #below .t th:nth-child(6){width:20%}
+ #cu-report{margin-top:var(--space,16px)}
+ #cu-report[hidden]{display:none}
+ #cu-report>header{display:flex;align-items:start;justify-content:space-between;gap:.7rem 1.3rem;flex-wrap:wrap}
+ #cu-report h3{line-height:1.15;font-size:clamp(1.15rem,1.75vw,1.9rem)}
+ #cu-asat,#cu-email-note,#cu-report .sub,#cu-coverage{color:var(--mu);font-size:.84rem;line-height:1.45}
+ #cu-asat,#cu-email-note{margin-top:.35rem}
+ #cu-report .dl{gap:.45rem}
+ #cu-report .btn,#cu-report summary{min-height:44px;align-content:center}
+ #cu-summary{font-weight:650;margin-top:1rem}
+ #cu-report summary{cursor:pointer;color:var(--ortx);font-weight:650;border-top:1px solid var(--line);margin-top:.7rem}
+ #cu-report .tscroll table{min-width:50rem}
+ #cu-data td{font-variant-numeric:tabular-nums}
+ #cu-data td small{display:block;color:var(--mu)}
+ #cu-data td.cu-balance{font-weight:700}
+ #cu-report h4{margin-top:.9rem}
+ #cu-coverage ul{padding-inline-start:1.2rem}
+ #v-sds .work-heading>div:first-child{display:flex;align-items:center;gap:.2rem 1.2rem;flex-wrap:wrap}
+ #v-sds #sds-register-details{margin-inline-start:auto}
+ #sds-register-details summary{cursor:pointer;color:var(--ortx);font-weight:650;font-size:.87rem;padding:.45rem .1rem}
+ #v-sds #sds-register-details[open]{margin-inline-start:0;flex-basis:100%}
  #sds-list .sds-identity{display:flex;align-items:center;gap:.35rem 1rem;flex-wrap:wrap}
  #sds-list .sds-identity .sub{flex-basis:100%}
  #sds-list .sds-stock-facts{padding:.7rem .85rem;border:1px solid var(--line);border-inline-start:3px solid var(--neutral-series);border-radius:8px;background:var(--panel2)}
@@ -1411,8 +1546,15 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
 }
 @media screen and (min-width:1900px){
  #sds-list{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
- #sds-list .sds-media{gap:1rem}
- #sds-list .sds-photo{width:clamp(140px,8vw,215px)}
+ #sds-list .sds-entry{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:1rem;align-items:start}
+ #sds-list .sds-body{display:contents}
+ #sds-list .sds-identity{grid-column:1/-1;grid-row:1}
+ #sds-list .sds-stock-facts{grid-column:1;grid-row:2;margin:0;grid-template-columns:repeat(auto-fit,minmax(min(7.8em,100%),1fr))}
+ #sds-list .sds-document-facts{grid-column:1/-1;grid-row:3;margin:0;border-top:1px solid var(--line);padding-top:.65rem}
+ #sds-list .sds-media{grid-column:2;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));justify-items:center;gap:.7rem}
+ #sds-list .sds-media .sds-photo,#sds-list .sds-media .sds-code{width:min(100%,clamp(165px,7vw,290px));min-width:0}
+ #sds-list .sds-code:only-child{grid-column:1/-1}
+ #sds-list .sds-code svg{width:100%;height:auto}
  #pp-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,41rem),1fr));column-gap:1.5rem}
  #pp-list .prow.h{display:none}
  #pp-list .pp-entry{grid-template-columns:minmax(0,1fr) auto 1rem;align-content:center}
@@ -1429,7 +1571,32 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #pp-list .pp-entry:after{grid-column:3;grid-row:1;margin:0}
  #sds-list .sds-entry{grid-template-columns:minmax(0,1fr);gap:.65rem}
  #sds-list .sds-body{display:contents}
- #sds-list .sds-identity{grid-row:1}
+ #v-sds .work-heading,#v-consumables .work-heading{padding:.7rem .85rem}
+ #v-sds .work-heading h2{font-size:clamp(1.4rem,5.8vw,1.85rem)}
+ #v-sds .work-heading>div:first-child{gap:.1rem .6rem}
+ #v-sds #sds-register-details summary{display:list-item;align-content:center;min-height:44px;padding:.15rem 0}
+ #v-sds .vh>#sds-totals{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #v-sds #sds-totals>div,#v-consumables #cn-stats>div{padding:.4rem .6rem}
+ #v-sds #sds-totals>div{border-top:0}
+ #v-sds #sds-totals>div+div{border-left:1px solid var(--line)}
+ #v-sds #sds-totals .l,#v-consumables #cn-stats .l{line-height:1.2}
+ #v-sds .vh>.sds-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem .65rem;padding:.55rem .8rem}
+ #v-sds .sds-toolbar label:first-child{grid-column:1/-1}
+ #v-sds .sds-toolbar label{gap:.1rem}
+ #v-sds .sds-toolbar button{min-height:44px;align-self:end}
+ #below .t{min-width:51rem;table-layout:fixed}
+ #below .t th:nth-child(1){width:11rem}
+ #below .t th:nth-child(2),#below .t th:nth-child(3),#below .t th:nth-child(4){width:4.35rem}
+ #below .t th:nth-child(5){width:5.6rem}
+ #below .t th:nth-child(6){width:8rem}
+ #below .t th:nth-child(7){width:7rem}
+ #below .t th:nth-child(8){width:4rem}
+ #below .below-line .tp{width:2rem;height:2rem}
+ #below .t :is(th,td){padding:.45rem .32rem}
+ #sds-list .sds-identity{grid-row:1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:.2rem .75rem}
+ #sds-list .sds-identity .sub{grid-column:1/-1}
+ #sds-list .sds-heading{gap:.2rem}
+ #sds-list .sds-docs{display:grid;justify-items:start;gap:0}
  #sds-list .sds-stock-facts{grid-row:2;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem .75rem}
  #sds-list .sds-stock-facts>div:last-child{grid-column:1/-1}
  #sds-list .sds-media{grid-row:3;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:.5rem 1rem;width:100%}
@@ -1441,16 +1608,39 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
  #sds-list .sds-code svg{width:100%;height:auto}
  #sds-list .sds-photo figcaption{grid-row:2;grid-column:1/-1;margin:0;min-width:0;text-align:left}
  #sds-list .sds-body>dl{margin:0}
- #sds-list .sds-docs{gap:.3rem .8rem}
  #sds-list .sds-entry details{grid-column:1}
  #v-swms #swms-documents{align-items:stretch}
 }
 @media screen and (max-width:420px){
+ #v-sds .sds-search-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ #v-sds .vh>.sds-toolbar{padding-block:.4rem}
  #st-rounds .st-round small{font-size:.76rem}
  #st-categories{grid-template-columns:1fr}
  #v-swms #swms-documents{display:grid}
 }
-</style></head>
+</style><style>
+/* Keep the return search and the filtered handover together on every screen. */
+#hire-records{margin-top:12px}
+#oh-final{margin:6px 0 10px;padding-inline-start:12px;border-inline-start:3px solid var(--issued)}
+#oh-final p{margin:3px 0;color:var(--mu);line-height:1.4}
+#oh-final-times{font-weight:650;color:inherit}
+#oh-filters{align-items:end;gap:8px;margin-block:8px}
+#oh-filters label{display:grid;gap:3px;min-width:0;font-size:.84em;color:var(--mu)}
+#oh-filters .oh-search-label{flex:1 1 12rem}#oh-filters .oh-company-label{flex:0 1 18rem}
+#oh-filters input,#oh-filters select{box-sizing:border-box;width:100%;max-width:100%;min-height:44px}
+#oh-filters select{background:var(--card);color:inherit;border:1px solid var(--line);border-radius:8px;padding:6px 9px}
+#oh-collection-report,#oh-more,.hire-rest summary{min-height:44px}
+#oh-more{margin-block-start:5px}
+#oh-list .hire-record-link{font:inherit;text-align:start;color:inherit;border:0;background:none;padding:4px 0;cursor:pointer}
+#oh-list .hire-record-link:is(:hover,:focus-visible){color:var(--ortx);text-decoration:underline;text-underline-offset:.18em}
+#oh-list .hire-record-link:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+#oh-filters [hidden],#oh-routine-tips[hidden],#dl2[hidden],#oh-final[hidden],#oh-more[hidden]{display:none}
+.hire-breakdowns{align-items:start;margin-top:14px}
+.hire-rest summary{display:list-item;align-content:center;cursor:pointer;color:var(--link,var(--tx));font-weight:650;padding-top:8px}
+.overview-returns-note{display:block;margin-top:.3em;color:var(--mu);font-size:.88em}
+@media(max-width:540px){#oh-filters .oh-company-label,#oh-filters .oh-search-label{flex:1 1 100%}#oh-collection-report{width:100%}}
+</style>
+</head>
 <body>
 <div class="prog" aria-hidden="true"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="unmeasured-glass" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--track)"/><path d="M-1 1L1 -1M0 6L6 0M5 7L7 5" stroke="var(--neu)" stroke-width=".7"/></pattern>
@@ -1478,14 +1668,15 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
 <main class="wrap">
 
 <section class="view" id="v-overview" data-tab="Overview">
+<div class="overview-opening">
 <div class="hero" id="overview-hero"><div class="overview-copy">
 <div class="eyebrow" id="eyebrow"></div>
 <h1 id="h1"></h1>
 <p class="lead" id="lead"></p>
 <div id="overview-actions" class="noprint" hidden><button type="button" class="btn" data-go="onhire">View on hire <span aria-hidden="true">→</span></button><button type="button" class="btn ghost" data-go="stocktake">Open stocktake</button></div>
 </div><div id="overview-feature" hidden></div><div class="client" id="client"><img id="clientlogo" alt="__CLIENT__"><div class="pf">Prepared for</div><div class="pn" id="clientname"></div></div></div>
-<div class="days" id="days" role="region" aria-label="Shutdown days" tabindex="0"></div>
-<div class="grid c4" id="kpis" style="margin-top:22px"></div>
+<div class="overview-snapshot"><div class="days" id="days" role="region" aria-label="Shutdown days" tabindex="0"></div>
+<div class="grid c4" id="kpis" style="margin-top:22px"></div></div></div>
 <div class="grid c21 overview-activity">
 <div class="card"><h3>Gear issued by hour</h3><div class="sub" id="hoursub"></div>
 <div class="legend hourly-legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>No longer on hire</span></div>
@@ -1505,14 +1696,22 @@ __CONTACTS__
 <section class="view pb" id="v-onhire" data-tab="On hire">
 <div class="vh"><h2>On hire now</h2><p id="oh-lead"></p></div>
 <div class="stats" id="oh-stats" style="--n:5"></div>
-<div class="grid c2">
+<div class="card tall noprint" id="hire-records"><h3 id="oh-list-title">Every item on hire</h3><div class="sub">Search by person, company, item name or asset number.</div>
+<div class="askrow" id="oh-routine-tips"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
+<div id="oh-final" hidden>
+<p id="oh-final-times"></p><p id="oh-final-asat"></p>
+</div>
+<div class="tools noprint" id="oh-filters">
+<label for="oh-company" class="oh-company-label" hidden>Company<select id="oh-company"></select></label>
+<label for="oh-q" class="oh-search-label">Find gear or a holder<input class="search" id="oh-q" type="search" placeholder="Name, tool or asset number" autocomplete="off"></label>
+<button type="button" class="btn" id="oh-collection-report" data-ohreport="collection" hidden>Open return list</button>
+</div>
+<div class="dl" id="dl2"></div>
+<div id="oh-list"></div><div class="foot" id="oh-foot" aria-live="polite"></div><button type="button" class="btn ghost" id="oh-more" aria-controls="oh-list" hidden></button></div>
+<div class="grid c2 hire-breakdowns">
 <div class="card"><h3>By company</h3><div class="sub">Each company’s share of all items on hire at the pull.</div><div id="oh-cos"></div></div>
 <div class="card"><h3>By tool</h3><div class="sub">Tool types are ranked by items on hire. Each gauge shows the share of that tool type’s on-site fleet currently out.</div><div id="oh-kinds" style="--nm:300px"></div></div>
 </div>
-<div class="card tall noprint" style="margin-top:16px"><h3>Every item on hire</h3><div class="sub">Search by person, company, item name or asset number.</div>
-<div class="askrow"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
-<div class="tools noprint"><input class="search" id="oh-q" aria-label="Search the on-hire list" placeholder="Search the on-hire list" autocomplete="off"><div class="dl" id="dl2" style="margin-left:auto"></div></div>
-<div id="oh-list"></div><div class="foot" id="oh-foot"></div></div>
 </section>
 
 <section class="view pb" id="v-tooling" data-tab="Tooling">
@@ -1532,6 +1731,11 @@ __CONTACTS__
 <label>Product variant<select id="ut-variant"></select></label>
 </div></div>
 <p class="ut-note" id="ut-note"></p>
+<section class="ut-averages" id="ut-averages" aria-labelledby="ut-average-title" hidden>
+<h4 id="ut-average-title">Average number on hire</h4>
+<p class="ut-note">Average assets out at the same time, weighted by time on hire. Each peak covers the same recorded interval. Times are AEST.</p>
+<div id="ut-average-periods"></div><div id="ut-average-archive"></div>
+</section>
 <details id="ut-assets" class="noprint"><summary>View individual assets</summary>
 <div class="ut-filters"><label>Find asset<input type="search" id="ut-asset-find" class="search" placeholder="Asset number, barcode or tool"></label>
 <label>Show assets<select id="ut-asset-scope"><option value="">All assets</option><option value="yes">Included in numerator</option><option value="no">Outside numerator</option></select></label></div>
@@ -1552,6 +1756,16 @@ __CONTACTS__
 <div class="vh"><h2>Consumables</h2><p id="cn-lead"></p></div>
 <div class="stats" id="cn-stats"></div>
 <div class="card" id="belowcard" style="margin-top:16px"><h3 id="below-h"></h3><div class="sub" id="below-sub"></div><div id="below"></div></div>
+<article class="card noprint" id="cu-report" hidden>
+  <header><div><h3 id="cu-title">Consumables usage and MMG handback</h3><p id="cu-asat"></p></div>
+    <div><div class="dl"><a class="btn" href="consumables-usage.pdf" download>Download PDF</a><a class="btn ghost" href="consumables-usage.xlsx" download>Download Excel</a><a class="btn ghost" id="cu-email" aria-describedby="cu-email-note">Email summary</a></div><p id="cu-email-note">To include the full report in your email, download and attach a copy.</p></div></header>
+  <p id="cu-summary"></p><p class="sub" id="cu-status"></p>
+  <details id="cu-details"><summary>View product quantities and historical coverage</summary>
+    <div class="tools"><input class="search" id="cu-q" type="search" aria-label="Find a product in the usage report" placeholder="Find a product or stock code"></div>
+    <p class="sub" id="cu-reading"></p><div class="tscroll" id="cu-data"></div>
+    <h4>Historical coverage</h4><div id="cu-coverage"></div>
+  </details>
+</article>
 <div class="grid c2">
 <div class="card"><h3>On the shelf, by type</h3><div class="sub">Units in the store at the pull.</div><div id="cn-types" style="--nm:240px"></div></div>
 <div class="card" id="drawcard"><h3>Drawn so far this shut</h3><div class="sub" id="draw-sub"></div>
@@ -1567,9 +1781,9 @@ __CONTACTS__
 </section>
 
 <section class="view pb" id="v-sds" data-tab="SDS register">
-<div class="vh"><h2>Safety data sheet register</h2><p id="sds-location"></p><p class="sub" id="sds-date-basis"></p></div>
+<div class="vh"><h2>Safety data sheets</h2><details id="sds-register-details"><summary>Register details</summary><p id="sds-location"></p><p class="sub" id="sds-date-basis"></p></details></div>
 <div class="stats" id="sds-totals"></div>
-<div class="sds-toolbar noprint"><label>Find a product<input type="search" class="search" id="sds-q" placeholder="Product, supplier, stock code or barcode" autocomplete="off"></label>
+<div class="sds-toolbar noprint"><label><span class="sds-search-label">Find a product</span><input type="search" class="search" id="sds-q" placeholder="Product, supplier, stock code or barcode" autocomplete="off"></label>
 <label>Review date<select id="sds-state"><option value="">All records</option><option value="in_date">In date</option><option value="review_required">Review required</option></select></label><button class="btn ghost" id="sds-print" type="button">Print register</button></div>
 <p class="sub noprint" id="sds-count" role="status" aria-live="polite"></p>
 <div id="sds-list" class="sds-list"></div>
@@ -1634,10 +1848,11 @@ __CONTACTS__
 <section class="view pb" id="v-costs" data-tab="Labour and costs">
 <div class="vh"><h2>Labour and shut costs</h2><p id="cs-lead"></p></div>
 <div class="grid c2" style="margin-top:0">
-<div class="card costhero"><div class="ringw" id="cs-ring"></div><div><h3 style="font-size:15.5px;font-weight:600">Scheduled charge dates</h3><ul class="tl" id="cs-starts"></ul></div></div>
+<div class="card costhero"><div class="ringw" id="cs-ring"></div><div class="cost-dates"><h3>Scheduled charge dates</h3><ul class="tl" id="cs-starts"></ul></div></div>
 <div class="card"><h3>Cost by category</h3><div class="sub">Each cylinder shows scheduled cost through the pull date as a share of that category’s full shutdown cost.</div><div class="cyls" id="cs-cyls"></div></div>
 </div>
 <div class="stats" id="cs-stats" style="margin-top:16px"></div>
+<div class="cost-review-grid">
 <div class="card cost-check noprint" id="cs-check" hidden><h3 id="cs-check-title">Check an invoice charge</h3>
 <p class="sub">Compare the invoice subtotal for one day and category with the rostered cost plan. Use the same GST basis for both amounts. This check is private to this screen.</p>
 <form id="cs-check-form"><label><span id="cs-check-date-label">Date</span><select id="cs-check-date" aria-labelledby="cs-check-date-label" required></select></label>
@@ -1647,6 +1862,7 @@ __CONTACTS__
 <p class="scheduled-charge" id="cs-check-plan"></p><output id="cs-check-result" for="cs-check-date cs-check-category cs-check-amount" aria-live="polite"></output></div>
 <div class="card" style="margin-top:16px"><h3>Cost day by day</h3><div class="sub" id="cs-daysub"></div>
 <div class="legend" id="cs-leg"></div><div id="cs-chart"></div></div>
+</div>
 <div class="grid c2" id="cs-people"></div>
 <div class="card" style="margin-top:16px"><h3>Roster</h3><div class="sub" id="cs-rsub"></div><div id="cs-roster"></div></div>
 <div class="card" style="margin-top:16px"><h3>Every day of the shut</h3><div class="sub">Labour, tooling, site services and flights for each day, with the running total.</div><div id="cs-table"></div></div>
@@ -1658,12 +1874,16 @@ __CONTACTS__
 <div id="st-handover" class="st-handover-top">
 <div class="st-handover-heading"><h3 id="st-handover-title">Shift handover</h3><p id="st-handover-balance"></p></div>
 <div id="st-handover-people" class="st-shift-list"></div>
-<div class="work-actions noprint"><button type="button" class="btn" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button></div>
+<div class="work-actions noprint"><button type="button" class="btn" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button></div>
 </div>
-<div class="st-duty" id="st-duty"></div><p id="st-live-status" class="foot" role="status"></p>
+<div class="st-round-layout">
+<div class="card st-round-control"><h3>Count period</h3>
 <div class="st-rounds" id="st-rounds" aria-label="Stocktake period"></div>
+<div class="st-duty" id="st-duty"></div><p id="st-live-status" class="foot" role="status"></p>
+<div class="st-jump noprint"><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
+</div>
 <div id="st-overview" class="card st-card"></div>
-<div class="st-jump noprint"><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
+</div>
 <div class="card st-card"><h3 id="st-cat-title">Coverage by category</h3><p class="sub" id="st-cat-sub"></p>
 <div class="st-filters noprint"><label>Find a category<input class="search" id="st-cat-q" type="search" placeholder="Category name"></label><label>Show categories<select id="st-cat-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label><label id="st-cat-progress-label" hidden>Coverage<select id="st-cat-progress"><option value="pending">Still to check</option><option value="all">All categories</option></select></label></div>
 <div class="st-category-grid" id="st-categories"></div><div id="st-print-categories"></div><div class="st-pages" id="st-category-pages"></div></div>
@@ -1750,7 +1970,7 @@ __CONTACTS__
 <label>Group by<span class="seg" id="oh-g"><button data-k="co" class="on">Company</button><button data-k="who">Person</button><button data-k="tool">Tool</button></span></label>
 <label>Owner<span class="seg" id="oh-o"><button data-k="all" class="on">All</button><button data-k="coates">Coates</button><button data-k="other" id="oh-o2"></button></span></label>
 <input class="search" id="oh-f" placeholder="Filter by name or item" autocomplete="off"><span class="sp"></span>
-<button class="btn" id="oh-print">Print or save as PDF</button><a class="btn ghost" id="oh-mail" href="#">Email</a><a class="btn ghost" id="oh-x" href="onhire.xlsx">Excel</a><button class="btn ghost" id="oh-close">Close</button></div>
+<button class="btn" id="oh-print">Print or save as PDF</button><a class="btn ghost" id="oh-mail" href="#">Email</a><a class="btn ghost" id="oh-x" href="onhire.xlsx">Full Excel report</a><button class="btn ghost" id="oh-close">Close</button></div>
 <div class="pcos" id="oh-cosel"></div><div class="paper" id="paper"></div></div>
 <dialog id="stock-photo-dialog" aria-labelledby="stock-photo-name">
 <div class="stock-photo-bar"><h3 id="stock-photo-name"></h3><button class="ib" type="button" id="stock-photo-close" aria-label="Close photo">×</button></div>
@@ -1827,6 +2047,16 @@ const pic=(i,name,c)=>(i!=null&&D.pics&&D.pics[i])?`<img class="tp${c?' '+c:''}"
 
 // header
 $('#asat').textContent=D.asat;
+if(!STATIC&&window.ResizeObserver&&document.querySelector('.top .portal-masthead')){
+ const top=document.querySelector('.top'),bar=top.querySelector('.bar'),search=bar.querySelector('.gs');
+ const syncHeader=()=>{
+  // Branding and the two timestamps scroll with the page. The search,
+  // display controls and section switcher stay in reach on a small screen.
+  const intro=Math.max(0,Math.round(search.getBoundingClientRect().top-top.getBoundingClientRect().top)-4);
+  top.style.setProperty('--staff-header-intro',intro+'px');
+ };
+ new ResizeObserver(syncHeader).observe(bar);syncHeader();
+}
 $('#what').textContent=D.job.title.replace(CLIENT,'').trim()+' · Shutdown Tool Store';
 if(LOGO){$('#toplogo').src=LOGO;$('#clientlogo').src=LOGO;$('#clientname').textContent=D.job.title}else{$('#toplogo').remove();$('#lsep').remove();$('#client').remove();$('#what').textContent=D.job.title+' · Shutdown Tool Store'}
 $('#ftjob').textContent=`Stock and transaction records come from SiteIQ exports for ${D.job.title}.`+(D.costs?' Labour and shutdown charges are scheduled amounts from the job cost plan.':'');
@@ -2154,6 +2384,14 @@ ${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;retu
 <div class="reading"><div class="big">${sh===null?'—':esc(formatMeasuredPercent(v,of))}</div><div class="of">${esc(detail)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
 
 /* ---------- overview ---------- */
+const returnPlan=D.return_instruction;
+const shiftDate=stamp=>new Intl.DateTimeFormat('en-AU',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'}).format(new Date(stamp+'T12:00:00Z'));
+const returnTiming=returnPlan
+  ? 'Day shift handover (AEST) · '+shiftDate(returnPlan.day_shift_date)+' at '+returnPlan.day_store_finish+
+    '. Night shift handover · '+shiftDate(returnPlan.night_finish_date)+' at '+returnPlan.night_store_finish+'.'
+  : '';
+const finalRequest='Return all hired gear to the tool store before your own final shift ends.';
+const snapshotPhase={before_final_shifts:'Before the final shifts',final_day_shift:'Final day shift',final_night_shift:'Final night shift',after_final_shifts:'After the final night shift'};
 {const day=D.job.day,days=D.job.days,p=D.asat.split(' '),today=new Date(+p[2],MON.indexOf(p[1]),+p[0]);
 $('#eyebrow').textContent=`${D.job.title} · November 2026 shut`;
 $('#h1').innerHTML=`<span class="gl">Tool store report</span> <span style="color:var(--mu);font-weight:600">· day ${day} of ${days}</span>`;
@@ -2170,6 +2408,12 @@ if(mmgDugaldRiver){
   $('#h1').textContent=D.job.title.replace(/^MMG\s+/i,'').trim()||D.job.title;
   $('#lead').innerHTML=`<b>${esc(phase)}</b> · ${esc(DOW[today.getDay()])} ${today.getDate()} ${esc(MON[today.getMonth()])}<br>${fmt(K.on)} assets on hire across ${plural(K.companies,'company','companies')} at the ${esc(asatT)} AEST pull.`;
   const actions=$('#overview-actions'); actions.hidden=false;
+  if(returnPlan){
+    const reminder=document.createElement('span');reminder.className='overview-returns-note';
+    reminder.textContent='Final worker shifts · '+shiftDate(returnPlan.day_shift_date)+' day and night. Return gear before finishing.';
+    $('#lead').append(reminder);
+    actions.querySelector('[data-go="onhire"]').textContent='Open final-shift returns';
+  }
   actions.querySelector('[data-go="stocktake"]').hidden=!D.stocktake;
   const ranked=Object.entries(D.tools||{}).filter(([,t])=>t?.name&&Number.isFinite(t.on)&&t.on>0).sort((a,b)=>b[1].on-a[1].on);
   if(ranked.length){
@@ -2238,14 +2482,41 @@ $('#dlfoot').textContent=`${fmt(D.onhire.length)} items as at ${D.asat}. Filter 
 function initOnHire(){$('#oh-lead').textContent=`Everything out with crews at the ${asatT} pull on ${D.asat_day}, by company, by tool and item by item.`;
 stats($('#oh-stats'),[[K.on,'Items on hire'],[K.companies,'Companies'],[K.people,'People holding gear'],[K.issued_today,'Issued today'],[K.back_today,'Issued today and already back']]);
 companyBars($('#oh-cos'),D.companies,K.on);
+const companyFilter=$('#oh-company'), search=$('#oh-q'), more=$('#oh-more');
+if(returnPlan){
+  $('#oh-lead').textContent=finalRequest;
+  $('#oh-list-title').textContent='Final-shift returns';
+  $('#oh-routine-tips').hidden=true;
+  $('#oh-final').hidden=false;
+  $('#oh-final-times').textContent=returnTiming+' Monday night ends on Tuesday morning.';
+  $('#oh-final-asat').textContent=(snapshotPhase[returnPlan.snapshot_stage]||'Rental snapshot')+' · '+D.asat+' AEST. Scan returns at the counter and refresh the rental export at each handover.';
+  const companies=[...new Set(D.onhire.map(r=>r.co))].filter(Boolean).sort((a,b)=>a.localeCompare(b));
+  companyFilter.add(new Option('All companies',''));
+  for(const name of companies)companyFilter.add(new Option(name,name));
+  companyFilter.closest('label').hidden=false;
+  $('#oh-collection-report').hidden=false;
+  $('#dl2').hidden=true;
+}
 const kinds=Object.entries(D.tools).filter(([k,t])=>t.on>0).sort((a,b)=>b[1].on-a[1].on||a[1].name.localeCompare(b[1].name));
-$('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl({name:t.name,on:t.on,fleet:t.site,pic:t.pic,open:'t:'+k},{share:1,pic:1,checkFleet:true})).join('')}</div><div id="oh-rest" style="margin-top:14px"></div>`;
+$('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl({name:t.name,on:t.on,fleet:t.site,pic:t.pic,open:'t:'+k},{share:1,pic:1,checkFleet:true})).join('')}</div>${kinds.length>6?`<details class="hire-rest"${STATIC?' open':''}><summary>View ${kinds.length-6} more tool types</summary><div id="oh-rest"></div></details>`:''}`;
 if(kinds.length>6)bars($('#oh-rest'),kinds.slice(6).map(([k,t])=>toolHoldingRow(t,k)),{pic:1});
 const R=D.onhire.slice().sort((a,b)=>a.co.localeCompare(b.co)||a.who.localeCompare(b.who)||a.desc.localeCompare(b.desc));
-function list(q){q=(q||'').trim().toUpperCase();const rs=R.filter(r=>!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q));
-$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Date of hire</th><th>Time</th><th>Days on hire</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${esc(r.date)}</td><td>${esc(r.time)}</td><td style="white-space:nowrap"><b>${days(r)}</b></td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
-$('#oh-foot').innerHTML=`${rs.length} of ${R.length} items. Click a person, company or item for more.${rs.some(r=>r.tag)?` ${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).`:''}`}
-$('#oh-q').addEventListener('input',e=>list(e.target.value));list('')}
+let expanded=false;
+function recordLink(key, caption){
+ return key&&caption?`<button class="hire-record-link" type="button" data-open="${esc(key)}">${esc(caption)}</button>`:esc(caption||'—')
+}
+function list(){
+ const q=search.value.trim().toUpperCase();
+ const rs=R.filter(r=>(!companyFilter.value||r.co===companyFilter.value)&&(!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q)));
+ const shown=expanded||STATIC?rs:rs.slice(0,10);
+$('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Date of hire</th><th>Time</th><th>Days on hire</th></tr>${shown.map(r=>`<tr data-open="t:${esc(r.dk)}"><td>${recordLink(r.co&&'co:'+r.co,r.co)}</td><td><b>${recordLink(r.pk&&'p:'+r.pk,r.who)}</b></td><td>${recordLink(r.dk&&'t:'+r.dk,r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${esc(r.date)}</td><td>${esc(r.time)}</td><td style="white-space:nowrap"><b>${days(r)}</b></td></tr>`).join('')}</table></div>`:`<div class="empty">${R.length?'Nothing on hire matches that.':'No assets are on hire in this rental snapshot.'}</div>`;
+ more.hidden=rs.length<=10;
+ more.textContent=expanded?'Show first 10 items':'Show all '+fmt(rs.length)+' items';
+ more.setAttribute('aria-expanded',String(expanded));
+ $('#oh-foot').innerHTML=`Showing ${fmt(shown.length)} of ${fmt(rs.length)} matching items.${rs.length?' Select a person, company or item for details.':''}${rs.some(r=>r.tag)?` ${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).`:''}`}
+function filter(){expanded=false;list()}
+search.addEventListener('input',filter);companyFilter.addEventListener('change',filter);
+more.addEventListener('click',()=>{expanded=!expanded;list();if(!expanded)search.focus()});list()}
 
 // Asset counts are unique within each register pull. Historical pulls keep their original fleet.
 function initUtilisation(model, history){
@@ -2334,6 +2605,7 @@ function initUtilisation(model, history){
     $('#ut-gauge').innerHTML=cyl({name:'',on:count,fleet,val:' ',cap:' '},{share:true,checkFleet:true});
     $('#ut-note').textContent=mode==='used'?'Each current rental asset counts once if a dated hire or transaction shows it was out during the selected period. Repeat issues count once.':
       mode==='past'?'Each percentage uses the rental fleet recorded at that pull. Archived pulls retain totals by variant.':'Each percentage uses the unique rental assets in the selected fleet at this stock pull.';
+    drawAverages(!!find.value.trim()&&!selected);
     const details=$('#ut-assets');details.hidden=mode==='past'||!known;
     if(details.hidden)details.open=false;
     if(details.open)drawAssets();
@@ -2343,6 +2615,49 @@ function initUtilisation(model, history){
   }
   function drawPeak(peak){
     $('#ut-peaklist').innerHTML=`<p><strong>${fmt(peak)}</strong> on hire at once for this description across previous shutdowns.</p>`;
+  }
+  function drawAverages(noMatch){
+    const block=$('#ut-averages'),list=$('#ut-average-periods'),series=model.average_on_hire;
+    if(!series){block.hidden=true;return}
+    block.hidden=false;
+    const ownerKey=owner.value.toLowerCase(),previous=series.previous||[];
+    const measured=previous.filter(p=>p.quality!=='unavailable').sort((a,b)=>(b.start||'').localeCompare(a.start||''));
+    const periods=[series.current,...measured].filter(Boolean);
+    const archived=new Map();
+    for(const p of previous.filter(p=>p.quality==='unavailable')){
+      const reason=p.reason||'Timed rental records unavailable.';
+      if(!archived.has(reason))archived.set(reason,[]);
+      archived.get(reason).push(p.label||'Previous shutdown');
+    }
+    $('#ut-average-archive').innerHTML=[...archived].map(([reason,labels])=>
+      `<p class="ut-archive-note"><b>${esc(labels.join(' · '))}</b> — ${esc(reason)}</p>`).join('');
+    const stamp=iso=>{
+      const m=/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}:\d{2})/.exec(iso||'');
+      return m?Number(m[3])+' '+MON[Number(m[2])-1]+' '+m[1]+', '+m[4]:'';
+    };
+    const average=n=>n>0&&n<.01?'&lt;0.01':n.toLocaleString('en-AU',{maximumFractionDigits:n<1?2:1});
+    list.innerHTML=periods.map(p=>{
+      let value=p.total;
+      if(selected&&ownerKey)value=p.variant_owners?.[selected]?.[ownerKey];
+      else if(selected)value=p.variants?.[selected];
+      else if(ownerKey)value=p.owners?.[ownerKey];
+      if(noMatch||p.quality==='unavailable')value=null;
+      const valid=Number.isFinite(value?.average)&&value.average>=0;
+      const start=stamp(p.start),end=stamp(p.end),interval=[start,end].filter(Boolean).join(' to ');
+      const notes=[];
+      if(!valid&&p.quality!=='unavailable')notes.push(noMatch?'No matching variant.':value?.reason||'No matching records for this selection.');
+      if(p.reason)notes.push(p.reason);
+      else if(p.quality==='partial')notes.push('Partial records.');
+      else if(p.quality==='unavailable')notes.push('Timed hire records unavailable.');
+      if(ownerKey&&p.unassigned_owner>0)notes.push(fmt(p.unassigned_owner)+' rental intervals have no confirmed owner.');
+      if(selected&&p.unassigned_variant>0)notes.push(fmt(p.unassigned_variant)+' rental intervals have no confirmed variant.');
+      const current=p===series.current;
+      return `<article class="ut-period" data-period="${current?'current':'previous'}">
+        <strong class="ut-period-name">${esc(p.label||(current?'This shutdown':'Previous shutdown'))}</strong>
+        <div class="ut-period-figures"><span><b>${valid?average(value.average):'—'}</b> average</span>${Number.isFinite(value?.peak)?`<span><b>${fmt(value.peak)}</b> peak</span>`:''}</div>
+        ${interval?`<small>${esc(interval)}</small>`:''}${notes.length?`<small>${esc(notes.join(' '))}</small>`:''}
+      </article>`;
+    }).join('')||'<p class="ut-note">Timed hire records unavailable.</p>';
   }
   function drawAssets(){
     const filter=$('#ut-asset-scope').value,query=$('#ut-asset-find').value;
@@ -2395,15 +2710,61 @@ $$('#tagged .more').forEach(b=>b.onclick=()=>{open[b.dataset.g]=!open[b.dataset.
 const CL={};D.clines.forEach(l=>CL[l.name]=l);
 const cpic=(n,c,l=CL[n])=>{return l&&l.cp!=null&&D.cpics&&D.cpics[l.cp]?`<img class="tp${c?' '+c:''}" src="${D.cpics[l.cp]}" alt="" loading="lazy" style="background:#fff">`:''};
 /* ---------- consumables ---------- */
+function initConsumableUsage(report){
+  const section=$('#cu-report');
+  if(!report||STATIC)return;
+  const rows=report.rows||[],history=report.history||[],isFinal=report.status==='final';
+  const status=isFinal?'Final':'Provisional';
+  const displayDate=value=>{
+    if(!value)return 'Not recorded';
+    const raw=String(value);
+    const date=new Date(/[zZ]|[+-]\d\d:\d\d$/.test(raw)?raw:raw+'+10:00');
+    if(!Number.isFinite(date.valueOf()))return raw;
+    return new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Brisbane',dateStyle:'medium',timeStyle:'short'}).format(date)+' AEST'
+  };
+  const issuedAt=displayDate(report.as_at),source=report.source||'SiteIQ SALES_STOCK';
+  const available=rows.filter(r=>Number.isFinite(r.available_for_mmg)&&r.available_for_mmg>0).length;
+  const unknown=rows.filter(r=>!Number.isFinite(r.available_for_mmg)).length;
+  const summary=`${plural(available,'product')} with stock available to hand back to MMG. ${plural(rows.length,'product')} on the register.`;
+  const notes='All available consumables belong to MMG. The available balance is separate from stock credited back and cannot confirm physical delivery.';
+  section.hidden=false;
+  $('#cu-asat').textContent=status+' · '+source+' · '+issuedAt;
+  $('#cu-summary').textContent=summary+(unknown?' '+plural(unknown,'product')+' without a recorded balance.':'');
+  $('#cu-status').textContent=(isFinal?'':'Amounts may change with later exports before close-out. ')+notes;
+  const emailBody=[report.project||'MMG Dugald River','Consumables usage and MMG handback',status+' · Stock snapshot '+issuedAt,
+    $('#cu-summary').textContent,notes,'The product report shows gross issues, recorded credits, net usage and the average gross issues per comparable prior shutdown.'].join('\n\n');
+  $('#cu-email').href='mailto:?subject='+encodeURIComponent('MMG Dugald River · '+status+' consumables usage and handback')+'&body='+encodeURIComponent(emailBody);
+  $('#cu-email').title='Opens an email draft. Download the PDF or Excel file to attach it.';
+  const basis=rows.some(r=>r.average_shuts>0)?'Each average uses gross issues from comparable, complete prior shutdowns.':'No verified complete prior shutdown qualifies for a product average in this snapshot.';
+  $('#cu-reading').textContent='Gross issued less recorded credits gives net usage. '+basis+' A dash means unavailable.';
+  const n=v=>Number.isFinite(v)?v.toLocaleString('en-AU',{maximumFractionDigits:8}):'—';
+  function showRows(){
+    const query=$('#cu-q').value.trim().toLowerCase();
+    const filtered=rows.filter(r=>[r.name,r.sku].join(' ').toLowerCase().includes(query));
+    $('#cu-data').innerHTML=filtered.length?`<table class="t"><thead><tr><th scope="col">Product / stock code</th><th scope="col">Source unit</th><th scope="col">Available to hand back to MMG</th><th scope="col">Gross issued</th><th scope="col">Credited / issued back</th><th scope="col">Net usage</th><th scope="col">Average issued per prior shut</th><th scope="col">Qualifying prior shuts</th></tr></thead><tbody>${filtered.map(r=>`<tr><td><strong>${esc(r.name)}</strong><small>${esc(r.sku||'')}</small></td><td>${esc(r.unit||'Not recorded')}</td><td class="cu-balance">${n(r.available_for_mmg)}</td><td>${n(r.issued)}</td><td>${n(r.credited)}</td><td>${n(r.net)}</td><td>${Number.isFinite(r.average_issued)?r.average_issued.toLocaleString('en-AU',{maximumFractionDigits:2}):'—'}</td><td>${n(r.average_shuts)}</td></tr>`).join('')}</tbody></table>`:'<p class="empty">'+(query?'No matching products.':'No product records available in this snapshot.')+'</p>';
+  }
+  const coverage=history.length?'<ul>'+history.map(h=>'<li><b>'+esc(h.label)+'</b> · '+esc(h.status||'unverified')+(h.source?' · '+esc(h.source):'')+'</li>').join('')+'</ul>':'<p>No prior shutdown sources available for comparison.</p>';
+  $('#cu-coverage').innerHTML=coverage+(report.warnings||[]).map(w=>'<p>'+esc(w)+'</p>').join('');
+  $('#cu-details').addEventListener('toggle',()=>{if($('#cu-details').open)showRows()});
+  $('#cu-q').addEventListener('input',showRows);
+}
 function initConsumables(){
+initConsumableUsage(D.consumable_usage);
 browser($('#cb-cons'),'cons');
 initQrGrid();
 const dr=D.draws,B=D.below;
-$('#cn-lead').textContent=`${K.cons_lines} ${CLIENT} consumable lines are on the shelf. ${dr.n?`${fmt(dr.units)} units have been drawn so far this shut, in ${dr.n} issues to ${dr.people} people.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
+$('#cn-lead').textContent=dr.n?`${plural(dr.n,'consumable issue')} to ${plural(dr.people,'person','people')} this shutdown.`:'No consumable issues recorded in SiteIQ this shutdown.';
 stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[measuredShelf,shelfMissing?'Confirmed shelf units':'Units on the shelf'],[dr.units,'Units drawn this shut'],[minCoverage?B.length:null,B.length==1?'Assessed line below minimum':'Assessed lines below minimum',B.length?'w':'']]);
-if(B.length){$('#below-h').textContent=`Top up first: ${plural(B.length,'line')} below minimum`;
-$('#below-sub').textContent=`${minCoverageText} Bars compare shelf quantity with the recorded maximum; the mark is the minimum. Across ${fmt(maxCoverage)} lines with a usable maximum, ${fmt(D.to_max)} additional units would reach those maximums.`;
-$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th>Scan</th><th>${CLIENT} code</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th style="width:22%">Shelf against maximum</th><th class="n">To reach maximum</th></tr>${B.map(b=>`<tr data-open="cl:${esc(b.line)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(b.line)}<span>${esc(b.line)}</span></span></td><td>${qrb(b.line)}</td><td style="color:var(--mu);white-space:nowrap">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td class="n">${b.have}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.min}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.max??'—'}</td><td>${markedGauge(b.have,b.min,b.max,'warnb')}</td><td class="n">${b.max==null?'—':`<span class="pill w">+${fmt(b.max-b.have)}</span>`}</td></tr>`).join('')}</table></div><div class="foot">Minimum and maximum come from what ${CLIENT}'s recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days.</div>`}
+if(B.length){$('#below-h').textContent=`Top up first · ${plural(B.length,'line')} below minimum`;
+$('#below-sub').textContent=minCoverageText;
+const thresholds=`Across ${fmt(maxCoverage)} lines with a usable maximum, ${fmt(D.to_max)} additional units would reach those maximums. Bars compare the shelf quantity with the maximum. The mark shows the minimum.`;
+const rows=B.map(b=>`<tr data-open="cl:${esc(b.line)}">
+  <td><span class="below-line">${cpic(b.line)}<span>${esc(b.line)}</span></span></td>
+  <td class="n">${b.have}</td><td class="n">${b.min}</td><td class="n">${b.max??'—'}</td>
+  <td class="n">${b.max==null?'—':`<span class="pill w">+${fmt(b.max-b.have)}</span>`}</td>
+  <td>${markedGauge(b.have,b.min,b.max,'warnb')}</td>
+  <td class="below-code">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td>${qrb(b.line)}</td></tr>`).join('');
+$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th class="n">To reach maximum</th><th>Shelf against maximum</th><th>${CLIENT} code</th><th>Scan</th></tr>${rows}</table></div><div class="foot">${esc(thresholds)} Daily draws from recent ${esc(CLIENT)} shutdowns set these thresholds. The minimum covers the busiest day seen or two days of use. The maximum covers seven counter days.</div>`}
 else{$('#below-h').textContent=minCoverage?'No assessed stock line is below minimum':'Minimum comparison unavailable';$('#below-sub').textContent=minCoverageText;$('#below').remove()}
 {const cs=D.cat.cons.slice().sort((a,b)=>b.n-a.n);
 const partial=cs.some(c=>c.unknown),max=partial?null:(cs[0]?.n??0);
@@ -2631,7 +2992,7 @@ initChargeCheck(C.days);
 $('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1})).join('');
 stats($('#cs-stats'),[[C.days_done,`Scheduled days through pull date, of ${C.days.length}`],[C.hours_done,`Rostered hours through pull date, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
 const remaining=Number.isFinite(C.total)&&Number.isFinite(C.sofar)?C.total-C.sofar:null;
-$('#cs-stats').insertAdjacentHTML('beforeend',`<div><div class="n">${money(remaining)}</div><div class="l">Scheduled after pull date</div></div><div><div class="n">${money(C.total)}</div><div class="l">Whole shut</div></div>`);$('#cs-stats').style.setProperty('--n',5);
+$('#cs-stats').insertAdjacentHTML('afterbegin',`<div><div class="n">${money(C.total)}</div><div class="l">Whole shut</div></div><div><div class="n">${money(remaining)}</div><div class="l">Scheduled after pull date</div></div>`);$('#cs-stats').style.setProperty('--n',5);
 $('#cs-daysub').textContent=C.days.length?`Solid columns include each full scheduled day through ${C.upto}. Faded columns show costs scheduled for later days.`:'No dated charges are available.';
 $('#cs-leg').innerHTML=C.cats.map(c=>`<span><i class="${KC[c.key][1]}"></i>${esc(c.name)}</span>`).join('')+'<span style="color:var(--dim)">Faded = still to come</span>';
 if(C.days.length&&C.cats.length)columns($('#cs-chart'),C.days.map(d=>d.date),C.cats.map(c=>({v:C.days.map(d=>d[c.key]),cls:KC[c.key][0]})),{w:1100,h:300,l:46,bw:52,label:'Scheduled shut cost by day',axis:v=>'$'+(v/1000).toLocaleString('en-AU')+'k',
@@ -2792,20 +3153,42 @@ const nco=new Set(rs.map(r=>r.co)).size,npe=new Set(rs.map(r=>r.pk)).size,nc=rs.
 $('#paper').innerHTML=`<div class="ph"><div class="phl"><span class="pb">COATES</span>${LOGO?`<i></i><img src="${LOGO}" alt="${CLIENT}">`:''}</div><div class="phr"><b>On-hire report</b>SiteIQ pull ${esc(D.asat)}</div></div>
 <div class="ptt"><h1>${esc(D.job.title)}</h1><p>Shutdown tool store · everything out with crews as at ${esc(D.asat_day)} ${esc(D.asat)}</p></div>
 <div class="pstats"><div><b>${fmt(rs.length)}</b><span>Items on hire</span></div><div><b>${nco}</b><span>${nco==1?'Company':'Companies'}</span></div><div><b>${npe}</b><span>${npe==1?'Person':'People'}</span></div><div><b>${fmt(nc)}</b><span>Coates items</span></div><div><b>${fmt(rs.length-nc)}</b><span>${esc(K.other_owner)}-owned items</span></div></div>
-<div class="pask"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
+<div class="pask"><div>${returnPlan?`<b>Final worker shifts · ${esc(shiftDate(returnPlan.day_shift_date))}</b>${esc(finalRequest)} ${esc(returnTiming)}`:'<b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.'}</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
 <div class="pcare"><b>Why it comes back to Coates:</b> every item returned is checked for safe use and cleaned by the Coates tool store team, so it is ready for the next person.</div>
 <div class="pf"><b>Showing:</b> ${esc(says().join(' · '))}. In alphabetical order; sizes run smallest to largest. Days on hire counts from the date of hire to the SiteIQ pull.${rs.some(r=>r.tag)?` <span style="white-space:nowrap">${tgd(1)} = tested by Coates, ${esc(TG.name.toLowerCase())} tag (${esc(TG.span)}).</span>`:''}</div>
 ${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
 <div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ · © 2026 Andrew Fisher. All rights reserved.</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
-// the email is a draft with the same filters in words and a count for each group; nothing sends itself
-const lines=keys.map(k=>`${k.split('\u0001')[0]}: ${G.get(k).length}`).join('\n');
-$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nEquipment not being used: please return it to the Coates tool store.\nPlease check your gear each day before use.\n\nUse Print or save as PDF in the report to attach a copy.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
+// Keep complete asset numbers in smaller drafts. Larger filtered reports travel as an attached PDF.
+const detailed=keys.flatMap(k=>G.get(k).map(r=>[r.item,r.desc,r.who,r.co].filter(Boolean).join(' · '))).join('\n');
+let emailLines=detailed||'No matching assets are on hire.';
+const summary=detailed.length>1400;
+if(summary){
+ const groups=keys.map(k=>k.split('\u0001').filter(Boolean).join(' · ')+': '+G.get(k).length);
+ const overview=[];
+ let length=0;
+ for(const group of groups){if(length+group.length+1>1150)break;overview.push(group);length+=group.length+1}
+ emailLines='Group totals\n'+overview.join('\n');
+ if(overview.length<groups.length)emailLines+='\nShowing '+overview.length+' of '+groups.length+' groups.';
+ emailLines+='\nThe complete asset list is in the filtered report PDF.';
+}
+$('#oh-mail').textContent=summary?'Email summary':'Email return list';
+$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${emailLines}\n\n${returnPlan?finalRequest+' '+returnTiming:'Equipment not being used: please return it to the Coates tool store.'}\nPlease check your gear each day before use.\n\nUse Print or save as PDF in the report to attach a copy.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
 $('#oh-cosel').innerHTML=`<button class="pco on" data-c="">All companies</button>`+allCos.map(c=>`<button class="pco" data-c="${esc(c)}">${esc(c)} <span style="opacity:.7">${R.filter(r=>r.co==c).length}</span></button>`).join('');
 $$('#oh-cosel .pco').forEach(b=>b.onclick=()=>{const c=b.dataset.c;if(!c)st.cos.clear();else st.cos.has(c)?st.cos.delete(c):st.cos.add(c);$$('#oh-cosel .pco').forEach(x=>x.classList.toggle('on',x.dataset.c?st.cos.has(x.dataset.c):!st.cos.size));build()});
 const seg=(id,f)=>$$(id+' button').forEach(b=>b.onclick=()=>{st[f]=b.dataset.k;$$(id+' button').forEach(x=>x.classList.toggle('on',x===b));build()});seg('#oh-g','group');seg('#oh-o','own');
 $('#oh-f').addEventListener('input',e=>{st.q=e.target.value;build()});
 const reportDialog=overlayDialog(wrap);
-const openR=source=>{build();reportDialog.open(source,$('#oh-close'))};
+const openR=source=>{
+ if(source?.dataset.ohreport==='collection'){
+   const company=$('#oh-company').value;
+   st.cos=new Set(company?[company]:[]);st.group='who';st.own='all';st.q=$('#oh-q').value;
+   $('#oh-f').value=st.q;
+   $$('#oh-g button').forEach(b=>b.classList.toggle('on',b.dataset.k===st.group));
+   $$('#oh-o button').forEach(b=>b.classList.toggle('on',b.dataset.k===st.own));
+   $$('#oh-cosel button').forEach(b=>b.classList.toggle('on',b.dataset.c===company));
+ }
+ build();reportDialog.open(source,$('#oh-close'))
+};
 $('#oh-close').onclick=()=>reportDialog.close();
 $('#oh-print').onclick=()=>{root.classList.add('ohprint');const t=document.title;document.title=`${CLIENT} On-Hire Report ${D.asat.replace(':','')}`;const done=()=>{root.classList.remove('ohprint');document.title=t;removeEventListener('afterprint',done)};addEventListener('afterprint',done);print()};
 document.addEventListener('click',e=>{const source=e.target.closest('[data-ohreport]');if(source){e.preventDefault();openR(source)}});
@@ -2846,6 +3229,8 @@ function sdsSearchText(r){
 }
 function initSds(){
   const rows=[...sdsRecords].sort((a,b)=>a.product.localeCompare(b.product)),query=$('#sds-q'),state=$('#sds-state');
+  const registerDetails=$('#sds-register-details');
+  if(STATIC)registerDetails.open=true;
   function reviewSummary(){
     const today=sdsToday(),current=rows.filter(r=>sdsInDate(r,today)).length;
     const asAt=new Intl.DateTimeFormat('en-AU',{timeZone:'UTC',day:'numeric',month:'long',year:'numeric'}).format(new Date(today+'T12:00:00Z'));
@@ -2923,10 +3308,12 @@ function initSds(){
     let expanded=[];
     addEventListener('beforeprint',()=>{if(!$('#v-sds').classList.contains('on')||document.documentElement.classList.contains('ohprint'))return;
       document.documentElement.classList.add('sds-print');
+      registerDetails.toggleAttribute('data-restore-closed',!registerDetails.open);registerDetails.open=true;
       expanded=[...list.querySelectorAll('details[open]')].map(d=>d.closest('article').querySelector('h3').textContent);
       printing=true;draw()
     });
     addEventListener('afterprint',()=>{if(!printing)return;document.documentElement.classList.remove('sds-print');printing=false;draw();
+      if(registerDetails.hasAttribute('data-restore-closed')){registerDetails.open=false;registerDetails.removeAttribute('data-restore-closed')}
       for(const d of list.querySelectorAll('details'))d.open=expanded.includes(d.closest('article').querySelector('h3').textContent)
     })
   }
@@ -3014,16 +3401,36 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
     panel.querySelector('[data-review-refresh]').disabled=loading;
     panel.hidden=jump.hidden=false;
   }
+  const shiftCount=(s,n)=>s.upcoming?'Upcoming':n>0||s.coverage==='full'||s.window_minutes>0?counts(n||0,'entry','entries'):'Coverage unavailable';
+  const orderedShifts=()=>[...(model.shifts||[])].sort((a,b)=>(b.start||b.date||'').localeCompare(a.start||a.date||''));
+  function selectShift(){
+    const ordered=orderedShifts(),select=$('#st-review-shift');
+    const available=ordered.filter(s=>!person||s.operators?.some(p=>p.name===person));
+    const names=[...new Set(ordered.flatMap(s=>(s.operators||[]).map(p=>p.name)).filter(Boolean))].sort();
+    const picker=$('#st-review-person');
+    picker.replaceChildren(new Option('All operators',''),...names.map(n=>new Option(n,n)));
+    picker.value=person;picker.disabled=!names.length;
+    select.replaceChildren(...available.map(s=>{
+      const stats=person?s.operators.find(p=>p.name===person):s;
+      return new Option(label(s)+' · '+shiftCount(stats,stats.count_events),shiftKey(s));
+    }));
+    if(!available.some(s=>shiftKey(s)===selected)){
+      const initial=available.find(s=>!s.upcoming)||available[0];selected=initial?shiftKey(initial):'';
+    }
+    select.value=selected;select.disabled=!available.length;
+    showShift();
+  }
   function showShift(){
     const shifts=model.shifts||[], chosen=shifts.find(s=>shiftKey(s)===selected);
     const body=$('#st-shift-insight');
-    const picker=$('#st-review-person');
-    if(!chosen){picker.replaceChildren(new Option('Whole shift',''));picker.disabled=true;body.innerHTML='<p class="empty">No elapsed shifts with an assignment or recorded count are available.</p>';return}
-    const s=chosen,crew=s.operators||[];
-    const actor=crew.find(p=>p.name===person);if(!actor)person='';
-    picker.replaceChildren(new Option('Whole shift',''),...crew.map(p=>new Option(p.name+' · '+counts(p.count_events,'entry','entries'),p.name)));
-    picker.value=person;picker.disabled=!crew.length;
+    if(!chosen){body.innerHTML='<p class="empty">No rostered shifts or recorded counts are available for this selection.</p>';return}
+    const s=chosen,crew=s.operators||[],actor=crew.find(p=>p.name===person);
     const series=actor||s,hours=series.hours||[],gaps=series.gaps||[];
+    if(series.upcoming){
+      body.innerHTML='<p class="st-rev-source"><strong>'+esc(actor?.name||label(s))+'</strong> · Rostered '+esc(when(series.start))+' to '+esc(when(series.end))+'. This shift starts after the report cutoff.</p>';
+      return;
+    }
+    const measured=series.count_events>0||series.coverage==='full'||series.window_minutes>0;
     const attribution=actor?esc(actor.name)+' · '+(actor.planned?.length?'Rostered '+actor.planned.map(p=>esc(when(p.start))+' to '+esc(when(p.end))).join(', '):actor.first&&actor.last?'Observed from '+esc(when(actor.first))+' to '+esc(when(actor.last)):'No dated roster or count interval'):'Whole shift';
     const shiftSpan=(s.start&&s.elapsed_end)?when(s.start)+' to '+when(s.elapsed_end):'Shift times unavailable';
     const coverageFor=entry=>['full','partial'].includes(entry.coverage)?agoSpan(entry.window_minutes||0)+' of '+agoSpan(entry.elapsed_minutes||0)+' elapsed covered by SiteIQ export windows':
@@ -3031,10 +3438,12 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
     const roster=(s.planned||[]).map(r=>esc(r.person||'Name not recorded')+(r.start&&r.end?' ('+esc(local(r.start))+'–'+esc(local(r.end))+')':'')).join(', ');
     body.innerHTML='<p class="st-rev-source"><strong>'+esc(label(s))+'</strong> · '+esc(shiftSpan)+'<br>'+esc(coverageFor(s))+
       (s.ongoing?' · Partial shift at snapshot':'')+'. '+(roster?'Rostered: '+roster+'.':'No dated roster entry for this shift.')+'</p><p class="st-rev-source"><b>'+attribution+'</b>'+(actor?' · '+esc(coverageFor(actor)):'')+'</p>'+
-      '<div class="st-rev-stats">'+[['Count entries',series.count_events],['Distinct tool assets',series.tools],['Distinct consumable lines',series.cons]].map(([l,v])=>'<div><b>'+number(v||0)+'</b><span>'+l+'</span></div>').join('')+'</div>'+
+      '<div class="st-rev-stats">'+[['Count entries',series.count_events],['Distinct tool assets',series.tools],['Distinct consumable lines',series.cons]].map(([l,v])=>'<div><b>'+(measured?number(v||0):'—')+'</b><span>'+l+'</span></div>').join('')+'</div>'+
+      (actor&&actor.activity_timeline?'<div class="st-recorded-times" id="st-recorded-times"></div>':'')+
       '<h4>Count entries by hour</h4><p class="sub">Bar heights compare hours within this shift. Choose a bar to see the entries. Times are AEST.</p><div id="st-shift-trend"></div>'+
-      '<h4>Operators on this shift</h4><div id="st-operator-review"></div><h4>Gaps in the count record</h4><div id="st-gap-review"></div>'+
+      (actor?'<div id="st-operator-review"></div>':'<h4>Operators on this shift</h4><div id="st-operator-review"></div>')+(!actor?.activity_timeline?'<h4>Gaps in the count record</h4>':'')+'<div id="st-gap-review"></div>'+
       '<h4>'+(s.ongoing?'Outstanding at snapshot · shift in progress':'Outstanding at shift handover · all operators')+'</h4><div id="st-handover-review"></div>';
+    if(actor?.activity_timeline)showTimeline(actor,s);
     const peak=Math.max(1,...hours.map(h=>h.count_events||0));
     $('#st-shift-trend').innerHTML=hours.length?'<div class="st-hour-grid">'+hours.map((h,i)=>{
       const n=h.count_events||0,covered=h.window_minutes||0,elapsed=h.elapsed_minutes||0;
@@ -3044,7 +3453,7 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
       return '<button type="button" class="st-hour'+(covered===0?' no-window':covered<elapsed?' partial-window':'')+'" data-review-hour="'+i+'" aria-label="'+esc(accessible)+'" title="'+esc(accessible)+'"'+(!n?' disabled':'')+'><b>'+num+'</b><span class="st-hour-well"><i style="height:'+Math.min(100,100*n/peak)+'%"></i></span><small>'+esc(local(h.start))+'</small></button>';
     }).join('')+'</div><p class="foot">A dash marks an hour without export coverage or recorded counts. Counts can also come from the portal ledger.</p>':'<p class="empty">No elapsed hourly intervals are available.</p>';
     const groupNames=arr=>(arr||[]).map(x=>esc(x.name)+' ('+number(x.count_events)+')').join(', ');
-    $('#st-operator-review').innerHTML=crew.length?'<div class="st-rev-people">'+crew.map((p,i)=>{
+    $('#st-operator-review').innerHTML=actor?(actor.count_events?'<button type="button" class="btn ghost" data-review-operator="'+crew.indexOf(actor)+'">View all '+number(actor.count_events)+' item entries for '+esc(actor.name)+'</button>':''):crew.length?'<div class="st-rev-people">'+crew.map((p,i)=>{
       const categories=groupNames(p.categories),areas=groupNames(p.areas);
       return '<article><header><strong>'+esc(p.name||'Name not recorded')+'</strong><button type="button" class="btn ghost" data-review-operator="'+i+'">View entries</button></header>'+
       '<p>'+counts(p.count_events,'entry','entries')+' · '+counts(p.tools,'tool','tools')+' · '+counts(p.cons,'consumable line','consumable lines')+'</p>'+
@@ -3053,7 +3462,7 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
     }).join('')+'</div>':'<p class="empty">No named physical counts were recorded for this shift in the supplied records.</p>';
     const gapSummary=gaps.length?'<ul class="st-gaps">'+gaps.map(g=>'<li><strong>'+esc(local(g.start))+'–'+esc(local(g.end))+'</strong> · '+esc(agoSpan(g.minutes||0))+' without a named count'+(actor?' for '+esc(actor.name):'')+(Number.isInteger(g.other_sightings)?' · '+counts(g.other_sightings,'other SiteIQ sighting','other SiteIQ sightings'):'')+'</li>').join('')+'</ul>':
       '<p class="empty">'+(hours.some(h=>h.window_minutes>0)?'No gap of 60 minutes or more appears in the covered portion.':'There is no covered interval to assess for this selection.')+'</p>';
-    $('#st-gap-review').innerHTML=gapSummary+'<p class="foot">'+(actor?'For this operator, gaps are limited to their dated roster or, without a roster, their first to last named check. ':'')+'Gaps cover elapsed time inside supplied export windows. The records do not measure attendance, breaks or other work.</p>';
+    if(!actor?.activity_timeline)$('#st-gap-review').innerHTML=gapSummary+'<p class="foot">'+(actor?'For this operator, gaps are limited to their dated roster or, without a roster, their first to last named check. ':'')+'Gaps cover elapsed time inside supplied export windows. The records do not measure attendance, breaks or other work.</p>';
     const handover=s.follow_up||{};
     const byDimension=(mode,title)=>{
       const groups=handover[mode]||[];if(!groups.length)return '';
@@ -3066,6 +3475,32 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
       ' using today’s register. Groups listed had recorded checks during this shift and outstanding lines at the cutoff.</p>'+handoverDetails:
       '<p class="empty">No partially counted groups with recorded checks in this shift were identified by the cutoff.</p>';
 
+  }
+  function showTimeline(actor,shift){
+    const t=actor.activity_timeline,windows=t.windows||[],gaps=t.gaps||[];
+    const clock=t=>t.slice(17,19)&&t.slice(17,19)!=='00'?t.slice(11,19):local(t);
+    const timeLabel=t=>(t.slice(0,10)!==shift.date?day(t.slice(0,10))+' ':'')+clock(t);
+    const range=(a,b)=>!a||!b?'Time unavailable':a===b?timeLabel(a):timeLabel(a)+'–'+timeLabel(b);
+    function list(items,row,more){
+      const first=items.slice(0,3),rest=items.slice(3);
+      return '<ul>'+first.map(row).join('')+'</ul>'+(rest.length?'<details><summary>Show '+number(rest.length)+' more '+more+'</summary><ul>'+rest.map(row).join('')+'</ul></details>':'');
+    }
+    const win=w=>{
+      const cats=(w.categories||[]).map(c=>c.name+' ('+number(c.count_events)+')').join(', ');
+      const areas=(w.areas||[]).map(a=>a.name).join(', ');
+      return '<li><strong>'+esc(range(w.start,w.end))+'</strong><span>'+counts(w.count_events,'count entry','count entries')+'</span>'+
+        (w.store||areas?'<small>'+esc([w.store,areas].filter(Boolean).join(' · '))+'</small>':'')+
+        (cats?'<details><summary>Categories counted</summary><p>'+esc(cats)+'</p></details>':'')+'</li>';
+    };
+    const quiet=g=>'<li><strong>'+esc(range(g.start,g.end))+'</strong><span>'+esc(agoSpan(g.minutes))+'</span></li>';
+    const exact=actor.first&&actor.last?'First '+esc(timeLabel(actor.first))+' · Last '+esc(timeLabel(actor.last))+' AEST. ':'';
+    const coverage=actor.coverage==='full'||actor.window_minutes>0;
+    const noScans=coverage?'No named physical count during the covered time.':'A named physical count could not be established from the available records.';
+    $('#st-recorded-times').innerHTML='<div><h4>When '+esc(actor.name)+' counted</h4><p class="sub">'+exact+
+      (windows.length?counts(t.minutes_with_counts,'clock minute','clock minutes')+' contained a physical count.':'')+'</p>'+
+      (windows.length?list(windows,win,'count windows'):'<p class="st-quiet-empty">'+noScans+'</p>')+'</div>'+
+      '<div><h4>Time without a recorded count</h4><p class="sub">'+(actor.planned?.length?'Rostered time':'Time between the first and last named counts')+' covered by the export. Other store duties may occur between counts.</p>'+
+      (gaps.length?list(gaps,quiet,'intervals'):'<p class="st-quiet-empty">'+(coverage?'No full minute without a recorded count in the covered interval.':'Coverage unavailable for this interval.')+'</p>')+'</div>';
   }
   function showAreas(){
     const follow=model.follow_up||{},entries=follow[areaMode]||[];
@@ -3080,21 +3515,23 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
       '<p class="empty">'+(entries.length?'All listed lines have a physical count.':'No register breakdown is available.')+'</p>';
   }
   function paint(){
-    const shifts=model.shifts||[],ordered=[...shifts].sort((a,b)=>String(b.start||b.date).localeCompare(String(a.start||a.date)));
-    if(!ordered.some(s=>shiftKey(s)===selected))selected=ordered.length?shiftKey(ordered[0]):'';
+    const ordered=orderedShifts();
     const dates=[model.asat?'Review through '+when(model.asat):'',model.siteiq_asat?'SiteIQ export '+when(model.siteiq_asat):'',model.ledger_asat?'Portal ledger '+when(model.ledger_asat):''].filter(Boolean);
     header(dates.join(' · ')||'Source timestamps unavailable.',false);
-    const lastSessions=ordered.filter(s=>s.count_events>0).slice(0,2).map(s=>'<button class="btn ghost" type="button" data-review-shift="'+esc(shiftKey(s))+'">'+esc(label(s))+' · '+counts(s.count_events,'entry','entries')+'</button>').join('');
-    const missing=[model.unattributed_counts?counts(model.unattributed_counts,'count without a name','counts without names'):'',model.unconfirmed_counts?counts(model.unconfirmed_counts,'unconfirmed quantity','unconfirmed quantities'):''].filter(Boolean).join(' · ');
+    const latestByPerson=new Map();
+    for(const s of ordered)for(const p of s.operators||[]){
+      if(p.count_events>0&&!latestByPerson.has(p.name))latestByPerson.set(p.name,s);
+    }
+    const lastSessions=[...latestByPerson].map(([name,s])=>'<button class="btn ghost" type="button" data-review-shift="'+esc(shiftKey(s))+'" data-review-person="'+esc(name)+'">'+esc(name)+' · '+esc(label(s))+'</button>').join('');
+    const missing=[model.unattributed_counts?counts(model.unattributed_counts,'count without a name','counts without names'):'',model.unconfirmed_counts?counts(model.unconfirmed_counts,'unconfirmed quantity','unconfirmed quantities'):'',model.untimed_counts?counts(model.untimed_counts,'count without a clock time','counts without a clock time'):''].filter(Boolean).join(' · ');
     $('#st-review-content').innerHTML='<p class="sub">Since arrival · '+counts(model.count_events||0,'named physical count entry','named physical count entries')+' across '+counts(model.tools||0,'distinct tool','distinct tools')+' and '+counts(model.cons||0,'distinct consumable line','distinct consumable lines')+'. Recounts remain in the activity totals.'+(missing?' Excluded from named entries: '+esc(missing)+'.':'')+'</p>'+
-      (lastSessions?'<div class="st-recent-shifts"><span>Most recent shifts with recorded counts</span>'+lastSessions+'</div>':'')+
-      '<div class="st-rev-pick"><label>Shift to review<select id="st-review-shift"></select></label><label>Operator<select id="st-review-person"></select></label></div><div id="st-shift-insight"></div>'+
+      (lastSessions?'<div class="st-recent-shifts"><span>Latest recorded counts by operator</span>'+lastSessions+'</div>':'')+
+      '<div class="st-rev-pick"><label>Operator<select id="st-review-person"></select></label><label>Shift to review<select id="st-review-shift"></select></label></div><div id="st-shift-insight"></div>'+
       '<details class="st-rev-history"><summary>Compare shifts since arrival</summary><div id="st-review-history"></div></details>'+
       '<h4 id="st-follow-title">Areas needing a count</h4><p class="sub">'+(model.follow_up?.round==='closeout'?'Close-out':'Since arrival')+' · Current register, ordered by outstanding stock lines. Choose a remaining count to open the matching inventory.</p>'+
       '<div class="st-rev-pick"><label>Group outstanding inventory by<select id="st-area-type"><option value="areas">Storage area</option><option value="categories">Category</option></select></label></div><div id="st-area-review"></div>';
-    const select=$('#st-review-shift');select.replaceChildren(...ordered.map(s=>new Option(label(s)+' · '+counts(s.count_events,'entry','entries'),shiftKey(s))));select.value=selected;select.disabled=!shifts.length;
-    $('#st-review-history').innerHTML='<ul class="st-follow">'+ordered.map(s=>'<li><div><strong>'+esc(label(s))+'</strong><small>'+esc(s.first?when(s.first)+' to '+when(s.last):'No named counts recorded')+'</small></div><button type="button" class="btn ghost" data-review-shift="'+esc(shiftKey(s))+'">'+counts(s.count_events,'entry','entries')+'</button></li>').join('')+'</ul>';
-    showShift();showAreas();
+    $('#st-review-history').innerHTML='<ul class="st-follow">'+ordered.map(s=>'<li><div><strong>'+esc(label(s))+'</strong><small>'+esc(s.first?when(s.first)+' to '+when(s.last):s.upcoming?'Starts after the report cutoff':s.coverage==='full'||s.window_minutes?'No named counts in the covered time':'Export coverage unavailable')+'</small></div><button type="button" class="btn ghost" data-review-shift="'+esc(shiftKey(s))+'">'+esc(shiftCount(s,s.count_events))+'</button></li>').join('')+'</ul>';
+    selectShift();showAreas();
   }
   async function refresh(){
     if(!permitted)return;
@@ -3121,8 +3558,8 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
     }
   }
   panel.addEventListener('change',e=>{
-    if(e.target.id==='st-review-shift'){selected=e.target.value;person='';showShift()}
-    if(e.target.id==='st-review-person'){person=e.target.value;showShift()}
+    if(e.target.id==='st-review-shift'){selected=e.target.value;showShift()}
+    if(e.target.id==='st-review-person'){person=e.target.value;selectShift()}
     if(e.target.id==='st-area-type'){areaMode=e.target.value;showAreas()}
   });
   panel.addEventListener('click',e=>{
@@ -3131,7 +3568,7 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
     if(b.hasAttribute('data-review-refresh')){header('Refreshing the portal ledger and manager scan review…',true);refreshLedger();return}
     if(!model)return;
     const s=model.shifts.find(x=>shiftKey(x)===selected);
-    if(b.hasAttribute('data-review-shift')){selected=b.dataset.reviewShift;person='';$('#st-review-shift').value=selected;showShift();$('#st-review-shift').focus();return}
+    if(b.hasAttribute('data-review-shift')){selected=b.dataset.reviewShift;person=b.dataset.reviewPerson||'';selectShift();$('#st-review-shift').focus();return}
     if(s&&b.hasAttribute('data-review-hour')){const actor=(s.operators||[]).find(p=>p.name===person);openEntries(s,actor,(actor||s).hours[Number(b.dataset.reviewHour)]);}
     if(s&&b.hasAttribute('data-review-operator'))openEntries(s,s.operators[Number(b.dataset.reviewOperator)],null);
     if(s&&b.hasAttribute('data-review-handover')){
@@ -3573,7 +4010,7 @@ const initialisers=new Map(Object.entries({onhire:initOnHire,tooling:initTooling
 const workPages={
   onhire:{stats:'#oh-stats',jumps:[['Find a hire','#oh-q']]},
   tooling:{jumps:[['Find a variant','#ut-find'],['Browse the tool store','#cb-tools']]},
-  consumables:{stats:'#cn-stats',jumps:[['Find a consumable','#qr-q'],['Review stock levels','#below-h']]},
+  consumables:{stats:'#cn-stats',jumps:[['Find a consumable','#qr-q'],['Usage and handback','#cu-title']]},
   sds:{stats:'#sds-totals',rail:'.sds-toolbar'},
   swms:{},
   rhythm:{stats:'#op-stats',jumps:[['View counter checks','#hire-checks-title']]},
@@ -3597,7 +4034,8 @@ function prepareWorkPage(view,id){
     button.type='button';button.className='btn '+(actions.children.length?'ghost ':'')+'work-jump';button.textContent=label;
     button.setAttribute('aria-controls',target.id);
     button.onclick=()=>{
-      const height=document.querySelector('.top').getBoundingClientRect().height;
+      const top=document.querySelector('.top'),style=getComputedStyle(top);
+      const height=style.position==='sticky'?Math.max(0,top.getBoundingClientRect().height+(parseFloat(style.top)||0)):0;
       window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-height-16),behavior:'instant'});
       if(!target.matches('input,select,button,a,summary,[tabindex]'))target.tabIndex=-1;
       target.focus({preventScroll:true});

@@ -5,24 +5,43 @@ const fs = require("node:fs"), path = require("node:path"), vm = require("node:v
 const code = fs.readFileSync(path.join(__dirname,"..","qr_handover.js"),"utf8");
 
 class Node {
-  constructor(tag) {this.tag=tag;this.children=[];this.textContent="";}
+  constructor(tag) {this.tag=tag;this.children=[];this.textContent="";this.dataset={};this.events={};}
   append(...children) {this.children.push(...children);}
   make(tag) {const child=new Node(tag);this.append(child);return child;}
   createTHead() {return this.make("thead");}
   createTBody() {return this.make("tbody");}
   insertRow() {return this.make("tr");}
-  addEventListener() {}
+  addEventListener(event,handler) {this.events[event]=handler;}
+  setAttribute(name,value) {this[name]=value;}
+  replaceChildren(...children) {this.children=children;}
   tags(tag) {return [...(this.tag===tag?[this]:[]), ...this.children.flatMap(c=>c.tags(tag))];}
   get text() {return [this.textContent,...this.children.map(c=>c.text)].join(" ");}
 }
 function page() {
   const root=new Node("div"),pills=[];
   const window={MMGReportInstruments:{pill:(host,n,total)=>pills.push([n,total])}};
-  vm.runInNewContext(code,{window,document:{createElement:tag=>new Node(tag)}});
-  return {root,pills,api:window.QRHandover};
+  const dialog=new Node("dialog"),heading=dialog.make("h2"),close=dialog.make("button"),stage=dialog.make("div");
+  dialog.querySelector=selector=>({h2:heading,button:close,".product-photo-stage":stage})[selector];
+  dialog.showModal=()=>{dialog.open=true;};
+  dialog.close=()=>{dialog.open=false;dialog.events.close();};
+  vm.runInNewContext(code,{window,document:{createElement:tag=>new Node(tag),getElementById:id=>id==="product-photo-dialog"?dialog:null}});
+  return {root,pills,dialog,api:window.QRHandover};
 }
 const item={item:"A-001",name:"Radio",issued_at:"2026-11-25T03:04",returned_at:"2026-11-26T12:03:28"};
 const signedName="art-"+"a".repeat(64)+".webp."+"B".repeat(43);
+
+test("scoped product photo opens at its signed URL and clears on dismissal",()=>{
+  const {api,dialog}=page();
+  const photo=api.artwork({kind:"person",product_art:{"A-001":"/qr/personal/"+signedName}},item);
+  photo.tags("button")[0].events.click();
+  assert.equal(dialog.open,true);
+  assert.equal(dialog.tags("img")[0].src,"/qr/personal/"+signedName);
+  assert.equal(dialog.querySelector("h2").textContent,item.name);
+  dialog.querySelector("button").events.click();
+  assert.equal(dialog.open,false);
+  assert.equal(dialog.tags("img").length,0);
+  assert.equal(dialog.querySelector("h2").textContent,"");
+});
 
 test("return groups preserve date, minute, second and each receipt line's real precision",()=>{
  for(const [precision,returned_at,expect] of [
