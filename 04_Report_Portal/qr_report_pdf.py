@@ -22,8 +22,8 @@ RULE = HexColor("#DCE1E6")
 PALE = HexColor("#F3F5F7")
 ORANGE = HexColor("#F26222")
 ORANGE_INK = HexColor("#A23F0F")
-ISSUED = HexColor("#86AA63")
-RETURNED = HexColor("#8E9CAB")
+ISSUED = HexColor("#B94F1D")
+RETURNED = HexColor("#34754E")
 COPYRIGHT = ("Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. "
              "Not to be copied or reproduced without permission.")
 WIDTH, HEIGHT = A4
@@ -161,20 +161,22 @@ class ReturnStars(Flowable):
                     clip = c.beginPath()
                     clip.rect(cx - radius, cy - radius, 2 * radius * fraction, 2 * radius)
                     c.clipPath(clip, stroke=0, fill=0)
-                c.setFillColor(INK)
-                c.setStrokeColor(INK)
+                c.setFillColor(ORANGE)
+                c.setStrokeColor(ORANGE)
                 c.drawPath(star, fill=1, stroke=1)
                 c.restoreState()
         c.restoreState()
 
 
-def render_pdf(report, *, job_dir=None):
+def render_pdf(report, *, job_dir=None, returns_only=False):
     """Render only the allowlisted fields of the given projection. No register lookups."""
     kind = report.get("kind")
     name = text(report.get("name"))
     if kind not in {"company", "person"} or not name:
         raise ValueError("A selected company or person is required.")
     company_report = kind == "company"
+    if returns_only and not company_report:
+        raise ValueError("A company is required for a crew return list.")
     wash = PALE
     coverage = report.get("coverage") or {}
     rental_asat = coverage.get("rental_asat") or report.get("asat")
@@ -192,6 +194,8 @@ def render_pdf(report, *, job_dir=None):
 
     out = BytesIO()
     title = "Company on-hire report" if company_report else "Personal tool store report"
+    if returns_only:
+        title = "End-of-shift return list"
     doc = SimpleDocTemplate(out, pagesize=A4, leftMargin=MARGIN, rightMargin=MARGIN,
                             topMargin=85, bottomMargin=59, title=f"{name} | {title}",
                             author="Andrew Fisher", subject=COPYRIGHT, creator="Coates MMG Dugald River Tool Store")
@@ -250,7 +254,7 @@ def render_pdf(report, *, job_dir=None):
     tools_covered = bool(transaction_periods(coverage))
     ret = report.get("returns") or {}
     rating = report.get("return_rating") if company_report else ret
-    if rating is None:
+    if rating is None or returns_only:
         flow.append(para(name, 23, bold, spaceAfter=3))
     else:
         eligible = rating.get("eligible") or 0
@@ -280,20 +284,52 @@ def render_pdf(report, *, job_dir=None):
     def heading(label):
         flow.extend([CondPageBreak(82), para(label, 13, bold, spaceBefore=14, spaceAfter=5)])
 
-    def table(headers, rows, weights):
+    def table(headers, rows, weights, *, group_label=None):
         widths = [w * CONTENT for w in weights]
         data = [[para(h.upper(), 7.8, bold, white) for h in headers]]
         data.extend([para(cell, 8.8) for cell in row] for row in rows)
-        grid = LongTable(data, colWidths=widths, repeatRows=1, splitInRow=1, hAlign="LEFT")
+        if group_label:
+            data.insert(0, [para(group_label, 11, bold, white)] + [""] * (len(headers) - 1))
+        header = 1 if group_label else 0
+        grid = LongTable(data, colWidths=widths, repeatRows=header + 1, splitInRow=1, hAlign="LEFT")
         grid.setStyle(TableStyle([
-            ("BACKGROUND", (0, 0), (-1, 0), SLATE), ("VALIGN", (0, 0), (-1, -1), "TOP"),
-            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [white, PALE]),
-            ("LINEBELOW", (0, 0), (-1, 0), 1.6, ORANGE),
+            ("BACKGROUND", (0, 0), (-1, header), SLATE), ("VALIGN", (0, 0), (-1, -1), "TOP"),
+            ("ROWBACKGROUNDS", (0, header + 1), (-1, -1), [white, PALE]),
+            ("LINEBELOW", (0, header), (-1, header), 1.6, ORANGE),
             ("LINEBELOW", (0, 1), (-1, -1), .35, RULE),
             ("TOPPADDING", (0, 0), (-1, -1), 5), ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ("LEFTPADDING", (0, 0), (-1, -1), 7), ("RIGHTPADDING", (0, 0), (-1, -1), 7),
         ]))
+        if group_label:
+            grid.setStyle(TableStyle([("SPAN", (0, 0), (-1, 0))]))
         flow.append(grid)
+
+    if returns_only:
+        groups = report["return_groups"]
+        total = sum(len(group["items"]) for group in groups)
+        if total:
+            heading(f"{number(total)} " + ("asset" if total == 1 else "assets") + " still to return")
+            flow.append(para("Return unneeded equipment at shift end. Return all gear before leaving site.",
+                             9, spaceAfter=8))
+            for group in groups:
+                holder = group["holder"] or "Individual holder unconfirmed"
+                rows = []
+                for asset in group["items"]:
+                    day = asset.get("date")
+                    clock = asset.get("time")
+                    issued = (when(day) + " · " + (clock or "Time not recorded")) if day else "Issue date unavailable"
+                    rows.append((asset["name"], asset["item"] or "Asset ID unavailable", issued))
+                flow.append(Spacer(1, 8))
+                label = holder + f"  ·  {len(rows)} " + ("asset" if len(rows) == 1 else "assets")
+                table(("Equipment", "Asset number", "Issued (AEST)"), rows, (.46, .25, .29), group_label=label)
+        else:
+            heading("Return balance")
+            flow.append(para("No equipment is listed against this company at the dated stock snapshot."
+                             if rental_asat else "The current balance needs a dated rental stock export."))
+        flow.append(para("For a correction, give the asset number and snapshot time to the tool store.",
+                         colour=MUTED, spaceBefore=10))
+        doc.build(flow, onFirstPage=frame, onLaterPages=frame)
+        return out.getvalue()
 
     def record_coverage(coverage):
         heading("Record coverage")
@@ -531,7 +567,7 @@ def render_pdf(report, *, job_dir=None):
                                      8.8, colour=MUTED))
                 if count > 3:
                     flow.append(para(f"{number(count - 3)} more in Rental transactions.", 8.6, colour=MUTED))
-    heading("Equipment currently on hire" if company_report else "Currently on hire to you")
+    heading("Equipment currently on hire" if company_report else "Still to return")
     if company_report:
         flow.append(para("Company holding these assets: " + name, 9.4, bold, spaceAfter=5))
     if assets:

@@ -169,7 +169,7 @@ LOGIN = _login_template("__NAME__", "Sign in to the __NAME__",
 # Included only on the MMG entry, installation and upload surfaces.
 MMG_SHELL_CSS = """
 :root{--hq-bg:#101519;--hq-panel:#192126;--hq-rule:#39464b;--hq-ink:#f2f5f3;--hq-muted:#b6c2c4;
- --hq-orange:#f26222;--hq-coral:#f39b92;--hq-pad:clamp(1rem,4vw,5rem)}
+ --hq-orange:#f26222;--hq-active:#f97840;--hq-confirmed:#8bd8a7;--hq-coral:#f18d80;--hq-pad:clamp(1rem,4vw,5rem)}
 body{background:var(--hq-bg);color:var(--hq-ink)}
 .wrap{padding:0;gap:0;align-items:center}
 .portal-heading{width:100%;border-top:4px solid var(--hq-orange);border-bottom:1px solid var(--hq-rule);background:#11171b}
@@ -203,8 +203,8 @@ button:focus-visible,.portal-links a:focus-visible,.note a:focus-visible,.drop:f
 .note a,.portal-links a{color:#ffae87;text-underline-offset:.2em}.err{color:#ffc3bb;background:#301e20;border:1px solid var(--hq-coral);margin:.8rem 0}
 .foot{margin:auto 0 0;width:100%;border-top:1px solid var(--hq-rule);padding:.9rem var(--hq-pad) max(1rem,env(safe-area-inset-bottom));color:var(--hq-muted)}
 .foot small{color:#a6b2b5!important}.portal-links a{min-height:44px}
-.card li.got i{background:#cfd8e4;border-color:#cfd8e4}
-.card .st.ok{border-color:#8596a5;background:#1a2329}
+.card li.got i{color:var(--hq-bg);background:var(--hq-active);border-color:var(--hq-active)}
+.card .st.ok{border-color:var(--hq-confirmed);background:#192a23}
 .card .st.bad{border-color:var(--hq-coral);background:#301e20;color:#ffc3bb}
 @media(max-width:760px){
  .wrap>form.card{grid-template-columns:minmax(0,1fr);max-width:34rem;min-height:0;gap:1.5rem}

@@ -176,6 +176,20 @@ class QrViews(PortalHTTPCase):
         token = urlsplit(qr_access.entry_url(self.root, "personal")).fragment
         self.assertEqual(self.post("/qr/personal/enter", {"token": " " + token})[0], 403)
 
+    def test_return_list_requires_company_scope_and_the_selected_stock_revision(self):
+        c, p = self.activate("company"), self.activate("personal")
+        url = "/qr/company/returns.pdf?company=example"
+        report = {"kind":"company", "name":"Example", "return_list_revision":"abc",
+                  "asat":"2026-11-28T11:00", "return_groups":[]}
+        self.assertEqual(self.request("GET", url, headers={"Cookie":p})[0], 403)
+        self.assertEqual(self.request("GET", "/qr/personal/returns.pdf", headers={"Cookie":p})[0], 404)
+        with patch.object(qr_reports, "company", return_value=report) as get:
+            self.assertEqual(self.request("GET", url, headers={"Cookie":c,"If-Match":'"old"'})[0], 412)
+            status, hdr, body = self.request("GET", url, headers={"Cookie":c,"If-Match":'"abc"'})
+            self.assertEqual((status, hdr["Content-Type"], hdr["Cache-Control"]), (200, "application/pdf", "no-store"))
+            self.assertTrue(body.startswith(b"%PDF-"))
+            get.assert_called_with(str(self.root),"example")
+
     def test_only_selected_company_and_exact_personal_barcode_are_forwarded(self):
         c, p = self.activate("company"), self.activate("personal")
         ch = {"Cookie": c}

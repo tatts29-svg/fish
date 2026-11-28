@@ -9,11 +9,13 @@
 <style>
 __FONTS__
 :root{--bg:#0D1116;--panel:#161B22;--panel2:#1C222B;--line:#262E39;--tx:#E6EBF2;--mu:#97A3B3;--dim:#66717F;--track:#242B35;
---neu:#7F8B9B;--or:#F26222;--ortx:#FF8A50;--issued:#B5EB84;--returned:#CFD8E4;--past:#C2B3F4;--exception:#F39B92;--neutral-series:#97AFBD;
---ok:#CFD8E4;--warn:#F3C77D;--warnbg:rgba(243,199,125,.12);--okbg:rgba(207,216,228,.09);--orbg:rgba(242,98,34,.13);
+--neu:#7F8B9B;--or:#F26222;--ortx:#FF8A50;--issued:#F97840;--returned:#8BD8A7;--past:#91A6BA;--exception:#F18D80;--neutral-series:#96A9BA;
+--spend-tooling:#F7B58F;--spend-services:#A4B7C8;--spend-flights:#668098;--night-series:#60778C;
+--ok:var(--returned);--warn:#F2C16D;--warnbg:rgba(242,193,109,.12);--okbg:rgba(139,216,167,.11);--orbg:rgba(242,98,34,.13);
 --head:#2A313C;--shadow:0 1px 2px rgba(0,0,0,.25);--hover:rgba(255,255,255,.045);--scrim:rgba(5,8,11,.6)}
 html[data-theme=light]{--bg:#F2F4F7;--panel:#FFFFFF;--panel2:#F6F7F9;--line:#E0E4EA;--tx:#1B2028;--mu:#5A6472;--dim:#8B94A1;--track:#E8EBF0;
---neu:#9AA4B2;--ortx:#C2440D;--issued:#47712B;--returned:#5E7185;--past:#715899;--exception:#A13D35;--neutral-series:#668196;--ok:#4F626F;--warn:#805617;--warnbg:#FCF1DA;--okbg:#E8EEF1;--orbg:#FDE9DF;
+--neu:#9AA4B2;--ortx:#C2440D;--issued:#B94F1D;--returned:#34754E;--past:#52697F;--exception:#AC473D;--neutral-series:#5C7388;--ok:var(--returned);--warn:#906013;--warnbg:#FCF1DA;--okbg:#E8F3EC;
+--spend-tooling:#D89972;--spend-services:#7C95AA;--spend-flights:#40576A;--night-series:#8A9DAD;--orbg:#FDE9DF;
 --shadow:0 1px 2px rgba(27,32,40,.06),0 4px 14px rgba(27,32,40,.05);--hover:rgba(27,32,40,.04);--scrim:rgba(27,32,40,.38)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--bg)}
@@ -73,7 +75,7 @@ main{padding:28px 0 20px}
 .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--mu);margin-bottom:10px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:-1px}
 .la{background:var(--issued)}.lb{background:var(--neutral-series)}
-.legend:has(+ #clock) .la{background:var(--past)}.pill.history{color:var(--past);background:color-mix(in srgb,var(--past) 12%,transparent)}
+.legend:has(+ #clock) .la{background:var(--past)}.legend:has(+ #clock) .lb{background:var(--night-series)}.pill.history{color:var(--past);background:color-mix(in srgb,var(--past) 12%,transparent)}
 svg text{font-family:inherit}
 
 /* hero */
@@ -106,7 +108,7 @@ h1{font-size:38px;line-height:1.12;font-weight:700;letter-spacing:-.025em;margin
 .kpi.hot{border-top:3px solid var(--or);padding-top:16px}
 .delta{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:600;background:color-mix(in srgb,var(--past) 12%,transparent);color:var(--past);vertical-align:middle;letter-spacing:0}
 .meter{height:6px;border-radius:4px;background:var(--track);margin-top:12px;overflow:hidden}
-.meter i{display:block;height:100%;width:var(--w,0%);border-radius:4px;background:var(--or)}
+.meter i{display:block;height:100%;width:var(--w,0%);border-radius:4px;background:var(--series,var(--issued))}
 .go .meter i{width:var(--w)}
 
 /* three things to know */
@@ -126,7 +128,7 @@ h1{font-size:38px;line-height:1.12;font-weight:700;letter-spacing:-.025em;margin
 .row .nm small{display:block;color:var(--dim);font-size:12px;overflow:hidden;text-overflow:ellipsis}
 .tr{position:relative;height:10px;border-radius:5px;background:var(--track);overflow:hidden}
 .fl,.fb{position:absolute;left:0;top:0;bottom:0;width:var(--w,0%);border-radius:5px}
-.fl{background:var(--or)}.fb{background:var(--neu);opacity:.55}
+.fl{background:var(--series,var(--issued))}.fb{background:var(--past);opacity:.7}
 .neu .fl{background:var(--neu)}.warnb .fl{background:var(--warn)}
 .go .fl,.go .fb,.now .fl,.now .fb{width:var(--w)}
 .row .v{font-weight:600;text-align:right;font-size:14px;min-width:34px;white-space:nowrap}
@@ -332,11 +334,19 @@ footer .cr{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--dim)
 .prow.h{cursor:default;border-top:0;color:var(--mu);font-size:12px;font-weight:600;padding-bottom:6px}.prow.h:hover{background:none}.prow.h:after{content:""}
 .prow .pn{font-weight:600}.prow .pc{color:var(--mu)}
 .prow .tags{display:flex;flex-wrap:wrap;gap:5px}
-.stars{position:relative;display:inline-block;font-size:14px;letter-spacing:2px;line-height:1;color:var(--dim);white-space:nowrap;vertical-align:-1px}
-.stars i{position:absolute;left:0;top:0;overflow:hidden;color:var(--tx);font-style:normal;width:var(--p)}
-.stars.lg{font-size:22px;letter-spacing:3px}
+.stars{display:inline-block;width:5.6em;height:1.12em;vertical-align:-.15em;color:var(--or);print-color-adjust:exact}
+.stars.lg{font-size:1.4rem}
+.stars .star-shell{fill:none;stroke:var(--mu);stroke-width:1.25}
+.stars .star-earned{fill:currentColor;stroke:currentColor;stroke-width:1.25}
+@media(forced-colors:active){.stars{color:CanvasText}.stars .star-shell{stroke:CanvasText}}
 
 /* guide */
+.gauge-key{margin:0 0 1rem;break-inside:avoid}
+.gauge-key dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:.9rem 1.2rem;margin:1rem 0}
+.gauge-key dt{display:flex;align-items:center;gap:.5rem;font-weight:650}
+.gauge-key dt::before{content:"";flex:0 0 1.15rem;height:.55rem;border:1px solid color-mix(in srgb,var(--swatch) 72%,var(--tx));border-radius:1rem;background:linear-gradient(180deg,color-mix(in srgb,var(--swatch) 64%,white) 0%,var(--swatch) 45%,color-mix(in srgb,var(--swatch) 72%,#17212b) 100%);print-color-adjust:exact}
+.gauge-key dd{margin:.2rem 0 0 1.65rem;color:var(--mu);font-size:.9rem;line-height:1.45}
+.gauge-key p{margin:.5rem 0 0;color:var(--mu);font-size:.9rem}
 .defs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .def{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
 .def b{display:block;font-size:14px;margin-bottom:3px}.def span{font-size:13px;color:var(--mu)}
@@ -448,9 +458,10 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .fut{opacity:.36}
 .vl{font-size:11px}
 /* labour and costs */
-.ca,.kl{fill:url(#gcylO)}.cb{fill:url(#gcylS)}.kt{fill:url(#gcylB)}.ks{fill:url(#gcylP)}.kf{fill:url(#gcylG)}
-.lk1{background:#b6ced9}.lk2{background:#8fb2e0}.lk3{background:#9eafb3}.lk4{background:#6e7987}
-#clock .ca{fill:url(#history-vessel)}
+/* A labelled two-family palette distinguishes the stacked cost categories. */
+.ca,.kl{fill:url(#ink-active)}.cb{fill:url(#ink-returned)}.kt{fill:url(#ink-tooling)}.ks{fill:url(#ink-services)}.kf{fill:url(#ink-flights)}
+.lk1{background:var(--issued)}.lk2{background:var(--spend-tooling)}.lk3{background:var(--spend-services)}.lk4{background:var(--spend-flights)}
+#clock .ca{fill:url(#ink-history)}#clock .cb{fill:url(#ink-night)}
 .c5{grid-template-columns:repeat(5,1fr)}
 .c5 .kpi .n{font-size:32px}
 .costhero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
@@ -521,7 +532,7 @@ html.ohprint #paperwrap{position:static;display:block!important;background:#fff;
 html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padding:0;box-shadow:none}}
 @media (max-width:620px){.paper{padding:16px 12px;font-size:10px}.paper .pstats{grid-template-columns:repeat(3,1fr)}.paper .ph img{height:26px}}
 
-#util-card{margin:0 0 var(--space,16px);--liquid:#9DE7A6}
+#util-card{margin:0 0 var(--space,16px);--liquid:var(--issued)}
 #util-card[hidden],#util-card [hidden]{display:none!important}
 .ut-heading,.ut-filters{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
 .ut-heading h3{font-size:1.12rem}
@@ -576,6 +587,8 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 .sds-code button:focus-visible{outline:3px solid var(--or);outline-offset:3px}
 .sds-photo figcaption{margin-top:5px;text-align:center}
 .sds-photo figcaption a{color:inherit;text-decoration:underline;text-underline-offset:.16em}
+.sds-entry .sds-photo-facts{display:grid;grid-template-columns:minmax(0,1fr);gap:.45rem;margin:.6rem 0 .4rem;text-align:left}
+.sds-photo-facts dd{line-height:1.35;color:var(--tx)}
 #sds-photo-dialog{width:fit-content;max-width:94vw;max-height:92dvh;margin:auto;padding:0;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--tx);overflow:auto}
 #sds-photo-dialog::backdrop{background:#090b10d9}
 #sds-photo-dialog .sds-photo-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:12px 16px}
@@ -609,19 +622,22 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
   html.sds-print #v-sds .vh{margin:0 0 2mm}
   html.sds-print #sds-totals{display:flex;gap:6mm;margin:0 0 3mm;background:white;padding:0}
   html.sds-print #sds-totals>*{background:white;color:#111;padding:1mm 3mm;border:1px solid #aaa}
-  html.sds-print .sds-entry{break-inside:auto;grid-template-columns:minmax(0,1fr) 42mm;gap:1mm 7mm;background:white;border:0;border-top:1.5pt solid #444;padding:3mm 0 0;margin:0}
+  html.sds-print .sds-entry{break-inside:auto;grid-template-columns:minmax(0,1fr) 78mm;gap:1mm 5mm;background:white;border:0;border-top:1.5pt solid #444;padding:3mm 0 0;margin:0}
   html.sds-print .sds-entry+.sds-entry{break-before:page}
-  html.sds-print .sds-media{display:flex;flex-direction:column-reverse;align-items:center;gap:2mm;break-inside:avoid}
-  html.sds-print .sds-photo{width:30mm;font-size:8pt}
+  html.sds-print .sds-media{display:grid;grid-template-columns:minmax(0,1fr) 42mm;align-items:start;gap:3mm;break-inside:avoid}
+  html.sds-print .sds-photo{width:100%;font-size:8pt}
+  html.sds-print .sds-code{grid-column:2}
   html.sds-print .sds-code .sds-screen-label{display:none}
   html.sds-print .sds-print-link{display:block;color:#222;text-decoration:underline;font:9pt/1.2 Arial,sans-serif}
   html.sds-print .sds-photo-button{border:0;border-radius:0}
   html.sds-print .sds-photo-button::after,html.sds-print #sds-photo-dialog{display:none}
   html.sds-print .sds-photo figcaption{margin-top:1mm}
+  html.sds-print .sds-photo-button{width:25mm;margin-inline:auto}
+  html.sds-print .sds-photo .sds-photo-facts{grid-template-columns:1fr;gap:1mm;margin:1mm 0;font-size:8pt}
   html.sds-print .sds-entry h3{font-size:14pt}
   html.sds-print .sds-entry dl{font-size:10pt;grid-template-columns:repeat(2,minmax(0,1fr));gap:2mm 3mm;margin:3mm 0}
   html.sds-print .sds-entry dt,html.sds-print .sub{font-size:9pt;color:#333}
-  html.sds-print .sds-entry dl:not(.sds-extract){grid-template-columns:repeat(3,minmax(0,1fr))}
+  html.sds-print .sds-entry>div:first-child>dl{grid-template-columns:repeat(2,minmax(0,1fr))}
   html.sds-print .sds-entry .sds-extract{font:9.5pt/1.25 Arial,sans-serif;gap:1mm 6mm}
   html.sds-print .sds-extract dd{font-weight:400}
   html.sds-print .sds-entry :is(dd,p,ul){line-height:1.25}
@@ -647,7 +663,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 .st-hour b{font-size:.88rem}.st-hour small{font-size:.72rem;color:var(--mu)}.st-hour:disabled{opacity:1;cursor:default}
 .st-hour:not(:disabled):hover,.st-hour:not(:disabled):focus-visible{border-color:var(--or)}
 .st-hour-well{width:min(1.3rem,60%);height:2.25rem;display:flex;align-items:flex-end;background:var(--track);border-radius:3px;overflow:hidden}
-.st-hour-well i{display:block;width:100%;background:linear-gradient(90deg,#566c78,var(--neutral-series) 38%,#607480);border-radius:3px 3px 0 0}
+.st-hour-well i{display:block;width:100%;background:linear-gradient(90deg,color-mix(in srgb,var(--issued) 57%,#1d242c),var(--issued) 39%,color-mix(in srgb,var(--issued) 72%,white) 52%,var(--issued) 64%,color-mix(in srgb,var(--issued) 58%,#1d242c));border-radius:3px 3px 0 0}
 .st-hour.no-window .st-hour-well{background:repeating-linear-gradient(135deg,transparent 0 3px,var(--track) 3px 5px)}
 .st-hour.partial-window{border-style:dashed}
 .st-rev-people{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr));gap:.55rem}
@@ -667,6 +683,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 #st-rounds .st-round{padding:.8rem 1rem;border-radius:12px}
 #st-rounds .st-round small{display:block;margin-top:.24rem;color:var(--mu);font-size:.75rem}
 #v-stocktake .st-filters>label{min-width:0;max-width:100%}
+#st-cat-progress-label[hidden]{display:none}
 #v-stocktake .st-filters select{width:100%;min-width:0;max-width:min(100%,22rem);text-overflow:ellipsis}
 #st-rounds.st-formal-rounds{grid-template-columns:repeat(2,minmax(0,1fr))}
 .st-baseline-attribution{padding:.65rem .85rem;border-left:3px solid var(--or);background:var(--panel2);color:var(--tx);font-size:.88rem;line-height:1.45;margin:.65rem 0}
@@ -687,6 +704,9 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 .st-cat-label{font-size:.79rem;color:var(--mu)}.st-cat-name{display:block;margin:.12rem 0 .3rem;font-size:.95rem;overflow-wrap:anywhere}
 .st-cat-amount{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline;color:var(--mu);font-size:.8rem}.st-cat-amount strong{color:var(--tx);font-size:.95rem}
 .st-category-tile .meter{display:block;margin:.45rem 0 .1rem}
+.st-cat-last,.st-cat-resume{display:block;font-size:.81rem;line-height:1.4}
+.st-cat-last{color:var(--mu);margin-top:.55rem}
+.st-cat-resume{color:var(--ortx);font-weight:650;margin-top:.45rem}
 .st-category-tile .st-coverage-meter>i{width:var(--w);min-width:0;transition:none}
 .st-active-category{margin:.4rem 0;color:var(--mu);font-size:.85rem}.st-active-category button{margin-left:.6rem}
 #st-shift-summary .st-table th:first-child{width:23%}
@@ -810,7 +830,7 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 @media screen and (max-width:620px) {
   html:not(.static) {
     & .row:has(.tp){grid-template-columns:minmax(0,1fr) auto}
-    & .row:has(.tp) .tr{grid-column:1/-1;grid-row:2;height:5px}
+    & .row:has(.tp) .tr{grid-column:1/-1;grid-row:2}
     & .row:has(.tp) .v{white-space:normal;max-width:7em}
     & .drawer{width:100%}
     & .prow{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 16px}
@@ -873,14 +893,17 @@ html.ohprint .paper{page:oh;width:auto;max-width:none;min-height:0;margin:0;padd
 }
 
 /* Colour follows the measure. The same fill means the same thing on every tab. */
-#cos,#oh-cos,#oh-rest,#tl-tools,#cn-draws{--series:var(--issued)}
+#cos,#oh-cos,#oh-rest,#tl-tools,#cn-draws,#cs-people,#up-bar{--series:var(--issued)}
+.drawer .now.bar-series{--series:var(--past)}
 #op-lines,#op-types,#peaks{--series:var(--past)}
-#oh-kinds,#ut-gauge{--vessel-colour:var(--issued)}
+#oh-kinds,#ut-gauge,#cs-cyls{--vessel-colour:var(--issued)}
 #ut-gauge[data-period=past]{--vessel-colour:var(--past)}
-.cyl{--vessel-shadow:color-mix(in srgb,var(--vessel-colour,var(--neutral-series)) 47%,#27303a)}
 #cn-types{--vessel-colour:var(--neutral-series)}
 #range{--vessel-colour:var(--past)}
-#tl-util .curved-gauge{--fluid:var(--issued)}
+#tl-util .curved-gauge,#cs-ring .curved-gauge,.st-measure .curved-gauge{--fluid:var(--issued)}
+.st-category-tile{--series:var(--issued)}
+.st-measure .curved-gauge:has([data-fraction="1"]){--fluid:var(--returned)}
+.st-category-tile[data-progress=complete]{--series:var(--returned)}
 #util-card{--liquid:var(--issued)}
 #ut-gauge[data-period=past]{--liquid:var(--past)}
 #cb-tools,#cb-cons{--series:var(--neutral-series)}
@@ -903,7 +926,7 @@ html[data-theme=dark] .kpi.hot .n,.ut-number{color:var(--tx)}
 }
 
 /* Curved and straight instruments share glass edges and a labelled colour series. */
-.curved-gauge{--fluid:var(--neutral-series);--fluid-dark:color-mix(in srgb,var(--fluid) 45%,#23303b);--fluid-mid:color-mix(in srgb,var(--fluid) 80%,#23303b);--fluid-face:color-mix(in srgb,var(--fluid) 72%,white);--curve-rim:#526071;--curve-shadow:#111820;--curve-core:#28313c;--curve-glass:#384652;--curve-shine:#697785}
+.curved-gauge{--fluid:var(--neutral-series);--fluid-dark:color-mix(in srgb,var(--fluid) 44%,#191c22);--fluid-mid:color-mix(in srgb,var(--fluid) 78%,#292731);--fluid-face:color-mix(in srgb,var(--fluid) 60%,white);--curve-rim:#768694;--curve-shadow:#0D151D;--curve-core:#232F3B;--curve-glass:#354553;--curve-shine:#647888}
 html[data-theme=light] .curved-gauge,.static .curved-gauge{--curve-rim:#a1aeb9;--curve-shadow:#bdc7ce;--curve-core:#dfe5e9;--curve-glass:#e6ebed;--curve-shine:#fff}
 .ringw svg.curved-gauge{transform:none}
 .curve-aura{display:none}
@@ -911,7 +934,7 @@ html[data-theme=light] .curved-gauge,.static .curved-gauge{--curve-rim:#a1aeb9;-
 .curve-face{fill:var(--fluid-face);stroke:#e6eae7;stroke-width:.58}
 .curve-meniscus{fill:none;stroke:#fff2db;stroke-opacity:.88;stroke-width:.7;stroke-linecap:round}
 .curve-bubble{transform-origin:0 0;opacity:0;pointer-events:none}
-.curve-bubble circle{fill:url(#liquid-pearl);stroke:#46513e;stroke-width:.45}
+.curve-bubble circle{fill:url(#liquid-pearl);stroke:#38404a;stroke-width:.45}
 @keyframes curve-rise{
   0%{opacity:0;transform:rotate(0deg)}
   13%{opacity:.92}
@@ -937,16 +960,24 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 .liquid-meniscus{stroke-width:.75px;opacity:.72}
 .liquid-bubble{fill:url(#liquid-pearl);stroke:rgba(72,48,43,.54);stroke-width:.52;pointer-events:none;opacity:0}
 
-.vessel-chart .shell{fill-opacity:.22;stroke-opacity:.46}
+.vessel-chart .shell{fill-opacity:.32;stroke-opacity:.65}
 html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
 .unknown-reading .shell,.curved-glass[data-unavailable] .curve-shell{fill:url(#unmeasured-glass);fill-opacity:1;stroke:var(--neu);stroke-dasharray:3 3}
 .hourly-legend .la,.legend:has(+ #tl-tools) .la{background:var(--issued)}
 .hourly-legend .lb{background:var(--returned)}
 .legend:has(+ #tl-tools) .lb{background:var(--past);opacity:1!important}
 .vessel-chart .footlight{opacity:.16}
-.hourly-chart .liquid-volume .ca{fill:url(#hourly-green)}
+/* SVG gradient stops resolve palette tokens in the current light or dark theme. */
+.glass-ink{--ink:var(--neutral-series)}
+.glass-ink stop:nth-child(1),.glass-ink stop:nth-child(7){stop-color:color-mix(in srgb,var(--ink) 46%,#1b2026)}
+.glass-ink stop:nth-child(2),.glass-ink stop:nth-child(6){stop-color:color-mix(in srgb,var(--ink) 77%,#20242c)}
+.glass-ink stop:nth-child(3),.glass-ink stop:nth-child(5){stop-color:var(--ink)}
+.glass-ink stop:nth-child(4){stop-color:color-mix(in srgb,var(--ink) 63%,white)}
+#ink-active{--ink:var(--issued)}#ink-returned{--ink:var(--returned)}
+#ink-history,#tube-fluid{--ink:var(--past)}#ink-night{--ink:var(--night-series)}
+#ink-tooling{--ink:var(--spend-tooling)}#ink-services{--ink:var(--spend-services)}#ink-flights{--ink:var(--spend-flights)}
+.cyl .glass-ink{--ink:var(--vessel-colour,var(--neutral-series))}
 
-.hourly-chart .liquid-volume .cb{fill:url(#hourly-silver)}
 
 .hourly-chart .lbl{paint-order:stroke;stroke:var(--panel);stroke-width:3;stroke-linejoin:round}
 .liquid-film{fill:#fff;fill-opacity:.2;pointer-events:none}
@@ -994,8 +1025,8 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
     --tube-h:clamp(16px,.84vw,28px);
     --tube-fill:var(--series, var(--neutral-series));--tube-rim:color-mix(in srgb,var(--tx) 30%,transparent);
     height:var(--tube-h);position:relative;border-radius:999px;isolation:isolate;
-    background:linear-gradient(180deg,color-mix(in srgb,var(--track) 82%,#9baebd),var(--track) 37%,var(--panel) 68%,var(--track));
-    box-shadow:inset 0 0 0 1px var(--tube-rim),inset 0 2px 1px #ffffff1f
+    background:linear-gradient(180deg,color-mix(in srgb,var(--track) 55%,#acbac4),var(--track) 23%,var(--panel) 64%,var(--track) 88%,color-mix(in srgb,var(--track) 69%,#8d9da7));
+    box-shadow:inset 0 0 0 1px var(--tube-rim),inset 0 2px 1px #ffffff24
   }
   & :is(.cbi .m,.meter){--tube-h:clamp(12px,.64vw,20px)}
   & .neu .tr,& .tr.neu{--tube-fill:var(--neutral-series)}
@@ -1006,7 +1037,7 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
   & :is(.tr>.fl,.tr>.fb,.meter>i,.cbi .m>i,.upbar .tr>i){
     --water-depth:var(--tube-h);--surface:color-mix(in srgb,var(--tube-fill) 71%,white);
     max-width:100%;border-radius:999px;overflow:hidden;isolation:isolate;opacity:1;
-    background:linear-gradient(to bottom,var(--surface),var(--tube-fill) 22%,color-mix(in srgb,var(--tube-fill) 83%,#30180c) 69%,color-mix(in srgb,var(--tube-fill) 74%,#241916) 86%,var(--surface));
+    background:linear-gradient(to bottom,var(--surface),var(--tube-fill) 22%,var(--tube-fill) 42%,color-mix(in srgb,var(--tube-fill) 77%,#20242c) 70%,color-mix(in srgb,var(--tube-fill) 49%,#1b2026) 87%,var(--surface));
     box-shadow:inset 0 1px 0 #ffffff5c,inset 0 -1px 0 #29160c5c
   }
   & :is(.meter>i,.cbi .m>i,.upbar .tr>i){position:relative}
@@ -1082,6 +1113,61 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
 .st-liquid-track{display:none}
 @media print{.liquid-particles,.liquid-bubble,.surface-pop,.st-liquid-track{display:none!important}}
 
+/* The site overview puts the current shift and the most hired tool in one spread. */
+.site-overview #overview-hero{isolation:isolate;position:relative;overflow:hidden;gap:clamp(18px,2vw,56px);padding:clamp(21px,2.4vw,60px);
+  grid-template-columns:minmax(0,1fr) auto;border:1px solid #34414a;border-top:3px solid var(--or);border-radius:20px;
+  background:radial-gradient(ellipse at 78% 120%,#66351f78,transparent 53%),linear-gradient(112deg,#16222b,#131a21 56%,#191a1a);color:#f2f5f6}
+.site-overview.has-feature #overview-hero{grid-template-columns:minmax(0,1fr) minmax(0,1.03fr)}
+.site-overview.has-feature #client{display:none}
+.site-overview #eyebrow,.feat-caption{text-transform:uppercase;letter-spacing:.135em;font-size:clamp(.69rem,.76vw,.86rem);font-weight:740}
+.site-overview #eyebrow{color:#ffac80}
+.site-overview #h1{font-size:clamp(2.8rem,4.4vw,6.4rem);font-weight:720;line-height:1.04;letter-spacing:-.057em;margin:.17em 0 .25em;color:#f4f7f9}
+.site-overview #lead{margin:0;color:#c6d1d9;line-height:1.52;max-width:46ch;font-size:clamp(.95rem,1vw,1.15rem)}
+.site-overview #lead b{color:#f7f8fa;font-weight:650}
+#overview-actions{display:flex;gap:.65rem;align-items:center;flex-wrap:wrap;margin-top:1.12rem}
+#overview-actions[hidden],#overview-actions button[hidden],#overview-feature[hidden]{display:none}
+#overview-actions .btn{min-height:42px;padding:.58em .94em}
+#overview-actions .btn span{padding-left:.32em}
+#overview-actions .ghost{border-color:#63717c;color:#e8edf0;background:#ffffff08}
+#overview-feature{min-width:0}
+.feat-stock{appearance:none;display:grid;grid-template-columns:minmax(0,.91fr) minmax(0,1.08fr);align-items:center;gap:clamp(16px,1.7vw,45px);width:100%;height:100%;
+  text-align:left;border:0;border-left:1px solid #465057;background:none;color:#f2f5f6;padding:0 0 0 clamp(16px,2.2vw,50px);cursor:pointer}
+.feat-stock.text-only{grid-template-columns:minmax(0,1fr)}
+.feat-image{display:block;width:100%;max-width:300px;aspect-ratio:1;object-fit:contain;justify-self:center;border-radius:12px}
+.feat-info{min-width:0;display:block}
+.feat-caption,.feat-name,.feat-link{display:block}
+.feat-caption{color:#ffac80}
+.feat-name{margin:.38em 0 .58em;font-size:clamp(1.13rem,1.6vw,2.35rem);line-height:1.16;letter-spacing:-.034em;font-weight:670;overflow-wrap:anywhere}
+.feat-figures{display:flex;gap:1rem;flex-wrap:wrap}.feat-stat{display:grid;line-height:1.15}.feat-stat+.feat-stat{border-left:1px solid #4a5257;padding-left:1rem}
+.feat-stat strong{font-size:clamp(1.42rem,2vw,2.55rem);letter-spacing:-.04em;color:#ff975c}.feat-stat+.feat-stat strong{color:#e7eef3}
+.feat-stat small{margin-top:.21em;color:#c4d0d8;font-size:.8rem}
+.feat-link{color:#f3eee8;font-weight:650;font-size:.8rem;margin-top:1.05em}
+.feat-stock:hover .feat-link{text-decoration:underline;text-underline-offset:3px}
+@media screen and (min-width:2200px){
+ .feat-stock:not(.text-only){grid-template-columns:minmax(0,clamp(280px,12vw,470px)) minmax(0,1fr);gap:clamp(24px,1vw,40px)}
+ .feat-image{max-width:470px}
+}
+.site-overview .overview-activity{margin-top:1rem}
+.site-overview .days{position:relative;flex-wrap:nowrap;overflow-x:auto;gap:5px;margin-top:.7rem;scrollbar-width:thin}
+.site-overview .day{min-width:75px;max-width:none;border-radius:7px}
+@media screen and (max-width:800px){
+ .site-overview #overview-hero,.site-overview.has-feature #overview-hero{grid-template-columns:1fr;gap:1.07rem;padding:1.1rem;border-radius:15px}
+ .site-overview #h1{font-size:clamp(2.55rem,8vw,3.8rem)}
+ #overview-actions{margin-top:.78rem}
+ .feat-stock{border-left:0;border-top:1px solid #465057;padding:1rem 0 0;grid-template-columns:minmax(80px,25%) minmax(0,1fr);gap:1rem}
+ .feat-name{font-size:clamp(1rem,3.5vw,1.45rem);margin:.25em 0 .45em}
+ .feat-figures{gap:.7rem}.feat-stat+.feat-stat{padding-left:.7rem}
+ .feat-stat{display:flex;align-items:baseline;gap:.28rem}.feat-stat strong{font-size:1.2rem}.feat-stat small,.feat-link{font-size:.75rem}
+ .feat-link{margin-top:.55em}
+}
+html[data-theme=light] .site-overview #overview-hero{background:radial-gradient(ellipse at 82% 105%,#efe2d8,transparent 55%),linear-gradient(100deg,#fcfdfe,#edf1f4);border-color:#c7d0d5;border-top-color:var(--or);color:#17252f}
+html[data-theme=light] .site-overview :is(#h1,#lead b,.feat-name,.feat-stat+.feat-stat strong){color:#17252f}
+html[data-theme=light] .site-overview :is(#lead,.feat-stat small){color:#4e606c}
+html[data-theme=light] .site-overview :is(#eyebrow,.feat-caption,.feat-stat strong){color:#a34118}
+html[data-theme=light] .site-overview :is(.feat-stock,.feat-stat+.feat-stat){border-color:#b9c5ca}
+html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){color:#203640}
+@media print{.site-overview #overview-hero{break-inside:avoid}.site-overview #overview-actions,.site-overview .feat-link{display:none}.site-overview .feat-image{max-width:120px}}
+
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
@@ -1095,7 +1181,15 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
 </style></head>
 <body>
 <div class="prog" aria-hidden="true"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="unmeasured-glass" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--track)"/><path d="M-1 1L1 -1M0 6L6 0M5 7L7 5" stroke="var(--neu)" stroke-width=".7"/></pattern><linearGradient id="hourly-green"><stop stop-color="#4c6939"/><stop offset=".2" stop-color="#b5eb84"/><stop offset=".48" stop-color="#b5eb84"/><stop offset="1" stop-color="#759d55"/></linearGradient><linearGradient id="hourly-silver"><stop stop-color="#73808e"/><stop offset=".2" stop-color="#cfd8e4"/><stop offset=".48" stop-color="#cfd8e4"/><stop offset="1" stop-color="#8593a2"/></linearGradient><radialGradient id="column-glow"><stop stop-color="#a6b8c4" stop-opacity=".82"/><stop offset="1" stop-color="#a6b8c4" stop-opacity="0"/></radialGradient><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e2d9f7"/><stop offset=".24" stop-color="#c2b3f4"/><stop offset=".63" stop-color="#9585bd"/><stop offset=".86" stop-color="#77659f"/><stop offset="1" stop-color="#b5a4d5"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="history-vessel"><stop stop-color="#796894"/><stop offset=".42" stop-color="#c2b3f4"/><stop offset="1" stop-color="#8876a8"/></linearGradient><linearGradient id="gcylO"><stop stop-color="#5a7687"/><stop offset=".42" stop-color="#b6ced9"/><stop offset="1" stop-color="#658090"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP"><stop stop-color="#52656e"/><stop offset=".42" stop-color="#9eafb3"/><stop offset="1" stop-color="#5d7279"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="unmeasured-glass" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--track)"/><path d="M-1 1L1 -1M0 6L6 0M5 7L7 5" stroke="var(--neu)" stroke-width=".7"/></pattern>
+<linearGradient id="ink-active" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<linearGradient id="ink-returned" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<linearGradient id="ink-history" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<linearGradient id="ink-night" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<linearGradient id="ink-tooling" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<linearGradient id="ink-services" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<linearGradient id="ink-flights" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
+<radialGradient id="column-glow"><stop stop-color="#a6b8c4" stop-opacity=".82"/><stop offset="1" stop-color="#a6b8c4" stop-opacity="0"/></radialGradient><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" class="glass-ink" x1="0" y1="0" x2="0" y2="1"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -1105,29 +1199,34 @@ html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
 <button class="theme" id="theme" aria-label="Switch between light and dark"></button>
 </div><div class="tabsw"><nav class="wrap"><div class="tabs" id="tabs"><i class="ink" id="ink"></i></div></nav></div></header>
 
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden"><defs>
+<path id="rating-star" d="m10 1.8 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/>
+<g id="rating-strip" stroke-linejoin="round"><use href="#rating-star"/><use href="#rating-star" x="20"/><use href="#rating-star" x="40"/><use href="#rating-star" x="60"/><use href="#rating-star" x="80"/></g>
+</defs></svg>
 <main class="wrap">
 
 <section class="view" id="v-overview" data-tab="Overview">
-<div class="hero"><div>
+<div class="hero" id="overview-hero"><div class="overview-copy">
 <div class="eyebrow" id="eyebrow"></div>
 <h1 id="h1"></h1>
 <p class="lead" id="lead"></p>
-</div><div class="client" id="client"><img id="clientlogo" alt="__CLIENT__"><div class="pf">Prepared for</div><div class="pn" id="clientname"></div></div></div>
-<div class="days" id="days"></div>
+<div id="overview-actions" class="noprint" hidden><button type="button" class="btn" data-go="onhire">View on hire <span aria-hidden="true">→</span></button><button type="button" class="btn ghost" data-go="stocktake">Open stocktake</button></div>
+</div><div id="overview-feature" hidden></div><div class="client" id="client"><img id="clientlogo" alt="__CLIENT__"><div class="pf">Prepared for</div><div class="pn" id="clientname"></div></div></div>
+<div class="days" id="days" role="region" aria-label="Shutdown days" tabindex="0"></div>
 <div class="grid c4" id="kpis" style="margin-top:22px"></div>
-<div class="sect">Three things to know right now</div>
+<div class="grid c21 overview-activity">
+<div class="card"><h3>Gear issued by hour</h3><div class="sub" id="hoursub"></div>
+<div class="legend hourly-legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>No longer on hire</span></div>
+<div id="hourly"></div></div>
+<div class="card"><h3>Who has the gear now</h3><div class="sub" id="cosub"></div><div id="cos"></div></div>
+</div>
+<div class="sect">Shift highlights</div>
 <div class="grid c3" id="know"></div>
 __CONTACTS__
 <div class="sect">Why Coates is on site</div>
 <div class="card loopc"><h3>How Coates checks gear at the counter</h3><div class="sub" id="loop-sub"></div>
 <div class="loop" id="loop"></div>
 <button type="button" id="hire-checks-link" class="more noprint" data-go="rhythm" hidden>View hire and return checks</button></div>
-<div class="grid c21">
-<div class="card"><h3>Latest issue time for assets issued today</h3><div class="sub" id="hoursub"></div>
-<div class="legend hourly-legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>No longer on hire</span></div>
-<div id="hourly"></div></div>
-<div class="card"><h3>Who has the gear now</h3><div class="sub" id="cosub"></div><div id="cos"></div></div>
-</div>
 <div class="card dlcard noprint" style="margin-top:16px"><div><h3>Take the on-hire report with you</h3><p id="dlfoot"></p></div><div class="dl" id="dl1"></div></div>
 </section>
 
@@ -1282,7 +1381,7 @@ __CONTACTS__
 <div id="st-overview" class="card st-card"></div>
 <div class="st-jump noprint"><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button><button type="button" class="btn ghost" data-stock-focus="st-inventory-title">Find an item to count</button></div>
 <div class="card st-card"><h3 id="st-cat-title">Coverage by category</h3><p class="sub" id="st-cat-sub"></p>
-<div class="st-filters noprint"><label>Find a category<input class="search" id="st-cat-q" type="search" placeholder="Category name"></label><label>Show categories<select id="st-cat-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label></div>
+<div class="st-filters noprint"><label>Find a category<input class="search" id="st-cat-q" type="search" placeholder="Category name"></label><label>Show categories<select id="st-cat-kind"><option value="">Tools and consumables</option><option value="tool">Tools</option><option value="cons">Consumables</option></select></label><label id="st-cat-progress-label" hidden>Coverage<select id="st-cat-progress"><option value="pending">Still to check</option><option value="all">All categories</option></select></label></div>
 <div class="st-category-grid" id="st-categories"></div><div id="st-print-categories"></div><div class="st-pages" id="st-category-pages"></div></div>
 
 <div class="card st-card noprint" id="st-scan-review" hidden></div>
@@ -1341,8 +1440,19 @@ __CONTACTS__
 </section>
 
 <section class="view pb" id="v-guide" data-tab="Guide">
-<div class="vh"><h2>What each figure means</h2><p>Every figure in this report comes straight from SiteIQ. Nothing is estimated. Here is how each one is counted.</p></div>
+<div class="vh"><h2>What each figure means</h2><p>Use these definitions to read the gauges and see what the latest SiteIQ figures cover.</p></div>
 <p id="mobile-install" class="noprint" hidden><a class="btn ghost" href="/install">Add MyGear HQ and MMG to your home screen</a></p>
+<section class="card gauge-key" aria-labelledby="gauge-colours-title">
+<h3 id="gauge-colours-title">Gauge colours</h3>
+<dl>
+<div style="--swatch:var(--issued)"><dt>Orange · Activity</dt><dd>Gear issued or on hire, store activity and spend to date.</dd></div>
+<div style="--swatch:var(--returned)"><dt>Mint · Confirmed</dt><dd>Recorded returns and completed work.</dd></div>
+<div style="--swatch:var(--warn)"><dt>Amber · Follow-up</dt><dd>A count, stock level or due item needs checking.</dd></div>
+<div style="--swatch:var(--exception)"><dt>Coral · Exception</dt><dd>A confirmed difference or breach of a recorded limit.</dd></div>
+<div style="--swatch:var(--neutral-series)"><dt>Steel · Reference</dt><dd>Capacity, an earlier period or a comparison series.</dd></div>
+</dl>
+<p>A measured zero shows 0 and an empty gauge. A dash or an unavailable label means there is no usable reading.</p>
+</section>
 <div class="defs" id="defs"></div>
 </section>
 
@@ -1655,7 +1765,7 @@ ${!STATIC&&span>3?Array.from({length:Math.min(7,Math.ceil(span/43))},(_,j)=>{
   const count=Math.min(7,Math.ceil(span/43)),px=(j+.5)*span/count;
   return `<g class="tube-range-stream" transform="translate(${px} 0)" style="--tempo:${2.55+j%3*.42}s;--offset:-${.31+j*.87}s;--travel:12px"><circle class="tube-pearl" cx="1.65" cy="3.3" r="1.65"/><ellipse class="tube-pop" cx="4.8" cy="2" rx="4.8" ry="1.25"/></g>`;
 }).join(''):''}
-${span>0?`<ellipse cx="${span-Math.min(span*.16,3.5)}" cy="9" rx="${Math.min(span*.16,3.5)}" ry="8.5" fill="#9b87ba" stroke="#eadcf8" stroke-width=".8"/>`:''}</g></g>
+${span>0?`<ellipse cx="${span-Math.min(span*.16,3.5)}" cy="9" rx="${Math.min(span*.16,3.5)}" ry="8.5" fill="var(--past)" stroke="var(--panel)" stroke-width=".8"/>`:''}</g></g>
 ${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle class="rdot${i==1?'':' e'}" cx="${x(p.n)}" cy="${cy}" r="${i==1?9:7}"/><text class="rv" x="${x(p.n)}" y="${i==1?cy-18:cy+32}" text-anchor="middle">${fmt(p.n)}</text><text class="rl" x="${x(p.n)}" y="${i==1?cy-38:cy+48}" text-anchor="middle">${['Quietest','Typical','Busiest'][i]}</text></g>`).join('')}
 </svg></div>`}
 
@@ -1668,14 +1778,13 @@ const overFleet=o.checkFleet&&Number.isFinite(total)&&Number.isFinite(value)&&va
 const valid=Number.isFinite(total)&&total>0&&Number.isFinite(value)&&value>=0&&!overFleet;
 const share=valid?Math.min(1,value/total):0;
 const height=140*share, surface=158-height, id='c'+(++uid);
-const color=o.col||['var(--vessel-shadow)','var(--vessel-colour,var(--neutral-series))','var(--vessel-shadow)'];
 const readout=Number.isFinite(value)&&value>=0?`<span data-n="${value}">${fmt(value)}</span>`:'—';
 const volume=height>0?liquidVolume(63,height,7.5,[{c:'',height}],uid):'';
 const tag=it.open?'button':'div';
 return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg class="liquid-gauge${valid?'':' unknown-reading'}" viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
-<defs><linearGradient id="${id}"><stop stop-color="${color[0]}"/><stop offset=".20" stop-color="${color[1]}"/><stop offset=".48" stop-color="${color[1]}"/><stop offset="1" stop-color="${color[2]}"/></linearGradient>
+<defs><linearGradient id="${id}" class="glass-ink"><stop offset="0"/><stop offset=".13"/><stop offset=".28"/><stop offset=".39"/><stop offset=".52"/><stop offset=".83"/><stop offset="1"/></linearGradient>
 <linearGradient id="${id}g"><stop stop-color="#fff" stop-opacity=".05"/><stop offset=".12" stop-color="#fff" stop-opacity=".17"/><stop offset=".26" stop-color="#fff" stop-opacity=".015"/><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".14"/></linearGradient>
-<radialGradient id="${id}h"><stop stop-color="${color[1]}" stop-opacity=".82"/><stop offset="1" stop-color="${color[1]}" stop-opacity="0"/></radialGradient></defs>
+<radialGradient id="${id}h"><stop stop-color="var(--vessel-colour,var(--neutral-series))" stop-opacity=".82"/><stop offset="1" stop-color="var(--vessel-colour,var(--neutral-series))" stop-opacity="0"/></radialGradient></defs>
 ${glassVessel(5,18,64,140,8,volume?`<g class="liquid" style="--tank-ink:url(#${id})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:'',id+'g',id+'h')}</svg>${o.pic?pic(it.pic,it.name,'lg'):''}
 <span class="val">${it.val||readout}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${Number.isFinite(it.fleet)?fmt(it.fleet):'—'} on site${overFleet?' · verify fleet count':''}</small>`:''))}</span></${tag}>`}
 // The filled sector ends exactly at the measured angle. Its meniscus and
@@ -1703,7 +1812,7 @@ function curvedGlass(radius, thickness, start, sweep, value) {
   // thickness of the tube, irrespective of the arc's direction or length.
   const shade=(key,colours)=>`<radialGradient id="${id}-${key}" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${outer}">${colours.map(([pos,colour])=>`<stop offset="${round((inner+pos*thickness)/outer)}" stop-color="${colour}"/>`).join('')}</radialGradient>`;
   const shell=shade('shell',[[0,'var(--curve-rim)'],[.08,'var(--curve-shadow)'],[.26,'var(--curve-core)'],[.51,'var(--track)'],[.77,'var(--curve-glass)'],[.83,'var(--curve-shine)'],[.92,'var(--curve-glass)'],[1,'var(--curve-rim)']]);
-  const fluid=shade('liquid',[[0,'var(--fluid-dark)'],[.3,'var(--fluid-mid)'],[.6,'var(--fluid)'],[.8,'var(--fluid-face)'],[1,'var(--fluid-dark)']]);
+  const fluid=shade('liquid',[[0,'var(--fluid-dark)'],[.16,'var(--fluid-mid)'],[.38,'var(--fluid)'],[.62,'var(--fluid)'],[.77,'var(--fluid-face)'],[.84,'var(--fluid)'],[1,'var(--fluid-dark)']]);
   const facePosition=`translate(${coords(radius,finish)}) rotate(${round(finish*180/Math.PI)}) translate(0 ${-round(depth)})`;
   const meniscus=hasSurface&&fraction>0?`<g transform="${facePosition}"><ellipse class="curve-face" rx="${half*.96}" ry="${round(depth)}"/><path class="curve-meniscus" d="M${-half*.71} 0Q0 ${round(depth*1.62)} ${half*.7} 0"/></g>`:'';
   let bubbles='',pop='';
@@ -1743,10 +1852,35 @@ $('#h1').innerHTML=`<span class="gl">Tool store report</span> <span style="color
 $('#lead').innerHTML=`At the ${asatT} SiteIQ pull, <b>${fmt(K.on)} assets</b> were out with ${plural(K.companies,'company','companies')}. ${readyCoates==null?'':`<b>${fmt(readyCoates)} of ${fmt(K.coates)}</b> Coates assets were available for hire. `}${measuredShelf==null?'Shelf quantity is unavailable.':`<b>${fmt(measuredShelf)} consumable units</b> were recorded${shelfMissing?' on lines with known quantities':''}.`}`;
 const clock=/^([01]\d|2[0-3]):([0-5]\d)$/.exec(asatT);
 const minuteOfDay=clock ? Number(clock[1])*60+Number(clock[2]) : null;
+if(mmgDugaldRiver){
+  const overview=$('#v-overview');
+  overview.classList.add('site-overview');
+  const shift=minuteOfDay===null?'':minuteOfDay>=360&&minuteOfDay<1080?'Day shift':'Night shift';
+  $('#eyebrow').textContent=['Shutdown tool store',shift].filter(Boolean).join('  /  ');
+  $('#h1').textContent=D.job.title.replace(/^MMG\s+/i,'').trim()||D.job.title;
+  $('#lead').innerHTML=`<b>Day ${fmt(day)} of ${fmt(days)}</b> · ${esc(DOW[today.getDay()])} ${today.getDate()} ${esc(MON[today.getMonth()])}<br>${fmt(K.on)} assets on hire across ${plural(K.companies,'company','companies')} at the ${esc(asatT)} AEST pull.`;
+  const actions=$('#overview-actions'); actions.hidden=false;
+  actions.querySelector('[data-go="stocktake"]').hidden=!D.stocktake;
+  const ranked=Object.entries(D.tools||{}).filter(([,t])=>t?.name&&Number.isFinite(t.on)&&t.on>0).sort((a,b)=>b[1].on-a[1].on);
+  if(ranked.length){
+    const leaders=ranked.filter(([,t])=>t.on===ranked[0][1].on);
+    const [key,tool]=leaders.find(([,t])=>t.pic!=null&&D.pics?.[t.pic])||leaders[0];
+    const src=tool.pic!=null&&D.pics?.[tool.pic];
+    const qty=(value,label)=>`<span class="feat-stat"><strong>${Number.isFinite(value)?fmt(value):'—'}</strong><small>${label}</small></span>`;
+    const feature=$('#overview-feature');
+    overview.classList.add('has-feature');
+    feature.hidden=false;
+    feature.innerHTML=`<button type="button" class="feat-stock${src?'':' text-only'}" data-open="t:${esc(key)}">${src?`<img class="feat-image" src="${esc(src)}" alt="">`:''}<span class="feat-info"><span class="feat-caption">${leaders.length>1?'Joint most on hire':'Most on hire'}</span><strong class="feat-name">${esc(tool.name)}</strong><span class="feat-figures">${qty(tool.on,'On hire')}${qty(tool.available,'Available')}</span><span class="feat-link">View stock details <span aria-hidden="true">↗</span></span></span></button>`;
+  }
+}
 const dayReading=minuteOfDay===null?'':` style="--p:${100*minuteOfDay/1440}%" title="Calendar day elapsed at ${asatT} · ${esc(formatMeasuredPercent(minuteOfDay,1440))}"`;
 let ds='';for(let i=1;i<=days;i++){const d=new Date(today);d.setDate(today.getDate()+i-day);
 ds+=`<div class="day${i<day?' done':i==day?' now':''}"${i==day?dayReading:''}>${i==day?'Today · day '+i:'Day '+i}<b>${DOW[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}</b></div>`}
 $('#days').innerHTML=ds;
+if(mmgDugaldRiver&&!STATIC){
+  const strip=$('#days'),current=strip.querySelector('.now');
+  if(current)requestAnimationFrame(()=>{if(strip.scrollWidth>strip.clientWidth)strip.scrollLeft=current.offsetLeft-strip.offsetLeft-(strip.clientWidth-current.offsetWidth)/2});
+}
 const H=D.history||[],prev=H.length>1?H[H.length-2]:null,sameDay=prev&&prev.asat.slice(0,10)==H[H.length-1].asat.slice(0,10);
 const dl=(now,was)=>prev&&now>was?`<span class="delta">+${fmt(now-was)} since ${prev.asat.slice(11)}</span>`:'';
 const kp=[
@@ -1762,8 +1896,8 @@ box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'};
 const kn=[];const mh=Math.max(...D.hour_out),hi=D.hour_out.indexOf(mh);
 if(mh>0)kn.push({c:'',i:ic.clock,t:`Busiest at ${D.hours[hi]}`,d:`${plural(mh,'item')} went out in that hour${hi<=1?', at the start of day shift':''}.`,go:'rhythm'});
-const C=D.companies;if(C.length>1)kn.push({c:'',i:ic.ppl,t:`${C[0].name} and ${C[1].name} hold ${fmt(C[0].n+C[1].n)} of the ${fmt(K.on)} items out`,d:`${C.length} companies have gear. Every item is against a named person.`,go:'onhire'});
-else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} items out`,d:'Every item is against a named person.',go:'onhire'});
+const C=D.companies;if(C.length>1)kn.push({c:'',i:ic.ppl,t:`${C[0].name} and ${C[1].name} hold ${fmt(C[0].n+C[1].n)} of the ${fmt(K.on)} items out`,d:`View the items currently listed against each company.`,go:'onhire'});
+else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} items out`,d:'View the items currently listed against this company.',go:'onhire'});
 if(D.below.length){const z=D.below.filter(b=>b.have==0).length;kn.push({c:'w',i:ic.box,t:`${plural(D.below.length,'consumable line')} to top up`,d:z?`${plural(z,'line')} at zero. The list is on the Consumables tab.`:'Each is below its minimum. The list is on the Consumables tab.',go:'consumables'})}
 else kn.push({c:minCoverage?'g':'',i:minCoverage?ic.ok:ic.box,t:minCoverage?'No assessed line is below minimum':'Stock minimums unavailable',d:minCoverageText,go:'consumables'});
 {const I=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
@@ -2117,7 +2251,6 @@ else{$('#range-sub').textContent='';$('#range').innerHTML='<div class="empty">No
 
 /* ---------- guide ---------- */
 $('#defs').innerHTML=[
-['Reading the dashboard colours','Coates orange marks actions and selected controls. Pistachio liquid shows gear issued or on hire, and silver marks returns. Lavender compares earlier periods. Amber calls out a follow-up, and coral identifies a confirmed exception. Each reading also has a text label.'],
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
 ['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Recorded as returned" means those items are no longer on hire at the time of the pull.`],
 ['Coates tools available for hire','Coates-owned assets whose SiteIQ stock status is Available for Hire at the pull.'],
@@ -2137,7 +2270,7 @@ $('#defs').innerHTML=[
 
 /* ---------- labour and costs ---------- */
 const money=v=>Number.isFinite(v)?'$'+v.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
-function initCosts(){const C=D.costs,KC={labour:['kl','lk1',['#5a7687','#b6ced9','#658090']],tooling:['kt','lk2',['#5F84B8','#B4CEF0','#6489BC','#D3E3F8']],services:['ks','lk3',['#52656e','#9eafb3','#5d7279']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
+function initCosts(){const C=D.costs,KC={labour:['kl','lk1'],tooling:['kt','lk2'],services:['ks','lk3'],flights:['kf','lk4']};
 const sh=measuredFraction(C.sofar,C.total);
 $('#cs-lead').textContent=C.days.length?`${money(C.sofar)} of the ${money(C.total)} shutdown cost is scheduled through the end of ${C.upto}. This includes ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours and all charges assigned to those dates.`:'No dated cost schedule is available for this shutdown.';
 $('#cs-ring').innerHTML=`<svg class="liquid-gauge curved-gauge" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
@@ -2145,7 +2278,7 @@ $('#cs-ring').innerHTML=`<svg class="liquid-gauge curved-gauge" viewBox="0 0 240
 <div class="ringt"><div class="a">Scheduled to date</div><div class="b">${money(C.sofar)}</div><div class="c">${sh===null?(C.total===0?'No scheduled cost':'Share unavailable'):esc(formatMeasuredPercent(C.sofar,C.total))+' of '+money(C.total)}</div></div>`;
 const S=C.starts,st=[];if(S.labour)st.push(['Labour, day shift',`From ${S.labour}`]);if(S.nights)st.push(['Night shift',`From ${S.nights}, 18:00`]);if(S.tooling)st.push(['Tooling charge',`From ${S.tooling}`]);if(S.services)st.push(['Site services charge',`From ${S.services}`]);
 $('#cs-starts').innerHTML=st.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('');
-$('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1,col:KC[c.key][2]})).join('');
+$('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1})).join('');
 stats($('#cs-stats'),[[C.days_done,`Scheduled days through pull date, of ${C.days.length}`],[C.hours_done,`Rostered hours through pull date, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
 const remaining=Number.isFinite(C.total)&&Number.isFinite(C.sofar)?C.total-C.sofar:null;
 $('#cs-stats').insertAdjacentHTML('beforeend',`<div><div class="n">${money(remaining)}</div><div class="l">Scheduled after pull date</div></div><div><div class="n">${money(C.total)}</div><div class="l">Whole shut</div></div>`);$('#cs-stats').style.setProperty('--n',5);
@@ -2203,7 +2336,12 @@ function detailPhoto(kind,index,name){
 }
 const PB={};D.people.forEach(p=>PB[p.key]=p);
 const lc=t=>t.startsWith('PPE')?t:t[0].toLowerCase()+t.slice(1);
-const stars=(r,c)=>r==null?'':`<span class="stars${c?' '+c:''}" style="--p:${r/5*100}%" title="${r} out of 5"><i>★★★★★</i>★★★★★</span>`;
+function stars(r, size) {
+  if (r == null || r === '' || !Number.isFinite(Number(r))) return '';
+  const score = Math.min(5, Math.max(0, Number(r)));
+  const label = score + ' out of 5';
+  return `<svg class="stars${size === 'lg' ? ' lg' : ''}" width="100" height="20" viewBox="0 0 100 20" role="img" aria-label="${label}"><title>${label}</title><use class="star-shell" href="#rating-strip"/>${score > 0 ? `<svg width="${score * 20}" height="20" overflow="hidden"><use class="star-earned" href="#rating-strip"/></svg>` : ''}</svg>`;
+}
 const tbl=(h,rows)=>`<div class="tscroll"><table class="t"><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.join('')}</table></div>`;
 const ohRow=(r,who)=>`<tr data-open="t:${esc(r.dk)}">${who?`<td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td>`:''}<td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${r.date.slice(0,6)} ${r.time} · <b>${days(r)}</b></td></tr>`;
 const stat=a=>`<div class="sstats">${a.map(x=>`<div><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
@@ -2347,7 +2485,7 @@ function sdsInDate(r,today=sdsToday()){
 }
 const sdsReview=r=>sdsInDate(r)?'In date':'Review required';
 function sdsSearchText(r){
-  return [r.name,r.product,r.supplier,r.manufacturer,r.code,r.barcode,r.sku,r.storage_location,r.bin,r.sds_details?.product_identifier].filter(Boolean).join(' ')
+  return [r.name,r.product,r.pack,r.supplier,r.manufacturer,r.code,r.barcode,r.sku,r.storage_location,r.bin,r.sds_details?.product_identifier].filter(Boolean).join(' ')
 }
 function initSds(){
   const rows=[...sdsRecords].sort((a,b)=>a.product.localeCompare(b.product)),query=$('#sds-q'),state=$('#sds-state');
@@ -2378,7 +2516,9 @@ function initSds(){
     if(!r.photo)return '';
     const caption=r.photo_caption||r.product;
     const source=sdsSource(r.photo_source);
-    return `<figure class="sds-photo"><button type="button" class="stock-photo sds-photo-button" data-sds-photo="${index}" aria-haspopup="dialog" aria-label="Enlarge product photo of ${esc(r.product)}"><img src="${esc(r.photo_tile||r.photo)}" width="512" height="512" alt="${esc(caption)}"></button><figcaption>${source?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Photo source</a>':'Product photo'}</figcaption></figure>`
+    const facts=(!r.pack?meta('Product identifier',r.sds_details?.product_identifier||r.product):'')
+      +meta('Pack size',r.pack||'Not recorded')+meta('Storage location',r.storage_location||'Not recorded')+meta('Bin',r.bin);
+    return `<figure class="sds-photo"><button type="button" class="stock-photo sds-photo-button" data-sds-photo="${index}" aria-haspopup="dialog" aria-label="Enlarge product photo of ${esc(r.product)}"><img src="${esc(r.photo_tile||r.photo)}" width="512" height="512" alt="${esc(caption)}"></button><figcaption><dl class="sds-photo-facts">${facts}</dl>${source?'<a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">Photo source</a>':'Product photo'}</figcaption></figure>`
   }
   function productCard(r){
     const index=rows.indexOf(r);
@@ -2390,7 +2530,7 @@ function initSds(){
     const identity=r.name!==r.product?`<p class="sub">${esc(r.name)}</p>`:'';
     const doc=sdsSource(r.url);
     return `<article class="card sds-entry"><div><div class="sds-heading"><h3>${esc(r.product)}</h3><span class="sds-status ${sdsInDate(r)?'':'due'}">${sdsReview(r)}</span></div>${identity}
-<dl>${meta('On hand in SiteIQ',units)}${meta('Pack',r.pack)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)+(r.uom?' '+r.uom:'')):''}${meta('Stock code / SKU',productCodes)}${meta('Storage location',r.storage_location)}${meta('Bin',r.bin)}${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl>
+<dl>${meta('On hand in SiteIQ',units)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)+(r.uom?' '+r.uom:'')):''}${meta('Stock code / SKU',productCodes)}${r.photo?'':meta('Pack size',r.pack||'Not recorded')+meta('Storage location',r.storage_location||'Not recorded')+meta('Bin',r.bin)}${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl>
 <div class="sds-docs"><a class="btn" href="${esc(doc)}" target="_blank" rel="noopener noreferrer">Open full Australian SDS</a>${local&&location.protocol.startsWith('http')&&!STATIC?'<a href="'+esc(local)+'" target="_blank" rel="noopener noreferrer">Portal PDF copy</a>':''}</div>
 <p class="sub">${esc([r.source_export,stockTime?stockTime+' AEST':''].filter(Boolean).join(' · '))}</p></div>
 <div class="sds-media">${stockPhoto(r,index)}<div class="sds-code"><button type="button" data-sds-qr="${index}" aria-haspopup="dialog" aria-label="Enlarge SDS QR code for ${esc(r.product)}">${qr}</button><span class="sds-screen-label">Scan for the full SDS</span><a class="sds-print-link" href="${esc(doc)}">Scan or open full SDS</a></div></div>${extract(r)}</article>`
@@ -2658,7 +2798,7 @@ function initStocktake(st) {
   const baselineCats=new Map((baselineAvailable?opening.categories:[]).map(c=>[catKey(c),{key:catKey(c),name:category(c),...c}]));
   const openingView=()=>Boolean(carry)&&round===0;
   let round=carry?1:-1,page=0,logPage=0,groupPage=0,categoryPage=0,groupFilter='',manual=st.recorded_entries||[],staff=[],canRecord=false,target=null,sequence=0;
-  let requestId='',busy=false,intent='',events=[],checks=new Map(),coverage=new Map();
+  let requestId='',busy=false,intent='',events=[],checks=new Map(),coverage=new Map(),closeByCategory=new Map();
   let reviewLog=null,reviewInventory=null;
   const arrival=st.arrival||st.rounds[0]?.start||'';
   const scope=r=>r<0?'Since arrival':r===0?'Opening':'Close-out';
@@ -2718,9 +2858,17 @@ function initStocktake(st) {
     // Stable sorting keeps the last-inserted manual recount for a same-second tie.
     events.sort((a,b)=>b.time.localeCompare(a.time));
     checks=new Map();coverage=new Map(directory.map(c=>[c.key,openingView()?c.checked:0]));
+    closeByCategory=new Map();
     const register=openingView()?baselineByKey:byKey;
     for(const e of events){
       const k=key(e.row.kind,e.row.key);
+      if(closeEvidence(e)&&byKey.has(k)){
+        const ck=catKey(byKey.get(k));
+        if(!closeByCategory.has(ck))closeByCategory.set(ck,{items:new Set(),time:e.time,people:new Set()});
+        const group=closeByCategory.get(ck);
+        group.items.add(k);
+        if(e.time===group.time)group.people.add(personName(e));
+      }
       if(selectedPeriod(e)&&register.has(k)&&!checks.has(k)){
         checks.set(k,e);if(!openingView()){const ck=catKey(byKey.get(k));coverage.set(ck,coverage.get(ck)+1)}
       }
@@ -2728,19 +2876,24 @@ function initStocktake(st) {
   }
   const late=e=>e.round===0&&st.rounds[0].end&&e.time.slice(0,10)>=st.rounds[0].end;
   const difference=e=>e&&e.expected!=null&&e.quantity!=null&&Number(e.quantity)!==Number(e.expected);
+  function latestCloseCount(categoryKey){
+    const latest=closeByCategory.get(categoryKey);
+    if(!latest)return 'No close-out count recorded';
+    return timeText(latest.time)+' · '+[...latest.people].sort().join(', ');
+  }
   function gauge(kind,title,checked,total,verb){
     const rate=coverageRatio(checked,total);
     return `<div class="st-measure" data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${esc(pct(checked,total))}</strong></div><b>${title}</b><small>${coverageNote(checked,total,verb)}</small></div>`;
   }
   function progress(){
     const r=st.rounds[0],openingEnd=r.end?new Date(r.end+'T12:00:00Z'):null;if(openingEnd)openingEnd.setUTCDate(openingEnd.getUTCDate()-1);
-    const countable=new Set(events.filter(e=>closeEvidence(e)&&byKey.has(key(e.row.kind,e.row.key))).map(e=>key(e.row.kind,e.row.key)));
+    const closeCount=[...closeByCategory.values()].reduce((n,group)=>n+group.items.size,0);
     const acceptedTotal=baselineAvailable?opening.tools.total+opening.cons.total:null;
     const approvedDate=carry?.approved_on?new Intl.DateTimeFormat('en-AU',{timeZone:'UTC',day:'numeric',month:'short',year:'numeric'}).format(new Date(carry.approved_on+'T12:00:00Z')):'';
     const attribution=carry?[carry.approved_by,carry.role].filter(Boolean).join(', '):'';
     const openingNote=carry?'Completed by carry-forward'+(acceptedTotal!=null?' · '+fmt(acceptedTotal)+' lines':''):(r.start?dateText(r.start):'Opening')+' to '+dateText(openingEnd?.toISOString().slice(0,10));
     const due=st.departure?'Before departure · '+dateText(st.departure):'Before departure';
-    const captions={[-1]:arrival?'From '+dateText(arrival):'All supplied dates',0:openingNote,1:carry?fmt(countable.size)+' of '+fmt(rows.length)+' checked · '+due:due};
+    const captions={[-1]:arrival?'From '+dateText(arrival):'All supplied dates',0:openingNote,1:carry?fmt(closeCount)+' of '+fmt(rows.length)+' checked · '+due:due};
     $('#st-rounds').innerHTML=(carry?[0,1]:[-1,0,1]).map(n=>`<button type="button" class="card st-round" aria-pressed="${round===n}" data-round="${n}"><span class="st-round-head"><b>${scope(n)}${n<0?'':carry&&n===0?' baseline':' count'}</b></span><small>${esc(captions[n])}</small></button>`).join('');
     const kinds={tool:{total:0,checked:0},cons:{total:0,checked:0}};
     for(const c of directory){kinds[c.kind].total+=c.total;kinds[c.kind].checked+=coverage.get(c.key)}
@@ -2772,14 +2925,16 @@ function initStocktake(st) {
     const recent=eligible[0];
     const measures=basis&&!baselineAvailable?'':`<div class="st-measures">${gauge('all','Whole register',done,total,verb)}${gauge('tool','Tool assets',kinds.tool.checked,kinds.tool.total,verb)}${gauge('cons','Consumable lines',kinds.cons.checked,kinds.cons.total,verb)}</div>`;
     $('#st-overview').innerHTML=`<h3>${scope(round)} · ${basis?'baseline coverage':'stocktake coverage'}</h3>${measures}${details}<p class="st-period-note">${basis?'':fmt(total-done)+' still to check. '}${esc(note)}</p>${recent?`<p class="st-latest"><strong>Latest physical count</strong> · ${esc(personName(recent))} · ${esc(timeText(recent.time))} · ${esc(recent.row.name||recent.row.key)}</p>`:''}${crew?`<div class="st-recent-shifts"><span>Recent count sessions</span>${crew}</div>`:''}`;
-    $('#st-cat-sub').textContent=basis?'Opening inventory accepted by carry-forward. Select a category to see its covered lines.':scope(round)+' · Select a category to see its stock lines and shift activity.';
+    $('#st-cat-title').textContent=round===1?'Close-out shift handover':'Coverage by category';
+    $('[data-stock-focus="st-cat-title"]').textContent=round===1?'Close-out shift handover':'Coverage by category';
+    $('#st-cat-progress-label').hidden=round!==1;
+    $('#st-cat-sub').textContent=round===1?'Pick up where we left off. Each tool asset or consumable stock line counts once. Categories with recent counts appear first.':basis?'Opening inventory accepted by carry-forward. Select a category to see its covered lines.':scope(round)+' · Select a category to see its stock lines and shift activity.';
     if(carry){
-      const printCategories=ordered(new Map([...cats,...baselineCats]).values()),closeCategories=new Map();
-      for(const id of countable){const c=catKey(byKey.get(id));closeCategories.set(c,(closeCategories.get(c)||0)+1)}
-      $('#st-print-categories').innerHTML=table(['Category','Item type','Opening covered / total','Close-out checked / total','Still to check'],printCategories.map(c=>{
-        const start=baselineCats.get(c.key),current=cats.get(c.key),n=closeCategories.get(c.key)||0;
+      const printCategories=ordered(new Map([...cats,...baselineCats]).values());
+      $('#st-print-categories').innerHTML=table(['Category','Item type','Opening covered / total','Close-out checked / total','Still to check','Latest close-out count'],printCategories.map(c=>{
+        const start=baselineCats.get(c.key),current=cats.get(c.key),n=closeByCategory.get(c.key)?.items.size||0;
         const openText=start?`${fmt(start.checked)} / ${fmt(start.total)} · ${pct(start.checked,start.total)}`:baselineAvailable?'Outside opening baseline':'Snapshot unavailable';
-        return `<tr><td>${esc(c.name)}</td><td>${noun(c.kind)}</td><td>${esc(openText)}</td><td>${current?fmt(n)+' / '+fmt(current.total)+' · '+pct(n,current.total):'Outside current register'}</td><td>${current?fmt(current.total-n):'—'}</td></tr>`;
+        return `<tr><td>${esc(c.name)}</td><td>${noun(c.kind)}</td><td>${esc(openText)}</td><td>${current?fmt(n)+' / '+fmt(current.total)+' · '+pct(n,current.total):'Outside current register'}</td><td>${current?fmt(current.total-n):'—'}</td><td>${current?esc(latestCloseCount(c.key)):'—'}</td></tr>`;
       }).join(''));
     }else{
       $('#st-print-categories').innerHTML=table(['Category','Item type','Checked / total','Remaining','Coverage'],directory.map(c=>{
@@ -2790,13 +2945,22 @@ function initStocktake(st) {
   }
   function categories(){
     const q=$('#st-cat-q').value,type=$('#st-cat-kind').value,selected=$('#st-cat-filter').value;
-    const list=directory.filter(c=>(!type||c.kind===type)&&words(c.name,q)).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
-    const size=8;const from=categoryPage*size;
+    const handover=round===1,pendingOnly=handover&&$('#st-cat-progress').value==='pending';
+    const list=directory.filter(c=>(!type||c.kind===type)&&words(c.name,q)&&(!pendingOnly||coverage.get(c.key)<c.total));
+    const latest=c=>closeByCategory.get(c.key)?.time||'';
+    list.sort((a,b)=>(handover&&latest(b).localeCompare(latest(a)))||b.total-a.total||a.name.localeCompare(b.name));
+    const size=8;categoryPage=Math.min(categoryPage,Math.max(0,Math.ceil(list.length/size)-1));
+    const from=categoryPage*size;
     $('#st-categories').innerHTML=list.slice(from,from+size).map(c=>{
       const n=coverage.get(c.key),rate=coverageRatio(n,c.total);
+      const remaining=c.total-n;
+      const label=c.kind==='tool'?(c.total===1?'tool asset':'tool assets'):(c.total===1?'stock line':'stock lines');
+      const progressText=handover?fmt(n)+' of '+fmt(c.total)+' '+label+' checked':coverageNote(n,c.total,openingView()?'covered':'checked');
+      const recent=handover?`<span class="st-cat-last">${n?'Last count · ':''}${esc(latestCloseCount(c.key))}</span>`:'';
+      const resume=handover?`<span class="st-cat-resume">${remaining?'View '+fmt(remaining)+' still to check':'View counted items'} &#8250;</span>`:`<small class="st-cat-label">${rate===null?'':fmt(remaining)+' remaining'}</small>`;
       const fill=rate===null?'':`<i style="--w:${100*rate}%">${rate>0?horizontalStreams():''}</i>`;
-      return `<button type="button" class="st-category-tile" data-st-category="${esc(c.key)}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${coverageNote(n,c.total,openingView()?'covered':'checked')}</span><strong>${esc(pct(n,c.total))}</strong></span><span class="meter st-coverage-meter" aria-hidden="true">${fill}</span><small class="st-cat-label">${rate===null?'':fmt(c.total-n)+' remaining'}</small></button>`;
-    }).join('')||(openingView()&&!baselineAvailable?'<p class="empty">The opening category snapshot is unavailable.</p>':'<p class="empty">No categories match.</p>');
+      return `<button type="button" class="st-category-tile" data-st-category="${esc(c.key)}" data-progress="${remaining===0?'complete':n?'partial':'pending'}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${progressText}</span><strong>${esc(pct(n,c.total))}</strong></span><span class="meter st-coverage-meter" aria-hidden="true">${fill}</span>${recent}${resume}</button>`;
+    }).join('')||(openingView()&&!baselineAvailable?'<p class="empty">The opening category snapshot is unavailable.</p>':pendingOnly&&!q&&!type&&directory.length?'<p class="empty">Every category has a recorded count for each register line.</p>':'<p class="empty">No categories match.</p>');
     pager($('#st-category-pages'),list.length,categoryPage,n=>{categoryPage=n;categories()},size);
   }
   function pager(el,total,current,act,size=pageSize){
@@ -2932,10 +3096,14 @@ function initStocktake(st) {
     groupFilter='';page=groupPage=logPage=0;categories();inventory();log();
     if(focus){$('#st-inventory-title').scrollIntoView({block:'start'});$('#st-cat-filter').focus({preventScroll:true})}
   }
-  $('#st-categories').onclick=e=>{const b=e.target.closest('[data-st-category]');if(b)selectCategory(b.dataset.stCategory,true)};
+  $('#st-categories').onclick=e=>{
+    const b=e.target.closest('[data-st-category]');if(!b)return;
+    if(round===1){$('#st-q').value='';$('#st-progress').value=b.dataset.progress==='complete'?'done':'open'}
+    selectCategory(b.dataset.stCategory,true);
+  };
   $('#st-category-log').onclick=()=>{reviewLog=null;groupFilter='';groupPage=logPage=0;$('#st-mode').value='counts';log();$('#st-log-title').scrollIntoView({block:'start'});$('#st-mode').focus({preventScroll:true})};
   $('#st-cat-filter').onchange=e=>selectCategory(e.target.value,false);
-  for(const id of ['st-cat-kind','st-cat-q'])$('#'+id).addEventListener('input',()=>{categoryPage=0;categories()});
+  for(const id of ['st-cat-kind','st-cat-q','st-cat-progress'])$('#'+id).addEventListener('input',()=>{categoryPage=0;categories()});
   $('#st-kind').addEventListener('input',()=>{const c=cats.get($('#st-cat-filter').value);if(c&&$('#st-kind').value&&c.kind!==$('#st-kind').value)selectCategory('',false)});
   for(const id of ['st-q','st-kind','st-progress'])$('#'+id).addEventListener('input',()=>{page=0;inventory()});
   for(const id of ['st-mode','st-shift','st-person','st-log-q'])$('#'+id).addEventListener('input',()=>{if(id==='st-mode')reviewLog=null;groupFilter='';groupPage=logPage=0;log()});

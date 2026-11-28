@@ -110,6 +110,9 @@ class Handover(unittest.TestCase):
         self.assertEqual((h['current_holders'], h['unassigned_assets'], h['oldest']['tied_count']), (2,3,5))
         self.assertEqual({r['item']:r['holder'] for g in c['hires'] for r in g['items']},
                          {'a':'Taylor Smith','b':'Taylor Smith','c':None,'d':None,'e':None})
+        self.assertEqual([(g['holder'],[a['item'] for a in g['items']]) for g in c['return_groups']],
+                         [('Taylor Smith (record 1 of 2)', ['a']), ('Taylor Smith (record 2 of 2)', ['b']),
+                          (None, ['c','d','e'])])
         self.assertNotIn('"hirer_id"',json.dumps(c))
         self.data['hires'].append(hire('f',''))
         self.assertIsNone(self.reports()[0]['handover']['oldest'])

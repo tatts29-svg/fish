@@ -102,6 +102,28 @@ def _hires(records, assigned=None):
             for name, items in sorted(by_type.items(), key=lambda p: p[0].casefold())]
 
 
+def _return_groups(hires, assigned):
+    """Group the company’s current stock by confirmed holder, keeping distinct profiles separate."""
+    names, rows = {}, defaultdict(list)
+    for tool in hires:
+        for item in tool['items']:
+            holder, profile = assigned.get(item['item'], (None, None))
+            if profile is not None:
+                names.setdefault(profile, holder)
+            rows[profile].append(dict(name=tool['name'], **{k: item[k] for k in ('item', 'date', 'time')}))
+    labels = Counter(name.casefold() for name in names.values())
+    indexes = Counter()
+    groups = []
+    for profile in sorted(rows, key=lambda key: (key is None, names.get(key, '').casefold(), key)):
+        holder = names.get(profile)
+        if holder and labels[holder.casefold()] > 1:
+            indexes[holder.casefold()] += 1
+            holder += f" (record {indexes[holder.casefold()]} of {labels[holder.casefold()]})"
+        items = sorted(rows[profile], key=lambda a: (a['date'] or '~', a['time'] or '~', a['name'], a['item']))
+        groups.append(dict(holder=holder, items=items))
+    return groups
+
+
 def company(data_dir, company_id):
     data = _facts(data_dir)
     archives = _archives(data_dir, data)
@@ -114,6 +136,9 @@ def company(data_dir, company_id):
     profiles = _record_profiles(records)
     assigned = _assigned_holders(records['hires'], profiles)
     hires = _hires(records['hires'], assigned)
+    return_groups = _return_groups(hires, assigned)
+    revision = hashlib.sha256(json.dumps([name, data['asat'], return_groups], ensure_ascii=False,
+                                         separators=(',', ':')).encode()).hexdigest()
     metrics = _metrics(data, records)
     story = [_story(data, records, metrics, current=True)]
     # A source employer shared by two display entities cannot establish historical continuity.
@@ -125,6 +150,7 @@ def company(data_dir, company_id):
             story.append(_story(archive, prior, _metrics(archive, prior), current=False))
     return {'kind': 'company', 'name': name, 'company': name, 'asat': data['asat'], 'hires': hires,
             'hire_count': sum(g['count'] for g in hires), 'coverage': story[0]['coverage'], 'story': story,
+            'return_groups': return_groups, 'return_list_revision': revision,
             'return_rating': {k: metrics['returns'][k] for k in ('score', 'eligible', 'same_day')},
             'store_activity': _store_activity(data, records, profiles),
             'handover': _company_handover(data, records, metrics, assigned)}

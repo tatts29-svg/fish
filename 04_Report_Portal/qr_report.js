@@ -13,8 +13,9 @@
   const months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
   let selection = "";
   let transaction = null;
-  let pdfRequest = null;
-  let pdf = null;
+  const pdfRequests = new Map();
+  const pdfFiles = new Map();
+  let dialogDocument = "report";
   let snapshot = null;
   let media = null;
   let scanTimer = 0;
@@ -122,7 +123,8 @@
     sectionLinks=[]; pinnedSection=null;
     if (transaction) transaction.abort();
     transaction = null;
-    selection = ""; pdfRequest = null; pdf = null; snapshot = null;
+    selection = ""; pdfRequests.clear(); pdfFiles.clear(); snapshot = null;
+    document.body.classList.remove("print-returns");
     dialogGeneration++;
     if (dialog.open) dialog.close();
     $("send-status").textContent = "";
@@ -195,14 +197,17 @@
       status(err.message, true);
     }
   }
-  function endpoint(pdfFile) {
-    const path = pdfFile ? "report.pdf" : "report";
+  function endpoint(pdfFile, documentType = "report") {
+    const path = pdfFile ? (documentType === "returns" ? "returns.pdf" : "report.pdf") : "report";
     const options = {...requestOptions(), signal:transaction.signal};
     if (personal) {
       options.method = "POST";
       options.headers = {"Content-Type":"application/json", "X-Portal":"1"};
       options.body = JSON.stringify({barcode:selection});
       return [path,options];
+    }
+    if (documentType === "returns" && snapshot?.return_list_revision) {
+      options.headers = {"If-Match": '"' + snapshot.return_list_revision + '"'};
     }
     return [path + "?" + new URLSearchParams({company:selection}),options];
   }
@@ -267,21 +272,24 @@
     hires.sort((a,b) => issueKey(a.items[0] || {}).localeCompare(issueKey(b.items[0] || {})) || a.name.localeCompare(b.name));
     return {...r, hires};
   }
-  function gearTable(parent,tool,r) {
+  function gearTable(parent,tool,r,byHolder=false) {
     // A description may span several variants. A single group reference is safe only
     // when every asset in the group maps to the very same published image.
     const media=tool.items.map(asset=>r.product_art?.[asset.item]);
-    if (media[0] && media.every(url=>url===media[0])) {
-      const ref=window.QRHandover.artwork(r,{item:tool.items[0].item,name:tool.name});
+    const sharedPhoto=media[0] && media.every(url=>url===media[0]);
+    if (sharedPhoto) {
+      const ref=window.QRHandover.artwork(r,{item:tool.items[0].item,name:tool.items[0].name || tool.name});
       if (ref) parent.append(ref);
     }
     const headings=["Asset number","Issued (AEST)"];
-    if (!personal) headings.push("Held by");
+    if (byHolder) headings.unshift("Equipment");
+    else if (!personal) headings.push("Held by");
     headings.push("Item query");
     const rows=tool.items.map(asset => {
       const stamp=asset.date ? when(asset.date,asset.time) + (asset.time ? "" : " · time unavailable") : "Issue date unavailable";
       const row=[asset.item || "Number unavailable",stamp];
-      if (!personal) row.push(asset.holder || "Individual holder unconfirmed");
+      if (byHolder) row.unshift(asset.name || "Equipment");
+      else if (!personal) row.push(asset.holder || "Individual holder unconfirmed");
       return [...row,""];
     });
     const tbl=table(parent,headings,rows);
@@ -289,11 +297,15 @@
     tbl.tHead.rows[0].lastElementChild.classList.add("screen-only");
     for (const [index,asset] of tool.items.entries()) {
       const row=tbl.tBodies[0].rows[index];
+      if (byHolder && !sharedPhoto && media[index]) {
+        const ref=window.QRHandover.artwork(r,asset);
+        if (ref) {ref.classList.add("holder-item-photo");row.cells[0].append(ref);}
+      }
       Array.from(row.cells).forEach((td,i)=>td.dataset.label=headings[i]);
       const cell=row.lastElementChild;
       cell.classList.add("screen-only");
       cell.append(window.QRItemQuery.button({scope:personal ? "personal" : "company", subject:r.name,
-        company:personal ? r.company : "", assetName:tool.name,assetId:asset.item,
+        company:personal ? r.company : "", assetName:asset.name||tool.name,assetId:asset.item,
         snapshot:r.asat ? when(r.asat)+" AEST" : ""}));
     }
   }
@@ -331,7 +343,7 @@
           const tool=groups[i];
           let visible=0;
           entry.querySelectorAll("tbody tr").forEach((tr,j)=>{
-            const terms=([tool.name,tool.items[j].item,tool.items[j].holder].filter(Boolean).join(" ")).toLocaleLowerCase();
+            const terms=([tool.name,tool.items[j].name,tool.items[j].item,tool.items[j].holder].filter(Boolean).join(" ")).toLocaleLowerCase();
             const match=words.every(word=>terms.includes(word));
             tr.classList.toggle("gear-omit",!match);
             if (match) visible++;
@@ -364,10 +376,13 @@
     return list;
   }
   function personalHires(parent,r) {
-    const panel=section(parent,"Currently on hire to you",rentalSnapshot(r),true);
+    const panel=section(parent,"Still to return",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;panel.classList.add("personal-hires");
     if (!r.hires.length) {
-      panel.append(el("p","no-holdings",r.asat || r.coverage?.rental_asat ? "No equipment is listed against your card in this rental stock export." : "A dated rental stock export is needed to confirm your current gear."));
+      const stamp = r.asat || r.coverage?.rental_asat;
+      panel.append(el("p","no-holdings",stamp && r.hire_count === 0 ?
+        "Nothing still to return as of " + when(stamp) + " AEST. Your card has no outstanding equipment in this snapshot." :
+        "Your return balance is unavailable. Ask the tool store for the latest rental stock record."));
       return;
     }
     const list=gearList(panel,r);
@@ -381,22 +396,43 @@
     }
   }
   function hires(parent,r) {
-    const panel=section(parent,"Gear on hire",rentalSnapshot(r),true);
+    const panel=section(parent,"End-of-shift return list",rentalSnapshot(r),true);
     panel.id="current-gear";panel.tabIndex=-1;
+    const controls=el("div","return-list-actions screen-only");
+    for (const [id,title,action] of [
+      ["print-returns","Print list",()=>{document.body.classList.add("print-returns");window.print();}],
+      ["save-returns","Save list to phone",()=>saveFile("returns")],
+      ["email-returns","Email list",()=>sendDialog(true,"returns")]
+    ]) {
+      const b=el("button","",title);b.type="button";b.id=id;
+      b.addEventListener("click",action);controls.append(b);
+    }
+    panel.append(controls);
     if (!r.hires.length) {
-      panel.append(el("p","empty",r.asat || r.coverage?.rental_asat ? "No equipment is listed against this company in this rental stock export." : "A dated rental stock export is needed to confirm this company’s current gear."));
+      panel.append(el("p","empty",(r.asat || r.coverage?.rental_asat) && r.hire_count===0 ?
+        "No equipment is listed against this company at the dated stock snapshot." :
+        "The current balance needs a dated rental stock export."));
       return;
     }
-    const list=gearList(panel,r);
-    const more = r.hires.length>6 ? group("More tool descriptions",r.hires.length-5) : null;
-    for (const [index,tool] of r.hires.entries()) {
-      const d=group(tool.name,null);
-      d.classList.add("gear-entry");
-      d.querySelector("summary").append(el("span","badge",units(tool.count,"asset")));
-      gearTable(d,tool,r);
-      (more && index>=5 ? more : list).append(d);
+    // Older report projections may predate holder grouping.
+    if (!Array.isArray(r.return_groups)) {
+      const groups=new Map();
+      for (const tool of r.hires) for (const item of tool.items) {
+        const key=item.holder || "";
+        if (!groups.has(key)) groups.set(key,{holder:key,items:[]});
+        groups.get(key).items.push({...item,name:tool.name});
+      }
+      r={...r,return_groups:[...groups.values()]};
     }
-    if (more) {more.classList.add("more-tools");list.append(more);}
+    const groups=r.return_groups.map(g=>({name:g.holder || "Individual holder unconfirmed",count:g.items.length,items:g.items}));
+    const list=gearList(panel,{...r,hires:groups});
+    for (const [i,g] of groups.entries()) {
+      const d=group(g.name,null);
+      d.classList.add("gear-entry");
+      d.open=i===0;
+      d.querySelector("summary").append(el("span","badge",units(g.count,"asset")));
+      gearTable(d,g,r,true);list.append(d);
+    }
   }
   function handoverPanel(parent,r) {
     const label=personal ? "Before you leave" : "Before your crew leaves";
@@ -442,7 +478,7 @@
         const cut=svgNode("g",{"clip-path":"url(#"+prefix+"-star-cut)"});
         // The symmetric star spans x=2.9..45.1. A half rating ends at the centre point.
         const w=2.9+(45.1-2.9)*amount;
-        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"var(--on)",class:"rating-fill"}));
+        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"var(--coates)",class:"rating-fill"}));
         face.append(cut);
       }
       anchor.append(face);chart.append(anchor);
@@ -571,12 +607,19 @@
     const reading=n=>observed(n) ? fmt(n) : "unavailable";
     const chart=svgNode("svg",{viewBox:"0 0 434 140",role:"img","aria-label":(toolDays?"Tool":"Consumable")+" issues and returns by date. "+days.map(d=>shortDay(d.date)+", issued "+reading(d[series[0]])+", returned "+reading(d[series[1]])).join(". ")});
     const defs=svgNode("defs");
-    const colours=["issued","returned"].map(key=>["-deep","","-rim","-mid","-shade"].map(tone=>"var(--"+key+tone+")"));
-    colours.forEach((cs,index)=>{
-      const gradient=svgNode("linearGradient",{id:"movement-"+index});
-      ["0%","19%","39%","67%","100%"].forEach((offset,i)=>gradient.append(svgNode("stop",{offset,"stop-color":cs[i]})));
-      defs.append(gradient);
-    });
+    for (const [index, role] of ["issued","returned"].entries()) {
+      const body = svgNode("linearGradient", {id:"movement-"+index});
+      const top = svgNode("linearGradient", {id:"movement-surface-"+index});
+      for (const [gradient, stops] of [
+        [body, [[0,"-deep"],[14,"-mid"],[26,""],[48,""],[76,"-mid"],[91,"-shade"],[100,"-mid"]]],
+        [top, [[0,"-mid"],[36,"-rim"],[68,""],[100,"-shade"]]]
+      ]) {
+        for (const [position, tone] of stops) {
+          gradient.append(svgNode("stop", {offset:position+"%", "stop-color":"var(--"+role+tone+")"}));
+        }
+      }
+      defs.append(body, top);
+    }
     chart.append(defs);
     for (const tick of [0, ...(step%2===0?[step/2]:[]), step]) {
       const y=bottom-(bottom-top)*tick/step;
@@ -601,7 +644,7 @@
         const cap=Math.min(2,height*.17);
         bar.append(svgNode("rect",{x,y:y+cap,width:w,height:Math.max(0,height-cap*2),fill:"url(#movement-"+j+")"}));
         bar.append(svgNode("ellipse",{cx:x+w/2,cy:bottom-cap,rx:w/2,ry:cap,fill:"url(#movement-"+j+")"}));
-        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:j===0?"var(--issued-rim)":"var(--returned-rim)"}));
+        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:"url(#movement-surface-"+j+")"}));
         if(height>=13 && w>=7){
           bar.append(svgNode("line",{x1:x+w*.24,y1:y+cap*2,x2:x+w*.24,y2:bottom-cap*2,stroke:"white","stroke-opacity":".32","stroke-width":".65"}));
           const bubble=svgNode("circle",{cx:x+w*.62,cy:y+7,r:Math.min(1.5,w*.1),class:"chart-bubble"});
@@ -804,12 +847,15 @@
     $("report-subtitle").textContent=who+rentalSnapshot(r);
     const cov=chapter?.coverage || r.coverage || {};
     const tools=coveredTransactions(cov);
-    const holdingsAvailable=Boolean(r.asat || cov.rental_asat || r.hires.length);
-    $("hero-count").textContent=fmt(holdingsAvailable ? r.hire_count : null);
+    const holdingsAvailable=validCount(r.hire_count) && Boolean(r.asat || cov.rental_asat || r.hires.length);
+    const count=$("hero-count");
+    count.textContent=fmt(holdingsAvailable ? r.hire_count : null);
+    count.parentElement.dataset.balance=!holdingsAvailable ? "unknown" : r.hire_count===0 ? "clear" : "out";
     const handover=r.handover || {};
     const shift=handover.shift;
-    $("hero-label").textContent=!holdingsAvailable ? "Rental snapshot needed" : !r.hire_count ? "Nothing outstanding at this snapshot" :
-      (!personal && finite(handover.current_holders) ? units(handover.current_holders,"identified holder") : units(r.hires.length,"equipment type"));
+    $("hero-label").textContent=!holdingsAvailable ? "Rental balance unavailable" : !r.hire_count ? "Nothing outstanding at this snapshot" :
+      personal ? (r.hire_count===1 ? "asset" : "assets") + " on your card" :
+      (finite(handover.current_holders) ? units(handover.current_holders,"identified holder") : units(r.hires.length,"equipment type"));
     const eligible=personal ? r.returns?.eligible : r.return_rating?.eligible;
     const score=personal ? r.returns?.score : r.return_rating?.score;
     const earned=tools && earnedRating(personal ? r.returns : r.return_rating);
@@ -834,9 +880,9 @@
     if (personal) {
       personalHires(body,ordered);
     } else {
+      hires(body,ordered);
       window.QRHandover.shift(body,r);
       window.QRHandover.oldest(body,r);
-      hires(body,ordered);
     }
     window.QRHandover.receipt(body,r);
     currentStory(body,r,chapter);
@@ -852,8 +898,9 @@
     if(personal){consumablesPanel(body,r);historyPanel(body,r);}
     if(!personal)companyMilestones(body,r);
     earlierChapters(body,r);
-    const links = personal ? [] : [["shift-review","Crew shift"],["oldest-held","Longest held"]];
-    links.push(["current-gear","Current gear"],["return-receipt","Last return"],["shutdown-story","Store activity"],["return-rating","Return record"]);
+    const links = [["current-gear",personal ? "Still to return" : "Crew return list"]];
+    if (!personal) links.push(["shift-review","Crew shift"],["oldest-held","Longest held"]);
+    links.push(["return-receipt","Last return"],["shutdown-story","Store activity"],["return-rating","Return record"]);
     links.push(["handover","Shift handover"]);
     if (!personal) links.push(["work-milestones","Work milestones"]);
     links.push(["past-chapters","Earlier shutdowns"]);
@@ -916,7 +963,7 @@
     stopCamera();
     transaction = new AbortController();
     clearIdentity();
-    const mine = transaction; selection=value; pdf=null; pdfRequest=null;
+    const mine = transaction; selection=value; pdfFiles.clear(); pdfRequests.clear();
     form.setAttribute("aria-busy","true"); form.querySelector("[type=submit]").disabled=true;
     status("Opening report…");
     try {
@@ -933,7 +980,10 @@
     }
   }
   form.addEventListener("submit",lookup);
-  $("print").addEventListener("click",() => window.print());
+  $("print").addEventListener("click",() => {
+    document.body.classList.remove("print-returns");
+    window.print();
+  });
   window.addEventListener("beforeprint",() => {
     syncDeadline();
     if (!snapshot || printing) return;
@@ -944,65 +994,70 @@
     printClosed.forEach(d => {d.open=true;});
   });
   window.addEventListener("afterprint",() => {
+    document.body.classList.remove("print-returns");
     if (!printing) return;
     printClosed.forEach(d => {d.open=false;});
     printClosed = [];
     printing = false;
     renewDeadline();
   });
-  function fileInfo() {
+  function fileInfo(documentType = "report") {
+    if (documentType === "returns") return {name:"mmg-company-shift-returns.pdf",title:(snapshot?.name || "MMG") + " · end-of-shift return list"};
     const label = personal ? "personal" : "company";
     return {name:"mmg-"+label+"-on-hire-report.pdf", title:personal ? "My MMG tool-store report" : "MMG company on-hire report"};
   }
-  async function getPDF() {
+  async function getPDF(documentType = "report") {
     if (!snapshot || !selection) throw new Error("Open your report first.");
-    if (pdf) return pdf;
-    if (pdfRequest) return pdfRequest;
+    if (pdfFiles.has(documentType)) return pdfFiles.get(documentType);
+    if (pdfRequests.has(documentType)) return pdfRequests.get(documentType);
     const mine=transaction;
-    pdfRequest=(async () => {
-      const response=await fetch(...endpoint(true));
+    const request=(async () => {
+      const response=await fetch(...endpoint(true,documentType));
       if (!response.ok) await json(response);
       const blob=await response.blob();
       if (await blob.slice(0,5).text() !== "%PDF-") throw new Error("The PDF is unavailable. Try again or use Print.");
       if (mine === transaction) syncDeadline();
       if (mine !== transaction) throw new DOMException("Report closed","AbortError");
-      pdf=blob; return blob;
+      pdfFiles.set(documentType,blob); return blob;
     })();
-    try {return await pdfRequest;} finally {if (mine===transaction) pdfRequest=null;}
+    pdfRequests.set(documentType,request);
+    try {return await request;} finally {if (mine===transaction) pdfRequests.delete(documentType);}
   }
-  function download(blob) {
+  function download(blob,documentType) {
     const url=URL.createObjectURL(blob);
-    const link=el("a");link.download=fileInfo().name;link.href=url;
+    const link=el("a");link.download=fileInfo(documentType).name;link.href=url;
     document.body.append(link);link.click();link.remove();
     setTimeout(() => URL.revokeObjectURL(url),1500);
   }
-  $("save").addEventListener("click",async () => {
+  async function saveFile(documentType) {
     const mine = transaction;
     status("Preparing PDF…");
     try {
-      const blob = await getPDF();
+      const blob = await getPDF(documentType);
       if (mine !== transaction) return;
-      download(blob);
+      download(blob,documentType);
       status("PDF ready. Use your browser’s downloads or save menu to keep it.");
     } catch(err) {if(mine === transaction && err.name !== "AbortError") status(err.message,true);}
-  });
-  const pdfFile=blob => new File([blob],fileInfo().name,{type:"application/pdf"});
-  async function sendDialog(email) {
+  }
+  $("save").addEventListener("click",()=>saveFile("report"));
+  const pdfFile=(blob,documentType) => new File([blob],fileInfo(documentType).name,{type:"application/pdf"});
+  async function sendDialog(email,documentType="report") {
+    dialogDocument=documentType;
     const mine=++dialogGeneration;
-    $("send-title").textContent=email ? "Email this PDF" : "Share this PDF";
+    $("send-title").textContent=documentType==="returns" ? "Email the return list" : email ? "Email this PDF" : "Share this PDF";
     $("send-status").textContent="Preparing PDF…";
     $("native-share").hidden=true;$("dialog-save").disabled=true;$("email-draft").hidden=true;
     dialog.showModal();
     try {
-      const blob=await getPDF();
+      const blob=await getPDF(documentType);
       if (!dialog.open || mine !== dialogGeneration) return;
       let native=false;
-      try {native=!!(navigator.share && navigator.canShare?.({files:[pdfFile(blob)]}));} catch(_) {}
+      try {native=!!(navigator.share && navigator.canShare?.({files:[pdfFile(blob,documentType)]}));} catch(_) {}
       $("native-share").hidden=!native;
       $("native-share").textContent=email ? "Choose email app" : "Share PDF";
       $("dialog-save").disabled=false;
       $("email-draft").hidden=!email;
-      $("email-draft").href="mailto:?subject="+encodeURIComponent(fileInfo().title);
+      $("email-draft").href="mailto:?subject="+encodeURIComponent(fileInfo(documentType).title);
       $("send-status").textContent=email
         ? (native ? "Choose your email app to attach the PDF, or save the file and attach it to an email draft." : "Save the PDF, open an email draft, then attach the saved file before sending.")
         : (native ? "Choose an app to share the PDF, or save a copy." : "Save the PDF, then share the file from your downloads.");
@@ -1012,11 +1067,11 @@
   $("email").addEventListener("click",() => sendDialog(true));
   $("close-dialog").addEventListener("click",() => dialog.close());
   dialog.addEventListener("close",() => {dialogGeneration++;});
-  $("dialog-save").addEventListener("click",()=> {if(pdf)download(pdf);});
+  $("dialog-save").addEventListener("click",()=> {const blob=pdfFiles.get(dialogDocument);if(blob)download(blob,dialogDocument);});
   $("native-share").addEventListener("click",async () => {
-    if (!pdf) return;
+    const pdf=pdfFiles.get(dialogDocument);if (!pdf) return;
     const mine = dialogGeneration;
-    try {await navigator.share({files:[pdfFile(pdf)],title:fileInfo().title});}
+    try {await navigator.share({files:[pdfFile(pdf,dialogDocument)],title:fileInfo(dialogDocument).title});}
     catch(err){if(mine === dialogGeneration && err.name!=="AbortError")$("send-status").textContent="Your device could not share the PDF. Save it and attach the file in your preferred app.";}
   });
   function stopCamera() {

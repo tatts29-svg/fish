@@ -22,6 +22,20 @@ def projection(count):
 
 
 class ScopedPdfTests(unittest.TestCase):
+    def test_earned_stars_use_coates_orange_including_half_stars(self):
+        from io import BytesIO
+        from reportlab.pdfgen.canvas import Canvas
+        from qr_report_pdf import ReturnStars
+
+        for score, filled, clips in ((None, 0, 0), (2.5, 3, 1), (5, 5, 0)):
+            with self.subTest(score=score):
+                canvas = Canvas(BytesIO(), pageCompression=0)
+                ReturnStars(score, "Same-day returns", "Rating", "Helvetica").drawOn(canvas, 0, 0)
+                stream = canvas.getCurrentPageContent()
+                # ReportLab's RGB command for the brand swatch, #F26222.
+                self.assertEqual(stream.count(".94902 .384314 .133333 rg"), filled)
+                self.assertEqual(len(re.findall(r"re W\*? n", stream)), clips)
+
     def output(self, report):
         # Built-in PDF fonts keep these fixture text streams readable without adding a PDF parser dependency.
         with patch.object(rl_config, "pageCompression", 0):
@@ -62,6 +76,24 @@ class ScopedPdfTests(unittest.TestCase):
         self.assertIn(b"28 Nov 2026 05:39 AEST", pdf)
         self.assertNotIn(b"ITEM-0000", pdf)
 
+    def test_company_return_sheet_scopes_to_groups_and_handles_missing_date(self):
+        r = projection(2)
+        r['return_groups'] = [dict(holder="First holder", items=[
+            dict(name="Cordless drill", item="DR-209", date="2026-11-27", time="06:40")]),
+            dict(holder=None, items=[dict(name="Charger", item="CH-101", date="", time="")])]
+        r['work_notes'] = [dict(title="Separate company milestone", date="2026-11-26", description="Other scope")]
+        with patch.object(rl_config, "pageCompression", 0):
+            data = render_pdf(r, returns_only=True)
+            for value in (b"END-OF-SHIFT RETURN LIST", b"First holder", b"DR-209", b"CH-101", b"06:40",
+                          b"Individual holder unconfirmed", b"Issue date unavailable"):
+                self.assertIn(value, data)
+            for value in (b"Separate company milestone", b"Record coverage", b"ITEM-0000", b"Same-day"):
+                self.assertNotIn(value, data)
+            r.update(asat="", coverage={}, return_groups=[])
+            self.assertIn(b"needs a dated rental stock export", render_pdf(r, returns_only=True))
+            with self.assertRaises(ValueError):
+                render_pdf({**r,"kind":"person"}, returns_only=True)
+
     def test_multipage_repeats_header_and_contains_every_asset(self):
         pdf = self.output(projection(155))
         page_count = len(re.findall(rb"/Type /Page\b", pdf))
@@ -91,7 +123,7 @@ class ScopedPdfTests(unittest.TestCase):
             self.assertIn(part, pdf)
         self.assertNotIn(b"DO NOT EXPORT", pdf)
         self.assertNotIn(b"PRIVATE COMPANY NOTE", pdf)
-        self.assertIn(b"Currently on hire to you", pdf)
+        self.assertIn(b"Still to return", pdf)
         for section in (b"Record coverage", b"Daily activity", b"Return activity", b"Consumables drawn"):
             self.assertLess(pdf.index(b"ITEM-0000"), pdf.index(section))
         period = dict(current=True, schedule="Current verified shutdown", first_date="2026-11-26",

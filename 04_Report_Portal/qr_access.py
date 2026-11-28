@@ -279,10 +279,10 @@ def serve(request, data_dir, job_dir):
         allowed = {"", "enter", "enter.js", "report", "report.pdf", *report_assets}
         allowed.update(BRANDING)
         if scope == "company":
-            allowed.update(("companies", "work-note"))
+            allowed.update(("companies", "work-note", "returns.pdf"))
         else:
             allowed.update(("badge_decoder.js", "badge_zxing.js"))
-        if (action not in allowed and not picture) or (path.query and not (scope == "company" and action in ("report", "report.pdf"))):
+        if (action not in allowed and not picture) or (path.query and not (scope == "company" and action in ("report", "report.pdf", "returns.pdf"))):
             return error(404, "Not found.")
         if read and action in ("enter", "enter.js"):
             return reply(200, invitation(scope, job_dir) if action == "enter" else ENTER_JS,
@@ -341,7 +341,7 @@ def serve(request, data_dir, job_dir):
         if scope == "company" and read:
             if action == "companies" and not path.query:
                 return reply(200, qr_reports.companies(data_dir))
-            if action not in ("report", "report.pdf"):
+            if action not in ("report", "report.pdf", "returns.pdf"):
                 return error(404, "Not found.")
             try:
                 params = parse_qs(path.query, strict_parsing=True, max_num_fields=1)
@@ -351,7 +351,7 @@ def serve(request, data_dir, job_dir):
             if not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", company):
                 return error(400, "Choose a company from the list.")
             result = qr_reports.company(data_dir, company)
-            if result is not None:
+            if result is not None and action != "returns.pdf":
                 result = {**result, "work_notes": qr_work_notes.entries(data_dir, company)}
         elif scope == "personal" and request.command == "POST" and action in ("report", "report.pdf"):
             barcode = posted("barcode")
@@ -372,6 +372,13 @@ def serve(request, data_dir, job_dir):
                 return error(404, "No worker report matched that barcode. Check the number printed on your badge. "
                              "If it matches, ask the tool store to check your badge link.")
             return error(404, "No matching report is available.")
+        if action == "returns.pdf":
+            revision = request.headers.get("If-Match")
+            if revision and revision != '"' + result["return_list_revision"] + '"':
+                return error(412, "The company return list has changed. Reopen the company report for the latest list.")
+            from qr_report_pdf import render_pdf
+            return reply(200, render_pdf(result, job_dir=job_dir, returns_only=True), "application/pdf",
+                         [("Content-Disposition", 'attachment; filename="mmg-company-shift-returns.pdf"')])
         if action == "report.pdf":
             from qr_report_pdf import render_pdf
             return reply(200, render_pdf(result, job_dir=job_dir), "application/pdf",

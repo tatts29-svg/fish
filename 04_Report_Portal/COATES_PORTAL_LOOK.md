@@ -24,7 +24,7 @@ Copy from those files rather than re-drawing from this description.
 
 ## Colour
 
-Coates slate frames the report. Coates orange identifies the portal, the selected tab and the primary action. Keep names, headline counts and five-star ratings in the main text colour.
+Coates slate frames the report. Coates orange identifies the portal, the selected tab and the primary action. Use solid Coates orange `#F26222` for the earned portion of each rating star on screen and paper. Keep empty stars outlined in slate and keep names, numeric scores and headline counts in the main text colour.
 
 | Token | Dark | Light | Used for |
 |---|---|---|---|
@@ -34,11 +34,12 @@ Coates slate frames the report. Coates orange identifies the portal, the selecte
 | `--tx` / `--mu` / `--dim` | `#E6EBF2` / `#97A3B3` / `#66717F` | `#1B2028` / `#5A6472` / `#8B94A1` | text, secondary, labels |
 | `--head` | `#2A313C` | same | top bar (Coates slate) |
 | `--or` / `--ortx` | `#F26222` / `#FF8A50` | `#F26222` / `#C2440D` | Coates orange, orange text |
-| Pistachio | `#B5EB84` | use a darker edge on white | issued or on-hire liquid |
-| Silver | `#CFD8E4` | steel grey on white | returned gear |
-| Lavender | `#C2B3F4` | deep lavender on white | named historical comparison |
-| Amber | `#F3C77D` | dark amber on white | a specific follow-up due |
-| Coral | `#F39B92` | deep red on white | a confirmed exception |
+| Coates orange liquid | `#F97840` | `#B94F1D` | gear issued or on hire, spending and recorded store activity |
+| Mint | `#8BD8A7` | `#34754E` | recorded returns and completed checks |
+| Steel | `#96A9BA` | `#5C7388` | capacity and unmeasured tracks; hatch unavailable readings |
+| Muted steel | `#91A6BA` | `#5C7388` | named historical comparison |
+| Amber | `#F2C16D` | `#906013` | a specific follow-up due |
+| Coral | `#F18D80` | `#AC473D` | a confirmed exception |
 
 Give statuses a plain-language label. Gear held across a shift is an observation. Flag it for action when a recorded due time or an agreed site rule warrants it. Keep unrelated measurements neutral and give chart series labels or distinguishable marks on paper.
 

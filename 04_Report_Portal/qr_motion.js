@@ -181,6 +181,7 @@
     const pair = node('div','direction-dial-pair');
     for (const [label,value,isReturn] of [['Issued',issued,false],['Returned',returned,true]]) {
       const gauge = node('div', 'direction-dial');
+      gauge.dataset.series = isReturn ? 'returned' : 'issued';
       if (!measured(value)) gauge.classList.add('direction-unmeasured');
       const number = node('strong','direction-dial-number',measured(value) ? format.format(value) : '—');
       if (!measured(value)) number.setAttribute('aria-label','Count unavailable');

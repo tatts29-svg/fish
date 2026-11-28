@@ -41,6 +41,9 @@ def page(scope, *, barcode_ready=True, job_dir=None):
         form_title = "Worker access"
         intro = "Worker barcode access is being set up. Please ask the tool store."
         fields = '<button type="button" id="refresh">Refresh availability</button>'
+    balance = f'''<a href="#current-gear" class="direction-primary" aria-label="Jump to the current on-hire list">
+<span class="direction-eyebrow">{'Still to return' if personal else 'Still on hire to the crew'}</span>
+<strong id="hero-count" class="direction-count"></strong><span id="hero-label" class="direction-note"></span></a>'''
     return f'''<!doctype html>
 <html lang="en-AU"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -69,10 +72,8 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <article id="report" hidden><header class="ch report-head"><div class="hero-copy">
 <p class="eyebrow">{'Your time at MMG Dugald River' if personal else 'Company record · MMG Dugald River'}</p>
 <div class="report-identity-row"><h1 id="report-heading" tabindex="-1"></h1><a id="name-rating" class="name-rating" href="#return-rating"></a></div>
-<p class="lede" id="report-subtitle"></p></div>
-<div class="direction-summary"><a href="#current-gear" class="direction-primary" aria-label="Jump to the current on-hire list">
-<span class="direction-eyebrow">{'On hire to you' if personal else 'On hire to the crew'}</span><strong id="hero-count" class="direction-count"></strong>
-<span id="hero-label" class="direction-note"></span></a><div class="direction-instrument" id="direction-instrument"></div>
+{balance if personal else ''}<p class="lede" id="report-subtitle"></p></div>
+<div class="direction-summary">{'' if personal else balance}<div class="direction-instrument" id="direction-instrument"></div>
 <div class="direction-strap" id="direction-strap"></div></div>
 </header>
 <div class="report-tools direction-tools"><button type="button" id="reset">Finish and clear</button>

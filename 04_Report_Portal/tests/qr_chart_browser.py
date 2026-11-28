@@ -80,6 +80,35 @@ def check(browser, fixture):
     clock = result["clock"]
     assert clock["full"] > 30 and clock["tiny"] <= .016 and clock["missing"] == 21, clock
     assert "00:00–01:00" in clock["highest"], clock
+    # Inspect the painted fluid, including the light ink used by browser print.
+    # A token rename must not leave a tube, pill or movement series in the old scheme.
+    palette_js = """() => {
+        const host=document.createElement("div");
+        document.body.append(host);
+        MMGReportInstruments.mount(host, {issued:3, returned:2});
+        const colours = {};
+        for (const role of ["issued", "returned"]) {
+            const dial = host.querySelector('[data-series="'+role+'"]');
+            const liquid = dial.querySelector('linearGradient[id$="-liquid"]');
+            const pill = document.createElement("span");
+            host.append(pill);
+            MMGReportInstruments.pill(pill, 2, 3, role);
+            colours[role] = {
+                liquid:getComputedStyle(liquid.children[3]).stopColor,
+                pill:getComputedStyle(pill.querySelector(".direction-pill-fill")).backgroundImage,
+            };
+        }
+        host.remove();
+        return colours;
+    }"""
+    dark = page.evaluate(palette_js)
+    for series, colour in (("issued","rgb(249, 120, 64)"), ("returned","rgb(139, 216, 167)")):
+        assert dark[series]["liquid"] == colour and colour in dark[series]["pill"], dark
+    page.emulate_media(media="print")
+    paper = page.evaluate(palette_js)
+    assert paper["issued"]["liquid"] == "rgb(185, 79, 29)", paper
+    assert paper["returned"]["liquid"] == "rgb(52, 117, 78)", paper
+    page.emulate_media(media="screen")
     # Exercise the complete report renderer and its actual daily series and star graphics.
     page.locator("#finish-report").click()
     report["returns"].update(score=2.5, eligible=8, same_day=3)
@@ -89,7 +118,15 @@ def check(browser, fixture):
     lookup()
     for selector in ("#name-rating", "#return-rating"):
         assert page.locator(selector+" .rating-fill").count() == 3
-        assert float(page.locator(selector+" .rating-fill").last.get_attribute("width")) == 24
+        fills = page.locator(selector+" .rating-fill")
+        assert float(fills.last.get_attribute("width")) == 24
+        assert fills.evaluate_all("xs => xs.every(x=>getComputedStyle(x).fill === 'rgb(242, 98, 34)')")
+        assert page.locator(selector+" .rating-face").count() == 5
+    page.emulate_media(media="print")
+    for selector in ("#name-rating", "#return-rating"):
+        expect(page.locator(selector+" .rating-fill").first).to_be_visible()
+        expect(page.locator(selector+" .rating-fill").first).to_have_css("fill", "rgb(242, 98, 34)")
+    page.emulate_media(media="screen")
     assert page.locator(".movement-figure .chart-unavailable").count() == 2
     expect(page.locator(".movement-figure svg")).to_have_attribute("aria-label", re.compile("issued unavailable, returned unavailable"))
     bounds=page.locator(".movement-figure defs clipPath rect").evaluate_all("(rows)=>rows.map(r=>+r.getAttribute('height'))")
