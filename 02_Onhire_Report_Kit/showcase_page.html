@@ -1351,7 +1351,7 @@ __CONTACTS__
 
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Report details" aria-hidden="true" inert><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp">Click anything underlined or listed to open it</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
-<div id="paperwrap" aria-hidden="true"><div class="pbar"><span class="ttl">On-hire report</span>
+<div id="paperwrap" role="dialog" aria-modal="true" aria-label="On-hire report" aria-hidden="true"><div class="pbar"><span class="ttl">On-hire report</span>
 <label>Group by<span class="seg" id="oh-g"><button data-k="co" class="on">Company</button><button data-k="who">Person</button><button data-k="tool">Tool</button></span></label>
 <label>Owner<span class="seg" id="oh-o"><button data-k="all" class="on">All</button><button data-k="coates">Coates</button><button data-k="other" id="oh-o2"></button></span></label>
 <input class="search" id="oh-f" placeholder="Filter by name or item" autocomplete="off"><span class="sp"></span>
@@ -1999,14 +1999,50 @@ function initQrGrid(){const L=D.clines.filter(l=>l.qr),g=$('#qrgrid');if(!L.leng
 const drawQ=()=>{const q=$('#qr-q').value.trim().toUpperCase(),rs=L.filter(l=>!q||(l.name+' '+l.type+' '+(l.code||'')+' '+l.bar).toUpperCase().includes(q));
 g.innerHTML=rs.map(l=>`<button class="qrt" data-qr="${esc(l.name)}"><span class="q">${qrsvg(l.qr,62)}</span><span><b>${esc(l.name)}</b><small${l.have!=null&&l.min!=null&&l.have<l.min?' class="w"':''}>${shelfLabel(l)} on the shelf${l.have!=null&&l.min!=null&&l.have<l.min?' · top up':''}</small></span></button>`).join('')||'<div class="empty">No consumable matches that.</div>';
 $('#qr-foot').textContent=`${rs.length} of ${L.length} lines. The code is the line's SiteIQ barcode.`};$('#qr-q').oninput=drawQ;drawQ()}}
-{const big=document.createElement('div');big.id='qrbig';document.body.appendChild(big);const shut=()=>big.classList.remove('on');
-big.onclick=e=>{if(e.target===big||e.target.closest('.x'))shut()};document.addEventListener('keydown',e=>{if(e.key==='Escape'&&big.classList.contains('on')){e.stopImmediatePropagation();shut()}});
+// The printable report and barcode overlay are full-screen dialogs that can
+// also be opened from a detail drawer. Restore the exact previous inert state.
+function overlayDialog(panel){
+  let trigger=null,background=[],previousOverflow='';
+  function close(restoreFocus=true){
+    if(!panel.classList.contains('on'))return;
+    panel.classList.remove('on');
+    background.forEach(el=>el.inert=false);
+    background=[];
+    document.body.style.overflow=previousOverflow;
+    if(restoreFocus&&trigger?.isConnected&&trigger.getClientRects().length)trigger.focus({preventScroll:true});
+    panel.setAttribute('aria-hidden','true');trigger=null;
+  }
+  function open(source,initial){
+    if(panel.classList.contains('on'))return;
+    trigger=source;previousOverflow=document.body.style.overflow;
+    background=[...document.body.children].filter(el=>el instanceof HTMLElement&&el!==panel&&!el.inert&&!['SCRIPT','STYLE'].includes(el.tagName));
+    panel.setAttribute('aria-hidden','false');panel.classList.add('on');
+    panel.scrollTop=0;document.body.style.overflow='hidden';
+    initial.focus({preventScroll:true});
+    background.forEach(el=>el.inert=true);
+  }
+  panel.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close();return}
+    if(e.key!=='Tab')return;
+    const controls=$$('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),[tabindex="0"]',panel).filter(el=>el.getClientRects().length);
+    const first=controls[0],last=controls.at(-1);
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus()}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus()}
+  });
+  window.addEventListener('hashchange',()=>close(false));
+  return {open,close};
+}
+{const big=document.createElement('div');big.id='qrbig';
+big.setAttribute('role','dialog');big.setAttribute('aria-modal','true');big.setAttribute('aria-labelledby','qr-item-name');big.setAttribute('aria-hidden','true');
+document.body.appendChild(big);
+const modal=overlayDialog(big);
+big.onclick=e=>{if(e.target===big||e.target.closest('.x'))modal.close()};
 document.addEventListener('click',e=>{const b=e.target.closest('[data-qr]');if(!b)return;e.preventDefault();e.stopPropagation();const l=D.clines.find(x=>x.name==b.dataset.qr);if(!l)return;
 const low=l.have!=null&&l.min!=null&&l.have<l.min,left=l.have!=null&&l.pd>0?Math.floor(l.have/l.pd):null;
-big.innerHTML=`<div class="qrp"><div class="q">${qrsvg(l.qr,340)}</div><h3>${esc(l.name)}</h3><div class="cd">SiteIQ barcode <b>${esc(l.bar)}</b> · SKU ${esc(l.sku)}${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}</div>
+big.innerHTML=`<div class="qrp"><div class="q">${qrsvg(l.qr,340)}</div><h3 id="qr-item-name">${esc(l.name)}</h3><div class="cd">SiteIQ barcode <b>${esc(l.bar)}</b> · SKU ${esc(l.sku)}${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}</div>
 <div class="qrn"><div class="${low?'hot':''}"><b>${shelfLabel(l)}</b><span>On the shelf${low?' · top up':''}</span></div><div><b>${l.min??'–'}</b><span>Minimum</span></div><div><b>${l.max??'–'}</b><span>Maximum</span></div></div>
 ${l.pd?`<div class="qre"><b>Estimate:</b> about ${l.pd} used a day, so roughly ${left} ${left==1?'day':'days'} of stock on the shelf.<small>A guide only, from what past shuts used a day. Stock is as at the SiteIQ pull of ${esc(D.asat)}.</small></div>`:`<div class="qre">No usage estimate for this line yet: past shuts did not draw it.<small>Stock is as at the SiteIQ pull of ${esc(D.asat)}.</small></div>`}
-<button class="x">Close</button></div>`;big.classList.add('on')},true)}
+<button class="x" type="button">Close</button></div>`;modal.open(b,big.querySelector('.x'))},true)}
 
 
 /* ---------- controlled tool store document ---------- */
@@ -2267,16 +2303,16 @@ ${sec||'<div class="none">Nothing on hire matches these filters.</div>'}
 <div class="pend"><span>Author: Andrew Fisher | POWERED BY SITEIQ · © 2026 Andrew Fisher. All rights reserved.</span><span>${esc(D.job.title)} · SiteIQ pull ${esc(D.asat)}</span></div>`;
 // the email is a draft with the same filters in words and a count for each group; nothing sends itself
 const lines=keys.map(k=>`${k.split('\u0001')[0]}: ${G.get(k).length}`).join('\n');
-$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nEquipment not being used: please return it to the Coates tool store.\nPlease check your gear each day before use.\n\nThe PDF of this report is attached.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
+$('#oh-mail').href='mailto:?subject='+encodeURIComponent(`${CLIENT} tool store – on-hire report, ${D.asat}`)+'&body='+encodeURIComponent(`On hire as at the SiteIQ pull of ${D.asat}: ${rs.length} ${rs.length==1?'item':'items'} with ${nco} ${nco==1?'company':'companies'}.\nShowing ${says().join(', ')}.\n\n${lines.length>1400?lines.slice(0,1400)+'\n…':lines}\n\nEquipment not being used: please return it to the Coates tool store.\nPlease check your gear each day before use.\n\nUse Print or save as PDF in the report to attach a copy.\n\nAuthor: Andrew Fisher | POWERED BY SITEIQ`)}
 $('#oh-cosel').innerHTML=`<button class="pco on" data-c="">All companies</button>`+allCos.map(c=>`<button class="pco" data-c="${esc(c)}">${esc(c)} <span style="opacity:.7">${R.filter(r=>r.co==c).length}</span></button>`).join('');
 $$('#oh-cosel .pco').forEach(b=>b.onclick=()=>{const c=b.dataset.c;if(!c)st.cos.clear();else st.cos.has(c)?st.cos.delete(c):st.cos.add(c);$$('#oh-cosel .pco').forEach(x=>x.classList.toggle('on',x.dataset.c?st.cos.has(x.dataset.c):!st.cos.size));build()});
 const seg=(id,f)=>$$(id+' button').forEach(b=>b.onclick=()=>{st[f]=b.dataset.k;$$(id+' button').forEach(x=>x.classList.toggle('on',x===b));build()});seg('#oh-g','group');seg('#oh-o','own');
 $('#oh-f').addEventListener('input',e=>{st.q=e.target.value;build()});
-const openR=()=>{build();wrap.classList.add('on');wrap.setAttribute('aria-hidden','false');wrap.scrollTop=0;document.body.style.overflow='hidden'};
-const closeR=()=>{wrap.classList.remove('on');wrap.setAttribute('aria-hidden','true');document.body.style.overflow=''};
-$('#oh-close').onclick=closeR;document.addEventListener('keydown',e=>{if(e.key=='Escape')closeR()});
+const reportDialog=overlayDialog(wrap);
+const openR=source=>{build();reportDialog.open(source,$('#oh-close'))};
+$('#oh-close').onclick=()=>reportDialog.close();
 $('#oh-print').onclick=()=>{root.classList.add('ohprint');const t=document.title;document.title=`${CLIENT} On-Hire Report ${D.asat.replace(':','')}`;const done=()=>{root.classList.remove('ohprint');document.title=t;removeEventListener('afterprint',done)};addEventListener('afterprint',done);print()};
-document.addEventListener('click',e=>{if(e.target.closest('[data-ohreport]')){e.preventDefault();openR()}});
+document.addEventListener('click',e=>{const source=e.target.closest('[data-ohreport]');if(source){e.preventDefault();openR(source)}});
 // ?ohreport: the whole report as the document itself, for making the downloadable PDF
 if(/[?&]ohreport/.test(QS)){openR();root.classList.add('ohprint')}}
 
