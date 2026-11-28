@@ -1712,6 +1712,7 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
 .hire-rest summary{display:list-item;align-content:center;cursor:pointer;color:var(--link,var(--tx));font-weight:650;padding-top:8px}
 .overview-returns-note{display:block;margin-top:.3em;color:var(--mu);font-size:.88em}
 @media(max-width:540px){#oh-filters .oh-company-label,#oh-filters .oh-search-label{flex:1 1 100%}#oh-collection-report{width:100%}}
+/*__SHIFT_TRENDS_CSS__*/
 </style>
 </head>
 <body>
@@ -1753,7 +1754,7 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
 <div class="grid c21 overview-activity">
 <div class="card"><h3>Gear issued by hour</h3><div class="sub" id="hoursub"></div>
 <div class="legend hourly-legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>No longer on hire</span></div>
-<div id="hourly"></div></div>
+<div id="hourly"></div><button type="button" class="more noprint" id="movement-link" data-go="rhythm" hidden>Compare issues and returns by shift</button></div>
 <div class="card"><h3>Who has the gear now</h3><div class="sub" id="cosub"></div><div id="cos"></div></div>
 </div>
 <div class="sect">Shift highlights</div>
@@ -1887,6 +1888,7 @@ __CONTACTS__
 
 <section class="view pb" id="v-rhythm" data-tab="How the store runs">
 <div class="vh"><h2>How the store runs</h2><p id="op-lead"></p></div>
+<div id="gear-movement-trend" hidden></div>
 <section class="card hire-checks" id="hire-checks" aria-labelledby="hire-checks-title" hidden>
 <h3 id="hire-checks-title">Hire and return checks at the counter</h3>
 <p class="sub">We check SiteIQ after each scan so the hire record shows who took the tool and when it came back.</p>
@@ -1905,6 +1907,7 @@ __CONTACTS__
 </ol></div>
 </div></section>
 <div id="opsblock">
+<h3>Past shutdown averages</h3><p class="sub" id="op-average"></p>
 <div class="stats" id="op-stats"></div>
 <div class="card" style="margin-top:16px"><h3>Busy times round the clock</h3><div class="sub" id="clock-sub"></div>
 <div class="legend"><span><i class="la"></i>Day shift, 06:00 to 18:00</span><span><i class="lb"></i>Night shift, 18:00 to 06:00</span></div>
@@ -1955,6 +1958,7 @@ __CONTACTS__
 <div id="st-handover-people" class="st-shift-list"></div>
 <div class="work-actions noprint"><button type="button" class="btn" data-stock-focus="st-log-title">Who counted what?</button><button type="button" class="btn ghost" id="st-review-jump" hidden>Scan activity by shift</button><button type="button" class="btn ghost" data-stock-focus="st-cat-title">Coverage by category</button></div>
 </div>
+<div id="stocktake-trend" class="noprint" hidden></div>
 <div class="st-round-layout">
 <div class="card st-round-control"><h3>Count period</h3>
 <div class="st-rounds" id="st-rounds" aria-label="Stocktake period"></div>
@@ -2057,6 +2061,7 @@ __CONTACTS__
 </dialog>
 <div id="tip"></div>
 
+<script data-shift-trends>/*__SHIFT_TRENDS_JS__*/</script>
 <script>
 const D=__DATA__, LOGO="__LOGO__", CLIENT="__CLIENT__";
 const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
@@ -2082,6 +2087,7 @@ if(STATIC)root.classList.add('static');
 const mmgDugaldRiver=/^MMG\b/i.test(D.job.schedule||'') && D.job.title==='MMG Dugald River';
 $('#hire-checks').hidden=!mmgDugaldRiver;
 $('#hire-checks-link').hidden=!mmgDugaldRiver||STATIC;
+$('#movement-link').hidden=!D.shift_movements||STATIC;
 if(!STATIC && location.protocol.startsWith('http') && mmgDugaldRiver){
   $('#mobile-install').hidden=false;
   if(!document.querySelector('link[rel="manifest"]')) document.head.insertAdjacentHTML('beforeend','<link rel="manifest" href="/manifest.webmanifest?v=hq-mmg-1"><link rel="icon" type="image/png" sizes="32x32" href="/mobile/mygear-mmg-32.png?v=hq-mmg-1"><link rel="apple-touch-icon" sizes="180x180" href="/mobile/mygear-mmg-180.png?v=hq-mmg-1"><meta name="apple-mobile-web-app-title" content="MyGear HQ MMG"><meta name="theme-color" content="#101419"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">');
@@ -3070,8 +3076,14 @@ function initSwms(){
 }
 /* ---------- how the store runs ---------- */
 function initRhythm(){const O=D.ops,hh=h=>String(h).padStart(2,'0')+':00';
+if(D.shift_movements&&window.MMGShiftTrends){
+  const host=$('#gear-movement-trend');
+  host.hidden=false;
+  window.MMGShiftTrends.mount(host,'movement',D.shift_movements);
+  $('#op-lead').textContent='Select a date and shift to see when gear went out and when it came back.';
+}
 if(O&&O.hours&&O.hours.issue){const P=O.per_day;
-$('#op-lead').textContent=`An average shut day at ${CLIENT}, from past shuts: about ${whole(P.tx)} transactions across two shifts, for about ${whole(P.people)} people from ${whole(P.companies)} companies.`;
+$('#op-average').textContent=`On an average operating day at ${CLIENT}, the store recorded ${whole(P.tx)} transactions across two shifts and served ${whole(P.people)} people from ${whole(P.companies)} companies.`;
 stats($('#op-stats'),[[Math.round(P.tx),'Transactions a day','','One tool out, one tool back or one consumable issue'],[Math.round(P.people),'People served a day'],[Math.round(P.companies),'Companies a day'],[(P.tx/P.people).toFixed(1),'Transactions a person']]);
 // shift day runs 05:00 to 04:59, so the chart starts at 05:00
 const order=[...Array(24).keys()].map(i=>(i+5)%24),tot=h=>O.hours.issue[h]+O.hours.return[h]+O.hours.sale[h];
@@ -3086,7 +3098,7 @@ const card=(k,icn)=>{const S=O.shift[k],M=D.shifts[k];return `<h4>${icn}${M.name
 $('#shday').innerHTML=card('day',sun);$('#shnight').innerHTML=card('night',moon);
 bars($('#op-types'),O.cons_types.map(x=>({name:x.name,n:x.n,open:'ct:'+x.name})),{dec:1,rankUnit:'units per shift day'});
 bars($('#op-lines'),O.cons_lines.map(x=>({name:x.name,n:x.n,open:D.clines.find(l=>l.name==x.name)?'cl:'+x.name:''})),{dec:1,rankUnit:'units per shift day'})}
-else{$('#opsblock').remove();$('#op-lead').textContent='This shut as it builds.'}
+else{$('#opsblock').remove();}
 const H=D.history||[];
 if(H.length>1)lineChart($('#trend'),H.map(h=>+h.asat.slice(8,10)+' '+MON[+h.asat.slice(5,7)-1]+' '+h.asat.slice(11)),[{name:'On hire',v:H.map(h=>h.on_hire)},{name:'Issued that day',v:H.map(h=>h.issued_today)}],{label:'On hire by pull'});
 else $('#trend').innerHTML=`<div class="empty">This is the first pull of the shut: ${fmt(K.on)} on hire, ${fmt(K.issued_today)} issued today. The line starts from the next pull.</div>`;
@@ -3552,15 +3564,20 @@ const drModalOpen=()=>document.querySelector('dialog[open],#drawer.on,#paperwrap
 document.addEventListener('keydown',e=>{if(e.key=='/'&&!drModalOpen()&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)&&!document.activeElement.isContentEditable){e.preventDefault();q.focus()}})}
 // Manager-only review is fetched on demand. Shared HTML and print never contain this ledger.
 function stocktakeShiftReview({when, day, number, openEntries, openPending, refreshLedger}) {
-  const panel=$('#st-scan-review'),jump=$('#st-review-jump');
+  const panel=$('#st-scan-review'),jump=$('#st-review-jump'),trend=$('#stocktake-trend');
   let permitted=false,model=null,selected='',person='',areaMode='areas',request=null,lastLineKey='';
   const local=t=>t?String(t).slice(11,16):'—';
   const shiftKey=s=>s.date+'|'+s.shift;
   const label=s=>(s.date?day(s.date):'Date unavailable')+' · '+(s.shift||'Unrecorded')+' shift';
   const agoSpan=n=>{const h=Math.floor(n/60),m=n%60;return h?(h+'h'+(m?' '+m+'m':'')):(m+'m')};
   const counts=(n,one,many)=>number(n)+' '+(n===1?one:many);
+  function clearTrend(){
+    window.MMGShiftTrends?.unmount(trend);
+    trend.hidden=true;
+  }
   function reset(){
     permitted=false;request?.abort();request=null;model=null;selected=person=lastLineKey='';areaMode='areas';
+    clearTrend();
     panel.replaceChildren();panel.hidden=jump.hidden=true;
   }
   function goToReview(){
@@ -3810,13 +3827,19 @@ function stocktakeShiftReview({when, day, number, openEntries, openPending, refr
       if(!Array.isArray(result.shifts)||!result.follow_up)throw Error();
       const version=document.querySelector('meta[name="mmg-report-version"]')?.content;
       if(version&&result.report_version&&version!==result.report_version){
+        clearTrend();
         model=null;header('A newer report is available. Reload stocktake to use the updated register and counts.',false);
         const reload=panel.querySelector('[data-review-refresh]');reload.removeAttribute('data-review-refresh');
         reload.setAttribute('data-review-reload','');reload.textContent='Reload stocktake';return;
       }
       model=result;paint();
+      if(result.trends&&window.MMGShiftTrends){
+        trend.hidden=false;
+        window.MMGShiftTrends.mount(trend,'stocktake',result.trends);
+      }else clearTrend();
     }catch(err){
       if(ticket!==request||!permitted||err.name==='AbortError')return;
+      clearTrend();
       model=null;header('The manager scan review could not be loaded. Refresh to try again.',false);
     }
   }

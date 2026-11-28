@@ -593,6 +593,98 @@ def _review_shift(key, planned, records, windows, unknown_windows, begin, limit)
     return result
 
 
+def _chart_totals(records):
+    confirmed = [r for r in records if r['evidence'] == 'physical_count']
+    return {**_counts(confirmed), 'first': _iso(confirmed[0]['time']) if confirmed else '',
+            'last': _iso(confirmed[-1]['time']) if confirmed else '',
+            'unattributed_counts': sum(r['evidence'] == 'unattributed_count' for r in records),
+            'unconfirmed_counts': sum(r['evidence'] == 'quantity_unconfirmed' for r in records)}
+
+
+def _chart_profile(name, start, records, windows, limit):
+    """Build a 06:00-to-06:00 operating day; each selected span counts distinct lines afresh."""
+    half_hour = dt.timedelta(minutes=30)
+    bucket_rows = [[] for _ in range(48)]
+    for record in records:
+        bucket_rows[(record['time'] - start) // half_hour].append(record)
+    intervals = []
+    for i, rows in enumerate(bucket_rows):
+        a = start + i * half_hour
+        b = a + half_hour
+        portions = _within(windows, a, min(b, limit)) if a < limit else []
+        if portions == [(a, b)]:
+            state = 'full'
+        elif portions or rows:
+            state = 'partial'
+        else:
+            state = 'future' if a >= limit else 'unknown'
+        counts = _chart_totals(rows)
+        entry = {'start': _iso(a), 'end': _iso(b), 'coverage': state,
+                 **{k: counts[k] if state in ('full', 'partial') else None for k in ('count_events', 'tools', 'cons')}}
+        if state == 'partial':
+            entry['covered'] = [{'start': _iso(x), 'end': _iso(y)} for x, y in portions]
+            entry['elapsed_end'] = _iso(min(b, limit))
+        if rows:
+            entry.update(first=counts['first'], last=counts['last'],
+                         unattributed_counts=counts['unattributed_counts'], unconfirmed_counts=counts['unconfirmed_counts'])
+            minutes = Counter(r['time'].strftime('%H:%M') for r in rows if r['evidence'] == 'physical_count')
+            entry['minutes'] = list(minutes.items())
+        intervals.append(entry)
+    def span(lo, hi):
+        bins = intervals[lo:hi]
+        states = {b['coverage'] for b in bins}
+        coverage = next(iter(states)) if len(states) == 1 else (
+            'partial' if states & {'partial', 'full'} else 'unknown')
+        left, right = start + lo * half_hour, start + hi * half_hour
+        return {'name': name, 'start': _iso(left), 'end': _iso(right), 'coverage': coverage,
+                'elapsed_end': _iso(min(limit, right)) if limit >= left else '',
+                **_chart_totals([r for bucket in bucket_rows[lo:hi] for r in bucket]), 'bins': bins}
+    return span(0, 48), span(0, 24), span(24, 48)
+
+
+def _count_trends(events, plans, windows, begin, limit):
+    data = {'asat': _iso(limit) if limit != dt.datetime.min else '', 'bin_minutes': 30, 'days': []}
+    if begin == dt.datetime.min or limit < begin:
+        return data
+    activity = defaultdict(list)
+    for r in events:
+        if r['evidence'] != 'activity':
+            activity[(r['time'] - dt.timedelta(hours=6)).date()].append(r)
+    roster = defaultdict(list)
+    for entries in plans.values():
+        for a, b, who in entries:
+            roster[who].append((a, b))
+    # Retain genuine early counts on the first calendar date, when the operating
+    # night began the previous day. Otherwise start at the site's first day.
+    day = min([begin.date(), *activity])
+    final_day = (limit - dt.timedelta(hours=6)).date()
+    while day <= final_day:
+        start = dt.datetime.combine(day, dt.time(6))
+        end = start + dt.timedelta(days=1)
+        records = activity[day]
+        covered = _within(windows, max(start, begin), min(end, limit))
+        segments = {who: _segments(_within(periods, start, end)) for who, periods in roster.items()}
+        names = {n.casefold(): n for n, spans in segments.items() if spans}
+        for r in records:
+            if r['who']:
+                names.setdefault(r['who'].casefold(), r['who'])
+        daily, dayshift, nightshift = _chart_profile('', start, records, covered, limit)
+        profiles = [daily]
+        shifts = [{'shift': 'Day', 'profiles': [dayshift]}, {'shift': 'Night', 'profiles': [nightshift]}]
+        for who in sorted(names.values(), key=str.casefold):
+            own_records = [r for r in records if r['who'].casefold() == who.casefold()]
+            duty = segments.get(who, [])
+            own_coverage = _segments(part for a, b in duty for part in _within(covered, a, b))
+            daily, dayshift, nightshift = _chart_profile(who, start, own_records, own_coverage, limit)
+            profiles.append(daily)
+            for shift, profile in zip(shifts, (dayshift, nightshift)):
+                if any(profile[k] for k in ('count_events', 'unconfirmed_counts')) or _within(duty, _local(profile['start']), _local(profile['end'])):
+                    shift['profiles'].append(profile)
+        data['days'].append({'date': day.isoformat(), 'profiles': profiles, 'shifts': shifts})
+        day += dt.timedelta(days=1)
+    return data
+
+
 def shift_analysis(st, roster=None, recorded_entries=None, ledger_asat=None):
     """Manager view of recorded physical counts and follow-up on the current register.
 
@@ -660,6 +752,7 @@ def shift_analysis(st, roster=None, recorded_entries=None, ledger_asat=None):
     return dict(asat=_iso(limit) if limit!=dt.datetime.min else '', siteiq_asat=_iso(site_asat),
                 untimed_counts=st.get('untimed_counts'),
                 ledger_asat=text(ledger_asat or st.get('ledger_asat')), shifts=shifts, follow_up=follow,
+                trends=_count_trends(events, plans, windows, begin, limit),
                 first_count=_iso(counts[0]['time']) if counts else '', last_count=_iso(counts[-1]['time']) if counts else '',
                 unattributed_counts=sum(r['evidence']=='unattributed_count' for r in events),
                 unconfirmed_counts=sum(r['evidence']=='quantity_unconfirmed' for r in events),

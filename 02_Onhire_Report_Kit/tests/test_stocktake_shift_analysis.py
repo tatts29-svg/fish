@@ -234,6 +234,50 @@ class ShiftAnalysisTests(unittest.TestCase):
         self.assertEqual(b["covered_intervals"], shift["covered_intervals"][:1])
         self.assertNotIn("minute_counts", st)  # shared report input remains free of manager series
 
+    def test_operating_day_chart_keeps_distinct_lines_and_dated_night_records(self):
+        pulled = at("00:07:15", NEXT)
+        st = model([stock("A"), stock("C", "cons")], [
+            scan("A", "06:00:00", "Day controller"), scan("A", "06:28:22", "Day controller"),
+            scan("C", "18:00:30", "Night controller", kind="cons", quantity=50),
+            scan("A", "18:05:00", "Night controller"),
+            scan("A", "00:00:31", "Night controller", day=NEXT),
+            scan("A", "00:06:00", "", day=NEXT),
+            scan("A", "18:04:00", "Night controller", action="Rental"),
+            dict(scan("A", "18:05:00", "Night controller"), sighted=DAY),
+        ], pulled, [window(at("06:00:00"), pulled)])
+        trends = stocktake.shift_analysis(st, [plan("Day controller"), plan("Night controller","Night")])["trends"]
+        self.assertEqual([d["date"] for d in trends["days"]], [DAY])
+        day = trends["days"][0]
+        crew = day["profiles"][0]
+        self.assertEqual((len(crew["bins"]), crew["count_events"], crew["tools"], crew["cons"],
+                          crew["first"], crew["last"], crew["unattributed_counts"]),
+                         (48, 5, 1, 1, at("06:00:00"), at("00:00:31", NEXT), 1))
+        self.assertEqual((crew["bins"][0]["count_events"], crew["bins"][0]["tools"]),
+                         (2, 1))
+        self.assertEqual(crew["bins"][0]["minutes"], [("06:00", 1), ("06:28", 1)])
+        self.assertEqual([p["name"] for p in day["shifts"][0]["profiles"]], ["", "Day controller"])
+        night = day["shifts"][1]["profiles"][1]
+        self.assertEqual((len(night["bins"]), night["count_events"], night["tools"], night["cons"]), (24, 3, 1, 1))
+        self.assertEqual((night["bins"][12]["coverage"], night["bins"][12]["elapsed_end"]), ("partial", pulled))
+        self.assertEqual(night["bins"][12]["covered"], [{"start": at("00:00:00", NEXT), "end": pulled}])
+        self.assertEqual(night["bins"][13]["coverage"], "future")
+        self.assertIsNone(night["bins"][13]["count_events"])
+
+    def test_operating_chart_preserves_uncovered_named_scans_and_manual_evidence(self):
+        st = model([stock("A")], [scan("A","13:20","Worker")], at("14:00"),
+                   [window(at("07:01:00"), at("07:17:00"))])
+        manual_entries = [manual("A", "15:03", "Worker", "first"), manual("A","15:03","Worker","first")]
+        result = stocktake.shift_analysis(st, [plan("Worker")], manual_entries, at("15:04"))
+        crew = result["trends"]["days"][0]["profiles"][0]
+        self.assertEqual(crew["count_events"], 2)
+        self.assertEqual(crew["bins"][6]["coverage"], "unknown")
+        self.assertIsNone(crew["bins"][6]["tools"])
+        self.assertEqual((crew["bins"][2]["coverage"], crew["bins"][2]["count_events"]), ("partial", 0))
+        self.assertEqual((crew["bins"][14]["coverage"], crew["bins"][14]["count_events"]), ("partial", 1))
+        self.assertEqual(crew["bins"][14]["covered"], [])
+        self.assertEqual((crew["bins"][18]["coverage"], crew["bins"][18]["count_events"]), ("partial", 1))
+        self.assertEqual(crew["bins"][19]["coverage"], "future")
+
 
 if __name__ == "__main__":
     unittest.main()

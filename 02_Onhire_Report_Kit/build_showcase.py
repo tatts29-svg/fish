@@ -29,6 +29,7 @@ import catalogue  # noqa: E402
 import consumable_usage  # noqa: E402
 import shut_costs  # noqa: E402
 import qr_facts
+import shift_movements
 import stocktake  # noqa: E402
 import sds_register  # noqa: E402
 import utilisation  # noqa: E402
@@ -61,6 +62,8 @@ def _ref_time(kit, path):
                              dt.datetime.strptime(b, "%d/%m/%Y %H:%M:%S"))
         if k == "PROJECT SCHEDULE":
             out["schedule"] = str(v).strip()
+        if k in {"INVOICED_CUSTOMER", "CONTRACTOR", "HIRER", "TOOL_STORE"} and str(v or "").strip().casefold() not in ("", "all"):
+            out["scoped"] = True
     return out
 
 
@@ -703,7 +706,18 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "ref": ({k: v for k, v in json.load(open(reference)).items() if k in ("label", "source", "days", "tool_issued", "cons_units")}
                 if reference and os.path.isfile(reference) else None),
     }
+    movement_archive = None
     if ref.get("schedule") == shut_costs.MMG_SCHEDULE and s.customer.strip().casefold() == "mmg" and "dugald river" in s.location.casefold():
+        prior_movements = {}
+        if qr_report_prior:
+            with open(qr_report_prior, encoding="utf-8") as archive:
+                previous = json.load(archive)
+            if previous.get("project") == "MMG Dugald River Mine" and previous.get("schedule") == ref["schedule"]:
+                prior_movements = previous.get("shift_movement_archive")
+        movement_archive, reason = shift_movements.snapshot(p_trans, tref, ref["schedule"], prior_movements)
+        planning = data.get("stocktake") or {}
+        data["shift_movements"] = shift_movements.report(movement_archive, planning.get("arrival") or counter_start.isoformat(),
+                                                        planning.get("departure"), max(asat, tref.get("requested") or asat), reason)
         data["consumable_usage"] = consumable_usage.build(sales, sales_ref, shut_costs.MMG_SCHEDULE, counter_start,
                                                          minmax, usage_history, MMG_FINAL_SHIFT_END,
                                                          interval_history=interval_history)
@@ -714,7 +728,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
                        dname, lambda name: _cons_name(kit, name), qr_report_prior,
                        lambda name, owner: _approved_asset_name(name, owner, approved_names),
                        lambda owner: _asset_owner(kit, owner),
-                       return_instruction=data["return_instruction"])
+                       return_instruction=data["return_instruction"], movement_archive=movement_archive)
     return data
 
 
@@ -842,6 +856,10 @@ def render(data, fonts, logo=None, client="MMG"):
     blob = json.dumps(data, ensure_ascii=False, default=str).replace("</", "<\\/")
     with open(PAGE_FILE, encoding="utf-8") as f:
         page = f.read()
+    if data.get("shift_movements") or (data.get("stocktake") or {}).get("schedule") == shut_costs.MMG_SCHEDULE:
+        for extension in ("js", "css"):
+            with open(os.path.join(HERE, f"shift_trends.{extension}"), encoding="utf-8") as asset:
+                page = page.replace(f"/*__SHIFT_TRENDS_{extension.upper()}__*/", asset.read())
     return (page.replace("__CONTACTS__", contact_cards(data.get("contacts", []))).replace("__FONTS__", face).replace("__CLIENT__", client)
             .replace("__LOGO__", logo or "").replace("__DATA__", blob))
 

@@ -21,17 +21,23 @@ def units(value):
     return n if math.isfinite(n) and n > 0 else 0
 
 
-def rental_transactions(path):
+def rental_transactions(path, *, required=()):
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True, keep_links=False)
     try:
+        found = False
         for name in ('TRANSACTION_CHARGES', 'TRANSACTION_WITHOUT_CHARGES', 'CUSTOMER_CONTRACTOR_EQUIP'):
             if name in wb.sheetnames:
+                found = True
                 sh = wb[name]
                 sh.reset_dimensions()
                 rows = sh.values
                 header = [text(c).upper() for c in next(rows, ())]
+                if required and not set(required).issubset(header):
+                    raise ValueError('The Transactions export is missing rental movement columns.')
                 for row in rows:
                     yield dict(zip(header, row))
+        if required and not found:
+            raise ValueError('No rental movement sheet was found in the Transactions export.')
     finally:
         wb.close()
 
@@ -77,7 +83,7 @@ def event_key(transaction, item):
     return hashlib.sha256(json.dumps([transaction, item], separators=(',', ':')).encode()).hexdigest()
 
 
-def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_date, parse_time, tool_names, cons_name, prior_path, approved_name, owner_name, *, return_instruction=None):
+def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_date, parse_time, tool_names, cons_name, prior_path, approved_name, owner_name, *, return_instruction=None, movement_archive=None):
     schedule = ref.get('schedule')
     if not schedule or sales_ref.get('schedule') != schedule or transactions and tx_ref.get('schedule') != schedule:
         raise ValueError('QR report exports must all identify the same project schedule.')
@@ -154,6 +160,8 @@ def write(path, kit, rental, sales, transactions, ref, sales_ref, tx_ref, parse_
                  movements=[r for k,r in moves.items() if k not in conflicts], draws=draws)
     if return_instruction:
         facts["return_instruction"] = return_instruction
+    if movement_archive:
+        facts["shift_movement_archive"] = movement_archive
     prior = json.loads(Path(prior_path).read_text(encoding='utf-8')) if prior_path else None
     reconcile(facts, prior, conflicts)
     apply_asset_labels(facts, asset_owners, transaction_owners, approved_name)
