@@ -484,7 +484,7 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .c5{grid-template-columns:repeat(5,1fr)}
 .c5 .kpi .n{font-size:32px}
 .costhero{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
-.cost-check{margin-top:16px}
+.cost-check{position:relative;margin-top:16px}
 .cost-check form{display:flex;flex-wrap:wrap;align-items:end;gap:.75rem 1rem;margin-top:1rem}
 .cost-check label{display:grid;flex:1 1 10rem;gap:.3rem;color:var(--mu);font-weight:600;font-size:.86rem}
 .cost-check :is(input,select){width:100%;min-width:0;min-height:44px;padding:.55rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--tx);font:inherit;font-size:1rem}
@@ -493,6 +493,15 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .cost-check output{display:block;margin-top:.4rem;color:var(--tx);font-weight:650;font-variant-numeric:tabular-nums}
 .cost-check output[data-state="over"]{color:var(--warn)}
 .cost-check output[data-state="match"]{color:var(--ok)}
+.cost-check:has(output[data-state="over"]){--cost-cue:var(--warn)}
+.cost-check:has(output[data-state="match"]){--cost-cue:var(--ok)}
+@media screen{
+ #cs-check:has(output:is([data-state="over"],[data-state="match"])){border-inline-start-color:var(--cost-cue)}
+}
+@media screen and (prefers-reduced-motion:no-preference) and (forced-colors:none){
+ .cost-check:has(output:is([data-state="over"],[data-state="match"]))::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;border:1px solid var(--cost-cue);box-shadow:0 0 8px color-mix(in srgb,var(--cost-cue) 36%,transparent);opacity:0;animation:cost-result-in .4s ease-out}
+ @keyframes cost-result-in{0%{opacity:0}28%{opacity:.8}100%{opacity:0}}
+}
 .ringw{position:relative;width:240px;height:240px}
 .ringw svg{width:240px;height:240px;transform:rotate(-90deg)}
 .ringt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
