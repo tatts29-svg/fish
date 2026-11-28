@@ -1,16 +1,19 @@
 <style>
 .install-head{display:flex;gap:1rem;align-items:center}
-.install-head img{width:4.5rem;height:4.5rem;border-radius:21%}
+.install-head img{width:clamp(3rem,12vw,4.5rem);height:auto;flex:none;border-radius:21%;box-shadow:0 0 0 1px #63717d66,0 6px 18px #090d1166}
 .install-head h1{margin:0;font-size:clamp(1.5rem,3.2vw,2.5rem)}
 .install-head p{margin-top:.25rem}
 .install-guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:1.25rem;margin:1.7rem 0}
-.install-guide h2{font-size:1.1rem;margin:0 0 .5rem}
+.install-guide section{padding:.95rem 1.15rem;border:1px solid #495760;border-radius:.65rem;background:var(--access-field)}
+.install-guide h2{font-size:1.1rem;margin:0 0 .5rem;line-height:1.25}
+.install-guide strong{font-weight:690}
+.install-guide section h2::before{display:inline-block;content:"";width:.36rem;height:.36rem;border-radius:50%;margin:0 .48rem .17rem 0;background:#f97840}
 .install-guide p{font-size:1rem;line-height:1.6}
 .install-guide strong{color:#E6EBF2}
 .install[hidden]{display:none}
 .install{width:auto;height:auto;min-height:2.9rem;padding:.55rem 1.3rem}
 </style>
-<main class="card">
+<main class="card hq-surface">
 <div class="install-head"><img src="/mobile/mygear-mmg-192.png?v=hq-mmg-1" srcset="/mobile/mygear-mmg-192.png?v=hq-mmg-1 192w, /mobile/mygear-mmg-512.png?v=hq-mmg-1 512w" sizes="4.5rem" width="192" height="192" alt="">
 <div><h1>Add MyGear HQ and MMG to your home screen</h1><p>Open the Dugald River portal from your phone.</p></div></div>
 <button type="button" class="install" id="install-app" hidden>Install MyGear HQ · MMG</button>

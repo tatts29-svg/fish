@@ -42,9 +42,16 @@
     const clock = date[4] || String(time || "").slice(0, 5);
     return [Number(date[3]), months[Number(date[2]) - 1], date[1]].join(" ") + (clock ? ", " + clock : "");
   }
-  function status(text = "", error = false) {
-    $("message").classList.toggle("error", error);
-    $("message").textContent = text;
+  function status(text = "", error = false, state = "") {
+    const message = $("message");
+    const host = $("lookup").hidden ? $("report-feedback") : $("lookup-feedback");
+    if (message.parentElement !== host) {
+      message.textContent = "";
+      host.append(message);
+    }
+    message.classList.toggle("error", error);
+    message.dataset.state = state;
+    message.textContent = text;
   }
   function buttonIcon(id, path) {
     const btn = $(id);
@@ -103,8 +110,17 @@
   for (const type of ["pointerdown", "keydown", "input", "click", "wheel", "touchmove"]) {
     document.addEventListener(type, activity, {capture:true, passive:false});
   }
-  identity.addEventListener("input", () => { if (identity.value) renewDeadline(); });
-  identity.addEventListener("change", () => { if (identity.value) renewDeadline(); });
+  function changedIdentity() {
+    delete form.dataset.scan;
+    identity.removeAttribute("aria-invalid");
+    if (!form.hasAttribute("aria-busy")) {
+      if (!personal) form.querySelector("[type=submit]").disabled = !identity.value;
+      status();
+    }
+    if (identity.value) renewDeadline();
+  }
+  identity.addEventListener("input", changedIdentity);
+  identity.addEventListener("change", changedIdentity);
   $("keep-open").addEventListener("click", () => {
     if (Date.now() >= expiresAt) {syncDeadline(); return;}
     idleDialog.close();
@@ -144,8 +160,10 @@
     $("pull").textContent = "SiteIQ pull time available with the report.";
     $("lookup").hidden = false;
     identity.value = "";
+    identity.removeAttribute("aria-invalid");
+    delete form.dataset.scan;
     $("clear-entry").hidden = true;
-    form.querySelector("[type=submit]").disabled = !personal && identity.disabled;
+    form.querySelector("[type=submit]").disabled = !personal;
     form.removeAttribute("aria-busy");
     if (location.hash) history.replaceState(null, "", location.pathname + location.search);
     status(message);
@@ -169,13 +187,21 @@
       target.scrollIntoView({block:"start",behavior:"instant"});
       const selected=sectionLinks.find(entry=>entry.section===target);
       pinnedSection=selected ? {entry:selected,scrollY:window.scrollY} : null;
+      if (selected && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        target.querySelector("h2")?.animate?.([{transform:"translateX(5px)",opacity:.68},{transform:"none",opacity:1}],
+          {duration:230,easing:"cubic-bezier(.2,.65,.25,1)"});
+      }
       if (!sectionFrame && !$("report").hidden) sectionFrame=requestAnimationFrame(syncSection);
     }
   });
   async function json(response) {
     let data;
     try { data = await response.json(); } catch (_) { /* A session may have expired. */ }
-    if (!response.ok || !data) throw new Error(data?.error || "The report could not be opened. Scan the access QR again or try another network connection.");
+    if (!response.ok || !data) {
+      const error = new Error(data?.error || "The report could not be opened. Scan the access QR again or try another network connection.");
+      error.status = response.status;
+      throw error;
+    }
     return data;
   }
   const requestOptions = () => ({credentials:"same-origin", cache:"no-store", referrerPolicy:"no-referrer"});
@@ -187,7 +213,7 @@
       identity.replaceChildren(new Option("Choose a company",""));
       for (const row of data.companies) identity.add(new Option(row.name, row.id));
       identity.disabled = !data.companies.length;
-      form.querySelector("[type=submit]").disabled = identity.disabled;
+      form.querySelector("[type=submit]").disabled = !identity.value;
       status(identity.disabled ? "There are no companies in the available MMG exports." : "");
     } catch (err) {
       identity.replaceChildren(new Option("Company list unavailable",""));
@@ -264,7 +290,7 @@
     return stamp ? "Rental stock snapshot · " + when(stamp) + " AEST" : "Rental stock snapshot time unavailable";
   }
   function issueKey(asset) {
-    return asset.date ? asset.date + " " + (asset.time || "24:00") : "~";
+    return asset.date ? "0 " + asset.date + " " + (asset.time || "24:00") : "1";
   }
   function orderedHoldings(r) {
     const hires = r.hires.map(tool => ({...tool, items:[...tool.items].sort((a,b) =>
@@ -297,6 +323,7 @@
     tbl.tHead.rows[0].lastElementChild.classList.add("screen-only");
     for (const [index,asset] of tool.items.entries()) {
       const row=tbl.tBodies[0].rows[index];
+      if (!asset.date) row.cells[byHolder ? 2 : 1].classList.add("issue-undated");
       if (byHolder && !sharedPhoto && media[index]) {
         const ref=window.QRHandover.artwork(r,asset);
         if (ref) {ref.classList.add("holder-item-photo");row.cells[0].append(ref);}
@@ -424,11 +451,31 @@
       }
       r={...r,return_groups:[...groups.values()]};
     }
-    const groups=r.return_groups.map(g=>({name:g.holder || "Individual holder unconfirmed",count:g.items.length,items:g.items}));
+    const groups=r.return_groups.map(g=>({name:g.holder || "Individual holder unconfirmed",unconfirmed:!g.holder,
+      count:g.items.length,items:g.items}));
     const list=gearList(panel,{...r,hires:groups});
+    list.id="current-holders";
+    if (groups.length>1) {
+      const toggle=el("button","holder-toggle screen-only","Expand all holders");
+      toggle.type="button";toggle.setAttribute("aria-controls",list.id);
+      list.before(toggle);
+      const sync=()=>{
+        const allOpen=Array.from(list.children).every(d=>d.open);
+        toggle.textContent=allOpen ? "Collapse all holders" : "Expand all holders";
+        toggle.setAttribute("aria-expanded",String(allOpen));
+      };
+      toggle.setAttribute("aria-expanded","false");
+      toggle.addEventListener("click",()=>{
+        const open=Array.from(list.children).some(d=>!d.open);
+        for(const d of list.children)d.open=open;
+        sync();
+      });
+      list.addEventListener("toggle",sync,true);
+    }
     for (const [i,g] of groups.entries()) {
       const d=group(g.name,null);
       d.classList.add("gear-entry");
+      if (g.unconfirmed) d.classList.add("holder-unconfirmed");
       d.open=i===0;
       d.querySelector("summary").append(el("span","badge",units(g.count,"asset")));
       gearTable(d,g,r,true);list.append(d);
@@ -940,7 +987,13 @@
       if (window.scrollY+innerHeight>=document.documentElement.scrollHeight-2) active=sectionLinks.at(-1);
     }
     for (const {link} of sectionLinks) {
-      if (link===active.link && !link.hasAttribute("aria-current")) link.setAttribute("aria-current","location");
+      if (link===active.link && !link.hasAttribute("aria-current")) {
+        link.setAttribute("aria-current","location");
+        const nav=link.parentElement, box=nav.getBoundingClientRect(), item=link.getBoundingClientRect();
+        if(item.left<box.left || item.right>box.right) {
+          nav.scrollTo({left:nav.scrollLeft+item.left-box.left-(nav.clientWidth-item.width)/2,behavior:"instant"});
+        }
+      }
       if (link!==active.link && link.hasAttribute("aria-current")) link.removeAttribute("aria-current");
     }
   }
@@ -965,7 +1018,8 @@
     clearIdentity();
     const mine = transaction; selection=value; pdfFiles.clear(); pdfRequests.clear();
     form.setAttribute("aria-busy","true"); form.querySelector("[type=submit]").disabled=true;
-    status("Opening report…");
+    identity.removeAttribute("aria-invalid");
+    status("Opening report…", false, "loading");
     try {
       const data = await json(await fetch(...endpoint(false)));
       if (mine === transaction) syncDeadline();
@@ -974,9 +1028,17 @@
     } catch (err) {
       if (mine !== transaction || err.name === "AbortError") return;
       selection=""; clearIdentity(); $("hero-count").textContent=""; $("hero-label").textContent=""; $("report-body").replaceChildren(); $("report-subtitle").textContent="";
+      if (err.status === 400 || err.status === 404) {
+        delete form.dataset.scan;
+        identity.setAttribute("aria-invalid", "true");
+        identity.focus({preventScroll:true});
+      }
       status(err.message,true);
     } finally {
-      if (mine === transaction) {form.removeAttribute("aria-busy");form.querySelector("[type=submit]").disabled=false;}
+      if (mine === transaction) {
+        form.removeAttribute("aria-busy");
+        form.querySelector("[type=submit]").disabled = !personal && !identity.value;
+      }
     }
   }
   form.addEventListener("submit",lookup);
@@ -1084,7 +1146,10 @@
     if (personal) {
       $("preview").pause();
       $("preview").srcObject = null;
-      $("scan-box").hidden = true;
+      const box = $("scan-box");
+      box.hidden = true;
+      delete box.dataset.live;
+      $("camera").setAttribute("aria-expanded", "false");
     }
   }
   function loadBarcodeLibrary() {
@@ -1159,6 +1224,7 @@
     const mine = scanGeneration;
     const view = $("preview");
     $("scan-box").hidden = false;
+    $("camera").setAttribute("aria-expanded", "true");
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: false, video: {facingMode: {ideal: "environment"}, width: {ideal: 1280}, height: {ideal: 720}}
@@ -1167,6 +1233,8 @@
       media = stream;
       view.srcObject = stream;
       await view.play();
+      if (mine !== scanGeneration) return;
+      $("scan-box").dataset.live = "true";
       let detector = await nativeBarcodeReader();
       let readFrame = detector ? null : await localBarcodeReader();
       let prior = "";
@@ -1189,8 +1257,10 @@
             if (value && value === prior) {
               stopCamera();
               identity.value = value;
+              identity.removeAttribute("aria-invalid");
+              form.dataset.scan = "read";
               identity.focus();
-              status("Barcode read. Check the number, then select View my report.");
+              status("Barcode read. Check the number, then select View my report.", false, "confirmed");
               return;
             }
             if (values.length > 1) status("Hold one barcode inside the frame.");
@@ -1216,7 +1286,17 @@
   if (personal) {
     $("camera").hidden=!(window.isSecureContext && navigator.mediaDevices?.getUserMedia);
     $("camera").addEventListener("click",startCamera);
-    $("stop-scan").addEventListener("click",stopCamera);
+    function closeScanner() {
+      stopCamera();
+      $("camera").focus();
+    }
+    $("stop-scan").addEventListener("click", closeScanner);
+    form.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !$("scan-box").hidden) {
+        event.preventDefault();
+        closeScanner();
+      }
+    });
 
   } else {companies();$("retry-companies").addEventListener("click",companies);}
   document.addEventListener("visibilitychange", () => {

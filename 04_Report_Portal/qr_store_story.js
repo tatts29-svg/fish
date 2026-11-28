@@ -172,9 +172,10 @@
     const active=element("div","store-frequency-main");
     active.append(element("dt","","Dates with activity"),element("dd","",reading(s.active_days)));
     stats.append(interaction,active,point("First record",s.first_at),point("Latest record",s.last_at));
-    area.append(stats,element("p","store-definition", personal ?
+    area.append(stats);
+    const definition=element("p","store-definition", personal ?
       "Each minute containing one or more recorded issues, returns or consumable draws on your card counts once. These records do not measure site attendance." :
-      "Each worker with recorded issues, returns or consumable draws in a minute counts once for that minute. These records do not measure site attendance."));
+      "Each worker with recorded issues, returns or consumable draws in a minute counts once for that minute. These records do not measure site attendance.");
     if (count(s.interactions)>0) {
       if (hours.some(h=>measured(h.interactions))) area.append(clockChart(hours));
       else area.append(element("p","store-caveat","Hourly interaction counts are unavailable."));
@@ -192,7 +193,10 @@
     }
     if (notes.length) area.append(element("p","store-caveat",notes.join(" ")));
     const minutes=personal && Array.isArray(s.timed_minutes) ? s.timed_minutes : [];
-    if (days.length || minutes.length || hours.some(h=>h.events || h.interactions)) area.append(breakdown(days,hours,minutes));
+    if (days.length || minutes.length || hours.some(h=>h.events || h.interactions)) {
+      const detail=breakdown(days,hours,minutes);
+      detail.append(definition);area.append(detail);
+    } else area.append(definition);
   }
   window.MMGStoreStory=Object.freeze({append});
 })();

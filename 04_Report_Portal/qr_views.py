@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 from mobile_brand import ICON_LINKS
-from qr_brand import lockup
+from qr_brand import ACCESS_SURFACE_CSS, lockup
 
 
 def page(scope, *, barcode_ready=True, job_dir=None):
@@ -21,18 +21,20 @@ def page(scope, *, barcode_ready=True, job_dir=None):
              if personal else "Choose your company to see its current gear, asset numbers and shutdown history.")
     fields = ('''<label for="identity">Scan or enter your assigned barcode number</label>
         <input id="identity" type="text" required maxlength="256" autocomplete="off"
-               autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter your barcode number">
+               aria-describedby="message" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Enter your barcode number">
         <div class="form-actions"><button class="primary" type="submit">View my report</button>
-        <button id="camera" type="button" hidden>Scan barcode</button></div>
-        <div id="scan-box" hidden><video id="preview" aria-label="Barcode camera preview" playsinline muted></video>
+        <button id="camera" type="button" aria-controls="scan-box" aria-expanded="false" hidden>Scan barcode</button></div>
+        <div id="scan-box" hidden><div class="scan-feed"><video id="preview" aria-label="Barcode camera preview" playsinline muted></video><span class="scan-frame" aria-hidden="true"></span></div>
         <p>Hold your barcode inside the frame.</p>
         <button id="stop-scan" type="button">Close camera</button></div>'''
         if personal else '''<label for="identity">Company</label>
-        <select id="identity" required disabled><option value="">Loading companies…</option></select>
+        <select id="identity" required disabled aria-describedby="message"><option value="">Loading companies…</option></select>
         <div class="form-actions"><button class="primary" type="submit" disabled>View on-hire report</button>
         <button id="retry-companies" type="button" hidden>Retry company list</button></div>''')
     if not (personal and not barcode_ready):
-        fields += ('<p class="privacy-note">Choose Finish and clear when you’re done. '
+        fields += ('<div id="lookup-feedback"><p id="message" class="message" role="status" '
+                   'aria-live="polite" aria-atomic="true"></p></div>'
+                   '<p class="privacy-note">Choose Finish and clear when you’re done. '
                    'This screen clears after 5 minutes without activity.</p>'
                    '<button type="button" id="clear-entry" hidden>Finish and clear</button>')
     setup = personal and not barcode_ready
@@ -52,6 +54,7 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <meta name="robots" content="noindex,nofollow"><title>{title} · MyGear HQ</title>
 <link rel="stylesheet" href="qr_report.css"><link rel="stylesheet" href="qr_direction.css">
 <link rel="stylesheet" href="qr_item_query.css"><link rel="stylesheet" href="qr_handover.css">
+<style>{ACCESS_SURFACE_CSS}</style>
 <script defer src="qr_motion.js"></script><script defer src="qr_item_query.js"></script>
 <script defer src="qr_handover.js"></script><script defer src="qr_store_story.js"></script><script defer src="qr_report.js"></script></head>
 <body class="hq-shell {font_class}" data-scope="{scope}" data-setup="{int(setup)}">
@@ -63,12 +66,11 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <main id="main" class="frame wrap hq-main" tabindex="-1">
 <nav class="crumbs screen-only" aria-label="Report location"><span>Dugald River</span><span class="sep" aria-hidden="true">/</span>
 <span>{trail}</span><span class="sep" aria-hidden="true">/</span><span id="trail-current" aria-current="page">Lookup</span></nav>
-<section id="lookup" class="entry-card hq-entry"><header class="ch intro"><p class="eyebrow">Coates tool store</p>
+<section id="lookup" class="entry-card hq-entry"><header class="ch intro hq-access-title"><p class="eyebrow">Coates tool store</p>
 <h1>{title}</h1><p class="lede">{intro}</p></header>
-<form id="lookup-form" class="lookup-readout readout" aria-labelledby="lookup-title" autocomplete="off">
+<form id="lookup-form" class="lookup-readout readout hq-surface" aria-labelledby="lookup-title" autocomplete="off">
 <h2 class="readout-head" id="lookup-title" tabindex="-1">{form_title}</h2><div class="form-fields">{fields}</div></form>
-<noscript>Enable JavaScript to open this report.</noscript></section>
-<p id="message" class="message" role="status" aria-live="polite" aria-atomic="true"></p>
+<noscript>Enable JavaScript to open this report.</noscript></section><div id="report-feedback"></div>
 <article id="report" hidden><header class="ch report-head"><div class="hero-copy">
 <p class="eyebrow">{'Your time at MMG Dugald River' if personal else 'Company record · MMG Dugald River'}</p>
 <div class="report-identity-row"><h1 id="report-heading" tabindex="-1"></h1><a id="name-rating" class="name-rating" href="#return-rating"></a></div>
@@ -76,11 +78,10 @@ def page(scope, *, barcode_ready=True, job_dir=None):
 <div class="direction-summary">{'' if personal else balance}<div class="direction-instrument" id="direction-instrument"></div>
 <div class="direction-strap" id="direction-strap"></div></div>
 </header>
-<div class="report-tools direction-tools"><button type="button" id="reset">Finish and clear</button>
-<nav class="actions" aria-label="Report actions">
+<div class="report-tools direction-tools"><nav class="actions" aria-label="Report actions">
 <button id="print" type="button">Print</button><button id="save" type="button">Save to phone</button>
 <button id="email" type="button">Send by email</button>
-</nav></div><nav id="section-nav" class="record-links screen-only" aria-label="Report sections"></nav>
+</nav><button type="button" id="reset">Finish and clear</button></div><nav id="section-nav" class="record-links screen-only" aria-label="Report sections"></nav>
 <div id="report-body"></div><div class="finish-actions screen-only"><button id="share" type="button">Share PDF</button><button id="finish-report" type="button">Finish and clear</button></div></article>
 </main><footer class="frame foot hq-footer"><p id="pull">SiteIQ pull time available with the report.</p>
 <p>Author: Andrew Fisher <span aria-hidden="true">·</span> <strong>Powered by SiteIQ</strong></p>

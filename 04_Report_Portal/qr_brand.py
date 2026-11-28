@@ -77,3 +77,30 @@ font:600 .79rem/1.2 system-ui,sans-serif;white-space:nowrap}
 .portal-masthead .logo{gap:6px;font-size:16px}.portal-masthead .wm i{font-size:12px}
 .portal-masthead .mk svg{width:26px;height:26px}.portal-masthead .brand-client img{height:27px}}
 """
+
+# Used by the staff, install and poster entrances, including before a session exists.
+ACCESS_SURFACE_CSS = """
+:root{
+ --access-face:radial-gradient(ellipse at 0 0,#39464e55,transparent 60%),linear-gradient(143deg,#222c33,#172026 58%,#131a1f);
+ --access-field:linear-gradient(180deg,#10171c,#182127);
+ --access-rim:#47545c;--access-orange:#f26222;--access-peach:#ffc8a6;
+ --access-lift:inset 0 1px 0 #e8f4ff14,0 16px 36px -24px #000b;
+}
+.hq-surface{position:relative;isolation:isolate}
+.hq-surface::before{
+ content:"";position:absolute;pointer-events:none;top:-1px;left:clamp(16px,3%,38px);
+ right:clamp(16px,3%,38px);height:2px;border-radius:100%;
+ background:linear-gradient(90deg,#f2622255,#ffc8a6 15%,#f97840 34%,#8394a44d 70%,transparent);
+}
+.hq-surface:focus-within{border-color:#a5785e}
+.hq-access-title{position:relative;padding-block-start:1rem}
+.hq-access-title::before{content:"";position:absolute;inset:0 auto auto 0;width:2.4rem;height:3px;
+ border-radius:3px;background:linear-gradient(90deg,#f26222 65%,#ffc8a6)}
+@media screen and (prefers-reduced-motion:no-preference){
+ .hq-surface{animation:hqSurfaceIn .32s cubic-bezier(.21,.8,.24,1) both}
+ .hq-surface::before{transform-origin:left;animation:hqRimIn .48s cubic-bezier(.21,.8,.24,1) both}
+ @keyframes hqSurfaceIn{from{transform:translateY(5px)}to{transform:translateY(0)}}
+ @keyframes hqRimIn{from{transform:scaleX(.28);opacity:.24}to{transform:scaleX(1);opacity:1}}
+}
+@media (forced-colors:active){.hq-surface{border:1px solid CanvasText}.hq-surface::before,.hq-access-title::before{display:none}}
+"""

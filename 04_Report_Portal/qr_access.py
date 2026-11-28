@@ -20,7 +20,7 @@ from urllib.parse import parse_qs, urlsplit
 
 from mobile_brand import ICON_LINKS
 from report_delivery import accepts_gzip
-from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
+from qr_brand import ACCESS_SURFACE_CSS, PORTAL_MASTHEAD_CSS, portal_masthead, public_mmg_logo
 import qr_product_art
 import qr_roster
 import qr_work_notes
@@ -41,14 +41,17 @@ CSP = ("default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline';
 # The QR invitation renders before a scoped session exists. Inline the small first
 # paint so opening a poster never waits for the full report stylesheet or its fonts.
 _ENTRY_STYLE = """
-*{box-sizing:border-box}html{color-scheme:dark;background:#07090c;color:#f5f6f8;
-font:100%/1.5 system-ui,sans-serif}body{margin:0}header{border-top:3px solid #f26222;
-border-bottom:1px solid #28303a;background:linear-gradient(180deg,#12161c,#0b0e12)}
-.bar{max-width:1600px;margin:auto;padding:11px clamp(16px,3vw,28px);display:flex;align-items:center;
-justify-content:flex-start;gap:12px}.site{color:#c9cfd7;font-size:13px} @media(max-width:420px){.bar{flex-direction:column;align-items:flex-start;gap:6px}}
-.entry{width:min(480px,calc(100% - 32px));margin:clamp(40px,16vh,180px) auto;
-padding:clamp(20px,5vw,32px);border:1px solid #343c48;border-top:3px solid #f26222;border-radius:18px;
-background:linear-gradient(155deg,#1b212b,#11161e);box-shadow:0 18px 56px #0006}
+*{box-sizing:border-box}html{min-height:100vh;color-scheme:dark;background:radial-gradient(ellipse at 12% 18%,#d3815020,transparent 38rem),#101519;color:#f5f6f8;
+font:100%/1.5 system-ui,sans-serif}body{margin:0}header{border-top:4px solid #f26222;
+border-bottom:1px solid #39464b;background:linear-gradient(180deg,#182128,#11171b)}
+.bar{max-width:1600px;margin:auto;padding:.8rem clamp(.9rem,4vw,5rem)}
+.bar>.portal-masthead{width:100%;justify-content:space-between}
+.bar .portal-site{text-align:right}
+.entry{width:min(36rem,calc(100% - 2rem));margin:clamp(2.5rem,16svh,10rem) auto;
+padding:clamp(1.35rem,4.2vw,2.5rem);border:1px solid var(--access-rim);border-radius:1rem;
+background:var(--access-face);box-shadow:var(--access-lift)}
+.entry[aria-busy="false"]{border-inline-start:3px solid #f2c16d}
+.entry[aria-busy="false"] #status{color:#f9dfac}
 h1{margin:0;font-size:clamp(1.5rem,4vw,2rem);line-height:1.14;letter-spacing:-.035em}
 p{margin:.75rem 0 0;color:#c9cfd7}
 .entry[aria-busy="true"]{position:relative;overflow:hidden}
@@ -64,11 +67,10 @@ def invitation(scope, job_dir):
     title = "Company on-hire report" if scope == "company" else "Personal on-hire report"
     return f"""<!doctype html><html lang="en-AU"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07090c"><meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101519"><meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer"><title>{title} · MyGear HQ</title>
 {ICON_LINKS}
-<style>{_ENTRY_STYLE}{LOCKUP_CSS}</style></head><body><header><div class="bar">{lockup(public_mmg_logo(job_dir))}
-<span class="site">Dugald River</span></div></header><main class="entry" aria-busy="true"><h1>{title}</h1>
+<style>{PORTAL_MASTHEAD_CSS}{ACCESS_SURFACE_CSS}{_ENTRY_STYLE}</style></head><body><header><div class="bar">{portal_masthead(public_mmg_logo(job_dir))}</div></header><main class="entry hq-surface" aria-busy="true"><h1>{title}</h1>
 <p id="status" role="status">Opening your report…</p>
 <noscript>Enable JavaScript and scan the printed QR code again.</noscript></main>
 <script src="enter.js"></script></body></html>""".encode("utf-8")

@@ -140,11 +140,11 @@ button:hover{background:#F58448;box-shadow:0 14px 44px rgba(242,98,34,.45)}butto
 __LOGIN_STYLE__</style></head><body><div class="wrap">
 __LOGIN_HEADER__
 <form class="card" method="post" action="/login" autocomplete="on">
-<div class="intro">
+<div class="intro hq-access-title">
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>__LOGIN_GROUP__</div>
 <h1>__LOGIN_HEADING__</h1>
 <p>__LOGIN_INTRO__</p></div>
-<div class="fields">__LOGIN_FIELDS_TITLE____ERR__
+<div class="fields hq-surface">__LOGIN_FIELDS_TITLE____ERR__
 <label for="u">Username</label><input id="u" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required__LOGIN_AUTOFOCUS__>
 <label for="p">Password</label><input id="p" name="password" type="password" autocomplete="current-password" required>
 <button type="submit">Sign in</button>
@@ -170,7 +170,8 @@ LOGIN = _login_template("__NAME__", "Sign in to the __NAME__",
 MMG_SHELL_CSS = """
 :root{--hq-bg:#101519;--hq-panel:#192126;--hq-rule:#39464b;--hq-ink:#f2f5f3;--hq-muted:#b6c2c4;
  --hq-orange:#f26222;--hq-active:#f97840;--hq-confirmed:#8bd8a7;--hq-coral:#f18d80;--hq-pad:clamp(1rem,4vw,5rem)}
-body{background:var(--hq-bg);color:var(--hq-ink)}
+body{background:radial-gradient(ellipse at 12% 18%,#d3815020,transparent 38rem),
+ linear-gradient(135deg,#151d22,#101519 65%);color:var(--hq-ink)}
 .wrap{padding:0;gap:0;align-items:center}
 .portal-heading{width:100%;border-top:4px solid var(--hq-orange);border-bottom:1px solid var(--hq-rule);background:#11171b}
 .portal-heading>.portal-masthead{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:4.4rem;
@@ -182,6 +183,16 @@ body{background:var(--hq-bg);color:var(--hq-ink)}
 .wrap>.card{width:min(calc(100% - 2 * var(--hq-pad)),72rem);margin:clamp(1.6rem,6svh,5rem) auto;
  border:1px solid var(--hq-rule);border-radius:1rem;background:var(--hq-panel);box-shadow:none;animation:none}
 .wrap>.card::before{content:none}
+.wrap>.card.hq-surface{border-color:var(--access-rim);box-shadow:var(--access-lift);background:var(--access-face)}
+.wrap>.card.hq-surface::before{content:"";height:2px;box-shadow:none}
+.wrap>.card .drop{background:var(--access-field);border-color:#677983}
+.wrap>.card .drop:is(:focus-visible,.over){background:linear-gradient(145deg,#38271f,#231d1b);border-color:var(--hq-orange)}
+.card #list>li{border-bottom-color:var(--hq-rule)}.card #list .got small{color:#ffd2b6}
+.card #up-last{padding:.85rem 1rem;background:#17251f;border:1px solid #40564c;border-inline-start:3px solid var(--hq-confirmed);border-radius:.55rem}
+.card .st.follow-up{border-inline-start:3px solid #f2c16d;background:#32291d;color:#f9dfac}
+.card .st.run{border-inline-start:3px solid var(--hq-active);background:#2a211d}
+@media screen and (prefers-reduced-motion:no-preference){.wrap>.card.hq-surface{animation:hqSurfaceIn .32s ease-out both}}
+
 .wrap>form.card{display:grid;align-items:center;gap:clamp(1.25rem,5vw,4rem);
  grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);width:min(calc(100% - 2 * var(--hq-pad)),63rem);
  min-height:clamp(18rem,58svh,43rem);padding:0;border:0;border-radius:0;background:none;overflow:visible}
@@ -189,10 +200,12 @@ body{background:var(--hq-bg);color:var(--hq-ink)}
 .eyebrow{font-size:.78rem;line-height:1.4;letter-spacing:.12em;color:#ff9869}
 .intro h1{font-size:clamp(2.05rem,4.8vw,4.25rem);line-height:1.04;letter-spacing:-.055em;margin:.65rem 0 1rem}
 p,.intro p{color:var(--hq-muted);font-size:1rem;line-height:1.55}
-.fields{border:1px solid var(--hq-rule);border-radius:1rem;background:var(--hq-panel);padding:clamp(1.15rem,3.3vw,2rem)}
+.fields{border:1px solid var(--access-rim);border-radius:1rem;background:var(--access-face);box-shadow:var(--access-lift);
+ padding:clamp(1.15rem,3.3vw,2rem)}
 .fields h2{font-size:1.28rem;letter-spacing:-.03em;margin:0 0 1.1rem}
 .fields label{font-size:.94rem;margin:1rem 0 .4rem}
-.fields input,#up-person{font:inherit;min-height:3rem;border-radius:.55rem;background:var(--hq-bg);border:1px solid #526168;color:var(--hq-ink)}
+.fields input,#up-person{font:inherit;min-height:3rem;border-radius:.55rem;background:var(--access-field);border:1px solid #60717d;color:var(--hq-ink);
+ box-shadow:inset 0 2px 5px #0004}
 .fields input:focus{border-color:var(--hq-orange);box-shadow:0 0 0 2px #f2622240}
 button{background:var(--hq-orange);color:#161a1c;border:1px solid #ff955f;border-radius:.6rem;
  height:auto;min-height:3rem;padding:.5rem 1rem;margin-top:1.15rem;box-shadow:0 0 12px #f262221c;
@@ -219,7 +232,7 @@ def _mmg_shell():
     header = ('<header class="portal-heading">' + qr_brand.portal_masthead(qr_brand.public_mmg_logo(JOB_DIR))
               + '</header>')
     return _login_template("MyGear HQ · MMG Dugald River", "Sign in to MyGear HQ", header,
-                           qr_brand.PORTAL_MASTHEAD_CSS + MMG_SHELL_CSS, group="MMG DUGALD RIVER",
+                           qr_brand.PORTAL_MASTHEAD_CSS + MMG_SHELL_CSS + qr_brand.ACCESS_SURFACE_CSS, group="MMG DUGALD RIVER",
                            intro="Search stock, review equipment on hire and follow the shift stocktake.",
                            fields_title='<h2>Open your workspace</h2>', autofocus=False)
 
@@ -309,7 +322,7 @@ button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 #last-files li{display:list-item;font-size:.84rem;color:#A4AFBE;line-height:1.45;padding:.16rem 0;border:0}
 @media(max-width:540px){.upload-columns{gap:1rem}.drop{padding:1.25rem .75rem}.portal-links{justify-content:space-between}}
 </style>
-<div class="card">
+<div class="card hq-surface">
 <div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>TOOL STORE TEAM</div>
 <h1>Update the report</h1>
 <p>Drop in whichever SiteIQ exports you have: all of them, or just one. The report rebuilds itself in about a minute, and nothing changes unless the whole build works.</p>
@@ -339,9 +352,9 @@ person.onchange=buttons;
 function take(list){if(busy)return;
  if(!loaded){say('','Loading the accepted export types. Please choose your files in a moment.');return}
  const odd=[];for(const f of list){const k=kind(f.name);if(k&&/\\.xlsx$/i.test(f.name))files[k]=f;else odd.push(f.name)}
- document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?f.name:''});
+ document.querySelectorAll('#list li').forEach(li=>{const f=files[li.dataset.k];li.classList.toggle('got',!!f);li.querySelector('small').textContent=f?'Selected · '+f.name:''});
  buttons();
- if(odd.length)say('bad','<b>Files skipped</b>'+esc(odd.join(', '))+'\\nChoose an .xlsx file beginning with '+K.join(', ')+'.');
+ if(odd.length)say('follow-up','<b>Files skipped</b>'+esc(odd.join(', '))+'\\nChoose an .xlsx file beginning with '+K.join(', ')+'.');
  else if(!go.disabled)say('','<b>Ready.</b>Press "Update the report".');else st.hidden=true}
 drop.onclick=()=>pick.click();drop.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();pick.click()}};pick.onchange=()=>{take(pick.files);pick.value=''};
 ['dragenter','dragover'].forEach(v=>drop.addEventListener(v,e=>{e.preventDefault();drop.classList.add('over')}));
@@ -376,7 +389,7 @@ function show(s){
  if(s.state=='running'){say('run','<b>Rebuilding the report…</b>This takes about a minute. You can leave this page open.<div class="bar"></div>');go.disabled=true;return true}
  if(s.state=='ok')say('ok','<b>Done. The report is updated.</b>SiteIQ pull '+esc(s.pull||'')+' · finished '+when(s.finished)+(s.took?' · took '+s.took+' seconds':''));
  else if(s.state=='failed')say('bad','<b>Not updated.</b>'+esc(s.message||''));
- else if(!s.pack)say('bad','<b>Not ready yet.</b>The job pack has not been loaded. Ask the Manager.');
+ else if(!s.pack)say('follow-up','<b>Not ready yet.</b>The job pack has not been loaded. Ask the Manager.');
  return false}
 let submitted=false,submittedBatch='';
 async function poll(){try{

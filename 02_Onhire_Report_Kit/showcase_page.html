@@ -38,6 +38,15 @@ button{font:inherit;color:inherit}
 .theme:hover{background:rgba(255,255,255,.1)}
 .theme svg{width:17px;height:17px}
 .tabsw{background:var(--head)}
+.section-picker{display:none}
+@media screen and (max-width:1000px){
+ .tabsw nav{display:flex;align-items:center;gap:.3rem}
+ .tabsw .tabs{flex:1;min-width:0}
+ .section-picker{position:relative;display:inline-flex;gap:.32rem;align-items:center;flex:none;min-height:2.75rem;padding:0 .55rem;border-left:1px solid #52606e;color:#f7f8fa;font-size:.84rem;font-weight:650}
+ .section-picker svg{width:1rem;height:1rem;color:#ffab7e}
+ .section-picker select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:16px}
+ .section-picker:focus-within{outline:2px solid #ff996b;outline-offset:-2px}
+}
 .tabs{position:relative;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex:none;background:none;border:0;cursor:pointer;padding:10px 14px 12px;font-size:13.5px;font-weight:600;color:#AEB8C5;transition:color .2s;white-space:nowrap}
@@ -238,6 +247,14 @@ html.static .loop:after{display:none}
 .gsi b{display:block;font-size:14px;font-weight:600;line-height:1.3}.gsi small{display:block;color:var(--mu);font-size:12.5px;margin-top:1px}
 .gsi mark{background:none;color:var(--ortx);font-weight:700}
 .gsr .none{padding:16px 12px;color:var(--mu);font-size:14px}
+.gsr h6{align-items:center;padding:.55rem .1rem .4rem;border-bottom:1px solid var(--line);color:var(--mu)}
+.gsr h6 span:last-child{font-variant-numeric:tabular-nums;letter-spacing:0}
+.gsi{min-height:48px}
+.gsi .gs-name{flex:1;min-width:0;overflow-wrap:anywhere}
+.gsi .gs-stock{flex:none;align-self:center;max-width:32%;text-align:right;border-left:1px solid var(--line);padding-left:.7rem}
+.gsi .gs-stock b{color:var(--tx);font-size:1.12em;font-variant-numeric:tabular-nums;line-height:1.1}
+.gsi .gs-stock small{font-size:.78em}
+.gsi:is(:hover,:focus-visible,.sel){box-shadow:inset 3px 0 var(--or);outline-offset:-2px}
 @media (max-width:900px){.bar{flex-wrap:wrap;height:auto;min-height:56px;padding-top:6px;padding-bottom:8px;row-gap:6px}.gs{order:9;flex:1 1 100%;max-width:none;margin:0}.gs input{font-size:16px}}
 footer .cr{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--dim)}
 .askrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:14px 0 4px}
@@ -373,6 +390,8 @@ footer .cr{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--dim)
 .drawer.on{transform:none}
 .dhead{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);flex:none}
 .dhead .sp{flex:1;font-size:12px;color:var(--dim);text-align:center}
+.drawer .dhead{border-top:3px solid var(--or);background:var(--panel2)}
+.drawer #drawer-context{color:var(--tx);text-align:left;font-size:1rem;font-weight:650;letter-spacing:-.015em;margin-inline:.35rem}
 .ib{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);cursor:pointer;font-size:17px;line-height:1;display:grid;place-items:center;transition:border-color .2s}
 .ib:hover{border-color:var(--or)}.ib[disabled]{opacity:.3;cursor:default;border-color:var(--line)}
 #dbody{padding:22px 24px 30px;overflow:auto;flex:1}
@@ -1168,6 +1187,74 @@ html[data-theme=light] .site-overview :is(.feat-stock,.feat-stat+.feat-stat){bor
 html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){color:#203640}
 @media print{.site-overview #overview-hero{break-inside:avoid}.site-overview #overview-actions,.site-overview .feat-link{display:none}.site-overview .feat-image{max-width:120px}}
 
+/* The tab heading, task controls and readings form a single work surface. */
+@media screen{
+ html:not(.static) .work-view{
+  --work-edge:color-mix(in srgb,var(--neutral-series) 28%,var(--line));
+  --work-wash:color-mix(in srgb,var(--neutral-series) 9%,var(--panel));
+  --work-rule:color-mix(in srgb,var(--neutral-series) 22%,var(--line));
+  --work-pad:clamp(16px,1.65vw,43px)
+ }
+ html:not(.static) .work-view>.vh{
+  position:relative;isolation:isolate;border:1px solid var(--work-edge);border-radius:16px;overflow:clip;
+  margin:0 0 var(--space,16px);box-shadow:0 3px 10px #0002;
+  background:radial-gradient(ellipse at 100% -60%,color-mix(in srgb,var(--issued) 17%,transparent),transparent 65%),linear-gradient(115deg,var(--work-wash),var(--panel2) 65%,var(--panel))
+ }
+ .work-view>.vh::before{content:"";position:absolute;left:0;top:0;height:3px;width:clamp(52px,7vw,175px);border-radius:0 0 3px 0;background:var(--or);z-index:1}
+ .work-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.7rem 2rem;padding:var(--work-pad)}
+ .work-heading:only-child{min-height:5.1rem}
+ html:not(.static) .work-heading h2{font-size:clamp(1.85rem,2.9vw,3.25rem);letter-spacing:-.046em;line-height:1.08;font-weight:690;text-wrap:balance}
+ html:not(.static) .work-heading p{color:var(--mu);max-width:82ch;font-size:.9rem;line-height:1.48;margin-top:.45rem}
+ .work-heading p:empty{display:none}
+ .work-heading .sub{font-size:.8rem}
+ .work-actions{display:flex;gap:.52rem;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:29rem}
+ .work-actions .btn{min-height:42px;display:inline-flex;align-items:center;justify-content:center;gap:.72rem;border-radius:8px;line-height:1.24}
+ .work-actions .work-jump::after{content:"";width:.42em;height:.42em;display:inline-block;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+ .work-view .vh>.work-rail{margin:0;padding:.78rem var(--work-pad);border-top:1px solid var(--work-rule);background:color-mix(in srgb,var(--panel2) 80%,transparent)}
+ .work-view .vh>.work-rail input.search{background:var(--panel);border-radius:8px;min-height:44px;max-width:100%}
+ .work-view .vh>.work-rail input.search:focus,.work-view .vh>.work-rail select:focus{outline:2px solid var(--ortx);outline-offset:2px}
+ .work-view .vh>.work-rail.tools .search{flex:1 1 15rem}
+ .work-view .vh>.work-rail.sds-toolbar label:first-child{flex:1 1 18rem}
+ .work-view .vh>.work-rail .seg{border-radius:9px;padding:3px}.work-view .vh>.work-rail .seg button{border-radius:6px}
+ html:not(.static) .work-view>.vh>.stats{
+   border:0;border-radius:0;border-top:1px solid var(--work-rule);margin:0!important;background:color-mix(in srgb,var(--bg) 48%,var(--panel));box-shadow:none;
+ }
+ .work-view>.vh>.stats>div{padding:.78rem var(--work-pad);min-width:0}
+ .work-view>.vh>.stats .n{font-weight:680;letter-spacing:-.05em;line-height:1.12}
+ .work-view>.vh>.stats .n.w{color:var(--warn)}
+ .work-view .vh>.st-duty{line-height:1.55;gap:.55rem 2rem}
+ .work-view .vh>.st-duty>span{display:inline-block}
+ html:not(.static) .work-view :is(.card,.def){border-color:var(--work-rule);box-shadow:0 2px 6px #0002}
+ html[data-theme=dark]:not(.static) .work-view :is(.card,.def){background:linear-gradient(148deg,#1b252e 0%,#192128 36%,#171d23 85%)}
+ html[data-theme=light]:not(.static) .work-view :is(.card,.def){background:linear-gradient(145deg,#fff 55%,#f4f7f9);box-shadow:0 1px 4px #22334612}
+ html:not(.static) .work-view .card>h3,html:not(.static) .work-view .def b{letter-spacing:-.025em;line-height:1.24;font-weight:680}
+ html:not(.static) .work-view .card>h3{font-size:clamp(1.07rem,1.35vw,1.45rem)}
+ .work-view .sect{display:flex;align-items:center;gap:.7rem;letter-spacing:.085em;color:var(--mu);font-weight:650}
+ .work-view .sect::after{content:"";height:1px;flex:1;background:var(--work-rule)}
+ .work-view table.t thead,.work-view table.t tr:has(>th){background:color-mix(in srgb,var(--neutral-series) 12%,var(--panel))}
+ .work-view table.t th{color:var(--tx);border-bottom:1px solid var(--work-edge);font-weight:650}
+ .work-view table.t td{border-bottom-color:var(--work-rule)}
+ .work-view table.t tbody tr:nth-child(even):not(.tot){background:color-mix(in srgb,var(--neutral-series) 4%,transparent)}
+ .work-view table.t :is(tr[data-open],tr:has(button)):is(:hover,:focus-within){background:color-mix(in srgb,var(--issued) 10%,var(--panel))}
+}
+@media screen and (max-width:800px){
+ .work-heading{grid-template-columns:minmax(0,1fr);gap:.7rem;padding:1rem}
+ .work-actions{justify-content:flex-start;max-width:none}
+ .work-view>.vh>.stats>div{padding:.65rem .85rem}
+ .work-view>.vh>.stats .n{font-size:clamp(1.4rem,4.5vw,2rem)}
+ .work-view>.vh>.stats .l{font-size:.78rem}
+ .work-view .vh>.work-rail{padding:.7rem .85rem}
+ .work-view .vh>.work-rail.sds-toolbar label:first-child{flex:1 1 100%}
+ .work-view .vh>.work-rail.sds-toolbar label:nth-child(2){flex:1 1 9rem}
+}
+@media screen and (prefers-reduced-motion:no-preference){
+ .work-view.on>.vh::before{transform-origin:left;animation:work-rail-in .3s cubic-bezier(.2,.8,.2,1) both}
+ .work-view.on .work-heading{animation:work-heading-in .21s cubic-bezier(.2,.8,.2,1) both}
+ .work-view .work-jump::after{transition:transform .17s ease-out}
+ .work-view .work-jump:hover::after{transform:rotate(45deg) translate(1px,-1px)}
+ @keyframes work-rail-in{from{transform:scaleX(.25)}to{transform:scaleX(1)}}
+ @keyframes work-heading-in{from{transform:translateY(3px)}to{transform:translateY(0)}}
+}
 /* print and the PDF: every tab, one after another, on white */
 .static .top{position:static}.static .tabsw,.static .theme,.static .noprint,.static .scrim,.static .drawer,.static #tip{display:none!important}
 .static .view{display:block!important;animation:none;margin-bottom:26px}
@@ -1178,6 +1265,96 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
 .static .client{width:160px;padding:14px 16px 12px}.static .client img{width:96px}.static main{padding-top:20px}
 @page{size:A4 landscape;margin:9mm 8mm 13mm}
 @media print{html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.pb{break-before:page}.card,.kpi,.know,.stats,.def,.krow,.row,.prow,tr{break-inside:avoid}.tall{break-inside:auto}main{padding-top:14px}}
+/* Worker directory rows keep the identity, rating and current holdings together. */
+#pp-list .prow{grid-template-columns:minmax(0,1.3fr) minmax(8.25rem,.8fr) minmax(0,1fr) 1rem;gap:.45rem 1rem}
+#pp-list .pp-entry{appearance:none;background:transparent;color:var(--tx);font:inherit;text-align:left;border:0;border-top:1px solid var(--line);width:100%;margin:0;padding:.78rem .55rem}
+#pp-list .pp-identity{display:grid;min-width:0;gap:.16rem}
+#pp-list .pn{font-weight:670;line-height:1.2;overflow-wrap:anywhere}
+#pp-list .pc{font-size:.81rem;line-height:1.25;text-align:left;overflow-wrap:anywhere}
+.pp-rating{display:inline-flex;align-items:center;gap:.55rem;white-space:nowrap}
+.pp-score,.pp-unrated{color:var(--mu);font-size:.82rem;font-variant-numeric:tabular-nums}
+.pp-out{color:var(--ortx);background:var(--orbg)}
+@media screen{
+ #pp-list .pp-entry:is(:hover,:focus-visible){background:var(--hover)}
+ #pp-list .pp-entry:focus-visible{outline:2px solid var(--ortx);outline-offset:-2px}
+ #pp-list .prow.h{margin:0;padding:.45rem .55rem .55rem}
+ #pp-list .pp-status:empty:before{content:"—";color:var(--mu)}
+ #sds-list .sds-body>dl{padding-block:.65rem;border-block:1px solid var(--line)}
+ #sds-list .sds-heading{align-items:center;gap:.45rem .85rem}
+ #sds-list .sds-status{display:inline-flex;gap:.4em;align-items:center}
+ #sds-list .sds-status:before{content:"";width:.48em;height:.48em;border-radius:50%;background:currentColor}
+ .sds-identity .sub{margin-top:.35rem;color:var(--mu);font-size:.88rem}
+ #sds-list .sds-docs>a{display:inline-flex;align-items:center;min-height:44px}
+ #sds-list .sds-code{display:grid;justify-items:center;gap:.25rem}
+ #sds-list .sds-entry summary{min-height:44px}
+ #v-swms .swms-meta{grid-template-columns:repeat(2,minmax(0,1fr));border-block:1px solid var(--line);padding:.85rem 0;gap:.8rem 1.1rem}
+ #v-swms .swms-meta dt{color:var(--mu);font-size:.8rem}
+ #swms-state{--status-ink:var(--neutral-series);border-inline-start:3px solid var(--status-ink);padding:.72rem .9rem;color:var(--tx);background:color-mix(in srgb,var(--status-ink) 8%,var(--panel2));font-weight:600;border-radius:0 .5rem .5rem 0}
+ #swms-state[data-review=recorded]{--status-ink:var(--ok)}
+ #swms-state[data-review=pending]{--status-ink:var(--warn)}
+ #swms-review-form input{width:1.15rem;height:1.15rem;accent-color:var(--or);flex:none}
+ #swms-documents .btn,#swms-confirm-button,#swms-retry{align-content:center;min-height:44px}
+ #st-rounds .st-round{display:grid;align-content:start;gap:.2rem}
+ #st-rounds .st-round[aria-pressed=true]{background:linear-gradient(110deg,var(--orbg),var(--panel) 72%);border-color:var(--or)}
+ #st-rounds .st-round small{font-size:.82rem;line-height:1.35}
+ #st-categories .st-category-tile{display:flex;flex-direction:column;align-items:stretch}
+ #st-categories .st-cat-name{font-size:1.03rem;line-height:1.2}
+ #st-categories .st-cat-amount{align-items:baseline}
+ #st-categories .st-cat-amount strong{font-size:1.02rem}
+ #st-categories .st-cat-last{margin-bottom:.5rem;overflow-wrap:anywhere}
+ #st-categories .st-cat-resume{margin-top:auto;padding-top:.5rem;border-top:1px solid var(--line)}
+ #up-drop{display:grid;justify-content:center;justify-items:center;min-height:9rem;background:color-mix(in srgb,var(--or) 4%,var(--panel2));border:1.5px dashed color-mix(in srgb,var(--or) 48%,var(--line))}
+ #up-drop:is(:hover,:focus-visible,.over){background:var(--orbg);border-color:var(--or)}
+ #up-list>div{min-height:2.8rem}#up-list small{line-height:1.3}
+ #up-list .got small{color:var(--tx)}
+ #up-go:disabled{opacity:1;color:var(--mu);background:var(--panel2);border:1px solid var(--line)}
+ #up-last:not(:empty){border-top:1px solid var(--line);margin:1.1rem 0 0;padding-top:1rem;white-space:normal}
+ #up-last>strong{color:var(--tx);font-weight:670}
+ .up-receipt-detail{margin:.32rem 0;line-height:1.4}
+ #up-last ul{padding-left:1.15rem;font-size:.81rem;line-height:1.5}
+ #v-upload :is(#staff-sds,#staff-qr):not([hidden]){display:inline-block;margin:.7rem .5rem 0 0}
+ #v-upload :is(#staff-sds,#staff-qr) .btn{background:transparent;border:1px solid var(--line);color:var(--tx);font-size:.85rem;min-height:44px;align-content:center}
+}
+@media screen and (min-width:1900px){
+ #sds-list{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+ #sds-list .sds-media{gap:1rem}
+ #sds-list .sds-photo{width:clamp(140px,8vw,215px)}
+ #pp-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,41rem),1fr));column-gap:1.5rem}
+ #pp-list .prow.h{display:none}
+ #pp-list .pp-entry{grid-template-columns:minmax(0,1fr) auto 1rem;align-content:center}
+ #pp-list .pp-status{grid-column:1/3;grid-row:2}
+ #pp-list .pp-status:empty{display:none}
+ #pp-list .pp-entry:after{grid-column:3;grid-row:1}
+}
+@media screen and (max-width:760px){
+ #pp-list .prow.h{display:none}
+ #pp-list .pp-entry{grid-template-columns:minmax(0,1fr) auto .55rem;row-gap:.45rem;column-gap:.65rem}
+ #pp-list .pp-rating{grid-row:1;grid-column:2;display:grid;justify-items:end;gap:.22rem}
+ #pp-list .pp-status{grid-column:1/3;grid-row:2}
+ #pp-list .pp-status:empty{display:none}
+ #pp-list .pp-entry:after{grid-column:3;grid-row:1;margin:0}
+ #sds-list .sds-entry{grid-template-columns:minmax(0,1fr);gap:.65rem}
+ #sds-list .sds-body{display:contents}
+ #sds-list .sds-identity{grid-row:1}
+ #sds-list .sds-media{grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:.5rem 1rem;width:100%}
+ #sds-list .sds-photo{display:contents}
+ #sds-list .sds-photo-button{grid-row:1;grid-column:1;justify-self:start;width:min(100%,215px)}
+ #sds-list .sds-code{grid-row:1;grid-column:2;min-width:0;width:100%}
+ #sds-list .sds-code:only-child{grid-column:1/-1;justify-self:start;width:auto}
+ #sds-list .sds-code button{width:min(100%,180px)}
+ #sds-list .sds-code svg{width:100%;height:auto}
+ #sds-list .sds-photo figcaption{grid-row:2;grid-column:1/-1;margin:0;min-width:0;text-align:left}
+ #sds-list .sds-photo-facts{grid-template-columns:repeat(auto-fit,minmax(min(8rem,100%),1fr));gap:.6rem .8rem;margin:.15rem 0 .35rem}
+ #sds-list .sds-body>dl{margin:0}
+ #sds-list .sds-docs{gap:.3rem .8rem}
+ #sds-list .sds-entry details{grid-column:1}
+ #v-swms #swms-documents{align-items:stretch}
+}
+@media screen and (max-width:420px){
+ #st-rounds .st-round small{font-size:.76rem}
+ #st-categories{grid-template-columns:1fr}
+ #v-swms #swms-documents{display:grid}
+}
 </style></head>
 <body>
 <div class="prog" aria-hidden="true"></div>
@@ -1193,11 +1370,11 @@ html[data-theme=light] .site-overview :is(.feat-link,#overview-actions .ghost){c
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
-<div class="gs noprint" id="gs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gs-q" type="search" placeholder="Search stock, item codes, people or companies" autocomplete="off" spellcheck="false" aria-label="Search the report"><div class="gsr" id="gs-r" hidden></div></div>
+<div class="gs noprint" id="gs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gs-q" type="search" placeholder="Search stock, item codes, people or companies" autocomplete="off" spellcheck="false" aria-label="Search the report" aria-controls="gs-r"><div class="gsr" id="gs-r" role="region" aria-label="Search results" hidden></div></div>
 <div class="asat"><span class="live"></span>SiteIQ pull <b id="asat"></b><br><span class="au">Author: Andrew Fisher | POWERED BY SITEIQ</span></div>
 <button type="button" class="theme noprint" id="full-screen" aria-label="Enter full screen" title="Enter full screen" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
 <button class="theme" id="theme" aria-label="Switch between light and dark"></button>
-</div><div class="tabsw"><nav class="wrap"><div class="tabs" id="tabs"><i class="ink" id="ink"></i></div></nav></div></header>
+</div><div class="tabsw"><nav class="wrap"><div class="tabs" id="tabs"><i class="ink" id="ink"></i></div><label class="section-picker"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="11" y="2" width="5" height="5" rx="1"/><rect x="2" y="11" width="5" height="5" rx="1"/><rect x="11" y="11" width="5" height="5" rx="1"/></svg>Sections<select id="section-picker" aria-label="Go to report section"></select></label></nav></div></header>
 
 <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;overflow:hidden"><defs>
 <path id="rating-star" d="m10 1.8 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/>
@@ -1237,9 +1414,9 @@ __CONTACTS__
 <div class="card"><h3>By company</h3><div class="sub">Each company’s share of all items on hire at the pull.</div><div id="oh-cos"></div></div>
 <div class="card"><h3>By tool</h3><div class="sub">Tool types are ranked by items on hire. Each gauge shows the share of that tool type’s on-site fleet currently out.</div><div id="oh-kinds" style="--nm:300px"></div></div>
 </div>
-<div class="card tall noprint" style="margin-top:16px"><h3>Every item on hire</h3><div class="sub">Each item is against a named person. Search by person, company or item.</div>
+<div class="card tall noprint" style="margin-top:16px"><h3>Every item on hire</h3><div class="sub">Search by person, company, item name or asset number.</div>
 <div class="askrow"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
-<div class="tools noprint"><input class="search" id="oh-q" placeholder="Search the on-hire list" autocomplete="off"><div class="dl" id="dl2" style="margin-left:auto"></div></div>
+<div class="tools noprint"><input class="search" id="oh-q" aria-label="Search the on-hire list" placeholder="Search the on-hire list" autocomplete="off"><div class="dl" id="dl2" style="margin-left:auto"></div></div>
 <div id="oh-list"></div><div class="foot" id="oh-foot"></div></div>
 </section>
 
@@ -1289,7 +1466,7 @@ __CONTACTS__
 <div class="card" id="peakcard" style="margin-top:16px"><h3>What past shuts used at their busiest</h3><div class="sub" id="peak-sub"></div><div id="peaks"></div></div>
 <div class="sect noprint">Scan a consumable from the screen</div>
 <div class="card noprint" id="qrcard"><h3>QR codes for every line</h3><div class="sub">If a shelf label will not scan, scan the code here. Each one holds the line's SiteIQ barcode. Tap a code to make it big and see the stock.</div>
-<div class="tools"><input class="search" id="qr-q" placeholder="Search the consumables" autocomplete="off"></div><div class="qrgrid" id="qrgrid"></div><div class="foot" id="qr-foot"></div></div>
+<div class="tools"><input class="search" id="qr-q" aria-label="Search the consumables" placeholder="Search the consumables" autocomplete="off"></div><div class="qrgrid" id="qrgrid"></div><div class="foot" id="qr-foot"></div></div>
 <div class="sect noprint">Browse the consumables shelf</div>
 <div class="card cb2 noprint" id="cb-cons" style="margin-top:16px"></div>
 </section>
@@ -1415,7 +1592,7 @@ __CONTACTS__
 <div class="vh"><h2>People</h2><p id="pp-lead"></p></div>
 <div class="stats" id="pp-stats"></div>
 <div class="card tall" style="margin-top:16px">
-<div class="tools noprint"><input class="search" id="pp-q" placeholder="Search a person or company" autocomplete="off">
+<div class="tools noprint"><input class="search" id="pp-q" aria-label="Search a person or company" placeholder="Search a person or company" autocomplete="off">
 <div class="seg" id="pp-seg"><button data-k="all" class="on">Everyone</button><button data-k="now">Gear out now</button><button data-k="top">Top rated</button><button data-k="flag">Flagged</button></div></div>
 <div id="pp-list"></div><div class="foot" id="pp-foot"></div></div>
 </section>
@@ -1433,7 +1610,7 @@ __CONTACTS__
 <button class="upgo" id="up-go" disabled>Update the report</button>
 <div class="upbar" id="up-bar" hidden><div class="tr"><i id="up-fill"><span class="tube-stream" aria-hidden="true"></span><span class="tube-stream" aria-hidden="true"></span></i></div><div class="upst"><b id="up-pct">0%</b><span id="up-stage"></span></div></div>
 <div class="upmsg" id="up-msg" role="status" hidden></div>
-<div class="sub" style="margin-top:16px" id="up-last"></div>
+<div class="sub" id="up-last"></div>
 <p id="staff-qr" hidden><a class="btn" href="/upload/qr-reports">QR reports and posters</a></p>
 <p id="staff-sds" hidden><a class="btn" href="/upload/sds-label-check.zip">Supplier SDS pack for label checks</a></p></div>
 </div>
@@ -1461,7 +1638,7 @@ __CONTACTS__
 </main>
 
 <div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Report details" aria-hidden="true" inert><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp">Click anything underlined or listed to open it</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-context" aria-hidden="true" inert><div class="dhead"><button class="ib" id="dback" aria-label="Back">‹</button><span class="sp" id="drawer-context">Report details</span><button class="ib" id="dclose" aria-label="Close">×</button></div><div id="dbody"></div></aside>
 <div id="paperwrap" role="dialog" aria-modal="true" aria-label="On-hire report" aria-hidden="true"><div class="pbar"><span class="ttl">On-hire report</span>
 <label>Group by<span class="seg" id="oh-g"><button data-k="co" class="on">Company</button><button data-k="who">Person</button><button data-k="tool">Tool</button></span></label>
 <label>Owner<span class="seg" id="oh-o"><button data-k="all" class="on">All</button><button data-k="coates">Coates</button><button data-k="other" id="oh-o2"></button></span></label>
@@ -2186,6 +2363,7 @@ function initSwms(){
   const check=$('#swms-confirm'),submit=$('#swms-confirm-button'),retry=$('#swms-retry');
   let version='';
   function reset(){
+    delete status.dataset.review;
     version='';docs.hidden=true;form.hidden=true;retry.hidden=true;check.checked=false;submit.disabled=true;
   }
   async function refresh(){
@@ -2194,14 +2372,15 @@ function initSwms(){
       const response=await fetch('/swms/status',{cache:'no-store',headers:{'X-Portal':'1'}});
       if(!response.ok)throw new Error();
       const doc=await response.json();
-      if(!doc.version){status.textContent='The site copy has not been published yet.';retry.hidden=false;return}
+      if(!doc.version){status.dataset.review='pending';status.textContent='The site copy has not been published yet.';retry.hidden=false;return}
       version=doc.version;docs.hidden=false;
       for(const link of docs.querySelectorAll('a'))link.search='?version='+encodeURIComponent(version);
       if(doc.reviewed_at&&doc.reviewed_by){
+        status.dataset.review='recorded';
         const when=new Intl.DateTimeFormat('en-AU',{dateStyle:'medium',timeStyle:'short',timeZone:'Australia/Brisbane'}).format(new Date(doc.reviewed_at));
         status.textContent='Manager review recorded by '+doc.reviewed_by+' on '+when+' AEST.';
       }else{
-        status.textContent='Awaiting manager review of this revision.';form.hidden=!doc.can_review;
+        status.dataset.review='pending';status.textContent='Awaiting manager review of this revision.';form.hidden=!doc.can_review;
         $('#swms-reviewer').textContent=doc.reviewer_name||'';
       }
     }catch{status.textContent='Document status could not be loaded.';retry.hidden=false}
@@ -2381,7 +2560,14 @@ cl(n,line){const l=line||D.clines.find(x=>x.name==n);if(!l)return '<div class="d
  (l.have!=null&&l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${fmt(l.min-l.have)} more brings it to the minimum.${l.max==null?'':' To reach maximum: '+fmt(l.max-l.have)+'.'}</div>`:l.have!=null&&l.pd>0?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
  (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')}};
 {const dr=$('#drawer'),sc=$('#scrim'),body=$('#dbody');let stack=[],opener=null;
-const paint=()=>{const key=stack[stack.length-1],i=key.indexOf(':');body.innerHTML=V[key.slice(0,i)](key.slice(i+1));body.scrollTop=0;body.classList.remove('sw');void body.offsetWidth;body.classList.add('sw');$('#dback').disabled=stack.length<2};
+const contextNames={co:'Company holdings',p:'Worker record',t:'Tool stock',k:'Catalogue details',ct:'Consumable category',stockline:'Stock line',cl:'Consumable stock'};
+const paint=()=>{
+ const key=stack.at(-1),i=key.indexOf(':'),type=key.slice(0,i);
+ $('#drawer-context').textContent=contextNames[type];
+ body.innerHTML=V[type](key.slice(i+1));body.scrollTop=0;
+ body.classList.remove('sw');void body.offsetWidth;body.classList.add('sw');
+ $('#dback').disabled=stack.length<2;
+};
 const close=()=>{
  if(!stack.length)return;
  dr.classList.remove('on');sc.classList.remove('on');dr.inert=true;dr.setAttribute('aria-hidden','true');stack=[];
@@ -2460,12 +2646,12 @@ function initPeople(){const rated=D.people.filter(p=>p.rating!=null),fl=D.people
 $('#pp-lead').textContent=`Everyone who has used the ${CLIENT} tool store. The returns rating shows how promptly each person brings tools back; a flag marks unusually high use of one consumable type.`;
 stats($('#pp-stats'),[[D.people.length,'People on record'],[now.length,'Holding gear now'],[rated.filter(p=>p.rating>=4.5).length,`Rated 4.5 or better, of ${rated.length} rated`],[fl.length,'Flagged for high consumable use',fl.length?'w':'']]);
 let mode='all',q='';
-const rowP=p=>`<div class="prow" data-open="p:${esc(p.key)}"><div class="pn">${esc(p.name)}</div><div class="pc">${esc(p.co)}</div><div>${p.rating!=null?stars(p.rating)+' <span style="color:var(--mu);font-size:12.5px;margin-left:4px">'+p.rating+'</span>':'<span style="color:var(--dim);font-size:12.5px">Not rated yet</span>'}</div><div class="tags">${p.now?`<span class="pill g">${p.now} out now</span>`:''}${p.flags.map(f=>`<span class="pill w">High ${esc(lc(f.type))}</span>`).join('')}</div></div>`;
+const rowP=p=>`<button type="button" class="prow pp-entry" data-open="p:${esc(p.key)}"><span class="pp-identity"><strong class="pn">${esc(p.name)}</strong><span class="pc">${esc(p.co)}</span></span><span class="pp-rating">${p.rating!=null?`${stars(p.rating)}<span class="pp-score" aria-hidden="true">${esc(p.rating)} / 5</span>`:'<span class="pp-unrated">Not rated yet</span>'}</span><span class="tags pp-status">${p.now?`<span class="pill pp-out">${p.now} out now</span>`:''}${p.flags.map(f=>`<span class="pill w">High ${esc(lc(f.type))}</span>`).join('')}</span></button>`;
 const F={all:p=>1,now:p=>p.now,top:p=>p.rating>=4.5,flag:p=>p.flags.length};
 function list(){const Q=q.trim().toUpperCase();let all=D.people.filter(p=>F[mode](p)&&(!Q||p.name.toUpperCase().includes(Q)||p.co.toUpperCase().includes(Q)));
 if(mode=='top')all=all.slice().sort((a,b)=>b.rating-a.rating||b.iss-a.iss);
 const cap=STATIC?16:(Q||mode!='all')?60:16,showR=all.slice(0,cap);
-$('#pp-list').innerHTML=showR.length?`<div class="prow h"><div>Person</div><div>Company</div><div>Returns rating</div><div>Right now</div><div></div></div>`+showR.map(rowP).join(''):'<div class="empty">No one matches that.</div>';
+$('#pp-list').innerHTML=showR.length?`<div class="prow h"><div>Person and company</div><div>Returns rating</div><div>Right now</div></div>`+showR.map(rowP).join(''):'<div class="empty">No one matches that.</div>';
 $('#pp-foot').textContent=`Showing ${showR.length} of ${all.length}. People with gear out now are listed first.${!Q&&mode=='all'?' Search to find anyone.':''}`}
 $('#pp-q').addEventListener('input',e=>{q=e.target.value;list()});
 $$('#pp-seg button').forEach(b=>b.onclick=()=>{mode=b.dataset.k;$$('#pp-seg button').forEach(x=>x.classList.toggle('on',x===b));list()});list()}
@@ -2529,7 +2715,7 @@ function initSds(){
     const stockTime=String(r.stock_asat||'').replace('T',' ').slice(0,16);
     const identity=r.name!==r.product?`<p class="sub">${esc(r.name)}</p>`:'';
     const doc=sdsSource(r.url);
-    return `<article class="card sds-entry"><div><div class="sds-heading"><h3>${esc(r.product)}</h3><span class="sds-status ${sdsInDate(r)?'':'due'}">${sdsReview(r)}</span></div>${identity}
+    return `<article class="card sds-entry"><div class="sds-body"><header class="sds-identity"><div class="sds-heading"><h3>${esc(r.product)}</h3><span class="sds-status ${sdsInDate(r)?'':'due'}">${sdsReview(r)}</span></div>${identity}</header>
 <dl>${meta('On hand in SiteIQ',units)}${r.available!=null&&r.available!==r.quantity?meta('Available',fmt(r.available)+(r.uom?' '+r.uom:'')):''}${meta('Stock code / SKU',productCodes)}${r.photo?'':meta('Pack size',r.pack||'Not recorded')+meta('Storage location',r.storage_location||'Not recorded')+meta('Bin',r.bin)}${meta('Supplier',r.supplier)}${r.manufacturer!==r.supplier?meta('Manufacturer',r.manufacturer):''}${meta('SDS issued',r.issued)}${meta('Review due',r.review_due)}${meta('Last checked',r.checked)}</dl>
 <div class="sds-docs"><a class="btn" href="${esc(doc)}" target="_blank" rel="noopener noreferrer">Open full Australian SDS</a>${local&&location.protocol.startsWith('http')&&!STATIC?'<a href="'+esc(local)+'" target="_blank" rel="noopener noreferrer">Portal PDF copy</a>':''}</div>
 <p class="sub">${esc([r.source_export,stockTime?stockTime+' AEST':''].filter(Boolean).join(' · '))}</p></div>
@@ -2580,12 +2766,13 @@ function initSds(){
 if(STATIC){const g=$('#gs');g.parentNode.removeChild(g)}else{const q=$('#gs-q'),box=$('#gs-r'),X=[];let indexed=false;
 function prepareSearch(){
 if(indexed)return;
-const add=(g,n,sub,open,text,pc)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc});
+const add=(g,n,sub,open,text,pc,balance)=>X.push({g,n,sub,open,k:(n+' '+text).toUpperCase(),pc,balance});
 const cos=new Map();D.people.forEach(p=>{if(p.co)cos.set(p.co,(cos.get(p.co)||0)+1)});D.companies.forEach(c=>cos.has(c.name)||cos.set(c.name,0));
 const outC={};D.companies.forEach(c=>outC[c.name]=c.n);[...cos.keys()].sort().forEach(c=>add('Companies',c,`${outC[c]||0} on hire now · ${cos.get(c)} ${cos.get(c)==1?'person':'people'}`,'co:'+c,''));
 D.people.forEach(p=>add('People',p.name,`${p.co||''}${p.now?' · '+p.now+' out now':''}`,'p:'+p.key,p.co||''));
-Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.available)} available · ${fmt(t.on)} out on hire · ${fmt(t.site)} total on site`,'t:'+k,[k,t.var,t.own,t.tag?'test tag':''].join(' '),()=>pic(t.pic,t.name)));
-D.clines.forEach((l,i)=>add('Consumables',l.name,`${shelfLabel(l)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
+const quantity=v=>Number.isFinite(v)?fmt(v):'—';
+Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${quantity(t.on)} on hire · ${quantity(t.site)} on site`,'t:'+k,[k,t.var,t.own,t.tag?'test tag':''].join(' '),()=>pic(t.pic,t.name),{value:t.available,label:'available'}));
+D.clines.forEach((l,i)=>add('Consumables',l.name,l.code?CLIENT+' code '+l.code:l.type||'Consumable','stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l),{value:l.have,label:'on shelf'}));
 const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
 sdsRecords.forEach((r,i)=>add('Safety data sheets',r.product,[sdsReview(r),r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r)));
@@ -2607,7 +2794,13 @@ for(const x of X){
 }
 box.innerHTML=matches.size?ORD.map(g=>{
  const hit=matches.get(g);if(!hit)return '';
- return `<h6><span>${g}</span><span>${hit.total>7?'7 of '+fmt(hit.total):hit.total}</span></h6>`+hit.best.flat().slice(0,7).map(x=>`<button class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span><b>${highlight(x.n,re)}</b><small>${highlight(x.sub,re)}</small></span></button>`).join('')}).join(''):`<div class="none">Nothing matches "${esc(q.value.trim())}". Try a name, a company, a tool, an item number or a code.</div>`;box.hidden=false};
+ const rows=hit.best.flat().slice(0,7).map(x=>{
+   const balance=x.balance;
+   const amount=balance?`<span class="gs-stock"><b>${Number.isFinite(balance.value)?fmt(balance.value):'—'}</b><small>${esc(balance.label)}</small></span>`:'';
+   return `<button type="button" class="gsi" data-open="${esc(x.open)}">${x.pc?x.pc():''}<span class="gs-name"><b>${highlight(x.n,re)}</b><small>${highlight(x.sub,re)}</small></span>${amount}</button>`;
+ }).join('');
+ return `<h6><span>${g}</span><span>${hit.total>7?'7 of '+fmt(hit.total):hit.total}</span></h6>`+rows;
+}).join(''):`<div class="none">Nothing matches "${esc(q.value.trim())}". Try a name, a company, a tool, an item number or a code.</div>`;box.hidden=false};
 q.addEventListener('input',run);q.addEventListener('focus',run);
 q.addEventListener('keydown',e=>{if(box.hidden)return;const it=$$('.gsi',box);if(e.key=='Escape'){box.hidden=true;q.blur()}else if(e.key=='ArrowDown'||e.key=='ArrowUp'){e.preventDefault();if(!it.length)return;sel=sel<0?(e.key=='ArrowDown'?0:it.length-1):(sel+(e.key=='ArrowDown'?1:-1)+it.length)%it.length;it.forEach((b,i)=>b.classList.toggle('sel',i==sel));it[sel].scrollIntoView({block:'nearest'})}else if(e.key=='Enter'&&it.length){e.preventDefault();it[Math.max(sel,0)].click()}});
 box.addEventListener('click',e=>{
@@ -3150,9 +3343,57 @@ const CAN_UP=!STATIC&&location.protocol.startsWith('http');if(!CAN_UP)$('#v-uplo
 const views=$$('.view'), tabs=$('#tabs'), ink=$('#ink');
 const initialisers=new Map(Object.entries({onhire:initOnHire,tooling:initTooling,consumables:initConsumables,
   rhythm:initRhythm,swms:initSwms,costs:initCosts,people:initPeople,sds:initSds,stocktake:()=>initStocktake(D.stocktake)}));
+// Move the existing controls and figures into the header; preserve their live handlers and labels.
+const workPages={
+  onhire:{stats:'#oh-stats',jumps:[['Find a hire','#oh-q']]},
+  tooling:{jumps:[['Find a variant','#ut-find'],['Browse the tool store','#cb-tools']]},
+  consumables:{stats:'#cn-stats',jumps:[['Find a consumable','#qr-q'],['Review stock levels','#below-h']]},
+  sds:{stats:'#sds-totals',rail:'.sds-toolbar'},
+  swms:{},
+  rhythm:{stats:'#op-stats',jumps:[['View counter checks','#hire-checks-title']]},
+  costs:{stats:'#cs-stats',jumps:[['View shift roster','#cs-roster']]},
+  stocktake:{rail:'#st-duty',moves:['[data-stock-focus="st-cat-title"]','[data-stock-focus="st-inventory-title"]']},
+  people:{stats:'#pp-stats',rail:'#pp-seg'},
+  upload:{},
+  guide:{moves:['#mobile-install']}
+};
+function prepareWorkPage(view,id){
+  const spec=workPages[id],header=view.querySelector(':scope > .vh');
+  if(!spec||STATIC||!header||view.classList.contains('work-view'))return;
+  view.classList.add('work-view');
+  const top=document.createElement('div'),copy=document.createElement('div'),actions=document.createElement('div');
+  top.className='work-heading';actions.className='work-actions noprint';
+  copy.append(...header.childNodes);top.append(copy);header.append(top);
+  for(const [label,selector] of spec.jumps||[]){
+    const target=view.querySelector(selector);
+    if(!target||target.closest('[hidden]'))continue;
+    const button=document.createElement('button');
+    button.type='button';button.className='btn '+(actions.children.length?'ghost ':'')+'work-jump';button.textContent=label;
+    button.setAttribute('aria-controls',target.id);
+    button.onclick=()=>{
+      const height=document.querySelector('.top').getBoundingClientRect().height;
+      window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-height-16),behavior:'instant'});
+      if(!target.matches('input,select,button,a,summary,[tabindex]'))target.tabIndex=-1;
+      target.focus({preventScroll:true});
+    };
+    actions.append(button);
+  }
+  for(const selector of spec.moves||[]){
+    const node=view.querySelector(selector);
+    if(!node)continue;
+    actions.append(node);
+  }
+  if(actions.childElementCount)top.append(actions);
+  if(spec.stats){const stats=view.querySelector(spec.stats);if(stats)header.append(stats)}
+  if(spec.rail){
+    const control=view.querySelector(spec.rail),rail=id==='people'?control?.closest('.tools'):control;
+    if(rail){rail.classList.add('work-rail');header.append(rail)}
+  }
+}
 function prepareView(view){
   const id=view.id.slice(2), init=initialisers.get(id);
   if(init){init();initialisers.delete(id)}
+  prepareWorkPage(view,id);
 }
 const tabFor=new Map();
 tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','Report sections');
@@ -3166,13 +3407,24 @@ views.forEach(v=>{
   tabs.insertBefore(b,ink);tabFor.set(id,b)
 });
 let activeView=null;
+const sectionPicker=$('#section-picker');
+function refreshSectionOptions(){
+  const allowed=views.filter(view=>{
+    const button=tabFor.get(view.id.slice(2));
+    return button.isConnected&&!button.hidden;
+  });
+  sectionPicker.replaceChildren(...allowed.map(view=>new Option(view.dataset.tab,view.id.slice(2))));
+  sectionPicker.value=activeView?.id.slice(2)||allowed[0]?.id.slice(2)||'';
+}
+refreshSectionOptions();
+sectionPicker.addEventListener('change',()=>show(sectionPicker.value));
 function show(id,quiet=false){
   const selected=tabFor.get(id);
   const view=selected?.isConnected&&!selected.hidden?document.getElementById('v-'+id):views[0];
   id=view.id.slice(2);
   if(activeView===view)return;
   if(activeView)activeView.classList.remove('on','go');
-  activeView=view; view.classList.add('on');prepareView(view);
+  activeView=view;sectionPicker.value=id;view.classList.add('on');prepareView(view);
   const button=tabFor.get(id);
   for(const b of tabFor.values()){
     const current=b===button;
@@ -3195,7 +3447,7 @@ tabs.addEventListener('keydown',e=>{
 /* ---------- update the data: only for logins the site lets upload ---------- */
 if(CAN_UP)(async()=>{const H={'X-Portal':'1'},tab=$('.tab[data-go="upload"]');let s;
 try{const r=await fetch('/upload/status',{headers:H});if(!r.ok)throw 0;s=await r.json()}catch(e){tab.remove();if($('#v-upload').classList.contains('on'))show('overview',1);$('#v-upload').remove();return}
-tab.hidden=false;if(location.hash=='#upload')show('upload',1);
+tab.hidden=false;refreshSectionOptions();if(location.hash=='#upload')show('upload',1);
 const KN={RENTAL_STOCK:'Rental stock',SALES_STOCK:'Sales stock',TRANSACTIONS:'Transactions',STOCKTAKE:'Stocktake',ON_HIRE:'On hire'},files={};
 const KS=(s.accepted_kinds||Object.keys(KN).filter(k=>k!=='ON_HIRE'||!('uploaders' in s))).filter(k=>Object.hasOwn(KN,k));
 const go=$('#up-go'),drop=$('#up-drop'),pick=$('#up-pick'),msg=$('#up-msg'),bar=$('#up-bar');let busy=false;
@@ -3227,16 +3479,20 @@ if(names.length){
   $('#v-upload .vh p').textContent='Choose the SiteIQ exports for MMG Dugald River. The portal checks the project in each workbook before updating the report.';
 }
 const when=t=>new Date(t*1000).toLocaleString('en-AU',{timeZone:names.length?'Australia/Brisbane':undefined,day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',hour12:false})+(names.length?' AEST':'');
+function showUploadReceipt(audit){
+  const files=Object.values(audit.files||{});
+  $('#up-last').innerHTML=`<strong>Last successful upload</strong><div class="up-receipt-detail"><b>${esc(audit.name||'Uploader not recorded')}</b> · ${esc(when(audit.finished))}</div>${files.length?'<ul>'+files.map(name=>'<li>'+esc(name)+'</li>').join('')+'</ul>':''}`;
+}
 const last=x=>{
 $('#staff-sds').hidden=x.sds_label_check!==true;
 $('#staff-qr').hidden=x.qr_reports_staff!==true;
 const audit=x.last_upload;
 if(names.length && audit){
-  $('#up-last').textContent=['Last successful upload',(audit.name||'Uploader not recorded')+' · '+when(audit.finished),...Object.values(audit.files)].join('\n');
+  showUploadReceipt(audit);
   return;
 }
 if(names.length && x.state==='ok' && x.finished){
-  $('#up-last').textContent=['Last successful upload',when(x.finished)+' · Uploader not recorded',...Object.values(x.files||{})].join('\n');
+  showUploadReceipt(x);
   return;
 }
 $('#up-last').textContent=x.state=='ok'&&x.finished?`Last update: ${when(x.finished)}, SiteIQ pull ${x.pull||''}.`:!x.pack?'The site is not set up for uploads yet. Ask Andrew.':''};last(s);
