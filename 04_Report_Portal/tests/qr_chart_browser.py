@@ -99,6 +99,14 @@ def check(browser, fixture):
     lookup()
     assert not page.locator(".rating-fill,.qualifying-track").count()
     expect(page.locator("#return-rating")).to_contain_text("Rating unavailable")
+    # A late section may be unable to reach the sticky header on a tall screen.
+    # The tab the worker opens must remain selected even at the scroll limit.
+    page.set_viewport_size({"width":3840,"height":2160})
+    for target in ("return-rating", "handover", "past-chapters"):
+        link=page.locator(f'#section-nav a[href="#{target}"]')
+        link.click()
+        expect(link).to_have_attribute("aria-current", "location")
+        expect(page.locator("#"+target)).to_be_focused()
     assert not errors, errors
     bp.close()
 

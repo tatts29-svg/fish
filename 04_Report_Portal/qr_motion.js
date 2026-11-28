@@ -3,7 +3,6 @@
   "use strict";
   const reportBody = document.getElementById("report-body");
   if (!reportBody) return;
-  const lookup = document.getElementById("lookup");
   const namespace = "http://www.w3.org/2000/svg";
 
   // The chart renderer already supplies each true bar height and top cap.
@@ -48,16 +47,15 @@
   function bind() {
     observer?.disconnect();
     document.querySelectorAll(".motion-near").forEach(node => node.classList.remove("motion-near"));
+    if (document.hidden || media.matches) return;
     const charts = reportBody.querySelectorAll(".movement-figure");
     charts.forEach(decorateChart);
-    if (document.hidden || media.matches) return;
     if ("IntersectionObserver" in window) {
       observer = new IntersectionObserver(changes => {
         changes.forEach(change => change.target.classList.toggle("motion-near", change.isIntersecting));
       }, {threshold:0});
     }
-    watch(lookup);
-    reportBody.querySelectorAll(".panel").forEach(watch);
+    reportBody.querySelectorAll(".store-pattern").forEach(watch);
     charts.forEach(watch);
     document.querySelectorAll(".direction-dials,.direction-pill").forEach(watch);
   }
@@ -107,9 +105,8 @@
     svg.setAttribute('focusable', 'false');
     svg.setAttribute('aria-hidden', 'true');
     svg.classList.add('direction-tube');
-    const mint = returned ? ['#214c3e','#62ad87','#a6e9bd','#d0fad5','#7dc79b','#396c54']
-                          : ['#224c2a','#61a843','#b5ed72','#d9fb98','#8bd253','#3d722f'];
-    const [deep, mid, light, rim, hue, shade] = mint;
+    const series = returned ? 'returned' : 'issued';
+    const [deep, mid, light, rim, shade] = ['-deep','-mid','','-rim','-shade'].map(tone=>'var(--'+series+tone+')');
     const paint = name => 'url(#' + id + name + ')';
     const wall = 'M3.15 9Q20 3.55 36.85 9V99.1C36.85 105.1 3.15 105.1 3.15 99.1Z';
     // The retaining rings sit outside this calibrated 80-unit chamber.
@@ -125,45 +122,45 @@
         '<g style="--glass-lift:' + (3 + curve - depth) + 'px;--glass-phase:' + delay + 's">' +
           '<g class="direction-rising"><circle cx="' + x + '" cy="94.5" r="' + r + '" fill="' + mid +
           '" stroke="' + rim + '" stroke-width=".55"/><circle cx="' + (x-r*.3) + '" cy="' + (94.5-r*.3) +
-          '" r="' + (r*.26) + '" fill="#f3ffdc"/></g></g>').join('');
+          '" r="' + (r*.26) + '" fill="#f5f8fb"/></g></g>').join('');
       const pops = depth < 7 ? '' : streams.slice(0,2).map(([x,,delay]) =>
         '<ellipse class="direction-pop" cx="' + x + '" cy="' + (surface+curve) +
-        '" rx="1.65" ry=".48" fill="none" stroke="#f4ffdf" stroke-width=".64" style="--glass-phase:' +
+        '" rx="1.65" ry=".48" fill="none" stroke="#f6f9fb" stroke-width=".64" style="--glass-phase:' +
         delay + 's"/>').join('');
       contents = '<g class="direction-water" clip-path="' + paint('wetclip') + '">' +
         '<rect ' + chamber + ' fill="' + paint('liquid') + '"/><rect ' + chamber + ' fill="' + paint('depth') + '"/>' + bubbles +
         '<ellipse cx="20" cy="' + (surface+curve) + '" rx="14.75" ry="' + curve + '" fill="' + paint('meniscus') +
         '" stroke="' + rim + '" stroke-width=".6"/>' +
-        '<path class="direction-glint" d="M10 ' + (surface+curve) + 'q4-1.5 8-.45t6 .35" stroke="#f2ffdc" fill="none" stroke-width=".7" stroke-linecap="round"/>' + pops + '</g>';
+        '<path class="direction-glint" d="M10 ' + (surface+curve) + 'q4-1.5 8-.45t6 .35" stroke="#f7fafc" fill="none" stroke-width=".7" stroke-linecap="round"/>' + pops + '</g>';
     } else if (fraction === null) {
       contents = '<rect x="5.25" y="16" width="29.5" height="80" fill="' + paint('unknown') + '"/>';
     }
     const ticks = Array.from({length:9}, (_,i)=>
       '<path d="M' + (i%2 ? 30.7 : 29.3) + ' ' + (bottom - i*span/8) + 'H32.9"/>').join('');
     svg.innerHTML = '<defs>' +
-      gradient(id+'metal',[[0,'#21302a'],[7,'#576a5e'],[19,'#c0cbbd'],[29,'#788c78'],[48,'#3a4a3e'],[71,'#334239'],[85,'#839781'],[94,'#455446'],[100,'#243129']]) +
-      gradient(id+'opening',[[0,'#15251d'],[22,'#899e89'],[46,'#4c6050'],[77,'#283b30'],[100,'#6f8474']],true) +
-      gradient(id+'hollow',[[0,'#101c16'],[19,'#2c3830'],[49,'#18241c'],[78,'#142119'],[100,'#2a3b2c']]) +
-      gradient(id+'wall',[[0,'#c2d9c7',.5],[7,'#adcab8',.13],[14,'#13231b',.48],[24,'#e9ffec',.14],[48,'#bed4c1',.04],[82,'#152219',.24],[94,'#b6cdbc',.18],[100,'#b4cebc',.42]]) +
-      gradient(id+'liquid',[[0,deep],[5,shade],[11,mid],[24,light],[40,hue],[56,mid],[78,shade],[92,deep],[100,mid]]) +
+      gradient(id+'metal',[[0,'#263039'],[7,'#61717c'],[19,'#cad4dc'],[29,'#8495a2'],[48,'#43515c'],[71,'#384753'],[85,'#93a2b0'],[94,'#4a5965'],[100,'#2c3943']]) +
+      gradient(id+'opening',[[0,'#1b2832'],[22,'#92a4af'],[46,'#596b77'],[77,'#30424f'],[100,'#7c8d9b']],true) +
+      gradient(id+'hollow',[[0,'#131e27'],[19,'#293640'],[49,'#1c2833'],[78,'#19232d'],[100,'#2b3b48']]) +
+      gradient(id+'wall',[[0,'#c7d7e2',.5],[7,'#bbd1e0',.13],[14,'#17242f',.48],[24,'#eff7fe',.14],[48,'#bfcedc',.04],[82,'#19232b',.24],[94,'#c5d5e2',.18],[100,'#bfd1df',.42]]) +
+      gradient(id+'liquid',[[0,deep],[5,shade],[11,mid],[24,light],[40,light],[56,mid],[78,shade],[92,deep],[100,mid]]) +
       gradient(id+'depth',[[0,rim,.15],[33,light,.015],[76,deep,.05],[100,deep,.37]],true) +
       gradient(id+'meniscus',[[0,mid],[13,light],[39,rim],[70,light],[100,shade]]) +
-      '<pattern id="' + id + 'unknown" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M-1 1L1 -1M0 8L8 0M7 9L9 7" stroke="#b1bdaf" stroke-width="1"/></pattern>' +
+      '<pattern id="' + id + 'unknown" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M-1 1L1 -1M0 8L8 0M7 9L9 7" stroke="#aebbc4" stroke-width="1"/></pattern>' +
       '<clipPath id="' + id + 'wetclip"><rect ' + chamber + '/></clipPath></defs>' +
-      '<ellipse cx="20" cy="106.2" rx="16.6" ry="2.3" fill="#071109" opacity=".45"/>' +
-      '<path d="' + wall + '" fill="' + paint('hollow') + '" stroke="#92ac99" stroke-width=".68"/>' +
-      contents + '<g stroke="#b5ccb6" stroke-opacity=".4" stroke-width=".56">' + ticks + '</g>' +
+      '<ellipse cx="20" cy="106.2" rx="16.6" ry="2.3" fill="#081016" opacity=".45"/>' +
+      '<path d="' + wall + '" fill="' + paint('hollow') + '" stroke="#99adbc" stroke-width=".68"/>' +
+      contents + '<g stroke="#bdceda" stroke-opacity=".4" stroke-width=".56">' + ticks + '</g>' +
       '<path d="' + wall + '" fill="' + paint('wall') + '"/>' +
-      '<path d="M5.1 15.1V95M33.7 14V96" fill="none" stroke="#dcf7e1" stroke-opacity=".45" stroke-width=".62"/>' +
-      '<path d="M8.4 15.5V95" stroke="#e5ffdf" stroke-opacity=".36" stroke-width="1.23" stroke-linecap="round"/>' +
-      '<path d="M2.6 96.8Q20 102 37.4 96.8V101.3C36.1 107.4 4.1 107.3 2.6 101.3Z" fill="' + paint('metal') + '" stroke="#788b78" stroke-width=".55"/>' +
-      '<path d="M3 98.6Q20 104 37 98.6" fill="none" stroke="#243327" stroke-width=".8"/>' +
-      '<path d="M3.5 100.4Q20 105.7 36.5 100.4" fill="none" stroke="#dbe5d1" stroke-opacity=".48" stroke-width=".55"/>' +
-      '<path d="M2.4 6.6C2.4 .65 37.6 .65 37.6 6.6V10.9C36.7 16.5 3.3 16.5 2.4 10.9Z" fill="' + paint('metal') + '" stroke="#a0b29f" stroke-opacity=".73" stroke-width=".54"/>' +
-      '<ellipse cx="20" cy="6.3" rx="17.45" ry="4" fill="' + paint('opening') + '" stroke="#b7c1ad" stroke-width=".55"/>' +
-      '<ellipse cx="20" cy="6.35" rx="14.3" ry="2.6" fill="#19241d" stroke="#607361" stroke-width=".58"/>' +
-      '<path d="M3 10.7Q20 16.1 37 10.7" fill="none" stroke="#29392d" stroke-width=".85"/>' +
-      '<path d="M3.2 11.9Q20 17.1 36.8 11.9" fill="none" stroke="#aab9a5" stroke-opacity=".65" stroke-width=".48"/>';
+      '<path d="M5.1 15.1V95M33.7 14V96" fill="none" stroke="#e8f3fa" stroke-opacity=".45" stroke-width=".62"/>' +
+      '<path d="M8.4 15.5V95" stroke="#eff7fb" stroke-opacity=".36" stroke-width="1.23" stroke-linecap="round"/>' +
+      '<path d="M2.6 96.8Q20 102 37.4 96.8V101.3C36.1 107.4 4.1 107.3 2.6 101.3Z" fill="' + paint('metal') + '" stroke="#8596a2" stroke-width=".55"/>' +
+      '<path d="M3 98.6Q20 104 37 98.6" fill="none" stroke="#2c3943" stroke-width=".8"/>' +
+      '<path d="M3.5 100.4Q20 105.7 36.5 100.4" fill="none" stroke="#e1e9ed" stroke-opacity=".48" stroke-width=".55"/>' +
+      '<path d="M2.4 6.6C2.4 .65 37.6 .65 37.6 6.6V10.9C36.7 16.5 3.3 16.5 2.4 10.9Z" fill="' + paint('metal') + '" stroke="#aabac5" stroke-opacity=".73" stroke-width=".54"/>' +
+      '<ellipse cx="20" cy="6.3" rx="17.45" ry="4" fill="' + paint('opening') + '" stroke="#bfcbd4" stroke-width=".55"/>' +
+      '<ellipse cx="20" cy="6.35" rx="14.3" ry="2.6" fill="#1b2730" stroke="#637884" stroke-width=".58"/>' +
+      '<path d="M3 10.7Q20 16.1 37 10.7" fill="none" stroke="#31414c" stroke-width=".85"/>' +
+      '<path d="M3.2 11.9Q20 17.1 36.8 11.9" fill="none" stroke="#b4c3ce" stroke-opacity=".65" stroke-width=".48"/>';
     return svg;
   }
 
@@ -196,7 +193,8 @@
     figure.dispatchEvent(new Event('mmg-instrument-mounted', {bubbles:true}));
   }
 
-  function pill(host, value, total) {
+  function pill(host, value, total, series = 'issued') {
+    host.dataset.series = series === 'returned' ? 'returned' : 'issued';
     host.classList.add('direction-pill');
     host.setAttribute('aria-hidden','true');
     host.replaceChildren();

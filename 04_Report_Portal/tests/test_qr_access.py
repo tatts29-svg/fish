@@ -1,4 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
+import gzip
 from http.cookies import SimpleCookie
 import json
 import os
@@ -56,6 +57,29 @@ class QrViews(PortalHTTPCase):
                 self.assertIn(b"MyGear HQ", page)
                 self.assertNotIn(b'href="/hq', page)
                 self.assertNotIn(b'href="/upload', page)
+
+    def test_static_revalidation_checks_scope_and_refreshes_replaced_fonts(self):
+        cookie = self.activate("personal")
+        path = "/qr/personal/Inter-Regular.ttf"
+        font = self.root / "job" / "kit" / "_fonts" / "Inter-Regular.ttf"
+        font.parent.mkdir(parents=True, exist_ok=True)
+        font.write_bytes(b"First font" * 100)
+        headers = {"Cookie": cookie, "Accept-Encoding": "gzip"}
+        status, response, body = self.request("GET", path, headers=headers)
+        self.assertEqual((status, gzip.decompress(body)), (200, font.read_bytes()))
+        self.assertEqual(response["Cache-Control"], "private, no-cache")
+        self.assertEqual(response["Vary"], "Accept-Encoding")
+        validator = {"If-None-Match": response["ETag"]}
+        self.assertEqual(self.request("GET", path, headers=validator)[0], 403)
+        status, _, body = self.request("GET", path, headers={**headers, **validator})
+        self.assertEqual((status, body), (304, b""))
+        self.assertEqual(self.request("GET", path, headers={"Cookie": cookie})[2], font.read_bytes())
+        replacement = font.with_suffix(".new")
+        replacement.write_bytes(b"Other font" * 100)
+        replacement.replace(font)
+        status, response, body = self.request("GET", path, headers={**headers, **validator})
+        self.assertEqual((status, gzip.decompress(body)), (200, font.read_bytes()))
+        self.assertNotEqual(response["ETag"], validator["If-None-Match"])
 
     def test_persistent_invitations_and_portal_session_isolation(self):
         self.assertEqual(self.request("GET", "/qr/company/enter")[0], 200)

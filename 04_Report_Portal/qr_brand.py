@@ -24,17 +24,17 @@ LOCKUP_CSS = """
 .brand-lockup .logo{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
 color:#f5f6f8;font:700 19px/1.1 system-ui,sans-serif;letter-spacing:normal;text-transform:none}
 .brand-lockup .mk svg{width:32px;height:32px;display:block;border-radius:8px;
-box-shadow:0 0 0 1px rgba(255,255,255,.08),0 4px 16px rgba(242,98,34,.5)}
+box-shadow:0 0 0 1px rgba(255,255,255,.1),0 0 9px rgba(242,98,34,.19)}
 .brand-lockup .wm span{color:#ff7a3d}.brand-lockup .wm i{font-size:14px;
 font-style:normal;font-weight:600;color:#aab4c0}.brand-divider{height:28px;width:1px;
 background:#414951}.brand-client{display:inline-flex;align-items:center;color:#f5f6f8;
 font:700 17px/1 system-ui,sans-serif}.brand-client img{display:block;width:auto;height:34px}
 @media screen and (prefers-reduced-motion:no-preference){
-  .brand-lockup .mk{position:relative;isolation:isolate}
+  .brand-lockup .mk{position:relative;isolation:isolate;overflow:hidden;border-radius:7px}
   .brand-lockup .mk::after{content:"";position:absolute;inset:0;border-radius:7px;pointer-events:none;
-    background:linear-gradient(110deg,transparent 32%,rgba(255,238,214,.55) 48%,transparent 64%) 160% 0 / 240% 100%;
-    animation:hqMarkLight 5.6s ease-in-out infinite}
-  @keyframes hqMarkLight{0%,65%{background-position:160% 0}92%,100%{background-position:-65% 0}}
+    background:linear-gradient(110deg,transparent 25%,#ffeed62e 50%,transparent 75%);
+    animation:hqMarkLight .6s ease-out both}
+  @keyframes hqMarkLight{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 }
 """
 

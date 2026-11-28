@@ -22,7 +22,7 @@
   let dialogGeneration = 0;
   let printClosed = [];
   let decoderRequest;
-  let ratingObserver=null;
+  let sectionLinks=[], pinnedSection=null;
   let sectionFrame=0;
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -119,7 +119,7 @@
     printing = false;
     printClosed = [];
     if (idleDialog.open) idleDialog.close();
-    ratingObserver?.disconnect();ratingObserver=null;
+    sectionLinks=[]; pinnedSection=null;
     if (transaction) transaction.abort();
     transaction = null;
     selection = ""; pdfRequest = null; pdf = null; snapshot = null;
@@ -164,7 +164,10 @@
       event.preventDefault();
       history.replaceState(null, "", link.hash);
       target.focus({preventScroll:true});
-      target.scrollIntoView({block:"start"});
+      target.scrollIntoView({block:"start",behavior:"instant"});
+      const selected=sectionLinks.find(entry=>entry.section===target);
+      pinnedSection=selected ? {entry:selected,scrollY:window.scrollY} : null;
+      if (!sectionFrame && !$("report").hidden) sectionFrame=requestAnimationFrame(syncSection);
     }
   });
   async function json(response) {
@@ -429,43 +432,22 @@
     const defs=svgNode("defs"),path="M24 3.1 30.3 16.3 45.1 18.4 34.4 28.9 37 43.7 24 36.7 11 43.7 13.6 28.9 2.9 18.4 17.7 16.3Z";
     const clip=svgNode("clipPath",{id:prefix+"-star-cut"});
     clip.append(svgNode("path",{d:path}));defs.append(clip);
-    for(const [id,colours] of [
-      [prefix+"-copper",["#ffe6b0","#ff9953","#fe7635","#bf491c"]],
-      [prefix+"-steel",["#586474","#354150","#27313b","#1b232d"]]
-    ]) {
-      const grad=svgNode("linearGradient",{id,x1:"0",x2:".4",y1:"0",y2:"1"});
-      colours.forEach((c,i)=>grad.append(svgNode("stop",{offset:[0,.32,.56,1][i],"stop-color":c})));
-      defs.append(grad);
-    }
     chart.append(defs);
     for(let i=0;i<5;i++){
       const amount=Math.max(0,Math.min(1,value-i));
       const anchor=svgNode("g",{transform:"translate("+(i*56+2)+" 3)"});
       const face=svgNode("g",{class:"rating-face"});
-      face.append(svgNode("path",{d:path,fill:"url(#"+prefix+"-steel)",stroke:"#8b99a9","stroke-width":"1.35","stroke-linejoin":"round"}));
+      face.append(svgNode("path",{d:path,fill:"none",stroke:"var(--on-3)","stroke-width":"1.35","stroke-linejoin":"round"}));
       if(amount>0){
         const cut=svgNode("g",{"clip-path":"url(#"+prefix+"-star-cut)"});
         // The symmetric star spans x=2.9..45.1. A half rating ends at the centre point.
         const w=2.9+(45.1-2.9)*amount;
-        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"url(#"+prefix+"-copper)",class:"rating-fill"}));
-        const clippedGlint=svgNode("svg",{x:0,y:0,width:w,height:48,overflow:"hidden"});
-        clippedGlint.append(svgNode("path",{d:"M-13 0H-6L-23 48H-30Z",fill:"white",class:"rating-reflection"}));
-        cut.append(clippedGlint);face.append(cut);
+        cut.append(svgNode("rect",{x:0,y:0,width:w,height:48,fill:"var(--on)",class:"rating-fill"}));
+        face.append(cut);
       }
       anchor.append(face);chart.append(anchor);
     }
     return chart;
-  }
-  function revealRating(panel) {
-    if(ratingObserver)ratingObserver.disconnect();
-    if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-    ratingObserver=new IntersectionObserver(entries=>{
-      if(entries.some(e=>e.isIntersecting)) {
-        panel.classList.add("rating-seen");
-        ratingObserver?.disconnect();ratingObserver=null;
-      }
-    },{threshold:.12});
-    ratingObserver.observe(panel);
   }
   function coveredTransactions(cov) {
     if (!cov?.transactions_asat) return false;
@@ -513,7 +495,6 @@
     panel.append(el("p","note","Same-day means the issue and return share a calendar date in Queensland. Gear issued before midnight and returned after midnight counts as a next-day return, even on the same night shift. The rating measures timing, and due dates are assessed separately when recorded."));
     if (!personal) {
       panel.append(el("p","explain","The crew score combines eligible completed hires for this company. It uses one plus four times the share returned on their issue date, rounded to the nearest half star."));
-      revealRating(panel);
       return;
     }
     const details=group("How your return record is calculated",null);
@@ -523,7 +504,6 @@
       details.append(el("p","explain",fmt(ret.returned_by_due)+" of "+fmt(ret.due_assessed)+" completed hires with recorded due dates were returned by the due date."));
     } else details.append(el("p","explain",ret.due_dates_available ? "No completed returns have a due date available for assessment." : "SiteIQ supplies no due dates for these hires."));
     panel.append(details);
-    revealRating(panel);
   }
   function consumablesPanel(parent, r) {
     const c = r.consumable_summary;
@@ -531,10 +511,12 @@
     if (!r.coverage?.sales_asat) {panel.append(el("p","empty","A dated sales export is unavailable."));return;}
     panel.append(factList([["Units issued",fmt(c.units)],["Units returned",fmt(c.returned_units)],["Dates with a recorded draw",fmt(c.active_days)],["Units per recorded draw date",fmt(c.units_per_draw_day)]]));
     if (finite(c.previous_units_per_draw_day) && finite(c.recent_units_per_draw_day)) {
-      panel.append(factList([
+      const comparison=factList([
         ["Units per draw date, "+when(c.previous_start)+" to "+when(c.previous_end),fmt(c.previous_units_per_draw_day)],
         ["Units per draw date, "+when(c.recent_start)+" to "+when(c.recent_end),fmt(c.recent_units_per_draw_day)]
-      ]));
+      ]);
+      comparison.classList.add("period-comparison");
+      panel.append(comparison);
     }
     if (finite(c.dated_units) && c.dated_units !== c.units) {
       panel.append(el("p","sub",fmt(c.dated_units)+" of "+fmt(c.units)+" issued units have usable dates for the daily rate."));
@@ -589,7 +571,7 @@
     const reading=n=>observed(n) ? fmt(n) : "unavailable";
     const chart=svgNode("svg",{viewBox:"0 0 434 140",role:"img","aria-label":(toolDays?"Tool":"Consumable")+" issues and returns by date. "+days.map(d=>shortDay(d.date)+", issued "+reading(d[series[0]])+", returned "+reading(d[series[1]])).join(". ")});
     const defs=svgNode("defs");
-    const colours=[["#224c2a","#b5ed72","#d9fb98","#61a843","#3d722f"],["#214c3e","#a6e9bd","#d0fad5","#62ad87","#396c54"]];
+    const colours=["issued","returned"].map(key=>["-deep","","-rim","-mid","-shade"].map(tone=>"var(--"+key+tone+")"));
     colours.forEach((cs,index)=>{
       const gradient=svgNode("linearGradient",{id:"movement-"+index});
       ["0%","19%","39%","67%","100%"].forEach((offset,i)=>gradient.append(svgNode("stop",{offset,"stop-color":cs[i]})));
@@ -619,7 +601,7 @@
         const cap=Math.min(2,height*.17);
         bar.append(svgNode("rect",{x,y:y+cap,width:w,height:Math.max(0,height-cap*2),fill:"url(#movement-"+j+")"}));
         bar.append(svgNode("ellipse",{cx:x+w/2,cy:bottom-cap,rx:w/2,ry:cap,fill:"url(#movement-"+j+")"}));
-        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:j===0?"#d9fb98":"#d0fad5"}));
+        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:j===0?"var(--issued-rim)":"var(--returned-rim)"}));
         if(height>=13 && w>=7){
           bar.append(svgNode("line",{x1:x+w*.24,y1:y+cap*2,x2:x+w*.24,y2:bottom-cap*2,stroke:"white","stroke-opacity":".32","stroke-width":".65"}));
           const bubble=svgNode("circle",{cx:x+w*.62,cy:y+7,r:Math.min(1.5,w*.1),class:"chart-bubble"});
@@ -834,6 +816,7 @@
     const ratingStatus=earned ? fmt(score)+" / 5 · same-day returns" :
       tools && validCount(eligible) && eligible<5 ? "Building rating · "+fmt(eligible)+" of 5 hires" : "Rating awaiting records";
     $("name-rating").append(stars(earned ? score : 0,"identity"),el("span","rating-status",ratingStatus));
+    $("direction-strap").classList.toggle("follow-up",!personal && handover.unassigned_assets>0);
     $("direction-strap").textContent=personal ?
       (cov.sales_asat ? units(r.consumable_summary.units,"consumable unit")+" issued this shutdown" : "Consumables · sales data unavailable") :
       (finite(handover.unassigned_assets) && handover.unassigned_assets>0 ? units(handover.unassigned_assets,"asset")+" without a confirmed individual holder" :
@@ -876,13 +859,15 @@
     links.push(["past-chapters","Earlier shutdowns"]);
     const sectionNav = $("section-nav");
     sectionNav.replaceChildren();
+    sectionLinks=[]; pinnedSection=null;
     for (const [id,title] of links) {
       const section = $(id);
       section.tabIndex = -1;
       const link = el("a","",title);
       link.href = "#" + id;
-      if(id==="current-gear")link.setAttribute("aria-current","location");
+      if(!sectionLinks.length)link.setAttribute("aria-current","location");
       sectionNav.append(link);
+      sectionLinks.push({link,section});
     }
     $("trail-current").textContent = "Report";
     $("pull").textContent=r.asat ? "SiteIQ rental stock pull "+when(r.asat)+" AEST" : "SiteIQ rental stock pull time unavailable.";
@@ -891,18 +876,32 @@
   function syncSection() {
     sectionFrame=0;
     if ($("report").hidden) return;
-    const links=Array.from($("section-nav").querySelectorAll("a"));
-    if (!links.length) return;
-    const top=Math.min(100,innerHeight*.18);
-    let active=links[0];
-    for (const link of links) {
-      if ($(link.hash.slice(1)).getBoundingClientRect().top<=top) active=link;
+    if (!sectionLinks.length) return;
+    let active;
+    if (pinnedSection && Math.abs(window.scrollY-pinnedSection.scrollY)<2) {
+      // Several sections can share the same reachable scroll position at the bottom or in a row.
+      active=pinnedSection.entry;
+    } else {
+      pinnedSection=null;
+      const threshold=$("section-nav").offsetHeight + 14;
+      let nearest=-Infinity;
+      active=sectionLinks[0];
+      for (const entry of sectionLinks) {
+        const top=entry.section.getBoundingClientRect().top;
+        if (top<=threshold && top>nearest+1) { active=entry; nearest=top; }
+      }
+      if (window.scrollY+innerHeight>=document.documentElement.scrollHeight-2) active=sectionLinks.at(-1);
     }
-    if (window.scrollY+innerHeight>=document.documentElement.scrollHeight-2) active=links.at(-1);
-    for (const link of links) {
-      if(link===active)link.setAttribute("aria-current","location");
-      else link.removeAttribute("aria-current");
+    for (const {link} of sectionLinks) {
+      if (link===active.link && !link.hasAttribute("aria-current")) link.setAttribute("aria-current","location");
+      if (link!==active.link && link.hasAttribute("aria-current")) link.removeAttribute("aria-current");
     }
+  }
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(entries=>{
+      const height=entries[0].target.offsetHeight;
+      if (height) $("report").style.setProperty("--section-nav-height",height+"px");
+    }).observe($("section-nav"));
   }
   window.addEventListener("scroll",()=>{
     if (!sectionFrame && !$("report").hidden) sectionFrame=requestAnimationFrame(syncSection);

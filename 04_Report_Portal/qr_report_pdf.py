@@ -22,7 +22,8 @@ RULE = HexColor("#DCE1E6")
 PALE = HexColor("#F3F5F7")
 ORANGE = HexColor("#F26222")
 ORANGE_INK = HexColor("#A23F0F")
-MMG_RED = HexColor("#B61D2B")
+ISSUED = HexColor("#86AA63")
+RETURNED = HexColor("#8E9CAB")
 COPYRIGHT = ("Designed and built by Andrew Fisher · © 2026 Andrew Fisher. All rights reserved. "
              "Not to be copied or reproduced without permission.")
 WIDTH, HEIGHT = A4
@@ -89,10 +90,10 @@ def observed(value, covered):
 
 class DailyMovements(Flowable):
     """A compact, vector print chart with legible values independent of colour."""
-    def __init__(self, rows, normal, bold, accent, wash):
+    def __init__(self, rows, normal, bold, wash):
         super().__init__()
         self.rows, self.normal, self.bold = rows, normal, bold
-        self.accent, self.wash = accent, wash
+        self.wash = wash
         self.width, self.height = CONTENT, 39 + 19 * len(rows)
 
     def draw(self):
@@ -111,7 +112,7 @@ class DailyMovements(Flowable):
             c.setFont(self.normal, 8.7)
             c.setFillColor(INK)
             c.drawString(12, y, when(day["date"]))
-            for x, k, tone in zip(lefts, ("issued", "returned"), (self.accent, SLATE)):
+            for x, k, tone in zip(lefts, ("issued", "returned"), (ISSUED, RETURNED)):
                 value = day[k]
                 c.setFillColor(white)
                 c.roundRect(x, y + 1, 104, 5, 2, fill=1, stroke=0)
@@ -160,8 +161,8 @@ class ReturnStars(Flowable):
                     clip = c.beginPath()
                     clip.rect(cx - radius, cy - radius, 2 * radius * fraction, 2 * radius)
                     c.clipPath(clip, stroke=0, fill=0)
-                c.setFillColor(ORANGE_INK)
-                c.setStrokeColor(ORANGE_INK)
+                c.setFillColor(INK)
+                c.setStrokeColor(INK)
                 c.drawPath(star, fill=1, stroke=1)
                 c.restoreState()
         c.restoreState()
@@ -174,9 +175,7 @@ def render_pdf(report, *, job_dir=None):
     if kind not in {"company", "person"} or not name:
         raise ValueError("A selected company or person is required.")
     company_report = kind == "company"
-    accent = ORANGE if company_report else MMG_RED
-    ink_accent = ORANGE_INK if company_report else MMG_RED
-    wash = HexColor("#FFF0E3" if company_report else "#FBEDEE")
+    wash = PALE
     coverage = report.get("coverage") or {}
     rental_asat = coverage.get("rental_asat") or report.get("asat")
     issue_time = when(rental_asat) if rental_asat else "Timestamp unavailable"
@@ -206,7 +205,7 @@ def render_pdf(report, *, job_dir=None):
         canvas.saveState()
         canvas.setFillColor(SLATE)
         canvas.rect(0, HEIGHT - 76, WIDTH, 76, fill=1, stroke=0)
-        canvas.setFillColor(accent)
+        canvas.setFillColor(ORANGE)
         canvas.rect(0, HEIGHT - 79, WIDTH, 3, fill=1, stroke=0)
         canvas.setFillColor(ORANGE)
         canvas.setFont(bold, 17)
@@ -247,7 +246,7 @@ def render_pdf(report, *, job_dir=None):
         canvas.drawString(MARGIN, 20, COPYRIGHT)
         canvas.restoreState()
 
-    flow = [para(title.upper(), 9, bold, ink_accent, spaceAfter=4)]
+    flow = [para(title.upper(), 9, bold, ORANGE_INK, spaceAfter=4)]
     tools_covered = bool(transaction_periods(coverage))
     ret = report.get("returns") or {}
     rating = report.get("return_rating") if company_report else ret
@@ -289,7 +288,7 @@ def render_pdf(report, *, job_dir=None):
         grid.setStyle(TableStyle([
             ("BACKGROUND", (0, 0), (-1, 0), SLATE), ("VALIGN", (0, 0), (-1, -1), "TOP"),
             ("ROWBACKGROUNDS", (0, 1), (-1, -1), [white, PALE]),
-            ("LINEBELOW", (0, 0), (-1, 0), 1.6, accent),
+            ("LINEBELOW", (0, 0), (-1, 0), 1.6, ORANGE),
             ("LINEBELOW", (0, 1), (-1, -1), .35, RULE),
             ("TOPPADDING", (0, 0), (-1, -1), 5), ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ("LEFTPADDING", (0, 0), (-1, -1), 7), ("RIGHTPADDING", (0, 0), (-1, -1), 7),
@@ -386,7 +385,7 @@ def render_pdf(report, *, job_dir=None):
                     if period["schedule"] == "MMG Shutdown Novermber26-December26" else period["schedule"])
         heading("This shutdown" if period["current"] else schedule)
         if period["current"]:
-            flow.append(para(schedule, 9.4, bold, ink_accent, spaceAfter=3))
+            flow.append(para(schedule, 9.4, bold, ORANGE_INK, spaceAfter=3))
         source = period["coverage"]
         tools = bool(transaction_periods(source))
         sales = bool(source.get("sales_asat"))
@@ -416,7 +415,7 @@ def render_pdf(report, *, job_dir=None):
                       key=lambda d: d["date"])
         if days and any(d["issued"] or d["returned"] for d in days):
             heading("Daily tool movements" if len(days) <= 7 else "Tool movements on the latest seven recorded dates")
-            flow.append(DailyMovements(days[-7:], normal, bold, accent, wash))
+            flow.append(DailyMovements(days[-7:], normal, bold, wash))
 
     def chapter_detail(period, include_daily):
         if include_daily and period["activity"]:
@@ -464,7 +463,7 @@ def render_pdf(report, *, job_dir=None):
                   colWidths=[CONTENT / len(stats)] * len(stats), hAlign="LEFT")
     strip.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), wash),
                                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                               ("LINEBEFORE", (0, 0), (0, 0), 3, accent),
+                               ("LINEBEFORE", (0, 0), (0, 0), 3, ORANGE),
                                ("LEFTPADDING", (0, 0), (-1, -1), 10),
                                ("TOPPADDING", (0, 0), (-1, -1), 8),
                                ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
@@ -565,7 +564,7 @@ def render_pdf(report, *, job_dir=None):
             caption = "  ·  ".join(part for part in (when(note["date"]) if note.get("date") else "",
                                                      text(note.get("title"))) if part)
             if caption:
-                flow.append(para(caption, 10, bold, ink_accent, spaceBefore=4))
+                flow.append(para(caption, 10, bold, ORANGE_INK, spaceBefore=4))
             flow.append(para(note.get("description"), spaceAfter=4))
     if now:
         chapter_detail(now, include_daily=company_report)

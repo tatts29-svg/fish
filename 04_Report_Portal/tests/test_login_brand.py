@@ -12,7 +12,7 @@ class LoginBrand(PortalHTTPCase):
         code, _, body = self.request("GET", "/login")
         self.assertEqual(code, 200)
         self.assertIn(b'<span class="brand-client">MMG</span>', body)
-        self.assertIn(b'<p class="login-site">Dugald River</p>', body)
+        self.assertIn(b'<span class="portal-site"><b>COATES</b><span>Dugald River</span></span>', body)
         self.assertIn(b'<h1>Sign in to MyGear HQ</h1>', body)
         self.assertIn(b'method="post" action="/login"', body)
         self.assertNotIn(b"Test Manager", body)

@@ -83,7 +83,7 @@ def _mobile_markup(page):
 
 
 SESSION_HOURS = 12
-LOGIN_TEMPLATE = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+LOGIN_TEMPLATE = """<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="author" content="Andrew Fisher"><meta name="copyright" content="(c) 2026 Andrew Fisher. All rights reserved."><title>Sign in · __LOGIN_TITLE__</title>__MOBILE_HEAD__<style>
 *{box-sizing:border-box}html,body{margin:0;min-height:100%}
 body{background:#07090D;color:#fff;font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
@@ -141,11 +141,11 @@ __LOGIN_STYLE__</style></head><body><div class="wrap">
 __LOGIN_HEADER__
 <form class="card" method="post" action="/login" autocomplete="on">
 <div class="intro">
-<div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>PROJECT ACCESS</div>
+<div class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><path d="M12 15v2"/></svg>__LOGIN_GROUP__</div>
 <h1>__LOGIN_HEADING__</h1>
-<p>Enter your username and password to continue.</p></div>
-<div class="fields">__ERR__
-<label for="u">Username</label><input id="u" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required autofocus>
+<p>__LOGIN_INTRO__</p></div>
+<div class="fields">__LOGIN_FIELDS_TITLE____ERR__
+<label for="u">Username</label><input id="u" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required__LOGIN_AUTOFOCUS__>
 <label for="p">Password</label><input id="p" name="password" type="password" autocomplete="current-password" required>
 <button type="submit">Sign in</button>
 <p class="note">Trouble signing in? Ask your Coates tool store team.__INSTALL_LINK__</p></div>
@@ -154,41 +154,75 @@ __LOGIN_HEADER__
 </div></body></html>"""
 
 
-def _login_template(title, heading, header, style=""):
+def _login_template(title, heading, header, style="", *, group="PROJECT ACCESS",
+                    intro="Enter your username and password to continue.", fields_title="", autofocus=True):
     return (LOGIN_TEMPLATE.replace("__LOGIN_TITLE__", title).replace("__LOGIN_HEADING__", heading)
-            .replace("__LOGIN_HEADER__", header).replace("__LOGIN_STYLE__", style))
+            .replace("__LOGIN_HEADER__", header).replace("__LOGIN_STYLE__", style)
+            .replace("__LOGIN_GROUP__", group).replace("__LOGIN_INTRO__", intro)
+            .replace("__LOGIN_FIELDS_TITLE__", fields_title).replace("__LOGIN_AUTOFOCUS__", " autofocus" if autofocus else ""))
 
 
 LOGIN = _login_template("__NAME__", "Sign in to the __NAME__",
                         '<div class="top"><div class="brand">COATES</div><i></i><span>__NAME__</span></div>')
 
-# Keep the MMG sign-in panel close to MyGear HQ's single-column entry screen.
-MMG_LOGIN_CSS = """
-.wrap{align-items:center;justify-content:center;padding:clamp(1rem,4vh,3rem) 1rem}
-.login-masthead{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-bottom:1.35rem}
-.login-masthead .brand-lockup{gap:1rem}
-.login-masthead .logo{font-size:1.45rem}
-.login-masthead .mk svg{width:2.5rem;height:2.5rem}
-.login-masthead .wm i{font-size:1rem}
-.login-masthead .brand-divider{height:2.1rem}
-.login-masthead .brand-client img{height:2.7rem}
-.login-site{font-size:.93rem;font-weight:600;color:#bfccd7;letter-spacing:.025em}
-.wrap>form.card{display:block;width:min(100%,28rem);margin:0;padding:clamp(1.25rem,5.5vw,2rem);
-border-radius:1.35rem;background:linear-gradient(155deg,#1b212b,#11161e 72%)}
-.eyebrow{font-size:.75rem;letter-spacing:.13em}
-.intro h1{font-size:clamp(1.55rem,6vw,2rem);margin:.7rem 0 .5rem;letter-spacing:-.035em}
-.intro p{font-size:1rem}.fields{margin-top:1.45rem}
-input,button{height:3.15rem;border-radius:.7rem}label{font-size:.91rem;margin:1.1rem 0 .45rem}
-button{margin-top:1.25rem;background:#ff762e}.err{margin:0 0 1.1rem}
-.note{margin-top:1.25rem;padding-top:1rem;font-size:.88rem}.note>a{margin-top:0;padding:.4rem 0}
-.foot{margin-top:1.3rem}
-@media screen and (prefers-reduced-motion:no-preference){
- .wrap>form.card::after{content:"";position:absolute;top:0;left:0;height:4px;width:36%;pointer-events:none;
-   background:linear-gradient(90deg,transparent,#ffac63 30%,#fff1d4 54%,#ffab66 70%,transparent);
-   filter:drop-shadow(0 1px 5px #ff903f);animation:hqLoginLight 4.8s ease-in-out infinite}
- @keyframes hqLoginLight{0%{transform:translateX(-105%)}72%,100%{transform:translateX(285%)}}
+
+# Included only on the MMG entry, installation and upload surfaces.
+MMG_SHELL_CSS = """
+:root{--hq-bg:#101519;--hq-panel:#192126;--hq-rule:#39464b;--hq-ink:#f2f5f3;--hq-muted:#b6c2c4;
+ --hq-orange:#f26222;--hq-coral:#f39b92;--hq-pad:clamp(1rem,4vw,5rem)}
+body{background:var(--hq-bg);color:var(--hq-ink)}
+.wrap{padding:0;gap:0;align-items:center}
+.portal-heading{width:100%;border-top:4px solid var(--hq-orange);border-bottom:1px solid var(--hq-rule);background:#11171b}
+.portal-heading>.portal-masthead{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:4.4rem;
+ padding:.55rem max(var(--hq-pad),env(safe-area-inset-right)) .55rem max(var(--hq-pad),env(safe-area-inset-left))}
+.portal-heading .logo{font-size:1.3rem}.portal-heading .mk svg{width:1.9rem;height:1.9rem}
+.portal-heading .brand-client img{height:1.8rem}.portal-heading .wm i{font-size:.9rem}
+.portal-heading .portal-site{flex-direction:row;align-items:center;gap:.75rem;font-size:.86rem}
+.portal-heading .portal-site b{color:#ff9869;font-size:.69rem}.portal-heading .portal-site span{border-left:1px solid var(--hq-rule);padding-left:.75rem}
+.wrap>.card{width:min(calc(100% - 2 * var(--hq-pad)),72rem);margin:clamp(1.6rem,6svh,5rem) auto;
+ border:1px solid var(--hq-rule);border-radius:1rem;background:var(--hq-panel);box-shadow:none;animation:none}
+.wrap>.card::before{content:none}
+.wrap>form.card{display:grid;align-items:center;gap:clamp(1.25rem,5vw,4rem);
+ grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);width:min(calc(100% - 2 * var(--hq-pad)),63rem);
+ min-height:clamp(18rem,58svh,43rem);padding:0;border:0;border-radius:0;background:none;overflow:visible}
+.intro{max-width:31rem}
+.eyebrow{font-size:.78rem;line-height:1.4;letter-spacing:.12em;color:#ff9869}
+.intro h1{font-size:clamp(2.05rem,4.8vw,4.25rem);line-height:1.04;letter-spacing:-.055em;margin:.65rem 0 1rem}
+p,.intro p{color:var(--hq-muted);font-size:1rem;line-height:1.55}
+.fields{border:1px solid var(--hq-rule);border-radius:1rem;background:var(--hq-panel);padding:clamp(1.15rem,3.3vw,2rem)}
+.fields h2{font-size:1.28rem;letter-spacing:-.03em;margin:0 0 1.1rem}
+.fields label{font-size:.94rem;margin:1rem 0 .4rem}
+.fields input,#up-person{font:inherit;min-height:3rem;border-radius:.55rem;background:var(--hq-bg);border:1px solid #526168;color:var(--hq-ink)}
+.fields input:focus{border-color:var(--hq-orange);box-shadow:0 0 0 2px #f2622240}
+button{background:var(--hq-orange);color:#161a1c;border:1px solid #ff955f;border-radius:.6rem;
+ height:auto;min-height:3rem;padding:.5rem 1rem;margin-top:1.15rem;box-shadow:0 0 12px #f262221c;
+ transition:background-color .15s,box-shadow .15s}
+button:hover:enabled{background:#ff8652;box-shadow:0 0 14px #f2622228}button:active:enabled{background:#f67a44;transform:none}
+button:focus-visible,.portal-links a:focus-visible,.note a:focus-visible,.drop:focus-visible{outline:2px solid var(--hq-orange);outline-offset:4px}
+.note{margin-top:1.2rem;padding-top:1rem;border-color:var(--hq-rule);font-size:.9rem}
+.note a,.portal-links a{color:#ffae87;text-underline-offset:.2em}.err{color:#ffc3bb;background:#301e20;border:1px solid var(--hq-coral);margin:.8rem 0}
+.foot{margin:auto 0 0;width:100%;border-top:1px solid var(--hq-rule);padding:.9rem var(--hq-pad) max(1rem,env(safe-area-inset-bottom));color:var(--hq-muted)}
+.foot small{color:#a6b2b5!important}.portal-links a{min-height:44px}
+.card li.got i{background:#cfd8e4;border-color:#cfd8e4}
+.card .st.ok{border-color:#8596a5;background:#1a2329}
+.card .st.bad{border-color:var(--hq-coral);background:#301e20;color:#ffc3bb}
+@media(max-width:760px){
+ .wrap>form.card{grid-template-columns:minmax(0,1fr);max-width:34rem;min-height:0;gap:1.5rem}
+ .portal-heading .portal-site{display:grid;gap:.1rem;text-align:right}
+ .portal-heading .portal-site span{border:0;padding:0}
 }
+@media(prefers-reduced-motion:reduce){button,input{transition:none}}
 """
+
+
+def _mmg_shell():
+    header = ('<header class="portal-heading">' + qr_brand.portal_masthead(qr_brand.public_mmg_logo(JOB_DIR))
+              + '</header>')
+    return _login_template("MyGear HQ · MMG Dugald River", "Sign in to MyGear HQ", header,
+                           qr_brand.PORTAL_MASTHEAD_CSS + MMG_SHELL_CSS, group="MMG DUGALD RIVER",
+                           intro="Search stock, review equipment on hire and follow the shift stocktake.",
+                           fields_title='<h2>Open your workspace</h2>', autofocus=False)
+
 
 def _users():
     out = {}
@@ -242,14 +276,7 @@ def _session_role(cookie_header, now=None):
 def _login_page(err=""):
     name = html.escape(os.environ.get("PORTAL_NAME", "").strip() or "Tool Store Report")
     box = '<div class="err" role="alert">{}</div>'.format(html.escape(err)) if err else ""
-    page = LOGIN
-    if is_mmg(JOB_DIR):
-        from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
-
-        header = ('<header class="login-masthead">' + lockup(public_mmg_logo(JOB_DIR))
-                  + '<p class="login-site">Dugald River</p></header>')
-        page = _login_template("MyGear HQ · MMG Dugald River", "Sign in to MyGear HQ", header,
-                               LOCKUP_CSS + MMG_LOGIN_CSS)
+    page = _mmg_shell() if is_mmg(JOB_DIR) else LOGIN
     return _mobile_markup(page.replace("__NAME__", name).replace("__ERR__", box)).encode("utf-8")
 
 
@@ -352,15 +379,19 @@ function show(s){
  else if(!s.pack)say('bad','<b>Not ready yet.</b>The job pack has not been loaded. Ask the Manager.');
  return false}
 let submitted=false,submittedBatch='';
-async function poll(){try{const s=await (await fetch('/upload/status',{headers:{'X-Portal':'1'}})).json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'&&submitted){submitted=false;if(submittedBatch&&s.last_upload?.batch!==submittedBatch){say('','<b>A later upload has completed.</b>See the last successful upload below.');return}
- person.value='';for(const k in files)delete files[k];take([]);show(s)}}catch(e){setTimeout(poll,4000)}}
+async function poll(){try{
+ const response=await fetch('/upload/status',{headers:{'X-Portal':'1'}});
+ if(response.redirected||response.status===401){location.assign('/login');return}
+ if(!response.ok)throw new Error('Status unavailable');
+ const s=await response.json();if(show(s))setTimeout(poll,3000);else if(s.state=='ok'&&submitted){submitted=false;if(submittedBatch&&s.last_upload?.batch!==submittedBatch){say('','<b>A later upload has completed.</b>See the last successful upload below.');return}
+ person.value='';for(const k in files)delete files[k];take([]);show(s)}}catch{say('','<b>Checking upload status…</b>Retrying the connection.');setTimeout(poll,4000)}}
 go.onclick=async()=>{if(go.disabled)return;busy=true;buttons();try{let first=1;
  const headers={'X-Portal':'1'};
  if(names.length){headers['X-Upload-By']=person.value;headers['X-Upload-Batch']=crypto.randomUUID()}
  for(const k of K){const f=files[k];if(!f)continue;say('run','<b>Sending '+esc(f.name)+'…</b><div class="bar"></div>');
   const r=await fetch('/upload/export?name='+encodeURIComponent(f.name)+(first?'&first=1':''),{method:'PUT',body:f,headers});first=0;
   if(r.status==401){location.href='/login';return}if(!r.ok)throw new Error(await r.text())}
- const b=await fetch('/upload/build',{method:'POST',headers});if(!b.ok)throw new Error(await b.text());submitted=true;submittedBatch=headers['X-Upload-Batch']||'';poll()}
+ const b=await fetch('/upload/build',{method:'POST',headers});if(b.status===401){location.assign('/login');return}if(!b.ok)throw new Error(await b.text());submitted=true;submittedBatch=headers['X-Upload-Batch']||'';poll()}
  catch(e){say('bad','<b>Not updated.</b>'+esc(e.message));busy=false;buttons()}};
 poll();
 </script>"""
@@ -368,13 +399,7 @@ poll();
 
 def _shell(inner):
     name = html.escape(os.environ.get("PORTAL_NAME", "").strip() or "Tool Store Report")
-    page = LOGIN
-    if is_mmg(JOB_DIR):
-        header = ('<header class="portal-heading">' + qr_brand.portal_masthead(qr_brand.public_mmg_logo(JOB_DIR))
-                  + '</header>')
-        style = (qr_brand.PORTAL_MASTHEAD_CSS + ".portal-heading{padding-bottom:1rem;margin-bottom:1.3rem;"
-                 "border-bottom:1px solid #2b323d}")
-        page = _login_template("MyGear HQ · MMG Dugald River", "", header, style)
+    page = _mmg_shell() if is_mmg(JOB_DIR) else LOGIN
     head, tail = page[:page.index("<form")], page[page.index('<div class="foot">'):]
     return _mobile_markup((head.replace("Sign in · ", "") + inner + tail).replace("__NAME__", name)).encode("utf-8")
 

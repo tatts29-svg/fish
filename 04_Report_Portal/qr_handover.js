@@ -124,7 +124,7 @@
     row.append(node("span","handover-peak-time",matches.map(h => hourRange(h.start)).join(", ")));
     const tube = node("span","direction-pill-host");
     row.append(tube,node("span","handover-peak-count",count(high) + " of " + count(sum) + (matches.length > 1 ? " in each hour" : "")));
-    window.MMGReportInstruments?.pill(tube,high,sum);
+    window.MMGReportInstruments?.pill(tube,high,sum,key);
   }
 
   function shift(parent, r) {

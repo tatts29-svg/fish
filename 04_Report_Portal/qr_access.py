@@ -1,6 +1,8 @@
 """MMG report QR invitations, independent scoped sessions and HTTP endpoints."""
 import base64
 from collections import deque
+from functools import lru_cache
+import gzip
 from http.cookies import SimpleCookie, CookieError
 import hashlib
 import hmac
@@ -17,6 +19,7 @@ import time
 from urllib.parse import parse_qs, urlsplit
 
 from mobile_brand import ICON_LINKS
+from report_delivery import accepts_gzip
 from qr_brand import LOCKUP_CSS, lockup, public_mmg_logo
 import qr_product_art
 import qr_roster
@@ -180,6 +183,36 @@ def _png(url):
     return buffer.getvalue()
 
 
+@lru_cache(maxsize=24)
+def _asset_bytes(path, file_version, compressible):
+    # A refreshed job pack can replace a font while the portal is running.
+    body = path.read_bytes()
+    packed = gzip.compress(body, compresslevel=5, mtime=0) if compressible else None
+    validator = '"' + hashlib.sha256(body).hexdigest() + '"'
+    return body, packed, validator
+
+
+def _asset(request, path, content_type):
+    # The caller has checked the scoped session and the fixed asset whitelist.
+    stat = path.stat()
+    version = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns)
+    body, packed, validator = _asset_bytes(path, version, not content_type.startswith("image/"))
+    headers = [("ETag", "W/" + validator), ("Vary", "Accept-Encoding")]
+    policy = "private, no-cache"
+    previous = request.headers.get("If-None-Match", "").split(",")
+    if any(item.strip().removeprefix("W/") in (validator, "*") for item in previous):
+        request.send_response(304)
+        for key, value in headers:
+            request.send_header(key, value)
+        request._common(policy)
+        request.end_headers()
+        return
+    if packed is not None and accepts_gzip(request.headers.get("Accept-Encoding", "")):
+        body = packed
+        headers.append(("Content-Encoding", "gzip"))
+    return request._send(200, body, content_type, headers=headers, cache_control=policy)
+
+
 def serve(request, data_dir, job_dir):
     """Dispatch only explicit staff-poster and QR routes; never promote a QR session."""
     path = urlsplit(request.path)
@@ -275,15 +308,14 @@ def serve(request, data_dir, job_dir):
             shell = page(scope, job_dir=job_dir, barcode_ready=ready)
             return reply(200, shell.encode(), "text/html; charset=utf-8")
         if read and action in (*report_assets, "badge_decoder.js", "badge_zxing.js"):
-            return reply(200, (HERE / action).read_bytes(),
+            return _asset(request, HERE / action,
                          "text/css; charset=utf-8" if action.endswith(".css") else "text/javascript; charset=utf-8")
         if read and action in BRANDING:
             filename, mime = BRANDING[action]
             try:
-                content = (Path(job_dir) / filename).read_bytes()
+                return _asset(request, Path(job_dir) / filename, mime)
             except FileNotFoundError:
                 return error(404, "Not found.")
-            return reply(200, content, mime)
         import qr_reports
         if scope == "company" and action == "work-note" and request.command == "POST":
             if request.headers.get("X-Portal") != "1":

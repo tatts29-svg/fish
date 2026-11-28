@@ -124,6 +124,33 @@ class LayoutTests(unittest.TestCase):
 @unittest.skipUnless(os.environ.get('COATES_BROWSER_TESTS') == '1',
                      'Set COATES_BROWSER_TESTS=1 to check Chromium mobile rendering')
 class BrowserLayoutTests(unittest.TestCase):
+    def test_enter_on_search_result_keeps_newly_focused_drawer_open(self):
+        from playwright.sync_api import sync_playwright
+        import shutil
+
+        template = (Path(__file__).resolve().parents[1] / 'showcase_page.html').read_text(encoding='utf-8')
+        start = template.index("q.addEventListener('keydown',")
+        handler = template[start:template.index("box.addEventListener('click',", start)]
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(executable_path=shutil.which('chromium'))
+            try:
+                page = browser.new_page()
+                page.set_content('<input id="q"><div id="box"><button class="gsi">Socket</button></div>'
+                                 '<aside hidden><button id="close">Close</button></aside>')
+                page.add_script_tag(content="""
+                    const q=document.querySelector('#q'), box=document.querySelector('#box');
+                    const $$=(s,root)=>[...root.querySelectorAll(s)];
+                    const drawer=document.querySelector('aside'), closeButton=drawer.querySelector('button');
+                    let sel=-1;
+                    box.onclick=()=>{drawer.hidden=false; closeButton.focus()};
+                    closeButton.onclick=()=>{drawer.hidden=true};
+                """ + handler)
+                page.locator('#q').press('Enter')
+                self.assertTrue(page.locator('aside').is_visible())
+                self.assertTrue(page.locator('#close').evaluate('b=>b===document.activeElement'))
+            finally:
+                browser.close()
+
     def test_mobile_numbers_and_badges_remain_readable_without_overflow(self):
         from playwright.sync_api import sync_playwright
         import shutil
