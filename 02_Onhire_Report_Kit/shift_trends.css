@@ -87,10 +87,10 @@
 .shift-trend .stx-detail td,.shift-trend .stx-detail th {text-align:left;padding:.3rem .35rem;border-bottom:1px solid var(--line);color:var(--tx)}
 .shift-trend .stx-detail thead th {font-size:.75rem;color:var(--mu)}
 @media screen and (prefers-reduced-motion:no-preference) {
-  .shift-trend.stx-visible:not(.is-paused) .stx-line {stroke-dasharray:1;animation:stx-enter .85s cubic-bezier(.18,.64,.28,1) both}
+  .shift-trend.stx-visible:not(.is-paused) .stx-line {animation:stx-enter .85s cubic-bezier(.18,.64,.28,1)}
   .shift-trend.stx-visible:not(.is-paused) .stx-flow {display:block;stroke:color-mix(in srgb,var(--signal) 53%,white);opacity:0;stroke-width:2.65;stroke-dasharray:.046 1.25;animation:stx-breathe 6s ease-in-out 1.25s infinite}
   .shift-trend.stx-visible:not(.is-paused) .stx-flow.tone-return {animation-delay:2s}
-  @keyframes stx-enter {from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+  @keyframes stx-enter {from{clip-path:inset(-2% 100% -2% -2%)}to{clip-path:inset(-2% -2% -2% -2%)}}
   @keyframes stx-breathe {0%{stroke-dashoffset:.08;opacity:0}10%{opacity:.85}62%{stroke-dashoffset:-1;opacity:.65}66%,100%{stroke-dashoffset:-1;opacity:0}}
 }
 @media (prefers-reduced-motion:reduce),(forced-colors:active) {
