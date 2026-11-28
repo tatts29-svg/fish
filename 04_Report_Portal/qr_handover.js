@@ -3,7 +3,7 @@
 (() => {
   const months = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(" ");
   const numerals = new Intl.NumberFormat("en-AU");
-  const measured = value => Number.isInteger(value) && value >= 0;
+  const measured = value => Number.isSafeInteger(value) && value >= 0;
   const count = value => measured(value) ? numerals.format(value) : "Unavailable";
   const units = (n, name) => count(n) + " " + name + (n === 1 ? "" : "s");
 
@@ -103,26 +103,28 @@
     return clock + "–" + nextHour + ":00";
   }
 
-  function peak(peaks, s, key, label, starts) {
+  function peak(peaks, s, key, label) {
     const row = node("div","direction-peak");
-    row.append(node("strong","",label));
-    const matches = s.hourly.filter(h => starts.includes(h.start) && measured(h[key]));
-    if (!measured(s[key])) {
+    row.append(node("strong","",label));peaks.append(row);
+    if (!measured(s[key]) || s.hourly.some(h=>!measured(h[key]))) {
       row.append(node("span","","Peak unavailable · incomplete times"));
-    } else if (!s[key]) {
-      row.append(node("span","","None recorded this shift"));
-    } else if (matches.length) {
-      const high = matches[0][key];
-      row.append(node("span","handover-peak-time",matches.map(h => hourRange(h.start)).join(", ")));
-      const tube = node("span","direction-pill-host");
-      row.append(tube,node("span","handover-peak-count",count(high) + " of " + count(s[key]) + (matches.length > 1 ? " in each hour" : "")));
-      peaks.append(row);
-      window.MMGReportInstruments?.pill(tube,high,s[key]);
       return;
-    } else {
-      row.append(node("span","","Peak hour unavailable"));
     }
-    peaks.append(row);
+    const sum = s.hourly.reduce((total,h)=>total+h[key],0);
+    if (sum!==s[key] || new Set(s.hourly.map(h=>h.start)).size!==s.hourly.length) {
+      row.append(node("span","","Peak unavailable · hourly counts differ from the shift record"));
+      return;
+    }
+    if (!sum) {
+      row.append(node("span","","None recorded this shift"));
+      return;
+    }
+    const high = Math.max(...s.hourly.map(h=>h[key]));
+    const matches = s.hourly.filter(h=>h[key]===high);
+    row.append(node("span","handover-peak-time",matches.map(h => hourRange(h.start)).join(", ")));
+    const tube = node("span","direction-pill-host");
+    row.append(tube,node("span","handover-peak-count",count(high) + " of " + count(sum) + (matches.length > 1 ? " in each hour" : "")));
+    window.MMGReportInstruments?.pill(tube,high,sum);
   }
 
   function shift(parent, r) {
@@ -139,8 +141,8 @@
     section.append(title);
     const peaks = node("div","direction-peaks");
     section.append(peaks);
-    peak(peaks,s,"issued","Peak issues",s.peak_issue_hours || []);
-    peak(peaks,s,"returned","Peak returns",s.peak_return_hours || []);
+    peak(peaks,s,"issued","Peak issues");
+    peak(peaks,s,"returned","Peak returns");
     const details = node("details","handover-details");
     details.append(node("summary","","View hourly issues and returns"));
     const tbl = node("table","paper"), thead = tbl.createTHead(), headings = thead.insertRow();

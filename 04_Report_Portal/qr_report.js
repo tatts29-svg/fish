@@ -419,6 +419,11 @@
     }
     panel.append(list,el("p","handover-updates note","The tool store updates reports throughout the day and night. Gear returned after the stock snapshot can still appear on this list. Speak to the tool store controller at any time for a fresh copy or if anything looks wrong."));
   }
+  const validCount = n => Number.isSafeInteger(n) && n >= 0;
+  function earnedRating(record) {
+    return validCount(record?.eligible) && record.eligible >= 5 && finite(record.score) &&
+      record.score >= 1 && record.score <= 5;
+  }
   function stars(value, prefix="rating") {
     const chart=svgNode("svg",{viewBox:"0 0 278 54",class:"rating-stars","aria-hidden":"true",focusable:"false"});
     const defs=svgNode("defs"),path="M24 3.1 30.3 16.3 45.1 18.4 34.4 28.9 37 43.7 24 36.7 11 43.7 13.6 28.9 2.9 18.4 17.7 16.3Z";
@@ -475,31 +480,33 @@
       .filter(d=>dailyWords(d));
   }
   function returnsPanel(parent,r) {
-    const ret=personal ? r.returns : (r.return_rating || {});
+    const ret=(personal ? r.returns : r.return_rating) || {};
     const panel=section(parent,personal ? "Your return record" : "Crew return record",null,true);
     panel.id="return-rating";panel.tabIndex=-1;panel.classList.add("return-panel");
     if (!coveredTransactions(r.coverage)) {
       panel.append(el("p","empty","A tool transaction export with a dated reporting period is needed to show your return record."));return;
     }
     panel.append(el("p","note","Tool transaction export · "+when(r.coverage.transactions_asat)+" AEST"));
-    const earned=finite(ret.score) && ret.score>=1 && ret.score<=5 && ret.eligible>=5;
+    const earned=earnedRating(ret), qualifying=validCount(ret.eligible) && ret.eligible<5;
     const stage=el("div","rating-stage");
     const art=el("div","rating-display");
     if(earned){
       const score=el("strong","rating-value",fmt(ret.score));
       score.append(el("span",""," / 5"));
       art.append(el("p","rating-label","Same-day return rating"),score,stars(ret.score));
-    } else {
+    } else if(qualifying) {
       art.append(el("p","rating-label","Same-day return rating"),el("strong","qualifying-label",personal ? "Building your rating" : "Building the crew rating"));
       const progress=el("div","qualifying-track");progress.setAttribute("aria-hidden","true");
       for(let i=0;i<5;i++)progress.append(el("span",i<ret.eligible?"qualified":""));
       art.append(progress);
+    } else {
+      art.append(el("strong","qualifying-label","Rating unavailable"));
     }
     stage.append(art);
     const evidence=el("div","rating-evidence");
     if(earned){
       evidence.append(el("strong","",fmt(ret.same_day)+" of "+fmt(ret.eligible)+" eligible hires"),el("p","","returned on their issue date."));
-    } else {
+    } else if(qualifying) {
       evidence.append(el("strong","",fmt(ret.eligible)+" of 5 eligible completed hires"),el("p","","A score appears once five hires have a recorded issue and return in the same export period."));
     }
     stage.append(evidence);panel.append(stage);
@@ -567,20 +574,22 @@
   function movementChart(parent, activity) {
     const days=[...activity].sort((a,b)=>a.date.localeCompare(b.date)).slice(-7);
     if (!days.length) return;
-    const toolDays=days.some(d=>d.issued>0 || d.returned>0);
+    const toolDays=days.some(d=>[d.issued,d.returned].some(n=>validCount(n) && n>0));
     const series=toolDays ? ["issued","returned"] : ["consumable_units","consumable_returns"];
-    const maximum=Math.max(...days.flatMap(d=>series.map(k=>d[k]||0)));
+    const observed=toolDays ? validCount : n=>finite(n) && n>=0 && n<=Number.MAX_SAFE_INTEGER;
+    const maximum=Math.max(0,...days.flatMap(d=>series.map(k=>d[k]).filter(observed)));
     if (!(maximum>0)) return;
     const power=10**Math.floor(Math.log10(maximum));
-    const step=[1,2,5,10].map(n=>n*power).find(n=>n>=maximum);
+    const step=Math.min(Number.MAX_SAFE_INTEGER,[1,2,5,10].map(n=>n*power).find(n=>n>=maximum) || maximum);
     const top=16, bottom=111, left=30, right=424, band=(right-left)/days.length;
     const figure=el("figure","movement-figure");
     const cap=el("figcaption");
     cap.append(el("strong","",toolDays ? "Tool movements" : "Consumable movements"),el("span","",days.length===1 ? "One recorded date" : "Latest "+units(days.length,"recorded date")));
     figure.append(cap);
-    const chart=svgNode("svg",{viewBox:"0 0 434 140",role:"img","aria-label":(toolDays?"Tool":"Consumable")+" issues and returns by date. "+days.map(d=>shortDay(d.date)+", "+fmt(d[series[0]])+" issued and "+fmt(d[series[1]])+" returned").join(". ")});
+    const reading=n=>observed(n) ? fmt(n) : "unavailable";
+    const chart=svgNode("svg",{viewBox:"0 0 434 140",role:"img","aria-label":(toolDays?"Tool":"Consumable")+" issues and returns by date. "+days.map(d=>shortDay(d.date)+", issued "+reading(d[series[0]])+", returned "+reading(d[series[1]])).join(". ")});
     const defs=svgNode("defs");
-    const colours=[["#96431f","#ff954b","#ffc293","#ed672b","#9f3d16"],["#69727f","#b9c7d5","#eef3f7","#9ba9b9","#626e7e"]];
+    const colours=[["#224c2a","#b5ed72","#d9fb98","#61a843","#3d722f"],["#214c3e","#a6e9bd","#d0fad5","#62ad87","#396c54"]];
     colours.forEach((cs,index)=>{
       const gradient=svgNode("linearGradient",{id:"movement-"+index});
       ["0%","19%","39%","67%","100%"].forEach((offset,i)=>gradient.append(svgNode("stop",{offset,"stop-color":cs[i]})));
@@ -590,19 +599,27 @@
     for (const tick of [0, ...(step%2===0?[step/2]:[]), step]) {
       const y=bottom-(bottom-top)*tick/step;
       chart.append(svgNode("line",{x1:left,y1:y,x2:right,y2:y,class:"chart-rule"}));
-      const label=svgNode("text",{x:left-5,y:y+4,"text-anchor":"end",class:"axis-value"});label.textContent=fmt(tick);chart.append(label);
+      const label=svgNode("text",{x:left-5,y:y+4,"text-anchor":"end",class:"axis-value"});
+      label.textContent=tick>=1000 ? new Intl.NumberFormat("en-AU",{notation:"compact",maximumFractionDigits:1}).format(tick) : fmt(tick);
+      chart.append(label);
     }
     days.forEach((day,i)=>{
       const mid=left+band*(i+.5),w=Math.min(band*.25,18);
       series.forEach((key,j)=>{
-        const n=day[key]||0;
-        if (n<=0) return;
-        const height=(bottom-top)*n/step, y=bottom-height, x=mid+(j===0 ? -w-1.2 : 1.2);
-        const bar=svgNode("g");
+        const n=day[key], x=mid+(j===0 ? -w-1.2 : 1.2);
+        if (!observed(n)) {
+          chart.append(svgNode("line",{class:"chart-unavailable",x1:x+w*.25,x2:x+w*.75,y1:bottom-2,y2:bottom-2,stroke:"currentColor"}));
+          return;
+        }
+        if (!n) return;
+        const height=(bottom-top)*(n/step), y=bottom-height, bounds="movement-cut-"+i+"-"+j;
+        const cut=svgNode("clipPath",{id:bounds});
+        cut.append(svgNode("rect",{x,y,width:w,height}));defs.append(cut);
+        const bar=svgNode("g",{class:j ? "movement-return" : "movement-issue","clip-path":"url(#"+bounds+")"});
         const cap=Math.min(2,height*.17);
         bar.append(svgNode("rect",{x,y:y+cap,width:w,height:Math.max(0,height-cap*2),fill:"url(#movement-"+j+")"}));
         bar.append(svgNode("ellipse",{cx:x+w/2,cy:bottom-cap,rx:w/2,ry:cap,fill:"url(#movement-"+j+")"}));
-        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:j===0?"#ffb37e":"#d4dfe7"}));
+        bar.append(svgNode("ellipse",{cx:x+w/2,cy:y+cap,rx:w/2,ry:cap,fill:j===0?"#d9fb98":"#d0fad5"}));
         if(height>=13 && w>=7){
           bar.append(svgNode("line",{x1:x+w*.24,y1:y+cap*2,x2:x+w*.24,y2:bottom-cap*2,stroke:"white","stroke-opacity":".32","stroke-width":".65"}));
           const bubble=svgNode("circle",{cx:x+w*.62,cy:y+7,r:Math.min(1.5,w*.1),class:"chart-bubble"});
@@ -615,7 +632,9 @@
     });
     figure.append(chart);
     const legend=el("div","movement-legend");
-    legend.append(el("span","key-issue","Issued"),el("span","key-return","Returned"));figure.append(legend);
+    legend.append(el("span","key-issue","Issued"),el("span","key-return","Returned"));
+    if (days.some(d=>series.some(k=>!observed(d[k])))) legend.append(el("span","key-unknown","Unavailable"));
+    figure.append(legend);
     parent.append(figure);
   }
   function itemMix(parent,summary) {
@@ -811,9 +830,9 @@
       (!personal && finite(handover.current_holders) ? units(handover.current_holders,"identified holder") : units(r.hires.length,"equipment type"));
     const eligible=personal ? r.returns?.eligible : r.return_rating?.eligible;
     const score=personal ? r.returns?.score : r.return_rating?.score;
-    const earned=tools && finite(score) && eligible>=5;
+    const earned=tools && earnedRating(personal ? r.returns : r.return_rating);
     const ratingStatus=earned ? fmt(score)+" / 5 · same-day returns" :
-      tools && finite(eligible) ? "Building rating · "+fmt(eligible)+" of 5 hires" : "Rating awaiting records";
+      tools && validCount(eligible) && eligible<5 ? "Building rating · "+fmt(eligible)+" of 5 hires" : "Rating awaiting records";
     $("name-rating").append(stars(earned ? score : 0,"identity"),el("span","rating-status",ratingStatus));
     $("direction-strap").textContent=personal ?
       (cov.sales_asat ? units(r.consumable_summary.units,"consumable unit")+" issued this shutdown" : "Consumables · sales data unavailable") :

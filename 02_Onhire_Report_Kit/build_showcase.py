@@ -31,6 +31,7 @@ import qr_facts
 import stocktake  # noqa: E402
 import sds_register  # noqa: E402
 import utilisation  # noqa: E402
+from variant_history import unique_assets
 
 
 def _kit():
@@ -349,6 +350,50 @@ def _band(vals):
             {"name": "Busiest shut", "n": round(max(vals))}]
 
 
+def _issue_hours(rental, asat):
+    hours = list(range(asat.hour + 1))
+    counts, back = [0] * len(hours), [0] * len(hours)
+    issued = out = unknown = 0
+    for row in rental:
+        if _date(row.get("ON_HIRE_DATE")) != asat.date():
+            continue
+        clock = _time(row.get("ON_HIRE_TIME"))
+        # Stock exports give their pull time to the minute, not the second.
+        if clock and (clock.hour, clock.minute) > (asat.hour, asat.minute):
+            continue
+        is_out = str(row.get("ITEM_STATUS") or "").strip().casefold() == "on hire"
+        issued += 1
+        out += is_out
+        if clock:
+            counts[clock.hour] += 1
+            back[clock.hour] += int(not is_out)
+        else:
+            unknown += 1
+    return dict(hours=[f"{hour:02}:00" for hour in hours], counts=counts, back=back,
+                issued=issued, out=out, unknown=unknown)
+
+
+def _replenishment(stock, targets):
+    below = []
+    minimum_lines = maximum_lines = 0
+    to_max = 0
+    for row in stock:
+        target = targets.get(str(row.get("SKU_NUMBER") or "").strip())
+        have = row["AVAILABLE_QUANTITY"]
+        if not target or have is None or have < 0:
+            continue
+        minimum, maximum = target
+        if maximum is not None:
+            maximum_lines += 1
+            to_max += max(0, maximum - have)
+        if minimum is not None:
+            minimum_lines += 1
+            if have < minimum:
+                below.append((row, have, minimum, maximum))
+    below.sort(key=lambda item: item[1] - item[2])
+    return below, to_max, minimum_lines, maximum_lines
+
+
 def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=None, ops=None, keepers=("", ""), pictures=None, people=None, opening_baseline=None, qr_report_data=None, qr_report_prior=None, approved_names=None):
     s = kit.the_site(folder)
     kit._NAMES["aliases"] = kit.read_aliases(folder)
@@ -358,7 +403,8 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     kit._NAMES["acronyms"] = s.acronyms
     find = lambda stem: kit.find_export(folder, stem + "*.xlsx", s)
     p_rental, p_sales, p_trans = find("RENTAL_STOCK"), find("SALES_STOCK"), find("TRANSACTIONS")
-    rental = kit._rows(p_rental, "RENTAL_STOCK", must_have=True)
+    raw_rental = kit._rows(p_rental, "RENTAL_STOCK", must_have=True)
+    rental, missing_assets, conflicting_assets = unique_assets(raw_rental)
     sales = kit._rows(p_sales, "SALES_STOCK", must_have=True)
     ref = _ref_time(kit, p_rental)
     tref = _ref_time(kit, p_trans) if p_trans else {}
@@ -369,10 +415,10 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     asat = ref["requested"]
     today = asat.date()
 
-    coates = [r for r in rental if "COATES" in kit._s(r.get("OWNER")).upper()]
-    others = [r for r in rental if "COATES" not in kit._s(r.get("OWNER")).upper()]
+    coates = [r for r in rental if kit._s(r.get("OWNER")).casefold() == "coates"]
+    others = [r for r in rental if kit._s(r.get("OWNER")).casefold() != "coates"]
     other_owner = collections.Counter(kit.co_name(r.get("OWNER")) for r in others).most_common(1)
-    other_owner = other_owner[0][0] if other_owner else "Customer"
+    other_owner = (other_owner[0][0] or "Other") if len({kit.co_name(r.get("OWNER")) for r in others}) == 1 else "Other"
     on = [r for r in rental if kit._s(r.get("ITEM_STATUS")) == "On Hire"]
     held = [r for r in coates if kit._s(r.get("ITEM_STATUS")) == "Failed Baseplan"]
 
@@ -400,69 +446,61 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     fam_fleet = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in coates)
     fam_on = collections.Counter(_family(r.get("PRODUCT_FAMILY")) for r in on if r in coates)
 
-    issued_today, back_today = [], []
-    for r in rental:
-        d, t = _date(r.get("ON_HIRE_DATE")), _time(r.get("ON_HIRE_TIME"))
-        if d == today and t:
-            issued_today.append((t, r))
-    hours = list(range(5, 24))
-    hour_out = [0] * len(hours)
-    hour_back = [0] * len(hours)
-    for t, r in issued_today:
-        if t.hour in hours:
-            i = hours.index(t.hour)
-            hour_out[i] += 1
-            if kit._s(r.get("ITEM_STATUS")) != "On Hire":
-                hour_back[i] += 1
-    still_out_today = sum(1 for t, r in issued_today if kit._s(r.get("ITEM_STATUS")) == "On Hire")
-
+    # RENTAL_STOCK is one latest issue per asset, including items that
+    # have since come off hire. It is not a transaction ledger.
+    hourly = _issue_hours(rental, asat)
+    issued_today, still_out_today = hourly["issued"], hourly["out"]
     stock = [r for r in sales if not kit._s(r.get("COMPANY_NAME"))]
     for row in stock:
         row["AVAILABLE_QUANTITY"] = sds_register.stock_quantity(row.get("AVAILABLE_QUANTITY"))
     drawn = [r for r in sales if kit._n(r.get("SALES_QUANTITY")) > 0]
-    units = sum(kit._n(r.get("AVAILABLE_QUANTITY")) for r in stock)
+    def shelf_balance(row):
+        quantity = row["AVAILABLE_QUANTITY"]
+        return quantity if quantity is not None and quantity >= 0 else None
+
+    balances = [shelf_balance(r) for r in stock]
+    unknown_balances = balances.count(None)
+    units = sum(balance for balance in balances if balance is not None)
     ctype = collections.Counter()
     for r in stock:
         ctype[_cons_type(r.get("SKU_DESCRIPTION"))] += kit._n(r.get("AVAILABLE_QUANTITY"))
     top_lines = sorted(stock, key=lambda r: -kit._n(r.get("AVAILABLE_QUANTITY")))[:8]
 
-    below, to_max, mm_lines = [], 0, 0
     if minmax and os.path.isfile(minmax):
         import openpyxl
-        ws = openpyxl.load_workbook(minmax, data_only=True, read_only=True)["Min Max"]
+        book = openpyxl.load_workbook(minmax, data_only=True, read_only=True)
+        ws = book["Min Max"]
         mm = {}
         hdr = [str(c or "").strip().upper() for c in next(ws.iter_rows(min_row=5, max_row=5, values_only=True))]
         i_mn, i_mx = hdr.index("MIN"), hdr.index("MAX")
         i_pd = next((i for i, v in enumerate(hdr) if v.startswith("PER DAY")), None)
         mm_pd = {}
         for row in ws.iter_rows(min_row=6, values_only=True):
-            if row[0] and isinstance(row[i_mn], (int, float)):
-                mm[str(row[0])] = (row[i_mn], row[i_mx])
+            if row[0]:
+                minimum = sds_register.stock_quantity(row[i_mn])
+                maximum = sds_register.stock_quantity(row[i_mx])
+                minimum = minimum if minimum is not None and minimum >= 0 else None
+                maximum = maximum if maximum is not None and maximum >= (minimum or 0) else None
+                mm[str(row[0])] = (minimum, maximum)
                 if i_pd is not None and isinstance(row[i_pd], (int, float)):
                     mm_pd[str(row[0])] = row[i_pd]
-        for r in stock:
-            sku = kit._s(r.get("SKU_NUMBER"))
-            if sku in mm and mm[sku][1]:
-                mm_lines += 1
-                have = kit._n(r.get("AVAILABLE_QUANTITY"))
-                mn, mx = mm[sku]
-                to_max += max(0, mx - have)
-                if have < mn:
-                    below.append({"line": _cons_name(kit, r.get("SKU_DESCRIPTION")), "have": int(have), "min": int(mn), "max": int(mx)})
-        below.sort(key=lambda x: x["have"] - x["min"])
+        book.close()
         peaks = _cons_peaks(minmax)
     else:
         mm, mm_pd, peaks = {}, {}, {}
+    low_rows, to_max, mm_lines, max_lines = _replenishment(stock, mm)
+    below = [{"line": _cons_name(kit, row.get("SKU_DESCRIPTION")), "have": have, "min": minimum, "max": maximum}
+             for row, have, minimum, maximum in low_rows]
     clines = []
     for r in stock:
         sku = kit._s(r.get("SKU_NUMBER"))
         clines.append({"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "type": catalogue.cons_category(r.get("SKU_DESCRIPTION")),
-                       "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": int(kit._n(r.get("AVAILABLE_QUANTITY"))),
+                       "word": _cons_type(r.get("SKU_DESCRIPTION")), "have": shelf_balance(r),
                        "owner": kit.co_name(r["OWNER"]) if r.get("OWNER") else "",
                        "storage_location": " / ".join(dict.fromkeys(kit._s(r.get(k)) for k in ("TOOLSTORE", "STORAGE_UNIT") if kit._s(r.get(k)))),
                        "uom": kit._s(r.get("UOM") or r.get("UNIT_OF_MEASURE")),
                        "stock_quantity": r["AVAILABLE_QUANTITY"],
-                       "min": int(mm[sku][0]) if sku in mm else None, "max": int(mm[sku][1]) if sku in mm else None,
+                       "min": mm[sku][0] if sku in mm else None, "max": mm[sku][1] if sku in mm else None,
                        "pd": round(mm_pd[sku], 1) if sku in mm_pd else None,
                        "peak": peaks.get(sku, {}).get("peak"), "avgpeak": peaks.get(sku, {}).get("avgpeak"),
                        "most": peaks.get(sku, {}).get("most"),
@@ -474,9 +512,9 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     counter_days = 7
     day_no = (today - counter_start).days + 1
 
-    snap = {"asat": asat.strftime("%Y-%m-%d %H:%M"), "on_hire": len(on), "issued_today": len(issued_today),
+    snap = {"asat": asat.strftime("%Y-%m-%d %H:%M"), "on_hire": len(on), "issued_today": issued_today,
             "coates_out": sum(1 for r in on if r in coates), "other_out": sum(1 for r in on if r not in coates),
-            "cons_units": int(units)}
+            "cons_units": units}
     hist = []
     if history:
         try:
@@ -563,14 +601,14 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
 
     top_kinds = [k for k, _ in kinds_on.most_common(6)]
     sh = json.load(open(shuts)) if shuts and os.path.isfile(shuts) else None
-    best = collections.Counter()
+    best = {}
     if sh:
         for t in sh["tools"]:
             for k, v in t["peaks"].items():
-                best[k] = max(best[k], v)
-    cand = [k for k in kinds_fleet if kinds_on[k] or best[k]]
-    cand.sort(key=lambda k: (-max(kinds_on[k], best[k]), -kinds_on[k], k))
-    tools_util = [{"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k)} for k in cand[:12]]
+                best[k] = max(best.get(k, 0), v)
+    cand = [k for k in kinds_fleet if kinds_on[k] or best.get(k)]
+    cand.sort(key=lambda k: (-max(kinds_on[k], best.get(k, 0)), -kinds_on[k], k))
+    tools_util = [{"name": dname.get(k, k), "site": kinds_fleet[k], "on": kinds_on[k], "best": best.get(k), "pic": dpic.get(k)} for k in cand[:12]]
     data = {
         "job": {"title": "MMG Dugald River", "sub": "Shutdown Tool Store · November 2026 shut",
                 "schedule": ref.get("schedule", ""), "day": day_no, "days": counter_days,
@@ -580,13 +618,16 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "asat_day": asat.strftime("%A"),
         "tx_window": ("{} to {}".format(tref["period"][0].strftime("%d %b %H:%M"), tref["period"][1].strftime("%d %b %H:%M"))
                       if tref.get("period") else ""),
-        "k": {"on": len(on), "issued_today": len(issued_today), "still_out_today": still_out_today,
-              "back_today": len(issued_today) - still_out_today, "companies": len(by_co), "people": len(by_hirer),
-              "store": len(rental), "coates": len(coates), "coates_out": snap["coates_out"],
-              "coates_ready": len(coates) - len(held), "held": len(held), "other": len(others),
+        "k": {"on": len(on), "issued_today": issued_today, "still_out_today": still_out_today,
+              "back_today": issued_today - still_out_today, "companies": len(by_co), "people": len(by_hirer),
+              "store": len(rental), "excluded_missing_id": missing_assets, "excluded_conflicting_id": conflicting_assets,
+              "coates": len(coates), "coates_out": snap["coates_out"],
+              "coates_ready": len(coates) - len(held),
+              "coates_available": sum(kit._s(r.get("ITEM_STATUS")).casefold() == "available for hire" for r in coates), "held": len(held), "other": len(others),
               "other_out": snap["other_out"], "other_owner": other_owner,
-              "cons_lines": len(stock), "cons_units": int(units), "cons_drawn": len(drawn)},
-        "hours": ["{:02d}:00".format(h) for h in hours], "hour_out": hour_out, "hour_back": hour_back,
+              "cons_lines": len(stock), "cons_unknown_lines": unknown_balances, "cons_units": units, "cons_drawn": len(drawn)},
+        "hours": hourly["hours"], "hour_out": hourly["counts"], "hour_back": hourly["back"],
+        "issue_hour_unknown": hourly["unknown"],
         "companies": [{"name": k, "n": v} for k, v in by_co.most_common()],
         "hirers": [{"name": k[0], "co": k[1], "n": v, "pk": " ".join(k[0].split()).upper()} for k, v in by_hirer.most_common()],
         "kinds": [{"name": dname.get(k, k), "on": kinds_on[k], "fleet": kinds_fleet[k], "pic": dpic.get(k)} for k in top_kinds],
@@ -607,11 +648,11 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "assets": [{"i": kit._s(r.get("ITEM_NUMBER")), "b": kit._s(r.get("ITEM_BARCODE")), "dk": dkey(r),
                     "status": kit._s(r.get("ITEM_STATUS"))} for r in rental],
         "draws": draws,
-        "tools": {k: {"name": dname.get(k, k), "available": available[k], "site": kinds_fleet[k], "on": kinds_on[k], "best": best[k], "pic": dpic.get(k), "var": dvar.get(k),
+        "tools": {k: {"name": dname.get(k, k), "available": available[k], "site": kinds_fleet[k], "on": kinds_on[k], "best": best.get(k), "pic": dpic.get(k), "var": dvar.get(k),
                       "own": "Coates" if True in down.get(k, {True}) else other_owner, "tag": tag_of.get(k)}
                   for k in kinds_fleet},
         "clines": clines,
-        "utilisation": utilisation.build(rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name),
+        "utilisation": utilisation.build(raw_rental, asat, p_trans, tref, ref.get("schedule"), best, kit.co_name),
         "stocktake": stocktake.build(folder, find("STOCKTAKE"), ref.get("schedule", ""), rental, stock, opening_baseline),
         "people": people_rows, "ptyp": ptyp,
         "ops": _ops(kit, ops),
@@ -620,11 +661,12 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
         "shifts": {"day": {"name": "Day shift", "hours": "06:00 to 18:00", "who": keepers[0]},
                    "night": {"name": "Night shift", "hours": "18:00 to 06:00", "who": keepers[1]}},
         "cat": {"tools": catalogue.tool_catalogue(rental, lambda r: kit._s(r.get("ITEM_STATUS")) == "On Hire", pix.of),
-                "cons": catalogue.cons_catalogue(stock, lambda r: kit._n(r.get("AVAILABLE_QUANTITY")),
+                "cons": catalogue.cons_catalogue(stock, shelf_balance,
                                                  lambda k: _cons_name(kit, k))},
         "cons_types": [{"name": k, "n": int(v)} for k, v in ctype.most_common(8)],
-        "cons_top": [{"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "n": int(kit._n(r.get("AVAILABLE_QUANTITY")))} for r in top_lines],
-        "below": below, "to_max": int(to_max), "mm_lines": mm_lines,
+        "cons_top": [{"name": _cons_name(kit, r.get("SKU_DESCRIPTION")), "n": shelf_balance(r)}
+                     for r in top_lines if shelf_balance(r) is not None],
+        "below": below, "to_max": to_max, "mm_lines": mm_lines, "max_lines": max_lines,
         "history": hist,
         "ref": ({k: v for k, v in json.load(open(reference)).items() if k in ("label", "source", "days", "tool_issued", "cons_units")}
                 if reference and os.path.isfile(reference) else None),
@@ -632,7 +674,7 @@ def build_data(kit, folder, reference=None, minmax=None, history=None, shuts=Non
     if qr_report_data:
         if s.customer.strip().casefold() != "mmg" or "dugald river" not in s.location.casefold():
             raise ValueError("QR reports require the MMG Dugald River job configuration.")
-        qr_facts.write(qr_report_data, kit, rental, sales, p_trans, ref, sales_ref, tref, _date, _time,
+        qr_facts.write(qr_report_data, kit, raw_rental, sales, p_trans, ref, sales_ref, tref, _date, _time,
                        dname, lambda name: _cons_name(kit, name), qr_report_prior,
                        lambda name, owner: _approved_asset_name(name, owner, approved_names),
                        lambda owner: _asset_owner(kit, owner))
@@ -905,7 +947,7 @@ def _merge_same_names(data):
                 keep["available"] += t["available"]
             else:
                 keep.pop("available", None)
-            keep["best"] = max(keep.get("best") or 0, t.get("best") or 0)
+            keep["best"] = max((v for v in (keep.get("best"), t.get("best")) if v is not None), default=None)
             if keep.get("pic") is None:
                 keep["pic"] = t.get("pic")
             if t.get("tag") and not keep.get("tag"):
@@ -930,7 +972,7 @@ def _merge_same_names(data):
             for f in adds:
                 m[f] = (m.get(f) or 0) + (t.get(f) or 0)
             for f in tops:
-                m[f] = max(m.get(f) or 0, t.get(f) or 0)
+                m[f] = max((v for v in (m.get(f), t.get(f)) if v is not None), default=None)
             if "pic" in m and m.get("pic") is None:
                 m["pic"] = t.get("pic")
         return list(out.values())
@@ -939,6 +981,12 @@ def _merge_same_names(data):
         data["kinds"] = sorted(join(data["kinds"], ("on", "fleet")), key=lambda t: -(t.get("on") or 0))
     if data.get("tools_util"):
         data["tools_util"] = join(data["tools_util"], ("on", "site"), ("best",))
+        # The shortlist was selected before approved-name aliases merged.
+        # Even an alias outside the shortlist belongs in that kind's denominator.
+        for row in data["tools_util"]:
+            group = tools.get(row.get("dk"))
+            if group:
+                row.update(on=group["on"], site=group["site"], best=group.get("best"))
     for g in (data.get("tagged") or {}).get("groups", []):
         g["kinds"] = sorted(join(g.get("kinds", []), ("n",)), key=lambda t: -(t.get("n") or 0))
     for person in data.get("people") or []:

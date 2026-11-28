@@ -1,0 +1,116 @@
+"""Run with python tests/qr_chart_browser.py. Uses intercepted synthetic MMG records."""
+from pathlib import Path
+import re
+import shutil
+import sys
+from urllib.parse import urlsplit
+
+from playwright.sync_api import expect, sync_playwright
+
+APP = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(APP))
+import qr_reports
+import qr_views
+from test_qr_reports import ScopedReports
+
+
+def check(browser, fixture):
+    bp = browser.new_context(viewport={"width":390,"height":844}, reduced_motion="reduce")
+    page = bp.new_page()
+    badge = fixture.person["barcode"]
+    report = qr_reports.personal(fixture.dir, badge)
+    errors = []
+    page.on("pageerror", lambda err: errors.append(str(err)))
+    def route(req):
+        uri = urlsplit(req.request.url)
+        assert uri.hostname == "test.invalid"
+        name = uri.path.rsplit("/", 1)[-1]
+        if not name:
+            return req.fulfill(body=qr_views.page("personal", job_dir=fixture.dir), content_type="text/html")
+        if name == "report":
+            return req.fulfill(json=report)
+        if name.startswith("qr_") and name.endswith((".js", ".css")):
+            return req.fulfill(path=APP/name)
+        return req.fulfill(status=404)
+    bp.route("**/*", route)
+    page.goto("https://test.invalid/qr/personal/")
+    def lookup():
+        page.locator("#identity").fill(badge)
+        page.locator("#lookup-form button[type=submit]").click()
+        expect(page.locator("#report-heading")).to_have_text(report["name"])
+    lookup()
+    # Inspect rendered CSS geometry and the final SVG wet-layer clip, including subpixel values.
+    result = page.evaluate("""() => {
+        const d=document.createElement("div"), p=document.createElement("span");
+        document.body.append(d,p);
+        p.style.cssText="position:absolute;width:242px;height:12px;box-sizing:border-box";
+        const cases=[[0,12],[1,100000],[3,12],[6,12],[9,12],[12,12],[Number.MAX_SAFE_INTEGER,Number.MAX_SAFE_INTEGER]];
+        const rows=cases.map(([n,total])=>{
+          MMGReportInstruments.mount(d,{issued:n,returned:total});
+          const clip=d.querySelector('clipPath rect'), dial=d.querySelector('.direction-dial'), wet=dial.querySelector('.direction-water');
+          MMGReportInstruments.pill(p,n,total);
+          const fill=p.querySelector('.direction-pill-fill'), measuredWidth=fill?.getBoundingClientRect().width || 0;
+          return {n,total,y:Number(clip.getAttribute('y')),h:Number(clip.getAttribute('height')),allWetClipped:
+            wet ? wet.getAttribute('clip-path')==='url(#'+clip.parentElement.id+')' : n===0,
+            width:measuredWidth / p.clientWidth,number:dial.querySelector('strong').textContent};
+        });
+        for(const [value,total] of [[1,0],[-3,9],[null,4],[8,5],[3,NaN]]) {
+          MMGReportInstruments.pill(p,value,total);
+          if(!p.classList.contains('direction-unmeasured') || p.children.length) throw Error('Unknown pill incorrectly marked');
+        }
+        for(const n of [null,-1,NaN,2**53]) {
+          MMGReportInstruments.mount(d,{issued:n,returned:0});
+          if(!d.querySelector('.direction-unmeasured') || d.querySelector('.direction-water')) throw Error('Unknown tube incorrectly marked');
+        }
+        const area=document.createElement('section');document.body.append(area);
+        MMGStoreStory.append(area,{kind:'person',store_activity:{active_days:1,interactions:100001,timed_events:100001,
+          hourly:[{hour:0,interactions:100000},{hour:1,interactions:1},{hour:2,interactions:0},{hour:3,interactions:-3}],
+          busiest_hours:[2]}});
+        const bars=area.querySelectorAll('.store-hour-bar');
+        const clock={tiny:bars[1].getBoundingClientRect().height,full:bars[0].getBoundingClientRect().height,
+          missing:area.querySelectorAll('.store-hour-unknown').length, highest:area.querySelector('.store-peak-readout').textContent};
+        area.remove();d.remove();p.remove();return {rows,clock};
+    }""")
+    for row in result["rows"]:
+        fraction = row["n"] / row["total"]
+        assert abs(row["h"] - 80 * fraction) < .000001, row
+        assert abs(row["y"] + row["h"] - 96) < .000001 and row["allWetClipped"], row
+        assert abs(row["width"] - fraction) < 1/240, row
+        assert row["number"].replace(",", "") == str(row["n"]), row
+    clock = result["clock"]
+    assert clock["full"] > 30 and clock["tiny"] <= .016 and clock["missing"] == 21, clock
+    assert "00:00–01:00" in clock["highest"], clock
+    # Exercise the complete report renderer and its actual daily series and star graphics.
+    page.locator("#finish-report").click()
+    report["returns"].update(score=2.5, eligible=8, same_day=3)
+    source = next(ch for ch in report["story"] if ch["current"])
+    source["activity"] = [{"date":"2026-11-26","issued":1,"returned":100000},
+                          {"date":"2026-11-27","issued":None,"returned":-2}]
+    lookup()
+    for selector in ("#name-rating", "#return-rating"):
+        assert page.locator(selector+" .rating-fill").count() == 3
+        assert float(page.locator(selector+" .rating-fill").last.get_attribute("width")) == 24
+    assert page.locator(".movement-figure .chart-unavailable").count() == 2
+    expect(page.locator(".movement-figure svg")).to_have_attribute("aria-label", re.compile("issued unavailable, returned unavailable"))
+    bounds=page.locator(".movement-figure defs clipPath rect").evaluate_all("(rows)=>rows.map(r=>+r.getAttribute('height'))")
+    assert len(bounds)==2 and abs(bounds[0]/bounds[1]-1/100000)<1e-8, bounds
+    page.locator("#finish-report").click()
+    report["returns"].update(score=7,eligible=8)
+    lookup()
+    assert not page.locator(".rating-fill,.qualifying-track").count()
+    expect(page.locator("#return-rating")).to_contain_text("Rating unavailable")
+    assert not errors, errors
+    bp.close()
+
+
+if __name__ == "__main__":
+    fixture=ScopedReports()
+    fixture.setUp()
+    try:
+        with sync_playwright() as pw:
+            browser=pw.chromium.launch(executable_path=shutil.which("chromium"),args=["--disable-background-networking"])
+            check(browser,fixture)
+            browser.close()
+            print("Scoped gauge geometry, measurement validity and fractional ratings passed")
+    finally:
+        fixture.doCleanups()

@@ -4,7 +4,7 @@ from datetime import date, datetime, time
 
 from openpyxl import load_workbook
 
-from variant_history import snapshot_key
+from variant_history import snapshot_key, unique_assets
 
 
 def clean(value):
@@ -74,19 +74,13 @@ def transaction_use(path, window, fleet_ids):
 
 
 def build(rental, asat, transactions, txref, schedule, prior_peaks=None, owner_label=clean):
-    period = txref.get("period") if schedule and txref.get("schedule") == schedule else None
+    period = txref.get("period") if transactions and schedule and txref.get("schedule") == schedule else None
     if period:
         start, end = period
         end = min(end, asat, txref.get("requested") or asat)
         period = (start, end) if start <= end else None
-    fleet = {}
-    excluded = 0
-    for r in rental:
-        asset_id = clean(r.get("ITEM_NUMBER"))
-        if asset_id:
-            fleet.setdefault(asset_id, r)
-        else:
-            excluded += 1
+    supported, excluded, conflicts = unique_assets(rental)
+    fleet = {clean(r.get("ITEM_NUMBER")): r for r in supported}
     evidence = transaction_use(transactions, period, fleet) if period and transactions else {}
     groups = {}
     names_by_group = {}
@@ -131,6 +125,6 @@ def build(rental, asat, transactions, txref, schedule, prior_peaks=None, owner_l
         group["assets"].sort(key=lambda a: a["id"])
     variants = sorted(groups.values(), key=lambda g: (g["name"].casefold(), g["variant"], g["owner"]))
     return {"asat": asat.isoformat(), "period": {"start": period[0].isoformat(), "end": period[1].isoformat()} if period else None,
-            "variants": variants, "excluded_missing_id": excluded,
+            "variants": variants, "excluded_missing_id": excluded, "excluded_conflicting_id": conflicts,
             "totals": {"fleet": len(fleet), "on": sum(g["on"] for g in variants),
                        "used": len(evidence) if period else None}}

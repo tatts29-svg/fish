@@ -4,6 +4,25 @@ from openpyxl import load_workbook
 from build_onhire_workbook import read_aliases
 
 
+def unique_assets(rows):
+    """Return one supported state per literal asset ID, omitting conflicting assignments."""
+    items, signatures, conflicts = {}, {}, set()
+    missing = 0
+    fields = ("OWNER", "PRODUCT_VARIANT", "PRODUCT_FAMILY", "ITEM_DESCRIPTION", "ITEM_STATUS",
+              "COMPANY_NAME", "HIRER_NAME", "ON_HIRE_DATE", "ON_HIRE_TIME", "ITEM_BARCODE")
+    for row in rows:
+        item = str(row.get("ITEM_NUMBER") or "").strip()
+        if not item:
+            missing += 1
+            continue
+        signature = tuple(" ".join(str(row.get(field) or "").split()).casefold() for field in fields)
+        if item in items and signatures[item] != signature:
+            conflicts.add(item)
+        else:
+            items[item], signatures[item] = row, signature
+    return [r for item, r in items.items() if item not in conflicts], missing, len(conflicts)
+
+
 def snapshot_key(row):
     def norm(field):
         return " ".join(str(row.get(field) or "").upper().split())
@@ -31,25 +50,35 @@ def rental_snapshot(workbook, kit_folder):
         rows = iter(wb["RENTAL_STOCK"].values)
         columns = [str(column or "").strip() for column in next(rows)]
         fields = ("ITEM_NUMBER", "OWNER", "PRODUCT_VARIANT", "ITEM_DESCRIPTION", "ITEM_STATUS")
-        positions = {key: columns.index(key) for key in fields}
-        counts, labels, seen = {}, {}, set()
-        for values in rows:
-            row = {key: str(values[i] or "").strip() for key, i in positions.items()}
-            asset = row["ITEM_NUMBER"]
-            if not asset or asset in seen:
-                continue
-            seen.add(asset)
-            row["OWNER"] = owners.get(row["OWNER"].upper(), row["OWNER"])
+        if any(field not in columns for field in fields):
+            raise ValueError("Missing rental stock fields")
+        company_aliases = read_aliases(str(kit_folder), "COMPANY_ALIASES.txt")
+        def raw_rows():
+            for values in rows:
+                row = dict(zip(columns, values))
+                owner = str(row.get("OWNER") or "").strip()
+                status = str(row.get("ITEM_STATUS") or "").strip()
+                row["OWNER"] = owners.get(owner.upper(), owner)
+                row["ITEM_STATUS"] = statuses.get(status.upper(), status)
+                yield row
+        fleet, missing, conflicts = unique_assets(raw_rows())
+        counts, labels, owner_counts = {}, {}, {}
+        for row in fleet:
             key = snapshot_key(row)
-            status = statuses.get(row["ITEM_STATUS"].upper(), row["ITEM_STATUS"])
-            totals = counts.setdefault(key, [0, 0])
-            totals[0] += 1
-            totals[1] += status.casefold() == "on hire"
-            label = labels.setdefault(key, {"name": row["ITEM_DESCRIPTION"], "owner": row["OWNER"],
+            owner = str(row.get("OWNER") or "").strip()
+            display = company_aliases.get(owner.upper(), owner)
+            if display.casefold() == "coates":
+                display = "Coates"
+            on = row["ITEM_STATUS"].casefold() == "on hire"
+            for totals in (counts.setdefault(key, [0, 0]), owner_counts.setdefault(key, {}).setdefault(display, [0, 0])):
+                totals[0] += 1
+                totals[1] += on
+            label = labels.setdefault(key, {"name": row["ITEM_DESCRIPTION"], "owner": display,
                                             "variant": row["PRODUCT_VARIANT"]})
-            if label["owner"] != row["OWNER"]:
+            if label["owner"] != display:
                 label["owner"] = "Multiple owners"
-        return {"asat": stamp.isoformat(timespec="seconds"), "counts": counts, "labels": labels}
+        return {"asat": stamp.isoformat(timespec="seconds"), "counts": counts, "labels": labels,
+                "owner_counts": owner_counts, "excluded_missing_id": missing, "excluded_conflicting_id": conflicts}
     except (ValueError, KeyError, StopIteration, IndexError) as exc:
         raise ValueError("A dated SiteIQ rental-stock export with variant and status columns is required.") from exc
     finally:

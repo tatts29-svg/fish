@@ -116,7 +116,7 @@ summary::-webkit-details-marker{display:none}summary::after{content:"+";flex:non
 .movement-figure svg{display:block;width:100%;height:auto;margin:4px auto 0;max-height:200px;shape-rendering:geometricPrecision}
 .chart-rule{stroke:var(--edge);stroke-width:.85}.axis-value,.axis-date{fill:var(--on-3);font-size:13px}.axis-date{font-weight:600}.chart-bubble{fill:none;stroke:#ffffffa0;stroke-width:.65}
 .movement-legend{display:flex;justify-content:flex-end;gap:16px}.movement-legend span{display:inline-flex;align-items:center;gap:5px;color:var(--on-3);font-size:12px}
-.movement-legend span:before{content:"";width:10px;height:10px;border-radius:50%;background:linear-gradient(100deg,#cc5420,#ffaf76 40%,#e95c25)}.movement-legend .key-return:before{background:linear-gradient(100deg,#84909c,#e6ecf0 40%,#8995a2)}
+.movement-legend span:before{content:"";width:10px;height:10px;border-radius:50%;background:linear-gradient(100deg,#3d722f,#d9fb98 40%,#61a843)}.movement-legend .key-return:before{background:linear-gradient(100deg,#396c54,#d0fad5 40%,#62ad87)}
 .timeline,.milestone-list{list-style:none;padding:0;margin:0}.tool-group>.timeline{padding:8px 13px}
 .timeline li,.milestone-list li{position:relative;margin-left:4px;padding:4px 0 9px 14px;border-left:1px solid var(--edge)}.timeline li:before,.milestone-list li:before{content:"";position:absolute;left:-4px;top:12px;width:7px;height:7px;border-radius:50%;background:var(--coates-hi)}
 .timeline strong,.milestone-list h3{font-size:14px}.milestone-list{margin:10px 0}.milestone-list time{color:var(--eyebrow);font-size:12px}.milestone-list p{white-space:pre-wrap;color:var(--on-2)}
@@ -166,21 +166,9 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
   .return-jump{position:absolute;bottom:9px;right:11px;width:83px;min-height:30px;font-size:11px}
 }
 
-/* The sight glass indicates whether any gear is held. The count above it is the measure. */
-.hire-sightglass{display:block;width:150px;max-width:100%;height:25px;margin:3px 0 4px;pointer-events:none}
-.hire-sightglass .glass-contents{display:none}.has-holdings .glass-contents{display:inline}
-.glass-bubble{opacity:.96}.glass-pop,.glass-glint{opacity:0}
-.movement-figure linearGradient[id="movement-0"]>stop:nth-child(1){stop-color:#36705c}
-.movement-figure linearGradient[id="movement-0"]>stop:nth-child(2){stop-color:#98e5a4}
-.movement-figure linearGradient[id="movement-0"]>stop:nth-child(3){stop-color:#cef9ca}
-.movement-figure linearGradient[id="movement-0"]>stop:nth-child(4){stop-color:#69b584}
-.movement-figure linearGradient[id="movement-0"]>stop:nth-child(5){stop-color:#36705c}
-.movement-figure g:has(>rect[fill="url(#movement-0)"])>ellipse:last-of-type{fill:#baf3bb}
-.movement-legend .key-issue:before{background:linear-gradient(100deg,#36705c,#baf3bb 40%,#4b966c)}
+.movement-legend .key-unknown:before{height:1px;background:currentColor}
 .wet-column>.chart-bubble{display:none}
-.column-bubble{fill:#d9ffd9;stroke:#4b795e;stroke-width:.7}.wet-column:has(>rect[fill="url(#movement-1)"]) .column-bubble{fill:#e8f3f7;stroke:#677e8b}.column-pop{opacity:0;fill:none;stroke:#f3ffed;stroke-width:.8}
-@media(max-width:640px){.hire-sightglass{height:22px;margin:2px 0 3px}}
-@media(max-width:370px){.hire-sightglass{height:17px;margin-block:1px 2px}}
+.column-bubble{fill:#d9ffd9;stroke:#4b795e;stroke-width:.7}.movement-return.wet-column .column-bubble{fill:#e3ffe9;stroke:#577b62}.column-pop{opacity:0;fill:none;stroke:#f3ffed;stroke-width:.8}
 @media screen and (prefers-reduced-motion:no-preference){
   #lookup::after{content:"";position:absolute;left:45%;top:-1px;width:clamp(30px,6vw,82px);height:2px;
     pointer-events:none;border-radius:100%;background:linear-gradient(90deg,transparent,#ffe3bc,transparent);
@@ -191,19 +179,6 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
     background:linear-gradient(90deg,transparent,rgba(255,245,224,.29),transparent);
     animation:hqButtonSweep 5.8s ease-out infinite paused}
   #lookup.motion-near .primary:not(:disabled)::after{animation-play-state:running}
-  .glass-stream{--pace:2.4s;--phase:-.65s}
-  .glass-stream:nth-of-type(2){--pace:2.9s;--phase:-2.1s}
-  .glass-stream:nth-of-type(3){--pace:2.55s;--phase:-.1s}
-  .glass-stream:nth-of-type(4){--pace:3s;--phase:-1.35s}
-  .glass-stream:nth-of-type(5){--pace:2.65s;--phase:-1.8s}
-  .glass-stream:nth-of-type(6){--pace:2.8s;--phase:-.48s}
-  .glass-stream:nth-of-type(7){--pace:2.45s;--phase:-1.28s}
-  .glass-stream .glass-bubble,.glass-stream .glass-pop{transform-box:fill-box;transform-origin:center;
-    animation:hqBubbleLift var(--pace) ease-in-out var(--phase) infinite paused}
-  .glass-stream .glass-pop{animation-name:hqSurfacePop}
-  .glass-glint{animation:hqGlassCurrent 4.4s linear infinite paused}
-  .hero-holding.has-holdings.motion-near :is(.glass-bubble,.glass-pop,.glass-glint){animation-play-state:running}
-  @keyframes hqGlassCurrent{0%{opacity:0;transform:translateX(0)}12%,78%{opacity:.68}100%{opacity:0;transform:translateX(166px)}}
   .panel.motion-near>h2:before{transform-origin:center bottom;animation:hqReadoutMark .55s var(--eo) both}
   .tool-group[open]>summary:after{animation:hqReadoutMark .22s var(--eo) both}
   #return-rating.rating-seen .rating-reflection{animation:hqStarGlance 6.6s ease-in-out calc(.22s + var(--delay,0s)) infinite both paused}
@@ -215,9 +190,6 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
   .movement-figure.motion-near :is(.column-bubble,.column-pop){animation-play-state:running}
   @keyframes hqColumnLift{0%{opacity:0;transform:scale(.65)}18%{opacity:.9}
     76%{opacity:1;transform:translate(.35px,var(--float)) scale(1)}84%,100%{opacity:0;transform:translate(.35px,var(--float)) scale(.7)}}
-  @keyframes hqBubbleLift{0%{opacity:0;transform:translate(0,1px) scale(.55)}16%{opacity:.86}
-    48%{opacity:.99;transform:translate(-1px,-5px) scale(.86)}
-    77%{opacity:.95;transform:translate(.65px,-12px) scale(1)}84%,100%{opacity:0;transform:translate(.5px,-12.6px) scale(.55)}}
   @keyframes hqSurfacePop{0%,71%{opacity:0;transform:scale(.3,.5)}80%{opacity:.8;transform:scale(1,.92)}
     95%,100%{opacity:0;transform:scale(2.3,.6)}}
   @keyframes hqEdgeTravel{from{transform:translateX(-75%);opacity:.55}to{transform:translateX(85%);opacity:1}}
@@ -225,8 +197,7 @@ dialog::backdrop{background:#040609c9}.dialog-head{display:flex;align-items:cent
   @keyframes hqReadoutMark{from{opacity:.5;transform:scaleY(.42)}to{opacity:1;transform:scaleY(1)}}
   @keyframes hqStarGlance{0%{opacity:0;transform:translateX(0)}5%{opacity:.34}17%,100%{opacity:0;transform:translateX(83px)}}
 }
-@media(prefers-reduced-motion:reduce){.glass-stream:nth-of-type(2n) .glass-bubble{transform:translateY(-6px)}}
-@media print{.hire-sightglass,#lookup::after,#lookup .primary::after{display:none!important}}
+@media print{#lookup::after,#lookup .primary::after{display:none!important}}
 
 /* Motion carried by the worker rating and the two-series movement chart. */
 @media screen and (prefers-reduced-motion:no-preference){.chart-bubble{transform-box:fill-box;animation:chartRise 2.6s ease-out 2}.movement-figure svg g:nth-of-type(even) .chart-bubble{animation-delay:-.8s}@keyframes chartRise{0%{opacity:.2;transform:translateY(4px)}75%{opacity:.9}100%{opacity:.15;transform:translateY(-1px)}}}

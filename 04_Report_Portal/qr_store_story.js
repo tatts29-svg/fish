@@ -3,7 +3,9 @@
   "use strict";
   const number = new Intl.NumberFormat("en-AU");
   const dates = new Intl.DateTimeFormat("en-AU", {day:"numeric", month:"short", year:"numeric", timeZone:"UTC"});
-  const count = n => Number.isSafeInteger(n) && n >= 0 ? n : 0;
+  const measured = n => Number.isSafeInteger(n) && n >= 0;
+  const reading = n => measured(n) ? number.format(n) : "Unavailable";
+  const count = n => measured(n) ? n : 0;
   const units = (n, singular, plural = singular + "s") => number.format(n) + " " + (n === 1 ? singular : plural);
   const hourLabel = n => String(n).padStart(2,"0") + ":00";
   const hourRange = n => hourLabel(n) + "–" + hourLabel(n + 1);
@@ -30,19 +32,27 @@
     return el;
   }
 
-  function clockChart(hours, peaks) {
+  function clockChart(hours) {
     const figure = element("figure","store-clock");
     const caption = element("figcaption","store-clock-title","Recorded interactions by hour");
     caption.append(element("span","","Across recorded dates · AEST"));
     figure.append(caption);
-    const max = Math.max(0,...hours.map(hour=>count(hour.interactions)));
+    const bins = Array(24).fill(null);
+    const seen = new Set();
+    for (const row of hours) {
+      bins[row.hour] = measured(row.interactions) && !seen.has(row.hour) ? row.interactions : null;
+      seen.add(row.hour);
+    }
+    const max = Math.max(0,...bins.filter(measured));
+    const peaks = max ? bins.flatMap((n,hour)=>n===max ? [hour] : []) : [];
+    const partial = bins.some(n=>n===null);
     const graph = element("div","store-clock-graph");
     graph.setAttribute("aria-hidden","true");
-    const series = new Map(hours.map(row=>[row.hour,row]));
     for (let hour=0; hour<24; hour++) {
       const bin = element("span","store-hour");
-      const total = count(series.get(hour)?.interactions);
-      bin.title = hourRange(hour) + " AEST · " + units(total,"recorded interaction");
+      const total = bins[hour];
+      bin.title = hourRange(hour) + " AEST · " + (total===null ? "Count unavailable" : units(total,"recorded interaction"));
+      if (total===null) bin.classList.add("store-hour-unknown");
       if (total && max) {
         const bar = element("i","store-hour-bar");
         bar.style.height = total / max * 100 + "%";
@@ -53,8 +63,13 @@
     }
     const scale = element("div","store-clock-scale");
     scale.setAttribute("aria-hidden","true");
-    for (const h of [0,6,12,18,24]) scale.append(element("span","",hourLabel(h)));
+    for (const h of [0,6,12,18,24]) {
+      const tick=element("span","",hourLabel(h));
+      tick.style.left = h / 24 * 100 + "%";
+      scale.append(tick);
+    }
     figure.append(graph,scale);
+    if (partial) figure.append(element("p","store-caveat","A dash marks an hour with an unavailable count. Peaks use the recorded hours."));
     if (max && peaks.length) {
       let peakTimes;
       if (peaks.length === 24) {
@@ -105,15 +120,15 @@
       detail.removeEventListener("toggle",whenOpen);
       detail.removeEventListener("mmg-print-store",loadRows);
       readings(detail,"Recorded dates",["Date","Known times (AEST)","Interactions","Timed records","Date only"],days.map(d=>[
-        stamp(d.date)?.day || "Unavailable", timedRange(d), number.format(count(d.interactions)),
-        number.format(count(d.timed_events)), number.format(count(d.date_only_events))
+        stamp(d.date)?.day || "Unavailable", timedRange(d), reading(d.interactions),
+        reading(d.timed_events), reading(d.date_only_events)
       ]));
       readings(detail,"Recorded hours across these dates",["Hour (AEST)","Interactions","Timed records"],
-        hours.filter(h=>h.events || h.interactions).map(h=>[hourRange(h.hour),number.format(count(h.interactions)),number.format(count(h.events))]));
+        hours.filter(h=>h.events || h.interactions).map(h=>[hourRange(h.hour),reading(h.interactions),reading(h.events)]));
       readings(detail,"Recorded activity times · newest first",["Date and minute (AEST)","Activity records"],
         minutes.map(row=>{
           const dt=stamp(row.at);
-          return [dt?.clock ? dt.day + ", " + dt.clock : "Time unavailable",number.format(count(row.events))];
+          return [dt?.clock ? dt.day + ", " + dt.clock : "Time unavailable",reading(row.events)];
         }));
     }
     function whenOpen() { if (detail.open) loadRows(); }
@@ -145,23 +160,24 @@
       return;
     }
     const days = Array.isArray(s.daily) ? s.daily.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))) : [];
-    const hours = Array.isArray(s.hourly) ? s.hourly.filter(h=>Number.isInteger(h.hour) && h.hour>=0 && h.hour<24).sort((a,b)=>a.hour-b.hour) : [];
-    if (!count(s.active_days) && !count(s.undated_events) && !count(s.timed_events)) {
+    const hours = Array.isArray(s.hourly) ? s.hourly.filter(h=>Number.isInteger(h?.hour) && h.hour>=0 && h.hour<24).sort((a,b)=>a.hour-b.hour) : [];
+    if (s.active_days===0 && s.undated_events===0 && s.timed_events===0) {
       area.append(element("p","store-caveat","No store activity is recorded in the available exports for this shutdown."));
       return;
     }
     const stats=element("dl","store-frequency");
     const interaction=element("div","store-frequency-main");
     const minuteLabel = personal ? "Minutes with activity" : "Worker check-ins by minute";
-    interaction.append(element("dt","",minuteLabel),element("dd","",number.format(count(s.interactions))));
+    interaction.append(element("dt","",minuteLabel),element("dd","",reading(s.interactions)));
     const active=element("div","store-frequency-main");
-    active.append(element("dt","","Dates with activity"),element("dd","",number.format(count(s.active_days))));
+    active.append(element("dt","","Dates with activity"),element("dd","",reading(s.active_days)));
     stats.append(interaction,active,point("First record",s.first_at),point("Latest record",s.last_at));
     area.append(stats,element("p","store-definition", personal ?
       "Each minute containing one or more recorded issues, returns or consumable draws on your card counts once. These records do not measure site attendance." :
       "Each worker with recorded issues, returns or consumable draws in a minute counts once for that minute. These records do not measure site attendance."));
-    if (s.interactions && hours.length) {
-      area.append(clockChart(hours, Array.isArray(s.busiest_hours) ? [...new Set(s.busiest_hours)].filter(h=>Number.isInteger(h) && h>=0 && h<24).sort((a,b)=>a-b) : []));
+    if (count(s.interactions)>0) {
+      if (hours.some(h=>measured(h.interactions))) area.append(clockChart(hours));
+      else area.append(element("p","store-caveat","Hourly interaction counts are unavailable."));
     }
     const notes=[];
     const dateOnly=count(s.date_only_events), undated=count(s.undated_events), unattributed=count(s.unattributed_timed_events);

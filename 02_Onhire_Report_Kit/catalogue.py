@@ -233,17 +233,20 @@ def _pack(groups, cat_order, pics=None, descs=None):
             for val, lab, n, o in sorted(sizes, key=lambda s: (s[0] is None, s[0] or 0, s[1])):
                 key = lab
                 if key in merged:
-                    merged[key][1] += n
+                    merged[key][1] += n or 0
                     merged[key][2] += o
+                    merged[key][3] += n is None
                 else:
-                    merged[key] = [val, n, o]
-            chips = [{"s": lab, "n": int(v[1]), "o": int(v[2])} for lab, v in merged.items()]
+                    merged[key] = [val, n or 0, o, int(n is None)]
+            chips = [{"s": lab, "n": v[1], "o": int(v[2]), **({"unknown": v[3]} if v[3] else {})} for lab, v in merged.items()]
+            unknown = sum(chip.get("unknown", 0) for chip in chips)
             vals = [v[0] for v in merged.values() if v[0] is not None]
-            kinds.append({"name": kind, "n": sum(c["n"] for c in chips), "o": sum(c["o"] for c in chips),
+            kinds.append({**({"unknown": unknown} if unknown else {}), "name": kind, "n": sum(c["n"] for c in chips), "o": sum(c["o"] for c in chips),
                           "min": min(vals) if vals else None, "sizes": chips, "pic": (pics or {}).get((cat, kind)),
                           "d": sorted((descs or {}).get((cat, kind), []))})
         kinds.sort(key=lambda k: (k["name"].lower(), k["min"] or 0))
-        out.append({"name": cat, "n": sum(k["n"] for k in kinds), "o": sum(k["o"] for k in kinds),
+        unknown = sum(kind.get("unknown", 0) for kind in kinds)
+        out.append({**({"unknown": unknown} if unknown else {}), "name": cat, "n": sum(k["n"] for k in kinds), "o": sum(k["o"] for k in kinds),
                     "kinds": kinds, "lines": sum(len(k["sizes"]) for k in kinds)})
     return out
 

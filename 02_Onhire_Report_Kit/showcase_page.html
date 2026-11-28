@@ -92,8 +92,7 @@ h1{font-size:38px;line-height:1.12;font-weight:700;letter-spacing:-.025em;margin
 .day.done:after,.day.now:after{content:"";position:absolute;left:0;bottom:0;height:3px;background:var(--or)}
 .day.done:after{width:100%;opacity:.55}
 .day.now{border-color:var(--or);color:var(--ortx);background:var(--orbg)}.day.now b{color:var(--tx)}
-.day.now:after{width:var(--p,50%);animation:dayfill 1.4s .3s cubic-bezier(.2,.8,.2,1) both}
-@keyframes dayfill{from{width:0}}
+.day.now:after{width:var(--p,0%)}
 
 /* KPI tiles */
 .kpi{position:relative;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px 16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .2s;display:block;width:100%}
@@ -106,7 +105,7 @@ h1{font-size:38px;line-height:1.12;font-weight:700;letter-spacing:-.025em;margin
 .kpi.hot{border-top:3px solid var(--or);padding-top:16px}
 .delta{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:600;background:var(--okbg);color:var(--ok);vertical-align:middle;letter-spacing:0}
 .meter{height:6px;border-radius:4px;background:var(--track);margin-top:12px;overflow:hidden}
-.meter i{display:block;height:100%;width:0;border-radius:4px;background:var(--or);transition:width 1.2s cubic-bezier(.2,.8,.2,1) .15s}
+.meter i{display:block;height:100%;width:var(--w,0%);border-radius:4px;background:var(--or)}
 .go .meter i{width:var(--w)}
 
 /* three things to know */
@@ -125,7 +124,7 @@ h1{font-size:38px;line-height:1.12;font-weight:700;letter-spacing:-.025em;margin
 .row .nm>span{min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3}
 .row .nm small{display:block;color:var(--dim);font-size:12px;overflow:hidden;text-overflow:ellipsis}
 .tr{position:relative;height:10px;border-radius:5px;background:var(--track);overflow:hidden}
-.fl,.fb{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:5px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.fl,.fb{position:absolute;left:0;top:0;bottom:0;width:var(--w,0%);border-radius:5px}
 .fl{background:var(--or)}.fb{background:var(--neu);opacity:.55}
 .neu .fl{background:var(--neu)}.warnb .fl{background:var(--warn)}
 .go .fl,.go .fb,.now .fl,.now .fb{width:var(--w)}
@@ -215,6 +214,10 @@ html.static .loop:after{display:none}
 #up-last{white-space:pre-line;overflow-wrap:anywhere}
 .upgo{width:100%;height:56px;margin-top:14px;border:0;border-radius:14px;background:var(--or);color:#fff;font:inherit;font-weight:700;font-size:17px;cursor:pointer;box-shadow:0 12px 34px color-mix(in srgb,var(--or) 35%,transparent);transition:transform .15s,opacity .2s}
 .upgo:active{transform:scale(.985)}.upgo:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+@keyframes upload-wait{to{background-position:2rem 0}}
+#up-bar.waiting-for-build .tr{background:repeating-linear-gradient(125deg,var(--track) 0 .5rem,var(--panel2) .5rem 1rem)}
+@media(prefers-reduced-motion:no-preference){#up-bar.waiting-for-build .tr{animation:upload-wait 1.6s linear infinite}}
+#up-bar.waiting-for-build #up-fill{display:none}
 .upbar{margin-top:18px}.upbar .tr{height:14px;border-radius:999px;background:var(--track);overflow:hidden}
 .upbar .tr i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#F26222,#FF8A4F);box-shadow:0 0 16px color-mix(in srgb,var(--or) 70%,transparent);transition:width .35s ease}
 .upst{display:flex;align-items:baseline;gap:12px;margin-top:10px}.upst b{font-size:26px;font-weight:800;letter-spacing:-.02em}.upst span{color:var(--mu);font-size:14px}
@@ -438,10 +441,10 @@ html[data-theme=dark] .live{box-shadow:0 0 10px #5FCB9A}
 .cyl .cap{display:block;font-size:12px;color:var(--tx);line-height:1.35;margin:3px auto 0;max-width:15em;overflow-wrap:anywhere}
 .cyl .cap small{display:inline-block;margin-top:3px;color:var(--mu)}
 .cyl .tp{display:block;margin:6px auto 0}
-:is(.cyl,.hourly-chart) .shell{fill:var(--panel2);stroke:var(--neu);stroke-opacity:.46}
-:is(.cyl,.hourly-chart) .scale{fill:none;stroke:var(--tx);stroke-width:1;opacity:.32}
-:is(.cyl,.hourly-chart) .lip{fill:var(--panel2);fill-opacity:.15;stroke:var(--neu);stroke-opacity:.78}
-:is(.cyl,.hourly-chart) .footlight{opacity:.54}
+:is(.cyl,.vessel-chart) .shell{fill:var(--panel2);stroke:var(--neu);stroke-opacity:.46}
+:is(.cyl,.vessel-chart) .scale{fill:none;stroke:var(--tx);stroke-width:1;opacity:.32}
+:is(.cyl,.vessel-chart) .lip{fill:var(--panel2);fill-opacity:.15;stroke:var(--neu);stroke-opacity:.78}
+:is(.cyl,.vessel-chart) .footlight{opacity:.54}
 .view.go .liquid{transform-origin:37px 158px;animation:fill-cylinder 1.35s cubic-bezier(.22,.75,.25,1) backwards}
 @keyframes fill-cylinder{from{transform:scaleY(0)}}
 @media (hover:hover){.cyl[data-open]:hover{background:var(--hover)}.cyl[data-open]:hover .footlight{opacity:.9}}
@@ -541,8 +544,7 @@ html[data-theme] .t3{filter:brightness(1.28)}
 .ringt .b{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-top:2px}
 .ringt .c{font-size:12.5px;color:var(--mu);margin-top:2px}
 .rg2{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:2 7}
-html[data-theme=dark] .rg2{animation:spin2 40s linear infinite;transform-origin:50% 50%}
-@keyframes spin2{to{transform:rotate(360deg)}}
+.ring-ticks{stroke:var(--mu);stroke-width:1.4;fill:none}
 html[data-theme=dark] .ringt .b{text-shadow:0 0 26px rgba(255,138,80,.55)}
 .tl{list-style:none;margin-top:10px}
 .tl li{position:relative;padding:0 0 14px 22px;font-size:13.5px;color:var(--mu)}
@@ -769,6 +771,7 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
 .st-cat-label{font-size:.79rem;color:var(--mu)}.st-cat-name{display:block;margin:.12rem 0 .3rem;font-size:.95rem;overflow-wrap:anywhere}
 .st-cat-amount{display:flex;justify-content:space-between;gap:.5rem;align-items:baseline;color:var(--mu);font-size:.8rem}.st-cat-amount strong{color:var(--tx);font-size:.95rem}
 .st-category-tile .meter{display:block;margin:.45rem 0 .1rem}
+.st-category-tile .st-coverage-meter>i{width:var(--w);min-width:0;transition:none}
 .st-active-category{margin:.4rem 0;color:var(--mu);font-size:.85rem}.st-active-category button{margin-left:.6rem}
 #st-shift-summary .st-table th:first-child{width:23%}
 @media(max-width:550px){
@@ -920,8 +923,6 @@ html[data-theme=light] .ut-number,.static .ut-number{color:#21703d}
       transition:background-color .16s,border-color .16s,box-shadow .16s,transform .16s var(--settle)
     }
     & :is(.btn,.upgo,.seg button,.qrb,.ib,.cbi,.st-round):enabled:active{transform:translateY(1px)}
-    & .view :is(.fl,.fb){width:var(--w,0%);transform:scaleX(0);transform-origin:left;transition:transform .75s var(--settle)}
-    & .view.go :is(.fl,.fb){transform:scaleX(1)}
     & .chart-comet{offset-distance:0%;offset-rotate:0deg}
     & .view.go .chart-comet{animation:chart-trace 3.6s linear infinite}
     & .kpi{will-change:auto}
@@ -994,14 +995,17 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 .liquid-meniscus{stroke-width:.75px;opacity:.72}
 .liquid-bubble{fill:url(#liquid-pearl);stroke:rgba(72,48,43,.54);stroke-width:.52;pointer-events:none;opacity:0}
 
-.hourly-chart .shell{fill-opacity:.32}
-.hourly-chart .footlight{opacity:.28}
-.hourly-chart .liquid-volume .ca{fill:url(#hourly-amber)}
-.hourly-chart .liquid-base.ca{fill-opacity:.9}
+.vessel-chart .shell{fill-opacity:.22;stroke-opacity:.46}
+html[data-theme=light] .vessel-chart .shell{fill-opacity:.34;stroke-opacity:.6}
+.unknown-reading .shell{stroke-dasharray:3 3}
+.card:has(.hourly-chart) .hourly-legend .la{background:#54aa71}.card:has(.hourly-chart) .hourly-legend .lb{background:#91a0ae}
+.vessel-chart .footlight{opacity:.16}
+.hourly-chart .liquid-volume .ca{fill:url(#hourly-green)}
+
 .hourly-chart .liquid-volume .cb{fill:url(#hourly-silver)}
-.hourly-chart .liquid-seam{fill:none;stroke:white;stroke-opacity:.33;stroke-width:.65}
+
 @media screen and (prefers-reduced-motion:no-preference){
-  html:not(.static) .view.go .hourly-fill{transform-box:fill-box;transform-origin:center bottom;animation:fill-cylinder 1.35s cubic-bezier(.22,.75,.25,1) backwards}
+  html:not(.static) .view.go .hourly-fill{transform-box:view-box;transform-origin:0 0;animation:fill-cylinder .85s cubic-bezier(.22,.75,.25,1) backwards}
 }
 .hourly-chart .lbl{paint-order:stroke;stroke:var(--panel);stroke-width:3;stroke-linejoin:round}
 .liquid-film{fill:#fff;fill-opacity:.2;pointer-events:none}
@@ -1026,6 +1030,21 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
   81%{opacity:.97;fill-opacity:.17;transform:scale(1.05,.48)}
   91%{opacity:.75;fill-opacity:.02;transform:scale(1.5,.65)}
   100%{opacity:0;fill-opacity:0;transform:scale(1.76,.74)}
+}
+/* Align the chart origin and full-scale point across every row. */
+.bar-scale{color:var(--mu);font-size:.82rem;line-height:1.45;margin:0 0 .65rem}
+.bar-series>.bar-scale,.bar-series>.empty{grid-column:1/-1}
+@supports(grid-template-columns:subgrid){
+ .bar-series{display:grid;grid-template-columns:minmax(0,min(35%,var(--nm,200px))) minmax(1.5rem,1fr) fit-content(36%);column-gap:12px}
+ html .bar-series>.row{grid-column:1/-1;grid-template-columns:subgrid;column-gap:inherit}
+ .bar-series .v{white-space:normal;overflow-wrap:anywhere}
+}
+@media screen and (max-width:650px){
+ .bar-series{display:block}
+ html .bar-series>.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,auto);gap:5px 10px;align-items:start}
+ .bar-series>.row>.nm{grid-column:1;grid-row:1}
+ .bar-series>.row>.v{grid-column:2;grid-row:1;max-width:42vw;white-space:normal}
+ .bar-series>.row>.tr{grid-column:1/-1;grid-row:2}
 }
 /* A horizontal reading stops at the right face of the fluid. The remaining length is clear glass. */
 @media screen{
@@ -1134,7 +1153,7 @@ html[data-theme] .liquid-chart :is(.liquid-base,.liquid-cap,.col.pk){filter:none
 </style></head>
 <body>
 <div class="amb"><i></i><i></i><i></i></div><div id="fx" aria-hidden="true"></div><div class="prog"></div>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="hourly-amber"><stop stop-color="#a64419"/><stop offset=".2" stop-color="#ff944e"/><stop offset=".48" stop-color="#ff944e"/><stop offset="1" stop-color="#c3511c"/></linearGradient><linearGradient id="hourly-silver"><stop stop-color="#73808e"/><stop offset=".2" stop-color="#c2cfda"/><stop offset=".48" stop-color="#c2cfda"/><stop offset="1" stop-color="#8593a2"/></linearGradient><radialGradient id="hourly-glow"><stop stop-color="#ff944e" stop-opacity=".82"/><stop offset="1" stop-color="#ff944e" stop-opacity="0"/></radialGradient><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffd1a5"/><stop offset=".24" stop-color="#ff9654"/><stop offset=".63" stop-color="#e66b2b"/><stop offset=".86" stop-color="#b94c1e"/><stop offset="1" stop-color="#ffb474"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="hourly-green"><stop stop-color="#36705c"/><stop offset=".2" stop-color="#98e5a4"/><stop offset=".48" stop-color="#98e5a4"/><stop offset="1" stop-color="#4b966c"/></linearGradient><linearGradient id="hourly-silver"><stop stop-color="#73808e"/><stop offset=".2" stop-color="#c2cfda"/><stop offset=".48" stop-color="#c2cfda"/><stop offset="1" stop-color="#8593a2"/></linearGradient><radialGradient id="column-glow"><stop stop-color="#a6b8c4" stop-opacity=".82"/><stop offset="1" stop-color="#a6b8c4" stop-opacity="0"/></radialGradient><linearGradient id="liquid-glass"><stop stop-color="#fff" stop-opacity=".06"/><stop offset=".15" stop-color="#fff" stop-opacity=".2"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient><linearGradient id="tube-fluid" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffd1a5"/><stop offset=".24" stop-color="#ff9654"/><stop offset=".63" stop-color="#e66b2b"/><stop offset=".86" stop-color="#b94c1e"/><stop offset="1" stop-color="#ffb474"/></linearGradient><radialGradient id="liquid-pearl" cx=".3" cy=".24" r=".82"><stop stop-color="white"/><stop offset=".23" stop-color="#fff" stop-opacity=".86"/><stop offset=".42" stop-color="#fff" stop-opacity=".17"/><stop offset=".76" stop-color="#362d2b" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".94"/></radialGradient><linearGradient id="gcylO" x1="0" x2="1"><stop offset="0" stop-color="#B9481A"/><stop offset=".42" stop-color="#FF7A3D"/><stop offset="1" stop-color="#B5461A"/></linearGradient><linearGradient id="gcylS" x1="0" x2="1"><stop offset="0" stop-color="#6E7987"/><stop offset=".42" stop-color="#DCE3EC"/><stop offset="1" stop-color="#737E8D"/></linearGradient><linearGradient id="gcylP" x1="0" x2="1"><stop offset="0" stop-color="#C9AC6E"/><stop offset=".42" stop-color="#FBEBC6"/><stop offset="1" stop-color="#CDB073"/></linearGradient><linearGradient id="gcylB" x1="0" x2="1"><stop offset="0" stop-color="#5F84B8"/><stop offset=".42" stop-color="#B4CEF0"/><stop offset="1" stop-color="#6489BC"/></linearGradient><linearGradient id="gcylG" x1="0" x2="1"><stop offset="0" stop-color="#3A4350"/><stop offset=".42" stop-color="#8793A3"/><stop offset="1" stop-color="#404957"/></linearGradient></defs></svg>
 <header class="top"><div class="wrap bar">
 <div class="brand">COATES</div><span class="sep" id="lsep"></span><img class="toplogo" id="toplogo" alt="__CLIENT__">
 <div class="what" id="what"></div>
@@ -1162,8 +1181,8 @@ __CONTACTS__
 <div class="loop" id="loop"></div>
 <button type="button" id="hire-checks-link" class="more noprint" data-go="rhythm" hidden>View hire and return checks</button></div>
 <div class="grid c21">
-<div class="card"><h3>Items issued today, hour by hour</h3><div class="sub" id="hoursub"></div>
-<div class="legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>Recorded as returned</span></div>
+<div class="card"><h3>Latest issue time for assets issued today</h3><div class="sub" id="hoursub"></div>
+<div class="legend hourly-legend"><span><i class="la"></i>Still out with crews</span><span><i class="lb"></i>No longer on hire</span></div>
 <div id="hourly"></div></div>
 <div class="card"><h3>Who has the gear now</h3><div class="sub" id="cosub"></div><div id="cos"></div></div>
 </div>
@@ -1174,8 +1193,8 @@ __CONTACTS__
 <div class="vh"><h2>On hire now</h2><p id="oh-lead"></p></div>
 <div class="stats" id="oh-stats" style="--n:5"></div>
 <div class="grid c2">
-<div class="card"><h3>By company</h3><div class="sub">Items each company is holding at the pull.</div><div id="oh-cos"></div></div>
-<div class="card"><h3>By tool</h3><div class="sub">What is out, against how many of each the store holds.</div><div id="oh-kinds" style="--nm:300px"></div></div>
+<div class="card"><h3>By company</h3><div class="sub">Each company’s share of all items on hire at the pull.</div><div id="oh-cos"></div></div>
+<div class="card"><h3>By tool</h3><div class="sub">Tool types are ranked by items on hire. Each gauge shows the share of that tool type’s on-site fleet currently out.</div><div id="oh-kinds" style="--nm:300px"></div></div>
 </div>
 <div class="card tall noprint" style="margin-top:16px"><h3>Every item on hire</h3><div class="sub">Each item is against a named person. Search by person, company or item.</div>
 <div class="askrow"><div><b>Not using it? Bring it back.</b>Return equipment you are not using to the Coates tool store, please.</div><div><b>Check your gear each day before use.</b>Anything damaged or not right, bring it to the tool store.</div></div>
@@ -1208,8 +1227,8 @@ __CONTACTS__
 </div>
 
 <div class="card"><div class="dials" id="tl-util"></div></div>
-<div class="card" style="margin-top:16px"><h3>Utilisation by tool</h3><div class="sub">How many of each tool are out now, against the most that have ever been out at once at __CLIENT__.</div>
-<div class="legend"><span><i class="la"></i>Out now</span><span><i class="lb" style="opacity:.55"></i>Busiest seen at __CLIENT__</span><span style="color:var(--dim)">Full bar = all in the store</span></div>
+<div class="card" style="margin-top:16px"><h3>Utilisation by tool</h3><div class="sub">Compare the number on hire now with the highest recorded at __CLIENT__. A historical peak above the current fleet reaches the end of the gauge.</div>
+<div class="legend"><span><i class="la"></i>Out now</span><span><i class="lb" style="opacity:.55"></i>Busiest seen at __CLIENT__</span><span style="color:var(--dim)">Full scale is the current fleet for each tool type</span></div>
 <div id="tl-tools" style="--nm:430px"></div></div>
 <div class="card" style="margin-top:16px"><h3>Tested by Coates</h3><div class="sub" id="tg-sub"></div><div id="tagged"></div></div>
 <div class="sect noprint">Browse the tool store</div>
@@ -1303,7 +1322,7 @@ __CONTACTS__
 <div class="vh"><h2>Labour and shut costs</h2><p id="cs-lead"></p></div>
 <div class="grid c2" style="margin-top:0">
 <div class="card costhero"><div class="ringw" id="cs-ring"></div><div><h3 style="font-size:15.5px;font-weight:600">When each charge starts</h3><ul class="tl" id="cs-starts"></ul></div></div>
-<div class="card"><h3>Where the cost sits</h3><div class="sub">Each cylinder fills as the shut runs: cost to date against the whole shut.</div><div class="cyls" id="cs-cyls"></div></div>
+<div class="card"><h3>Cost by category</h3><div class="sub">Each cylinder shows scheduled cost through the pull date as a share of that category’s full shutdown cost.</div><div class="cyls" id="cs-cyls"></div></div>
 </div>
 <div class="stats" id="cs-stats" style="margin-top:16px"></div>
 <div class="card" style="margin-top:16px"><h3>Cost day by day</h3><div class="sub" id="cs-daysub"></div>
@@ -1407,6 +1426,14 @@ __CONTACTS__
 const D=__DATA__, LOGO="__LOGO__", CLIENT="__CLIENT__";
 const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[...(r||document).querySelectorAll(s)];
 const fmt=n=>Number(n).toLocaleString('en-AU');
+function formatMeasuredPercent(value,total){
+  if(!Number.isFinite(value)||!Number.isFinite(total)||value<0||total<=0)return '—';
+  const reading=100*value/total;
+  if(value>0 && reading<.05)return '<0.1%';
+  if(value<total && reading>=99.95)return '>99.9%';
+  if(value>total && reading<100.05)return '>100%';
+  return reading.toLocaleString('en-AU',{maximumFractionDigits:1})+'%';
+}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const QS=location.search, STATIC=/[?&]static/.test(QS);
 const root=document.documentElement;
@@ -1469,14 +1496,55 @@ if(LOGO){$('#toplogo').src=LOGO;$('#clientlogo').src=LOGO;$('#clientname').textC
 $('#ftjob').textContent=`Built from SiteIQ exports for ${D.job.title}, November 2026 shut. No figure in this report is estimated.`;
 $('#srcs').innerHTML=`SiteIQ pull ${esc(D.asat)}${D.tx_window?`<br>Transactions ${esc(D.tx_window)}`:''}`;
 const asatT=D.asat.split(' ').slice(-1)[0], asatH=+asatT.slice(0,2);
+const readyCoates=K.coates_available??(D.utilisation?.variants?D.utilisation.variants.flatMap(g=>g.assets||[]).filter(a=>String(a.owner||'').toLowerCase()==='coates'&&String(a.status||'').toLowerCase()==='available for hire').length:null);
+const shelfLabel=l=>Number.isFinite(l.have)?fmt(l.have):'—';
+const shelfMissing=K.cons_unknown_lines||0;
+const measuredShelf=K.cons_lines>0&&shelfMissing===K.cons_lines?null:K.cons_units;
+const shelfCaption=shelfMissing?fmt(shelfMissing)+' stock lines have no usable balance':fmt(K.cons_lines)+' stock lines';
+const minCoverage=Number.isFinite(D.mm_lines)?D.mm_lines:0;
+const maxCoverage=Number.isFinite(D.max_lines)?D.max_lines:D.mm_lines;
+const minCoverageText=minCoverage?fmt(minCoverage)+' of '+fmt(K.cons_lines)+' stock lines have both a minimum and a known shelf quantity.':'No stock line has both a recorded minimum and a known shelf quantity.';
 
 /* ---------- small builders ---------- */
 function horizontalStreams(){
   return STATIC?'':'<span class="tube-stream" aria-hidden="true"></span>'.repeat(3);
 }
-function bars(el,items,o){o=o||{};const max=o.max||Math.max(1,...items.map(i=>i.n));
-el.innerHTML=items.map((i,x)=>`<div class="row"${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr">${i.b!=null?`<div class="fb" style="--w:${(Math.min(i.b,max)/max*100).toFixed(1)}%">${horizontalStreams()}</div>`:''}<div class="fl" style="--w:${(Math.min(i.n,max)/max*100).toFixed(1)}%">${horizontalStreams()}</div></div><div class="v">${i.v!=null?i.v:`<span data-n="${i.n}"${o.dec?' data-dec="1"':''}>${o.dec?f1(i.n):fmt(i.n)}</span>`}</div></div>`).join('')||'<div class="empty">Nothing to show in this pull.</div>'}
-const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>`<div${x[3]?` data-tip="${esc(x[3])}"`:''}><div class="n${x[2]?' '+x[2]:''}"><span data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>${x[0]}</span></div><div class="l">${x[1]}</div></div>`).join('')};
+function horizontalPercent(value,total){
+  const fraction=measuredFraction(value,total);
+  return fraction==null?null:Math.min(100,100*fraction);
+}
+function horizontalFill(cls,value,total){
+  const width=horizontalPercent(value,total);
+  if(width==null)return '';
+  return `<div class="${cls}" style="--w:${width}%">${width>0?horizontalStreams():''}</div>`;
+}
+function markedGauge(value,mark,total,cls=''){
+  const position=horizontalPercent(mark,total);
+  return `<div class="tr ${cls}" aria-hidden="true">${horizontalFill('fl',value,total)}${position==null?'':`<i class="tick" style="left:clamp(0px,calc(${position}% - 1px),calc(100% - 2px))"></i>`}</div>`;
+}
+function bars(el,items,o={}){
+  el.classList.add('bar-series');
+  if(!items.length){el.innerHTML='<div class="empty">Nothing to show in this pull.</div>';return}
+  const max=o.rankUnit?Math.max(0,...items.map(i=>Number.isFinite(i.n)?i.n:0)):o.max;
+  const scale=o.rankUnit?`<div class="bar-scale">${max>0?`Full scale is ${fmt(max)} ${esc(o.rankUnit)}.`:'No positive quantities in these records.'}</div>`:'';
+  el.innerHTML=scale+items.map(i=>{
+    const total='total' in i?i.total:max;
+    const value=i.v??(Number.isFinite(i.n)?(o.dec?f1(i.n):fmt(i.n)):'–');
+    return `<div class="row"${i.open?` data-open="${esc(i.open)}"`:''}${i.tip?` data-tip="${esc(i.tip)}"`:''}><div class="nm" title="${esc(i.name)}">${o.pic?pic(i.pic,i.name):''}<span>${esc(i.name)}${i.sub?`<small>${esc(i.sub)}</small>`:''}</span></div><div class="tr" aria-hidden="true">${horizontalFill('fb',i.b,total)}${horizontalFill('fl',i.n,total)}</div><div class="v">${value}</div></div>`;
+  }).join('');
+}
+function companyBars(el,companies,total){
+  bars(el,companies.map(c=>({name:c.name,n:c.n,open:'co:'+c.name,v:`${fmt(c.n)} <small>of ${fmt(total)}</small>`})),{max:total});
+}
+function toolHoldingRow(t,k,showPeak=false){
+  const measured=Number.isFinite(t.site)&&t.site>0;
+  const exceedsFleet=Number.isFinite(t.site)&&t.on>t.site;
+  const peak=showPeak&&Number.isFinite(t.best);
+  const fleet=measured?`of ${fmt(t.site)}`:t.site===0?'· no current fleet':'· fleet size unavailable';
+  const history=showPeak?(peak?` · peak ${fmt(t.best)}${measured&&t.best>t.site?' (above current fleet)':''}`:' · peak unavailable'):'';
+  return {name:t.name,pic:t.pic,n:exceedsFleet?null:t.on,total:t.site,b:peak?t.best:null,open:k?'t:'+k:'',v:`${fmt(t.on)} <small>${fleet}${exceedsFleet?' · verify fleet count':''}${history}</small>`};
+}
+const stats=(el,a)=>{el.style.setProperty('--n',a.length);el.innerHTML=a.map(x=>`<div${x[3]?` data-tip="${esc(x[3])}"`:''}><div class="n${x[2]?' '+x[2]:''}">${x[0]==null?'—':`<span data-n="${x[0]}"${String(x[0]).includes('.')?' data-dec="1"':''}>${x[0]}</span>`}</div><div class="l">${x[1]}</div></div>`).join('')};
 function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v))),m=v/p;return ([1,2,2.5,4,5,8,10].find(x=>m<=x))*p}
 
 // Give chart axes a readable scale as tabs open and the viewport changes.
@@ -1492,109 +1560,131 @@ function chartLayout(el, defaultWidth, render) {
   if(!STATIC && window.ResizeObserver)new ResizeObserver(resize).observe(el);
 }
 
-// The immersed bubble and its surface response use the same landing point and clock.
-function liquidStreams(width,height,seed,surfaceRadius=0){
-  if(STATIC||width<=0||height<=0)return {inside:'',surface:''};
-  const wide=width>height*2;
-  const count=wide?Math.min(18,Math.max(2,Math.ceil(width/16))):Math.min(12,Math.max(2,Math.ceil(height/11)));
+// The bead and its surface ring share one position and animation clock.
+function liquidStreams(width,height,seed,cap){
+  if(STATIC||width<3||height<4)return {inside:'',surface:''};
+  const count=Math.max(1,Math.min(5,Math.ceil(height/24)));
   let inside='',surface='';
   for(let j=0;j<count;j++){
-    const exposes=surfaceRadius>0&&(j===0||j===2&&width>=28);
-    const size=Math.min(width*.14,height*.24,1.4+((j*5+seed)%7)*.24);
-    const popWidth=Math.min(width*.205,Math.max(3.3,size*2.08));
-    const inset=exposes?Math.min(width*.32,popWidth*1.8):size+Math.min(2,width*.04);
+    const size=Math.min(width*.07,height*.12,1.3+((j+seed)%4)*.35);
+    const popWidth=Math.min(width*.12,height*.16,size*1.8);
+    const inset=Math.min(width*.4,Math.max(popWidth*1.8,size+width*.06));
     const x=inset+(width-2*inset)*((.19+(j+1)*.618+seed*.314)%1);
-    const landing=surfaceRadius*.08, y=height-size;
+    const landing=cap, y=height-Math.min(height*.24,cap+size);
     const duration=2+Math.min(1.35,height/72)+((j+seed)%4)*.27;
     const phase=-duration*((.31+j*.382+seed*.168)%1);
     const clock=`--duration:${duration.toFixed(3)}s;--phase:${phase.toFixed(3)}s`;
-    inside+=`<circle class="liquid-bubble" cx="${x}" cy="${y}" r="${size}" style="${clock};--rise:${landing-y}px;--sway:${Math.min(2.8,width*.055)*(j%2?1:-1)}px"/>`;
-    if(exposes){
-      const popHeight=Math.min(popWidth*.82,Math.max(1.05,surfaceRadius*.92));
+    inside+=`<circle class="liquid-bubble" cx="${x}" cy="${y}" r="${size}" style="${clock};--rise:${landing-y}px;--sway:${Math.min(2,width*.04)*(j%2?1:-1)}px"/>`;
+    if(j===0||(j===2&&width>=28)){
+      const popHeight=Math.min(popWidth*.6,cap*.85);
       surface+=`<g transform="translate(${x} ${landing})"><g class="surface-pop" style="${clock}">
-<ellipse class="pop-edge" cy="0" rx="${popWidth}" ry="${popHeight}"/>
-<ellipse class="pop-pearl" cy="0" rx="${popWidth}" ry="${popHeight}"/></g></g>`;
+<ellipse class="pop-edge" rx="${popWidth}" ry="${popHeight}"/>
+<ellipse class="pop-pearl" rx="${popWidth}" ry="${popHeight}"/></g></g>`;
     }
   }
   return {inside,surface};
 }
 
-// Absolute SVG coordinates let the chart and standalone gauge use the same glass
-// without stretching the bubbles or changing either component's measurement scale.
+// Both extreme points stay on the measured top and bottom, even for a shallow fill.
+function vesselOutline(x,y,width,height,topCap,bottomCap){
+  const mid=width/2, side=height-topCap-bottomCap;
+  return `M${x} ${y+topCap}a${mid} ${topCap} 0 0 1 ${width} 0v${side}a${mid} ${bottomCap} 0 0 1 ${-width} 0Z`;
+}
+
 function glassVessel(x,y,w,h,cap,contents,reflection,halo){
-  const mid=x+w/2, bottom=y+h, right=x+w;
-  const outline=`M${x} ${y}a${w/2} ${cap} 0 0 1 ${w} 0v${h}a${w/2} ${cap} 0 0 1 ${-w} 0Z`;
+  const mid=x+w/2, bottom=y+h, right=x+w, id='vessel'+(++uid);
+  const profile=vesselOutline(x,y,w,h,cap,cap);
   const ticks=[.25,.375,.5,.625,.75].map((t,i)=>{
     const length=w*(i===2?.15625:i%2?.078125:.125);
     return `M${right-1-length} ${y+h*t}h${length}`;
   }).join('');
-  return `<g class="glass-vessel">
-<ellipse class="footlight" cx="${mid}" cy="${bottom+cap*1.375}" rx="${w/2+cap*.5}" ry="${cap*1.125}" fill="url(#${halo})"/>
-<path class="shell" d="${outline}"/>${contents}
-<path d="${outline}" fill="url(#${reflection})"/>
+  return `<g class="glass-vessel"><defs><clipPath id="${id}"><path d="${profile}"/></clipPath></defs>
+${contents?`<ellipse class="footlight" cx="${mid}" cy="${bottom+cap*.36}" rx="${w*.52}" ry="${cap*.48}" fill="url(#${halo})"/>`:''}
+<path class="shell" d="${profile}"/>${contents?`<g clip-path="url(#${id})">${contents}</g>`:''}
+<path d="${profile}" fill="url(#${reflection})"/>
 <path d="M${x+w*.09375} ${y+h*.065}v${h*.83}m0 ${h*.028}v${h*.036}" fill="none" stroke="#fff" stroke-opacity=".27" stroke-width=".8" stroke-linecap="round"/>
-<path class="scale" d="${ticks}"/>
-<ellipse class="lip" cx="${mid}" cy="${y}" rx="${w/2}" ry="${cap}"/></g>`;
+<path class="scale" d="${ticks}"/><ellipse class="lip" cx="${mid}" cy="${y+cap}" rx="${w/2}" ry="${cap}"/></g>`;
 }
 
-// All upright vessels use this body, curved glass reflection and meniscus.
-function liquidVolume(width,height,cap,colour,seed,exposed=true,upperLayer=null){
-  if(!(height>0&&width>0))return '';
-  const mid=width/2, ry=Math.min(cap,width*.22,height*.38), id='lv'+(++uid);
-  const shell=`M0 0a${mid} ${ry} 0 0 1 ${width} 0v${height}a${mid} ${ry} 0 0 1 -${width} 0Z`;
-  const streams=liquidStreams(width,height,seed,exposed?ry:0);
-  // A returned item colours the upper band of the same liquid surface. The
-  // band ends at the cumulative axis value; there is only one exposed top.
-  let band='';
-  if(upperLayer){
-    const depth=upperLayer.height, bow=Math.min(ry,depth*.4);
-    const boundary=`M0 ${depth}Q${mid} ${depth+2*bow} ${width} ${depth}`;
-    band=`<path class="${upperLayer.colour}" d="${boundary}V${-ry}H0Z"/>
-<path class="liquid-seam" d="${boundary}"/>`;
-  }
-  return `<g class="liquid-volume" data-surface="${exposed?'open':'sealed'}" aria-hidden="true">
+// One continuous vessel has one exposed liquid surface. A coloured band occupies
+// its measured interval, including when it is thinner than the top ellipse.
+function liquidVolume(width,height,cap,layers,seed){
+  if(!(width>0&&height>0&&layers.length))return '';
+  const mid=width/2, top=layers[layers.length-1], id='lv'+(++uid);
+  const ry=Math.min(cap,width*.18,height*.24,top.height*.35);
+  const bottomCap=Math.min(cap,width*.18,height*.24);
+  const shell=vesselOutline(0,0,width,height,ry,bottomCap);
+  const streams=liquidStreams(width,height,seed,ry);
+  let start=height;
+  const bands=layers.map(layer=>{
+    start=Math.max(0,start-layer.height);
+    return `<rect class="${layer.c} liquid-base" x="0" y="${start}" width="${width}" height="${layer.height}"/>`;
+  }).join('');
+  return `<g class="liquid-volume" data-surface="open" aria-hidden="true">
 <defs><clipPath id="${id}"><path d="${shell}"/></clipPath></defs>
-<path class="${colour} liquid-base" d="${shell}"/>
-<g clip-path="url(#${id})">${band}
+<g clip-path="url(#${id})">${bands}
 <path d="${shell}" fill="url(#liquid-glass)"/>
-<path class="liquid-reflection" d="M${width*.125} ${ry}v${Math.max(0,height-ry*1.4)}"/>
-<ellipse class="${upperLayer?.colour||colour} liquid-cap" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
-<ellipse class="liquid-film" cx="${mid}" cy="0" rx="${mid}" ry="${ry}"/>
-<path class="liquid-meniscus" d="M${width*.055} ${ry*.07}Q${mid} ${ry*1.65} ${width*.945} ${ry*.07}"/>
+<path class="liquid-reflection" d="M${width*.125} ${ry}v${Math.max(0,height-ry-bottomCap)}"/>
+<ellipse class="${top.c} liquid-cap" cx="${mid}" cy="${ry}" rx="${mid}" ry="${ry}"/>
+<ellipse class="liquid-film" cx="${mid}" cy="${ry}" rx="${mid}" ry="${ry}"/>
+<path class="liquid-meniscus" d="M${width*.055} ${ry*1.07}Q${mid} ${ry*2.65} ${width*.945} ${ry*1.07}"/>
 <g class="liquid-particles">${streams.inside}</g></g>${streams.surface}</g>`;
 }
 
-// Hourly issues use one glass per hour. Both statuses share its meniscus
-// and its bubbles, including in hours with only returns or no issues.
-function hourlyGlass(x,width,top,bottom,scaleY,segments,seed){
-  const cap=Math.min(width*.125,8);
-  const total=segments.reduce((n,segment)=>n+segment.v,0);
+function columnVessel(x,width,top,bottom,scaleY,segments,seed,glass){
+  const cap=Math.min(width*.125,8), total=segments.reduce((n,s)=>n+s.v,0);
   let contents='';
   if(total>0){
-    const surface=scaleY(total), height=bottom-surface;
-    const upper=segments.length===2?{colour:segments[1].c,height:scaleY(segments[0].v)-surface}:null;
-    const fluid=liquidVolume(width-1,height,cap*.94,segments[0].c,seed,true,upper);
-    contents=`<g transform="translate(${x+.5} ${surface})"><g class="hourly-fill">${fluid}</g></g>`;
+    const height=bottom-scaleY(total), inner=glass?width-1:width;
+    const layers=segments.map(s=>({c:s.c,height:bottom-scaleY(s.v)}));
+    const fluid=liquidVolume(inner,height,cap*.94,layers,seed);
+    contents=`<g transform="translate(${x+(glass ? .5 : 0)} ${bottom})"><g class="hourly-fill"><g transform="translate(0 ${-height})">${fluid}</g></g></g>`;
   }
-  return glassVessel(x,top,width,bottom-top,cap,contents,'liquid-glass','hourly-glow');
+  return glass?glassVessel(x,top,width,bottom-top,cap,contents,'liquid-glass','column-glow'):contents;
 }
 
-// Columns share the numeric axis and hit regions across the report.
-function columns(el,labels,series,o){o=o||{};chartLayout(el,o.w||680,W=>{const H=o.h||250,L=o.l||30,R=14,T=28,B=32,n=labels.length,dp=0,ry=Math.max(3,Math.min(6,(o.bw||34)/8));
-const tot=labels.map((_,i)=>series.reduce((t,se)=>t+se.v[i],0)),max=nice(Math.max(1,...tot)*1.08),sw=(W-L-R)/n,bw=Math.min(o.bw||34,sw*.6),y=v=>T+(H-T-B)*(1-v/max),af=o.axis||(v=>Math.round(v*10)/10);
-let g='';for(let i=0;i<=4;i++){const v=max/4*i;g+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`}
-const pk=tot.indexOf(Math.max(...tot));let s='';
-labels.forEach((l,i)=>{const x=L+sw*i+(sw-bw)/2-dp/2,segs=series.map(se=>({v:se.v[i],c:typeof se.cls=='function'?se.cls(i):se.cls})).filter(z=>z.v>0),fut=o.fade&&o.fade(i)?' fut':'';let base=0;
-if(o.glass){
-  s+=hourlyGlass(x,bw,T,H-B,y,segs,i*3);
-}else segs.forEach((z,k)=>{const y1=y(base+z.v),y0=y(base);base+=z.v;
-s+=`<g class="col${i==pk&&o.peak?' pk':''}${fut}" style="--i:${i}"><g transform="translate(${x} ${y1})">${liquidVolume(bw,y0-y1,ry,z.c,i*3+k,k===segs.length-1)}</g></g>`});
-const yt=y(tot[i]);
-if(i==pk&&tot[i]>0&&o.peak)s+=`<text class="lbl" x="${x+bw/2}" y="${yt-ry-7}" text-anchor="middle">${o.peak(i,tot[i])}</text>`;
-if(o.val&&tot[i]>0)s+=`<text class="lbl vl${fut}" x="${x+bw/2}" y="${yt-ry-6}" text-anchor="middle">${o.val(i,tot[i])}</text>`;
-if(i%Math.max(o.every||1,STATIC?1:Math.ceil(30/sw))==0)s+=`<text class="ax${o.mark&&o.mark(i)?' axb':''}" x="${x+bw/2}" y="${H-B+ry+15}" text-anchor="middle">${esc(o.short?o.short(l):l)}</text>`;
-s+=`<g class="hit" data-tip="${esc(o.tip(i))}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${H-T-B}"/><rect class="hl" x="${x}" y="${H-3}" width="${bw}" height="2"/></g>`});
-el.innerHTML=`<svg class="liquid-chart${o.glass?' hourly-chart':''}" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'chart')}">${g}${s}</svg>`})}
+// Only elapsed hours or dates supplied by the caller belong on the axis.
+function columns(el,labels,series,o){
+  o=o||{};
+  if(!labels.length){el.replaceChildren();return}
+  chartLayout(el,o.w||680,W=>{
+    const H=o.h||250,L=o.l||30,R=14,T=28,B=32,n=labels.length,bottom=H-B;
+    const sw=(W-L-R)/n,bw=Math.min(o.bw||34,sw*.63),glass=mmgDugaldRiver||o.glass;
+    const bins=labels.map((_,i)=>{
+      const segments=series.map(se=>({v:se.v[i],c:typeof se.cls==='function'?se.cls(i):se.cls}));
+      if(!segments.length||segments.some(s=>!Number.isFinite(s.v)||s.v<0))return null;
+      return segments.filter(s=>s.v>0);
+    });
+    const totals=bins.map(bin=>bin?bin.reduce((v,s)=>v+s.v,0):null),highest=Math.max(0,...totals);
+    let steps=4,max=nice(Math.max(1,highest)*1.08);
+    if(o.glass){
+      const rough=Math.max(1,highest/4),unit=10**Math.floor(Math.log10(rough));
+      const step=unit*[1,2,5,10].find(v=>v*unit>=rough);
+      steps=Math.max(1,Math.ceil(highest/step));max=step*steps;
+    }
+    const y=v=>bottom-(bottom-T)*v/max, af=o.axis||(v=>Math.round(v*10)/10);
+    let grid='',marks='';
+    const readings=[];
+    for(let i=0;i<=steps;i++){
+      const v=max*i/steps;
+      grid+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-7}" y="${y(v)+4}" text-anchor="end">${af(v)}</text>`;
+    }
+    const peak=totals.indexOf(highest);
+    labels.forEach((label,i)=>{
+      const x=L+sw*i+(sw-bw)/2,mid=x+bw/2,total=totals[i],fut=o.fade?.(i)?' fut':'';
+      marks+=`<g class="column-reading${fut}${bins[i]?'':' unknown-reading'}">${columnVessel(x,bw,T,bottom,y,bins[i]||[],i*3,glass)}</g>`;
+      if(total===null)marks+=`<text class="ax" x="${mid}" y="${bottom-5}" text-anchor="middle">—</text>`;
+      if(i===peak&&total>0&&o.peak)marks+=`<text class="lbl" x="${mid}" y="${y(total)-8}" text-anchor="middle">${esc(o.peak(i,total))}</text>`;
+      if(o.val&&total>0)marks+=`<text class="lbl vl${fut}" x="${mid}" y="${y(total)-7}" text-anchor="middle">${esc(o.val(i,total))}</text>`;
+      if(i%Math.max(o.every||1,STATIC?1:Math.ceil(30/sw))===0)marks+=`<text class="ax${o.mark?.(i)?' axb':''}" x="${mid}" y="${bottom+18}" text-anchor="middle">${esc(o.short?o.short(label):label)}</text>`;
+      const tip=total===null?label+' · Reading unavailable':o.tip(i);
+      readings.push(tip.replace(/<br\s*\/?>/gi,', ').replace(/<\/?b>/gi,''));
+      marks+=`<g class="hit" data-tip="${esc(tip)}"><rect x="${L+sw*i}" y="${T}" width="${sw}" height="${bottom-T}"/><rect class="hl" x="${x}" y="${H-3}" width="${bw}" height="2"/></g>`;
+    });
+    const description='column-readings'+(++uid);
+    el.innerHTML=`<svg class="liquid-chart${glass?' vessel-chart':''}${o.glass?' hourly-chart':''}" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${esc(o.label||'Chart')}" aria-describedby="${description}"><desc id="${description}">${esc(readings.join('. '))}</desc>${grid}${marks}</svg>`;
+  });
+}
 
 function lineChart(el,labels,series,o){o=o||{};chartLayout(el,640,W=>{const H=240,L=30,R=46,T=18,B=28,n=labels.length;
 const max=nice(Math.max(1,...series.flatMap(s=>s.v))*1.12),x=i=>L+(W-L-R)*(n<2?.5:i/(n-1)),y=v=>T+(H-T-B)*(1-v/max);
@@ -1629,21 +1719,26 @@ ${r.map((p,i)=>`<g data-tip="${esc(p.name+': '+fmt(p.n)+' '+unit)}"><circle clas
 let uid=0;
 function cyl(it,o){
 const value=o.share?it.on:it.n, total=o.share?it.fleet:o.max;
-const share=total>0?Math.max(0,Math.min(1,value/total)):0;
+const overFleet=o.checkFleet&&Number.isFinite(total)&&Number.isFinite(value)&&value>total;
+const valid=Number.isFinite(total)&&total>0&&Number.isFinite(value)&&value>=0&&!overFleet;
+const share=valid?Math.min(1,value/total):0;
 const height=140*share, surface=158-height, id='c'+(++uid);
 const color=o.col||['#AE3F13','#FF894E','#B74819','#FFA276'];
-const volume=height>0?liquidVolume(63,height,7.5,'',uid):'';
+const readout=Number.isFinite(value)&&value>=0?`<span data-n="${value}">${fmt(value)}</span>`:'—';
+const volume=height>0?liquidVolume(63,height,7.5,[{c:'',height}],uid):'';
 const tag=it.open?'button':'div';
-return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg class="liquid-gauge" viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
+return `<${tag} class="cyl"${it.open?` type="button" data-open="${esc(it.open)}"`:''}><svg class="liquid-gauge${valid?'':' unknown-reading'}" viewBox="0 0 74 179" width="74" height="179" aria-hidden="true" focusable="false">
 <defs><linearGradient id="${id}"><stop stop-color="${color[0]}"/><stop offset=".20" stop-color="${color[1]}"/><stop offset=".48" stop-color="${color[1]}"/><stop offset="1" stop-color="${color[2]}"/></linearGradient>
 <linearGradient id="${id}g"><stop stop-color="#fff" stop-opacity=".05"/><stop offset=".12" stop-color="#fff" stop-opacity=".17"/><stop offset=".26" stop-color="#fff" stop-opacity=".015"/><stop offset=".78" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".14"/></linearGradient>
 <radialGradient id="${id}h"><stop stop-color="${color[1]}" stop-opacity=".82"/><stop offset="1" stop-color="${color[1]}" stop-opacity="0"/></radialGradient></defs>
 ${glassVessel(5,18,64,140,8,volume?`<g class="liquid" style="--tank-ink:url(#${o.col?id:'gcylO'})"><g transform="translate(5.5 ${surface})">${volume}</g></g>`:'',id+'g',id+'h')}</svg>${o.pic?pic(it.pic,it.name,'lg'):''}
-<span class="val">${it.val||`<span data-n="${value}">${fmt(value)}</span>`}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${fmt(it.fleet)} on site</small>`:''))}</span></${tag}>`}
-// Radius and sweep retain the original dial or ring scale. Lighting follows
-// the section of the tube, and every bubble stays inside the measured liquid.
+<span class="val">${it.val||readout}</span><span class="cap">${it.cap||(esc(it.name)+(o.share?`<br><small>of ${Number.isFinite(it.fleet)?fmt(it.fleet):'—'} on site${overFleet?' · verify fleet count':''}</small>`:''))}</span></${tag}>`}
+// The filled sector ends exactly at the measured angle. Its meniscus and
+// bubbles sit inside that angle, including when only a sliver is filled.
 function curvedGlass(radius, thickness, start, sweep, value) {
-  const id='curved'+(++uid), fraction=Math.max(0,Math.min(1,Number(value)||0));
+  const id='curved'+(++uid);
+  const measured=Number.isFinite(value)&&value>=0;
+  const fraction=measured?Math.min(1,value):0;
   const half=thickness/2, outer=radius+half, inner=radius-half, tau=2*Math.PI;
   const finish=start+sweep*fraction, length=radius*sweep*fraction;
   const closed=sweep===tau, full=fraction===1, hasSurface=!closed||!full;
@@ -1654,19 +1749,17 @@ function curvedGlass(radius, thickness, start, sweep, value) {
     const mid=(from+to)/2, flag=to>=from?1:0;
     return `A${r} ${r} 0 0 ${flag} ${coords(r,mid)}A${r} ${r} 0 0 ${flag} ${coords(r,to)}`;
   }
-  const track='M'+coords(radius,start)+arc(radius,start,start+sweep);
-  const depth=Math.min(thickness*.24,length*.24,closed?(1-fraction)*radius*sweep*.44:Infinity);
-  const backDepth=Math.min(half,length*.32,closed?(1-fraction)*radius*sweep*.44:Infinity);
-  const face=(a,depth,to)=>`A${half} ${round(depth)} ${round(a*180/Math.PI)} 0 1 ${coords(to,a)}`;
-  const liquid=full&&closed
-    ? 'M'+coords(outer,start)+arc(outer,start,finish)+'Z M'+coords(inner,finish)+arc(inner,finish,start)+'Z'
-    : 'M'+coords(outer,start)+arc(outer,start,finish)+face(finish,depth,inner)+arc(inner,finish,start)+face(start,backDepth,outer)+'Z';
+  function sector(outside,inside,end) {
+    return 'M'+coords(outside,start)+arc(outside,start,end)+'L'+coords(inside,end)+arc(inside,end,start)+'Z';
+  }
+  const track=sector(outer,inner,start+sweep),liquid=sector(outer,inner,finish);
+  const depth=Math.min(thickness*.21,length*.16);
   // Explicit stop positions place the glint and dark far wall within the
   // thickness of the tube, irrespective of the arc's direction or length.
   const shade=(key,colours)=>`<radialGradient id="${id}-${key}" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="${outer}">${colours.map(([pos,colour])=>`<stop offset="${round((inner+pos*thickness)/outer)}" stop-color="${colour}"/>`).join('')}</radialGradient>`;
   const shell=shade('shell',[[0,'var(--curve-rim)'],[.08,'var(--curve-shadow)'],[.26,'var(--curve-core)'],[.51,'var(--track)'],[.77,'var(--curve-glass)'],[.83,'var(--curve-shine)'],[.92,'var(--curve-glass)'],[1,'var(--curve-rim)']]);
   const amber=shade('liquid',[[0,'#973b13'],[.1,'#b94a17'],[.3,'#e06323'],[.5,'#f87831'],[.69,'#ff944e'],[.79,'#ffc28d'],[.83,'#ffb477'],[.92,'#e77430'],[1,'#a74718']]);
-  const facePosition=`translate(${coords(radius,finish)}) rotate(${round(finish*180/Math.PI)})`;
+  const facePosition=`translate(${coords(radius,finish)}) rotate(${round(finish*180/Math.PI)}) translate(0 ${-round(depth)})`;
   const meniscus=hasSurface&&fraction>0?`<g transform="${facePosition}"><ellipse class="curve-face" rx="${half*.96}" ry="${round(depth)}"/><path class="curve-meniscus" d="M${-half*.71} 0Q0 ${round(depth*1.62)} ${half*.7} 0"/></g>`:'';
   let bubbles='',pop='';
   if(!STATIC&&fraction>0){
@@ -1683,32 +1776,40 @@ function curvedGlass(radius, thickness, start, sweep, value) {
       if(terminal)pop=`<g transform="${facePosition}"><g class="surface-pop curve-pop" style="${clock}"><ellipse class="pop-edge" rx="${round(half*.42)}" ry="${round(depth*.46)}"/><ellipse class="pop-pearl" rx="${round(half*.42)}" ry="${round(depth*.46)}"/></g></g>`;
     }
   }
-  return `<g class="curved-glass" data-fraction="${fraction}"><defs>${shell}${fraction>0?amber+`<clipPath id="${id}-fill"><path d="${liquid}" clip-rule="evenodd"/></clipPath>`:''}</defs>
-${fraction>0?`<path class="curve-aura" d="${liquid}" fill-rule="evenodd"/>`:''}<path class="curve-shell" d="${track}" stroke="url(#${id}-shell)" stroke-width="${thickness}" fill="none" stroke-linecap="round"/>
+  return `<g class="curved-glass"${measured?` data-fraction="${fraction}"`:' data-unavailable="true"'}><defs>${shell}${fraction>0?amber+`<clipPath id="${id}-fill"><path d="${liquid}" clip-rule="evenodd"/></clipPath><clipPath id="${id}-glow"><path d="${sector(outer+5,inner-5,finish)}" clip-rule="evenodd"/></clipPath>`:''}</defs>
+${fraction>0?`<g clip-path="url(#${id}-glow)"><path class="curve-aura" d="${liquid}" fill-rule="evenodd"/></g>`:''}<path class="curve-shell" d="${track}" fill="url(#${id}-shell)" fill-rule="evenodd"/>
 ${fraction>0?`<g clip-path="url(#${id}-fill)"><path class="curve-fill" d="${liquid}" fill="url(#${id}-liquid)" fill-rule="evenodd"/>${bubbles}${meniscus}${pop}</g>`:''}</g>`;
 }
 
-function dial(v,of,cap,sub){const sh=of?v/of:0;
+function measuredFraction(value,total){
+  return Number.isFinite(value)&&value>=0&&Number.isFinite(total)&&total>0?value/total:null;
+}
+function dial(v,of,cap,sub){const exceedsFleet=Number.isFinite(v)&&Number.isFinite(of)&&v>of;
+const sh=exceedsFleet?null:measuredFraction(v,of);
+const detail=sh!==null?fmt(v)+' of '+fmt(of):exceedsFleet?'Check counts: '+fmt(v)+' of '+fmt(of):of===0?'No assets in scope':'Count unavailable';
 return `<div class="dial"><div class="plot"><svg class="liquid-gauge curved-gauge" viewBox="-4 -2 188 106" width="230" aria-hidden="true" focusable="false">
 ${[...Array(21).keys()].map(i=>{const a=Math.PI*(1-i/20),r1=i%5?82:80,r2=86;return `<line class="dtk" x1="${90+r1*Math.cos(a)}" y1="${95-r1*Math.sin(a)}" x2="${90+r2*Math.cos(a)}" y2="${95-r2*Math.sin(a)}"/>`}).join('')}<g transform="translate(90 95)">${curvedGlass(70,14,Math.PI,Math.PI,sh)}</g></svg>
-<div class="reading"><div class="big"><span data-n="${(sh*100).toFixed(1)}" data-dec="1" data-suf="%">${(sh*100).toFixed(1)}%</span></div><div class="of">${fmt(v)} of ${fmt(of)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
+<div class="reading"><div class="big">${sh===null?'—':esc(formatMeasuredPercent(v,of))}</div><div class="of">${esc(detail)}</div></div></div><div class="cap">${esc(cap)}</div><div class="of">${esc(sub)}</div></div>`}
 
 /* ---------- overview ---------- */
 {const day=D.job.day,days=D.job.days,p=D.asat.split(' '),today=new Date(+p[2],MON.indexOf(p[1]),+p[0]);
 $('#eyebrow').textContent=`${D.job.title} · November 2026 shut`;
 $('#h1').innerHTML=`<span class="gl">Tool store report</span> <span style="color:var(--mu);font-weight:600">· day ${day} of ${days}</span>`;
-$('#lead').innerHTML=`By ${asatT} on ${D.asat_day}, <b>${fmt(K.issued_today)} items</b> had gone over the counter and <b>${fmt(K.on)}</b> are out with <b>${K.companies} companies</b>. ${K.held?`${fmt(K.coates_ready)} of ${fmt(K.coates)} Coates tools are ready for work`:`All <b>${fmt(K.coates)} Coates tools</b> are ready for work`}, and <b>${fmt(K.cons_units)} consumable units</b> are on the shelf.`;
+$('#lead').innerHTML=`At the ${asatT} SiteIQ pull, <b>${fmt(K.on)} assets</b> were out with ${plural(K.companies,'company','companies')}. ${readyCoates==null?'':`<b>${fmt(readyCoates)} of ${fmt(K.coates)}</b> Coates assets were available for hire. `}${measuredShelf==null?'Shelf quantity is unavailable.':`<b>${fmt(measuredShelf)} consumable units</b> were recorded${shelfMissing?' on lines with known quantities':''}.`}`;
+const clock=/^([01]\d|2[0-3]):([0-5]\d)$/.exec(asatT);
+const minuteOfDay=clock ? Number(clock[1])*60+Number(clock[2]) : null;
+const dayReading=minuteOfDay===null?'':` style="--p:${100*minuteOfDay/1440}%" title="Calendar day elapsed at ${asatT} · ${esc(formatMeasuredPercent(minuteOfDay,1440))}"`;
 let ds='';for(let i=1;i<=days;i++){const d=new Date(today);d.setDate(today.getDate()+i-day);
-ds+=`<div class="day${i<day?' done':i==day?' now':''}"${i==day?` style="--p:${Math.round(((asatH+24-5)%24)/24*100)}%"`:''}>${i==day?'Today · day '+i:'Day '+i}<b>${DOW[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}</b></div>`}
+ds+=`<div class="day${i<day?' done':i==day?' now':''}"${i==day?dayReading:''}>${i==day?'Today · day '+i:'Day '+i}<b>${DOW[d.getDay()]} ${d.getDate()} ${MON[d.getMonth()]}</b></div>`}
 $('#days').innerHTML=ds;
 const H=D.history||[],prev=H.length>1?H[H.length-2]:null,sameDay=prev&&prev.asat.slice(0,10)==H[H.length-1].asat.slice(0,10);
 const dl=(now,was)=>prev&&now>was?`<span class="delta">+${fmt(now-was)} since ${prev.asat.slice(11)}</span>`:'';
 const kp=[
 {n:K.on,l:'On hire now',s:`${plural(K.companies,'company','companies')} · ${plural(K.people,'person','people')}`,go:'onhire',hot:1,d:prev?dl(K.on,prev.on_hire):''},
 {n:K.issued_today,l:'Issued today',s:`${fmt(K.still_out_today)} still out · ${fmt(K.back_today)} already back`,go:'onhire',d:sameDay?dl(K.issued_today,prev.issued_today):''},
-{n:K.coates_ready,l:'Coates tools ready for work',s:K.held?`of ${fmt(K.coates)} on site · ${K.held} held back`:`every Coates tool on site`,go:'tooling',m:K.coates_ready/Math.max(1,K.coates)},
-{n:K.cons_units,l:'Consumable units on the shelf',s:`${K.cons_lines} lines${D.below.length?` · ${D.below.length} to top up`:''}`,go:'consumables'}];
-$('#kpis').innerHTML=kp.map(k=>`<button class="kpi${k.hot?' hot':''}" data-go="${k.go}"><span class="go">→</span><div class="l">${esc(k.l)}</div><div class="n"><span data-n="${k.n}">${fmt(k.n)}</span>${k.d||''}</div><div class="s">${esc(k.s)}</div></button>`).join('');
+{n:readyCoates??'—',l:'Coates tools available for hire',s:readyCoates==null?'Availability is unavailable for this pull':`of ${fmt(K.coates)} Coates assets on site`,go:'tooling',m:readyCoates!=null&&K.coates>0?readyCoates/K.coates:null},
+{n:measuredShelf,l:shelfMissing?'Confirmed consumable units':'Consumable units on the shelf',s:`${shelfCaption}${D.below.length?` · ${D.below.length} to top up`:''}`,go:'consumables'}];
+$('#kpis').innerHTML=kp.map(k=>`<button class="kpi${k.hot?' hot':''}" data-go="${k.go}"><span class="go">→</span><div class="l">${esc(k.l)}</div><div class="n">${Number.isFinite(k.n)?`<span data-n="${k.n}">${fmt(k.n)}</span>`:'—'}${k.d||''}</div><div class="s">${esc(k.s)}</div></button>`).join('');
 // three things to know, each read straight off the pull
 const ic={clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
 ppl:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></svg>',
@@ -1719,24 +1820,25 @@ if(mh>0)kn.push({c:'',i:ic.clock,t:`Busiest at ${D.hours[hi]}`,d:`${plural(mh,'i
 const C=D.companies;if(C.length>1)kn.push({c:'',i:ic.ppl,t:`${C[0].name} and ${C[1].name} hold ${fmt(C[0].n+C[1].n)} of the ${fmt(K.on)} items out`,d:`${C.length} companies have gear. Every item is against a named person.`,go:'onhire'});
 else if(C.length)kn.push({c:'',i:ic.ppl,t:`${C[0].name} holds all ${fmt(K.on)} items out`,d:'Every item is against a named person.',go:'onhire'});
 if(D.below.length){const z=D.below.filter(b=>b.have==0).length;kn.push({c:'w',i:ic.box,t:`${plural(D.below.length,'consumable line')} to top up`,d:z?`${plural(z,'line')} at zero. The list is on the Consumables tab.`:'Each is below its minimum. The list is on the Consumables tab.',go:'consumables'})}
-else kn.push({c:'g',i:ic.ok,t:'Every consumable line is above its minimum',d:`${K.cons_lines} lines on the shelf.`,go:'consumables'});
+else kn.push({c:minCoverage?'g':'',i:minCoverage?ic.ok:ic.box,t:minCoverage?'No assessed line is below minimum':'Stock minimums unavailable',d:minCoverageText,go:'consumables'});
 {const I=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 $('#loop-sub').textContent='The counter team records who takes each tool and checks its condition when it comes back.';
 const st=[['<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>','Issued to a named person','SiteIQ records the hirer and their company.',`${fmt(K.issued_today)} issued today`,''],
 ['<path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>','Checked each day before use','Crews check their gear before they start.','',''],
 ['<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>','Returned to the store','We confirm the returned tool has come off hire in SiteIQ.',`${fmt(K.back_today)} back today`,''],
 ['<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>','Checked and cleaned by Coates','We check returned gear for damage and missing accessories.',`${fmt(D.tagged.groups.reduce((a,g)=>a+g.n,0))} items carry a test tag`,'c'],
-['<path d="M5 13l4 4L19 7"/>','Ready for the next person','Damaged gear is held back from the next hire.',`${fmt(K.coates_ready-K.coates_out)} Coates items ready now`,'']];
+['<path d="M5 13l4 4L19 7"/>','Ready for the next person','Damaged gear is held back from the next hire.',(readyCoates==null?'':fmt(readyCoates)+' Coates items available now'),'']];
 $('#loop').innerHTML=st.map(x=>`<div class="lstep ${x[4]}"><div class="ic">${I(x[0])}</div><b>${x[1]}</b><span>${x[2]}</span>${x[3]?`<em>${x[3]}</em>`:''}</div>`).join('')}
 $('#know').innerHTML=kn.map(k=>`<button class="know ${k.c}" data-go="${k.go}"><span class="ic">${k.i}</span><span><b>${esc(k.t)}</b><span>${esc(k.d)}</span></span></button>`).join('');
 // today, hour by hour: each column is the items issued in that hour
-const nh=Math.min(D.hours.length,Math.max(asatH-4,D.hour_out.reduce((m,v,i)=>v?i+1:m,0),8));
+const nh=D.hours.filter(h=>Number(h.slice(0,2))<=asatH).length;
 const out=D.hour_out.slice(0,nh),back=D.hour_back.slice(0,nh),still=out.map((v,i)=>v-back[i]);
-$('#hoursub').textContent=`${fmt(K.issued_today)} issued on ${D.asat_day} up to ${asatT}. ${fmt(K.back_today)} of them are already back.`;
-columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Items issued by hour',glass:mmgDugaldRiver,bw:mmgDugaldRiver?42:34,short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
-tip:i=>`<b>${D.hours[i]}</b><br>Issued: ${out[i]}<br>Still out: ${still[i]}<br>Already back: ${back[i]}`});
-$('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}.`;
-bars($('#cos'),C.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})),{});
+const untimed=D.issue_hour_unknown??Math.max(0,K.issued_today-out.reduce((a,b)=>a+b,0));
+$('#hoursub').textContent=`${fmt(K.issued_today)} assets have a latest issue dated ${D.asat_day} at the ${asatT} stock pull. Bars group those assets by issue hour and show their status at the pull.${untimed?' '+fmt(untimed)+' outside the displayed hour bins.':''}`;
+columns($('#hourly'),D.hours.slice(0,nh),[{v:still,cls:'ca'},{v:back,cls:'cb'}],{label:'Assets by latest issue hour and current status',glass:mmgDugaldRiver,bw:mmgDugaldRiver?42:34,short:l=>l.slice(0,2),peak:(i,m)=>`${m} at ${D.hours[i]}`,
+tip:i=>`<b>${D.hours[i]}</b><br>Latest issues: ${out[i]}<br>Still on hire: ${still[i]}<br>No longer on hire: ${back[i]}`});
+$('#cosub').textContent=`${fmt(K.on)} items out with ${plural(K.companies,'company','companies')}. Each gauge shows one company’s share.`;
+companyBars($('#cos'),C,K.on);
 const dlh=`<button class="btn" data-ohreport="1">Build the report: filter, print, email</button><a class="btn ghost" href="onhire.pdf" download="${CLIENT} On-Hire Report.pdf">Full PDF</a><a class="btn ghost" href="onhire.xlsx" download="${CLIENT} On-Hire Report.xlsx">Excel</a>`;
 $('#dl1').innerHTML=dlh+`<button class="btn ghost" data-go="onhire">See the list</button><a class="btn ghost" href="report.pdf" download="${CLIENT} Tool Store Report.pdf">This whole report (PDF)</a>`;$('#dl2').innerHTML=dlh;
 const cosN=C.map(c=>`${c.name}: ${c.n}`).join('%0D%0A');
@@ -1746,12 +1848,10 @@ $('#dlfoot').textContent=`${fmt(D.onhire.length)} items as at ${D.asat}. Filter 
 /* ---------- on hire ---------- */
 function initOnHire(){$('#oh-lead').textContent=`Everything out with crews at the ${asatT} pull on ${D.asat_day}, by company, by tool and item by item.`;
 stats($('#oh-stats'),[[K.on,'Items on hire'],[K.companies,'Companies'],[K.people,'People holding gear'],[K.issued_today,'Issued today'],[K.back_today,'Issued today and already back']]);
-bars($('#oh-cos'),D.companies.map(c=>({name:c.name,n:c.n,open:'co:'+c.name})));
+companyBars($('#oh-cos'),D.companies,K.on);
 const kinds=Object.entries(D.tools).filter(([k,t])=>t.on>0).sort((a,b)=>b[1].on-a[1].on||a[1].name.localeCompare(b[1].name));
-const kmax=Math.max(1,...kinds.map(([k,t])=>t.on));
-const krow=([k,t])=>({name:t.name,pic:t.pic,n:t.on,open:'t:'+k,v:`${t.on} <small>of ${fmt(t.site)}</small>`});
-$('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl({name:t.name,on:t.on,fleet:t.site,pic:t.pic,open:'t:'+k},{share:1,pic:1})).join('')}</div><div id="oh-rest" style="margin-top:14px"></div>`;
-if(kinds.length>6)bars($('#oh-rest'),kinds.slice(6).map(krow),{pic:1,max:kmax});
+$('#oh-kinds').innerHTML=`<div class="cyls">${kinds.slice(0,6).map(([k,t])=>cyl({name:t.name,on:t.on,fleet:t.site,pic:t.pic,open:'t:'+k},{share:1,pic:1,checkFleet:true})).join('')}</div><div id="oh-rest" style="margin-top:14px"></div>`;
+if(kinds.length>6)bars($('#oh-rest'),kinds.slice(6).map(([k,t])=>toolHoldingRow(t,k)),{pic:1});
 const R=D.onhire.slice().sort((a,b)=>a.co.localeCompare(b.co)||a.who.localeCompare(b.who)||a.desc.localeCompare(b.desc));
 function list(q){q=(q||'').trim().toUpperCase();const rs=R.filter(r=>!q||(r.who+' '+r.co+' '+r.desc+' '+r.item).toUpperCase().includes(q));
 $('#oh-list').innerHTML=rs.length?`<div class="tscroll"><table class="t"><tr><th>Company</th><th>Person</th><th>Item</th><th>Item number</th><th>Date of hire</th><th>Time</th><th>Days on hire</th></tr>${rs.map(r=>`<tr data-open="t:${esc(r.dk)}"><td data-open="co:${esc(r.co)}">${esc(r.co)}</td><td data-open="p:${esc(r.pk)}"><b>${esc(r.who)}</b></td><td>${esc(r.desc)}${tgd(r.tag)}</td><td style="color:var(--mu)">${esc(r.item)}</td><td style="white-space:nowrap">${esc(r.date)}</td><td>${esc(r.time)}</td><td style="white-space:nowrap"><b>${days(r)}</b></td></tr>`).join('')}</table></div>`:'<div class="empty">Nothing on hire matches that.</div>';
@@ -1765,9 +1865,9 @@ function initUtilisation(model, history){
   card.hidden=false;
   const groups=new Map(model.variants.map(g=>[g.history_key,g]));
   const historyList=(history||[]).filter(s=>s.counts);
-  let source=[], selected='', mode='on', page=0;
+  let source=[], selected='', selectedLabel='', mode='on', page=0, partialOwners=false;
   const pageSize=20, find=$('#ut-find'), variant=$('#ut-variant'), owner=$('#ut-owner'), pull=$('#ut-pull');
-  const percent=(n,total)=>n==null||!total?'—':(100*n/total).toLocaleString('en-AU',{maximumFractionDigits:1})+'%';
+  const percent=formatMeasuredPercent;
   const datetime=t=>String(t||'').replace('T',' ');
   const matches=(value,query)=>query.trim().toLowerCase().split(/\s+/).every(word=>value.toLowerCase().includes(word));
   const label=g=>[g.name||g.variant||'Tool',g.variant||'No variant code',g.owner||'Owner unrecorded'].join(' · ');
@@ -1784,55 +1884,72 @@ function initUtilisation(model, history){
     if(mode==='past'){
       const snap=historyList.find(s=>s.asat===pull.value);
       source=Object.entries(snap?.counts||{}).map(([k,counts])=>{
-        const meta=snap.labels?.[k]||groups.get(k)||{};
-        return {...meta,history_key:k,fleet:counts[0],on:counts[1]};
+        const recorded=snap.labels?.[k];
+        return {name:recorded?.name||groups.get(k)?.name||k,variant:recorded?.variant||groups.get(k)?.variant||'',
+          owner:recorded?.owner||'',ownerCounts:snap.owner_counts?.[k],history_key:k,
+          fleet:Array.isArray(counts)?counts[0]:null,on:Array.isArray(counts)?counts[1]:null};
       });
     }else source=model.variants;
-    const prior=owner.value,ownerNames=mode==='past'?source.map(g=>g.owner):source.flatMap(g=>g.assets.map(a=>a.owner||g.owner));
-    const owners=[...new Set(ownerNames.filter(Boolean))].sort();
-    owner.disabled=mode==='past'&&owners.includes('Multiple owners');
+    partialOwners=mode==='past'&&source.some(g=>!g.ownerCounts&&(!g.owner||g.owner==='Multiple owners'));
+    const prior=owner.value;
+    const ownerNames=mode==='past'?source.flatMap(g=>g.ownerCounts?Object.keys(g.ownerCounts):[g.owner]):
+      source.flatMap(g=>g.assets.map(a=>a.owner));
+    const owners=[...new Set(ownerNames.filter(n=>n&&n!=='Multiple owners'))].sort();
+    if(prior&&!owners.includes(prior))owners.push(prior);
     owner.replaceChildren(new Option('All rental assets',''),...owners.map(n=>new Option(n,n)));
-    if(!owner.disabled&&owners.includes(prior))owner.value=prior;
-    choose();
+    owner.value=prior;
+    choose(true);
   }
   function owned(){
     if(!owner.value)return source;
-    if(mode==='past')return source.filter(g=>g.owner===owner.value);
+    if(mode==='past'){
+      if(partialOwners)return [];
+      return source.flatMap(g=>{
+        if(!g.ownerCounts)return g.owner===owner.value?[g]:[];
+        const values=g.ownerCounts[owner.value];
+        return values?[{...g,owner:owner.value,fleet:values[0],on:values[1]}]:[];
+      });
+    }
     return source.flatMap(g=>{
-      const assets=g.assets.filter(a=>(a.owner||g.owner)===owner.value);
+      const assets=g.assets.filter(a=>a.owner===owner.value);
       return assets.length?[{...g,owner:owner.value,assets,fleet:assets.length,on:assets.filter(a=>a.on).length,
         used:model.period?assets.filter(a=>a.used).length:null}]:[];
     });
   }
-  function choose(){
+  function choose(keepScope=false){
     const ls=owned().filter(g=>matches([label(g),...(g.aliases||[])].join(' '),find.value)).sort((a,b)=>label(a).localeCompare(label(b)));
     const allText=owner.value?'All '+owner.value+' variants':'All variants';
     const searching=!!find.value.trim();
     const options=ls.map(g=>new Option(label(g),g.history_key));
+    if(keepScope===true&&selected&&!ls.some(g=>g.history_key===selected)){
+      options.push(new Option(selectedLabel||selected,selected));
+    }
     if(!searching)options.unshift(new Option(allText,''));
     if(!options.length)options.push(new Option('No matching variants',''));
     variant.replaceChildren(...options);
     if(options.some(o=>o.value===selected))variant.value=selected;
-    selected=variant.value;page=0;draw();
+    selected=variant.value;selectedLabel=variant.selectedOptions[0]?.textContent||'';page=0;draw();
   }
   const scopeRows=()=>selected?owned().filter(g=>g.history_key===selected):find.value.trim()?[]:owned();
   function draw(){
-    const rows=scopeRows(), single=selected&&rows[0], known=rows.length>0;
-    const fleet=rows.reduce((n,g)=>n+g.fleet,0),count=rows.reduce((n,g)=>n+(g[field()]||0),0);
+    const rows=scopeRows(), single=selected&&rows[0];
+    const known=rows.length>0&&rows.every(g=>Number.isFinite(g.fleet)&&g.fleet>=0&&Number.isFinite(g[field()])&&g[field()]>=0&&g[field()]<=g.fleet);
+    const fleet=known?rows.reduce((n,g)=>n+g.fleet,0):null,count=known?rows.reduce((n,g)=>n+g[field()],0):null;
     $('#ut-date-field').hidden=mode!=='past';
     for(const b of modes){const on=b.value===mode;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)}
-    $('#ut-title').textContent=single?label(single):known?(owner.value?owner.value+' rental fleet':'Whole rental fleet'):'No matching variants';
+    $('#ut-title').textContent=single?label(single):known?(owner.value?owner.value+' rental fleet':'Whole rental fleet'):selected?selectedLabel:'No matching variants';
     $('#ut-percent').textContent=known?percent(count,fleet):'—';
-    $('#ut-count').textContent=known?fmt(count)+' of '+fmt(fleet)+' assets '+(mode==='used'?'had hire evidence in this period':mode==='past'?'were on hire at this pull':'are on hire'):'Change the search or fleet to see utilisation.';
+    $('#ut-count').textContent=known?fmt(count)+' of '+fmt(fleet)+' assets '+(mode==='used'?'had hire evidence in this period':mode==='past'?'were on hire at this pull':'are on hire'):partialOwners&&owner.value?'This pull does not record a full breakdown by owner. Select All rental assets for the recorded fleet.':
+      mode==='past'&&selected?'This variant has no supported count in the selected scope at this pull.':'No measured count is available for this selection.';
     $('#ut-date').textContent=timeScope();
-    $('#ut-gauge').innerHTML=cyl({name:'',on:count,fleet,val:' ',cap:' '},{share:true,col:green});
+    $('#ut-gauge').innerHTML=cyl({name:'',on:count,fleet,val:' ',cap:' '},{share:true,col:green,checkFleet:true});
     $('#ut-note').textContent=mode==='used'?'Each current rental asset counts once if a dated hire or transaction shows it was out during the selected period. Repeat issues count once.':
       mode==='past'?'Each percentage uses the rental fleet recorded at that pull. Archived pulls retain totals by variant.':'Each percentage uses the unique rental assets in the selected fleet at this stock pull.';
     const details=$('#ut-assets');details.hidden=mode==='past'||!known;
     if(details.hidden)details.open=false;
     if(details.open)drawAssets();
     const peak=single?groups.get(selected)?.prior_peak:null;
-    const peaks=$('#ut-peaks');peaks.hidden=peak==null;
+    const peaks=$('#ut-peaks');peaks.hidden=peak==null||!!owner.value||mode==='past';
     if(peak!=null)drawPeak(peak);
   }
   function drawPeak(peak){
@@ -1859,8 +1976,8 @@ function initUtilisation(model, history){
   $('#ut-assets').addEventListener('toggle',e=>{if(e.currentTarget.open)drawAssets()});
   $('#ut-pages').onclick=e=>{const b=e.target.closest('button[data-step]');if(b&&!b.disabled){page+=Number(b.dataset.step);drawAssets()}};
   for(const id of ['ut-asset-find','ut-asset-scope'])$('#'+id).addEventListener('input',()=>{page=0;drawAssets()});
-  find.addEventListener('input',choose);owner.addEventListener('change',choose);pull.addEventListener('change',readSource);
-  variant.addEventListener('change',()=>{selected=variant.value;page=0;draw()});readSource();
+  find.addEventListener('input',()=>choose());owner.addEventListener('change',()=>choose(true));pull.addEventListener('change',readSource);
+  variant.addEventListener('change',()=>{selected=variant.value;selectedLabel=variant.selectedOptions[0]?.textContent||'';page=0;draw()});readSource();
 }
 
 
@@ -1868,12 +1985,12 @@ function initUtilisation(model, history){
 function initTooling(){
 initUtilisation(D.utilisation,D.variant_history);
 browser($('#cb-tools'),'tools');
-$('#tl-lead').textContent=K.held?`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter. ${fmt(K.coates_ready)} Coates tools are ready for work; ${K.held} are held back until they pass inspection.`:`${fmt(K.coates)} Coates tools and ${fmt(K.other)} ${K.other_owner}-owned items run through the one counter, every one tracked in SiteIQ. Every Coates tool is ready for work.`;
-const ut=(v,of,l,s)=>{const p=of?v/of*100:0;return `<div class="card ut"><div class="l">${esc(l)}</div><div class="n"><span data-n="${p.toFixed(1)}" data-dec="1" data-suf="%">${p.toFixed(1)}%</span></div><div class="meter"><i style="--w:${Math.min(100,Math.max(0,p)).toFixed(1)}%">${horizontalStreams()}</i></div><div class="s">${fmt(v)} of ${fmt(of)} ${esc(s)}</div></div>`};
-$('#tl-util').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','the Coates fleet in the store')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,'radios, batteries, lights and tools')+dial(D.comm.on,D.comm.fleet,'Radios and radio batteries out','the busiest gear today');
-bars($('#tl-tools'),D.tools_util.map(t=>{const k=t.dk||t.name.toUpperCase();return {name:t.name,pic:t.pic,n:t.on,b:t.best,open:D.tools[k]?'t:'+k:'',v:`${t.on} <small>of ${fmt(t.site)} out${t.best?' · busiest '+t.best:''}</small>`,_m:Math.max(t.site,t.best,1)}}),{pic:1});
-// each row is scaled to its own store count, so a full bar always means "all out"
-$$('#tl-tools .row').forEach((r,i)=>{const t=D.tools_util[i],m=Math.max(t.site,t.best,1);$('.fl',r).style.setProperty('--w',(t.on/m*100).toFixed(1)+'%');$('.fb',r).style.setProperty('--w',(Math.min(t.best,m)/m*100).toFixed(1)+'%')});
+$('#tl-lead').textContent=`${fmt(K.coates)} Coates assets and ${fmt(K.other)} ${K.other_owner}-owned assets are recorded in the rental stock pull.${readyCoates==null?'':' '+fmt(readyCoates)+' Coates assets are available for hire.'}`;
+$('#tl-util').innerHTML=dial(K.coates_out,K.coates,'Coates tooling on hire','of the Coates fleet at this pull')+dial(K.other_out,K.other,`${K.other_owner}-owned equipment out`,`of the ${K.other_owner} fleet at this pull`)+dial(D.comm?.on,D.comm?.fleet,'Radio equipment on hire','of radio-related rental assets at this pull');
+bars($('#tl-tools'),D.tools_util.map(t=>{
+  const k=t.dk||t.name.toUpperCase();
+  return toolHoldingRow(t,D.tools[k]?k:null,true);
+}),{pic:1});
 const T=D.tagged,C=T.colour;
 $('#tg-sub').textContent=`Coates electrical gear and rigging, lifting and fall-arrest gear is tested by Coates and carries this quarter's tag colour.`;
 const tag=`<svg viewBox="0 0 200 138" width="170" role="img" aria-label="${esc(C.name)} test tag"><path d="M100 2 C 88 10, 84 18, 80 26" stroke="var(--neu)" stroke-width="2" fill="none"/>
@@ -1894,44 +2011,56 @@ browser($('#cb-cons'),'cons');
 initQrGrid();
 const dr=D.draws,B=D.below;
 $('#cn-lead').textContent=`${K.cons_lines} ${CLIENT} consumable lines are on the shelf. ${dr.n?`${fmt(dr.units)} units have been drawn so far this shut, in ${dr.n} issues to ${dr.people} people.`:'No draws are recorded in SiteIQ yet; usage shows here from the first one.'}`;
-stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[K.cons_units,'Units on the shelf'],[dr.units,'Units drawn this shut'],[B.length,B.length==1?'Line to top up':'Lines to top up',B.length?'w':'']]);
+stats($('#cn-stats'),[[K.cons_lines,'Lines on the shelf'],[measuredShelf,shelfMissing?'Confirmed shelf units':'Units on the shelf'],[dr.units,'Units drawn this shut'],[minCoverage?B.length:null,B.length==1?'Assessed line below minimum':'Assessed lines below minimum',B.length?'w':'']]);
 if(B.length){$('#below-h').textContent=`Top up first: ${plural(B.length,'line')} below minimum`;
-$('#below-sub').textContent=`The bar shows the shelf against the maximum; the mark is the minimum. ${fmt(D.to_max)} units would bring every line to its maximum.`;
-$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th>Scan</th><th>${CLIENT} code</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th style="width:22%">Shelf against maximum</th><th class="n">To reach maximum</th></tr>${B.map(b=>`<tr data-open="cl:${esc(b.line)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(b.line)}<span>${esc(b.line)}</span></span></td><td>${qrb(b.line)}</td><td style="color:var(--mu);white-space:nowrap">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td class="n">${b.have}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.min}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.max}</td><td><div class="tr warnb" style="overflow:visible"><div class="fl" style="--w:${(b.have/Math.max(1,b.max)*100).toFixed(1)}%">${horizontalStreams()}</div><i class="tick" style="left:calc(${(b.min/Math.max(1,b.max)*100).toFixed(1)}% - 1px)"></i></div></td><td class="n"><span class="pill w">+${fmt(b.max-b.have)}</span></td></tr>`).join('')}</table></div><div class="foot">Minimum and maximum come from what ${CLIENT}'s recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days.</div>`}
-else{$('#below-h').textContent='Every line is at or above its minimum';$('#below-sub').textContent='Nothing needs topping up right now.';$('#below').remove()}
-{const cs=D.cat.cons.slice().sort((a,b)=>b.n-a.n),mx=cs[0].n;$('#cn-types').innerHTML=`<div class="cyls">${cs.slice(0,6).map(c=>cyl({name:c.name,n:c.n,open:'ct:'+c.name},{max:mx})).join('')}</div><div id="cn-rest" class="neu" style="margin-top:14px"></div>`;
-if(cs.length>6)bars($('#cn-rest'),cs.slice(6).map(c=>({name:c.name,n:c.n,open:'ct:'+c.name})),{max:mx})}
-if(dr.n){$('#draw-sub').textContent=`${fmt(dr.units)} units in ${dr.n} issues to ${dr.people} people.`;
+$('#below-sub').textContent=`${minCoverageText} Bars compare shelf quantity with the recorded maximum; the mark is the minimum. Across ${fmt(maxCoverage)} lines with a usable maximum, ${fmt(D.to_max)} additional units would reach those maximums.`;
+$('#below').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th>Scan</th><th>${CLIENT} code</th><th class="n">On shelf</th><th class="n">Minimum</th><th class="n">Maximum</th><th style="width:22%">Shelf against maximum</th><th class="n">To reach maximum</th></tr>${B.map(b=>`<tr data-open="cl:${esc(b.line)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(b.line)}<span>${esc(b.line)}</span></span></td><td>${qrb(b.line)}</td><td style="color:var(--mu);white-space:nowrap">${esc((D.clines.find(l=>l.name==b.line)||{}).code||'')}</td><td class="n">${b.have}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.min}</td><td class="n" style="font-weight:400;color:var(--mu)">${b.max??'—'}</td><td>${markedGauge(b.have,b.min,b.max,'warnb')}</td><td class="n">${b.max==null?'—':`<span class="pill w">+${fmt(b.max-b.have)}</span>`}</td></tr>`).join('')}</table></div><div class="foot">Minimum and maximum come from what ${CLIENT}'s recent shuts drew per day: the minimum covers the busiest day seen or two days of use, the maximum covers seven counter days.</div>`}
+else{$('#below-h').textContent=minCoverage?'No assessed stock line is below minimum':'Minimum comparison unavailable';$('#below-sub').textContent=minCoverageText;$('#below').remove()}
+{const cs=D.cat.cons.slice().sort((a,b)=>b.n-a.n);
+const partial=cs.some(c=>c.unknown),max=partial?null:(cs[0]?.n??0);
+const scale=partial?'Some stock lines are missing a balance. Gauges will show the comparison once quantities are complete.':
+  max>0?`All gauges run from 0 to ${fmt(max)} units, the largest category in this pull.`:'No positive shelf quantities in these categories.';
+$('#cn-types').innerHTML=cs.length?`<p class="bar-scale">${scale}</p><div class="cyls">${cs.slice(0,6).map(c=>cyl({name:c.name,n:c.n,val:catalogueQuantity(c),open:'ct:'+c.name},{max})).join('')}</div><div id="cn-rest" class="neu" style="margin-top:14px"></div>`:'<div class="empty">No consumable categories are recorded in this pull.</div>';
+if(cs.length>6)bars($('#cn-rest'),cs.slice(6).map(c=>({name:c.name,n:c.n,v:catalogueQuantity(c),open:'ct:'+c.name})),{max})}
+if(dr.n){$('#draw-sub').textContent=`${fmt(dr.units)} units in ${dr.n} issues to ${dr.people} people. Each gauge shows the share of all units drawn.`;
 const src={types:()=>dr.types.map(t=>({name:t.name,n:t.n,open:'ct:'+t.name})),lines:()=>dr.lines.map(t=>({name:t.name,n:t.n,open:'cl:'+t.name})),cos:()=>dr.cos.map(t=>({name:t.name,n:t.n}))};
-const drawD=k=>{bars($('#cn-draws'),src[k]())};drawD('types');
+const drawD=k=>{bars($('#cn-draws'),src[k](),{max:dr.units})};drawD('types');
 $$('#drawseg button').forEach(b=>b.onclick=()=>{$$('#drawseg button').forEach(x=>x.classList.toggle('on',x===b));drawD(b.dataset.k);$('#cn-draws').classList.remove('now');void $('#cn-draws').offsetWidth;$('#cn-draws').classList.add('now')})}
 else{$('#drawseg').remove();$('#draw-sub').textContent='';$('#cn-draws').innerHTML='<div class="empty">No draws recorded in SiteIQ yet. Usage shows here from the first one.</div>'}
 
 // what past shuts used at their busiest, line by line
 {const P=D.clines.filter(l=>l.peak).sort((a,b)=>b.avgpeak-a.avgpeak||b.peak-a.peak);
 if(P.length){const mx=Math.max(...P.map(l=>l.peak));let all=STATIC?0:0;
-$('#peak-sub').textContent=`For each line: what a normal day uses, what its busiest day usually reaches, the single busiest day on record and the most drawn in one shut. The bar is the usual busiest day; the mark is the busiest day on record.`;
-const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td><div class="tr" style="overflow:visible"><div class="fl" style="--w:${(l.avgpeak/mx*100).toFixed(1)}%">${horizontalStreams()}</div><i class="tick" style="left:calc(${(l.peak/mx*100).toFixed(1)}% - 1px)"></i></div></td><td class="n">${fmt(l.most)}</td><td class="n">${l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${fmt(l.have)}</span>`:fmt(l.have)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
+$('#peak-sub').textContent=`For each line: what a normal day uses, what its busiest day usually reaches, the single busiest day on record and the most drawn in one shut. The fill shows the usual busiest day. The mark shows the record. Every gauge runs from 0 to ${fmt(mx)} units.`;
+const draw=()=>{const rows=all?P:P.slice(0,12);$('#peaks').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Line</th><th class="n">Average a day</th><th class="n">Usual busiest day</th><th class="n">Busiest day on record</th><th style="width:22%"></th><th class="n">Most in one shut</th><th class="n">On shelf now</th></tr>${rows.map(l=>`<tr data-open="cl:${esc(l.name)}"><td><span style="display:flex;align-items:center;gap:10px">${cpic(l.name)}<span>${esc(l.name)}</span></span></td><td class="n" style="font-weight:400;color:var(--mu)">${l.pd??'–'}</td><td class="n">${l.avgpeak}</td><td class="n">${l.peak}</td><td>${markedGauge(l.avgpeak,l.peak,mx)}</td><td class="n">${fmt(l.most)}</td><td class="n">${l.have!=null&&l.have<l.peak?`<span class="pill w" data-tip="Less on the shelf than the busiest day on record">${shelfLabel(l)}</span>`:shelfLabel(l)}</td></tr>`).join('')}</table></div>${P.length>12&&!STATIC?`<button class="more noprint">${all?'Show the top 12':'Show all '+P.length+' lines'}</button>`:''}`;
 const m=$('#peaks .more');if(m)m.onclick=()=>{all=!all;draw();$('#peaks').classList.add('now')}};draw()}
 else $('#peakcard').remove()}
 }
 
 /* ---------- category browser, used for tooling and for consumables ---------- */
-function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units',mx=Math.max(...L.map(c=>c.n));let open=0;
-el.innerHTML=`<div class="cbl">${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${fmt(c.n)}</span></div><div class="m"><i style="--w:${(c.n/mx*100).toFixed(1)}%">${horizontalStreams()}</i></div></button>`).join('')}</div><div class="cbp"></div>`;
-const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${fmt(c.n)} ${unit} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
-c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}${tgd(mode=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}<small>${fmt(k.n)} ${unit}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>×${fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
+function catalogueQuantity(line,unit=''){
+  const quantity=fmt(line.n)+(unit?' '+unit:'');
+  if(!line.unknown)return quantity;
+  return (line.n>0?quantity+' confirmed':'Quantity unknown')+' · '+plural(line.unknown,'line')+' pending';
+}
+function browser(el,mode){const L=D.cat[mode],unit=mode=='tools'?'items':'units';
+if(!L.length){el.innerHTML='<div class="empty">No categories are recorded in this pull.</div>';return}
+const partial=L.some(c=>c.unknown),total=partial?null:L.reduce((sum,c)=>sum+c.n,0);let open=0;
+const scale=partial?'Catalogue shares are available when all stock balances are known.':`Share of ${fmt(total)} ${unit} in this catalogue.`;
+el.innerHTML=`<div class="cbl"><p class="bar-scale">${scale}</p>${L.map((c,i)=>`<button class="cbi${i?'':' on'}" data-i="${i}"><div class="a"><span>${esc(c.name)}</span><span>${catalogueQuantity(c)}</span></div><div class="m" aria-hidden="true">${total>0?`<i style="--w:${horizontalPercent(c.n,total)}%">${c.n>0?horizontalStreams():''}</i>`:''}</div></button>`).join('')}</div><div class="cbp"></div>`;
+const panel=()=>{const c=L[open];$('.cbp',el).innerHTML=`<h4>${esc(c.name)}</h4><div class="tot">${catalogueQuantity(c,unit)} · ${plural(c.kinds.length,'kind')}${mode=='tools'&&c.o?` · ${c.o} out now`:''} · sizes run smallest to largest</div>`+
+c.kinds.map((k,ki)=>`<div class="krow" style="--i:${Math.min(ki,20)}" data-open="k:${mode}:${open}:${ki}"><div class="kn">${mode=='tools'?pic(k.pic,k.name,'lg'):''}<span>${esc(k.name)}${tgd(mode=='tools'&&(k.d||[]).some(d=>D.tools[d]&&D.tools[d].tag))}<small>${catalogueQuantity(k,unit)}${mode=='tools'&&k.o?` · ${k.o} out`:''}</small></span></div><div class="szs">${k.sizes.map(s=>`<span class="sz${s.o?' out':''}${!s.n&&!s.unknown?' zero':''}"${s.o?` data-tip="${s.o} out now"`:''}>${s.s?esc(s.s)+' ':''}<b>${s.unknown?catalogueQuantity(s):'×'+fmt(s.n)}</b></span>`).join('')}</div></div>`).join('');$('.cbp',el).scrollTop=0};
 $$('.cbi',el).forEach(b=>b.onclick=()=>{open=+b.dataset.i;$$('.cbi',el).forEach(x=>x.classList.toggle('on',x===b));panel()});panel()}
 function initQrGrid(){const L=D.clines.filter(l=>l.qr),g=$('#qrgrid');if(!L.length)$('#qrcard').remove();else{
 const drawQ=()=>{const q=$('#qr-q').value.trim().toUpperCase(),rs=L.filter(l=>!q||(l.name+' '+l.type+' '+(l.code||'')+' '+l.bar).toUpperCase().includes(q));
-g.innerHTML=rs.map(l=>`<button class="qrt" data-qr="${esc(l.name)}"><span class="q">${qrsvg(l.qr,62)}</span><span><b>${esc(l.name)}</b><small${l.min!=null&&l.have<l.min?' class="w"':''}>${fmt(l.have)} on the shelf${l.min!=null&&l.have<l.min?' · top up':''}</small></span></button>`).join('')||'<div class="empty">No consumable matches that.</div>';
+g.innerHTML=rs.map(l=>`<button class="qrt" data-qr="${esc(l.name)}"><span class="q">${qrsvg(l.qr,62)}</span><span><b>${esc(l.name)}</b><small${l.have!=null&&l.min!=null&&l.have<l.min?' class="w"':''}>${shelfLabel(l)} on the shelf${l.have!=null&&l.min!=null&&l.have<l.min?' · top up':''}</small></span></button>`).join('')||'<div class="empty">No consumable matches that.</div>';
 $('#qr-foot').textContent=`${rs.length} of ${L.length} lines. The code is the line's SiteIQ barcode.`};$('#qr-q').oninput=drawQ;drawQ()}}
 {const big=document.createElement('div');big.id='qrbig';document.body.appendChild(big);const shut=()=>big.classList.remove('on');
 big.onclick=e=>{if(e.target===big||e.target.closest('.x'))shut()};document.addEventListener('keydown',e=>{if(e.key==='Escape'&&big.classList.contains('on')){e.stopImmediatePropagation();shut()}});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-qr]');if(!b)return;e.preventDefault();e.stopPropagation();const l=D.clines.find(x=>x.name==b.dataset.qr);if(!l)return;
-const low=l.min!=null&&l.have<l.min,left=l.pd?Math.floor(l.have/l.pd):null;
+const low=l.have!=null&&l.min!=null&&l.have<l.min,left=l.have!=null&&l.pd>0?Math.floor(l.have/l.pd):null;
 big.innerHTML=`<div class="qrp"><div class="q">${qrsvg(l.qr,340)}</div><h3>${esc(l.name)}</h3><div class="cd">SiteIQ barcode <b>${esc(l.bar)}</b> · SKU ${esc(l.sku)}${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}</div>
-<div class="qrn"><div class="${low?'hot':''}"><b>${fmt(l.have)}</b><span>On the shelf${low?' · top up':''}</span></div><div><b>${l.min??'–'}</b><span>Minimum</span></div><div><b>${l.max??'–'}</b><span>Maximum</span></div></div>
+<div class="qrn"><div class="${low?'hot':''}"><b>${shelfLabel(l)}</b><span>On the shelf${low?' · top up':''}</span></div><div><b>${l.min??'–'}</b><span>Minimum</span></div><div><b>${l.max??'–'}</b><span>Maximum</span></div></div>
 ${l.pd?`<div class="qre"><b>Estimate:</b> about ${l.pd} used a day, so roughly ${left} ${left==1?'day':'days'} of stock on the shelf.<small>A guide only, from what past shuts used a day. Stock is as at the SiteIQ pull of ${esc(D.asat)}.</small></div>`:`<div class="qre">No usage estimate for this line yet: past shuts did not draw it.<small>Stock is as at the SiteIQ pull of ${esc(D.asat)}.</small></div>`}
 <button class="x">Close</button></div>`;big.classList.add('on')},true)}
 
@@ -1994,8 +2123,8 @@ const card=(k,icn)=>{const S=O.shift[k],M=D.shifts[k];return `<h4>${icn}${M.name
 <div class="big"><span data-n="${Math.round(S.tx)}">${whole(S.tx)}</span><small>transactions a shift, on average</small></div>
 <div class="kv"><div><span>Tools issued</span><b>${whole(S.issues)}</b></div><div><span>Tools returned</span><b>${whole(S.returns)}</b></div><div><span>Consumable issues</span><b>${whole(S.sales)}</b></div><div><span>Consumable units</span><b>${whole(S.units)}</b></div><div><span>People served</span><b>${whole(S.people)}</b></div></div>`};
 $('#shday').innerHTML=card('day',sun);$('#shnight').innerHTML=card('night',moon);
-bars($('#op-types'),O.cons_types.map(x=>({name:x.name,n:x.n,open:'ct:'+x.name})),{dec:1});
-bars($('#op-lines'),O.cons_lines.map(x=>({name:x.name,n:x.n,open:D.clines.find(l=>l.name==x.name)?'cl:'+x.name:''})),{dec:1})}
+bars($('#op-types'),O.cons_types.map(x=>({name:x.name,n:x.n,open:'ct:'+x.name})),{dec:1,rankUnit:'units per shift day'});
+bars($('#op-lines'),O.cons_lines.map(x=>({name:x.name,n:x.n,open:D.clines.find(l=>l.name==x.name)?'cl:'+x.name:''})),{dec:1,rankUnit:'units per shift day'})}
 else{$('#opsblock').remove();$('#op-lead').textContent='This shut as it builds.'}
 const H=D.history||[];
 if(H.length>1)lineChart($('#trend'),H.map(h=>+h.asat.slice(8,10)+' '+MON[+h.asat.slice(5,7)-1]+' '+h.asat.slice(11)),[{name:'On hire',v:H.map(h=>h.on_hire)},{name:'Issued that day',v:H.map(h=>h.issued_today)}],{label:'On hire by pull'});
@@ -2009,7 +2138,7 @@ else{$('#range-sub').textContent='';$('#range').innerHTML='<div class="empty">No
 $('#defs').innerHTML=[
 ['On hire now','Items SiteIQ shows as "On Hire" at the pull, each against a company and a person.'],
 ['Issued today',`Items whose last issue time in SiteIQ falls on ${D.asat_day}. "Recorded as returned" means those items are no longer on hire at the time of the pull.`],
-['Coates tools ready for work','Coates-owned items in the store that are ready to issue.'],
+['Coates tools available for hire','Coates-owned assets whose SiteIQ stock status is Available for Hire at the pull.'],
 [`${K.other_owner}-owned items`,`${K.other_owner}'s own radios, batteries, lights and tools, run through the same counter and tracked the same way.`],
 ['Tested by Coates','Coates electrical gear, and rigging, lifting and fall-arrest gear, is tested by Coates and carries the quarter\'s tag colour: Dec to Feb red, Mar to May green, Jun to Aug blue, Sep to Nov yellow.'],
 ['Utilisation',`Items out with crews as a share of the items of that kind in the store, at the time of the pull. "Busiest seen" is the most of that tool ever out at once at ${CLIENT}.`],
@@ -2025,30 +2154,31 @@ $('#defs').innerHTML=[
 ['Consumable flags','A person is flagged for a consumable type when their units a shut are above the level nine in ten people stay under, and at least 6 units.']].map(d=>`<div class="def"><b>${esc(d[0])}</b><span>${esc(d[1])}</span></div>`).join('');
 
 /* ---------- labour and costs ---------- */
-const money=v=>'$'+Number(v).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2});
+const money=v=>Number.isFinite(v)?'$'+v.toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2}):'—';
 function initCosts(){const C=D.costs,KC={labour:['kl','lk1',['#B9481A','#FF7A3D','#C24D17','#FF8C55']],tooling:['kt','lk2',['#5F84B8','#B4CEF0','#6489BC','#D3E3F8']],services:['ks','lk3',['#C9AC6E','#FBEBC6','#CDB073','#FFF5DC']],flights:['kf','lk4',['#3A4350','#8793A3','#434C59','#A9B4C2']]};
-$('#cs-lead').textContent=`${money(C.sofar)} of the shut's ${money(C.total)} has been incurred up to the end of ${C.upto}: ${C.days_done} of ${C.days.length} days and ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours.`;
-const sh=C.total?C.sofar/C.total:0;
+const sh=measuredFraction(C.sofar,C.total);
+$('#cs-lead').textContent=C.days.length?`${money(C.sofar)} of the ${money(C.total)} shutdown cost is scheduled through the end of ${C.upto}. This includes ${fmt(C.hours_done)} of ${fmt(C.hours)} rostered labour hours and all charges assigned to those dates.`:'No dated cost schedule is available for this shutdown.';
 $('#cs-ring').innerHTML=`<svg class="liquid-gauge curved-gauge" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
-<circle class="rg2" cx="120" cy="120" r="116"/><g transform="translate(120 120)">${curvedGlass(100,18,-Math.PI/2,2*Math.PI,sh)}</g></svg>
-<div class="ringt"><div class="a">Cost to date</div><div class="b"><span data-n="${C.sofar}" data-dec="2" data-pre="$">${money(C.sofar)}</span></div><div class="c">${(sh*100).toFixed(1)}% of ${money(C.total)}</div></div>`;
+<circle class="rg2" cx="120" cy="120" r="116"/><path class="ring-ticks" d="M120 2v8M238 120h-8M120 238v-8M2 120h8"/><g transform="translate(120 120)">${curvedGlass(100,18,-Math.PI/2,2*Math.PI,sh)}</g></svg>
+<div class="ringt"><div class="a">Scheduled to date</div><div class="b">${money(C.sofar)}</div><div class="c">${sh===null?(C.total===0?'No scheduled cost':'Share unavailable'):esc(formatMeasuredPercent(C.sofar,C.total))+' of '+money(C.total)}</div></div>`;
 const S=C.starts,st=[];if(S.labour)st.push(['Labour, day shift',`From ${S.labour}`]);if(S.nights)st.push(['Night shift',`From ${S.nights}, 18:00`]);if(S.tooling)st.push(['Tooling charge',`From ${S.tooling}`]);if(S.services)st.push(['Site services charge',`From ${S.services}`]);
 $('#cs-starts').innerHTML=st.map(x=>`<li><b>${x[0]}</b>${x[1]}</li>`).join('');
 $('#cs-cyls').innerHTML=C.cats.map(c=>cyl({name:c.name,on:c.sofar,fleet:c.total,val:`<span data-n="${Math.round(c.sofar)}" data-pre="$">$${fmt(Math.round(c.sofar))}</span>`,cap:`${esc(c.name)}<br><small>of ${money(c.total)}</small>`},{share:1,col:KC[c.key][2]})).join('');
-stats($('#cs-stats'),[[C.days_done,`Days so far, of ${C.days.length}`],[C.hours_done,`Labour hours so far, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
-$('#cs-stats').insertAdjacentHTML('beforeend',`<div><div class="n"><span data-n="${(C.total-C.sofar).toFixed(2)}" data-dec="2" data-pre="$">${money(C.total-C.sofar)}</span></div><div class="l">Still to come</div></div><div><div class="n"><span data-n="${C.total}" data-dec="2" data-pre="$">${money(C.total)}</span></div><div class="l">Whole shut</div></div>`);$('#cs-stats').style.setProperty('--n',5);
-$('#cs-daysub').textContent=`Solid columns are days up to ${C.upto}. Faded columns are the days still to come, at the rostered hours and agreed charges.`;
+stats($('#cs-stats'),[[C.days_done,`Scheduled days through pull date, of ${C.days.length}`],[C.hours_done,`Rostered hours through pull date, of ${fmt(C.hours)}`],[C.people.length,'People on the roster']]);
+const remaining=Number.isFinite(C.total)&&Number.isFinite(C.sofar)?C.total-C.sofar:null;
+$('#cs-stats').insertAdjacentHTML('beforeend',`<div><div class="n">${money(remaining)}</div><div class="l">Scheduled after pull date</div></div><div><div class="n">${money(C.total)}</div><div class="l">Whole shut</div></div>`);$('#cs-stats').style.setProperty('--n',5);
+$('#cs-daysub').textContent=C.days.length?`Solid columns include each full scheduled day through ${C.upto}. Faded columns show costs scheduled for later days.`:'No dated charges are available.';
 $('#cs-leg').innerHTML=C.cats.map(c=>`<span><i class="${KC[c.key][1]}"></i>${esc(c.name)}</span>`).join('')+'<span style="color:var(--dim)">Faded = still to come</span>';
-columns($('#cs-chart'),C.days.map(d=>d.date),C.cats.map(c=>({v:C.days.map(d=>d[c.key]),cls:KC[c.key][0]})),{w:1100,h:300,l:46,bw:52,label:'Shut cost by day',axis:v=>'$'+(v/1000).toLocaleString('en-AU')+'k',
+if(C.days.length&&C.cats.length)columns($('#cs-chart'),C.days.map(d=>d.date),C.cats.map(c=>({v:C.days.map(d=>d[c.key]),cls:KC[c.key][0]})),{w:1100,h:300,l:46,bw:52,label:'Scheduled shut cost by day',axis:v=>'$'+(v/1000).toLocaleString('en-AU')+'k',
 fade:i=>!C.days[i].done,mark:i=>C.days[i].today,val:(i,t)=>'$'+fmt(Math.round(t)),short:l=>l.split(' ').slice(0,2).join(' '),
 tip:i=>{const d=C.days[i];return `<b>${d.date}</b>${d.type?' · '+d.type:''}${d.done?'':' · still to come'}<br>`+C.cats.filter(c=>d[c.key]).map(c=>`${c.name}: ${money(d[c.key])}`).join('<br>')+`<br><b>Day total: ${money(d.total)}</b><br>Running total: ${money(d.running)}`}});
 $('#cs-people').innerHTML=C.people.map(p=>`<div class="card pcard"><h4>${esc(p.name)}${C.role?` <span class="pill n">${esc(C.role)}</span>`:''}</h4>
-<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter"><i style="--w:${(p.cost?p.cost_done/p.cost*100:0).toFixed(1)}%">${horizontalStreams()}</i></div>
-<div class="kv"><div><span>Hours so far</span><b>${fmt(p.hours_done)} of ${fmt(p.hours)}</b></div><div><span>Day shifts rostered</span><b>${p.day}</b></div><div><span>Night shifts rostered</span><b>${p.night}</b></div></div></div>`).join('');
+<div class="big"><span data-n="${p.cost_done}" data-dec="2" data-pre="$">${money(p.cost_done)}</span><small>to date, of ${money(p.cost)}</small></div><div class="meter" aria-hidden="true"><i style="--w:${horizontalPercent(p.cost_done,p.cost)??0}%">${p.cost_done>0&&p.cost>0?horizontalStreams():''}</i></div>
+<div class="kv"><div><span>Hours rostered through pull date</span><b>${fmt(p.hours_done)} of ${fmt(p.hours)}</b></div><div><span>Day shifts rostered</span><b>${p.day}</b></div><div><span>Night shifts rostered</span><b>${p.night}</b></div></div></div>`).join('');
 $('#cs-rsub').textContent=`${C.rates.map(r=>`${r.shift} shift ${money(r.rate)} an hour`).join(' · ')}. Each row is hours times the rate for its shift.`;
-const pill=r=>r.iso==C.days.find(d=>d.today)?.iso?'<span class="pill o">Today</span>':r.done?'<span class="pill g">Done</span>':'<span class="pill n">To come</span>';
+const pill=r=>r.iso==C.days.find(d=>d.today)?.iso?'<span class="pill o">Pull date</span>':r.done?'<span class="pill g">Before pull date</span>':'<span class="pill n">Scheduled later</span>';
 $('#cs-roster').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Date</th><th>Day type</th><th>Person</th><th>Shift</th><th>Times</th><th class="n">Hours</th><th class="n">Rate</th><th class="n">Cost</th><th></th></tr>${C.roster.map(r=>`<tr class="${r.done?'':'tocome'}"><td style="white-space:nowrap">${r.date}</td><td>${esc(r.type)}</td><td><b>${esc(r.name)}</b></td><td>${r.shift}</td><td style="white-space:nowrap">${r.start} to ${r.finish}</td><td class="n">${r.hours}</td><td class="n" style="font-weight:400">${money(r.rate)}</td><td class="n">${money(r.cost)}</td><td>${pill(r)}</td></tr>`).join('')}
-<tr class="tot"><td colspan="5">Total labour</td><td class="n">${fmt(C.hours)}</td><td></td><td class="n">${money(C.cats.find(c=>c.key=='labour').total)}</td><td></td></tr></table></div>`;
+<tr class="tot"><td colspan="5">Total labour</td><td class="n">${fmt(C.hours)}</td><td></td><td class="n">${money(C.cats.find(c=>c.key=='labour')?.total??0)}</td><td></td></tr></table></div>`;
 const cell=v=>v?money(v):'<span style="color:var(--dim)">–</span>';
 $('#cs-table').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Day</th><th>Day type</th>${C.cats.map(c=>`<th class="n">${esc(c.name)}</th>`).join('')}<th class="n">Day total</th><th class="n">Running total</th></tr>${C.days.map(d=>`<tr class="${d.today?'tdy':d.done?'':'tocome'}"><td style="white-space:nowrap">${d.date}${d.today?' <span class="pill o">Today</span>':''}</td><td>${esc(d.type)}</td>${C.cats.map(c=>`<td class="n" style="font-weight:400">${cell(d[c.key])}</td>`).join('')}<td class="n">${money(d.total)}</td><td class="n">${money(d.running)}</td></tr>`).join('')}
 <tr class="tot"><td colspan="2">Whole shut</td>${C.cats.map(c=>`<td class="n">${money(c.total)}</td>`).join('')}<td class="n">${money(C.total)}</td><td></td></tr>
@@ -2056,8 +2186,8 @@ $('#cs-table').innerHTML=`<div class="tscroll"><table class="t"><tr><th>Day</th>
 }
 if(D.costs){const C=D.costs;
 // a fifth headline tile on the overview
-$('#kpis').classList.replace('c4','c5');$('#kpis').insertAdjacentHTML('beforeend',`<button class="kpi" data-go="costs"><span class="go">→</span><div class="l">Shut cost to date</div><div class="n"><span data-n="${Math.round(C.sofar)}" data-pre="$">$${fmt(Math.round(C.sofar))}</span></div><div class="s">of $${fmt(Math.round(C.total))} for the shut</div></button>`);
-$('#defs').insertAdjacentHTML('beforeend',[['Labour cost','Each rostered shift is its hours times the hourly rate for that shift, day or night.'],['Shut cost to date',`Labour, tooling, site services and flights for every day up to and including the day of the SiteIQ pull. The day of the pull counts as a whole day, including a night shift that has started.`],['Still to come','The days after the pull, at the rostered hours and the agreed daily charges.']].map(d=>`<div class="def"><b>${d[0]}</b><span>${d[1]}</span></div>`).join(''))}
+$('#kpis').classList.replace('c4','c5');$('#kpis').insertAdjacentHTML('beforeend',`<button class="kpi" data-go="costs"><span class="go">→</span><div class="l">Scheduled shut cost</div><div class="n">${money(C.sofar)}</div><div class="s">${C.upto?'Through '+esc(C.upto)+' · ':''}of ${money(C.total)}</div></button>`);
+$('#defs').insertAdjacentHTML('beforeend',[['Labour cost','Each rostered shift is its hours times the hourly rate for that shift, day or night.'],['Scheduled shut cost','Labour, tooling, site services and flights scheduled through the end of the SiteIQ pull date. Every shift assigned to that date is included, even if it starts after the pull time.'],['Still to come','The days after the pull, at the rostered hours and the agreed daily charges.']].map(d=>`<div class="def"><b>${d[0]}</b><span>${d[1]}</span></div>`).join(''))}
 else $('#v-costs').remove();
 
 /* ---------- detail drawer: click anything marked data-open ---------- */
@@ -2105,13 +2235,13 @@ p(k){const p=PB[k];if(!p)return '<div class="dh"><h3>No record</h3></div>';const
  const rate=p.rating!=null?`<div style="margin-top:12px">${stars(p.rating,'lg')} <b style="font-size:17px;margin-left:8px">${p.rating} out of 5</b> <span style="color:var(--mu);font-size:13px;margin-left:6px">returns rating</span></div>`:`<div class="ssub" style="margin-top:10px;color:var(--mu);font-size:13px">No returns rating yet: fewer than 5 tools on record.</div>`;
  const why=p.rating==null?'':p.left>0?`<div class="note w"><b>${plural(p.left,'tool')} not returned</b> by the end of a shut.</div>`:`<div class="note g"><b>Returned everything:</b> ${fmt(p.ret)} of ${fmt(p.iss)} tools. ${pct(p.w12)} were back within the same shift (12 hours).</div>`;
  const flags=p.flags.map(f=>`<div class="note w"><b>High ${esc(lc(f.type))} use:</b> ${f.units} units a shut. Most people who draw them take about ${f.typical}.</div>`).join('');
- const cmax=Math.max(1,...p.cons.map(c=>c.units));
+ const cmax=Math.max(0,...p.cons.map(c=>c.units));
  return `<div class="dh"><div><h3>${esc(p.name)}</h3><div class="ssub"><span class="lk" data-open="co:${esc(p.co)}">${esc(p.co)}</span>${p.now?` · <span style="color:var(--ok)">${plural(p.now,'item')} out now</span>`:''}</div></div></div>`+
  rate+why+flags+
  stat([[fmt(p.iss),'Tools issued'],[fmt(p.ret),'Tools returned'],[pct(p.w12),'Back same shift'],[p.hold==null?'–':p.hold+' h','Typical time out']])+
  (rs.length?`<h5>Has out now</h5>`+tbl(['Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,0))):'')+
  (D.draws.by[k]?`<h5>Consumables drawn this shut</h5><div class="chips">${D.draws.by[k].map(l=>`<span class="chip" data-open="cl:${esc(l.name)}"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
- (p.cons.length?`<h5>Consumables a shut, by type</h5><div class="now">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr"><div class="fl" style="--w:${(c.units/cmax*100).toFixed(1)}%">${horizontalStreams()}</div></div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
+ (p.cons.length?`<h5>Consumables a shut, by type</h5><p class="bar-scale">Full scale is ${fmt(cmax)} units per shutdown.</p><div class="now bar-series">${p.cons.map(c=>`<div class="row" data-open="ct:${esc(c.type)}"><div class="nm"><span>${esc(c.type)}<small>most people: ${D.ptyp[c.type]??'–'}</small></span></div><div class="tr" aria-hidden="true">${horizontalFill('fl',c.units,cmax)}</div><div class="v">${c.units}</div></div>`).join('')}</div>`:'')+
  (p.lines.length?`<h5>Draws most</h5><div class="chips">${p.lines.map(l=>`<span class="chip"><b>${l.units}</b>${esc(l.name)}</span>`).join('')}</div>`:'')+
  (p.tools.length?`<h5>Tools taken most</h5><div class="chips">${p.tools.map(l=>`<span class="chip"><b>${l.n}</b>${esc(l.name)}</span>`).join('')}</div>`:'')},
 t(k){const t=D.tools[k];if(!t)return '<div class="dh"><h3>No record</h3></div>';const rs=D.onhire.filter(r=>r.dk==k);
@@ -2123,12 +2253,12 @@ k(a){const [m,ci,ki]=a.split(':'),k=D.cat[m][+ci].kinds[+ki],rs=D.onhire.filter(
  `<h5>Sizes, smallest to largest</h5>`+tbl(['Size',m=='tools'?'<span style="float:right">Total on site</span>':'<span style="float:right">On the shelf</span>'].concat(m=='tools'?['<span style="float:right">Out now</span>']:[]),k.sizes.map(z=>`<tr><td>${esc(z.s||'One size')}</td><td class="n">${fmt(z.n)}</td>${m=='tools'?`<td class="n">${z.o||''}</td>`:''}</tr>`))+
  (rs.length?`<h5>Who has them</h5>`+tbl(['Person','Item','Item number','Hired · days on hire'],rs.map(r=>ohRow(r,1))):'')},
 ct(n){const ls=D.clines.filter(l=>l.type==n||l.word==n);
- return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(ls.length,'line')} · ${fmt(ls.reduce((a,l)=>a+l.have,0))} units on the shelf</div></div></div><div style="height:10px"></div>`+
- tbl(['Scan','Line',CLIENT+' code','On shelf','Min','Max','Used a day',''],ls.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${qrb(l.name)}</td><td>${esc(l.name)}</td><td style="color:var(--mu)">${esc(l.code||'')}</td><td class="n">${fmt(l.have)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.min!=null&&l.have<l.min?'<span class="pill w">Top up</span>':''}</td></tr>`))},
+ return `<div class="dh"><div><h3>${esc(n)}</h3><div class="ssub">${plural(ls.length,'line')} · ${ls.some(l=>l.have!=null)?fmt(ls.reduce((a,l)=>a+(l.have??0),0))+' confirmed shelf units':'No quantities recorded'}${ls.some(l=>l.have==null)?' · '+fmt(ls.filter(l=>l.have==null).length)+' unknown balances':''}</div></div></div><div style="height:10px"></div>`+
+ tbl(['Scan','Line',CLIENT+' code','On shelf','Min','Max','Used a day',''],ls.map(l=>`<tr data-open="cl:${esc(l.name)}"><td>${qrb(l.name)}</td><td>${esc(l.name)}</td><td style="color:var(--mu)">${esc(l.code||'')}</td><td class="n">${shelfLabel(l)}</td><td class="n">${l.min??'–'}</td><td class="n">${l.max??'–'}</td><td class="n">${l.pd??'–'}</td><td>${l.have!=null&&l.min!=null&&l.have<l.min?'<span class="pill w">Top up</span>':''}</td></tr>`))},
 stockline(i){const l=D.clines[Number(i)];return this.cl(l?.name,l)},
 cl(n,line){const l=line||D.clines.find(x=>x.name==n);if(!l)return '<div class="dh"><h3>No record</h3></div>';const who=Object.entries(D.draws.by).filter(([k,a])=>a.some(x=>x.name==n));
- return `<div class="dh">${detailPhoto('cons',l.cp,l.name)}<div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span>${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}${l.bin?` · ${CLIENT} bin ${esc(l.bin)}`:''}</div></div>${l.qr?`<button class="qrb" data-qr="${esc(l.name)}" style="margin-left:auto;padding:5px" data-tip="Tap to make it big">${qrsvg(l.qr,74)}</button>`:''}</div>`+stat([[fmt(l.have),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+(l.peak?stat([[l.avgpeak,'Usual busiest day'],[l.peak,'Busiest day on record'],[fmt(l.most),'Most in one shut'],[l.have<l.peak?'Short':'Covered','Shelf against busiest day']]):'')+
- (l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${l.min-l.have} more brings it to the minimum; ${l.max-l.have} to the maximum.</div>`:l.pd?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
+ return `<div class="dh">${detailPhoto('cons',l.cp,l.name)}<div><h3>${esc(l.name)}</h3><div class="ssub"><span class="lk" data-open="ct:${esc(l.type)}">${esc(l.type)}</span>${l.code?` · ${CLIENT} code ${esc(l.code)}`:''}${l.bin?` · ${CLIENT} bin ${esc(l.bin)}`:''}</div></div>${l.qr?`<button class="qrb" data-qr="${esc(l.name)}" style="margin-left:auto;padding:5px" data-tip="Tap to make it big">${qrsvg(l.qr,74)}</button>`:''}</div>`+stat([[shelfLabel(l),'On the shelf'],[l.min??'–','Minimum'],[l.max??'–','Maximum'],[l.pd??'–','Used a day']])+(l.peak?stat([[l.avgpeak,'Usual busiest day'],[l.peak,'Busiest day on record'],[fmt(l.most),'Most in one shut'],[l.have==null?'—':l.have<l.peak?'Short':'Covered','Shelf against busiest day']]):'')+
+ (l.have!=null&&l.min!=null&&l.have<l.min?`<div class="note w"><b>Below minimum.</b> ${fmt(l.min-l.have)} more brings it to the minimum.${l.max==null?'':' To reach maximum: '+fmt(l.max-l.have)+'.'}</div>`:l.have!=null&&l.pd>0?`<div class="note g"><b>About ${Math.floor(l.have/l.pd)} days of stock</b> at the usual rate.</div>`:'')+
  (who.length?`<h5>Drawn this shut by</h5><div class="chips">${who.map(([k,a])=>`<span class="chip" data-open="p:${esc(k)}"><b>${a.find(x=>x.name==n).n}</b>${esc((PB[k]||{name:k}).name)}</span>`).join('')}</div>`:'')}};
 {const dr=$('#drawer'),sc=$('#scrim'),body=$('#dbody');let stack=[],opener=null;
 const paint=()=>{const key=stack[stack.length-1],i=key.indexOf(':');body.innerHTML=V[key.slice(0,i)](key.slice(i+1));body.scrollTop=0;body.classList.remove('sw');void body.offsetWidth;body.classList.add('sw');$('#dback').disabled=stack.length<2};
@@ -2332,7 +2462,7 @@ const cos=new Map();D.people.forEach(p=>{if(p.co)cos.set(p.co,(cos.get(p.co)||0)
 const outC={};D.companies.forEach(c=>outC[c.name]=c.n);[...cos.keys()].sort().forEach(c=>add('Companies',c,`${outC[c]||0} on hire now · ${cos.get(c)} ${cos.get(c)==1?'person':'people'}`,'co:'+c,''));
 D.people.forEach(p=>add('People',p.name,`${p.co||''}${p.now?' · '+p.now+' out now':''}`,'p:'+p.key,p.co||''));
 Object.entries(D.tools).forEach(([k,t])=>add('Tools',t.name,`${fmt(t.available)} available · ${fmt(t.on)} out on hire · ${fmt(t.site)} total on site`,'t:'+k,[k,t.var,t.own,t.tag?'test tag':''].join(' '),()=>pic(t.pic,t.name)));
-D.clines.forEach((l,i)=>add('Consumables',l.name,`${fmt(l.have)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
+D.clines.forEach((l,i)=>add('Consumables',l.name,`${shelfLabel(l)} on the shelf${l.code?' · '+CLIENT+' code '+l.code:''}`,'stockline:'+i,[l.type,l.code,l.sku,l.bar].join(' '),()=>cpic(l.name,'',l)));
 const who={};D.onhire.forEach(r=>who[r.item]=r);(D.assets||[]).forEach(a=>{const t=D.tools[a.dk],r=who[a.i];if(t)add('Item numbers',a.i,`${t.name} · ${r?'out with '+r.who+', '+r.co:(a.status||'Status unknown')}`,'t:'+a.dk,a.b+' '+(r?r.who+' '+r.co:''),()=>pic(t.pic,t.name))});
 D.onhire.forEach(r=>add('On hire now',r.desc,`${r.who}, ${r.co} · ${r.item} · ${days(r)}`,'p:'+r.pk,[r.who,r.co,r.item].join(' '),()=>pic((D.tools[r.dk]||{}).pic,r.desc)));
 sdsRecords.forEach((r,i)=>add('Safety data sheets',r.product,[sdsReview(r),r.supplier,r.code].filter(Boolean).join(' · '),'sds:'+i,'SDS safety data sheet '+sdsSearchText(r)));
@@ -2556,7 +2686,9 @@ function initStocktake(st) {
     $('#st-entry-round').replaceChildren(new Option('Close-out count','closeout'));
   }
   const noun=k=>k==='cons'?'Consumable':'Tool';
-  const pct=(n,total)=>total?(100*n/total).toLocaleString('en-AU',{maximumFractionDigits:1})+'%':'—';
+  const coverageRatio=(checked,total)=>Number.isSafeInteger(total)&&total>0&&Number.isSafeInteger(checked)&&checked>=0&&checked<=total ? checked/total : null;
+  const pct=(n,total)=>coverageRatio(n,total)===null?'—':formatMeasuredPercent(n,total);
+  const coverageNote=(n,total,verb)=>total===0?'No register lines':coverageRatio(n,total)===null?'Coverage unavailable':fmt(n)+' of '+fmt(total)+' '+verb;
   const timeText=t=>t?String(t).replace('T',' ').slice(0,16)+' AEST':'Time not recorded';
   const dateText=d=>d?new Intl.DateTimeFormat('en-AU',{timeZone:'UTC',weekday:'short',day:'numeric',month:'short'}).format(new Date(d+'T12:00:00Z')):'Date not supplied';
   const shiftOf=t=>{const h=Number(String(t||'').slice(11,13));return t&&Number.isFinite(h)?(h>=6&&h<18?'Day':'Night'):''};
@@ -2614,8 +2746,8 @@ function initStocktake(st) {
   const late=e=>e.round===0&&st.rounds[0].end&&e.time.slice(0,10)>=st.rounds[0].end;
   const difference=e=>e&&e.expected!=null&&e.quantity!=null&&Number(e.quantity)!==Number(e.expected);
   function gauge(kind,title,checked,total,verb){
-    const rate=total?checked/total:0;
-    return `<div class="st-measure" data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${pct(checked,total)}</strong></div><b>${title}</b><small>${fmt(checked)} of ${fmt(total)} ${verb}</small></div>`;
+    const rate=coverageRatio(checked,total);
+    return `<div class="st-measure" data-coverage="${kind}" data-checked="${checked}" data-total="${total}"><div class="st-dial"><svg viewBox="-3 -2 108 59" class="curved-gauge liquid-gauge" aria-hidden="true" focusable="false"><g transform="translate(51 51)">${curvedGlass(45,8,Math.PI,Math.PI,rate)}</g></svg><strong>${esc(pct(checked,total))}</strong></div><b>${title}</b><small>${coverageNote(checked,total,verb)}</small></div>`;
   }
   function progress(){
     const r=st.rounds[0],openingEnd=r.end?new Date(r.end+'T12:00:00Z'):null;if(openingEnd)openingEnd.setUTCDate(openingEnd.getUTCDate()-1);
@@ -2678,8 +2810,9 @@ function initStocktake(st) {
     const list=directory.filter(c=>(!type||c.kind===type)&&words(c.name,q)).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
     const size=8;const from=categoryPage*size;
     $('#st-categories').innerHTML=list.slice(from,from+size).map(c=>{
-      const n=coverage.get(c.key);
-      return `<button type="button" class="st-category-tile" data-st-category="${esc(c.key)}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${fmt(n)} of ${fmt(c.total)} ${openingView()?'covered':'checked'}</span><strong>${pct(n,c.total)}</strong></span><span class="meter" aria-hidden="true"><i style="--w:${100*n/c.total}%">${n?horizontalStreams():''}</i></span><small class="st-cat-label">${fmt(c.total-n)} remaining</small></button>`;
+      const n=coverage.get(c.key),rate=coverageRatio(n,c.total);
+      const fill=rate===null?'':`<i style="--w:${100*rate}%">${rate>0?horizontalStreams():''}</i>`;
+      return `<button type="button" class="st-category-tile" data-st-category="${esc(c.key)}" aria-pressed="${selected===c.key}"><span class="st-cat-label">${noun(c.kind)}</span><strong class="st-cat-name">${esc(c.name)}</strong><span class="st-cat-amount"><span>${coverageNote(n,c.total,openingView()?'covered':'checked')}</span><strong>${esc(pct(n,c.total))}</strong></span><span class="meter st-coverage-meter" aria-hidden="true">${fill}</span><small class="st-cat-label">${rate===null?'':fmt(c.total-n)+' remaining'}</small></button>`;
     }).join('')||(openingView()&&!baselineAvailable?'<p class="empty">The opening category snapshot is unavailable.</p>':'<p class="empty">No categories match.</p>');
     pager($('#st-category-pages'),list.length,categoryPage,n=>{categoryPage=n;categories()},size);
   }
@@ -2917,7 +3050,25 @@ const KS=(s.accepted_kinds||Object.keys(KN).filter(k=>k!=='ON_HIRE'||!('uploader
 const go=$('#up-go'),drop=$('#up-drop'),pick=$('#up-pick'),msg=$('#up-msg'),bar=$('#up-bar');let busy=false;
 const kind=n=>KS.find(k=>n.toUpperCase().replace(/[ -]/g,'_').startsWith(k));
 const say=(c,h)=>{msg.hidden=false;msg.className='upmsg '+c;msg.innerHTML=h};
-const prog=(p,t)=>{bar.hidden=false;$('#up-fill').style.width=p+'%';$('#up-pct').textContent=Math.round(p)+'%';$('#up-stage').textContent=t};
+function prog(value,total,stage){
+  const track=$('#up-bar .tr'),fill=$('#up-fill');
+  const measured=Number.isFinite(value)&&Number.isFinite(total)&&total>0;
+  bar.hidden=false;
+  bar.classList.toggle('waiting-for-build',!measured);
+  track.setAttribute('role','progressbar');
+  track.setAttribute('aria-label',stage);
+  if(measured){
+    const ratio=Math.min(1,Math.max(0,value/total));
+    track.setAttribute('aria-valuenow',String(ratio*100));
+    fill.style.width=(100*ratio)+'%';
+    $('#up-pct').textContent=formatMeasuredPercent(value,total);
+  }else{
+    track.removeAttribute('aria-valuenow');
+    fill.style.width='0';
+    $('#up-pct').textContent='';
+  }
+  $('#up-stage').textContent=stage;
+}
 const names=s.uploaders||[],person=$('#up-person');
 if(names.length){
   $('#up-person-field').hidden=false;
@@ -2956,12 +3107,18 @@ const fail=e=>{busy=false;bar.hidden=true;say('bad',`<b>Check upload status</b>$
 go.onclick=async()=>{if(go.disabled)return;busy=true;person.disabled=true;go.disabled=true;msg.hidden=true;const fs=KS.filter(k=>files[k]).map(k=>files[k]),total=fs.reduce((a,f)=>a+f.size,0);let done=0;
 try{const headers={...H};
 if(names.length){headers['X-Upload-By']=person.value;headers['X-Upload-Batch']=crypto.randomUUID()}
-for(let i=0;i<fs.length;i++){const f=fs[i];await send(f,i==0,headers,n=>prog((done+n)/total*55,`Uploading ${i+1} of ${fs.length}: ${f.name}`));done+=f.size;prog(done/total*55,`Uploaded ${i+1} of ${fs.length}`)}
+prog(0,total,'Uploading files…');
+for(let i=0;i<fs.length;i++){
+ const f=fs[i],stage=`Uploading ${i+1} of ${fs.length} · ${f.name}`;
+ await send(f,i===0,headers,n=>prog(done+Math.min(n,f.size),total,stage));
+ done+=f.size;prog(done,total,`Transferred ${i+1} of ${fs.length} files`);
+}
+prog(null,null,'Validating files and rebuilding the report and PDFs…');
 const b=await fetch('/upload/build',{method:'POST',headers});if(!b.ok)throw new Error(await b.text());
-const t0=Date.now();for(;;){prog(Math.min(96,58+(Date.now()-t0)/1000*2.6),'Rebuilding the report and the PDFs…');await new Promise(r=>setTimeout(r,1000));
+for(;;){await new Promise(r=>setTimeout(r,1000));
 const x=await (await fetch('/upload/status',{headers:H})).json();if(x.state=='running')continue;last(x);if(x.state!='ok')throw new Error(x.message||'The build failed. Nothing was changed.');
 if(names.length&&x.last_upload?.batch!==headers['X-Upload-Batch'])throw new Error('A later upload has completed. See the last successful upload below.');
-prog(100,'Complete');const kept=(x.kept||[]).map(k=>KN[k]).join(', ');
+prog(1,1,'Reports updated');const kept=(x.kept||[]).map(k=>KN[k]).join(', ');
 say('ok',`<b>Uploaded. The data is now updated.</b>SiteIQ pull ${esc(x.pull||'')} · ${Object.keys(x.files||{}).map(k=>KN[k]).join(', ')} updated${kept?`\nKept from the last upload: ${esc(kept)}`:''}\nThe report, the on-hire Excel and both PDFs have been rebuilt.<br><button id="up-see">Show the updated report</button>`);
 $('#up-see').onclick=()=>{location.hash='#overview';location.reload()};busy=false;person.value='';for(const k of KS)delete files[k];list();last(x);break}}catch(e){fail(e)}};
 })();
